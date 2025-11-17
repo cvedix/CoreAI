@@ -45,7 +45,7 @@ https://github.com/sherlockchou86/video_pipe_c/assets/13251045/9c3c1a87-d9f7-463
 |6|paddle_infer_sample|![](./doc//p15.png)|
 |7|src_des_sample|![](./doc//p16.png)|
 |8|trt_infer_sample|![](./doc//p17.png)|
-|9|vp_logger_sample|-|
+|9|cvedix_logger_sample|-|
 |10|face_tracking_sample|![](./doc//p18.png)|
 |11|vehicle_tracking_sample|![](./doc//p22.png)|
 |12|interaction with pipe sample|--|

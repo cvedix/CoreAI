@@ -1,9 +1,9 @@
-#ifdef VP_WITH_FFMPEG
+#ifdef CVEDIX_WITH_FFMPEG
 #include <iostream>
 #include <sstream>
 #include "ff_src.h"
 
-namespace vp_nodes {
+namespace cvedix_nodes {
     ff_src::ff_src(int channel_index): m_channel_index(channel_index) {
     }
     
@@ -20,7 +20,7 @@ namespace vp_nodes {
             auto ret = 0;
 
             if ((ret = av_read_frame(m_ifmt_ctx, ff_packet.get())) < 0) {
-                VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][demux_run] av_read_frame failed. ret: %d", 
+                CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][demux_run] av_read_frame failed. ret: %d", 
                                                  get_channel_index(), 
                                                  ret));
                 break;
@@ -32,15 +32,15 @@ namespace vp_nodes {
             }
 /*
             // analyse
-            vp_media::stream_analyser analyser(ff_packet->data, ff_packet->size, true);
-            std::vector<vp_media::nal_unit> nal_units;
+            cvedix_media::stream_analyser analyser(ff_packet->data, ff_packet->size, true);
+            std::vector<cvedix_media::nal_unit> nal_units;
             analyser.analyse(nal_units);
             std::ostringstream oss;
             for (auto& nal: nal_units) {
                 oss << std::setw(8) << std::setfill(' ') << nal.index 
                     << std::setw(16) << std::setfill(' ') << nal.offset
                     << std::setw(8) << std::setfill(' ') << nal.nal_length 
-                    << std::setw(16) << std::setfill(' ') << vp_media::stream_analyser::to_hex(nal.start_bytes) << vp_media::stream_analyser::to_hex(nal.head_bytes, false) 
+                    << std::setw(16) << std::setfill(' ') << cvedix_media::stream_analyser::to_hex(nal.start_bytes) << cvedix_media::stream_analyser::to_hex(nal.head_bytes, false) 
                     << std::setw(4) << std::setfill(' ') <<  nal.nal_type
                     << std::setw(24) << std::setfill(' ') << nal.nal_type_name << std::endl;
             }
@@ -65,7 +65,7 @@ namespace vp_nodes {
                 if (m_demux_packets_q.size() > m_demux_packets_q_max_size) {
                     m_demux_packets_q.pop();
                     notify = false;
-                    VP_WARN(vp_utils::string_format("[ffio/ff_src][%d][demux_run] exceed m_demux_packets_q_max_size(%d), discard the front in queue.", 
+                    CVEDIX_WARN(cvedix_utils::string_format("[ffio/ff_src][%d][demux_run] exceed m_demux_packets_q_max_size(%d), discard the front in queue.", 
                                                     get_channel_index(), 
                                                     m_demux_packets_q_max_size));
                 }
@@ -92,11 +92,11 @@ namespace vp_nodes {
             // send exit flag to notify decode thread
             std::lock_guard<std::mutex> g(m_demux_packets_m);
             m_demux_packets_q.push(nullptr);
-            VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][demux_run] send exit flag to decode thread.", 
+            CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][demux_run] send exit flag to decode thread.", 
                                             get_channel_index()));
         }
         m_demux_semaphore.signal();
-        VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][demux_run] demux thread exits.", 
+        CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][demux_run] demux thread exits.", 
                                         get_channel_index()));
     }
 
@@ -113,7 +113,7 @@ namespace vp_nodes {
             auto ret = 0;
             /* get exit flag */
             if (!ff_packet) {
-                VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][decode_run] get exit flag, go to flush decoder.", 
+                CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][decode_run] get exit flag, go to flush decoder.", 
                                                 get_channel_index()));
                 ret = avcodec_send_packet(m_dec_ctx, NULL);  // flush decoder
             } else {
@@ -121,7 +121,7 @@ namespace vp_nodes {
             }
 
             if (ret < 0) {
-                VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][decode_run] avcodec_send_packet failed. ret: %d", 
+                CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][decode_run] avcodec_send_packet failed. ret: %d", 
                                                  get_channel_index(), ret));
                 break;
             }
@@ -132,7 +132,7 @@ namespace vp_nodes {
                 if (ret == AVERROR(EAGAIN)) {
                     break;
                 } else if (ret < 0) {
-                    VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][decode_run] avcodec_receive_frame failed. ret: %d", 
+                    CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][decode_run] avcodec_receive_frame failed. ret: %d", 
                                                      get_channel_index(), 
                                                      ret));
                     ff_packet = nullptr;
@@ -143,7 +143,7 @@ namespace vp_nodes {
                     m_decode_frames_q.push(ff_frame);
                     if (m_decode_frames_q.size() > m_decode_frames_q_max_size) {
                         m_decode_frames_q.pop();
-                        VP_WARN(vp_utils::string_format("[ffio/ff_src][%d][decode_run] exceed m_decode_frames_q_max_size(%d), discard the front in queue.", 
+                        CVEDIX_WARN(cvedix_utils::string_format("[ffio/ff_src][%d][decode_run] exceed m_decode_frames_q_max_size(%d), discard the front in queue.", 
                                                         get_channel_index(), 
                                                         m_decode_frames_q_max_size));
                     }
@@ -157,7 +157,7 @@ namespace vp_nodes {
 
         /* set decode running flag to false in case of abnormal exit */
         m_decode_running = false;
-        VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][decode_run] decode thread exits.", 
+        CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][decode_run] decode thread exits.", 
                                         get_channel_index()));
     }   
 
@@ -165,21 +165,21 @@ namespace vp_nodes {
         inner_close();
         auto uri_valid = false;
         if (!uri_valid) {
-            auto uri_parts = vp_utils::string_split(uri, '.');  // file
+            auto uri_parts = cvedix_utils::string_split(uri, '.');  // file
             if (std::find(m_supported_files.begin(), m_supported_files.end(), uri_parts[uri_parts.size() - 1]) != m_supported_files.end()) {
                 uri_valid = true;
                 m_live_stream = false;
             }
         }
         if (!uri_valid) {
-            auto uri_parts = vp_utils::string_split(uri, ':');  // live stream
+            auto uri_parts = cvedix_utils::string_split(uri, ':');  // live stream
             if (std::find(m_supported_protocols.begin(), m_supported_protocols.end(), uri_parts[0]) != m_supported_protocols.end()) {
                 uri_valid = true;
                 m_live_stream = true;
             }
         }
         if (!uri_valid) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][open] uri invalid! uri MUST start with `rtsp/rtmp/..`(network streams) or end with `mp4/mkv/..`(file streams).", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][open] uri invalid! uri MUST start with `rtsp/rtmp/..`(network streams) or end with `mp4/mkv/..`(file streams).", 
                                              get_channel_index()));
             return false;
         }
@@ -199,20 +199,20 @@ namespace vp_nodes {
 
         /* open input uri(file/stream), and allocate format context */
         if (avformat_open_input(&m_ifmt_ctx, uri.c_str(), NULL, NULL) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not open input uri.", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not open input uri.", 
                                              get_channel_index()));
             return false;
         }
         /* retrieve stream information */
         if (avformat_find_stream_info(m_ifmt_ctx, NULL) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not find stream information.", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not find stream information.", 
                                              get_channel_index()));
             avformat_close_input(&m_ifmt_ctx);
             return false;
         }
         /* find video stream */
         if ((ret = av_find_best_stream(m_ifmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not find proper VIDEO stream.", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not find proper VIDEO stream.", 
                                              get_channel_index()));
             avformat_close_input(&m_ifmt_ctx);
             return false;
@@ -238,7 +238,7 @@ namespace vp_nodes {
             dec = avcodec_find_decoder_by_name(decoder_name.c_str());    // get by decoder name
         }
         if (!dec) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not find the proper decoder for input stream.", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not find the proper decoder for input stream.", 
                                              get_channel_index()));
             avformat_close_input(&m_ifmt_ctx);
             return false;
@@ -246,14 +246,14 @@ namespace vp_nodes {
         /* allocate codec context for the decoder */
         m_dec_ctx = avcodec_alloc_context3(dec);
         if (!m_dec_ctx) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not allocate context for decoder(%s).", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not allocate context for decoder(%s).", 
                                              get_channel_index(), dec->name));
             avformat_close_input(&m_ifmt_ctx);
             return false;
         }
         /* copy codec parameters from input stream to codec context */
         if ((ret = avcodec_parameters_to_context(m_dec_ctx, in_stream->codecpar)) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not copy codec parameters to decode context. ret: %d", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not copy codec parameters to decode context. ret: %d", 
                                              get_channel_index(), ret));
             avcodec_free_context(&m_dec_ctx);
             avformat_close_input(&m_ifmt_ctx);
@@ -262,7 +262,7 @@ namespace vp_nodes {
         /* check if need init hwaccels context for decoder */
         if (hw_type != AVHWDeviceType::AV_HWDEVICE_TYPE_NONE 
             && hw_decoder_init(m_dec_ctx, hw_type) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] failed to create specified(%s) HW device context for decoder.", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] failed to create specified(%s) HW device context for decoder.", 
                                              get_channel_index(), av_hwdevice_get_type_name(hw_type)));
             avcodec_free_context(&m_dec_ctx);
             avformat_close_input(&m_ifmt_ctx);
@@ -270,7 +270,7 @@ namespace vp_nodes {
         }
         /* open the decoder */
         if ((ret = avcodec_open2(m_dec_ctx, dec, NULL)) < 0) {
-            VP_ERROR(vp_utils::string_format("[ffio/ff_src][%d][inner_open] could not open decoder. ret: %d", 
+            CVEDIX_ERROR(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] could not open decoder. ret: %d", 
                                              get_channel_index(), ret));
             avcodec_free_context(&m_dec_ctx);
             avformat_close_input(&m_ifmt_ctx);
@@ -292,7 +292,7 @@ namespace vp_nodes {
         m_decode_running = true;
         m_demux_th = std::make_shared<std::thread>(&ff_src::demux_run, this);
         m_decode_th = std::make_shared<std::thread>(&ff_src::decode_run, this);
-        VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][inner_open] open successfully.", 
+        CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][inner_open] open successfully.", 
                                          get_channel_index()));
         return true;   
     }
@@ -334,7 +334,7 @@ namespace vp_nodes {
             std::lock_guard<std::mutex> g(m_decode_frames_m);
             m_decode_frames_q = {};
         }
-        VP_INFO(vp_utils::string_format("[ffio/ff_src][%d][inner_close] close successfully.", 
+        CVEDIX_INFO(cvedix_utils::string_format("[ffio/ff_src][%d][inner_close] close successfully.", 
                                          get_channel_index()));
     }
 
@@ -423,7 +423,7 @@ namespace vp_nodes {
         s_stream << "################# summary for [ff_src] #################" << std::endl;
 
         auto summary = s_stream.str();
-        VP_INFO(summary);
+        CVEDIX_INFO(summary);
         return summary;
     }
 
@@ -442,7 +442,7 @@ namespace vp_nodes {
         if (!ret) {
             // switch control of CPUs if no frame returned, avoid of occupying CPUs for a long time by caller outside
             //std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            //VP_DEBUG(vp_utils::string_format("[ffio/ff_src][%d][read] read frame failed, sleep for 1 millisecond.", 
+            //CVEDIX_DEBUG(cvedix_utils::string_format("[ffio/ff_src][%d][read] read frame failed, sleep for 1 millisecond.", 
             //                                 get_channel_index()));
         }
 

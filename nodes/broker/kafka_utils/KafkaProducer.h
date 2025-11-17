@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef VP_WITH_KAFKA
+#ifdef CVEDIX_WITH_KAFKA
 #include <string>
 #include <iostream>
 

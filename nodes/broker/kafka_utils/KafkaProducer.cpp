@@ -1,5 +1,5 @@
 
-#ifdef VP_WITH_KAFKA
+#ifdef CVEDIX_WITH_KAFKA
 #include "KafkaProducer.h"
 
 // callbacks

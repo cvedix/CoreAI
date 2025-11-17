@@ -1,5 +1,5 @@
 #pragma once
-#ifdef VP_WITH_FFMPEG
+#ifdef CVEDIX_WITH_FFMPEG
 #include <string>
 #include <queue>
 #include <vector>
@@ -7,11 +7,11 @@
 #include <algorithm>
 #include <functional>
 #include "ff_common.h"
-#include "../../utils/vp_semaphore.h"
-#include "../../utils/vp_utils.h"
-#include "../../utils/logger/vp_logger.h"
+#include "../../utils/cvedix_semaphore.h"
+#include "../../utils/cvedix_utils.h"
+#include "../../utils/logger/cvedix_logger.h"
 
-namespace vp_nodes {
+namespace cvedix_nodes {
     class ff_src;
     typedef std::function<void(ff_src_ptr, const std::string&)> ff_src_opened_hooker;
 
@@ -34,7 +34,7 @@ namespace vp_nodes {
         int m_decode_frames_q_max_size = 25;
         std::shared_ptr<std::thread> m_demux_th = nullptr;
         std::shared_ptr<std::thread> m_decode_th = nullptr;
-        vp_utils::vp_semaphore m_demux_semaphore;
+        cvedix_utils::cvedix_semaphore m_demux_semaphore;
 
         /**
          * live stream or not for input.

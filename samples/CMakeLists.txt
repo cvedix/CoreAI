@@ -60,8 +60,8 @@ target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
 add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
 target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
 
-add_executable(vp_logger_sample "vp_logger_sample.cpp")
-target_link_libraries(vp_logger_sample ${PROJECT_NAME})
+add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
+target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
 
 add_executable(skip_sample "skip_sample.cpp")
 target_link_libraries(skip_sample ${PROJECT_NAME})
@@ -93,17 +93,17 @@ target_link_libraries(lane_detect_sample ${PROJECT_NAME})
 add_executable(frame_fusion_sample "frame_fusion_sample.cpp")
 target_link_libraries(frame_fusion_sample ${PROJECT_NAME})
 
-add_executable(vp_test "vp_test.cpp")
-target_link_libraries(vp_test ${PROJECT_NAME})
+add_executable(cvedix_test "cvedix_test.cpp")
+target_link_libraries(cvedix_test ${PROJECT_NAME})
 
 # samples depend on Kafka
-if(VP_WITH_KAFKA)
+if(CVEDIX_WITH_KAFKA)
     add_executable(message_broker_kafka_sample "message_broker_kafka_sample.cpp")
     target_link_libraries(message_broker_kafka_sample ${PROJECT_NAME})    
 endif()
 
 # samples depend on LLM
-if(VP_WITH_LLM)
+if(CVEDIX_WITH_LLM)
     add_executable(mllm_analyse_sample "mllm_analyse_sample.cpp")
     target_link_libraries(mllm_analyse_sample ${PROJECT_NAME})    
 
@@ -112,7 +112,7 @@ if(VP_WITH_LLM)
 endif()
 
 # samples depend on FFmpeg
-if(VP_WITH_FFMPEG)
+if(CVEDIX_WITH_FFMPEG)
     add_executable(ffmpeg_src_des_sample "ffmpeg_src_des_sample.cpp")
     target_link_libraries(ffmpeg_src_des_sample ${PROJECT_NAME})
 
@@ -120,8 +120,14 @@ if(VP_WITH_FFMPEG)
     target_link_libraries(ffmpeg_transcode_sample ${PROJECT_NAME})
 endif()
 
+# samples depend on RKNN
+if(CVEDIX_WITH_RKNN)
+    add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
+    target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
+endif()
+
 # samples depend on PaddlePaddle
-if(VP_WITH_PADDLE)
+if(CVEDIX_WITH_PADDLE)
     add_executable(app_src_sample "app_src_sample.cpp")
     target_link_libraries(app_src_sample ${PROJECT_NAME})
     
@@ -130,14 +136,14 @@ if(VP_WITH_PADDLE)
 endif()
 
 # samples depend on CUDA(maybe other dependency required too)
-if(VP_WITH_CUDA)
+if(CVEDIX_WITH_CUDA)
     # nvdec & nvenc plugins required from DeepStream
     add_executable(nv_hard_codec_sample "nv_hard_codec_sample.cpp")
     target_link_libraries(nv_hard_codec_sample ${PROJECT_NAME})    
 endif()
 
 # samples depend on TensorRT
-if(VP_WITH_TRT)
+if(CVEDIX_WITH_TRT)
     add_executable(ba_jam_sample "ba_jam_sample.cpp")
     target_link_libraries(ba_jam_sample ${PROJECT_NAME})
 
@@ -196,14 +202,14 @@ if(VP_WITH_TRT)
     target_link_libraries(rtmp_src_sample ${PROJECT_NAME})
 endif()
 
-if(VP_BUILD_COMPLEX_SAMPLES)
+if(CVEDIX_BUILD_COMPLEX_SAMPLES)
     message("start build for complex sampels...")
     # save exe to 'face_recognize'
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/face_recognize)
     add_executable(face_recognize_pipeline "face_recognize/face_recognize_pipeline.cpp")
     target_link_libraries(face_recognize_pipeline ${PROJECT_NAME})
 
-    if(VP_WITH_TRT) # samples depend on TensorRT   
+    if(CVEDIX_WITH_TRT) # samples depend on TensorRT   
         # save exe to 'similiarity_search'
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/similiarity_search)
         add_executable(face_encoding_pipeline "similiarity_search/face_encoding_pipeline.cpp")
@@ -227,7 +233,7 @@ if(VP_BUILD_COMPLEX_SAMPLES)
         target_link_libraries(plate_recognize_pipeline ${PROJECT_NAME})
     endif()
 
-    if(VP_WITH_PADDLE)
+    if(CVEDIX_WITH_PADDLE)
         # save exe to 'math_review'
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/math_review)
         add_executable(math_expression_check_pipeline "math_review/math_expression_check_pipeline.cpp")

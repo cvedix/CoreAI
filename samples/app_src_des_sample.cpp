@@ -1,37 +1,37 @@
-#include "../nodes/vp_app_src_node.h"
-#include "../nodes/infers/vp_yunet_face_detector_node.h"
-#include "../nodes/osd/vp_face_osd_node.h"
-#include "../nodes/vp_app_des_node.h"
+#include "../nodes/cvedix_app_src_node.h"
+#include "../nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "../nodes/osd/cvedix_face_osd_node.h"
+#include "../nodes/cvedix_app_des_node.h"
 
-#include "../utils/analysis_board/vp_analysis_board.h"
+#include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## app_src_des_sample ##
-* 1. receive images from host code， based on vp_app_src_node
+* 1. receive images from host code， based on cvedix_app_src_node
 * 2. detect faces and draw results
-* 3. display on screen in host code again using cv::imshow(...) and print rectangles and keypoints of face, based on vp_app_des_node
+* 3. display on screen in host code again using cv::imshow(...) and print rectangles and keypoints of face, based on cvedix_app_des_node
 * we treat VideoPipe(pipeline) as a simple face detector tool in this sample.
 */
 
 int main() {
-    VP_SET_LOG_LEVEL(vp_utils::vp_log_level::INFO);
-    VP_LOGGER_INIT();
+    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
+    CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto app_src_0 = std::make_shared<vp_nodes::vp_app_src_node>("app_src_0", 0);
-    auto yunet_face_detector_0 = std::make_shared<vp_nodes::vp_yunet_face_detector_node>("yunet_face_detector_0", "./vp_data/models/face/face_detection_yunet_2022mar.onnx");
-    auto osd_0 = std::make_shared<vp_nodes::vp_face_osd_node>("osd_0");
-    auto app_des_0 = std::make_shared<vp_nodes::vp_app_des_node>("app_des_0", 0);
+    auto app_src_0 = std::make_shared<cvedix_nodes::cvedix_app_src_node>("app_src_0", 0);
+    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
+    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_face_osd_node>("osd_0");
+    auto app_des_0 = std::make_shared<cvedix_nodes::cvedix_app_des_node>("app_des_0", 0);
 
     // register callback to display result
     std::string ori_win_title = "original frame using cv::imshow(...)";
     std::string osd_win_title = "osd frame using cv::imshow(...)";
     cv::namedWindow(ori_win_title,cv::WindowFlags::WINDOW_NORMAL);
     cv::namedWindow(osd_win_title,cv::WindowFlags::WINDOW_NORMAL);
-    app_des_0->set_app_des_result_hooker([&](std::string node_name, std::shared_ptr<vp_objects::vp_meta> meta) {
+    app_des_0->set_app_des_result_hooker([&](std::string node_name, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
         // only deal with frame meta
-        if (meta->meta_type == vp_objects::vp_meta_type::FRAME) {
-            auto frame_meta = std::dynamic_pointer_cast<vp_objects::vp_frame_meta>(meta);
+        if (meta->meta_type == cvedix_objects::cvedix_meta_type::FRAME) {
+            auto frame_meta = std::dynamic_pointer_cast<cvedix_objects::cvedix_frame_meta>(meta);
             cv::imshow(ori_win_title, frame_meta->frame);
 
             // osd frame may be empty
@@ -61,11 +61,11 @@ int main() {
     app_src_0->start();
     
     // for debug purpose
-    vp_utils::vp_analysis_board board({app_src_0});
+    cvedix_utils::cvedix_analysis_board board({app_src_0});
     board.display(1, false);  // no block
 
     // read image in host code manually
-    auto img = cv::imread("./vp_data/test_images/faces/swap/2mans.jpg");
+    auto img = cv::imread("./cvedix_data/test_images/faces/swap/2mans.jpg");
     // push image to pipeline in host code manually
     app_src_0->push_frames({img});
 

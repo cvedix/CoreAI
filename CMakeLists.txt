@@ -14,14 +14,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -
 # save all libs(including third_party's) to 'libs'
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 
-# optional for build, modify values when configure the project using 'cmake -DVP_WITH_CUDA=OFF ..'
-option(VP_WITH_CUDA "prepared CUDA or not?" OFF)
-option(VP_WITH_TRT "prepared TensorRT or not?" OFF)
-option(VP_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
-option(VP_WITH_KAFKA "prepared Kafka or not?" OFF)
-option(VP_WITH_LLM "prepared LLM or not?" OFF)
-option(VP_WITH_FFMPEG "prepared FFMPEG or not?" OFF)
-option(VP_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
+# optional for build, modify values when configure the project using 'cmake -DCVEDIX_WITH_CUDA=OFF ..'
+option(CVEDIX_WITH_CUDA "prepared CUDA or not?" OFF)
+option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
+option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
+option(CVEDIX_WITH_KAFKA "prepared Kafka or not?" OFF)
+option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
+option(CVEDIX_WITH_FFMPEG "prepared FFMPEG or not?" OFF)
+option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
+option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
+option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
 # OpenCV required
 find_package(OpenCV REQUIRED)
@@ -44,79 +46,166 @@ include_directories(${GST_INCLUDE_DIRS})
 set (GST_DEPEND_LIBS ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES})
 
 # collect dependent libs for videopipe
-list(APPEND VP_DEPEND_LIBS ${OpenCV_LIBS} ${GST_DEPEND_LIBS} stdc++fs)
+list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} ${GST_DEPEND_LIBS} stdc++fs)
 
 # optional for CUDA
-if(VP_WITH_CUDA) # CUDA enabled
-    add_definitions(-DVP_WITH_CUDA)
+if(CVEDIX_WITH_CUDA) # CUDA enabled
+    add_definitions(-DCVEDIX_WITH_CUDA)
 endif()
 
 # optional for TensorRT
-if(VP_WITH_TRT)  # TensorRT enabled
-    add_definitions(-DVP_WITH_TRT)
-    set(VP_BUILD_FROM ON)  # set flag for sub project
-    set(VP_TRT_LIB_PATH "")
-    set(VP_TRT_INC_PATH "")
+if(CVEDIX_WITH_TRT)  # TensorRT enabled
+    add_definitions(-DCVEDIX_WITH_TRT)
+    set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
+    set(CVEDIX_TRT_LIB_PATH "")
+    set(CVEDIX_TRT_INC_PATH "")
     # trt_vehicle
     message("-------------start build trt_vehicle--------------")
     add_subdirectory(third_party/trt_vehicle)
-    list(APPEND VP_DEPEND_LIBS trt_vehicle)
-    link_directories(${VP_TRT_LIB_PATH})
+    list(APPEND CVEDIX_DEPEND_LIBS trt_vehicle)
+    link_directories(${CVEDIX_TRT_LIB_PATH})
     message(STATUS "TensorRT library status:")
-    message(STATUS "    include path: ${VP_TRT_INC_PATH}")
-    message(STATUS "    library path: ${VP_TRT_LIB_PATH}")
+    message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
+    message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
     message("--------------end build trt_vehicle---------------")
     # trt_yolov8    
     message("-------------start build trt_yolov8--------------")
     add_subdirectory(third_party/trt_yolov8)
-    list(APPEND VP_DEPEND_LIBS trt_yolov8)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov8)
     message("--------------end build trt_yolov8---------------")
 endif()
 
 # optional for PaddlePaddle
-if(VP_WITH_PADDLE)  # PaddlePaddle enabled
-    add_definitions(-DVP_WITH_PADDLE)
-    set(VP_BUILD_FROM ON)  # set flag for sub project
-    set(VP_PADDLE_LIB_PATH "")
-    set(VP_PADDLE_INC_PATH "")
+if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
+    add_definitions(-DCVEDIX_WITH_PADDLE)
+    set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
+    set(CVEDIX_PADDLE_LIB_PATH "")
+    set(CVEDIX_PADDLE_INC_PATH "")
     message("-------------start build paddle_ocr--------------")
     add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
-    list(APPEND VP_DEPEND_LIBS paddle_ocr)
-    link_directories(${VP_PADDLE_LIB_PATH})
+    list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
+    link_directories(${CVEDIX_PADDLE_LIB_PATH})
     message(STATUS "PaddlePaddle library status:")
-    message(STATUS "    include path: ${VP_PADDLE_INC_PATH}")
-    message(STATUS "    library path: ${VP_PADDLE_LIB_PATH}")
+    message(STATUS "    include path: ${CVEDIX_PADDLE_INC_PATH}")
+    message(STATUS "    library path: ${CVEDIX_PADDLE_LIB_PATH}")
     message("--------------end build paddle_ocr---------------")
 endif()
 
 # optional for Kafka
-if(VP_WITH_KAFKA)
-    add_definitions(-DVP_WITH_KAFKA)
-    list(APPEND VP_DEPEND_LIBS rdkafka++)
+if(CVEDIX_WITH_KAFKA)
+    add_definitions(-DCVEDIX_WITH_KAFKA)
+    list(APPEND CVEDIX_DEPEND_LIBS rdkafka++)
 endif()
 
 # optional for LLM
-if(VP_WITH_LLM)
+if(CVEDIX_WITH_LLM)
     find_package(OpenSSL REQUIRED)
     message(STATUS "OpenSSL library status:")
     message(STATUS "    version: ${OPENSSL_VERSION}")
     message(STATUS "    libraries: ${OPENSSL_LIBRARIES}")
     message(STATUS "    include path: ${OPENSSL_INCLUDE_DIR}")
     include_directories(${OPENSSL_INCLUDE_DIR})
-    list(APPEND VP_DEPEND_LIBS ${OPENSSL_LIBRARIES})
-    add_definitions(-DVP_WITH_LLM)
+    list(APPEND CVEDIX_DEPEND_LIBS ${OPENSSL_LIBRARIES})
+    add_definitions(-DCVEDIX_WITH_LLM)
 endif()
 
 # optional for FFmpeg
-if(VP_WITH_FFMPEG)
-    add_definitions(-DVP_WITH_FFMPEG)
-    list(APPEND VP_DEPEND_LIBS avcodec avformat avdevice swscale swresample avutil)
+if(CVEDIX_WITH_FFMPEG)
+    add_definitions(-DCVEDIX_WITH_FFMPEG)
+    list(APPEND CVEDIX_DEPEND_LIBS avcodec avformat avdevice swscale swresample avutil)
+endif()
+
+# optional for RKNN (Rockchip NPU)
+if(CVEDIX_WITH_RKNN)
+    add_definitions(-DCVEDIX_WITH_RKNN)
+    # Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
+    find_library(RKNN_LIB 
+        NAMES rknnrt
+        PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
+        NO_DEFAULT_PATH
+    )
+    if(RKNN_LIB)
+        message(STATUS "RKNN library found: ${RKNN_LIB}")
+        list(APPEND CVEDIX_DEPEND_LIBS ${RKNN_LIB})
+    else()
+        # Try to find in standard paths
+        find_library(RKNN_LIB NAMES rknnrt)
+        if(RKNN_LIB)
+            message(STATUS "RKNN library found: ${RKNN_LIB}")
+            list(APPEND CVEDIX_DEPEND_LIBS ${RKNN_LIB})
+        else()
+            message(WARNING "RKNN library (librknnrt.so) not found. Please install rknn-toolkit2.")
+        endif()
+    endif()
+    
+    # Find rknn_api.h - typically in /usr/local/include or /usr/include
+    find_path(RKNN_INCLUDE_DIR
+        NAMES rknn_api.h
+        PATHS /usr/local/include /usr/include /opt/rockchip/include
+        NO_DEFAULT_PATH
+    )
+    if(RKNN_INCLUDE_DIR)
+        message(STATUS "RKNN include path: ${RKNN_INCLUDE_DIR}")
+        include_directories(${RKNN_INCLUDE_DIR})
+    else()
+        find_path(RKNN_INCLUDE_DIR NAMES rknn_api.h)
+        if(RKNN_INCLUDE_DIR)
+            message(STATUS "RKNN include path: ${RKNN_INCLUDE_DIR}")
+            include_directories(${RKNN_INCLUDE_DIR})
+        else()
+            message(WARNING "RKNN headers (rknn_api.h) not found. Please install rknn-toolkit2.")
+        endif()
+    endif()
+    message(STATUS "RKNN support: enabled")
+endif()
+
+# optional for RGA (Rockchip Graphics Accelerator)
+if(CVEDIX_WITH_RGA)
+    add_definitions(-DCVEDIX_WITH_RGA)
+    # Find librga.so
+    find_library(RGA_LIB
+        NAMES rga
+        PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
+        NO_DEFAULT_PATH
+    )
+    if(RGA_LIB)
+        message(STATUS "RGA library found: ${RGA_LIB}")
+        list(APPEND CVEDIX_DEPEND_LIBS ${RGA_LIB})
+    else()
+        find_library(RGA_LIB NAMES rga)
+        if(RGA_LIB)
+            message(STATUS "RGA library found: ${RGA_LIB}")
+            list(APPEND CVEDIX_DEPEND_LIBS ${RGA_LIB})
+        else()
+            message(WARNING "RGA library (librga.so) not found. Please install RGA library.")
+        endif()
+    endif()
+    
+    # Find rga.h
+    find_path(RGA_INCLUDE_DIR
+        NAMES rga.h
+        PATHS /usr/local/include /usr/include /opt/rockchip/include
+        NO_DEFAULT_PATH
+    )
+    if(RGA_INCLUDE_DIR)
+        message(STATUS "RGA include path: ${RGA_INCLUDE_DIR}")
+        include_directories(${RGA_INCLUDE_DIR})
+    else()
+        find_path(RGA_INCLUDE_DIR NAMES rga.h)
+        if(RGA_INCLUDE_DIR)
+            message(STATUS "RGA include path: ${RGA_INCLUDE_DIR}")
+            include_directories(${RGA_INCLUDE_DIR})
+        else()
+            message(WARNING "RGA headers (rga.h) not found. Please install RGA library.")
+        endif()
+    endif()
+    message(STATUS "RGA support: enabled")
 endif()
 
 # tinyexpr
 message("-------------start build tinyexpr--------------")
 add_subdirectory(third_party/tinyexpr)
-list(APPEND VP_DEPEND_LIBS tinyexpr)
+list(APPEND CVEDIX_DEPEND_LIBS tinyexpr)
 message("--------------end build tinyexpr---------------")
 
 message("-------------collect version info--------------")
@@ -146,8 +235,8 @@ else()
 endif()
 set(FINAL_GIT_VERSION "${GIT_COMMIT_HASH}${GIT_DIRTY}")
 configure_file(
-    ${CMAKE_SOURCE_DIR}/utils/vp_version.h.in
-    ${CMAKE_BINARY_DIR}/vp_version.h
+    ${CMAKE_SOURCE_DIR}/utils/cvedix_version.h.in
+    ${CMAKE_BINARY_DIR}/cvedix_version.h
     @ONLY
 )
 include_directories(${CMAKE_BINARY_DIR})
@@ -161,11 +250,11 @@ file(GLOB_RECURSE NODES "nodes/*.cpp")
 file(GLOB_RECURSE OBJECTS "objects/*.cpp")
 file(GLOB_RECURSE UTILS "utils/*.cpp")
 #...#
-list(APPEND VP_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
+list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 
 # build for videopipe
-add_library(${PROJECT_NAME} SHARED ${VP_CPPS_SOURCES})
-target_link_libraries(${PROJECT_NAME} ${VP_DEPEND_LIBS})
+add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
+target_link_libraries(${PROJECT_NAME} ${CVEDIX_DEPEND_LIBS})
 
 # build for samples
 add_subdirectory(samples)

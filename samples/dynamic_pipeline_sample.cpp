@@ -1,12 +1,12 @@
-#include "../nodes/vp_file_src_node.h"
-#include "../nodes/infers/vp_trt_vehicle_detector.h"
-#include "../nodes/infers/vp_trt_vehicle_color_classifier.h"
-#include "../nodes/track/vp_sort_track_node.h"
-#include "../nodes/osd/vp_osd_node.h"
-#include "../nodes/broker/vp_json_console_broker_node.h"
-#include "../nodes/vp_split_node.h"
-#include "../nodes/vp_screen_des_node.h"
-#include "../utils/analysis_board/vp_analysis_board.h"
+#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/infers/cvedix_trt_vehicle_detector.h"
+#include "../nodes/infers/cvedix_trt_vehicle_color_classifier.h"
+#include "../nodes/track/cvedix_sort_track_node.h"
+#include "../nodes/osd/cvedix_osd_node.h"
+#include "../nodes/broker/cvedix_json_console_broker_node.h"
+#include "../nodes/cvedix_split_node.h"
+#include "../nodes/cvedix_screen_des_node.h"
+#include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## dynamic_pipeline_sample ##
@@ -17,15 +17,15 @@
 */
 
 int main() {
-    VP_SET_LOG_LEVEL(vp_utils::vp_log_level::INFO);
-    VP_LOGGER_INIT();
+    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
+    CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<vp_nodes::vp_file_src_node>("file_src_0", 0, "./vp_data/test_video/vehicle_stop.mp4", 0.4);
-    auto trt_vehicle_detector = std::make_shared<vp_nodes::vp_trt_vehicle_detector>("trt_vehicle_detector", "./vp_data/models/trt/vehicle/vehicle_v8.5.trt");
-    auto osd = std::make_shared<vp_nodes::vp_osd_node>("osd", "./vp_data/font/NotoSansCJKsc-Medium.otf");
-    auto split = std::make_shared<vp_nodes::vp_split_node>("split", true);
-    auto screen_des_0 = std::make_shared<vp_nodes::vp_screen_des_node>("screen_des_0", 0);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_stop.mp4", 0.4);
+    auto trt_vehicle_detector = std::make_shared<cvedix_nodes::cvedix_trt_vehicle_detector>("trt_vehicle_detector", "./cvedix_data/models/trt/vehicle/vehicle_v8.5.trt");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", true);
+    auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
     // construct pipeline the first time
     trt_vehicle_detector->attach_to({file_src_0});
@@ -36,8 +36,8 @@ int main() {
     // start pipeline
     file_src_0->start();
     // visualize pipeline for debug
-    std::vector<std::shared_ptr<vp_nodes::vp_node>> src_nodes = {file_src_0};
-    vp_utils::vp_analysis_board board(src_nodes);
+    std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> src_nodes = {file_src_0};
+    cvedix_utils::cvedix_analysis_board board(src_nodes);
     board.display(1, false);  // no block
     /* the original format of pipeline is:
        file_src_0 -> trt_vehicle_detector -> osd -> split -> screen_des_0
@@ -49,8 +49,8 @@ int main() {
         while (!exit) {    
             // 1. wait for 5 seconds then insert the 2nd channel(input and output) to pipeline
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            auto file_src_1 = std::make_shared<vp_nodes::vp_file_src_node>("file_src_1", 1, "./vp_data/test_video/vehicle_stop.mp4", 0.4);
-            auto screen_des_1 = std::make_shared<vp_nodes::vp_screen_des_node>("screen_des_1", 1);
+            auto file_src_1 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_1", 1, "./cvedix_data/test_video/vehicle_stop.mp4", 0.4);
+            auto screen_des_1 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_1", 1);
             trt_vehicle_detector->attach_to({file_src_1});
             screen_des_1->attach_to({split});
             // start 2nd channel
@@ -66,8 +66,8 @@ int main() {
             
             // 2. wait for 5 seconds then insert the 3rd channel(input and output) to pipeline
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            auto file_src_2 = std::make_shared<vp_nodes::vp_file_src_node>("file_src_2", 2, "./vp_data/test_video/vehicle_stop.mp4", 0.4);
-            auto screen_des_2 = std::make_shared<vp_nodes::vp_screen_des_node>("screen_des_2", 2);
+            auto file_src_2 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_2", 2, "./cvedix_data/test_video/vehicle_stop.mp4", 0.4);
+            auto screen_des_2 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_2", 2);
             trt_vehicle_detector->attach_to({file_src_2});
             screen_des_2->attach_to({split});
             // start 3rd channel
@@ -109,9 +109,9 @@ int main() {
             
             // 5. wait for 5 seconds then insert a secondary classifier node, track node and broker node into pipeline
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            auto trt_color_cls = std::make_shared<vp_nodes::vp_trt_vehicle_color_classifier>("trt_color_cls", "./vp_data/models/trt/vehicle/vehicle_color_v8.5.trt", std::vector<int>{0, 1, 2});
-            auto track = std::make_shared<vp_nodes::vp_sort_track_node>("track");
-            auto console_broker = std::make_shared<vp_nodes::vp_json_console_broker_node>("console_broker");
+            auto trt_color_cls = std::make_shared<cvedix_nodes::cvedix_trt_vehicle_color_classifier>("trt_color_cls", "./cvedix_data/models/trt/vehicle/vehicle_color_v8.5.trt", std::vector<int>{0, 1, 2});
+            auto track = std::make_shared<cvedix_nodes::cvedix_sort_track_node>("track");
+            auto console_broker = std::make_shared<cvedix_nodes::cvedix_json_console_broker_node>("console_broker");
             osd->detach();                      // first detach osd node from pipeline
             osd->attach_to({console_broker});                  // then attach osd node to broker node
             console_broker->attach_to({track});                // attach broker node to track node

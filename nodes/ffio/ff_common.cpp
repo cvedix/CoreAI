@@ -1,8 +1,8 @@
 
-#ifdef VP_WITH_FFMPEG
+#ifdef CVEDIX_WITH_FFMPEG
 #include "ff_common.h"
 
-namespace vp_nodes {
+namespace cvedix_nodes {
     ff_scaler::ff_scaler(int src_width, 
             int src_height, 
             AVPixelFormat src_fmt, 

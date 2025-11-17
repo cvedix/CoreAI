@@ -1,5 +1,5 @@
 #pragma once
-#ifdef VP_WITH_FFMPEG
+#ifdef CVEDIX_WITH_FFMPEG
 #include <string>
 #include <queue>
 #include <vector>
@@ -7,11 +7,11 @@
 #include <algorithm>
 #include <functional>
 #include "ff_common.h"
-#include "../../utils/vp_semaphore.h"
-#include "../../utils/vp_utils.h"
-#include "../../utils/logger/vp_logger.h"
+#include "../../utils/cvedix_semaphore.h"
+#include "../../utils/cvedix_utils.h"
+#include "../../utils/logger/cvedix_logger.h"
 
-namespace vp_nodes {
+namespace cvedix_nodes {
     /**
      * encode and enmux using FFmpeg.
      * used to encode & enmux network streams or file streams.
@@ -31,8 +31,8 @@ namespace vp_nodes {
         int m_encode_frames_q_max_size = 25;
         std::shared_ptr<std::thread> m_enmux_th = nullptr;
         std::shared_ptr<std::thread> m_encode_th = nullptr;
-        vp_utils::vp_semaphore m_enmux_semaphore;
-        vp_utils::vp_semaphore m_encode_semaphore;
+        cvedix_utils::cvedix_semaphore m_enmux_semaphore;
+        cvedix_utils::cvedix_semaphore m_encode_semaphore;
 
         /**
          * live stream or not for output.

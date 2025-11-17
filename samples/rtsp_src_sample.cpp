@@ -1,11 +1,11 @@
-#include "../nodes/vp_rtsp_src_node.h"
-#include "../nodes/infers/vp_yunet_face_detector_node.h"
-#include "../nodes/infers/vp_sface_feature_encoder_node.h"
-#include "../nodes/osd/vp_face_osd_node_v2.h"
-#include "../nodes/vp_screen_des_node.h"
-#include "../nodes/vp_rtmp_des_node.h"
+#include "../nodes/cvedix_rtsp_src_node.h"
+#include "../nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "../nodes/infers/cvedix_sface_feature_encoder_node.h"
+#include "../nodes/osd/cvedix_face_osd_node_v2.h"
+#include "../nodes/cvedix_screen_des_node.h"
+#include "../nodes/cvedix_rtmp_des_node.h"
 
-#include "../utils/analysis_board/vp_analysis_board.h"
+#include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## rtsp_src_sample ##
@@ -14,17 +14,17 @@
 */
 
 int main() {
-    VP_SET_LOG_INCLUDE_CODE_LOCATION(false);
-    VP_SET_LOG_INCLUDE_THREAD_ID(false);
-    VP_SET_LOG_LEVEL(vp_utils::vp_log_level::INFO);
-    VP_LOGGER_INIT();
+    CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
+    CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
+    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
+    CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto rtsp_src_0 = std::make_shared<vp_nodes::vp_rtsp_src_node>("rtsp_src_0", 0, "rtsp://192.168.77.213/live/mainstream", 0.6);
-    auto yunet_face_detector_0 = std::make_shared<vp_nodes::vp_yunet_face_detector_node>("yunet_face_detector_0", "./vp_data/models/face/face_detection_yunet_2022mar.onnx");
-    auto sface_face_encoder_0 = std::make_shared<vp_nodes::vp_sface_feature_encoder_node>("sface_face_encoder_0", "./vp_data/models/face/face_recognition_sface_2021dec.onnx");
-    auto osd_0 = std::make_shared<vp_nodes::vp_face_osd_node_v2>("osd_0");
-    auto screen_des_0 = std::make_shared<vp_nodes::vp_screen_des_node>("screen_des_0", 0);
+    auto rtsp_src_0 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_0", 0, "rtsp://192.168.77.213/live/mainstream", 0.6);
+    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
+    auto sface_face_encoder_0 = std::make_shared<cvedix_nodes::cvedix_sface_feature_encoder_node>("sface_face_encoder_0", "./cvedix_data/models/face/face_recognition_sface_2021dec.onnx");
+    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd_0");
+    auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
     // construct pipeline
     yunet_face_detector_0->attach_to({rtsp_src_0});

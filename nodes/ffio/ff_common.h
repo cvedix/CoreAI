@@ -1,5 +1,5 @@
 #pragma once
-#ifdef VP_WITH_FFMPEG
+#ifdef CVEDIX_WITH_FFMPEG
 #include <memory>
 #include <thread>
 #include <condition_variable>
@@ -19,19 +19,19 @@ extern "C" {
 
 #define ff_av_packet_ptr std::shared_ptr<AVPacket>
 #define ff_av_frame_ptr std::shared_ptr<AVFrame>
-#define ff_src_ptr std::shared_ptr<vp_nodes::ff_src>
-#define ff_des_ptr std::shared_ptr<vp_nodes::ff_des>
-#define ff_packet_queue_ptr std::shared_ptr<vp_nodes::ff_packet_queue>
+#define ff_src_ptr std::shared_ptr<cvedix_nodes::ff_src>
+#define ff_des_ptr std::shared_ptr<cvedix_nodes::ff_des>
+#define ff_packet_queue_ptr std::shared_ptr<cvedix_nodes::ff_packet_queue>
 
-#define alloc_ff_src(channel_index) std::make_shared<vp_nodes::ff_src>(channel_index)
-#define alloc_ff_des(channel_index) std::make_shared<vp_nodes::ff_des>(channel_index)
+#define alloc_ff_src(channel_index) std::make_shared<cvedix_nodes::ff_src>(channel_index)
+#define alloc_ff_des(channel_index) std::make_shared<cvedix_nodes::ff_des>(channel_index)
 
 #define alloc_ff_av_frame()                                                                           \
         std::shared_ptr<AVFrame>(av_frame_alloc(), [](AVFrame *frame) { av_frame_free(&frame); })
 #define alloc_ff_av_packet()                                                                          \
         std::shared_ptr<AVPacket>(av_packet_alloc(), [](AVPacket *pkt) { av_packet_free(&pkt); })
     
-namespace vp_nodes {
+namespace cvedix_nodes {
     /**
      * tools for color conversion & image resize using FFmpeg on CPUs.
      * 

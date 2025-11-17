@@ -1,17 +1,17 @@
-#include "../nodes/vp_file_src_node.h"
-#include "../nodes/vp_rtsp_src_node.h"
-#include "../nodes/vp_udp_src_node.h"
+#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/cvedix_rtsp_src_node.h"
+#include "../nodes/cvedix_udp_src_node.h"
 
-#include "../nodes/vp_screen_des_node.h"
-#include "../nodes/vp_rtmp_des_node.h"
-#include "../nodes/vp_fake_des_node.h"
-#include "../nodes/vp_file_des_node.h"
+#include "../nodes/cvedix_screen_des_node.h"
+#include "../nodes/cvedix_rtmp_des_node.h"
+#include "../nodes/cvedix_fake_des_node.h"
+#include "../nodes/cvedix_file_des_node.h"
 
-#include "../nodes/infers/vp_trt_vehicle_detector.h"
-#include "../nodes/osd/vp_osd_node.h"
-#include "../nodes/vp_split_node.h"
+#include "../nodes/infers/cvedix_trt_vehicle_detector.h"
+#include "../nodes/osd/cvedix_osd_node.h"
+#include "../nodes/cvedix_split_node.h"
 
-#include "../utils/analysis_board/vp_analysis_board.h"
+#include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## src des sample ##
@@ -23,24 +23,24 @@ int main() {
 
     // log config
     // ...
-    VP_LOGGER_INIT();
+    CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<vp_nodes::vp_file_src_node>("file_src_0", 0, "./vp_data/test_video/vehicle_count.mp4", 0.5);
-    auto rtsp_src_1 = std::make_shared<vp_nodes::vp_rtsp_src_node>("rtsp_src_1", 1, "rtsp://admin:admin12345@192.168.77.203", 0.4);
-    auto udp_src_2 = std::make_shared<vp_nodes::vp_udp_src_node>("udp_src_2", 2, 6000, 0.3);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.5);
+    auto rtsp_src_1 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_1", 1, "rtsp://admin:admin12345@192.168.77.203", 0.4);
+    auto udp_src_2 = std::make_shared<cvedix_nodes::cvedix_udp_src_node>("udp_src_2", 2, 6000, 0.3);
 
-    auto trt_vehicle_detector = std::make_shared<vp_nodes::vp_trt_vehicle_detector>("trt_vehicle_detector","./vp_data/models/trt/vehicle/vehicle_v8.5.trt");
+    auto trt_vehicle_detector = std::make_shared<cvedix_nodes::cvedix_trt_vehicle_detector>("trt_vehicle_detector","./cvedix_data/models/trt/vehicle/vehicle_v8.5.trt");
 
-    auto split = std::make_shared<vp_nodes::vp_split_node>("", true);
+    auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("", true);
 
-    auto osd_0 = std::make_shared<vp_nodes::vp_osd_node>("osd_0", "./vp_data/font/NotoSansCJKsc-Medium.otf");
-    auto osd_1 = std::make_shared<vp_nodes::vp_osd_node>("osd_1", "./vp_data/font/NotoSansCJKsc-Medium.otf");
-    auto osd_2 = std::make_shared<vp_nodes::vp_osd_node>("osd_2", "./vp_data/font/NotoSansCJKsc-Medium.otf");
+    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto osd_1 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_1", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto osd_2 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_2", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
 
-    auto screen_des_0 = std::make_shared<vp_nodes::vp_screen_des_node>("screen_des_0", 0);
-    auto rtmp_des_1 = std::make_shared<vp_nodes::vp_rtmp_des_node>("rtmp_des_0", 1, "rtmp://192.168.77.60/live/10000");
-    auto fake_des_2 = std::make_shared<vp_nodes::vp_fake_des_node>("fake_des_2", 2);
+    auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
+    auto rtmp_des_1 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 1, "rtmp://192.168.77.60/live/10000");
+    auto fake_des_2 = std::make_shared<cvedix_nodes::cvedix_fake_des_node>("fake_des_2", 2);
 
     // construct pipeline
     // auto merge
@@ -63,6 +63,6 @@ int main() {
     udp_src_2->start();
 
     // for debug purpose
-    vp_utils::vp_analysis_board board({file_src_0, rtsp_src_1, udp_src_2});
+    cvedix_utils::cvedix_analysis_board board({file_src_0, rtsp_src_1, udp_src_2});
     board.display();
 }

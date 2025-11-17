@@ -37,7 +37,7 @@ one `Node` in VideoPipe responsible for single task such as decoding or inferenc
 </p>
 <div align="center">figure 2. what Node looks like? </div>
 
-by default, producer and consumer work with single thread inside node, we need write async code when deal with complex tasks (for example, pushing data is a time-consuming operation in `vp_message_broker_node`) to avoid blocking the pipeline.
+by default, producer and consumer work with single thread inside node, we need write async code when deal with complex tasks (for example, pushing data is a time-consuming operation in `cvedix_message_broker_node`) to avoid blocking the pipeline.
 
 <p align="center">
 <img src="./p25.png">
@@ -49,14 +49,14 @@ there are 3 types of `Node` in VideoPipe, namely:
 - `MID Node`. middle node where data would be handled.
 - `DES Node`. destination node where data disappears (only 1 queue inside used for caching data from upstream nodes).
 
-each `Node` `itself` has the ability to merge multi upstream nodes, and split into multi downstream nodes as well. note that `Node` use shallow-copy and copy Equally when data transfered from one node to other nodes by default, if you need deep-copy or want to transfer data by channel index (just hope data unconfused), add a `vp_split_node` at the point of spliting which would get different behaviour.
+each `Node` `itself` has the ability to merge multi upstream nodes, and split into multi downstream nodes as well. note that `Node` use shallow-copy and copy Equally when data transfered from one node to other nodes by default, if you need deep-copy or want to transfer data by channel index (just hope data unconfused), add a `cvedix_split_node` at the point of spliting which would get different behaviour.
 <p align="center">
 <img src="./p28.png">
 </p>
 <div align="center">figure 4. merge & split in VideoPipe. </div>
 
 ## Data flow in VideoPipe ##
-video (frame here) is a type of heavyweight data, so deep copying frequently would decrease the performance of pipeline. actually data transfered between 2 nodes in VideoPipe use `smart pointers` by default, once data was created by source nodes, the data content would NOT be copyed later at most time in the whole pipeline (but we can specify deep-copy if we need, using `vp_split_node` for instance).
+video (frame here) is a type of heavyweight data, so deep copying frequently would decrease the performance of pipeline. actually data transfered between 2 nodes in VideoPipe use `smart pointers` by default, once data was created by source nodes, the data content would NOT be copyed later at most time in the whole pipeline (but we can specify deep-copy if we need, using `cvedix_split_node` for instance).
 
 <p align="center">
 <img src="./p26.png">
@@ -74,11 +74,11 @@ hook is a mechanism which let host notify listeners when something happens, Vide
 </p>
 <div align="center">figure 6. hooks in VideoPipe. </div>
 
-hooks help to debug with our application and quickly find the bottleneck in whole pipe, visualization tool `vp_analysis_board` works depend on hooks.
+hooks help to debug with our application and quickly find the bottleneck in whole pipe, visualization tool `cvedix_analysis_board` works depend on hooks.
 
 
 ## Implement new Node type in VideoPipe ##
-`vp_node` is the base class for all nodes in VideoPipe. we can define a new node class derived from `vp_node` and override some virtual functions like `handle_frame_meta` and `handle_control_meta`.
+`cvedix_node` is the base class for all nodes in VideoPipe. we can define a new node class derived from `cvedix_node` and override some virtual functions like `handle_frame_meta` and `handle_control_meta`.
 - `handle_frame_meta`. handle frame data flowing current node.
 - `handle_control_meta`. handle control data flowing current node.
 
@@ -87,7 +87,7 @@ hooks help to debug with our application and quickly find the bottleneck in whol
 </p>
 <div align="center">figure 7. override virtual functions in custom Node. </div>
 
-frame data means `vp_frame_meta` in VideoPipe, contains data related to frame such as `frame index`, `data buffer`, `original width`. control data means `vp_control_meta` in VideoPipe, contains data related command such as `record video`, `record image`.
+frame data means `cvedix_frame_meta` in VideoPipe, contains data related to frame such as `frame index`, `data buffer`, `original width`. control data means `cvedix_control_meta` in VideoPipe, contains data related command such as `record video`, `record image`.
 
 note, NOT all data flowing current node should be handled using new logic, they just pass through if no operations work on them. we just need handle what we are interested in. 
 

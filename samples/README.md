@@ -39,8 +39,8 @@ vehicle and plate detector based on tensorrt (install tensorrt first!), 1 video 
 ![](../doc/p17.png)
 
 
-## vp_logger_sample ##
-show how `vp_logger` works.
+## cvedix_logger_sample ##
+show how `cvedix_logger` works.
 
 ## face_tracking_sample ##
 tracking for multi faces.
@@ -54,7 +54,7 @@ tracking for multi vehicles.
 show how to interact with pipe, such as start/stop channel by calling api.
 
 ## record_sample ##
-show how `vp_record_node` works.
+show how `cvedix_record_node` works.
 
 ## message_broker_sample & message_broker_sample2 ##
 show how message broker nodes work.
