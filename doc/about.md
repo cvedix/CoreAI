@@ -1,5 +1,5 @@
 
-here are important instructions for VideoPipe if you want to figure out how it works!
+here are important instructions if you want to figure out how it works!
 
 ## Core parts in video structured application ## 
 `video structured` is a process which converts unstructure data (video here) into structured data. unstructure data:
