@@ -26,6 +26,16 @@ file_src_0                                                                --> tr
 file_src_1                                                                --> tracker_0 --> ba_crossline_0 --> osd_1 --> screen_des_1 
 ```
 
+## 目录结构（2025 重构后）
+
+- `common/`：所有节点共用的基类与 hook（`cvedix_node/src/des_node`、meta publisher/subscriber、`frame_utils` 等）。
+- `src/`：所有原始节点实现（`cvedix_file_src_node`、`cvedix_rtsp_src_node`、`cvedix_app_src_node`…）。
+- `des/`：所有输出节点实现（`cvedix_screen_des_node`、`cvedix_file_des_node`、`cvedix_rtmp_des_node`…）。
+- `mid/`：中间处理节点（`split`、`sync`、`message_broker`、`placeholder`、`skip`）。
+- `infers/base/`：推理基类（`cvedix_infer_node`、`primary`、`secondary`），供 `nodes/infers/*` 具体模型复用。
+
+`nodes/common/frame_utils.h` 还提供了 `utils::prepare_output_frame` 等辅助函数，用于在各种 des 节点里统一处理 “OSD/原图 + 可选缩放” 的常见逻辑。
+
 
 ## 节点目录 ##
 

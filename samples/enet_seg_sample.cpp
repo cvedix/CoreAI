@@ -1,7 +1,7 @@
-#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/src/cvedix_file_src_node.h"
 #include "../nodes/infers/cvedix_enet_seg_node.h"
 #include "../nodes/osd/cvedix_seg_osd_node.h"
-#include "../nodes/cvedix_screen_des_node.h"
+#include "../nodes/des/cvedix_screen_des_node.h"
 
 #include "../utils/analysis_board/cvedix_analysis_board.h"
 

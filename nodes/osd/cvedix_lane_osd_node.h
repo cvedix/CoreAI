@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     class cvedix_lane_osd_node: public cvedix_node

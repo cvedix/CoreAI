@@ -10,7 +10,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 
-#include "cvedix_des_node.h"
+#include "../common/cvedix_des_node.h"
 #include "../objects/cvedix_frame_meta.h"
 #include "../objects/cvedix_control_meta.h"
 #include "../utils/cvedix_utils.h"

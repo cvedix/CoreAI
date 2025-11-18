@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 #include "../../objects/shapes/cvedix_point.h"
 #include "../../objects/shapes/cvedix_line.h"
 #include "../../objects/cvedix_image_record_control_meta.h"

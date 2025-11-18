@@ -5,7 +5,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
-#include "cvedix_des_node.h"
+#include "../common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
     // screen des node, display video on local window.

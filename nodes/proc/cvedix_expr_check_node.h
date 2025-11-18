@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // math expression checker, give right for `1+1=2` and wrong for `sqrt(4)=4`.

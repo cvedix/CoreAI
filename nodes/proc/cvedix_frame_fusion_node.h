@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // fuse video frames from 2 channels based on the given calibration points.

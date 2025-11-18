@@ -1,7 +1,7 @@
 #pragma once
 
 #include <opencv2/freetype.hpp>
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // on screen display(short as osd) node.

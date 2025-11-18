@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 
 namespace cvedix_nodes {
     // yolo detector, support yolov3/4/5

@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
-#include "../cvedix_secondary_infer_node.h"
+#include "base/cvedix_secondary_infer_node.h"
 #include "../../third_party/trt_vehicle/models/vehicle_color_classifier.h"
 
 namespace cvedix_nodes {

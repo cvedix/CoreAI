@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "cvedix_des_node.h"
+#include "../common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
     // fake des node, do nothing just a placeholder

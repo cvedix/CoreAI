@@ -2,7 +2,7 @@
 
 #include <map>
 #include <opencv2/freetype.hpp>
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 #include "../../objects/shapes/cvedix_point.h"
 #include "../../objects/shapes/cvedix_line.h"
 

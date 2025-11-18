@@ -5,7 +5,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 
-#include "cvedix_src_node.h"
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // file source node, read video from local file.

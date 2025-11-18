@@ -3,7 +3,7 @@
 #ifdef CVEDIX_WITH_RTSP_SERVER
 #include <gst/gst.h>
 #include <gst/rtsp-server/rtsp-server.h>
-#include "cvedix_des_node.h"
+#include "../common/cvedix_des_node.h"
 
 /*
 * ##### Compile Tips #####

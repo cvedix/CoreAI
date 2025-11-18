@@ -6,7 +6,7 @@
 #include <cmath>
 #include <opencv2/imgproc.hpp>
 
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 #include "../../objects/cvedix_frame_pose_target.h"
 
 

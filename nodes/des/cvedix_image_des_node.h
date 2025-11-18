@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cvedix_des_node.h"
+#include "../common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
     // image des node, save image to local file or push image to remote via udp.

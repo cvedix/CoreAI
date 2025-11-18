@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // placeholder node, do nothing just a placeholder in the middle of pipeline

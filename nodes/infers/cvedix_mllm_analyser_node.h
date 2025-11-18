@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef CVEDIX_WITH_LLM
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 #include "../../third_party/cpp_llmlib/llmlib.hpp"
 
 namespace cvedix_nodes {

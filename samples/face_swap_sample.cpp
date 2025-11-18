@@ -1,9 +1,9 @@
-#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/src/cvedix_file_src_node.h"
 #include "../nodes/infers/cvedix_yunet_face_detector_node.h"
 #include "../nodes/infers/cvedix_face_swap_node.h"
 #include "../nodes/osd/cvedix_face_osd_node.h"
-#include "../nodes/cvedix_screen_des_node.h"
-#include "../nodes/cvedix_file_des_node.h"
+#include "../nodes/des/cvedix_screen_des_node.h"
+#include "../nodes/des/cvedix_file_des_node.h"
 #include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*

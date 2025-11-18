@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "cvedix_src_node.h"
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // image src node, read image from local files or receive image from remote via udp.

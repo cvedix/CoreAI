@@ -1,7 +1,7 @@
-#include "../nodes/cvedix_app_src_node.h"
+#include "../nodes/src/cvedix_app_src_node.h"
 #include "../nodes/infers/cvedix_yunet_face_detector_node.h"
 #include "../nodes/osd/cvedix_face_osd_node.h"
-#include "../nodes/cvedix_app_des_node.h"
+#include "../nodes/des/cvedix_app_des_node.h"
 
 #include "../utils/analysis_board/cvedix_analysis_board.h"
 

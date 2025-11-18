@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef CVEDIX_WITH_RKNN
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 #include "../../objects/cvedix_frame_face_target.h"
 #include "../../utils/rknn/cvedix_rknn_helper.h"
 #ifdef CVEDIX_WITH_RGA

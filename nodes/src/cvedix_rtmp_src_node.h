@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "cvedix_src_node.h"
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // rtmp source node, receive live video stream via rtmp protocal.

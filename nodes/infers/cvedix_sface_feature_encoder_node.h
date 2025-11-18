@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../cvedix_secondary_infer_node.h"
+#include "base/cvedix_secondary_infer_node.h"
 
 namespace cvedix_nodes {
     // face feature encoder based on SFace, update embeddings of cvedix_frame_face_target

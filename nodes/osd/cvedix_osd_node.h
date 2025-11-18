@@ -2,7 +2,7 @@
 #pragma once
 
 #include <opencv2/freetype.hpp>
-#include "../cvedix_node.h" 
+#include "../common/cvedix_node.h" 
 /*
 * ################################
 * why need osd in our pipeline?

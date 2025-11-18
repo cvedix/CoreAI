@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 #include "../../objects/cvedix_frame_target.h"
 
 

@@ -1,11 +1,11 @@
-#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/src/cvedix_file_src_node.h"
 #include "../nodes/infers/cvedix_trt_vehicle_detector.h"
 #include "../nodes/track/cvedix_sort_track_node.h"
 #include "../nodes/ba/cvedix_ba_jam_node.h"
 #include "../nodes/osd/cvedix_ba_jam_osd_node.h"
 #include "../nodes/record/cvedix_record_node.h"
-#include "../nodes/cvedix_split_node.h"
-#include "../nodes/cvedix_screen_des_node.h"
+#include "../nodes/mid/cvedix_split_node.h"
+#include "../nodes/des/cvedix_screen_des_node.h"
 
 #include "../utils/analysis_board/cvedix_analysis_board.h"
 

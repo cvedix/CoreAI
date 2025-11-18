@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // broke for what type of data (cvedix_frame_target, cvedix_frame_face_target or others)

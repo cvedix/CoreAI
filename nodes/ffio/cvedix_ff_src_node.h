@@ -2,7 +2,7 @@
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include "ff_src.h"
-#include "../cvedix_src_node.h"
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     /**

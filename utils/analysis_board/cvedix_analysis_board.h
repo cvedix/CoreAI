@@ -9,8 +9,8 @@
 #include <opencv2/videoio.hpp>
 
 #include "../cvedix_utils.h"
-#include "../../nodes/cvedix_node.h"
-#include "../../nodes/cvedix_src_node.h"
+#include "../../nodes/common/cvedix_node.h"
+#include "../../nodes/common/cvedix_src_node.h"
 #include "../../objects/cvedix_meta.h"
 #include "../../objects/shapes/cvedix_rect.h"
 

@@ -2,7 +2,7 @@
 
 #include <sstream>
 #include "cvedix_version.h"
-#include "../nodes/cvedix_node.h"
+#include "../nodes/common/cvedix_node.h"
 #include "../excepts/cvedix_invalid_pipeline_error.h"
 
 namespace cvedix_utils {

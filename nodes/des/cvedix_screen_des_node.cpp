@@ -1,5 +1,6 @@
 
 #include "cvedix_screen_des_node.h"
+#include "../common/frame_utils.h"
 #include "../utils/cvedix_utils.h"
 
 #include <cstdlib>
@@ -28,13 +29,7 @@ namespace cvedix_nodes {
         cvedix_screen_des_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
             CVEDIX_DEBUG(cvedix_utils::string_format("[%s] received frame meta, channel_index=>%d, frame_index=>%d", node_name.c_str(), meta->channel_index, meta->frame_index));
             
-            cv::Mat resize_frame;
-            if (this->display_w_h.width != 0 && this->display_w_h.height != 0) {                 
-                cv::resize((osd && !meta->osd_frame.empty()) ? meta->osd_frame : meta->frame, resize_frame, cv::Size(display_w_h.width, display_w_h.height));
-            }
-            else {
-                resize_frame = (osd && !meta->osd_frame.empty()) ? meta->osd_frame : meta->frame;
-            }
+            auto resize_frame = utils::prepare_output_frame(meta, osd, display_w_h);
 
             if (!screen_writer.isOpened()) {
                 assert(screen_writer.open(this->gst_template, cv::CAP_GSTREAMER, 0, meta->fps, {resize_frame.cols, resize_frame.rows}));

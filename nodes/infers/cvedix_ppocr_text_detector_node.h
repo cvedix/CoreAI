@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef CVEDIX_WITH_PADDLE
-#include "../cvedix_primary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 #include "../../third_party/paddle_ocr/include/paddleocr.h"
 
 namespace cvedix_nodes {

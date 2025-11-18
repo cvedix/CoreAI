@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cvedix_node.h"
+#include "../common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // cluster node for cvedix_frame_targets which has ability to display targets on screen according to its embeddings contained in cvedix_frame_target::embbedings variable or labels contained in cvedix_frame_target::secondary_labels vector。

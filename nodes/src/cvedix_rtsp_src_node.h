@@ -1,36 +1,33 @@
-
+#pragma once
 
 #include <string>
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/videoio.hpp>
-#include "cvedix_src_node.h"
+
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // udp source node, receive video stream via udp(rtp) protocal.
+    // rtsp source node, receive video stream via rtsp protocal.
     // example:
-    // udp://127.0.0.1:6000
-    class cvedix_udp_src_node: public cvedix_src_node
-    {
+    // rtsp://admin:admin12345@192.168.77.110:554/
+    class cvedix_rtsp_src_node: public cvedix_src_node {
     private:
-        std::string gst_template = "udpsrc port=%d ! application/x-rtp,mdeia=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";
-        cv::VideoCapture udp_capture;
+        /* data */
+        std::string gst_template = "rtspsrc location=%s ! application/x-rtp,media=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";
+        cv::VideoCapture rtsp_capture;
     protected:
         // re-implemetation
         virtual void handle_run() override;
     public:
-        cvedix_udp_src_node(std::string node_name, 
+        cvedix_rtsp_src_node(std::string node_name, 
                         int channel_index, 
-                        int port, 
+                        std::string rtsp_url, 
                         float resize_ratio = 1.0,
                         std::string gst_decoder_name = "avdec_h264",
                         int skip_interval = 0);
-        ~cvedix_udp_src_node();
+        ~cvedix_rtsp_src_node();
 
         virtual std::string to_string() override;
 
-        // port to listen
-        int port;
+        std::string rtsp_url;
         // set avdec_h264 as the default decoder, we can use hardware decoder instead.
         std::string gst_decoder_name = "avdec_h264";
         // 0 means no skip

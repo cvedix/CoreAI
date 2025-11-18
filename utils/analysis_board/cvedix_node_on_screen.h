@@ -4,9 +4,9 @@
 #include <memory>
 #include <opencv2/core.hpp>
 
-#include "../../nodes/cvedix_node.h"
-#include "../../nodes/cvedix_src_node.h"
-#include "../../nodes/cvedix_des_node.h"
+#include "../../nodes/common/cvedix_node.h"
+#include "../../nodes/common/cvedix_src_node.h"
+#include "../../nodes/common/cvedix_des_node.h"
 #include "../../objects/shapes/cvedix_rect.h"
 #include "../cvedix_utils.h"
 

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "cvedix_src_node.h"
+#include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // app src node, receive image data from external host code.

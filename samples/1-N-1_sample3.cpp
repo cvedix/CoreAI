@@ -1,12 +1,12 @@
-#include "../nodes/cvedix_file_src_node.h"
+#include "../nodes/src/cvedix_file_src_node.h"
 #include "../nodes/infers/cvedix_trt_vehicle_detector.h"
 #include "../nodes/infers/cvedix_trt_vehicle_color_classifier.h"
 #include "../nodes/infers/cvedix_trt_vehicle_plate_detector_v2.h"
 #include "../nodes/track/cvedix_sort_track_node.h"
-#include "../nodes/cvedix_sync_node.h"
-#include "../nodes/cvedix_split_node.h"
+#include "../nodes/mid/cvedix_sync_node.h"
+#include "../nodes/mid/cvedix_split_node.h"
 #include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/cvedix_screen_des_node.h"
+#include "../nodes/des/cvedix_screen_des_node.h"
 #include "../utils/analysis_board/cvedix_analysis_board.h"
 
 /*
