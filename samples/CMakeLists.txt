@@ -54,11 +54,16 @@ target_link_libraries(openpose_sample ${PROJECT_NAME})
 add_executable(record_sample "record_sample.cpp")
 target_link_libraries(record_sample ${PROJECT_NAME})
 
-add_executable(rtsp_des_sample "rtsp_des_sample.cpp")
-target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
+# RTSP samples - only build if RTSP server is available
+if(CVEDIX_WITH_RTSP_SERVER)
+    add_executable(rtsp_des_sample "rtsp_des_sample.cpp")
+    target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
 
-add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
-target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
+    add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
+    target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
+else()
+    message(STATUS "Skipping RTSP samples - RTSP server not available")
+endif()
 
 add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
 target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})

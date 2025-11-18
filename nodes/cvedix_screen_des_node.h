@@ -13,8 +13,10 @@ namespace cvedix_nodes {
     {
     private:
         /* data */
-        std::string gst_template = "appsrc ! videoconvert ! videoscale ! textoverlay text=%s halignment=left valignment=top font-desc='Sans,16' shaded-background=true ! timeoverlay halignment=right valignment=top font-desc='Sans,16' shaded-background=true ! queue ! fpsdisplaysink video-sink=ximagesink sync=false";
+        const std::string base_gst_template = "appsrc ! videoconvert ! videoscale ! textoverlay text=%s halignment=left valignment=top font-desc='Sans,16' shaded-background=true ! timeoverlay halignment=right valignment=top font-desc='Sans,16' shaded-background=true ! queue ! %s";
+        std::string gst_template;
         cv::VideoWriter screen_writer;
+        std::string select_screen_sink(std::string node_name);
     protected:
         // re-implementation, return nullptr.
         virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override; 

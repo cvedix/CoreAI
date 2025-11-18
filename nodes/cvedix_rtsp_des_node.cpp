@@ -2,6 +2,7 @@
 
 #include "cvedix_rtsp_des_node.h"
 
+#ifdef CVEDIX_WITH_RTSP_SERVER
 
 namespace cvedix_nodes {
         
@@ -93,3 +94,5 @@ namespace cvedix_nodes {
         return "rtsp://localhost:" + std::to_string(rtsp_port) + "/" + rtsp_name;
     }
 }
+
+#endif // CVEDIX_WITH_RTSP_SERVER

@@ -64,6 +64,10 @@ namespace cvedix_utils {
         const int node_queue_port_padding = 8;
         const int node_gap_horizontal = 40;
         const int node_gap_vertical = 10;
+
+        // Brand text configuration
+        const std::string brand_text = "CVEDIX Instance Pipeline";
+        const int brand_text_padding = 5;  // Padding from left edge
     public:
         cvedix_node_on_screen(std::shared_ptr<cvedix_nodes::cvedix_node> original_node, cvedix_objects::cvedix_rect node_rect, int layer);
         ~cvedix_node_on_screen();

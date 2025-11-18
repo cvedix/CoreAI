@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef CVEDIX_WITH_RTSP_SERVER
 #include <gst/gst.h>
 #include <gst/rtsp-server/rtsp-server.h>
 #include "cvedix_des_node.h"
@@ -59,3 +60,5 @@ namespace cvedix_nodes {
          virtual std::string to_string() override;
     };
 }
+
+#endif // CVEDIX_WITH_RTSP_SERVER
