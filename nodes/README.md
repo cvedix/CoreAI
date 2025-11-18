@@ -1,155 +1,157 @@
+## Lưu ý quan trọng khi sử dụng node ##
+Hầu hết các node hỗ trợ đa kênh (multi-channel), có nghĩa là nhiều kênh dữ liệu có thể được sử dụng làm đầu vào. Ngoài ra, một số node không hỗ trợ đa kênh theo mặc định, tức là chỉ có thể có một kênh dữ liệu làm đầu vào (chỉ số kênh đầu vào không thể thay đổi sau khi đã được xác định), nếu không sẽ xảy ra lỗi. Dưới đây là các ví dụ phổ biến:
 
-## important tips when using node ##
-Most nodes support multi-channel, which means that multiple channels of data can be used as its input. In addition, some nodes do not support multi-channel by default, that is, there can only be one channel of data as its input (the input channel index cannot be changed once it is determined), otherwise an error will occur. The following are common examples:
+*hỗ trợ đa kênh*
+- tất cả các node infer, broker node, vì chúng hoạt động độc lập với chỉ số kênh.
+- split node, nó cũng hoạt động độc lập với chỉ số kênh. Nó có thể được sử dụng để chia pipeline thành nhiều nhánh theo chỉ số kênh khác nhau.
+- một số node đã được thiết kế để hỗ trợ đa kênh, chẳng hạn như record node, track node, ba node, chúng có thể phân biệt các kênh khác nhau trong mã logic (`chẳng hạn như sử dụng std::map<int, ...> để duy trì dữ liệu khác nhau của các kênh`).
 
-*support multi-channel*
-- all infer nodes, broker nodes, because they work independently of the channel index.
-- split node, it works independently of channel index too. it could be used to split pipeline into multi branches accordding to different channel index.
-- some nodes which has been designed to support multi-channel, such as record nodes, track nodes, ba nodes, which are able to distinguish different channels inside logic code (`such as using std::map<int, ...> to maintain different data of channels`).
+*không hỗ trợ đa kênh*
+- tất cả src node và tất cả des node, bạn PHẢI chỉ định chỉ số kênh khi khởi tạo instance của chúng.
+- một phần của osd node, vì chúng hoạt động phụ thuộc vào chỉ số kênh, bạn có thể thực hiện một số công việc để chúng hỗ trợ đa kênh, ví dụ chỉ cần sử dụng một số cấu trúc dữ liệu như `std::map<int, ...>` để duy trì dữ liệu khác nhau của các kênh trong mã của node.
 
-*do NOT support multi-channel*
-- all src node and all des node, you MUST specify channel index when initializing instances of them.
-- part of osd nodes, because they work dependently of channel index, you can do some work to let them support multi-channel, for example just use some data structure like `std::map<int, ...>` to maintain different data of channels inside code of nodes.
-
-
-Note, although some nodes support multi-channel, you'd better be careful because using single instance of node to deal with multiple channels of data would have lower performance(process data serially
-). On the contrary, one instance dealing with only one channel of data (multiple channels use multiple instances of the SAME node) have higher performance(process data in parallel). below is an example of 2 methods to create pipeline:
+Lưu ý, mặc dù một số node hỗ trợ đa kênh, bạn nên cẩn thận vì việc sử dụng một instance duy nhất của node để xử lý nhiều kênh dữ liệu sẽ có hiệu suất thấp hơn (xử lý dữ liệu tuần tự). Ngược lại, một instance chỉ xử lý một kênh dữ liệu (nhiều kênh sử dụng nhiều instance của CÙNG node) có hiệu suất cao hơn (xử lý dữ liệu song song). Dưới đây là ví dụ về 2 phương pháp tạo pipeline:
 ```
-single instance of track/ba node works on 2 channels：
+một instance của track/ba node hoạt động trên 2 kênh：
 file_src_0                                                                                             --> osd_0 --> screen_des_0
            --> detector --> multi-classifiers --> tracker --> ba_crossline --> split(by channel index)
 file_src_1                                                                                             --> osd_1 --> screen_des_1 
 
-2 instances of track/ba node work on 2 channels:
+2 instance của track/ba node hoạt động trên 2 kênh:
 file_src_0                                                                --> tracker_0 --> ba_crossline_0 --> osd_0 --> screen_des_0
            --> detector --> multi-classifiers --> split(by channel index) 
 file_src_1                                                                --> tracker_0 --> ba_crossline_0 --> osd_1 --> screen_des_1 
 ```
 
-## 目录结构（2025 重构后）
+## Cấu trúc thư mục (Tái cấu trúc năm 2025)
 
-- `common/`：所有节点共用的基类与 hook（`cvedix_node/src/des_node`、meta publisher/subscriber、`frame_utils` 等）。
-- `src/`：所有原始节点实现（`cvedix_file_src_node`、`cvedix_rtsp_src_node`、`cvedix_app_src_node`…）。
-- `des/`：所有输出节点实现（`cvedix_screen_des_node`、`cvedix_file_des_node`、`cvedix_rtmp_des_node`…）。
-- `mid/`：中间处理节点（`split`、`sync`、`message_broker`、`placeholder`、`skip`）。
-- `infers/base/`：推理基类（`cvedix_infer_node`、`primary`、`secondary`），供 `nodes/infers/*` 具体模型复用。
+- `common/`：Các lớp cơ sở và hook dùng chung cho tất cả các node（`cvedix_node/src/des_node`、meta publisher/subscriber、`frame_utils` 等）。
+  - 📖 [Tài liệu chi tiết](common/README.md)
+- `src/`：Tất cả các implementation của source node（`cvedix_file_src_node`、`cvedix_rtsp_src_node`、`cvedix_app_src_node`…）。
+  - 📖 [Tài liệu chi tiết](src/README.md)
+- `des/`：Tất cả các implementation của destination node（`cvedix_screen_des_node`、`cvedix_file_des_node`、`cvedix_rtmp_des_node`…）。
+  - 📖 [Tài liệu chi tiết](des/README.md)
+- `mid/`：Các node xử lý trung gian（`split`、`sync`、`message_broker`、`placeholder`、`skip`）。
+  - 📖 [Tài liệu chi tiết](mid/README.md)
+- `infers/base/`：Các lớp cơ sở cho inference（`cvedix_infer_node`、`primary`、`secondary`），để các model cụ thể trong `nodes/infers/*` tái sử dụng。
+  - 📖 [Tài liệu chi tiết](infers/base/README.md)
 
-`nodes/common/frame_utils.h` 还提供了 `utils::prepare_output_frame` 等辅助函数，用于在各种 des 节点里统一处理 “OSD/原图 + 可选缩放” 的常见逻辑。
+`nodes/common/frame_utils.h` còn cung cấp các hàm tiện ích như `utils::prepare_output_frame`，được sử dụng để xử lý thống nhất logic phổ biến "OSD/ảnh gốc + tùy chọn resize" trong các des node。
 
 
-## 节点目录 ##
+## Danh mục node ##
 
 <details open>
   <summary>ba</summary>
 
-  - cvedix_ba_crossline_node：跨线判断
-  - cvedix_ba_jam_node：拥堵判断
-  - cvedix_ba_stop_node：停止判断
+  - cvedix_ba_crossline_node：Phát hiện vượt đường
+  - cvedix_ba_jam_node：Phát hiện tắc đường
+  - cvedix_ba_stop_node：Phát hiện dừng lại
 </details>
 
 <details open>
   <summary>broker</summary>
   
-  - cvedix_ba_socket_broker_node：使用udp转发行为分析结果
-  - cvedix_embeddings_properties_socket_broker_node：使用udp转发目标特征、属性结果
-  - cvedix_embeddings_socket_broker_node：使用udp转发目标特征结果
-  - cvedix_expr_socket_broker_node：使用udp转发数学表达式检查结果
-  - cvedix_json_console_broker_node：以json格式将结构化数据输出到控制台
-  - cvedix_json_kafka_broker_node：以json格式将结构化数据通过kafka发送给第三方
-  - cvedix_msg_broker_node：数据代理基类节点
-  - cvedix_plate_socket_broker_node：使用udp转发车牌识别结果
-  - cvedix_xml_file_broker_node：以xml格式将结构化数据存储到文件
-  - cvedix_xml_socket_broker_node：以xml格式将结构化数据通过udp发送给第三方
+  - cvedix_ba_socket_broker_node：Chuyển tiếp kết quả phân tích hành vi bằng udp
+  - cvedix_embeddings_properties_socket_broker_node：Chuyển tiếp kết quả đặc trưng và thuộc tính đối tượng bằng udp
+  - cvedix_embeddings_socket_broker_node：Chuyển tiếp kết quả đặc trưng đối tượng bằng udp
+  - cvedix_expr_socket_broker_node：Chuyển tiếp kết quả kiểm tra biểu thức toán học bằng udp
+  - cvedix_json_console_broker_node：Xuất dữ liệu có cấu trúc ra console ở định dạng json
+  - cvedix_json_kafka_broker_node：Gửi dữ liệu có cấu trúc đến bên thứ ba qua kafka ở định dạng json
+  - cvedix_msg_broker_node：Node lớp cơ sở cho data broker
+  - cvedix_plate_socket_broker_node：Chuyển tiếp kết quả nhận dạng biển số bằng udp
+  - cvedix_xml_file_broker_node：Lưu trữ dữ liệu có cấu trúc vào file ở định dạng xml
+  - cvedix_xml_socket_broker_node：Gửi dữ liệu có cấu trúc đến bên thứ ba qua udp ở định dạng xml
 </details>
 
 <details open>
   <summary>infers</summary>
   
-  - cvedix_classifier_node：基于resnet系列的图像分类节点（opencv::dnn）
-  - cvedix_enet_seg_node：基于ENet网络的图像分割节点（opencv::dnn）
-  - cvedix_face_swap_node：基于insightface的人脸替换节点（opencv::dnn）
-  - cvedix_feature_encoder_node：基于resnet系列的目标特征提取节点（opencv::dnn）
-  - cvedix_lane_detector_node：基于CenterNet的车道线检测节点（opencv::dnn）
-  - cvedix_mask_rcnn_detector_node：基于maskrcnn的目标检测节点（opencv::dnn）
-  - cvedix_openpose_detector_node：基于openpose的肢体检测节点（opencv::dnn）
-  - cvedix_ppocr_text_detector_node：基于paddleocr的文字检测节点（paddleinference）
-  - cvedix_restoration_node：基于real-esrgan的图像增强修复节点（opencv::dnn）
-  - cvedix_sface_feature_encoder_node：基于sface网络的人脸特征提取节点（opencv::dnn）
-  - cvedix_trt_vehicle_color_classifier：基于resnet18的车辆颜色分类节点（tensorrt）
-  - cvedix_trt_vehicle_detector：基于yolov5s的车辆检测节点（tensorrt）
-  - cvedix_trt_vehicle_feature_encoder：基于fastreid的车辆特征提取节点（tensorrt）
-  - cvedix_trt_vehicle_plate_detector_v2：基于yolov5s的车牌检测识别节点（一级推理）（tensorrt）
-  - cvedix_trt_vehicle_plate_detector：基于yolov5s的车牌检测识别节点（二级推理）（tensorrt）
-  - cvedix_trt_vehicle_scanner：基于yolov5s的车身扫描节点（tensorrt）
-  - cvedix_trt_vehicle_type_classifier：基于resnet18的车辆车型分类节点（tensorrt）
-  - cvedix_yolo_detector_node：基于yolov3（含tiny）的目标检测节点（opencv::dnn）
-  - yolo_yunet_face_detector_node：基于yunet网络的人脸检测节点（opencv::dnn）
+  - cvedix_classifier_node：Node phân loại hình ảnh dựa trên resnet series（opencv::dnn）
+  - cvedix_enet_seg_node：Node phân đoạn hình ảnh dựa trên mạng ENet（opencv::dnn）
+  - cvedix_face_swap_node：Node thay thế khuôn mặt dựa trên insightface（opencv::dnn）
+  - cvedix_feature_encoder_node：Node trích xuất đặc trưng đối tượng dựa trên resnet series（opencv::dnn）
+  - cvedix_lane_detector_node：Node phát hiện làn đường dựa trên CenterNet（opencv::dnn）
+  - cvedix_mask_rcnn_detector_node：Node phát hiện đối tượng dựa trên maskrcnn（opencv::dnn）
+  - cvedix_openpose_detector_node：Node phát hiện tư thế cơ thể dựa trên openpose（opencv::dnn）
+  - cvedix_ppocr_text_detector_node：Node phát hiện văn bản dựa trên paddleocr（paddleinference）
+  - cvedix_restoration_node：Node nâng cấp và khôi phục hình ảnh dựa trên real-esrgan（opencv::dnn）
+  - cvedix_sface_feature_encoder_node：Node trích xuất đặc trưng khuôn mặt dựa trên mạng sface（opencv::dnn）
+  - cvedix_trt_vehicle_color_classifier：Node phân loại màu xe dựa trên resnet18（tensorrt）
+  - cvedix_trt_vehicle_detector：Node phát hiện xe dựa trên yolov5s（tensorrt）
+  - cvedix_trt_vehicle_feature_encoder：Node trích xuất đặc trưng xe dựa trên fastreid（tensorrt）
+  - cvedix_trt_vehicle_plate_detector_v2：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（một cấp suy luận）（tensorrt）
+  - cvedix_trt_vehicle_plate_detector：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（hai cấp suy luận）（tensorrt）
+  - cvedix_trt_vehicle_scanner：Node quét thân xe dựa trên yolov5s（tensorrt）
+  - cvedix_trt_vehicle_type_classifier：Node phân loại loại xe dựa trên resnet18（tensorrt）
+  - cvedix_yolo_detector_node：Node phát hiện đối tượng dựa trên yolov3（bao gồm tiny）（opencv::dnn）
+  - yolo_yunet_face_detector_node：Node phát hiện khuôn mặt dựa trên mạng yunet（opencv::dnn）
 
 </details>
 
 <details open>
   <summary>osd</summary>
   
-  - cvedix_ba_crossline_osd_node：跨线判断结果绘制节点
-  - cvedix_ba_jam_osd_node：拥堵判断结果绘制节点
-  - cvedix_ba_stop_osd_node：停止判断结果绘制节点
-  - cvedix_cluster_node：目标聚类结果绘制节点
-  - cvedix_expr_osd_node：数学表达式检查结果绘制节点
-  - cvedix_face_osd_node_v2：人脸检测结果绘制节点（含相似度显示）
-  - cvedix_face_osd_node：人脸检测结果绘制节点
-  - cvedix_lane_osd_node：车道线检测结果绘制节点
-  - cvedix_osd_node_v2：目标绘制节点（含子目标）
-  - cvedix_osd_node_v3：目标绘制节点（含目标mask）
-  - cvedix_osd_node：目标绘制节点
-  - cvedix_plate_osd_node：车牌检测识别结果绘制节点
-  - cvedix_pose_osd_node：肢体检测结果绘制节点
-  - cvedix_seg_osd_node：图像分割结果绘制节点
-  - cvedix_text_osd_node：文字检测识别结果绘制节点
+  - cvedix_ba_crossline_osd_node：Node vẽ kết quả phát hiện vượt đường
+  - cvedix_ba_jam_osd_node：Node vẽ kết quả phát hiện tắc đường
+  - cvedix_ba_stop_osd_node：Node vẽ kết quả phát hiện dừng lại
+  - cvedix_cluster_node：Node vẽ kết quả phân cụm đối tượng
+  - cvedix_expr_osd_node：Node vẽ kết quả kiểm tra biểu thức toán học
+  - cvedix_face_osd_node_v2：Node vẽ kết quả phát hiện khuôn mặt（bao gồm hiển thị độ tương đồng）
+  - cvedix_face_osd_node：Node vẽ kết quả phát hiện khuôn mặt
+  - cvedix_lane_osd_node：Node vẽ kết quả phát hiện làn đường
+  - cvedix_osd_node_v2：Node vẽ đối tượng（bao gồm đối tượng con）
+  - cvedix_osd_node_v3：Node vẽ đối tượng（bao gồm mask đối tượng）
+  - cvedix_osd_node：Node vẽ đối tượng
+  - cvedix_plate_osd_node：Node vẽ kết quả phát hiện và nhận dạng biển số
+  - cvedix_pose_osd_node：Node vẽ kết quả phát hiện tư thế cơ thể
+  - cvedix_seg_osd_node：Node vẽ kết quả phân đoạn hình ảnh
+  - cvedix_text_osd_node：Node vẽ kết quả phát hiện và nhận dạng văn bản
 </details>
 
 <details open>
   <summary>proc</summary>
   
-  - cvedix_expr_check_node：数学等式准确性判断节点
-  - cvedix_frame_fusion_node：视频帧按像素比融合节点（支持2个通道）
+  - cvedix_expr_check_node：Node kiểm tra độ chính xác của phương trình toán học
+  - cvedix_frame_fusion_node：Node hợp nhất khung hình video theo tỷ lệ pixel（hỗ trợ 2 kênh）
 </details>
 
 <details open>
   <summary>record</summary>
   
-  - cvedix_record_node：视频/图片录制节点
+  - cvedix_record_node：Node ghi video/hình ảnh
 </details>
 
 <details open>
   <summary>track</summary>
   
-  - cvedix_dsort_track_node：基于deepsort的跟踪节点
-  - cvedix_sort_track_node：基于sort的跟踪节点
+  - cvedix_dsort_track_node：Node theo dõi dựa trên deepsort
+  - cvedix_sort_track_node：Node theo dõi dựa trên sort
 </details>
 
 <details open>
   <summary>common</summary>
   
-  - cvedix_app_des_node：将图片数据推送给application的目标节点
-  - cvedix_app_src_node：从application接收图片数据的原始节点
-  - cvedix_des_node：所有目标节点基类
-  - cvedix_fake_des_node：虚拟目标节点（不做任何事）
-  - cvedix_file_des_node：将视频数据存入文件的目标节点
-  - cvedix_file_src_node：从文件读取视频数据的原始节点
-  - cvedix_image_des_node：将数据以图片的形式发送给socket或者file的目标节点
-  - cvedix_image_src_node：从file或者socket读取图片数据的原始节点
-  - cvedix_infer_node：所有推理节点基类
-  - cvedix_message_broker_node：所有数据代理节点基类
-  - cvedix_node：所有节点基类
-  - cvedix_placeholder_node：虚拟中间节点（不做任何事）
-  - cvedix_primary_infer_node：所有一级推理节点基类
-  - cvedix_rtmp_des_node：将视频数据以rtmp格式推送到rtmp服务器的目标节点
-  - cvedix_rtsp_des_node：将视频数据以rtsp格式推送（无需rtsp服务器）的目标节点
-  - cvedix_rtsp_src_node：以rtsp格式读取网络流的原始节点
-  - cvedix_screen_des_node：将视频/图片显示到屏幕的目标节点
-  - cvedix_secondary_infer_node：所有二级推理节点基类
-  - cvedix_split_node：管道拆分节点
-  - cvedix_src_node：所有原始节点基类
-  - cvedix_sync_node：管道分支同步节点
-  - cvedix_udp_src_node：以udp格式读取网络流的原始节点
+  - cvedix_app_des_node：Node đích đẩy dữ liệu hình ảnh đến application
+  - cvedix_app_src_node：Node nguồn nhận dữ liệu hình ảnh từ application
+  - cvedix_des_node：Lớp cơ sở cho tất cả các node đích
+  - cvedix_fake_des_node：Node đích ảo（không làm gì cả）
+  - cvedix_file_des_node：Node đích lưu dữ liệu video vào file
+  - cvedix_file_src_node：Node nguồn đọc dữ liệu video từ file
+  - cvedix_image_des_node：Node đích gửi dữ liệu dưới dạng hình ảnh đến socket hoặc file
+  - cvedix_image_src_node：Node nguồn đọc dữ liệu hình ảnh từ file hoặc socket
+  - cvedix_infer_node：Lớp cơ sở cho tất cả các node inference
+  - cvedix_message_broker_node：Lớp cơ sở cho tất cả các node data broker
+  - cvedix_node：Lớp cơ sở cho tất cả các node
+  - cvedix_placeholder_node：Node trung gian ảo（không làm gì cả）
+  - cvedix_primary_infer_node：Lớp cơ sở cho tất cả các node inference cấp một
+  - cvedix_rtmp_des_node：Node đích đẩy dữ liệu video đến rtmp server ở định dạng rtmp
+  - cvedix_rtsp_des_node：Node đích đẩy dữ liệu video ở định dạng rtsp（không cần rtsp server）
+  - cvedix_rtsp_src_node：Node nguồn đọc stream mạng ở định dạng rtsp
+  - cvedix_screen_des_node：Node đích hiển thị video/hình ảnh lên màn hình
+  - cvedix_secondary_infer_node：Lớp cơ sở cho tất cả các node inference cấp hai
+  - cvedix_split_node：Node chia tách pipeline
+  - cvedix_src_node：Lớp cơ sở cho tất cả các node nguồn
+  - cvedix_sync_node：Node đồng bộ các nhánh pipeline
+  - cvedix_udp_src_node：Node nguồn đọc stream mạng ở định dạng udp
 </details>
