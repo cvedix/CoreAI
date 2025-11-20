@@ -33,6 +33,27 @@ message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+# OpenCV contrib freetype module (for Chinese font support)
+find_path(OPENCV_FREETYPE_INCLUDE_DIR
+    NAMES opencv2/freetype.hpp
+    PATHS /home/ubuntu/opencv_contrib/modules/freetype/include
+          /usr/local/include
+          /usr/include
+    NO_DEFAULT_PATH
+)
+if(OPENCV_FREETYPE_INCLUDE_DIR)
+    message(STATUS "OpenCV freetype module found: ${OPENCV_FREETYPE_INCLUDE_DIR}")
+    include_directories(${OPENCV_FREETYPE_INCLUDE_DIR})
+else()
+    find_path(OPENCV_FREETYPE_INCLUDE_DIR NAMES opencv2/freetype.hpp)
+    if(OPENCV_FREETYPE_INCLUDE_DIR)
+        message(STATUS "OpenCV freetype module found: ${OPENCV_FREETYPE_INCLUDE_DIR}")
+        include_directories(${OPENCV_FREETYPE_INCLUDE_DIR})
+    else()
+        message(WARNING "OpenCV freetype module not found. Some OSD nodes may not compile correctly.")
+    endif()
+endif()
+
 # Gstreamer required
 include(FindPkgConfig)
 pkg_check_modules(GST   REQUIRED gstreamer-1.0)

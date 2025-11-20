@@ -3,6 +3,7 @@
 #pragma once
 #include <sstream>
 #include <opencv2/dnn.hpp>
+#include <opencv2/core.hpp>
 #include "../../common/cvedix_node.h"
 
 namespace cvedix_nodes {

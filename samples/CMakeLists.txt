@@ -61,6 +61,9 @@ if(CVEDIX_WITH_RTSP_SERVER)
 
     add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
     target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
+
+    add_executable(rtsp_ba_crossline_sample "rtsp_ba_crossline_sample.cpp")
+    target_link_libraries(rtsp_ba_crossline_sample ${PROJECT_NAME})
 else()
     message(STATUS "Skipping RTSP samples - RTSP server not available")
 endif()
