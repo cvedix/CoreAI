@@ -1,0 +1,17 @@
+CVEDIX Instance Pipeline SDK
+============================
+Version: 1.0
+Build Type: Release
+Install Prefix: /home/ubuntu/instance_pipeline/output
+
+Features Enabled:
+- CUDA: OFF
+- TensorRT: OFF
+- PaddlePaddle: OFF
+- Kafka: OFF
+- LLM: OFF
+- FFmpeg: OFF
+- RKNN: OFF
+- RGA: OFF
+
+Installation Date: Thu Nov 20 12:00:49 UTC 2025

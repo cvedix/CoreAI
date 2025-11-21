@@ -1,10 +1,10 @@
-#include "../nodes/src/cvedix_image_src_node.h"
-#include "../nodes/infers/cvedix_trt_vehicle_scanner.h"
-#include "../nodes/infers/cvedix_trt_vehicle_plate_detector_v2.h"
-#include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/osd/cvedix_plate_osd_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/nodes/src/cvedix_image_src_node.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_scanner.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_plate_osd_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## body_scan_and_plate_detect_sample ##

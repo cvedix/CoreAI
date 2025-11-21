@@ -1,7 +1,7 @@
 
 #include <opencv2/imgproc.hpp>
 #include "cvedix_expr_osd_node.h"
-#include "../../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 
 namespace cvedix_nodes {

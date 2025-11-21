@@ -1,6 +1,6 @@
 
 #include "cvedix_face_osd_node_v2.h"
-#include "../../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 namespace cvedix_nodes {
         

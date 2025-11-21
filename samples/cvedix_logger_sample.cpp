@@ -1,5 +1,5 @@
-#include "../utils/cvedix_utils.h"
-#include "../utils/logger/cvedix_logger.h"
+#include "cvedix/utils/cvedix_utils.h"
+#include "cvedix/utils/logger/cvedix_logger.h"
 
 #include <iostream>
 #include <chrono>

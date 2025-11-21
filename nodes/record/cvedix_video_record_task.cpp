@@ -1,6 +1,6 @@
 
 #include "cvedix_video_record_task.h"
-#include "../../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 namespace cvedix_nodes {
     cvedix_video_record_task::cvedix_video_record_task(int channel_index, 

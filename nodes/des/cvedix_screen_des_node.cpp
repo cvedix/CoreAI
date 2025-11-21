@@ -1,7 +1,7 @@
 
 #include "cvedix_screen_des_node.h"
 #include "../common/frame_utils.h"
-#include "../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 #include <cstdlib>
 #include <cstring>

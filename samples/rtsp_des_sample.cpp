@@ -1,11 +1,11 @@
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/infers/cvedix_yolo_detector_node.h"
-#include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/mid/cvedix_split_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_rtsp_des_node.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/des/cvedix_rtsp_des_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## rtsp_des_sample ##

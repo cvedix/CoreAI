@@ -1,10 +1,10 @@
-#include "../nodes/src/cvedix_image_src_node.h"
-#include "../nodes/infers/cvedix_mllm_analyser_node.h"
-#include "../nodes/osd/cvedix_mllm_osd_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_rtmp_des_node.h"
+#include "cvedix/nodes/src/cvedix_image_src_node.h"
+#include "cvedix/nodes/infers/cvedix_mllm_analyser_node.h"
+#include "cvedix/nodes/osd/cvedix_mllm_osd_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## mllm_analyse_sample ##

@@ -1,0 +1,17 @@
+#pragma once
+
+#include <string>
+#include "../common/cvedix_node.h"
+
+namespace cvedix_nodes {
+    class cvedix_lane_osd_node: public cvedix_node
+    {
+    private:
+        /* data */
+    protected:
+        virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
+    public:
+        cvedix_lane_osd_node(std::string node_name);
+        ~cvedix_lane_osd_node();
+    };
+}

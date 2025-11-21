@@ -6,7 +6,9 @@
 ]]
 
 cmake_minimum_required(VERSION 3.10)
-project(video_pipe VERSION 1.0)
+project(cvedix_instance_sdk VERSION 1.0)
+
+include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
@@ -238,7 +240,12 @@ endif()
 # tinyexpr
 message("-------------start build tinyexpr--------------")
 add_subdirectory(third_party/tinyexpr)
-list(APPEND CVEDIX_DEPEND_LIBS tinyexpr)
+# list(APPEND CVEDIX_DEPEND_LIBS tinyexpr) # Linked PRIVATE later
+install(TARGETS tinyexpr EXPORT cvedix-targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 message("--------------end build tinyexpr---------------")
 
 message("-------------collect version info--------------")
@@ -287,7 +294,105 @@ list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 
 # build for videopipe
 add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
-target_link_libraries(${PROJECT_NAME} ${CVEDIX_DEPEND_LIBS})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${CVEDIX_DEPEND_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE tinyexpr)
+
+# Create a cvedix directory structure in build directory for build-time includes
+# This allows headers to use "cvedix/..." paths both when building from source and when installed
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/cvedix)
+# Create symlinks for nodes, objects, utils, excepts in build directory
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/nodes
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/nodes ${CMAKE_BINARY_DIR}/cvedix/nodes
+    COMMENT "Creating cvedix/nodes symlink"
+)
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/objects
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/objects ${CMAKE_BINARY_DIR}/cvedix/objects
+    COMMENT "Creating cvedix/objects symlink"
+)
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/utils
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/utils ${CMAKE_BINARY_DIR}/cvedix/utils
+    COMMENT "Creating cvedix/utils symlink"
+)
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/excepts
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/excepts ${CMAKE_BINARY_DIR}/cvedix/excepts
+    COMMENT "Creating cvedix/excepts symlink"
+)
+# Create a custom target to ensure symlinks are created before building
+add_custom_target(cvedix_symlinks
+    DEPENDS ${CMAKE_BINARY_DIR}/cvedix/nodes
+            ${CMAKE_BINARY_DIR}/cvedix/objects
+            ${CMAKE_BINARY_DIR}/cvedix/utils
+            ${CMAKE_BINARY_DIR}/cvedix/excepts
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+
+# Ensure symlinks are created before building the library
+add_dependencies(${PROJECT_NAME} cvedix_symlinks)
+
+# Installation
+install(TARGETS ${PROJECT_NAME} EXPORT cvedix-targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+)
+
+install(DIRECTORY nodes objects utils excepts
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+    FILES_MATCHING PATTERN "*.h"
+)
+
+install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+)
+
+# Export targets
+install(EXPORT cvedix-targets
+    FILE cvedix-targets.cmake
+    NAMESPACE cvedix::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+)
+
+# Config files
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config-version.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cvedix-config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config-version.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+)
+
+# Install pkg-config file
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cvedix.pc.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix.pc"
+    @ONLY
+)
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/cvedix.pc"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+)
 
 # build for samples
 add_subdirectory(samples)

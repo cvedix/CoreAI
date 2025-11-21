@@ -157,6 +157,45 @@ namespace cvedix_nodes {
         }
     }
 
+    // Helper function to transpose NCHW -> NHWC (replacement for cv::transposeND in OpenCV < 4.8)
+    static void transposeNCHWtoNHWC(const cv::Mat& src, cv::Mat& dst) {
+        // src: [N, C, H, W] -> dst: [N, H, W, C]
+        if (src.dims != 4) {
+            dst = src.clone();
+            return;
+        }
+        
+        int n = src.size[0];
+        int c = src.size[1];
+        int h = src.size[2];
+        int w = src.size[3];
+        
+        // Create output with shape [N, H, W, C]
+        std::vector<int> new_shape = {n, h, w, c};
+        dst = cv::Mat(4, new_shape.data(), src.type());
+        
+        // Copy data with permutation
+        const float* src_data = (const float*)src.data;
+        float* dst_data = (float*)dst.data;
+        
+        int src_step_c = h * w;
+        int src_step_h = w;
+        int dst_step_h = w * c;
+        int dst_step_w = c;
+        
+        for (int ni = 0; ni < n; ni++) {
+            for (int hi = 0; hi < h; hi++) {
+                for (int wi = 0; wi < w; wi++) {
+                    for (int ci = 0; ci < c; ci++) {
+                        int src_idx = ni * (c * h * w) + ci * (h * w) + hi * w + wi;
+                        int dst_idx = ni * (h * w * c) + hi * (w * c) + wi * c + ci;
+                        dst_data[dst_idx] = src_data[src_idx];
+                    }
+                }
+            }
+        }
+    }
+
     // default implementation
     // create a 4D matrix(n, c, h, w)
     void cvedix_infer_node::preprocess(const std::vector<cv::Mat>& mats_to_infer, cv::Mat& blob_to_infer) {
@@ -168,7 +207,7 @@ namespace cvedix_nodes {
         // NCHW -> NHWC
         if (swap_chn) {
             cv::Mat blob_to_infer_tmp;
-            cv::transposeND(blob_to_infer, {0, 2, 3, 1}, blob_to_infer_tmp);
+            transposeNCHWtoNHWC(blob_to_infer, blob_to_infer_tmp);
             blob_to_infer_tmp.copyTo(blob_to_infer);
         }
     }

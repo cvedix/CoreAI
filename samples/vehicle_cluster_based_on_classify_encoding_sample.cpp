@@ -1,16 +1,16 @@
-#include "../nodes/src/cvedix_image_src_node.h"
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/infers/cvedix_trt_vehicle_detector.h"
-#include "../nodes/infers/cvedix_trt_vehicle_color_classifier.h"
-#include "../nodes/infers/cvedix_trt_vehicle_type_classifier.h"
-#include "../nodes/infers/cvedix_trt_vehicle_feature_encoder.h"
-#include "../nodes/track/cvedix_sort_track_node.h"
-#include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/osd/cvedix_cluster_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_fake_des_node.h"
+#include "cvedix/nodes/src/cvedix_image_src_node.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_detector.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_color_classifier.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_type_classifier.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_feature_encoder.h"
+#include "cvedix/nodes/track/cvedix_sort_track_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_cluster_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/des/cvedix_fake_des_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## vehicle_cluster_based_on_classify_encoding_sample ##

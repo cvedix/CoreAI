@@ -1,9 +1,9 @@
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/proc/cvedix_frame_fusion_node.h"
-#include "../nodes/mid/cvedix_split_node.h"
-#include "../nodes/mid/cvedix_placeholder_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/proc/cvedix_frame_fusion_node.h"
+#include "cvedix/nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/mid/cvedix_placeholder_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## frame_fusion_sample ##

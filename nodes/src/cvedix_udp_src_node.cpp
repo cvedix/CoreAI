@@ -1,7 +1,7 @@
 
 
 #include "cvedix_udp_src_node.h"
-#include "../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 namespace cvedix_nodes {
         
