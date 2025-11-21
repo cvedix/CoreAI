@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-#include "../utils/logger/cvedix_logger.h"
+#include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix_file_src_node.h"
 
 namespace cvedix_nodes {

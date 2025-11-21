@@ -1,12 +1,12 @@
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/infers/cvedix_yunet_face_detector_node.h"
-#include "../nodes/infers/cvedix_sface_feature_encoder_node.h"
-#include "../nodes/osd/cvedix_face_osd_node_v2.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_rtmp_des_node.h"
-#include "../nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_sface_feature_encoder_node.h"
+#include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
+#include "cvedix/nodes/mid/cvedix_split_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## interaction_with_pipe sample ##

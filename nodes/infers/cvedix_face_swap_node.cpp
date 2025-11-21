@@ -420,7 +420,27 @@ namespace cvedix_nodes {
 
         auto& output = target_outputs[0];
         cv::Mat output_channel_last;
-        cv::transposeND(output, {0,2,3,1}, output_channel_last);
+        // Helper function to transpose NCHW -> NHWC (replacement for cv::transposeND in OpenCV < 4.8)
+        if (output.dims == 4) {
+            int n = output.size[0], c = output.size[1], h = output.size[2], w = output.size[3];
+            std::vector<int> new_shape = {n, h, w, c};
+            output_channel_last = cv::Mat(4, new_shape.data(), output.type());
+            const float* src_data = (const float*)output.data;
+            float* dst_data = (float*)output_channel_last.data;
+            for (int ni = 0; ni < n; ni++) {
+                for (int hi = 0; hi < h; hi++) {
+                    for (int wi = 0; wi < w; wi++) {
+                        for (int ci = 0; ci < c; ci++) {
+                            int src_idx = ni * (c * h * w) + ci * (h * w) + hi * w + wi;
+                            int dst_idx = ni * (h * w * c) + hi * (w * c) + wi * c + ci;
+                            dst_data[dst_idx] = src_data[src_idx];
+                        }
+                    }
+                }
+            }
+        } else {
+            output_channel_last = output.clone();
+        }
 
         cv::Mat img_fake(output_channel_last.size[1], output_channel_last.size[2], CV_32FC3, output_channel_last.data);
         cv::cvtColor(img_fake, swapped_face, cv::COLOR_RGB2BGR);

@@ -1,17 +1,17 @@
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/src/cvedix_rtsp_src_node.h"
-#include "../nodes/src/cvedix_udp_src_node.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/src/cvedix_rtsp_src_node.h"
+#include "cvedix/nodes/src/cvedix_udp_src_node.h"
 
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_rtmp_des_node.h"
-#include "../nodes/des/cvedix_fake_des_node.h"
-#include "../nodes/des/cvedix_file_des_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
+#include "cvedix/nodes/des/cvedix_fake_des_node.h"
+#include "cvedix/nodes/des/cvedix_file_des_node.h"
 
-#include "../nodes/infers/cvedix_trt_vehicle_detector.h"
-#include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_detector.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/mid/cvedix_split_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## src des sample ##

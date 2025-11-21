@@ -1,7 +1,7 @@
 
 #ifdef CVEDIX_WITH_PADDLE
 #include "cvedix_ppocr_text_detector_node.h"
-#include "../../objects/cvedix_frame_text_target.h"
+#include "cvedix/objects/cvedix_frame_text_target.h"
 
 namespace cvedix_nodes {
         

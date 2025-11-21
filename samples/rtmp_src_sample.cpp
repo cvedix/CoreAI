@@ -1,11 +1,11 @@
-#include "../nodes/src/cvedix_rtmp_src_node.h"
-#include "../nodes/infers/cvedix_trt_vehicle_detector.h"
-#include "../nodes/osd/cvedix_osd_node.h"
-#include "../nodes/track/cvedix_sort_track_node.h"
-#include "../nodes/des/cvedix_rtmp_des_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/src/cvedix_rtmp_src_node.h"
+#include "cvedix/nodes/infers/cvedix_trt_vehicle_detector.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/track/cvedix_sort_track_node.h"
+#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## rtmp_src_sample ##

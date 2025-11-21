@@ -1,6 +1,6 @@
 #include <fstream>
 #include "cvedix_seg_osd_node.h"
-#include "../../utils/cvedix_utils.h"
+#include "cvedix/utils/cvedix_utils.h"
 
 namespace cvedix_nodes {
         

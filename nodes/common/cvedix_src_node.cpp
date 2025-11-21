@@ -1,9 +1,9 @@
 
 #include <memory>
 #include "cvedix_src_node.h"
-#include "../objects/cvedix_control_meta.h"
-#include "../objects/cvedix_image_record_control_meta.h"
-#include "../objects/cvedix_video_record_control_meta.h"
+#include "cvedix/objects/cvedix_control_meta.h"
+#include "cvedix/objects/cvedix_image_record_control_meta.h"
+#include "cvedix/objects/cvedix_video_record_control_meta.h"
 
 namespace cvedix_nodes {
     

@@ -1,7 +1,7 @@
 #ifdef CVEDIX_WITH_RKNN
 
 #include "cvedix_yolo_rknn_face_detector_node.h"
-#include "../../utils/logger/cvedix_logger.h"
+#include "cvedix/utils/logger/cvedix_logger.h"
 #include <algorithm>
 #include <cmath>
 

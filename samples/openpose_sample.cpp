@@ -1,9 +1,9 @@
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/infers/cvedix_openpose_detector_node.h"
-#include "../nodes/osd/cvedix_pose_osd_node.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
+#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/infers/cvedix_openpose_detector_node.h"
+#include "cvedix/nodes/osd/cvedix_pose_osd_node.h"
+#include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
-#include "../utils/analysis_board/cvedix_analysis_board.h"
+#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
 /*
 * ## openpose sample ##
