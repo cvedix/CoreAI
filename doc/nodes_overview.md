@@ -110,7 +110,7 @@ Khi mô tả “Input” bên dưới, mặc định node nhận `std::shared_pt
 - **cvedix_face_swap_node**
   - Mô tả: thay khuôn mặt bằng mẫu cho trước (InsightFace).
   - Input: ưu tiên `frame_meta->face_targets` có keypoints; nếu `act_as_primary_detector=true` sẽ tự phát hiện. Sử dụng `frame`/`osd_frame` để dán kết quả.
-- **cvedix_trt_vehicle_detector**, **cvedix_trt_vehicle_plate_detector_v2**, **cvedix_trt_vehicle_scanner**, **cvedix_trt_yolov8_detector**, **cvedix_trt_yolov8_pose_detector**, **cvedix_trt_yolov8_seg_detector**, **cvedix_yunet_face_detector_node**, **cvedix_yolo_rknn_face_detector_node**
+- **cvedix_trt_vehicle_detector**, **cvedix_trt_vehicle_plate_detector_v2**, **cvedix_trt_vehicle_scanner**, **cvedix_trt_yolov8_detector**, **cvedix_trt_yolov8_pose_detector**, **cvedix_trt_yolov8_seg_detector**, **cvedix_yunet_face_detector_node**, **cvedix_rknn_yolov8_detector_node**
   - Mô tả: họ node TensorRT/RKNN/ONNX phát hiện đối tượng, biển số, cơ thể, mặt…
   - Input: `frame_meta->frame`; trả kết quả vào `targets` hoặc `face_targets` tùy loại. Một số node yêu cầu GPU/NPU tương ứng, cần model path hợp lệ.
 

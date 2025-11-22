@@ -19,7 +19,7 @@ int main() {
 
     // create nodes
     // Using RTSP source from rtsp_src_sample.cpp
-    auto rtsp_src_0 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_0", 0, "rtsp://103.147.186.175:18554/9L02DA3PAJ39B2F", 0.6);
+    auto rtsp_src_0 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_0", 0, "rtsp://anhoidong.datacenter.cvedix.com:8554/live/camera_demo", 0.6);
     
     // Using YOLO detector and tracker from ba_crossline_sample.cpp
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
@@ -34,7 +34,7 @@ int main() {
     
     auto osd = std::make_shared<cvedix_nodes::cvedix_ba_crossline_osd_node>("osd");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
-    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://192.168.1.106:1935/live/camera_traffic_usa_ai");
+    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://anhoidong.datacenter.cvedix.com:1935/live/camera_traffic_usa_ai");
     
     // construct pipeline
     // Connect RTSP source to YOLO detector

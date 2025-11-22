@@ -24,6 +24,7 @@ namespace cvedix_utils {
         // Input/output memory
         std::vector<rknn_input> inputs;
         std::vector<rknn_output> outputs;
+        std::vector<cv::Mat> input_buffers;
         
         // Helper methods
         int load_model(const std::string& path);

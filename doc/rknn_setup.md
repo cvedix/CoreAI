@@ -190,7 +190,7 @@ make -j8
 
 ```bash
 # Kiểm tra sample đã được build
-ls build/bin/rknn_face_detector_sample
+ls build/bin/rknn_detector_sample
 ```
 
 ## Sử dụng
@@ -200,30 +200,31 @@ ls build/bin/rknn_face_detector_sample
 Đặt file `.rknn` model vào thư mục models:
 
 ```bash
-mkdir -p ./cvedix_data/models/face
-cp yolov8n_face_detection.rknn ./cvedix_data/models/face/
+mkdir -p ./cvedix_data/models
+cp yolov8n.rknn ./cvedix_data/models/
 ```
 
 ### 2. Chạy Sample
 
 ```bash
 cd build/bin
-./rknn_face_detector_sample
+./rknn_detector_sample
 ```
 
 ### 3. Sử dụng trong Code
 
 ```cpp
-#include "../nodes/infers/cvedix_yolo_rknn_face_detector_node.h"
+#include "../nodes/infers/cvedix_rknn_yolov8_detector_node.h"
 
-// Tạo RKNN face detector
-auto rknn_detector = std::make_shared<cvedix_nodes::cvedix_yolo_rknn_face_detector_node>(
-    "rknn_face_detector",
-    "./models/face/yolov8n_face_detection.rknn",  // model path
+// Tạo RKNN detector
+auto rknn_detector = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
+    "rknn_detector",
+    "./models/yolov8n.rknn",  // model path
     0.5,  // score threshold
     0.5,  // NMS threshold
     640,  // input width
-    640   // input height
+    640,  // input height
+    80    // num classes
 );
 ```
 
