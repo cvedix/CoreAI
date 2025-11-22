@@ -1,0 +1,11 @@
+<map id="cvedix_nodes::cvedix_msg_broker_node::stop_broking" name="cvedix_nodes::cvedix_msg_broker_node::stop_broking">
+<area shape="rect" id="node1" title=" " alt="" coords="309,335,489,391"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#a536c570c0c7d1029f2c9ef50cfc6c051" title=" " alt="" coords="12,5,255,61"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#ab2fededa88d00342fdb27a248231dc25" title=" " alt="" coords="18,85,249,171"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#af8691f4ae71e0fc2f62cda97c996eca8" title=" " alt="" coords="28,195,239,266"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89" title=" " alt="" coords="5,291,261,347"/>
+<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6857e2ee1d69965b2ed88ed7e11b85a9" title=" " alt="" coords="26,371,241,442"/>
+<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#ac6772a65f42ccd40d7bc35ef0a0e1190" title=" " alt="" coords="27,466,239,537"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#acd5602517eec4ee348b8e64e6872cf58" title=" " alt="" coords="18,561,249,617"/>
+<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a49f77a086cf63734bed55e8dc8313c6e" title=" " alt="" coords="7,641,259,697"/>
+</map>

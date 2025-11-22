@@ -1,0 +1,6 @@
+<map id="date::year_month_day" name="date::year_month_day">
+<area shape="rect" id="node1" title=" " alt="" coords="79,95,247,121"/>
+<area shape="rect" id="node2" href="$classdate_1_1day.html" title=" " alt="" coords="5,5,88,32"/>
+<area shape="rect" id="node3" href="$classdate_1_1month.html" title=" " alt="" coords="112,5,213,32"/>
+<area shape="rect" id="node4" href="$classdate_1_1year.html" title=" " alt="" coords="237,5,325,32"/>
+</map>

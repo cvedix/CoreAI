@@ -1,0 +1,8 @@
+<map id="cvedix_utils::cvedix_gate::knock" name="cvedix_utils::cvedix_gate::knock">
+<area shape="rect" id="node1" title=" " alt="" coords="268,136,419,177"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__file__src__node.html#a31363f477166390c3e649702965a1e87" title=" " alt="" coords="15,5,210,47"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__image__src__node.html#a1d2e919320d4208184669ee9eccabfa5" title=" " alt="" coords="5,71,220,112"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__rtmp__src__node.html#a8f0ba0714680bf1964c76d8819a554cb" title=" " alt="" coords="10,136,215,177"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__rtsp__src__node.html#ada3d1a0398de30c706d6115a5ba21e5c" title=" " alt="" coords="13,201,212,243"/>
+<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__udp__src__node.html#a4b6b45df7f065e60c293b2880718e1b7" title=" " alt="" coords="13,267,212,308"/>
+</map>

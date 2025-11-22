@@ -1,0 +1,17 @@
+<map id="cvedix_nodes::cvedix_primary_infer_node" name="cvedix_nodes::cvedix_primary_infer_node">
+<area shape="rect" id="node1" title=" " alt="" coords="716,235,879,276"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__enet__seg__node.html" title=" " alt="" coords="946,5,1109,47"/>
+<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__face__swap__node.html" title=" " alt="" coords="946,71,1109,112"/>
+<area shape="rect" id="node10" href="$classcvedix__nodes_1_1cvedix__lane__detector__node.html" title=" " alt="" coords="946,136,1109,177"/>
+<area shape="rect" id="node11" href="$classcvedix__nodes_1_1cvedix__mask__rcnn__detector__node.html" title=" " alt="" coords="927,201,1127,243"/>
+<area shape="rect" id="node12" href="$classcvedix__nodes_1_1cvedix__openpose__detector__node.html" title=" " alt="" coords="931,267,1123,308"/>
+<area shape="rect" id="node13" href="$classcvedix__nodes_1_1cvedix__restoration__node.html" title=" " alt="" coords="946,332,1109,373"/>
+<area shape="rect" id="node14" href="$classcvedix__nodes_1_1cvedix__yolo__detector__node.html" title=" " alt="" coords="946,397,1109,439"/>
+<area shape="rect" id="node15" href="$classcvedix__nodes_1_1cvedix__yunet__face__detector__node.html" title=" " alt="" coords="927,463,1128,504"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__infer__node.html" title=" " alt="" coords="505,235,668,276"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__node.html" title=" " alt="" coords="256,242,457,269"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,136,188,177"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,201,188,243"/>
+<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,267,188,308"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,332,208,373"/>
+</map>

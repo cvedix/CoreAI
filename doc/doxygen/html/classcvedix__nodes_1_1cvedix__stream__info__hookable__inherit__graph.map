@@ -1,0 +1,10 @@
+<map id="cvedix_nodes::cvedix_stream_info_hookable" name="cvedix_nodes::cvedix_stream_info_hookable">
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,179,211"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__src__node.html" title=" " alt="" coords="227,169,389,211"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__app__src__node.html" title=" " alt="" coords="437,5,600,47"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__file__src__node.html" title=" " alt="" coords="437,71,600,112"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__image__src__node.html" title=" " alt="" coords="437,136,600,177"/>
+<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__rtmp__src__node.html" title=" " alt="" coords="437,201,600,243"/>
+<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__rtsp__src__node.html" title=" " alt="" coords="437,267,600,308"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__udp__src__node.html" title=" " alt="" coords="437,332,600,373"/>
+</map>

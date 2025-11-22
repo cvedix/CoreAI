@@ -1,0 +1,11 @@
+<map id="cvedix_utils::cvedix_gate::open" name="cvedix_utils::cvedix_gate::open">
+<area shape="rect" id="node1" title=" " alt="" coords="473,246,624,287"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__src__node.html#ada67b250df8fdf85abed3dc6698beee1" title=" " alt="" coords="251,213,425,254"/>
+<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__src__node.html#a1fd2140e2f718083ef5910000b7273cb" title=" " alt="" coords="257,278,419,319"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__app__src__node.html#a983ce89cbdcbbd638d3115239305d2a3" title=" " alt="" coords="14,5,194,61"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__file__src__node.html#a9039b1a151a7101c2116778eab18dfb1" title=" " alt="" coords="16,85,192,141"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__image__src__node.html#adf79a42d51ee569997c13babdaa71ba3" title=" " alt="" coords="5,165,203,221"/>
+<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__rtmp__src__node.html#a645d7c58faf79f7598eba26d203d8c3b" title=" " alt="" coords="11,245,197,301"/>
+<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__rtsp__src__node.html#a1d5650ec40b42b02c26a06435972188f" title=" " alt="" coords="13,325,195,381"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__udp__src__node.html#aa8ff67f0738f1b4965aecf6dfc28dd28" title=" " alt="" coords="14,405,194,461"/>
+</map>

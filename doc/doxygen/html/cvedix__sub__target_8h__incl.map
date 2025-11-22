@@ -1,0 +1,12 @@
+<map id="objects/cvedix_sub_target.h" name="objects/cvedix_sub_target.h">
+<area shape="rect" id="node1" title=" " alt="" coords="100,5,247,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,64,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="88,95,165,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="190,95,253,121"/>
+<area shape="rect" id="node5" href="$cvedix__rect_8h.html" title=" " alt="" coords="277,95,435,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="222,169,277,196"/>
+<area shape="rect" id="node7" href="$cvedix__point_8h.html" title=" " alt="" coords="436,169,553,196"/>
+<area shape="rect" id="node10" href="$cvedix__size_8h.html" title=" " alt="" coords="301,169,411,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="353,244,413,271"/>
+<area shape="rect" id="node9" title=" " alt="" coords="463,244,526,271"/>
+</map>

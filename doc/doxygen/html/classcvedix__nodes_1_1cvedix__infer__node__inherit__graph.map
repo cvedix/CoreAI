@@ -1,0 +1,21 @@
+<map id="cvedix_nodes::cvedix_infer_node" name="cvedix_nodes::cvedix_infer_node">
+<area shape="rect" id="node1" title=" " alt="" coords="505,429,668,471"/>
+<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__primary__infer__node.html" title=" " alt="" coords="721,267,883,308"/>
+<area shape="rect" id="node16" href="$classcvedix__nodes_1_1cvedix__secondary__infer__node.html" title=" " alt="" coords="716,560,888,601"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html" title=" " alt="" coords="256,437,457,463"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,331,188,372"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,396,188,437"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,461,188,503"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,527,208,568"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__enet__seg__node.html" title=" " alt="" coords="963,5,1125,47"/>
+<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__face__swap__node.html" title=" " alt="" coords="963,71,1125,112"/>
+<area shape="rect" id="node10" href="$classcvedix__nodes_1_1cvedix__lane__detector__node.html" title=" " alt="" coords="963,136,1125,177"/>
+<area shape="rect" id="node11" href="$classcvedix__nodes_1_1cvedix__mask__rcnn__detector__node.html" title=" " alt="" coords="944,201,1144,243"/>
+<area shape="rect" id="node12" href="$classcvedix__nodes_1_1cvedix__openpose__detector__node.html" title=" " alt="" coords="948,267,1140,308"/>
+<area shape="rect" id="node13" href="$classcvedix__nodes_1_1cvedix__restoration__node.html" title=" " alt="" coords="963,332,1125,373"/>
+<area shape="rect" id="node14" href="$classcvedix__nodes_1_1cvedix__yolo__detector__node.html" title=" " alt="" coords="963,397,1125,439"/>
+<area shape="rect" id="node15" href="$classcvedix__nodes_1_1cvedix__yunet__face__detector__node.html" title=" " alt="" coords="943,463,1145,504"/>
+<area shape="rect" id="node17" href="$classcvedix__nodes_1_1cvedix__classifier__node.html" title=" " alt="" coords="963,528,1125,569"/>
+<area shape="rect" id="node18" href="$classcvedix__nodes_1_1cvedix__feature__encoder__node.html" title=" " alt="" coords="957,593,1131,635"/>
+<area shape="rect" id="node19" href="$classcvedix__nodes_1_1cvedix__sface__feature__encoder__node.html" title=" " alt="" coords="936,659,1152,700"/>
+</map>

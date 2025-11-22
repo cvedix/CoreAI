@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['p_5fclass_5fids_5fapplied_5fto_2657',['p_class_ids_applied_to',['../classcvedix__nodes_1_1cvedix__secondary__infer__node.html#a13ab7325dd624e59353b90e98b85029f',1,'cvedix_nodes::cvedix_secondary_infer_node']]],
+  ['padding_2658',['padding',['../classcvedix__nodes_1_1cvedix__face__osd__node__v2.html#a8d7d877b7a1165351e318f6d4cc301f4',1,'cvedix_nodes::cvedix_face_osd_node_v2::padding()'],['../classcvedix__nodes_1_1cvedix__osd__node__v2.html#ab5dcc0fce53c783e972b66d1ccf34890',1,'cvedix_nodes::cvedix_osd_node_v2::padding()']]],
+  ['pipe_5fheight_2659',['pipe_height',['../classcvedix__utils_1_1cvedix__analysis__board.html#a1882aace5552c35578301d6725ee0e91',1,'cvedix_utils::cvedix_analysis_board']]],
+  ['pipe_5fwidth_2660',['pipe_width',['../classcvedix__utils_1_1cvedix__analysis__board.html#a00272386523d78240ef602158ddb3922',1,'cvedix_utils::cvedix_analysis_board']]],
+  ['plates_5fdir_2661',['plates_dir',['../classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a84a46622fdb3df8f2856f967a042ce91',1,'cvedix_nodes::cvedix_plate_socket_broker_node']]],
+  ['plates_5fhis_2662',['plates_his',['../classcvedix__nodes_1_1cvedix__plate__osd__node.html#ae210b599755ee4f6a89e6bfea9c7155a',1,'cvedix_nodes::cvedix_plate_osd_node']]],
+  ['point_2663',['point',['../structcvedix__nodes_1_1cvedix__openpose__detector__node_1_1KeyPoint.html#ab720b2bf4eeac5d7360c9d3f01b30e81',1,'cvedix_nodes::cvedix_openpose_detector_node::KeyPoint']]],
+  ['point_5ftype_2664',['point_type',['../structcvedix__objects_1_1cvedix__pose__keypoint.html#ad7d127130d01c75c36e6efb93d707a55',1,'cvedix_objects::cvedix_pose_keypoint']]],
+  ['points_5fmap_2665',['points_map',['../classcvedix__nodes_1_1cvedix__openpose__detector__node.html#ae21f1004ff8fb6fcffc7a5dcc891a18b',1,'cvedix_nodes::cvedix_openpose_detector_node']]],
+  ['port_2666',['port',['../classcvedix__nodes_1_1cvedix__udp__src__node.html#a05e2be2cde40d62d254660f59746a5a2',1,'cvedix_nodes::cvedix_udp_src_node']]],
+  ['port_5for_5flocation_2667',['port_or_location',['../classcvedix__nodes_1_1cvedix__image__src__node.html#a2fee1d7468d5d0481ecca9cd87a8dea4',1,'cvedix_nodes::cvedix_image_src_node']]],
+  ['pose_5ftargets_2668',['pose_targets',['../classcvedix__objects_1_1cvedix__frame__meta.html#a35f40b81fe3c8ad6ea3130bb965674bb',1,'cvedix_objects::cvedix_frame_meta']]],
+  ['posepairs_5fmap_2669',['posePairs_map',['../classcvedix__nodes_1_1cvedix__pose__osd__node.html#a8c1584b1f1e631f2ef36d01d862df31e',1,'cvedix_nodes::cvedix_pose_osd_node::posePairs_map()'],['../classcvedix__nodes_1_1cvedix__openpose__detector__node.html#aa69ac57fe049a3349971016f96c1cc4e',1,'cvedix_nodes::cvedix_openpose_detector_node::posePairs_map()']]],
+  ['pre_5ffps_2670',['pre_fps',['../structcvedix__utils_1_1cvedix__meta__hooker__storage.html#a4f28e05c78f2308bcea21a8c2aa75319',1,'cvedix_utils::cvedix_meta_hooker_storage']]],
+  ['pre_5fnodes_2671',['pre_nodes',['../classcvedix__nodes_1_1cvedix__node.html#a56d55c21c9873a697bcec7442b7815ee',1,'cvedix_nodes::cvedix_node']]],
+  ['pre_5frecord_5fvideo_5fduration_2672',['pre_record_video_duration',['../classcvedix__nodes_1_1cvedix__record__node.html#a3ae1f1bfbc23e27d27e501b23433f829',1,'cvedix_nodes::cvedix_record_node::pre_record_video_duration()'],['../structcvedix__nodes_1_1cvedix__record__info.html#a9970d422ec795dc1541c3c4bc3dc17ba',1,'cvedix_nodes::cvedix_record_info::pre_record_video_duration()'],['../classcvedix__nodes_1_1cvedix__video__record__task.html#aba2760f0ffd9e851032f663dc3653e04',1,'cvedix_nodes::cvedix_video_record_task::pre_record_video_duration()']]],
+  ['precision_5f_2673',['precision_',['../classdate_1_1detail_1_1save__istream.html#a2ad0bcfdc548f8c88d56828b2b3e30bb',1,'date::detail::save_istream']]],
+  ['predictedboxes_2674',['predictedBoxes',['../classcvedix__nodes_1_1cvedix__sort__track__node.html#a88b16f3212f44816431c314de639c68c',1,'cvedix_nodes::cvedix_sort_track_node']]],
+  ['primary_5fclass_5fid_2675',['primary_class_id',['../classcvedix__objects_1_1cvedix__frame__target.html#aef6422ca37cd38577172e7692c7a5fb7',1,'cvedix_objects::cvedix_frame_target']]],
+  ['primary_5flabel_2676',['primary_label',['../classcvedix__objects_1_1cvedix__frame__target.html#adc526249d2042b588c3424573d4cb06f',1,'cvedix_objects::cvedix_frame_target']]],
+  ['primary_5fscore_2677',['primary_score',['../classcvedix__objects_1_1cvedix__frame__target.html#a6dc1f527767b9154d943c3c2d75198a2',1,'cvedix_objects::cvedix_frame_target']]],
+  ['priors_2678',['priors',['../classcvedix__nodes_1_1cvedix__face__swap__node.html#a3971989e8c52e8de456a68a6babc5768',1,'cvedix_nodes::cvedix_face_swap_node::priors()'],['../classcvedix__nodes_1_1cvedix__yunet__face__detector__node.html#a54c430f66534147502f5f437c705f36e',1,'cvedix_nodes::cvedix_yunet_face_detector_node::priors()']]],
+  ['probability_2679',['probability',['../structcvedix__nodes_1_1cvedix__openpose__detector__node_1_1KeyPoint.html#a9b081c78360cb9804e9ad8defd5fa0a1',1,'cvedix_nodes::cvedix_openpose_detector_node::KeyPoint']]]
+];

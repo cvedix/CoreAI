@@ -1,0 +1,15 @@
+<map id="cvedix_nodes::cvedix_src_node" name="cvedix_nodes::cvedix_src_node">
+<area shape="rect" id="node1" title=" " alt="" coords="505,169,668,211"/>
+<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__app__src__node.html" title=" " alt="" coords="716,5,879,47"/>
+<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__file__src__node.html" title=" " alt="" coords="716,71,879,112"/>
+<area shape="rect" id="node10" href="$classcvedix__nodes_1_1cvedix__image__src__node.html" title=" " alt="" coords="716,136,879,177"/>
+<area shape="rect" id="node11" href="$classcvedix__nodes_1_1cvedix__rtmp__src__node.html" title=" " alt="" coords="716,201,879,243"/>
+<area shape="rect" id="node12" href="$classcvedix__nodes_1_1cvedix__rtsp__src__node.html" title=" " alt="" coords="716,267,879,308"/>
+<area shape="rect" id="node13" href="$classcvedix__nodes_1_1cvedix__udp__src__node.html" title=" " alt="" coords="716,332,879,373"/>
+<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html" title=" " alt="" coords="256,147,457,174"/>
+<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,41,188,83"/>
+<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,107,188,148"/>
+<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,172,188,213"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,237,208,279"/>
+<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__stream__info__hookable.html" title=" " alt="" coords="270,199,443,240"/>
+</map>
