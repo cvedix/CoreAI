@@ -142,6 +142,11 @@ namespace cvedix_nodes {
         }
 
         std::lock_guard<std::mutex> guard(this->in_queue_lock);
+        // drop meta if queue is full
+        if (this->in_queue.size() > max_in_queue_size) {
+            CVEDIX_WARN(cvedix_utils::string_format("[%s] queue full, dropping meta!", node_name.c_str()));
+            return;
+        }
         CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before meta flow, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));
         this->in_queue.push(meta);
 

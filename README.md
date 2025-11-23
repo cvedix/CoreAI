@@ -2,21 +2,11 @@
 
 `InstancePipeline` là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, `InstancePipeline` có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.
 
-![](./doc/g1.gif)
-
 ## 二、Ưu điểm và đặc điểm
 
 `InstancePipeline` tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.
 
 `InstancePipeline` sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu `Node` trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.
-
-![](./doc/p1-1.png)
-
-## 三、Demo
-
-https://github.com/sherlockchou86/video_pipe_c/assets/13251045/b1289faa-e2c7-4d38-871e-879ae36f6d50
-
-Xem toàn màn hình ở góc dưới bên phải của trình phát, [Xem thêm video demo](./SAMPLES.md)
 
 ## 四、Tính năng
 
@@ -169,19 +159,7 @@ Sau khi chạy mã trên, sẽ xuất hiện 3 màn hình:
 2. Kết quả hiển thị màn hình (GUI)
 3. Kết quả hiển thị trình phát (RTMP)
 
-![](./doc/g3.png)
-
-
 ### 5.4 Các mẫu nguyên mẫu
-
-|ID|Sample|Ảnh chụp màn hình|
-|--|--|--|
-|1|face_tracking_sample|![](./doc/p18.png)|
-|2|vehicle_tracking_sample|![](./doc/p22.png)|
-|3|mask_rcnn_sample|![](./doc/p30.png)|
-|4|openpose_sample|![](./doc/p31.png)|
-|5|face_swap_sample|![](./doc/p57.png)|
-|6|mllm_analyse_sample|![](./doc/p69.png)|
 
 Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem thêm.
 
