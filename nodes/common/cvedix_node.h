@@ -43,6 +43,9 @@ namespace cvedix_nodes {
         // alive or not for node
         bool alive = true;
 
+        // max queue size for in_queue
+        int max_in_queue_size = 50;
+
         // by default we handle frame meta one by one, in some situations we need handle them batch by batch(such as cvedix_infer_node).
         // setting this member greater than 1 means the node will handle frame meta with batch, and cvedix_node::handle_frame_meta_by_batch(...) will be called other than cvedix_node::handle_frame_meta(...).
         // note: control meta is not allowed like above, only one by one supported.

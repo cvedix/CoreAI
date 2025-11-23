@@ -37,6 +37,18 @@ namespace cvedix_utils {
             CVEDIX_ERROR(cvedix_utils::string_format("[RKNN] rknn_init failed, ret=%d", ret));
             return -1;
         }
+
+#ifdef RKNN_NPU_CORE_AUTO
+        // Automatically select an optimal NPU core configuration
+        ret = rknn_set_core_mask(ctx, RKNN_NPU_CORE_AUTO);
+        if (ret != RKNN_SUCC) {
+            CVEDIX_WARN(cvedix_utils::string_format("[RKNN] rknn_set_core_mask AUTO failed, ret=%d", ret));
+        } else {
+            CVEDIX_INFO("[RKNN] NPU core auto-selection enabled");
+        }
+#else
+        CVEDIX_INFO("[RKNN] Using default NPU core configuration");
+#endif
         
         return 0;
     }
@@ -55,6 +67,7 @@ namespace cvedix_utils {
         outputs.clear();
         input_attrs.clear();
         output_attrs.clear();
+        input_buffers.clear();
     }
 
     int cvedix_rknn_helper::query_model_info() {
@@ -105,6 +118,7 @@ namespace cvedix_utils {
         // Initialize input/output structures
         inputs.resize(io_num.n_input);
         outputs.resize(io_num.n_output);
+        input_buffers.resize(io_num.n_input);
         
         return 0;
     }
@@ -162,35 +176,84 @@ namespace cvedix_utils {
         }
         
         auto& input_attr = input_attrs[index];
-        
-        // Prepare input data based on model requirements
+
+        if (mat.empty()) {
+            CVEDIX_ERROR("[RKNN] Input matrix is empty");
+            return -1;
+        }
+
+        const bool is_preprocessed_blob = mat.dims > 2;
         cv::Mat input_mat = mat.clone();
-        
-        // Convert BGR to RGB if needed (most RKNN models expect RGB)
-        if (input_attr.fmt == RKNN_TENSOR_NHWC) {
-            if (mat.channels() == 3) {
+
+        if (!is_preprocessed_blob) {
+            // Convert BGR to RGB if needed (most RKNN models expect RGB in NHWC)
+            if (input_attr.fmt == RKNN_TENSOR_NHWC && input_mat.channels() == 3) {
                 cv::cvtColor(input_mat, input_mat, cv::COLOR_BGR2RGB);
             }
+
+            // Resize if model declares a concrete spatial size
+            int model_w = -1;
+            int model_h = -1;
+            if (input_attr.fmt == RKNN_TENSOR_NCHW && input_attr.n_dims >= 4) {
+                // NCHW: [batch, channels, height, width]
+                model_h = input_attr.dims[2];
+                model_w = input_attr.dims[3];
+            } else if (input_attr.fmt == RKNN_TENSOR_NHWC && input_attr.n_dims >= 4) {
+                // NHWC: [batch, height, width, channels]
+                model_h = input_attr.dims[1];
+                model_w = input_attr.dims[2];
+            } else if (input_attr.n_dims >= 2) {
+                model_h = input_attr.dims[input_attr.n_dims - 2];
+                model_w = input_attr.dims[input_attr.n_dims - 1];
+                CVEDIX_WARN(cvedix_utils::string_format("[RKNN] Unknown tensor format %d, inferring spatial dims from tail (%d, %d)",
+                                                        input_attr.fmt,
+                                                        model_w,
+                                                        model_h));
+            }
+
+            if (model_w > 0 && model_h > 0 &&
+                (input_mat.cols != model_w || input_mat.rows != model_h)) {
+                CVEDIX_DEBUG(cvedix_utils::string_format("[RKNN] Resizing input from %dx%d to %dx%d",
+                                                         input_mat.cols,
+                                                         input_mat.rows,
+                                                         model_w,
+                                                         model_h));
+                cv::resize(input_mat, input_mat, cv::Size(model_w, model_h));
+            } else if (model_w <= 0 || model_h <= 0) {
+                CVEDIX_DEBUG("[RKNN] Model reports dynamic input shape, skipping resize");
+            }
+
+            // Normalize if needed (assuming uint8 input data)
+            if (input_attr.type == RKNN_TENSOR_FLOAT32 && input_mat.depth() != CV_32F) {
+                input_mat.convertTo(input_mat, CV_32F, 1.0 / 255.0);
+            } else if ((input_attr.type == RKNN_TENSOR_UINT8 || input_attr.type == RKNN_TENSOR_INT8) && input_mat.depth() != CV_8U) {
+                input_mat.convertTo(input_mat, CV_8U);
+            }
+        } else {
+            CVEDIX_DEBUG(cvedix_utils::string_format("[RKNN] Received preformatted blob input (dims=%d, type=%d, depth=%d)",
+                                                     input_mat.dims,
+                                                     input_attr.type,
+                                                     input_mat.depth()));
+            if (input_attr.type == RKNN_TENSOR_FLOAT32 && input_mat.depth() != CV_32F) {
+                input_mat.convertTo(input_mat, CV_32F);
+            } else if ((input_attr.type == RKNN_TENSOR_UINT8 || input_attr.type == RKNN_TENSOR_INT8) && input_mat.depth() != CV_8U) {
+                input_mat.convertTo(input_mat, CV_8U);
+            }
         }
-        
-        // Resize if needed
-        int model_w = input_attr.dims[2];  // Usually width
-        int model_h = input_attr.dims[1];  // Usually height
-        if (input_mat.cols != model_w || input_mat.rows != model_h) {
-            cv::resize(input_mat, input_mat, cv::Size(model_w, model_h));
+
+        if (!input_mat.isContinuous()) {
+            input_mat = input_mat.clone();
         }
-        
-        // Normalize if needed (assuming uint8 input)
-        if (input_attr.type == RKNN_TENSOR_FLOAT32) {
-            input_mat.convertTo(input_mat, CV_32F, 1.0/255.0);
-        }
-        
+
+        // Keep a copy alive until inference completes
+        input_buffers[index] = input_mat;
+
         // Prepare input structure
         inputs[index].index = index;
         inputs[index].type = input_attr.type;
         inputs[index].fmt = input_attr.fmt;
-        inputs[index].size = input_mat.total() * input_mat.elemSize();
-        inputs[index].buf = input_mat.data;
+        inputs[index].size = input_buffers[index].total() * input_buffers[index].elemSize();
+        inputs[index].buf = input_buffers[index].data;
         
         return 0;
     }

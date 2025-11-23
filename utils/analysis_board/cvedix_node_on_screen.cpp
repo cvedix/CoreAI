@@ -16,21 +16,25 @@ namespace cvedix_utils {
                 this->meta_arriving_hooker_storage.meta = meta;
                 this->meta_arriving_hooker_storage.queue_size = queue_size;
                 this->meta_arriving_hooker_storage.called_count_since_epoch_start++;
+                this->meta_arriving_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_handling_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
                 this->meta_handling_hooker_storage.meta = meta;
                 this->meta_handling_hooker_storage.queue_size = queue_size;
                 this->meta_handling_hooker_storage.called_count_since_epoch_start++;
+                this->meta_handling_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_handled_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
                 this->meta_handled_hooker_storage.meta = meta;
                 this->meta_handled_hooker_storage.queue_size = queue_size;
                 this->meta_handled_hooker_storage.called_count_since_epoch_start++;
+                this->meta_handled_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_leaving_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
                 this->meta_leaving_hooker_storage.meta = meta;
                 this->meta_leaving_hooker_storage.queue_size = queue_size;
                 this->meta_leaving_hooker_storage.called_count_since_epoch_start++;
+                this->meta_leaving_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         
         // register stream info hooker if it is a src node
@@ -403,6 +407,40 @@ namespace cvedix_utils {
             cvedix_utils::put_text_at_center_of_rect(canvas, "latency: " + std::to_string(stream_status_hooker_storage.latency) + "ms",
                                                 cv::Rect(node_left + node_rect.width / 2 - 10, node_top + node_title_h * 9 / 3 + node_queue_port_padding * 4, node_rect.width * 4 / 3 + 10, node_title_h * 2 / 3),
                                                 true, font_face, 1, status_text_color, status_border_color, status_bg_color);
+        }
+
+        // Flash connections if active
+        auto now = std::chrono::system_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - meta_leaving_hooker_storage.last_active_time);
+        if (duration.count() < 100) { // 100ms flash duration
+             // draw blocks connect line between nodes and nodes
+            auto draw_connect_block = [=](int next_node_top){
+                // Flashing Green Color
+                cv::Scalar connection_color(0, 255, 0);  // Green
+
+                cv::line(canvas, 
+                            cv::Point(node_left + node_rect.width + node_queue_port_w_h, node_top + node_title_h + node_queue_port_padding + node_queue_port_w_h / 2), 
+                            cv::Point(node_left + node_rect.width + node_gap_horizontal / 2, node_top + node_title_h + node_queue_port_padding + node_queue_port_w_h / 2),
+                            connection_color, 2, cv::LINE_AA);
+                cv::line(canvas, 
+                        cv::Point(node_left + node_rect.width + node_gap_horizontal / 2, node_top + node_title_h + node_queue_port_padding + node_queue_port_w_h / 2), 
+                        cv::Point(node_left + node_rect.width + node_gap_horizontal / 2, next_node_top + node_rect.height - node_queue_port_padding - node_queue_port_w_h / 2),
+                        connection_color, 2, cv::LINE_AA);
+                cv::line(canvas, 
+                        cv::Point(node_left + node_rect.width + node_gap_horizontal / 2, next_node_top + node_rect.height - node_queue_port_padding - node_queue_port_w_h / 2), 
+                        cv::Point(node_left + node_rect.width + node_gap_horizontal - node_queue_port_w_h, next_node_top + node_rect.height - node_queue_port_padding - node_queue_port_w_h / 2),
+                        connection_color, 2, cv::LINE_AA);
+
+                // Improved arrow with better color
+                std::vector<cv::Point> vertexs {cv::Point(node_left + node_rect.width + node_gap_horizontal - node_queue_port_w_h, next_node_top + node_rect.height - node_queue_port_padding - node_queue_port_w_h / 2), 
+                                                cv::Point(node_left + node_rect.width + node_gap_horizontal - node_queue_port_w_h * 2, next_node_top + node_rect.height - node_queue_port_padding - node_queue_port_w_h), 
+                                                cv::Point(node_left + node_rect.width + node_gap_horizontal - node_queue_port_w_h * 2, next_node_top + node_rect.height - node_queue_port_padding)};
+                cv::fillPoly(canvas, std::vector<std::vector<cv::Point>>{vertexs}, connection_color);};
+            
+            auto next_nodes_num = next_nodes_on_screen.size();
+            for (int j = 0; j < next_nodes_num; j++) {
+                draw_connect_block(next_nodes_on_screen[j]->node_rect.y);
+            }   
         }
     }
 

@@ -130,8 +130,14 @@ endif()
 
 # samples depend on RKNN
 if(CVEDIX_WITH_RKNN)
+    add_executable(rknn_detector_sample "rknn_detector_sample.cpp")
+    target_link_libraries(rknn_detector_sample ${PROJECT_NAME})
+
     add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
     target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
+
+    add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
+    target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
 endif()
 
 # samples depend on PaddlePaddle

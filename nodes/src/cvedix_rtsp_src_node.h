@@ -22,7 +22,8 @@ namespace cvedix_nodes {
                         std::string rtsp_url, 
                         float resize_ratio = 1.0,
                         std::string gst_decoder_name = "avdec_h264",
-                        int skip_interval = 0);
+                        int skip_interval = 0,
+                        std::string codec_type = "h264");
         ~cvedix_rtsp_src_node();
 
         virtual std::string to_string() override;
@@ -32,5 +33,7 @@ namespace cvedix_nodes {
         std::string gst_decoder_name = "avdec_h264";
         // 0 means no skip
         int skip_interval = 0;
+        // h264, h265, auto
+        std::string codec_type = "h264";
     };
 }

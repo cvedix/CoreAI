@@ -18,6 +18,7 @@ namespace cvedix_utils {
         int latency = 0;                          // latency(ms) relative to src node at current port
         int called_count_since_epoch_start = -1;  // used for calculating fps at current port 
         std::chrono::system_clock::time_point time_epoch_start;      // used for calculating fps at current port
+        std::chrono::system_clock::time_point last_active_time;      // used for flashing effect
         std::shared_ptr<cvedix_objects::cvedix_meta> meta = nullptr;         // the latest meta (ptr) flowing through current port inside node (total 4 ports) 
         std::string pre_fps;  // cache
     };
