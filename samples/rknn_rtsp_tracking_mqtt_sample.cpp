@@ -8,6 +8,7 @@
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 #include "cvedix/nodes/des/cvedix_fake_des_node.h"
 #include "cvedix/nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/mid/cvedix_custom_data_transform_node.h"
 #ifdef CVEDIX_WITH_MQTT
 #include "cvedix/nodes/broker/cvedix_json_mqtt_broker_node.h"
 #include "cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h"
@@ -223,8 +224,54 @@ int main(int argc, char** argv) {
     auto split_node_0 = std::make_shared<cvedix_nodes::cvedix_split_node>("split_node_0");
     
 #ifdef CVEDIX_WITH_MQTT
+    // Custom Data Transform Node: Tùy chỉnh dữ liệu theo yêu cầu khách hàng
+    // Ví dụ: Filter targets, thêm/sửa thông tin, transform dữ liệu
+    auto custom_transform_0 = std::make_shared<cvedix_nodes::cvedix_custom_data_transform_node>(
+        "custom_transform_0",
+        [](std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) -> std::shared_ptr<cvedix_objects::cvedix_frame_meta> {
+            if (!meta || meta->targets.empty()) {
+                return meta; // Forward as-is if no targets
+            }
+            
+            // Ví dụ 1: Filter targets với score >= 0.3 (loại bỏ targets có score thấp)
+            auto it = meta->targets.begin();
+            while (it != meta->targets.end()) {
+                if ((*it)->primary_score < 0.3f) {
+                    it = meta->targets.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+            
+            // Ví dụ 2: Thêm custom label nếu cần
+            // for (auto& target : meta->targets) {
+            //     if (target->primary_class_id == 0 && target->primary_score > 0.5f) {
+            //         target->primary_label = "HighConfidencePerson";
+            //     }
+            // }
+            
+            // Ví dụ 3: Filter theo track_id (chỉ giữ targets đã được track)
+            // auto it = meta->targets.begin();
+            // while (it != meta->targets.end()) {
+            //     if ((*it)->track_id < 0) {  // track_id = -1 means not tracked
+            //         it = meta->targets.erase(it);
+            //     } else {
+            //         ++it;
+            //     }
+            // }
+            
+            // Ví dụ 4: Thêm custom metadata vào description
+            // if (!meta->targets.empty()) {
+            //     meta->description = "Detected " + std::to_string(meta->targets.size()) + " objects";
+            // }
+            
+            // Return modified meta (hoặc nullptr để drop frame này)
+            return meta;
+        }
+    );
+    
     // Enhanced MQTT Broker: Tạo JSON với base64 crop images và gửi qua MQTT
-    // Chạy nối tiếp trong pipeline: Tracker → MQTT Broker → OSD
+    // Chạy nối tiếp trong pipeline: Tracker → Custom Transform → MQTT Broker → OSD
     auto enhanced_mqtt_broker_0 = std::make_shared<cvedix_json_enhanced_mqtt_broker_node>(
         "enhanced_mqtt_broker_0",
         cvedix_nodes::cvedix_broke_for::NORMAL,
@@ -246,9 +293,10 @@ int main(int argc, char** argv) {
     sort_tracker_0->attach_to({rknn_detector_0});
     
 #ifdef CVEDIX_WITH_MQTT
-    // MQTT Broker: Nhận từ tracker, tạo JSON có crop images và gửi qua MQTT
-    // Sau đó forward data đến OSD (chạy nối tiếp)
-    enhanced_mqtt_broker_0->attach_to({sort_tracker_0});
+    // Pipeline với Custom Transform: Tracker → Custom Transform → MQTT Broker → OSD
+    // Custom Transform: Tùy chỉnh dữ liệu (filter, transform) trước khi gửi qua MQTT
+    custom_transform_0->attach_to({sort_tracker_0});
+    enhanced_mqtt_broker_0->attach_to({custom_transform_0});
     osd_0->attach_to({enhanced_mqtt_broker_0});
 #else
     // OSD nhận trực tiếp từ tracker (khi không có MQTT)
