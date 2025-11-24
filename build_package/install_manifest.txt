@@ -105,6 +105,7 @@
 /opt/cvedix/include/cvedix/nodes/mid/cvedix_skip_node.h
 /opt/cvedix/include/cvedix/nodes/mid/cvedix_message_broker_node.h
 /opt/cvedix/include/cvedix/nodes/mid/cvedix_split_node.h
+/opt/cvedix/include/cvedix/nodes/mid/cvedix_custom_data_transform_node.h
 /opt/cvedix/include/cvedix/objects/cvedix_meta.h
 /opt/cvedix/include/cvedix/objects/cvedix_video_record_control_meta.h
 /opt/cvedix/include/cvedix/objects/cvedix_control_meta.h
@@ -121,6 +122,7 @@
 /opt/cvedix/include/cvedix/objects/ba/cvedix_ba_result.h
 /opt/cvedix/include/cvedix/objects/cvedix_frame_target.h
 /opt/cvedix/include/cvedix/objects/cvedix_frame_face_target.h
+/opt/cvedix/include/cvedix/utils/mqtt_json_receiver/cvedix_mqtt_json_receiver.h
 /opt/cvedix/include/cvedix/utils/rknn/cvedix_rknn_helper.h
 /opt/cvedix/include/cvedix/utils/logger/cvedix_log_file_writer.h
 /opt/cvedix/include/cvedix/utils/logger/cvedix_logger.h
@@ -132,6 +134,7 @@
 /opt/cvedix/include/cvedix/utils/analysis_board/cvedix_analysis_board.h
 /opt/cvedix/include/cvedix/utils/analysis_board/cvedix_node_on_screen.h
 /opt/cvedix/include/cvedix/utils/rga/cvedix_rga_helper.h
+/opt/cvedix/include/cvedix/utils/mqtt_client/cvedix_mqtt_client.h
 /opt/cvedix/include/cvedix/utils/cvedix_utils.h
 /opt/cvedix/include/cvedix/excepts/cvedix_invalid_pipeline_error.h
 /opt/cvedix/include/cvedix/excepts/cvedix_invalid_argument_error.h
@@ -143,6 +146,7 @@
 /opt/cvedix/lib/cmake/cvedix/cvedix-config.cmake
 /opt/cvedix/lib/cmake/cvedix/cvedix-config-version.cmake
 /opt/cvedix/lib/pkgconfig/cvedix.pc
+/opt/cvedix/share/doc/cvedix_instance_sdk/RELEASE_NOTES.md
 /opt/cvedix/bin/1-1-1_sample
 /opt/cvedix/bin/1-1-N_sample
 /opt/cvedix/bin/1-N-N_sample

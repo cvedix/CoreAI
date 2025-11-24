@@ -305,6 +305,9 @@ CVEDIX_WITH_KAFKA:BOOL=OFF
 //prepared LLM or not?
 CVEDIX_WITH_LLM:BOOL=OFF
 
+//prepared MQTT (libmosquitto) or not?
+CVEDIX_WITH_MQTT:BOOL=OFF
+
 //prepared PaddlePaddle or not?
 CVEDIX_WITH_PADDLE:BOOL=OFF
 
@@ -334,6 +337,9 @@ PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+//No help, variable specified on the command line.
+PROJECT_VERSION:UNINITIALIZED=2025.0.1.2
 
 //Path to a file.
 RKNN_INCLUDE_DIR:PATH=/usr/include

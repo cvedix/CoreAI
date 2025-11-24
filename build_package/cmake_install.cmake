@@ -127,6 +127,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/core_ai_runtime/build_package/cvedix.pc")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/doc/cvedix_instance_sdk" TYPE FILE RENAME "RELEASE_NOTES.md" FILES "/home/ubuntu/core_ai_runtime/RELEASE_NOTES_2025.0.1.2.md")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ubuntu/core_ai_runtime/build_package/third_party/tinyexpr/cmake_install.cmake")
