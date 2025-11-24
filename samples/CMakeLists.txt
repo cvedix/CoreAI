@@ -140,6 +140,27 @@ if(CVEDIX_WITH_KAFKA)
             OPTIONAL)
 endif()
 
+# samples depend on MQTT
+if(CVEDIX_WITH_MQTT)
+    add_executable(mqtt_json_receiver_sample "mqtt_json_receiver_sample.cpp")
+    target_include_directories(mqtt_json_receiver_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(mqtt_json_receiver_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto
+    if(MOSQUITTO_FOUND)
+        target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIBRARIES})
+    else()
+        find_library(MOSQUITTO_LIB NAMES mosquitto)
+        if(MOSQUITTO_LIB)
+            target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIB})
+        endif()
+    endif()
+    
+    install(TARGETS mqtt_json_receiver_sample
+            DESTINATION bin
+            OPTIONAL)
+endif()
+
 # samples depend on LLM
 if(CVEDIX_WITH_LLM)
     add_executable(mllm_analyse_sample "mllm_analyse_sample.cpp")
@@ -181,6 +202,22 @@ if(CVEDIX_WITH_RKNN)
     add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
     target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
 
+    add_executable(rknn_rtsp_tracking_mqtt_sample "rknn_rtsp_tracking_mqtt_sample.cpp")
+    target_include_directories(rknn_rtsp_tracking_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto if MQTT is enabled
+    if(CVEDIX_WITH_MQTT)
+        if(MOSQUITTO_FOUND)
+            target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
+        else()
+            find_library(MOSQUITTO_LIB NAMES mosquitto)
+            if(MOSQUITTO_LIB)
+                target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
+            endif()
+        endif()
+    endif()
+
     # Install RKNN samples
     install(TARGETS 
         rknn_detector_sample
@@ -188,6 +225,15 @@ if(CVEDIX_WITH_RKNN)
         rknn_rtsp_tracking_sample
         DESTINATION bin
     )
+    
+    # Install RKNN MQTT sample if available
+    if(CVEDIX_WITH_RTSP_SERVER)
+        install(TARGETS 
+            rknn_rtsp_tracking_mqtt_sample
+            DESTINATION bin
+            OPTIONAL
+        )
+    endif()
 endif()
 
 # samples depend on PaddlePaddle

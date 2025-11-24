@@ -1,0 +1,18 @@
+
+
+include(CMakeFindDependencyMacro)
+
+# Find dependencies
+find_dependency(OpenCV)
+# Add other dependencies if they are public (headers included in public headers)
+# find_dependency(GStreamer) # etc.
+
+include("${CMAKE_CURRENT_LIST_DIR}/cvedix-targets.cmake")
+
+# Export compile definitions that were used when building the SDK
+# These need to be set in the consuming project to match the SDK build configuration
+add_definitions(-DCVEDIX_WITH_RKNN)
+add_definitions(-DCVEDIX_WITH_RTSP_SERVER)
+
+
+check_required_components(cvedix_instance_sdk)
