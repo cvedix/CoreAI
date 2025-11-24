@@ -7,6 +7,7 @@
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 #include "cvedix/nodes/mid/cvedix_split_node.h"
+#include "cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 #include <cstdlib>
@@ -18,13 +19,22 @@
 
 /*
 * ## Ví dụ theo dõi đối tượng qua RTSP dùng RKNN ##
-* Đầu vào RTSP → Bộ phát hiện RKNN YOLOv8 → Bộ theo dõi SORT → OSD → Hiển thị màn hình
+* Đầu vào RTSP → Bộ phát hiện RKNN YOLOv8 → Bộ theo dõi SORT → Broker (JSON Console) → OSD → Split → Hiển thị màn hình/RTMP
 *
 * URL: rtsp://admin:Admin123456@192.168.1.114:554/cam/realmonitor?channel=1&subtype=0
 *
 * Tính năng:
 * - Tự động nhận biết codec (H264/H265) từ RTSP stream khi sử dụng codec_type="auto"
 * - Node sẽ tự động phát hiện và cấu hình decoder phù hợp
+* - Broker sẽ in JSON của frame_meta với base64 images ra console để debug:
+*   + Base64 encoded full frame
+*   + Base64 encoded crop images cho mỗi target
+*   + Tọa độ bounding box (x, y, width, height, x1, y1, x2, y2, center_x, center_y)
+*   + Độ chính xác (primary_score)
+*   + Tên đối tượng (primary_label)
+*   + Track ID và các thông tin liên quan
+* - Broker forward dữ liệu đến OSD để đảm bảo pipeline hợp lệ (tất cả leaf nodes phải là DES nodes)
+* - Pipeline vẫn chạy bình thường vì broker xử lý bất đồng bộ
 *
 * Yêu cầu:
 * - Model RKNN (.rknn)
@@ -52,12 +62,12 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Đường dẫn model mặc định
-    std::string model_path = "./cvedix_data/models/yolov8n.rknn";
+    std::string model_path = "./cvedix_data/models/face/yolov8n_face_detection.rknn";
     if (argc > 1) {
         model_path = argv[1];
     }
     
-    std::string rtsp_url = "rtsp://103.147.186.175:18554/9L02DA3PAJ39B2F";
+    std::string rtsp_url = "rtsp://103.147.186.175:18554/livestream/5F0459EPAG1EB5A";
     if (argc > 2) {
         rtsp_url = argv[2];
     }
@@ -72,11 +82,11 @@ int main(int argc, char** argv) {
     auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
         "rknn_detector_0", 
         model_path,
-        0.5,  // ngưỡng điểm
-        0.45, // ngưỡng NMS
-        640,  // chiều rộng đầu vào
-        640,  // chiều cao đầu vào
-        80    // số lớp (COCO)
+        0.25,  // ngưỡng điểm
+        0.35, // ngưỡng NMS
+        320,  // chiều rộng đầu vào
+        320,  // chiều cao đầu vào
+        1    // số lớp (COCO)
     );
 
     // Theo dõi: Bộ theo dõi SORT
@@ -84,6 +94,21 @@ int main(int argc, char** argv) {
     auto sort_tracker_0 = std::make_shared<cvedix_nodes::cvedix_sort_track_node>(
         "sort_tracker_0", 
         cvedix_nodes::cvedix_track_for::NORMAL
+    );
+    
+    // Broker: Gửi kết quả tracking ra console dưới dạng JSON với base64 images (debug)
+    // Broker sẽ in JSON của frame_meta bao gồm:
+    // - Base64 encoded full frame
+    // - Base64 encoded crop images cho mỗi target
+    // - Tọa độ bounding box (x, y, width, height, x1, y1, x2, y2, center_x, center_y)
+    // - Độ chính xác (primary_score)
+    // - Tên đối tượng (primary_label)
+    // - Track ID và các thông tin liên quan
+    // Broker forward dữ liệu đến OSD để đảm bảo pipeline hợp lệ (tất cả leaf nodes phải là DES nodes)
+    // Pipeline vẫn chạy bình thường vì broker xử lý bất đồng bộ
+    auto json_broker_0 = std::make_shared<cvedix_nodes::cvedix_json_enhanced_console_broker_node>(
+        "json_broker_0", 
+        cvedix_nodes::cvedix_broke_for::NORMAL  // Broker cho đối tượng thường (targets)
     );
     
     // OSD: Vẽ kết quả lên khung hình
@@ -102,7 +127,8 @@ int main(int argc, char** argv) {
     // Xây dựng pipeline
     rknn_detector_0->attach_to({rtsp_src_0});
     sort_tracker_0->attach_to({rknn_detector_0});
-    osd_0->attach_to({sort_tracker_0});
+    json_broker_0->attach_to({sort_tracker_0});  // Broker nhận dữ liệu từ tracker
+    osd_0->attach_to({json_broker_0});           // OSD nhận từ broker (broker forward dữ liệu)
     split_node_0->attach_to({osd_0});
     rtmp_des_0->attach_to({split_node_0});
     screen_des_0->attach_to({split_node_0});

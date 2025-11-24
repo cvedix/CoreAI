@@ -6,7 +6,7 @@
 ]]
 
 cmake_minimum_required(VERSION 3.10)
-project(cvedix_instance_sdk VERSION 1.0)
+project(cvedix_instance_sdk VERSION 2025.0.1.2)
 
 include(GNUInstallDirs)
 
@@ -150,6 +150,66 @@ if(CVEDIX_WITH_FFMPEG)
     list(APPEND CVEDIX_DEPEND_LIBS avcodec avformat avdevice swscale swresample avutil)
 endif()
 
+# optional for MQTT (libmosquitto)
+option(CVEDIX_WITH_MQTT "prepared MQTT (libmosquitto) or not?" OFF)
+if(CVEDIX_WITH_MQTT)
+    add_definitions(-DCVEDIX_WITH_MQTT)
+    # Try to find libmosquitto using pkg-config first
+    pkg_check_modules(MOSQUITTO mosquitto)
+    if(MOSQUITTO_FOUND)
+        message(STATUS "MQTT (libmosquitto) found via pkg-config")
+        message(STATUS "    version: ${MOSQUITTO_VERSION}")
+        message(STATUS "    libraries: ${MOSQUITTO_LIBRARIES}")
+        message(STATUS "    include path: ${MOSQUITTO_INCLUDE_DIRS}")
+        include_directories(${MOSQUITTO_INCLUDE_DIRS})
+        list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIBRARIES})
+    else()
+        # Try to find manually
+        find_library(MOSQUITTO_LIB
+            NAMES mosquitto
+            PATHS /usr/local/lib /usr/lib
+            NO_DEFAULT_PATH
+        )
+        if(MOSQUITTO_LIB)
+            message(STATUS "MQTT (libmosquitto) library found: ${MOSQUITTO_LIB}")
+            list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIB})
+        else()
+            find_library(MOSQUITTO_LIB NAMES mosquitto)
+            if(MOSQUITTO_LIB)
+                message(STATUS "MQTT (libmosquitto) library found: ${MOSQUITTO_LIB}")
+                list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIB})
+            else()
+                message(WARNING "MQTT (libmosquitto) library not found. MQTT features will be disabled.")
+                message(WARNING "  Install with: sudo apt-get install libmosquitto-dev")
+                set(CVEDIX_WITH_MQTT OFF)
+            endif()
+        endif()
+        
+        # Find mosquitto.h
+        find_path(MOSQUITTO_INCLUDE_DIR
+            NAMES mosquitto.h
+            PATHS /usr/local/include /usr/include
+            NO_DEFAULT_PATH
+        )
+        if(MOSQUITTO_INCLUDE_DIR)
+            message(STATUS "MQTT (libmosquitto) include path: ${MOSQUITTO_INCLUDE_DIR}")
+            include_directories(${MOSQUITTO_INCLUDE_DIR})
+        else()
+            find_path(MOSQUITTO_INCLUDE_DIR NAMES mosquitto.h)
+            if(MOSQUITTO_INCLUDE_DIR)
+                message(STATUS "MQTT (libmosquitto) include path: ${MOSQUITTO_INCLUDE_DIR}")
+                include_directories(${MOSQUITTO_INCLUDE_DIR})
+            else()
+                message(WARNING "MQTT (libmosquitto) headers not found. MQTT features will be disabled.")
+                set(CVEDIX_WITH_MQTT OFF)
+            endif()
+        endif()
+    endif()
+    if(CVEDIX_WITH_MQTT)
+        message(STATUS "MQTT support: enabled")
+    endif()
+endif()
+
 # optional for RKNN (Rockchip NPU)
 if(CVEDIX_WITH_RKNN)
     add_definitions(-DCVEDIX_WITH_RKNN)
@@ -289,6 +349,13 @@ message("-------------collect version info--------------")
 file(GLOB_RECURSE NODES "nodes/*.cpp")
 file(GLOB_RECURSE OBJECTS "objects/*.cpp")
 file(GLOB_RECURSE UTILS "utils/*.cpp")
+
+# Exclude MQTT client and receiver if MQTT is not enabled
+if(NOT CVEDIX_WITH_MQTT)
+    list(FILTER UTILS EXCLUDE REGEX ".*mqtt_client.*")
+    list(FILTER UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
+endif()
+
 #...#
 list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 
@@ -371,10 +438,40 @@ write_basic_package_version_file(
     COMPATIBILITY SameMajorVersion
 )
 
-configure_package_config_file(
+# Collect compile definitions that were used when building the SDK
+set(CVEDIX_CONFIG_DEFINES "")
+if(CVEDIX_WITH_RKNN)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RKNN)\n")
+endif()
+if(CVEDIX_WITH_RGA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RGA)\n")
+endif()
+if(CVEDIX_WITH_RTSP_SERVER)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RTSP_SERVER)\n")
+endif()
+if(CVEDIX_WITH_CUDA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_CUDA)\n")
+endif()
+if(CVEDIX_WITH_TRT)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_TRT)\n")
+endif()
+if(CVEDIX_WITH_PADDLE)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_PADDLE)\n")
+endif()
+if(CVEDIX_WITH_KAFKA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_KAFKA)\n")
+endif()
+if(CVEDIX_WITH_LLM)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_LLM)\n")
+endif()
+if(CVEDIX_WITH_FFMPEG)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_FFMPEG)\n")
+endif()
+
+configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cvedix-config.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+    @ONLY
 )
 
 install(FILES
@@ -396,3 +493,64 @@ install(FILES
 
 # build for samples
 add_subdirectory(samples)
+
+
+# --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
+
+# 1. Cài đặt thư mục data (models, config...) vào cùng thư mục bin
+# Để chương trình có thể gọi ./cvedix_data/...
+if(EXISTS "${CMAKE_SOURCE_DIR}/cvedix_data")
+    install(DIRECTORY "${CMAKE_SOURCE_DIR}/cvedix_data"
+            DESTINATION bin
+            FILES_MATCHING PATTERN "*"
+            PATTERN ".git" EXCLUDE)
+endif()
+
+# 2. Cấu hình CPack để tạo file .deb
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_NAME "cvedix-ai-runtime")
+set(CPACK_PACKAGE_VENDOR "CVEDIX")
+
+# Generate version from timestamp and git hash
+string(TIMESTAMP PACKAGE_TIMESTAMP "%Y%m%d%H%M%S")
+# Use fixed version for release package
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+# For development builds, uncomment below:
+# set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-${PACKAGE_TIMESTAMP}-${FINAL_GIT_VERSION}")
+
+# Package metadata
+set(CPACK_PACKAGE_CONTACT "CVEDIX Team <support@cvedix.com>")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CVEDIX AI Runtime SDK with RKNN, MQTT and JSON Output Support")
+set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version includes MQTT broker node for publishing detection results via MQTT protocol and enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities.")
+
+# Debian package metadata
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "CVEDIX Team <support@cvedix.com>")
+set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+
+# Convert architecture name for Debian package
+# aarch64 -> arm64 (Debian uses arm64, not aarch64)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "arm64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "i386|i686")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
+else()
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+endif()
+
+# Cài đặt tất cả vào /opt/cvedix để tránh xung đột hệ thống và giữ đường dẫn tương đối
+set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/cvedix")
+
+# Tự động tìm dependencies (libs)
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+# Dependencies hệ thống bắt buộc
+set(CPACK_DEBIAN_PACKAGE_DEPENDS 
+    "gstreamer1.0-plugins-base (>= 1.14.5), gstreamer1.0-plugins-good (>= 1.14.5), gstreamer1.0-plugins-bad (>= 1.14.5), libgstreamer1.0-0 (>= 1.14.5), libgstreamer-plugins-base1.0-0 (>= 1.14.5)")
+
+# Recommends (khuyến nghị nhưng không bắt buộc)
+set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "gstreamer1.0-rtsp, gstreamer1.0-plugins-ugly")
+
+include(CPack)

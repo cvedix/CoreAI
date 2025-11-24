@@ -104,10 +104,61 @@ target_link_libraries(frame_fusion_sample ${PROJECT_NAME})
 add_executable(cvedix_test "cvedix_test.cpp")
 target_link_libraries(cvedix_test ${PROJECT_NAME})
 
+# Install all basic samples
+install(TARGETS 
+    1-1-1_sample 1-1-N_sample 1-N-N_sample
+    ba_crossline_sample enet_seg_sample face_tracking_sample
+    image_des_sample image_src_sample interaction_with_pipe_sample
+    mask_rcnn_sample message_broker_sample multi_detectors_and_classifiers_sample
+    N-1-N_sample N-N_sample openpose_sample record_sample
+    cvedix_logger_sample skip_sample obstacle_detect_sample
+    multi_detectors_sample firesmoke_detect_sample face_swap_sample
+    video_restoration_sample app_des_sample app_src_des_sample
+    lane_detect_sample frame_fusion_sample cvedix_test
+    DESTINATION bin
+    OPTIONAL
+)
+
+# Install RTSP samples if available
+if(CVEDIX_WITH_RTSP_SERVER)
+    install(TARGETS 
+        rtsp_des_sample
+        rtsp_src_sample
+        rtsp_ba_crossline_sample
+        DESTINATION bin
+        OPTIONAL
+    )
+endif()
+
 # samples depend on Kafka
 if(CVEDIX_WITH_KAFKA)
     add_executable(message_broker_kafka_sample "message_broker_kafka_sample.cpp")
-    target_link_libraries(message_broker_kafka_sample ${PROJECT_NAME})    
+    target_link_libraries(message_broker_kafka_sample ${PROJECT_NAME})
+    
+    install(TARGETS message_broker_kafka_sample
+            DESTINATION bin
+            OPTIONAL)
+endif()
+
+# samples depend on MQTT
+if(CVEDIX_WITH_MQTT)
+    add_executable(mqtt_json_receiver_sample "mqtt_json_receiver_sample.cpp")
+    target_include_directories(mqtt_json_receiver_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(mqtt_json_receiver_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto
+    if(MOSQUITTO_FOUND)
+        target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIBRARIES})
+    else()
+        find_library(MOSQUITTO_LIB NAMES mosquitto)
+        if(MOSQUITTO_LIB)
+            target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIB})
+        endif()
+    endif()
+    
+    install(TARGETS mqtt_json_receiver_sample
+            DESTINATION bin
+            OPTIONAL)
 endif()
 
 # samples depend on LLM
@@ -116,7 +167,13 @@ if(CVEDIX_WITH_LLM)
     target_link_libraries(mllm_analyse_sample ${PROJECT_NAME})    
 
     add_executable(mllm_analyse_sample_openai "mllm_analyse_sample_openai.cpp")
-    target_link_libraries(mllm_analyse_sample_openai ${PROJECT_NAME})    
+    target_link_libraries(mllm_analyse_sample_openai ${PROJECT_NAME})
+    
+    install(TARGETS 
+        mllm_analyse_sample
+        mllm_analyse_sample_openai
+        DESTINATION bin
+        OPTIONAL)
 endif()
 
 # samples depend on FFmpeg
@@ -126,6 +183,12 @@ if(CVEDIX_WITH_FFMPEG)
 
     add_executable(ffmpeg_transcode_sample "ffmpeg_transcode_sample.cpp")
     target_link_libraries(ffmpeg_transcode_sample ${PROJECT_NAME})
+    
+    install(TARGETS 
+        ffmpeg_src_des_sample
+        ffmpeg_transcode_sample
+        DESTINATION bin
+        OPTIONAL)
 endif()
 
 # samples depend on RKNN
@@ -138,6 +201,39 @@ if(CVEDIX_WITH_RKNN)
 
     add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
     target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
+
+    add_executable(rknn_rtsp_tracking_mqtt_sample "rknn_rtsp_tracking_mqtt_sample.cpp")
+    target_include_directories(rknn_rtsp_tracking_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto if MQTT is enabled
+    if(CVEDIX_WITH_MQTT)
+        if(MOSQUITTO_FOUND)
+            target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
+        else()
+            find_library(MOSQUITTO_LIB NAMES mosquitto)
+            if(MOSQUITTO_LIB)
+                target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
+            endif()
+        endif()
+    endif()
+
+    # Install RKNN samples
+    install(TARGETS 
+        rknn_detector_sample
+        rknn_face_detector_sample
+        rknn_rtsp_tracking_sample
+        DESTINATION bin
+    )
+    
+    # Install RKNN MQTT sample if available
+    if(CVEDIX_WITH_RTSP_SERVER)
+        install(TARGETS 
+            rknn_rtsp_tracking_mqtt_sample
+            DESTINATION bin
+            OPTIONAL
+        )
+    endif()
 endif()
 
 # samples depend on PaddlePaddle
@@ -147,13 +243,23 @@ if(CVEDIX_WITH_PADDLE)
     
     add_executable(paddle_infer_sample "paddle_infer_sample.cpp")
     target_link_libraries(paddle_infer_sample ${PROJECT_NAME})
+    
+    install(TARGETS 
+        app_src_sample
+        paddle_infer_sample
+        DESTINATION bin
+        OPTIONAL)
 endif()
 
 # samples depend on CUDA(maybe other dependency required too)
 if(CVEDIX_WITH_CUDA)
     # nvdec & nvenc plugins required from DeepStream
     add_executable(nv_hard_codec_sample "nv_hard_codec_sample.cpp")
-    target_link_libraries(nv_hard_codec_sample ${PROJECT_NAME})    
+    target_link_libraries(nv_hard_codec_sample ${PROJECT_NAME})
+    
+    install(TARGETS nv_hard_codec_sample
+            DESTINATION bin
+            OPTIONAL)
 endif()
 
 # samples depend on TensorRT
@@ -214,6 +320,31 @@ if(CVEDIX_WITH_TRT)
 
     add_executable(rtmp_src_sample "rtmp_src_sample.cpp")
     target_link_libraries(rtmp_src_sample ${PROJECT_NAME})
+    
+    # Install TensorRT samples
+    install(TARGETS 
+        ba_jam_sample
+        ba_stop_sample
+        body_scan_and_plate_detect_sample
+        dynamic_pipeline_sample
+        dynamic_pipeline_sample2
+        message_broker_sample2
+        multi_trt_infer_nodes_sample
+        plate_recognize_sample
+        src_des_sample
+        trt_infer_sample
+        vehicle_body_scan_sample
+        vehicle_cluster_based_on_classify_encoding_sample
+        vehicle_tracking_sample
+        1-N-1_sample
+        1-N-1_sample2
+        1-N-1_sample3
+        trt_yolov8_sample
+        trt_yolov8_sample2
+        rtmp_src_sample
+        DESTINATION bin
+        OPTIONAL
+    )
 endif()
 
 if(CVEDIX_BUILD_COMPLEX_SAMPLES)

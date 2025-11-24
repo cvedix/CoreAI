@@ -1,0 +1,21 @@
+#pragma once
+
+#include <opencv2/freetype.hpp>
+#include "../common/cvedix_node.h"
+
+namespace cvedix_nodes {
+    // on screen display(short as osd) node.
+    // mainly used to display math expression which based on cvedix_frame_text_target on frame.
+    class cvedix_expr_osd_node: public cvedix_node
+    {
+    private:
+        // support chinese font
+        cv::Ptr<cv::freetype::FreeType2> ft2;
+    protected:
+        virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
+    public:
+        cvedix_expr_osd_node(std::string node_name, std::string font);
+        ~cvedix_expr_osd_node();
+    };
+
+}
