@@ -504,6 +504,17 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/cvedix_data")
             DESTINATION bin
             FILES_MATCHING PATTERN "*"
             PATTERN ".git" EXCLUDE)
+    message(STATUS "cvedix_data directory will be included in package")
+else()
+    message(WARNING "cvedix_data directory not found - will not be included in package")
+endif()
+
+# 2. Cài đặt release notes vào doc directory
+if(EXISTS "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_2025.0.1.2.md")
+    install(FILES "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_2025.0.1.2.md"
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            RENAME "RELEASE_NOTES.md")
+    message(STATUS "Release notes will be included in package")
 endif()
 
 # 2. Cấu hình CPack để tạo file .deb
@@ -521,7 +532,7 @@ set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 # Package metadata
 set(CPACK_PACKAGE_CONTACT "CVEDIX Team <support@cvedix.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CVEDIX AI Runtime SDK with RKNN, MQTT and JSON Output Support")
-set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version includes MQTT broker node for publishing detection results via MQTT protocol and enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities.")
+set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version (2025.0.1.2) includes: Custom Data Transform Node for data customization, MQTT broker node for publishing detection results via MQTT protocol, enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities. Package includes libraries, headers, samples, and cvedix_data directory.")
 
 # Debian package metadata
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "CVEDIX Team <support@cvedix.com>")
@@ -530,15 +541,24 @@ set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
 # Convert architecture name for Debian package
 # aarch64 -> arm64 (Debian uses arm64, not aarch64)
+# x86_64 -> amd64 (Debian uses amd64, not x86_64)
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "arm64")
+    set(PACKAGE_ARCH_SUFFIX "arm64")
 elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+    set(PACKAGE_ARCH_SUFFIX "x86_64")
 elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "i386|i686")
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
+    set(PACKAGE_ARCH_SUFFIX "i386")
 else()
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+    set(PACKAGE_ARCH_SUFFIX ${CMAKE_SYSTEM_PROCESSOR})
 endif()
+
+# Set package file name with architecture
+# Format: cvedix-ai-runtime-2025.0.1.2-arm64.deb or cvedix-ai-runtime-2025.0.1.2-x86_64.deb
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${PACKAGE_ARCH_SUFFIX}")
 
 # Cài đặt tất cả vào /opt/cvedix để tránh xung đột hệ thống và giữ đường dẫn tương đối
 set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/cvedix")

@@ -121,6 +121,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o.d"
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o"
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o.d"
+  "CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o"
+  "CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o.d"
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o"
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o.d"
   "CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o"

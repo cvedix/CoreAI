@@ -1,5 +1,0 @@
-#pragma once
-
-#define CVEDIX_BUILD_TIME "20251124-070142"
-#define CVEDIX_GIT_COMMIT "c56c32e-dirty"
-#define CVEDIX_VERSION "v20251124-070142-c56c32e-dirty"

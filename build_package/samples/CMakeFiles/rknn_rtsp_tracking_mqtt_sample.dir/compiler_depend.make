@@ -501,117 +501,11 @@ samples/CMakeFiles/rknn_rtsp_tracking_mqtt_sample.dir/rknn_rtsp_tracking_mqtt_sa
   cvedix/nodes/common/cvedix_des_node.h \
   cvedix/nodes/common/cvedix_stream_status_hookable.h \
   cvedix/nodes/des/cvedix_rtmp_des_node.h \
+  cvedix/nodes/des/cvedix_fake_des_node.h \
   cvedix/nodes/mid/cvedix_split_node.h \
-  cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h \
-  cvedix/nodes/broker/cvedix_json_console_broker_node.h \
-  cvedix/nodes/broker/cvedix_msg_broker_node.h \
-  cvedix/nodes/broker/cereal_archive/cvedix_objects_cereal_archive.h \
-  cvedix/third_party/cereal/cereal.hpp \
-  /usr/include/c++/11/unordered_set \
-  /usr/include/c++/11/bits/unordered_set.h \
-  cvedix/third_party/cereal/macros.hpp \
-  cvedix/third_party/cereal/details/traits.hpp \
-  /usr/include/c++/11/typeindex \
-  cvedix/third_party/cereal/macros.hpp \
-  cvedix/third_party/cereal/access.hpp \
-  cvedix/third_party/cereal/macros.hpp \
-  cvedix/third_party/cereal/specialize.hpp \
-  cvedix/third_party/cereal/details/helpers.hpp \
-  cvedix/third_party/cereal/macros.hpp \
-  cvedix/third_party/cereal/details/static_object.hpp \
-  cvedix/third_party/cereal/macros.hpp \
-  cvedix/third_party/cereal/details/helpers.hpp \
-  cvedix/third_party/cereal/types/base_class.hpp \
-  cvedix/third_party/cereal/details/traits.hpp \
-  cvedix/third_party/cereal/details/polymorphic_impl_fwd.hpp \
-  cvedix/third_party/cereal/types/common.hpp \
-  cvedix/third_party/cereal/cereal.hpp \
-  cvedix/third_party/cereal/types/vector.hpp \
-  cvedix/third_party/cereal/types/memory.hpp \
-  cvedix/third_party/cereal/types/polymorphic.hpp \
-  cvedix/third_party/cereal/cereal.hpp \
-  cvedix/third_party/cereal/types/memory.hpp \
-  cvedix/third_party/cereal/details/util.hpp \
-  /usr/include/c++/11/cxxabi.h \
-  /usr/include/aarch64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
-  cvedix/third_party/cereal/details/helpers.hpp \
-  cvedix/third_party/cereal/details/traits.hpp \
-  cvedix/third_party/cereal/details/polymorphic_impl.hpp \
-  cvedix/third_party/cereal/details/polymorphic_impl_fwd.hpp \
-  cvedix/third_party/cereal/details/static_object.hpp \
-  cvedix/third_party/cereal/types/memory.hpp \
-  cvedix/third_party/cereal/types/string.hpp \
-  cvedix/third_party/cereal/cereal.hpp \
-  cvedix/third_party/cereal/types/string.hpp \
-  cvedix/third_party/cereal/types/utility.hpp \
-  cvedix/third_party/cereal/archives/json.hpp \
-  cvedix/third_party/cereal/cereal.hpp \
-  cvedix/third_party/cereal/details/util.hpp \
-  cvedix/third_party/cereal/external/rapidjson/prettywriter.h \
-  cvedix/third_party/cereal/external/rapidjson/writer.h \
-  cvedix/third_party/cereal/external/rapidjson/stream.h \
-  cvedix/third_party/cereal/external/rapidjson/rapidjson.h \
-  /usr/include/inttypes.h \
-  cvedix/third_party/cereal/external/rapidjson/encodings.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/meta.h \
-  cvedix/third_party/cereal/external/rapidjson/rapidjson.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/stack.h \
-  cvedix/third_party/cereal/external/rapidjson/allocators.h \
-  cvedix/third_party/cereal/external/rapidjson/rapidjson.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/swap.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/strfunc.h \
-  cvedix/third_party/cereal/external/rapidjson/stream.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/dtoa.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/itoa.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/diyfp.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/ieee754.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/itoa.h \
-  cvedix/third_party/cereal/external/rapidjson/stringbuffer.h \
-  cvedix/third_party/cereal/external/rapidjson/ostreamwrapper.h \
-  cvedix/third_party/cereal/external/rapidjson/istreamwrapper.h \
-  cvedix/third_party/cereal/external/rapidjson/document.h \
-  cvedix/third_party/cereal/external/rapidjson/reader.h \
-  cvedix/third_party/cereal/external/rapidjson/allocators.h \
-  cvedix/third_party/cereal/external/rapidjson/encodedstream.h \
-  cvedix/third_party/cereal/external/rapidjson/memorystream.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/strtod.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/biginteger.h \
-  cvedix/third_party/cereal/external/rapidjson/internal/pow10.h \
-  cvedix/third_party/cereal/external/rapidjson/error/error.h \
-  cvedix/third_party/cereal/external/rapidjson/rapidjson.h \
-  cvedix/third_party/cereal/external/base64.hpp \
-  cvedix/third_party/cereal/archives/xml.hpp \
-  cvedix/third_party/cereal/external/rapidxml/rapidxml.hpp \
-  cvedix/third_party/cereal/external/rapidxml/rapidxml_print.hpp \
-  cvedix/third_party/cereal/external/rapidxml/rapidxml.hpp \
-  cvedix/third_party/cpp_base64/base64.h \
-  cvedix/nodes/broker/cvedix_json_mqtt_broker_node.h \
+  cvedix/nodes/mid/cvedix_custom_data_transform_node.h \
   cvedix/utils/analysis_board/cvedix_analysis_board.h \
   cvedix/utils/analysis_board/cvedix_node_on_screen.h \
-  ../third_party/nlohmann/json.hpp \
-  /usr/include/c++/11/forward_list \
-  /usr/include/c++/11/bits/forward_list.h \
-  /usr/include/c++/11/bits/forward_list.tcc \
-  /usr/include/c++/11/valarray \
-  /usr/include/c++/11/bits/valarray_array.h \
-  /usr/include/c++/11/bits/valarray_array.tcc \
-  /usr/include/c++/11/bits/valarray_before.h \
-  /usr/include/c++/11/bits/slice_array.h \
-  /usr/include/c++/11/bits/valarray_after.h \
-  /usr/include/c++/11/bits/gslice.h \
-  /usr/include/c++/11/bits/gslice_array.h \
-  /usr/include/c++/11/bits/mask_array.h \
-  /usr/include/c++/11/bits/indirect_array.h \
-  /usr/include/c++/11/version \
-  /usr/include/c++/11/filesystem \
-  /usr/include/c++/11/bits/fs_fwd.h \
-  /usr/include/c++/11/bits/fs_path.h \
-  /usr/include/c++/11/bits/fs_dir.h \
-  /usr/include/c++/11/bits/fs_ops.h \
-  /usr/include/c++/11/optional \
-  /usr/include/c++/11/numeric \
-  /usr/include/c++/11/bits/stl_numeric.h \
-  /usr/include/c++/11/pstl/glue_numeric_defs.h \
   /usr/include/c++/11/csignal \
   /usr/include/signal.h \
   /usr/include/aarch64-linux-gnu/bits/signum-generic.h \
@@ -662,15 +556,8 @@ samples/CMakeFiles/rknn_rtsp_tracking_mqtt_sample.dir/rknn_rtsp_tracking_mqtt_sa
   /usr/include/aarch64-linux-gnu/bits/types/struct_sigstack.h \
   /usr/include/aarch64-linux-gnu/bits/sigthread.h \
   /usr/include/aarch64-linux-gnu/bits/signal_ext.h \
-  /usr/include/c++/11/random \
-  /usr/include/c++/11/bits/random.h \
-  /usr/include/aarch64-linux-gnu/c++/11/bits/opt_random.h \
-  /usr/include/c++/11/bits/random.tcc
+  /usr/include/c++/11/atomic
 
-
-/usr/include/aarch64-linux-gnu/c++/11/bits/opt_random.h:
-
-/usr/include/c++/11/random:
 
 /usr/include/aarch64-linux-gnu/bits/signal_ext.h:
 
@@ -683,120 +570,6 @@ samples/CMakeFiles/rknn_rtsp_tracking_mqtt_sample.dir/rknn_rtsp_tracking_mqtt_sa
 /usr/include/aarch64-linux-gnu/bits/unistd_ext.h:
 
 /usr/include/aarch64-linux-gnu/bits/getopt_core.h:
-
-/usr/include/aarch64-linux-gnu/bits/confname.h:
-
-/usr/include/aarch64-linux-gnu/bits/environments.h:
-
-/usr/include/unistd.h:
-
-/usr/include/aarch64-linux-gnu/bits/procfs-extra.h:
-
-/usr/include/aarch64-linux-gnu/bits/procfs-id.h:
-
-/usr/include/aarch64-linux-gnu/bits/procfs.h:
-
-/usr/include/aarch64-linux-gnu/sys/user.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/stack_t.h:
-
-/usr/include/asm-generic/posix_types.h:
-
-/usr/include/aarch64-linux-gnu/asm/posix_types.h:
-
-/usr/include/linux/stddef.h:
-
-/usr/include/linux/posix_types.h:
-
-/usr/include/asm-generic/bitsperlong.h:
-
-/usr/include/aarch64-linux-gnu/asm/bitsperlong.h:
-
-/usr/include/asm-generic/types.h:
-
-/usr/include/aarch64-linux-gnu/asm/types.h:
-
-/usr/include/linux/types.h:
-
-/usr/include/aarch64-linux-gnu/asm/sigcontext.h:
-
-/usr/include/aarch64-linux-gnu/bits/sigcontext.h:
-
-/usr/include/aarch64-linux-gnu/bits/sigaction.h:
-
-/usr/include/aarch64-linux-gnu/bits/sigevent-consts.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/sigevent_t.h:
-
-/usr/include/aarch64-linux-gnu/bits/siginfo-consts-arch.h:
-
-/usr/include/aarch64-linux-gnu/bits/siginfo-consts.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/__sigval_t.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/siginfo_t.h:
-
-/usr/include/aarch64-linux-gnu/bits/signum-arch.h:
-
-/usr/include/aarch64-linux-gnu/bits/signum-generic.h:
-
-/usr/include/signal.h:
-
-/usr/include/c++/11/csignal:
-
-/usr/include/c++/11/pstl/glue_numeric_defs.h:
-
-/usr/include/c++/11/numeric:
-
-/usr/include/c++/11/bits/fs_ops.h:
-
-/usr/include/c++/11/bits/fs_dir.h:
-
-/usr/include/c++/11/bits/fs_fwd.h:
-
-/usr/include/c++/11/bits/indirect_array.h:
-
-/usr/include/c++/11/bits/mask_array.h:
-
-/usr/include/c++/11/bits/gslice_array.h:
-
-/usr/include/c++/11/bits/gslice.h:
-
-/usr/include/c++/11/bits/valarray_after.h:
-
-/usr/include/c++/11/bits/slice_array.h:
-
-/usr/include/c++/11/bits/valarray_array.tcc:
-
-/usr/include/c++/11/bits/valarray_array.h:
-
-/usr/include/c++/11/valarray:
-
-/usr/include/c++/11/bits/forward_list.tcc:
-
-/usr/include/c++/11/bits/forward_list.h:
-
-/usr/include/c++/11/forward_list:
-
-../third_party/nlohmann/json.hpp:
-
-cvedix/utils/analysis_board/cvedix_node_on_screen.h:
-
-cvedix/third_party/cpp_base64/base64.h:
-
-cvedix/third_party/cereal/external/rapidxml/rapidxml_print.hpp:
-
-cvedix/third_party/cereal/external/rapidxml/rapidxml.hpp:
-
-cvedix/third_party/cereal/external/rapidjson/error/error.h:
-
-cvedix/third_party/cereal/external/rapidjson/internal/pow10.h:
-
-cvedix/third_party/cereal/external/rapidjson/internal/biginteger.h:
-
-cvedix/third_party/cereal/external/rapidjson/internal/strtod.h:
-
-cvedix/third_party/cereal/external/rapidjson/encodedstream.h:
 
 /usr/include/aarch64-linux-gnu/c++/11/bits/time_members.h:
 
@@ -812,10 +585,6 @@ cvedix/third_party/cereal/external/rapidjson/encodedstream.h:
 
 /usr/include/c++/11/bits/hashtable_policy.h:
 
-/usr/include/aarch64-linux-gnu/bits/types/sigval_t.h:
-
-/usr/include/c++/11/pstl/glue_algorithm_defs.h:
-
 /usr/include/c++/11/stdexcept:
 
 /usr/local/include/opencv4/opencv2/flann/lsh_table.h:
@@ -823,6 +592,8 @@ cvedix/third_party/cereal/external/rapidjson/encodedstream.h:
 /usr/include/c++/11/bits/stl_algo.h:
 
 cvedix/nodes/common/cvedix_meta_subscriber.h:
+
+/usr/include/c++/11/bits/regex_scanner.h:
 
 /usr/include/c++/11/istream:
 
@@ -852,13 +623,7 @@ cvedix/nodes/common/cvedix_meta_subscriber.h:
 
 /usr/include/c++/11/bits/uniform_int_dist.h:
 
-cvedix/third_party/cereal/details/polymorphic_impl_fwd.hpp:
-
 /usr/local/include/opencv4/opencv2/core/utils/logger.defines.hpp:
-
-/usr/include/aarch64-linux-gnu/sys/procfs.h:
-
-/usr/include/c++/11/bits/locale_classes.h:
 
 /usr/local/include/opencv4/opencv2/features2d.hpp:
 
@@ -875,8 +640,6 @@ cvedix/nodes/osd/cvedix_osd_node.h:
 /usr/include/c++/11/bits/unique_lock.h:
 
 /usr/include/c++/11/bits/uses_allocator.h:
-
-/usr/include/c++/11/optional:
 
 /usr/include/c++/11/condition_variable:
 
@@ -896,13 +659,7 @@ cvedix/nodes/osd/cvedix_osd_node.h:
 
 /usr/include/aarch64-linux-gnu/bits/posix1_lim.h:
 
-/usr/include/c++/11/bits/valarray_before.h:
-
 /usr/include/c++/11/bits/stl_bvector.h:
-
-/usr/include/aarch64-linux-gnu/sys/time.h:
-
-/usr/include/c++/11/bits/align.h:
 
 /usr/local/include/opencv4/opencv2/flann/any.h:
 
@@ -915,6 +672,10 @@ cvedix/nodes/osd/cvedix_osd_node.h:
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
 /usr/include/c++/11/ios:
+
+/usr/include/c++/11/utility:
+
+/usr/local/include/opencv4/opencv2/core/mat.inl.hpp:
 
 /usr/include/c++/11/deque:
 
@@ -934,9 +695,9 @@ cvedix/nodes/osd/cvedix_osd_node.h:
 
 /usr/include/c++/11/any:
 
-cvedix/third_party/cereal/external/rapidjson/memorystream.h:
-
 /usr/include/c++/11/bits/refwrap.h:
+
+/usr/include/linux/stddef.h:
 
 /usr/include/aarch64-linux-gnu/bits/getopt_posix.h:
 
@@ -946,7 +707,13 @@ cvedix/third_party/cereal/external/rapidjson/memorystream.h:
 
 /usr/include/limits.h:
 
+/usr/include/c++/11/bits/align.h:
+
+/usr/include/aarch64-linux-gnu/sys/time.h:
+
 /usr/include/c++/11/bits/nested_exception.h:
+
+/usr/include/c++/11/bits/std_thread.h:
 
 /usr/include/c++/11/bits/node_handle.h:
 
@@ -955,6 +722,8 @@ cvedix/third_party/cereal/external/rapidjson/memorystream.h:
 cvedix/nodes/common/cvedix_src_node.h:
 
 /usr/include/pthread.h:
+
+/usr/include/c++/11/bits/basic_string.tcc:
 
 /usr/local/include/opencv4/opencv2/objdetect.hpp:
 
@@ -974,6 +743,8 @@ cvedix/nodes/common/cvedix_src_node.h:
 
 /usr/local/include/opencv4/opencv2/core/persistence.hpp:
 
+/usr/local/include/opencv4/opencv2/stitching/detail/util_inl.hpp:
+
 /usr/include/aarch64-linux-gnu/sys/select.h:
 
 /usr/include/c++/11/iosfwd:
@@ -992,25 +763,27 @@ cvedix/nodes/common/cvedix_src_node.h:
 
 /usr/include/endian.h:
 
-/usr/include/c++/11/version:
+/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
+
+/usr/local/include/opencv4/opencv2/stitching/warpers.hpp:
 
 /usr/include/aarch64-linux-gnu/bits/byteswap.h:
 
 /usr/include/c++/11/tr1/bessel_function.tcc:
 
-/usr/include/aarch64-linux-gnu/c++/11/bits/cxxabi_tweaks.h:
-
 /usr/include/c++/11/bits/concept_check.h:
+
+/usr/include/asm-generic/types.h:
+
+/usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/c++/11/bits/std_mutex.h:
 
 /usr/include/aarch64-linux-gnu/bits/libc-header-start.h:
 
-/usr/include/c++/11/bits/regex_scanner.h:
-
-cvedix/third_party/cereal/macros.hpp:
-
 /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/aarch64-linux-gnu/asm/bitsperlong.h:
 
 /usr/include/aarch64-linux-gnu/bits/floatn-common.h:
 
@@ -1019,8 +792,6 @@ cvedix/third_party/cereal/macros.hpp:
 /usr/include/alloca.h:
 
 /usr/include/aarch64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/11/bits/fs_path.h:
 
 /usr/local/include/opencv4/opencv2/flann/flann_base.hpp:
 
@@ -1058,6 +829,8 @@ cvedix/nodes/common/cvedix_stream_info_hookable.h:
 
 /usr/include/c++/11/streambuf:
 
+/usr/include/aarch64-linux-gnu/bits/procfs-id.h:
+
 /usr/include/aarch64-linux-gnu/bits/mathcalls-helper-functions.h:
 
 /usr/include/aarch64-linux-gnu/bits/stdlib-float.h:
@@ -1088,6 +861,8 @@ cvedix/nodes/track/sort/KalmanTracker.h:
 
 /usr/include/c++/11/pstl/glue_memory_defs.h:
 
+/usr/include/c++/11/csignal:
+
 /usr/include/c++/11/ext/type_traits.h:
 
 /usr/include/c++/11/bits/cxxabi_init_exception.h:
@@ -1100,11 +875,11 @@ cvedix/nodes/track/sort/KalmanTracker.h:
 
 /usr/include/c++/11/bits/move.h:
 
-cvedix/third_party/cereal/external/rapidjson/document.h:
-
 /usr/local/include/opencv4/opencv2/imgproc.hpp:
 
 /usr/include/c++/11/bits/string_view.tcc:
+
+/usr/include/aarch64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/aarch64-linux-gnu/bits/typesizes.h:
 
@@ -1144,10 +919,6 @@ cvedix/utils/logger/cvedix_log_kafka_writer.h:
 
 /usr/include/c++/11/debug/debug.h:
 
-/usr/include/aarch64-linux-gnu/bits/posix_opt.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/mbstate_t.h:
-
 /usr/include/c++/11/bits/shared_ptr_base.h:
 
 /usr/include/c++/11/bits/basic_string.h:
@@ -1155,6 +926,8 @@ cvedix/utils/logger/cvedix_log_kafka_writer.h:
 /usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/linux/limits.h:
+
+/usr/include/aarch64-linux-gnu/bits/siginfo-consts.h:
 
 /usr/include/c++/11/fstream:
 
@@ -1170,8 +943,6 @@ cvedix/utils/logger/cvedix_log_kafka_writer.h:
 
 /usr/include/linux/close_range.h:
 
-/usr/include/c++/11/bits/stl_numeric.h:
-
 cvedix/objects/shapes/cvedix_point.h:
 
 /usr/include/c++/11/iostream:
@@ -1184,9 +955,9 @@ cvedix/nodes/src/cvedix_rtsp_src_node.h:
 
 /usr/include/c++/11/cwchar:
 
-cvedix/third_party/cereal/details/traits.hpp:
-
 /usr/include/c++/11/bits/stl_algobase.h:
+
+/usr/include/unistd.h:
 
 /usr/include/aarch64-linux-gnu/sys/single_threaded.h:
 
@@ -1204,27 +975,29 @@ cvedix/third_party/cereal/details/traits.hpp:
 
 /usr/include/c++/11/bits/predefined_ops.h:
 
+/usr/include/aarch64-linux-gnu/c++/11/bits/cpu_defines.h:
+
 /usr/include/aarch64-linux-gnu/c++/11/bits/gthr-default.h:
 
 /usr/include/c++/11/bits/regex_automaton.h:
 
 cvedix/utils/cvedix_gate.h:
 
+/usr/include/aarch64-linux-gnu/bits/environments.h:
+
 /usr/include/c++/11/bitset:
 
 /usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
 
-/usr/include/c++/11/exception:
+/usr/include/aarch64-linux-gnu/bits/procfs-extra.h:
 
-cvedix/third_party/cereal/specialize.hpp:
+/usr/include/c++/11/exception:
 
 /usr/include/aarch64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/aarch64-linux-gnu/bits/errno.h:
 
 /usr/include/c++/11/type_traits:
-
-cvedix/third_party/cereal/details/static_object.hpp:
 
 /usr/include/c++/11/bits/postypes.h:
 
@@ -1238,19 +1011,19 @@ cvedix/third_party/cereal/details/static_object.hpp:
 
 cvedix/nodes/track/sort/Hungarian.h:
 
-/usr/include/c++/11/bits/random.tcc:
-
 /usr/include/c++/11/bits/atomic_base.h:
 
 cvedix/objects/cvedix_frame_text_target.h:
 
 /usr/include/c++/11/ext/numeric_traits.h:
 
+/usr/include/c++/11/pstl/glue_algorithm_defs.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/sigval_t.h:
+
 /usr/include/features.h:
 
 /usr/local/include/opencv4/opencv2/flann/kmeans_index.h:
-
-cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h:
 
 /usr/include/stdc-predef.h:
 
@@ -1258,13 +1031,15 @@ cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h:
 
 /usr/include/c++/11/bits/alloc_traits.h:
 
-cvedix/nodes/broker/cvedix_json_mqtt_broker_node.h:
-
 /usr/include/c++/11/bits/memoryfwd.h:
 
 /usr/include/c++/11/bits/locale_facets_nonio.tcc:
 
 /usr/include/c++/11/ext/atomicity.h:
+
+/usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h:
+
+/usr/include/c++/11/bits/stl_vector.h:
 
 /usr/include/c++/11/cstddef:
 
@@ -1286,10 +1061,6 @@ cvedix/nodes/broker/cvedix_json_mqtt_broker_node.h:
 
 /usr/include/c++/11/bits/exception_defines.h:
 
-/usr/include/aarch64-linux-gnu/bits/sigstksz.h:
-
-/usr/include/c++/11/string_view:
-
 cvedix/nodes/mid/cvedix_split_node.h:
 
 /usr/include/c++/11/cstdio:
@@ -1298,9 +1069,7 @@ cvedix/nodes/mid/cvedix_split_node.h:
 
 /usr/include/c++/11/experimental/filesystem:
 
-/usr/include/aarch64-linux-gnu/bits/types/sig_atomic_t.h:
-
-/usr/include/aarch64-linux-gnu/c++/11/bits/c++allocator.h:
+/usr/include/aarch64-linux-gnu/asm/types.h:
 
 /usr/include/c++/11/array:
 
@@ -1366,8 +1135,6 @@ cvedix/nodes/mid/cvedix_split_node.h:
 
 /usr/local/include/opencv4/opencv2/video.hpp:
 
-cvedix/third_party/cereal/external/rapidjson/internal/ieee754.h:
-
 /usr/include/c++/11/cctype:
 
 /usr/include/c++/11/iomanip:
@@ -1384,8 +1151,6 @@ cvedix/third_party/cereal/external/rapidjson/internal/ieee754.h:
 
 /usr/include/c++/11/bits/deque.tcc:
 
-cvedix/third_party/cereal/external/rapidjson/internal/meta.h:
-
 /usr/include/aarch64-linux-gnu/bits/mathcalls.h:
 
 /usr/include/aarch64-linux-gnu/bits/floatn.h:
@@ -1397,6 +1162,8 @@ cvedix/third_party/cereal/external/rapidjson/internal/meta.h:
 /usr/include/aarch64-linux-gnu/bits/types/struct_timespec.h:
 
 /usr/lib/gcc/aarch64-linux-gnu/11/include/stdint.h:
+
+/usr/include/aarch64-linux-gnu/bits/sigcontext.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/struct_timeval.h:
 
@@ -1418,21 +1185,19 @@ cvedix/third_party/cereal/external/rapidjson/internal/meta.h:
 
 /usr/local/include/opencv4/opencv2/objdetect/aruco_dictionary.hpp:
 
-/usr/include/aarch64-linux-gnu/bits/siginfo-arch.h:
-
-/usr/include/c++/11/bits/hashtable.h:
-
 /usr/include/aarch64-linux-gnu/bits/setjmp.h:
 
-cvedix/third_party/cereal/external/rapidjson/reader.h:
-
 cvedix/nodes/infers/base/cvedix_infer_node.h:
+
+/usr/include/aarch64-linux-gnu/asm/posix_types.h:
 
 /usr/include/aarch64-linux-gnu/bits/types.h:
 
 /usr/include/aarch64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/local/include/opencv4/opencv2/flann/autotuned_index.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
 
@@ -1468,6 +1233,10 @@ cvedix/utils/logger/cvedix_logger.h:
 
 /usr/include/c++/11/bits/locale_conv.h:
 
+/usr/include/aarch64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/posix_opt.h:
+
 /usr/include/c++/11/stack:
 
 /usr/include/c++/11/bits/stl_stack.h:
@@ -1490,7 +1259,9 @@ cvedix/utils/logger/cvedix_logger.h:
 
 /usr/include/strings.h:
 
-cvedix/third_party/cereal/external/rapidjson/encodings.h:
+/usr/include/signal.h:
+
+/usr/include/c++/11/atomic:
 
 /usr/include/asm-generic/int-ll64.h:
 
@@ -1503,6 +1274,10 @@ cvedix/third_party/cereal/external/rapidjson/encodings.h:
 /usr/include/aarch64-linux-gnu/c++/11/bits/messages_members.h:
 
 /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp:
+
+/usr/include/aarch64-linux-gnu/bits/sigevent-consts.h:
+
+/usr/include/aarch64-linux-gnu/bits/sigaction.h:
 
 /usr/include/c++/11/bits/stream_iterator.h:
 
@@ -1520,12 +1295,6 @@ cvedix/objects/cvedix_sub_target.h:
 
 /usr/include/c++/11/bits/regex_executor.tcc:
 
-cvedix/third_party/cereal/cereal.hpp:
-
-cvedix/third_party/cereal/external/rapidjson/prettywriter.h:
-
-/usr/include/c++/11/typeindex:
-
 /usr/include/c++/11/tr1/beta_function.tcc:
 
 /usr/include/aarch64-linux-gnu/bits/types/FILE.h:
@@ -1539,6 +1308,8 @@ cvedix/third_party/cereal/external/rapidjson/prettywriter.h:
 /usr/local/include/opencv4/opencv2/core/hal/interface.h:
 
 /usr/lib/gcc/aarch64-linux-gnu/11/include/arm_fp16.h:
+
+/usr/local/include/opencv4/opencv2/stitching/detail/motion_estimators.hpp:
 
 /usr/include/aarch64-linux-gnu/bits/types/sigset_t.h:
 
@@ -1600,11 +1371,7 @@ cvedix/nodes/common/cvedix_meta_publisher.h:
 
 /usr/local/include/opencv4/opencv2/core/neon_utils.hpp:
 
-cvedix/third_party/cereal/external/rapidjson/internal/dtoa.h:
-
 /usr/local/include/opencv4/opencv2/core/vsx_utils.hpp:
-
-cvedix/third_party/cereal/external/rapidjson/rapidjson.h:
 
 /usr/include/c++/11/bits/allocated_ptr.h:
 
@@ -1618,13 +1385,7 @@ cvedix/third_party/cereal/external/rapidjson/rapidjson.h:
 
 /usr/local/include/opencv4/opencv2/core/types.hpp:
 
-/usr/include/aarch64-linux-gnu/c++/11/bits/cpu_defines.h:
-
-cvedix/third_party/cereal/types/base_class.hpp:
-
 /usr/include/c++/11/cfloat:
-
-cvedix/third_party/cereal/external/rapidjson/stringbuffer.h:
 
 /usr/include/aarch64-linux-gnu/bits/wchar.h:
 
@@ -1644,13 +1405,7 @@ cvedix/nodes/common/cvedix_meta_hookable.h:
 
 /usr/local/include/opencv4/opencv2/core/optim.hpp:
 
-/usr/include/c++/11/utility:
-
-cvedix/third_party/cereal/external/rapidjson/internal/stack.h:
-
 /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp:
-
-cvedix/third_party/cereal/types/vector.hpp:
 
 cvedix/utils/date.h:
 
@@ -1662,19 +1417,15 @@ cvedix/utils/date.h:
 
 /usr/include/aarch64-linux-gnu/c++/11/bits/c++io.h:
 
-cvedix/third_party/cereal/types/common.hpp:
-
 /usr/include/c++/11/bits/fstream.tcc:
+
+/usr/include/asm-generic/posix_types.h:
 
 /usr/include/c++/11/chrono:
 
 /usr/include/c++/11/experimental/bits/fs_path.h:
 
 /usr/include/c++/11/experimental/bits/fs_ops.h:
-
-/usr/local/include/opencv4/opencv2/flann/autotuned_index.h:
-
-cvedix/third_party/cereal/external/rapidjson/istreamwrapper.h:
 
 cvedix/objects/cvedix_meta.h:
 
@@ -1684,13 +1435,15 @@ cvedix/objects/cvedix_frame_meta.h:
 
 cvedix/objects/cvedix_frame_target.h:
 
-/usr/include/c++/11/bits/random.h:
+cvedix/objects/shapes/cvedix_rect.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/stack_t.h:
+
+/usr/include/c++/11/bits/locale_classes.h:
+
+/usr/include/aarch64-linux-gnu/sys/procfs.h:
 
 cvedix/objects/shapes/cvedix_size.h:
-
-/usr/local/include/opencv4/opencv2/stitching/detail/util_inl.hpp:
-
-cvedix/third_party/cereal/access.hpp:
 
 cvedix/objects/cvedix_frame_pose_target.h:
 
@@ -1699,6 +1452,10 @@ cvedix/excepts/cvedix_invalid_calling_error.h:
 cvedix/excepts/cvedix_not_implemented_error.h:
 
 cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h:
+
+cvedix/nodes/common/cvedix_node.h:
+
+cvedix/nodes/infers/base/cvedix_primary_infer_node.h:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
 
@@ -1710,17 +1467,9 @@ cvedix/nodes/des/cvedix_rtmp_des_node.h:
 
 /usr/local/include/opencv4/opencv2/dnn/dnn.hpp:
 
-cvedix/utils/analysis_board/cvedix_analysis_board.h:
-
-/usr/local/include/opencv4/opencv2/core/async.hpp:
-
 /usr/local/include/opencv4/opencv2/dnn/version.hpp:
 
-/usr/include/c++/11/unordered_set:
-
 /usr/local/include/opencv4/opencv2/dnn/dict.hpp:
-
-cvedix/third_party/cereal/external/base64.hpp:
 
 /usr/local/include/opencv4/opencv2/dnn/layer.hpp:
 
@@ -1729,12 +1478,6 @@ cvedix/third_party/cereal/external/base64.hpp:
 /usr/local/include/opencv4/opencv2/flann/result_set.h:
 
 cvedix/utils/rknn/cvedix_rknn_helper.h:
-
-/usr/include/aarch64-linux-gnu/sys/ucontext.h:
-
-/usr/local/include/opencv4/opencv2/flann/general.h:
-
-/usr/local/include/opencv4/opencv2/calib3d.hpp:
 
 /usr/local/include/opencv4/opencv2/flann/defines.h:
 
@@ -1786,8 +1529,6 @@ cvedix/nodes/track/cvedix_track_node.h:
 
 /usr/local/include/opencv4/opencv2/core/cuda_types.hpp:
 
-cvedix/third_party/cereal/external/rapidjson/internal/diyfp.h:
-
 /usr/local/include/opencv4/opencv2/flann/lsh_index.h:
 
 /usr/include/c++/11/math.h:
@@ -1796,19 +1537,21 @@ cvedix/third_party/cereal/external/rapidjson/internal/diyfp.h:
 
 /usr/local/include/opencv4/opencv2/flann/ground_truth.h:
 
+/usr/include/aarch64-linux-gnu/bits/signum-generic.h:
+
 /usr/local/include/opencv4/opencv2/flann/index_testing.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/__FILE.h:
 
 /usr/local/include/opencv4/opencv2/flann/timer.h:
 
-cvedix/third_party/cereal/details/helpers.hpp:
-
 /usr/local/include/opencv4/opencv2/ml.hpp:
 
 /usr/include/c++/11/bits/codecvt.h:
 
 /usr/local/include/opencv4/opencv2/objdetect/aruco_board.hpp:
+
+cvedix/utils/analysis_board/cvedix_node_on_screen.h:
 
 /usr/local/include/opencv4/opencv2/core/operations.hpp:
 
@@ -1820,15 +1563,9 @@ cvedix/third_party/cereal/details/helpers.hpp:
 
 /usr/local/include/opencv4/opencv2/photo.hpp:
 
-/usr/include/aarch64-linux-gnu/bits/procfs-prregset.h:
-
-/usr/include/features-time64.h:
-
-/usr/include/c++/11/system_error:
-
-cvedix/third_party/cereal/types/utility.hpp:
-
 /usr/local/include/opencv4/opencv2/stitching.hpp:
+
+/usr/include/aarch64-linux-gnu/bits/types/sigevent_t.h:
 
 /usr/local/include/opencv4/opencv2/stitching/detail/warpers_inl.hpp:
 
@@ -1846,13 +1583,13 @@ cvedix/third_party/cereal/types/utility.hpp:
 
 /usr/local/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp:
 
-/usr/include/c++/11/filesystem:
-
 /usr/local/include/opencv4/opencv2/stitching/detail/seam_finders.hpp:
 
-/usr/local/include/opencv4/opencv2/stitching/detail/blenders.hpp:
+/usr/local/include/opencv4/opencv2/core/async.hpp:
 
-cvedix/third_party/cereal/archives/xml.hpp:
+cvedix/utils/analysis_board/cvedix_analysis_board.h:
+
+/usr/local/include/opencv4/opencv2/stitching/detail/blenders.hpp:
 
 /usr/local/include/opencv4/opencv2/core/traits.hpp:
 
@@ -1874,64 +1611,50 @@ cvedix/nodes/common/cvedix_des_node.h:
 
 cvedix/nodes/common/cvedix_stream_status_hookable.h:
 
-cvedix/nodes/common/cvedix_node.h:
+cvedix/nodes/des/cvedix_fake_des_node.h:
 
-cvedix/nodes/infers/base/cvedix_primary_infer_node.h:
+cvedix/nodes/mid/cvedix_custom_data_transform_node.h:
 
-cvedix/nodes/broker/cvedix_json_console_broker_node.h:
+/usr/include/aarch64-linux-gnu/bits/signum-arch.h:
 
-cvedix/nodes/broker/cvedix_msg_broker_node.h:
+/usr/include/aarch64-linux-gnu/asm/sigcontext.h:
 
-/usr/include/inttypes.h:
+/usr/include/aarch64-linux-gnu/c++/11/bits/c++allocator.h:
 
-cvedix/nodes/broker/cereal_archive/cvedix_objects_cereal_archive.h:
+/usr/include/aarch64-linux-gnu/bits/types/sig_atomic_t.h:
 
-/usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h:
+/usr/include/aarch64-linux-gnu/bits/types/siginfo_t.h:
 
-/usr/include/c++/11/bits/stl_vector.h:
+/usr/include/aarch64-linux-gnu/bits/types/__sigval_t.h:
 
-/usr/include/c++/11/bits/unordered_set.h:
+/usr/include/c++/11/bits/hashtable.h:
 
-cvedix/third_party/cereal/types/memory.hpp:
+/usr/include/aarch64-linux-gnu/bits/siginfo-arch.h:
 
-cvedix/third_party/cereal/types/polymorphic.hpp:
+/usr/include/aarch64-linux-gnu/bits/siginfo-consts-arch.h:
 
-/usr/local/include/opencv4/opencv2/stitching/detail/motion_estimators.hpp:
+/usr/include/linux/types.h:
 
-cvedix/third_party/cereal/details/util.hpp:
+/usr/include/linux/posix_types.h:
 
-/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
+/usr/local/include/opencv4/opencv2/flann/general.h:
 
-/usr/local/include/opencv4/opencv2/stitching/warpers.hpp:
+/usr/local/include/opencv4/opencv2/calib3d.hpp:
 
-/usr/include/c++/11/cxxabi.h:
+/usr/include/aarch64-linux-gnu/sys/ucontext.h:
 
-cvedix/third_party/cereal/details/polymorphic_impl.hpp:
+/usr/include/aarch64-linux-gnu/sys/user.h:
 
-/usr/include/aarch64-linux-gnu/bits/types/struct_tm.h:
+/usr/include/aarch64-linux-gnu/bits/procfs.h:
 
-cvedix/third_party/cereal/types/string.hpp:
+/usr/include/features-time64.h:
 
-cvedix/third_party/cereal/archives/json.hpp:
+/usr/include/c++/11/system_error:
 
-cvedix/third_party/cereal/external/rapidjson/writer.h:
+/usr/include/aarch64-linux-gnu/bits/procfs-prregset.h:
 
-cvedix/third_party/cereal/external/rapidjson/stream.h:
+/usr/include/c++/11/string_view:
 
-/usr/local/include/opencv4/opencv2/core/mat.inl.hpp:
+/usr/include/aarch64-linux-gnu/bits/sigstksz.h:
 
-cvedix/third_party/cereal/external/rapidjson/allocators.h:
-
-cvedix/third_party/cereal/external/rapidjson/internal/swap.h:
-
-/usr/include/c++/11/bits/basic_string.tcc:
-
-cvedix/third_party/cereal/external/rapidjson/internal/strfunc.h:
-
-/usr/include/c++/11/bits/std_thread.h:
-
-cvedix/third_party/cereal/external/rapidjson/internal/itoa.h:
-
-cvedix/objects/shapes/cvedix_rect.h:
-
-cvedix/third_party/cereal/external/rapidjson/ostreamwrapper.h:
+/usr/include/aarch64-linux-gnu/bits/confname.h:
