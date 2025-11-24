@@ -52,12 +52,12 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Đường dẫn model mặc định
-    std::string model_path = "./cvedix_data/models/yolov8n.rknn";
+    std::string model_path = "./cvedix_data/models/face/yolov8n_face_detection.rknn";
     if (argc > 1) {
         model_path = argv[1];
     }
     
-    std::string rtsp_url = "rtsp://103.147.186.175:18554/9L02DA3PAJ39B2F";
+    std::string rtsp_url = "rtsp://103.147.186.175:18554/livestream/5F0459EPAG1EB5A";
     if (argc > 2) {
         rtsp_url = argv[2];
     }
@@ -72,11 +72,11 @@ int main(int argc, char** argv) {
     auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
         "rknn_detector_0", 
         model_path,
-        0.5,  // ngưỡng điểm
-        0.45, // ngưỡng NMS
-        640,  // chiều rộng đầu vào
-        640,  // chiều cao đầu vào
-        80    // số lớp (COCO)
+        0.25,  // ngưỡng điểm
+        0.35, // ngưỡng NMS
+        320,  // chiều rộng đầu vào
+        320,  // chiều cao đầu vào
+        1    // số lớp (COCO)
     );
 
     // Theo dõi: Bộ theo dõi SORT

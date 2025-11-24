@@ -371,10 +371,40 @@ write_basic_package_version_file(
     COMPATIBILITY SameMajorVersion
 )
 
-configure_package_config_file(
+# Collect compile definitions that were used when building the SDK
+set(CVEDIX_CONFIG_DEFINES "")
+if(CVEDIX_WITH_RKNN)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RKNN)\n")
+endif()
+if(CVEDIX_WITH_RGA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RGA)\n")
+endif()
+if(CVEDIX_WITH_RTSP_SERVER)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RTSP_SERVER)\n")
+endif()
+if(CVEDIX_WITH_CUDA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_CUDA)\n")
+endif()
+if(CVEDIX_WITH_TRT)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_TRT)\n")
+endif()
+if(CVEDIX_WITH_PADDLE)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_PADDLE)\n")
+endif()
+if(CVEDIX_WITH_KAFKA)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_KAFKA)\n")
+endif()
+if(CVEDIX_WITH_LLM)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_LLM)\n")
+endif()
+if(CVEDIX_WITH_FFMPEG)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_FFMPEG)\n")
+endif()
+
+configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cvedix-config.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+    @ONLY
 )
 
 install(FILES
@@ -396,3 +426,61 @@ install(FILES
 
 # build for samples
 add_subdirectory(samples)
+
+
+# --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
+
+# 1. Cài đặt thư mục data (models, config...) vào cùng thư mục bin
+# Để chương trình có thể gọi ./cvedix_data/...
+if(EXISTS "${CMAKE_SOURCE_DIR}/cvedix_data")
+    install(DIRECTORY "${CMAKE_SOURCE_DIR}/cvedix_data"
+            DESTINATION bin
+            FILES_MATCHING PATTERN "*"
+            PATTERN ".git" EXCLUDE)
+endif()
+
+# 2. Cấu hình CPack để tạo file .deb
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_NAME "cvedix-ai-runtime")
+set(CPACK_PACKAGE_VENDOR "CVEDIX")
+
+# Generate version from timestamp and git hash
+string(TIMESTAMP PACKAGE_TIMESTAMP "%Y%m%d%H%M%S")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-${PACKAGE_TIMESTAMP}-${FINAL_GIT_VERSION}")
+
+# Package metadata
+set(CPACK_PACKAGE_CONTACT "CVEDIX Team <support@cvedix.com>")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CVEDIX AI Runtime SDK with RKNN Support")
+set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends.")
+
+# Debian package metadata
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "CVEDIX Team <support@cvedix.com>")
+set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+
+# Convert architecture name for Debian package
+# aarch64 -> arm64 (Debian uses arm64, not aarch64)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "arm64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "i386|i686")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
+else()
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+endif()
+
+# Cài đặt tất cả vào /opt/cvedix để tránh xung đột hệ thống và giữ đường dẫn tương đối
+set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/cvedix")
+
+# Tự động tìm dependencies (libs)
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+# Dependencies hệ thống bắt buộc
+set(CPACK_DEBIAN_PACKAGE_DEPENDS 
+    "gstreamer1.0-plugins-base (>= 1.14.5), gstreamer1.0-plugins-good (>= 1.14.5), gstreamer1.0-plugins-bad (>= 1.14.5), libgstreamer1.0-0 (>= 1.14.5), libgstreamer-plugins-base1.0-0 (>= 1.14.5)")
+
+# Recommends (khuyến nghị nhưng không bắt buộc)
+set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "gstreamer1.0-rtsp, gstreamer1.0-plugins-ugly")
+
+include(CPack)
