@@ -1,5 +1,3 @@
-usr/lib/*.so*
-usr/lib/*.a
-usr/bin/*
-usr/share/doc/cvedix-ai-runtime/*
+usr/lib/*.so
+usr/bin/
 

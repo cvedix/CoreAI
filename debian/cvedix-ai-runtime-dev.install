@@ -1,4 +1,4 @@
-usr/include
-usr/lib/cmake
-usr/lib/pkgconfig
+usr/include/cvedix/
+usr/lib/cmake/cvedix/
+usr/lib/pkgconfig/*.pc
 
