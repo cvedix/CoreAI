@@ -54,7 +54,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_openpose_detector_node.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_openpose_detector_node.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_openpose_detector_node.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_ppocr_text_detector_node.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_ppocr_text_detector_node.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_ppocr_text_detector_node.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_restoration_node.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.o.d"
-  "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_sface_feature_encoder_node.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_detector.cpp" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o.d"
@@ -129,8 +128,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ubuntu/core_ai_runtime/utils/logger/cvedix_log_file_writer.cpp" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/utils/logger/cvedix_log_kafka_writer.cpp" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o.d"
   "/home/ubuntu/core_ai_runtime/utils/logger/cvedix_logger.cpp" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o.d"
-  "/home/ubuntu/core_ai_runtime/utils/rga/cvedix_rga_helper.cpp" "CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o.d"
-  "/home/ubuntu/core_ai_runtime/utils/rknn/cvedix_rknn_helper.cpp" "CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o" "gcc" "CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o.d"
   )
 
 # Targets to which this target links.

@@ -72,6 +72,7 @@
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_trt_vehicle_feature_encoder.h
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_openpose_detector_node.h
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_trt_vehicle_type_classifier.h
+/opt/cvedix/include/cvedix/nodes/infers/cvedix_rknn_face_detector_node.h
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_mask_rcnn_detector_node.h
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_sface_feature_encoder_node.h
 /opt/cvedix/include/cvedix/nodes/infers/cvedix_trt_vehicle_plate_detector.h
@@ -175,10 +176,3 @@
 /opt/cvedix/bin/lane_detect_sample
 /opt/cvedix/bin/frame_fusion_sample
 /opt/cvedix/bin/cvedix_test
-/opt/cvedix/bin/rtsp_des_sample
-/opt/cvedix/bin/rtsp_src_sample
-/opt/cvedix/bin/rtsp_ba_crossline_sample
-/opt/cvedix/bin/rknn_detector_sample
-/opt/cvedix/bin/rknn_face_detector_sample
-/opt/cvedix/bin/rknn_rtsp_tracking_sample
-/opt/cvedix/bin/rknn_rtsp_tracking_mqtt_sample

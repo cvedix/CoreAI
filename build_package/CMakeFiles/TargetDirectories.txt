@@ -24,6 +24,7 @@
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/ba_crossline_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/enet_seg_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/face_tracking_sample.dir
+/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/face_tracking_rtsp_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/image_des_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/image_src_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/interaction_with_pipe_sample.dir
@@ -34,9 +35,6 @@
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/N-N_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/openpose_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/record_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rtsp_des_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rtsp_src_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rtsp_ba_crossline_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/cvedix_logger_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/skip_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/obstacle_detect_sample.dir
@@ -49,10 +47,6 @@
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/lane_detect_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/frame_fusion_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/cvedix_test.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rknn_detector_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rknn_face_detector_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rknn_rtsp_tracking_sample.dir
-/home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/rknn_rtsp_tracking_mqtt_sample.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/package.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/package_source.dir
 /home/ubuntu/core_ai_runtime/build_package/samples/CMakeFiles/edit_cache.dir

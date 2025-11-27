@@ -146,7 +146,6 @@ bin/1-1-1_sample: /usr/local/lib/libopencv_xphoto.so.4.10.0
 bin/1-1-1_sample: /usr/local/lib/libopencv_photo.so.4.10.0
 bin/1-1-1_sample: /usr/local/lib/libopencv_imgproc.so.4.10.0
 bin/1-1-1_sample: /usr/local/lib/libopencv_core.so.4.10.0
-bin/1-1-1_sample: /usr/lib/librknnrt.so
 bin/1-1-1_sample: samples/CMakeFiles/1-1-1_sample.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/1-1-1_sample"
 	cd /home/ubuntu/core_ai_runtime/build_package/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/1-1-1_sample.dir/link.txt --verbose=$(VERBOSE)

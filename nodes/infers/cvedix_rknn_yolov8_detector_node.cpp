@@ -1,5 +1,3 @@
-#ifdef CVEDIX_WITH_RKNN
-
 #include "cvedix_rknn_yolov8_detector_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
@@ -55,6 +53,10 @@ namespace cvedix_nodes {
         } else {
             CVEDIX_INFO(cvedix_utils::string_format("[%s] RGA not available, using OpenCV", node_name.c_str()));
         }
+#else
+        rga_helper = nullptr;
+        use_rga = false;
+        CVEDIX_INFO(cvedix_utils::string_format("[%s] RGA not compiled, using OpenCV", node_name.c_str()));
 #endif
 
         sync_model_input_shape();
@@ -178,17 +180,19 @@ namespace cvedix_nodes {
         cv::Mat resized;
 
 #ifdef CVEDIX_WITH_RGA
-        if (use_rga && rga_helper->is_available()) {
+        if (use_rga && rga_helper && rga_helper->is_available()) {
             rga_helper->resize(input_image, resized, cv::Size(resized_width, resized_height));
             cv::Mat rgb_image;
             rga_helper->cvt_color(resized, rgb_image, cv::COLOR_BGR2RGB);
             resized = rgb_image;
-        } else
-#endif
-        {
+        } else {
             cv::resize(input_image, resized, cv::Size(resized_width, resized_height));
             cv::cvtColor(resized, resized, cv::COLOR_BGR2RGB);
         }
+#else
+        cv::resize(input_image, resized, cv::Size(resized_width, resized_height));
+        cv::cvtColor(resized, resized, cv::COLOR_BGR2RGB);
+#endif
 
         if (resized.empty() || resized.cols <= 0 || resized.rows <= 0) {
             CVEDIX_ERROR(cvedix_utils::string_format("[%s] Preprocess failed, processed frame is empty", node_name.c_str()));
@@ -1564,6 +1568,3 @@ namespace cvedix_nodes {
     }
 
 } // namespace cvedix_nodes
-
-#endif // CVEDIX_WITH_RKNN
-

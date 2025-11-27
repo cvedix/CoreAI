@@ -49,7 +49,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o: \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+ /usr/local/include/opencv4/opencv2/freetype.hpp \
  /usr/local/include/opencv4/opencv2/core.hpp \
  /usr/local/include/opencv4/opencv2/core/cvdef.h \
  /usr/local/include/opencv4/opencv2/core/version.hpp \

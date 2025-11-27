@@ -356,6 +356,17 @@ if(NOT CVEDIX_WITH_MQTT)
     list(FILTER UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
 endif()
 
+# Exclude RKNN-related files if RKNN is not enabled
+if(NOT CVEDIX_WITH_RKNN)
+    list(FILTER NODES EXCLUDE REGEX ".*rknn.*")
+    list(FILTER UTILS EXCLUDE REGEX ".*rknn.*")
+endif()
+
+# Exclude RGA-related files if RGA is not enabled
+if(NOT CVEDIX_WITH_RGA)
+    list(FILTER UTILS EXCLUDE REGEX ".*rga.*")
+endif()
+
 #...#
 list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 

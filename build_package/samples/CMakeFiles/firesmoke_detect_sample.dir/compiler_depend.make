@@ -408,7 +408,7 @@ samples/CMakeFiles/firesmoke_detect_sample.dir/firesmoke_detect_sample.cpp.o: ..
   /usr/local/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
   /usr/local/include/opencv4/opencv2/dnn/dnn.hpp \
   cvedix/nodes/osd/cvedix_osd_node.h \
-  /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+  /usr/local/include/opencv4/opencv2/freetype.hpp \
   cvedix/nodes/mid/cvedix_split_node.h \
   cvedix/nodes/des/cvedix_screen_des_node.h \
   cvedix/nodes/common/cvedix_des_node.h \
@@ -2228,6 +2228,8 @@ cvedix/utils/logger/cvedix_log_kafka_writer.h:
 
 /usr/include/c++/11/bitset:
 
+/usr/include/aarch64-linux-gnu/c++/11/bits/messages_members.h:
+
 /usr/include/c++/11/bits/stl_tree.h:
 
 /usr/include/c++/11/bits/char_traits.h:
@@ -2265,10 +2267,6 @@ cvedix/utils/logger/cvedix_log_kafka_writer.h:
 /usr/include/asm-generic/int-ll64.h:
 
 /usr/include/c++/11/bits/regex_error.h:
-
-/usr/include/aarch64-linux-gnu/c++/11/bits/messages_members.h:
-
-/home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp:
 
 /usr/include/aarch64-linux-gnu/bits/sigevent-consts.h:
 
@@ -2382,6 +2380,22 @@ cvedix/utils/analysis_board/cvedix_analysis_board.h:
 
 /usr/local/include/opencv4/opencv2/dnn/dnn.inl.hpp:
 
+/usr/local/include/opencv4/opencv2/freetype.hpp:
+
+/usr/include/gstreamer-1.0/gst/gstdeviceprovider.h:
+
+/usr/include/features-time64.h:
+
+/usr/include/c++/11/system_error:
+
+/usr/include/aarch64-linux-gnu/bits/procfs-prregset.h:
+
+/usr/include/glib-2.0/gobject/glib-types.h:
+
+/usr/include/glib-2.0/glib/gfileutils.h:
+
+/usr/include/glib-2.0/glib/gmappedfile.h:
+
 /usr/local/include/opencv4/opencv2/core.hpp:
 
 cvedix/nodes/des/cvedix_screen_des_node.h:
@@ -2463,20 +2477,6 @@ cvedix/nodes/src/cvedix_file_src_node.h:
 /usr/include/aarch64-linux-gnu/sys/user.h:
 
 /usr/include/aarch64-linux-gnu/bits/procfs.h:
-
-/usr/include/gstreamer-1.0/gst/gstdeviceprovider.h:
-
-/usr/include/features-time64.h:
-
-/usr/include/c++/11/system_error:
-
-/usr/include/aarch64-linux-gnu/bits/procfs-prregset.h:
-
-/usr/include/glib-2.0/gobject/glib-types.h:
-
-/usr/include/glib-2.0/glib/gfileutils.h:
-
-/usr/include/glib-2.0/glib/gmappedfile.h:
 
 /usr/include/c++/11/string_view:
 

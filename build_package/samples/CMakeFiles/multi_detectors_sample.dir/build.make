@@ -146,7 +146,6 @@ bin/multi_detectors_sample: /usr/local/lib/libopencv_xphoto.so.4.10.0
 bin/multi_detectors_sample: /usr/local/lib/libopencv_photo.so.4.10.0
 bin/multi_detectors_sample: /usr/local/lib/libopencv_imgproc.so.4.10.0
 bin/multi_detectors_sample: /usr/local/lib/libopencv_core.so.4.10.0
-bin/multi_detectors_sample: /usr/lib/librknnrt.so
 bin/multi_detectors_sample: samples/CMakeFiles/multi_detectors_sample.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/multi_detectors_sample"
 	cd /home/ubuntu/core_ai_runtime/build_package/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/multi_detectors_sample.dir/link.txt --verbose=$(VERBOSE)

@@ -416,7 +416,7 @@ samples/CMakeFiles/mask_rcnn_sample.dir/mask_rcnn_sample.cpp.o: ../samples/mask_
   cvedix/nodes/track/sort/KalmanTracker.h \
   /usr/local/include/opencv4/opencv2/video/tracking.hpp \
   cvedix/nodes/osd/cvedix_osd_node_v3.h \
-  /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+  /usr/local/include/opencv4/opencv2/freetype.hpp \
   cvedix/nodes/des/cvedix_screen_des_node.h \
   cvedix/nodes/common/cvedix_des_node.h \
   cvedix/nodes/common/cvedix_stream_status_hookable.h \
@@ -433,6 +433,8 @@ cvedix/nodes/common/cvedix_stream_status_hookable.h:
 cvedix/nodes/common/cvedix_des_node.h:
 
 cvedix/nodes/des/cvedix_screen_des_node.h:
+
+/usr/local/include/opencv4/opencv2/freetype.hpp:
 
 cvedix/nodes/osd/cvedix_osd_node_v3.h:
 
@@ -495,8 +497,6 @@ cvedix/utils/date.h:
 cvedix/objects/cvedix_sub_target.h:
 
 /usr/include/c++/11/bits/regex_scanner.tcc:
-
-/home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp:
 
 /usr/include/c++/11/bits/regex_error.h:
 

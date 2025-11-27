@@ -410,7 +410,7 @@ samples/CMakeFiles/multi_detectors_and_classifiers_sample.dir/multi_detectors_an
   cvedix/nodes/infers/cvedix_classifier_node.h \
   cvedix/nodes/infers/base/cvedix_secondary_infer_node.h \
   cvedix/nodes/osd/cvedix_osd_node.h \
-  /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+  /usr/local/include/opencv4/opencv2/freetype.hpp \
   cvedix/nodes/des/cvedix_screen_des_node.h \
   cvedix/nodes/common/cvedix_des_node.h \
   cvedix/nodes/common/cvedix_stream_status_hookable.h \
@@ -427,6 +427,8 @@ cvedix/nodes/common/cvedix_stream_status_hookable.h:
 cvedix/nodes/common/cvedix_des_node.h:
 
 cvedix/nodes/des/cvedix_screen_des_node.h:
+
+/usr/local/include/opencv4/opencv2/freetype.hpp:
 
 cvedix/nodes/infers/base/cvedix_secondary_infer_node.h:
 
@@ -485,8 +487,6 @@ cvedix/utils/date.h:
 cvedix/objects/cvedix_sub_target.h:
 
 /usr/include/c++/11/bits/regex_scanner.tcc:
-
-/home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp:
 
 /usr/include/c++/11/bits/regex_error.h:
 

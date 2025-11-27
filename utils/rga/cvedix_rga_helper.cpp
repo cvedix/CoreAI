@@ -1,5 +1,3 @@
-#ifdef CVEDIX_WITH_RGA
-
 #include "cvedix_rga_helper.h"
 #include "../logger/cvedix_logger.h"
 #include <cstring>
@@ -307,6 +305,4 @@ namespace cvedix_utils {
     }
 
 } // namespace cvedix_utils
-
-#endif // CVEDIX_WITH_RGA
 

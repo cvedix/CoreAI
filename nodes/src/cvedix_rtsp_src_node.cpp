@@ -22,12 +22,11 @@ namespace cvedix_nodes {
                                         cvedix_src_node(node_name, channel_index, resize_ratio),
                                         rtsp_url(rtsp_url), gst_decoder_name(gst_decoder_name), skip_interval(skip_interval), codec_type(codec_type) {
         assert(skip_interval >= 0 && skip_interval <= 9);
-#ifdef CVEDIX_WITH_RKNN
-        // use mpp decoder if RKNN enabled (assuming Rockchip platform)
+        // use mpp decoder if available (Rockchip platform)
+        // Note: This will be handled at runtime, file will be excluded in CMakeLists.txt if RKNN not enabled
         if (gst_decoder_name == "avdec_h264") {
             gst_decoder_name = "mppvideodec";
         }
-#endif
         // Auto detection logic
         if (this->codec_type == "auto") {
             // Try to detect codec using gst-discoverer-1.0 command line tool

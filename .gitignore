@@ -157,6 +157,7 @@ cmake-build-debug-remote/
 cmake-build-debug/
 build/*
 build
+build_package/
 !build/build.sh
 
 .vscode
