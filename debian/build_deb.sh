@@ -79,18 +79,38 @@ cd ..
 
 # Check for required tools
 echo -e "${BLUE}[1/5] Checking required tools...${NC}"
-REQUIRED_TOOLS=("dpkg-buildpackage" "debhelper")
 MISSING_TOOLS=()
 
-for tool in "${REQUIRED_TOOLS[@]}"; do
-    if ! command -v "$tool" >/dev/null 2>&1; then
-        MISSING_TOOLS+=("$tool")
-    fi
-done
+# Check for dpkg-buildpackage
+if ! command -v dpkg-buildpackage >/dev/null 2>&1; then
+    MISSING_TOOLS+=("dpkg-buildpackage (from dpkg-dev)")
+fi
+
+# Check for dh (from debhelper)
+if ! command -v dh >/dev/null 2>&1; then
+    MISSING_TOOLS+=("dh (from debhelper)")
+fi
+
+# Check for cmake
+if ! command -v cmake >/dev/null 2>&1; then
+    MISSING_TOOLS+=("cmake")
+fi
+
+# Check for make
+if ! command -v make >/dev/null 2>&1; then
+    MISSING_TOOLS+=("make (from build-essential)")
+fi
 
 if [ ${#MISSING_TOOLS[@]} -ne 0 ]; then
-    echo -e "${RED}Error: Missing required tools: ${MISSING_TOOLS[*]}${NC}"
-    echo "Install with: sudo apt-get install build-essential debhelper dpkg-dev"
+    echo -e "${RED}Error: Missing required tools:${NC}"
+    for tool in "${MISSING_TOOLS[@]}"; do
+        echo -e "  ${RED}- ${tool}${NC}"
+    done
+    echo ""
+    echo -e "${YELLOW}To install all required packages, run:${NC}"
+    echo -e "  ${GREEN}sudo apt-get update${NC}"
+    echo -e "  ${GREEN}sudo apt-get install -y build-essential debhelper dpkg-dev cmake${NC}"
+    echo ""
     exit 1
 fi
 echo -e "${GREEN}✓ All required tools are available${NC}"

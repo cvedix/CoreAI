@@ -157,11 +157,13 @@ cmake-build-debug-remote/
 cmake-build-debug/
 build/*
 build
-build_package/
+build_package/*
+build_package
 !build/build.sh
 
 .vscode
 .gitignore
+.cursor
 
 cvedix_data/*
 
