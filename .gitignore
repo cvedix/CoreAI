@@ -165,6 +165,8 @@ build_package/
 build_debian
 >>>>>>> c3421eb (check)
 !build/build.sh
+obj-aarch64-linux-gnu/*
+obj-aarch64-linux-gnu
 
 .vscode
 .gitignore

@@ -23,6 +23,8 @@ NC='\033[0m' # No Color
 BUILD_TYPE="Release"
 CLEAN_BUILD=false
 BUILD_DIR="../build_package"
+BUILD_SAMPLES=false
+PARALLEL_JOBS=$(nproc)
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -39,6 +41,14 @@ while [[ $# -gt 0 ]]; do
             BUILD_TYPE="Debug"
             shift
             ;;
+        --samples)
+            BUILD_SAMPLES=true
+            shift
+            ;;
+        --jobs|-j)
+            PARALLEL_JOBS="$2"
+            shift 2
+            ;;
         --help|-h)
             echo "Usage: $0 [OPTIONS]"
             echo ""
@@ -46,11 +56,15 @@ while [[ $# -gt 0 ]]; do
             echo "  --clean               Clean build directory before building"
             echo "  --release             Build in Release mode (default)"
             echo "  --debug               Build in Debug mode"
+            echo "  --samples             Build samples (disabled by default to save time/resources)"
+            echo "  --jobs, -j N          Limit parallel build jobs (default: all CPU cores)"
             echo "  --help, -h            Show this help message"
             echo ""
             echo "Examples:"
-            echo "  $0                                    # Build with default options"
+            echo "  $0                                    # Build with default options (no samples)"
             echo "  $0 --clean --release                 # Clean build in Release mode"
+            echo "  $0 --samples                         # Build with samples included"
+            echo "  $0 --jobs 2                          # Build with max 2 parallel jobs"
             exit 0
             ;;
         *)
@@ -66,6 +80,8 @@ echo -e "${GREEN}  CVEDIX AI Runtime Debian Package Builder   ${NC}"
 echo -e "${GREEN}===============================================${NC}"
 echo ""
 echo -e "Build type:      ${YELLOW}${BUILD_TYPE}${NC}"
+echo -e "Build samples:   ${YELLOW}$([ "$BUILD_SAMPLES" = true ] && echo "Yes" || echo "No (saves time/resources)")${NC}"
+echo -e "Parallel jobs:   ${YELLOW}${PARALLEL_JOBS}${NC}"
 
 # Check execution directory and ensure we are in project root
 if [ -f "debian/control" ]; then
@@ -83,10 +99,6 @@ fi
 
 # Check for required tools
 echo -e "${BLUE}[1/5] Checking required tools...${NC}"
-<<<<<<< HEAD
-=======
-REQUIRED_TOOLS=("dpkg-buildpackage" "dh")
->>>>>>> c3421eb (check)
 MISSING_TOOLS=()
 
 # Check for dpkg-buildpackage
@@ -132,8 +144,10 @@ if [ "$CLEAN_BUILD" = true ]; then
     fi
 fi
 
-# Export build type for debian/rules
+# Export build configuration for debian/rules
 export BUILD_TYPE
+export BUILD_SAMPLES
+export PARALLEL_JOBS
 
 # Build package
 echo -e "${BLUE}[3/5] Building Debian package...${NC}"

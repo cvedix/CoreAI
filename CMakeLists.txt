@@ -25,6 +25,7 @@ option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
 option(CVEDIX_WITH_FFMPEG "prepared FFMPEG or not?" OFF)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
+option(CVEDIX_BUILD_SAMPLES "build samples or not? (saves build time and resources)" OFF)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
 # OpenCV required
@@ -502,8 +503,13 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
 
-# build for samples
-add_subdirectory(samples)
+# build for samples (optional - disabled by default to save build time and resources)
+if(CVEDIX_BUILD_SAMPLES)
+    message(STATUS "Building samples (this may take longer)")
+    add_subdirectory(samples)
+else()
+    message(STATUS "Skipping samples build (enable with -DCVEDIX_BUILD_SAMPLES=ON)")
+endif()
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
