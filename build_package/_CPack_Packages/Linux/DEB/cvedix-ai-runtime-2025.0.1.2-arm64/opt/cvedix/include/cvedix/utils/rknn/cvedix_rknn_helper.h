@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef CVEDIX_WITH_RKNN
 #include <string>
 #include <vector>
 #include <memory>
@@ -77,6 +76,3 @@ namespace cvedix_utils {
         std::string get_model_path() const { return model_path; }
     };
 }
-
-#endif // CVEDIX_WITH_RKNN
-

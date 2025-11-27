@@ -1,5 +1,3 @@
-#ifdef CVEDIX_WITH_RKNN
-
 #include "cvedix/nodes/src/cvedix_rtsp_src_node.h"
 #include "cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
@@ -28,12 +26,357 @@
 #include <mutex>
 #include <memory>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
+#include <chrono>
+#include <set>
+#include <opencv2/imgcodecs.hpp>
+#include "cvedix/nodes/broker/cereal_archive/cvedix_objects_cereal_archive.h"
+#include "cpp_base64/base64.h"
 
 #ifdef CVEDIX_WITH_MQTT
-// Custom Enhanced MQTT Broker Node: Kế thừa từ enhanced broker và gửi qua MQTT
+// Helper functions for new format
+namespace {
+    std::string mat_to_base64(const cv::Mat& img, const std::string& ext = ".jpg") {
+        if (img.empty()) {
+            return "";
+        }
+        std::vector<uchar> buf;
+        cv::imencode(ext, img, buf);
+        std::string encoded = base64_encode(buf.data(), buf.size());
+        return encoded;
+    }
+    
+    cv::Mat crop_image(const cv::Mat& frame, int x, int y, int width, int height) {
+        if (frame.empty()) {
+            return cv::Mat();
+        }
+        int x1 = std::max(0, x);
+        int y1 = std::max(0, y);
+        int x2 = std::min(frame.cols, x + width);
+        int y2 = std::min(frame.rows, y + height);
+        if (x2 <= x1 || y2 <= y1) {
+            return cv::Mat();
+        }
+        cv::Rect roi(x1, y1, x2 - x1, y2 - y1);
+        return frame(roi).clone();
+    }
+    
+    std::string get_current_timestamp() {
+        auto now = std::time(nullptr);
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();
+        return std::to_string(ms);
+    }
+    
+    std::string get_current_date_iso() {
+        auto now = std::time(nullptr);
+        auto tm = *std::gmtime(&now);
+        std::stringstream ss;
+        ss << std::put_time(&tm, "%Y-%m-%dT%H:%M:%SZ");
+        return ss.str();
+    }
+    
+    std::string get_current_date_system() {
+        auto now = std::time(nullptr);
+        auto tm = *std::localtime(&now);
+        std::stringstream ss;
+        ss << std::put_time(&tm, "%a %b %d %H:%M:%S %Y");
+        return ss.str();
+    }
+}
+
+// Structures for new event-based format
+namespace event_format {
+    struct normalized_bbox {
+        double x, y, width, height;
+        
+        template<typename Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::make_nvp("x", x),
+                    cereal::make_nvp("y", y),
+                    cereal::make_nvp("width", width),
+                    cereal::make_nvp("height", height));
+        }
+    };
+    
+    struct track_info {
+        normalized_bbox bbox;
+        std::string class_label;
+        std::string external_id;
+        std::string id;
+        int last_seen;
+        int source_tracker_track_id;
+        
+        template<typename Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::make_nvp("bbox", bbox),
+                    cereal::make_nvp("class_label", class_label),
+                    cereal::make_nvp("external_id", external_id),
+                    cereal::make_nvp("id", id),
+                    cereal::make_nvp("last_seen", last_seen),
+                    cereal::make_nvp("source_tracker_track_id", source_tracker_track_id));
+        }
+    };
+    
+    struct best_thumbnail {
+        double confidence;
+        std::string image;
+        std::string instance_id;
+        std::string label;
+        std::string system_date;
+        std::vector<track_info> tracks;
+        
+        template<typename Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::make_nvp("confidence", confidence),
+                    cereal::make_nvp("image", image),
+                    cereal::make_nvp("instance_id", instance_id),
+                    cereal::make_nvp("label", label),
+                    cereal::make_nvp("system_date", system_date),
+                    cereal::make_nvp("tracks", tracks));
+        }
+    };
+    
+    struct event {
+        best_thumbnail best_thumbnail_obj;
+        std::string type;
+        std::string zone_id;
+        std::string zone_name;
+        
+        template<typename Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::make_nvp("best_thumbnail", best_thumbnail_obj),
+                    cereal::make_nvp("type", type),
+                    cereal::make_nvp("zone_id", zone_id),
+                    cereal::make_nvp("zone_name", zone_name));
+        }
+    };
+    
+    struct event_message {
+        std::vector<event> events;
+        int frame_id;
+        double frame_time;
+        std::string system_date;
+        std::string system_timestamp;
+        
+        template<typename Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::make_nvp("events", events),
+                    cereal::make_nvp("frame_id", frame_id),
+                    cereal::make_nvp("frame_time", frame_time),
+                    cereal::make_nvp("system_date", system_date),
+                    cereal::make_nvp("system_timestamp", system_timestamp));
+        }
+    };
+}
+
+// Custom Enhanced MQTT Broker Node: Kế thừa từ enhanced broker và gửi qua MQTT với format mới
 class cvedix_json_enhanced_mqtt_broker_node : public cvedix_nodes::cvedix_json_enhanced_console_broker_node {
 private:
     std::function<void(const std::string&)> mqtt_publisher_;
+    std::string instance_id_;
+    std::string zone_id_;
+    std::string zone_name_;
+    // Cache các track_id đã gửi để chỉ gửi event mới
+    std::set<int> sent_track_ids_;
+    std::mutex sent_tracks_mutex_;
+    
+    // Override format_msg để tạo format mới
+    virtual void format_msg(const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta, std::string& msg) override {
+        try {
+            event_format::event_message event_msg;
+            
+            // Tìm target có confidence cao nhất cho best_thumbnail
+            std::shared_ptr<cvedix_objects::cvedix_frame_target> best_target = nullptr;
+            float best_confidence = 0.0f;
+            
+            for (const auto& target : meta->targets) {
+                if (target->primary_score > best_confidence) {
+                    best_confidence = target->primary_score;
+                    best_target = target;
+                }
+            }
+            
+            // Kiểm tra xem có track_id mới nào chưa được gửi không
+            std::set<int> current_track_ids;
+            for (const auto& target : meta->targets) {
+                if (target->track_id >= 0) {
+                    current_track_ids.insert(target->track_id);
+                }
+            }
+            
+            // Tìm các track_id mới (chưa được gửi)
+            std::set<int> new_track_ids;
+            {
+                std::lock_guard<std::mutex> lock(sent_tracks_mutex_);
+                for (int track_id : current_track_ids) {
+                    if (sent_track_ids_.find(track_id) == sent_track_ids_.end()) {
+                        new_track_ids.insert(track_id);
+                        sent_track_ids_.insert(track_id);  // Đánh dấu đã gửi
+                    }
+                }
+            }
+            
+            // Tạo một event cho mỗi track mới xuất hiện (để nhận diện nhiều khuôn mặt cùng lúc)
+            if (!new_track_ids.empty() && !meta->targets.empty()) {
+                double frame_width = static_cast<double>(meta->frame.cols);
+                double frame_height = static_cast<double>(meta->frame.rows);
+                
+                // Tạo event cho mỗi track mới
+                for (int new_track_id : new_track_ids) {
+                    // Tìm target tương ứng với track_id này
+                    std::shared_ptr<cvedix_objects::cvedix_frame_target> target_for_track = nullptr;
+                    for (const auto& target : meta->targets) {
+                        if (target->track_id == new_track_id) {
+                            target_for_track = target;
+                            break;
+                        }
+                    }
+                    
+                    if (!target_for_track) {
+                        continue;  // Bỏ qua nếu không tìm thấy target
+                    }
+                    
+                    event_format::event evt;
+                    
+                    // Crop và encode thumbnail cho track này
+                    std::string thumbnail_image = "";
+                    try {
+                        // Crop ảnh từ frame gốc (không có bounding box) và resize về 150x150
+                        // Clone toàn bộ frame trước để đảm bảo không bị ảnh hưởng bởi các node khác
+                        cv::Mat cropped;
+                        if (!meta->frame.empty()) {
+                            // Clone frame gốc để đảm bảo không có bounding box
+                            cv::Mat original_frame = meta->frame.clone();
+                            
+                            // Tính toán bbox mở rộng thêm 35%
+                            const float expand_ratio = 0.35f;  // Mở rộng 35%
+                            
+                            // Tính center của bbox gốc
+                            int center_x = target_for_track->x + target_for_track->width / 2;
+                            int center_y = target_for_track->y + target_for_track->height / 2;
+                            
+                            // Mở rộng width và height
+                            int expanded_width = static_cast<int>(target_for_track->width * (1.0f + expand_ratio));
+                            int expanded_height = static_cast<int>(target_for_track->height * (1.0f + expand_ratio));
+                            
+                            // Tính toán x1, y1 để giữ center ở giữa
+                            int x1 = center_x - expanded_width / 2;
+                            int y1 = center_y - expanded_height / 2;
+                            int x2 = x1 + expanded_width;
+                            int y2 = y1 + expanded_height;
+                            
+                            // Đảm bảo không vượt quá biên frame
+                            x1 = std::max(0, x1);
+                            y1 = std::max(0, y1);
+                            x2 = std::min(original_frame.cols, x2);
+                            y2 = std::min(original_frame.rows, y2);
+                            
+                            // Đảm bảo width và height hợp lệ
+                            if (x2 > x1 && y2 > y1) {
+                                // Crop từ frame gốc đã clone (không có bounding box)
+                                cv::Rect roi(x1, y1, x2 - x1, y2 - y1);
+                                cropped = original_frame(roi).clone();
+                                
+                                // Resize về 150x150
+                                if (!cropped.empty()) {
+                                    cv::Mat resized;
+                                    cv::resize(cropped, resized, cv::Size(150, 150), 0, 0, cv::INTER_LINEAR);
+                                    cropped = resized;
+                                }
+                            }
+                        }
+                        if (!cropped.empty()) {
+                            std::vector<uchar> buf;
+                            cv::imencode(".jpg", cropped, buf);
+                            thumbnail_image = base64_encode(buf.data(), buf.size());
+                        }
+                    } catch (...) {
+                        thumbnail_image = "";
+                    }
+                    
+                    // Tạo track info cho track này
+                    event_format::track_info track;
+                    track.bbox.x = target_for_track->x / frame_width;
+                    track.bbox.y = target_for_track->y / frame_height;
+                    track.bbox.width = target_for_track->width / frame_width;
+                    track.bbox.height = target_for_track->height / frame_height;
+                    
+                    track.class_label = target_for_track->primary_label.empty() ? "Person" : target_for_track->primary_label;
+                    track.external_id = "a42f6aa6-637b-419f-a2dd-f036454a8cd5";  // Có thể generate UUID thực tế
+                    track.id = "PersonTracker_" + std::to_string(target_for_track->track_id);
+                    track.last_seen = 0;
+                    track.source_tracker_track_id = target_for_track->track_id;
+                    
+                    // Fill best_thumbnail cho event này
+                    evt.best_thumbnail_obj.confidence = target_for_track->primary_score;
+                    evt.best_thumbnail_obj.image = thumbnail_image;
+                    evt.best_thumbnail_obj.instance_id = instance_id_;
+                    evt.best_thumbnail_obj.label = "Entered area";
+                    evt.best_thumbnail_obj.system_date = get_current_date_iso();
+                    evt.best_thumbnail_obj.tracks.push_back(track);  // Chỉ có track này trong tracks array
+                    
+                    // Fill event
+                    evt.type = "area_enter";
+                    evt.zone_id = zone_id_;
+                    evt.zone_name = zone_name_;
+                    
+                    event_msg.events.push_back(evt);
+                }
+            }
+            
+            // Chỉ serialize và trả về nếu có events
+            if (event_msg.events.empty()) {
+                msg = "";  // Không trả về gì nếu không có events
+                return;
+            }
+            
+            // Fill root level
+            event_msg.frame_id = meta->frame_index;
+            event_msg.frame_time = meta->frame_index * 1000.0 / (meta->fps > 0 ? meta->fps : 30.0);
+            event_msg.system_date = get_current_date_system();
+            event_msg.system_timestamp = get_current_timestamp();
+            
+            // Serialize to JSON - tạo mảng chứa một object [{...}] và bỏ wrapper "value0"
+            std::stringstream msg_stream;
+            {
+                cereal::JSONOutputArchive json_archive(msg_stream);
+                // Tạo vector chứa một event_message để serialize thành mảng
+                std::vector<event_format::event_message> result_array;
+                result_array.push_back(event_msg);
+                json_archive(result_array);
+            }
+            
+            // Bỏ wrapper "value0" từ JSON string
+            std::string json_str = msg_stream.str();
+            // Tìm và bỏ phần "{\n    \"value0\": " ở đầu và "}" ở cuối
+            size_t value0_pos = json_str.find("\"value0\"");
+            if (value0_pos != std::string::npos) {
+                // Tìm vị trí bắt đầu của mảng (sau "value0": )
+                size_t array_start = json_str.find('[', value0_pos);
+                if (array_start != std::string::npos) {
+                    // Tìm vị trí kết thúc của mảng (trước "}" cuối cùng)
+                    size_t array_end = json_str.rfind(']');
+                    if (array_end != std::string::npos && array_end > array_start) {
+                        // Lấy phần mảng và thêm newline nếu cần
+                        msg = json_str.substr(array_start, array_end - array_start + 1);
+                    } else {
+                        msg = json_str;
+                    }
+                } else {
+                    msg = json_str;
+                }
+            } else {
+                msg = json_str;
+            }
+        } catch (const std::exception& e) {
+            msg = "";
+        } catch (...) {
+            msg = "";
+        }
+    }
 
 protected:
     // Override broke_msg để gửi qua MQTT thay vì console
@@ -58,11 +401,17 @@ public:
         int broking_cache_warn_threshold,
         int broking_cache_ignore_threshold,
         bool encode_full_frame,
-        std::function<void(const std::string&)> mqtt_publisher)
+        std::function<void(const std::string&)> mqtt_publisher,
+        std::string instance_id = "DEMO",
+        std::string zone_id = "95493308-c879-4f85-9fb7-36433971f60c",
+        std::string zone_name = "Quan Giao")
         : cvedix_nodes::cvedix_json_enhanced_console_broker_node(
             node_name, broke_for, broking_cache_warn_threshold, 
             broking_cache_ignore_threshold, encode_full_frame)
         , mqtt_publisher_(mqtt_publisher)
+        , instance_id_(instance_id)
+        , zone_id_(zone_id)
+        , zone_name_(zone_name)
     {
     }
     
@@ -70,6 +419,15 @@ public:
     
     void set_mqtt_publisher(std::function<void(const std::string&)> publisher) {
         mqtt_publisher_ = publisher;
+    }
+    
+    void set_zone_info(const std::string& zone_id, const std::string& zone_name) {
+        zone_id_ = zone_id;
+        zone_name_ = zone_name;
+    }
+    
+    void set_instance_id(const std::string& instance_id) {
+        instance_id_ = instance_id;
     }
 };
 #endif
@@ -148,7 +506,7 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Đường dẫn model mặc định
-    std::string model_path = "./cvedix_data/models/yolov8n.rknn";
+    std::string model_path = "./cvedix_data/models/face/yolov8n_face_detection.rknn";
     if (argc > 1) {
         model_path = argv[1];
     }
@@ -197,18 +555,24 @@ int main(int argc, char** argv) {
 #endif
 
     // Đầu vào: Nguồn RTSP
+    // resize_ratio: 1.0 để giữ nguyên độ phân giải gốc (tốt hơn cho detection)
+    // Nếu muốn tăng tốc có thể giảm xuống 0.8-0.9 nhưng sẽ giảm độ chính xác
     auto rtsp_src_0 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>(
-        "rtsp_src_0", 0, rtsp_url, 0.6, "mppvideodec", 0, "auto");
+        "rtsp_src_0", 0, rtsp_url, 0.9, "mppvideodec", 0, "auto");
     
-    // Suy luận: Phát hiện vật thể sử dụng RKNN YOLOv8
+    // Suy luận: Phát hiện khuôn mặt sử dụng RKNN YOLOv8
+    // Cải thiện hiệu suất và độ chính xác:
+    // - Input size: 640x640 (tốt hơn 320x320 cho face detection)
+    // - Score threshold: 0.5 (tăng từ 0.25 để giảm false positives)
+    // - NMS threshold: 0.45 (tối ưu cho face detection)
     auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
         "rknn_detector_0", 
         model_path,
-        0.25,  // ngưỡng điểm
-        0.35, // ngưỡng NMS
-        640,  // chiều rộng đầu vào
-        640,  // chiều cao đầu vào
-        80    // số lớp (COCO)
+        0.5,   // ngưỡng điểm (tăng từ 0.25 để giảm false positives và tăng tốc)
+        0.45,  // ngưỡng NMS (tối ưu cho face detection)
+        640,   // chiều rộng đầu vào (tăng từ 320 để tăng độ chính xác)
+        640,   // chiều cao đầu vào (tăng từ 320 để tăng độ chính xác)
+        1      // số lớp (face detection model chỉ có 1 class)
     );
 
     // Theo dõi: Bộ theo dõi SORT
@@ -234,14 +598,17 @@ int main(int argc, char** argv) {
             }
             
             // Ví dụ 1: Filter targets với score >= 0.3 (loại bỏ targets có score thấp)
-            auto it = meta->targets.begin();
-            while (it != meta->targets.end()) {
-                if ((*it)->primary_score < 0.3f) {
-                    it = meta->targets.erase(it);
-                } else {
-                    ++it;
-                }
-            }
+            // Comment out để không filter, cho phép tất cả targets đi qua
+            // auto it = meta->targets.begin();
+            // while (it != meta->targets.end()) {
+            //     if ((*it)->primary_score < 0.3f) {
+            //         it = meta->targets.erase(it);
+            //     } else {
+            //         ++it;
+            //     }
+            // }
+            
+            // Không filter gì cả - để tất cả targets đi qua để nhận diện nhiều khuôn mặt
             
             // Ví dụ 2: Thêm custom label nếu cần
             // for (auto& target : meta->targets) {
@@ -335,11 +702,4 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-#else
-#include <iostream>
-int main() {
-    std::cerr << "RKNN support not enabled. Build with -DCVEDIX_WITH_RKNN=ON" << std::endl;
-    return 1;
-}
-#endif // CVEDIX_WITH_RKNN
 

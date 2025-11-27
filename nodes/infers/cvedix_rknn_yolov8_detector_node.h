@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef CVEDIX_WITH_RKNN
 #include <vector>
 #include <deque>
 #include <mutex>
@@ -8,7 +7,12 @@
 #include "cvedix/objects/cvedix_frame_target.h"
 #include "cvedix/utils/rknn/cvedix_rknn_helper.h"
 #ifdef CVEDIX_WITH_RGA
-#include "cvedix/utils/rga/cvedix_rga_helper.h"
+#include "cvedix/utils/rga/cvedix_rga_helper.h"  // RGA is optional
+#else
+// Forward declaration when RGA is not available
+namespace cvedix_utils {
+    class cvedix_rga_helper;
+}
 #endif
 
 namespace cvedix_nodes {
@@ -18,11 +22,8 @@ namespace cvedix_nodes {
     {
     private:
         std::shared_ptr<cvedix_utils::cvedix_rknn_helper> rknn_helper;
-        
-#ifdef CVEDIX_WITH_RGA
         std::shared_ptr<cvedix_utils::cvedix_rga_helper> rga_helper;
         bool use_rga = false;
-#endif
         
         float score_threshold;
         float nms_threshold;
@@ -119,6 +120,3 @@ namespace cvedix_nodes {
         ~cvedix_rknn_yolov8_detector_node();
     };
 }
-
-#endif // CVEDIX_WITH_RKNN
-

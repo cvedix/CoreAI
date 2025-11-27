@@ -713,24 +713,10 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.s: c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_restoration_node.cpp -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.s
 
-CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
-CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o: ../nodes/infers/cvedix_rknn_yolov8_detector_node.cpp
-CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp
-
-CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp > CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.i
-
-CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.s
-
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o: ../nodes/infers/cvedix_sface_feature_encoder_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_sface_feature_encoder_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.i: cmake_force
@@ -744,7 +730,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_nod
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o: ../nodes/infers/cvedix_trt_vehicle_color_classifier.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.i: cmake_force
@@ -758,7 +744,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classif
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o: ../nodes/infers/cvedix_trt_vehicle_detector.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_detector.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.i: cmake_force
@@ -772,7 +758,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o: ../nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encoder.cpp.i: cmake_force
@@ -786,7 +772,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_feature_encod
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o: ../nodes/infers/cvedix_trt_vehicle_plate_detector.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector.cpp.i: cmake_force
@@ -800,7 +786,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detecto
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o: ../nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detector_v2.cpp.i: cmake_force
@@ -814,7 +800,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_plate_detecto
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o: ../nodes/infers/cvedix_trt_vehicle_scanner.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_scanner.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.i: cmake_force
@@ -828,7 +814,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_scanner.cpp.s
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o: ../nodes/infers/cvedix_trt_vehicle_type_classifier.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifier.cpp.i: cmake_force
@@ -842,7 +828,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_type_classifi
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o: ../nodes/infers/cvedix_trt_yolov8_classifier.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_yolov8_classifier.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp.i: cmake_force
@@ -856,7 +842,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_classifier.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o: ../nodes/infers/cvedix_trt_yolov8_detector.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_yolov8_detector.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.i: cmake_force
@@ -870,7 +856,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_detector.cpp.s
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o: ../nodes/infers/cvedix_trt_yolov8_pose_detector.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.cpp.i: cmake_force
@@ -884,7 +870,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_pose_detector.
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o: ../nodes/infers/cvedix_trt_yolov8_seg_detector.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.cpp.i: cmake_force
@@ -898,7 +884,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_yolov8_seg_detector.c
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o: ../nodes/infers/cvedix_yolo_detector_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_yolo_detector_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.i: cmake_force
@@ -912,7 +898,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yolo_detector_node.cpp.s:
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o: ../nodes/infers/cvedix_yunet_face_detector_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/infers/cvedix_yunet_face_detector_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.cpp.i: cmake_force
@@ -926,7 +912,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_yunet_face_detector_node.
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o: ../nodes/mid/cvedix_custom_data_transform_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_custom_data_transform_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.cpp.i: cmake_force
@@ -940,7 +926,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_custom_data_transform_node.c
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o: ../nodes/mid/cvedix_message_broker_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_message_broker_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.i: cmake_force
@@ -954,7 +940,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_message_broker_node.cpp.s: c
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o: ../nodes/mid/cvedix_placeholder_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_placeholder_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.i: cmake_force
@@ -968,7 +954,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_placeholder_node.cpp.s: cmak
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o: ../nodes/mid/cvedix_skip_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_skip_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.i: cmake_force
@@ -982,7 +968,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_skip_node.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o: ../nodes/mid/cvedix_split_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_split_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.i: cmake_force
@@ -996,7 +982,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_split_node.cpp.s: cmake_forc
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o: ../nodes/mid/cvedix_sync_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/mid/cvedix_sync_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.i: cmake_force
@@ -1010,7 +996,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/mid/cvedix_sync_node.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o: ../nodes/osd/cvedix_ba_crossline_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_ba_crossline_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.i: cmake_force
@@ -1024,7 +1010,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_crossline_osd_node.cpp.s:
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o: ../nodes/osd/cvedix_ba_jam_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_ba_jam_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.i: cmake_force
@@ -1038,7 +1024,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_jam_osd_node.cpp.s: cmake
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o: ../nodes/osd/cvedix_ba_stop_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_ba_stop_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.i: cmake_force
@@ -1052,7 +1038,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_ba_stop_osd_node.cpp.s: cmak
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o: ../nodes/osd/cvedix_cluster_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_cluster_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.i: cmake_force
@@ -1066,7 +1052,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_cluster_node.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o: ../nodes/osd/cvedix_expr_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_expr_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.i: cmake_force
@@ -1080,7 +1066,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_expr_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o: ../nodes/osd/cvedix_face_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_face_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.i: cmake_force
@@ -1094,7 +1080,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o: ../nodes/osd/cvedix_face_osd_node_v2.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_face_osd_node_v2.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.i: cmake_force
@@ -1108,7 +1094,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_face_osd_node_v2.cpp.s: cmak
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o: ../nodes/osd/cvedix_lane_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_lane_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.i: cmake_force
@@ -1122,7 +1108,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_lane_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o: ../nodes/osd/cvedix_mllm_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_mllm_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.i: cmake_force
@@ -1136,7 +1122,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_mllm_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o: ../nodes/osd/cvedix_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.i: cmake_force
@@ -1150,7 +1136,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o: ../nodes/osd/cvedix_osd_node_v2.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_osd_node_v2.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.i: cmake_force
@@ -1164,7 +1150,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.s: cmake_for
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o: ../nodes/osd/cvedix_osd_node_v3.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_osd_node_v3.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.i: cmake_force
@@ -1178,7 +1164,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v3.cpp.s: cmake_for
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o: ../nodes/osd/cvedix_plate_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_plate_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.i: cmake_force
@@ -1192,7 +1178,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_plate_osd_node.cpp.s: cmake_
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o: ../nodes/osd/cvedix_pose_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_pose_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.i: cmake_force
@@ -1206,7 +1192,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_pose_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o: ../nodes/osd/cvedix_seg_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_seg_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.i: cmake_force
@@ -1220,7 +1206,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_seg_osd_node.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o: ../nodes/osd/cvedix_text_osd_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_text_osd_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.i: cmake_force
@@ -1234,7 +1220,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_text_osd_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o: ../nodes/proc/cvedix_expr_check_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/proc/cvedix_expr_check_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.i: cmake_force
@@ -1248,7 +1234,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_expr_check_node.cpp.s: cmak
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o: ../nodes/proc/cvedix_frame_fusion_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/proc/cvedix_frame_fusion_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.i: cmake_force
@@ -1262,7 +1248,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/proc/cvedix_frame_fusion_node.cpp.s: cm
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o: ../nodes/record/cvedix_image_record_task.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/record/cvedix_image_record_task.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.i: cmake_force
@@ -1276,7 +1262,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_image_record_task.cpp.s: 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o: ../nodes/record/cvedix_record_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/record/cvedix_record_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.i: cmake_force
@@ -1290,7 +1276,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_node.cpp.s: cmake_
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o: ../nodes/record/cvedix_record_task.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/record/cvedix_record_task.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.i: cmake_force
@@ -1304,7 +1290,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_record_task.cpp.s: cmake_
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o: ../nodes/record/cvedix_video_record_task.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/record/cvedix_video_record_task.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.i: cmake_force
@@ -1318,7 +1304,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/record/cvedix_video_record_task.cpp.s: 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o: ../nodes/src/cvedix_app_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_app_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.i: cmake_force
@@ -1332,7 +1318,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_app_src_node.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o: ../nodes/src/cvedix_file_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_file_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.i: cmake_force
@@ -1346,7 +1332,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_file_src_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o: ../nodes/src/cvedix_image_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_image_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.i: cmake_force
@@ -1360,7 +1346,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_image_src_node.cpp.s: cmake_
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o: ../nodes/src/cvedix_rtmp_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_rtmp_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.i: cmake_force
@@ -1374,7 +1360,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtmp_src_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o: ../nodes/src/cvedix_rtsp_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_rtsp_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.i: cmake_force
@@ -1388,7 +1374,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_rtsp_src_node.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o: ../nodes/src/cvedix_udp_src_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/src/cvedix_udp_src_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.i: cmake_force
@@ -1402,7 +1388,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/src/cvedix_udp_src_node.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o: ../nodes/track/cvedix_dsort_track_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/track/cvedix_dsort_track_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.i: cmake_force
@@ -1416,7 +1402,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_dsort_track_node.cpp.s: cm
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o: ../nodes/track/cvedix_sort_track_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/track/cvedix_sort_track_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.i: cmake_force
@@ -1430,7 +1416,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_sort_track_node.cpp.s: cma
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o: ../nodes/track/cvedix_track_node.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/track/cvedix_track_node.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.i: cmake_force
@@ -1444,7 +1430,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/track/cvedix_track_node.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o: ../nodes/track/sort/Hungarian.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/track/sort/Hungarian.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.i: cmake_force
@@ -1458,7 +1444,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/Hungarian.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o: ../nodes/track/sort/KalmanTracker.cpp
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.o -c /home/ubuntu/core_ai_runtime/nodes/track/sort/KalmanTracker.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.i: cmake_force
@@ -1472,7 +1458,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/track/sort/KalmanTracker.cpp.s: cmake_f
 CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o: ../objects/ba/cvedix_ba_result.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_101) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.o -c /home/ubuntu/core_ai_runtime/objects/ba/cvedix_ba_result.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.i: cmake_force
@@ -1486,7 +1472,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/ba/cvedix_ba_result.cpp.s: cmake_forc
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o: ../objects/cvedix_control_meta.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_101) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_control_meta.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.i: cmake_force
@@ -1500,7 +1486,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_control_meta.cpp.s: cmake_forc
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o: ../objects/cvedix_frame_face_target.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_frame_face_target.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.i: cmake_force
@@ -1514,7 +1500,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_face_target.cpp.s: cmake
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o: ../objects/cvedix_frame_meta.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_104) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_frame_meta.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.i: cmake_force
@@ -1528,7 +1514,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_meta.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o: ../objects/cvedix_frame_pose_target.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_104) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_frame_pose_target.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.i: cmake_force
@@ -1542,7 +1528,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.s: cmake
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o: ../objects/cvedix_frame_target.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_frame_target.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.i: cmake_force
@@ -1556,7 +1542,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_target.cpp.s: cmake_forc
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o: ../objects/cvedix_frame_text_target.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_frame_text_target.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.i: cmake_force
@@ -1570,7 +1556,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_text_target.cpp.s: cmake
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o: ../objects/cvedix_image_record_control_meta.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_image_record_control_meta.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.i: cmake_force
@@ -1584,7 +1570,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_image_record_control_meta.cpp.
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o: ../objects/cvedix_meta.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_109) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_meta.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.i: cmake_force
@@ -1598,7 +1584,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_meta.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o: ../objects/cvedix_sub_target.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_110) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_109) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_sub_target.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.i: cmake_force
@@ -1612,7 +1598,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_sub_target.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o: ../objects/cvedix_video_record_control_meta.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_111) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_110) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.o -c /home/ubuntu/core_ai_runtime/objects/cvedix_video_record_control_meta.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.i: cmake_force
@@ -1626,7 +1612,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_video_record_control_meta.cpp.
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o: ../objects/shapes/cvedix_line.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_112) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_111) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.o -c /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_line.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.i: cmake_force
@@ -1640,7 +1626,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_line.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o: ../objects/shapes/cvedix_point.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_113) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_112) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.o -c /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_point.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.i: cmake_force
@@ -1654,7 +1640,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_point.cpp.s: cmake_forc
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o: ../objects/shapes/cvedix_polygon.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_114) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_113) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.o -c /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_polygon.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.i: cmake_force
@@ -1668,7 +1654,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_polygon.cpp.s: cmake_fo
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o: ../objects/shapes/cvedix_rect.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_115) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_114) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.o -c /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_rect.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.i: cmake_force
@@ -1682,7 +1668,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_rect.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o: ../objects/shapes/cvedix_size.cpp
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_116) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_115) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o -c /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_size.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.i: cmake_force
@@ -1696,7 +1682,7 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.s: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o: ../utils/analysis_board/cvedix_analysis_board.cpp
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_117) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_116) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.o -c /home/ubuntu/core_ai_runtime/utils/analysis_board/cvedix_analysis_board.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cpp.i: cmake_force
@@ -1710,7 +1696,7 @@ CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_analysis_board.cp
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o: ../utils/analysis_board/cvedix_node_on_screen.cpp
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_118) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_117) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o -c /home/ubuntu/core_ai_runtime/utils/analysis_board/cvedix_node_on_screen.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.i: cmake_force
@@ -1724,7 +1710,7 @@ CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cp
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o: ../utils/logger/cvedix_log_file_writer.cpp
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_119) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_118) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o -c /home/ubuntu/core_ai_runtime/utils/logger/cvedix_log_file_writer.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.i: cmake_force
@@ -1738,7 +1724,7 @@ CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.s: cm
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o: ../utils/logger/cvedix_log_kafka_writer.cpp
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_120) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_119) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o -c /home/ubuntu/core_ai_runtime/utils/logger/cvedix_log_kafka_writer.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.i: cmake_force
@@ -1752,7 +1738,7 @@ CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.s: c
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o: ../utils/logger/cvedix_logger.cpp
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_121) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_120) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o -c /home/ubuntu/core_ai_runtime/utils/logger/cvedix_logger.cpp
 
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.i: cmake_force
@@ -1762,34 +1748,6 @@ CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.i: cmake_force
 CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/utils/logger/cvedix_logger.cpp -o CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.s
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
-CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o: ../utils/rga/cvedix_rga_helper.cpp
-CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_122) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o -c /home/ubuntu/core_ai_runtime/utils/rga/cvedix_rga_helper.cpp
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/core_ai_runtime/utils/rga/cvedix_rga_helper.cpp > CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.i
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/utils/rga/cvedix_rga_helper.cpp -o CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.s
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/flags.make
-CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o: ../utils/rknn/cvedix_rknn_helper.cpp
-CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o: CMakeFiles/cvedix_instance_sdk.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_123) "Building CXX object CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o -MF CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o.d -o CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o -c /home/ubuntu/core_ai_runtime/utils/rknn/cvedix_rknn_helper.cpp
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/core_ai_runtime/utils/rknn/cvedix_rknn_helper.cpp > CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.i
-
-CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/utils/rknn/cvedix_rknn_helper.cpp -o CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.s
 
 # Object files for target cvedix_instance_sdk
 cvedix_instance_sdk_OBJECTS = \
@@ -1839,7 +1797,6 @@ cvedix_instance_sdk_OBJECTS = \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_openpose_detector_node.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_ppocr_text_detector_node.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.o" \
-"CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o" \
@@ -1913,9 +1870,7 @@ cvedix_instance_sdk_OBJECTS = \
 "CMakeFiles/cvedix_instance_sdk.dir/utils/analysis_board/cvedix_node_on_screen.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o" \
 "CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o" \
-"CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o" \
-"CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o" \
-"CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o"
+"CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o"
 
 # External object files for target cvedix_instance_sdk
 cvedix_instance_sdk_EXTERNAL_OBJECTS =
@@ -1966,7 +1921,6 @@ libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_openpose_detector_node.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_ppocr_text_detector_node.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_restoration_node.cpp.o
-libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_rknn_yolov8_detector_node.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_sface_feature_encoder_node.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_color_classifier.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/nodes/infers/cvedix_trt_vehicle_detector.cpp.o
@@ -2041,8 +1995,6 @@ libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/analysi
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_file_writer.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_log_kafka_writer.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/logger/cvedix_logger.cpp.o
-libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/rga/cvedix_rga_helper.cpp.o
-libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/utils/rknn/cvedix_rknn_helper.cpp.o
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/build.make
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_gapi.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_stitching.so.4.10.0
@@ -2077,7 +2029,6 @@ libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_wechat_qrcode.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_xfeatures2d.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_xobjdetect.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_xphoto.so.4.10.0
-libs/libcvedix_instance_sdk.so: /usr/lib/librknnrt.so
 libs/libcvedix_instance_sdk.so: libs/libtinyexpr.so
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_shape.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_highgui.so.4.10.0
@@ -2099,9 +2050,8 @@ libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_flann.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_photo.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_imgproc.so.4.10.0
 libs/libcvedix_instance_sdk.so: /usr/local/lib/libopencv_core.so.4.10.0
-libs/libcvedix_instance_sdk.so: /usr/lib/librknnrt.so
 libs/libcvedix_instance_sdk.so: CMakeFiles/cvedix_instance_sdk.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_124) "Linking CXX shared library libs/libcvedix_instance_sdk.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_package/CMakeFiles --progress-num=$(CMAKE_PROGRESS_121) "Linking CXX shared library libs/libcvedix_instance_sdk.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cvedix_instance_sdk.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

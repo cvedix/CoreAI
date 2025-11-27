@@ -1,5 +1,3 @@
-#ifdef CVEDIX_WITH_RKNN
-
 #include "cvedix_rknn_helper.h"
 #include "../logger/cvedix_logger.h"
 #include <fstream>
@@ -341,6 +339,4 @@ namespace cvedix_utils {
     }
 
 } // namespace cvedix_utils
-
-#endif // CVEDIX_WITH_RKNN
 

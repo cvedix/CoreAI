@@ -260,7 +260,7 @@ CMakeFiles/cvedix_instance_sdk.dir/nodes/osd/cvedix_osd_node_v2.cpp.o: \
  /usr/local/include/opencv4/opencv2/core/cvdef.h \
  /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp \
  /home/ubuntu/core_ai_runtime/nodes/osd/cvedix_osd_node_v2.h \
- /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+ /usr/local/include/opencv4/opencv2/freetype.hpp \
  /home/ubuntu/core_ai_runtime/nodes/osd/../common/cvedix_node.h \
  /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/queue \

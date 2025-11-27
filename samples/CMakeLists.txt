@@ -24,6 +24,10 @@ target_link_libraries(enet_seg_sample ${PROJECT_NAME})
 add_executable(face_tracking_sample "face_tracking_sample.cpp")
 target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
+add_executable(face_tracking_rtsp_sample "face_tracking_rtsp_sample.cpp")
+target_include_directories(face_tracking_rtsp_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+target_link_libraries(face_tracking_rtsp_sample ${PROJECT_NAME})
+
 add_executable(image_des_sample "image_des_sample.cpp")
 target_link_libraries(image_des_sample ${PROJECT_NAME})
 
@@ -199,6 +203,12 @@ if(CVEDIX_WITH_RKNN)
     add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
     target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
 
+    add_executable(rknn_face_detection_sample "rknn_face_detection_sample.cpp")
+    target_link_libraries(rknn_face_detection_sample ${PROJECT_NAME})
+
+    add_executable(rknn_face_detection_file_sample "rknn_face_detection_file_sample.cpp")
+    target_link_libraries(rknn_face_detection_file_sample ${PROJECT_NAME})
+
     add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
     target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
 
@@ -218,11 +228,29 @@ if(CVEDIX_WITH_RKNN)
         endif()
     endif()
 
+    # RKNN face tracking sample - build by default when RKNN is enabled
+    add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
+    target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto for MQTT
+    if(MOSQUITTO_FOUND)
+        target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
+    else()
+        find_library(MOSQUITTO_LIB NAMES mosquitto)
+        if(MOSQUITTO_LIB)
+            target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
+        endif()
+    endif()
+
     # Install RKNN samples
     install(TARGETS 
         rknn_detector_sample
         rknn_face_detector_sample
+        rknn_face_detection_sample
+        rknn_face_detection_file_sample
         rknn_rtsp_tracking_sample
+        rknn_face_tracking_sample
         DESTINATION bin
     )
     

@@ -358,7 +358,7 @@ samples/CMakeFiles/mask_rcnn_sample.dir/mask_rcnn_sample.cpp.o: \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/track/sort/KalmanTracker.h \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/osd/cvedix_osd_node_v3.h \
- /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+ /usr/local/include/opencv4/opencv2/freetype.hpp \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/des/cvedix_screen_des_node.h \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/des/../common/cvedix_des_node.h \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/des/../common/cvedix_stream_status_hookable.h \

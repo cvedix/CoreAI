@@ -409,7 +409,7 @@ samples/CMakeFiles/skip_sample.dir/skip_sample.cpp.o: ../samples/skip_sample.cpp
   /usr/local/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
   /usr/local/include/opencv4/opencv2/dnn/dnn.hpp \
   cvedix/nodes/osd/cvedix_osd_node.h \
-  /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+  /usr/local/include/opencv4/opencv2/freetype.hpp \
   cvedix/nodes/mid/cvedix_split_node.h \
   cvedix/nodes/des/cvedix_screen_des_node.h \
   cvedix/nodes/common/cvedix_des_node.h \
@@ -428,6 +428,8 @@ cvedix/nodes/common/cvedix_stream_status_hookable.h:
 cvedix/nodes/common/cvedix_des_node.h:
 
 cvedix/nodes/des/cvedix_screen_des_node.h:
+
+/usr/local/include/opencv4/opencv2/freetype.hpp:
 
 /usr/local/include/opencv4/opencv2/dnn/dnn.inl.hpp:
 
@@ -486,8 +488,6 @@ cvedix/utils/date.h:
 cvedix/objects/cvedix_sub_target.h:
 
 /usr/include/c++/11/bits/regex_scanner.tcc:
-
-/home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp:
 
 /usr/include/c++/11/bits/regex_error.h:
 

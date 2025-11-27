@@ -1,5 +1,3 @@
-#ifdef CVEDIX_WITH_RKNN
-
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
@@ -96,10 +94,3 @@ int main() {
     return 0;
 }
 
-#else
-#include <iostream>
-int main() {
-    std::cerr << "RKNN support not enabled. Build with -DCVEDIX_WITH_RKNN=ON" << std::endl;
-    return 1;
-}
-#endif // CVEDIX_WITH_RKNN

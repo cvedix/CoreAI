@@ -351,7 +351,7 @@ samples/CMakeFiles/firesmoke_detect_sample.dir/firesmoke_detect_sample.cpp.o: \
  /usr/local/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
  /usr/local/include/opencv4/opencv2/dnn/dnn.hpp \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/osd/cvedix_osd_node.h \
- /home/ubuntu/opencv_contrib/modules/freetype/include/opencv2/freetype.hpp \
+ /usr/local/include/opencv4/opencv2/freetype.hpp \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/mid/cvedix_split_node.h \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/des/cvedix_screen_des_node.h \
  /home/ubuntu/core_ai_runtime/build_package/cvedix/nodes/des/../common/cvedix_des_node.h \
