@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/instance_pipeline
+CMAKE_SOURCE_DIR = /home/ubuntu/core_ai_runtime
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/instance_pipeline/build_sdk
+CMAKE_BINARY_DIR = /home/ubuntu/core_ai_runtime/build_sdk
 
 # Include any dependencies generated for this target.
 include samples/CMakeFiles/interaction_with_pipe_sample.dir/depend.make
@@ -72,16 +72,16 @@ include samples/CMakeFiles/interaction_with_pipe_sample.dir/flags.make
 samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o: samples/CMakeFiles/interaction_with_pipe_sample.dir/flags.make
 samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o: ../samples/interaction_with_pipe_sample.cpp
 samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o: samples/CMakeFiles/interaction_with_pipe_sample.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o -MF CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o.d -o CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o -c /home/ubuntu/instance_pipeline/samples/interaction_with_pipe_sample.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o"
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o -MF CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o.d -o CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.o -c /home/ubuntu/core_ai_runtime/samples/interaction_with_pipe_sample.cpp
 
 samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.i"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/instance_pipeline/samples/interaction_with_pipe_sample.cpp > CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.i
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/core_ai_runtime/samples/interaction_with_pipe_sample.cpp > CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.i
 
 samples/CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.s"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/instance_pipeline/samples/interaction_with_pipe_sample.cpp -o CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.s
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/samples/interaction_with_pipe_sample.cpp -o CMakeFiles/interaction_with_pipe_sample.dir/interaction_with_pipe_sample.cpp.s
 
 # Object files for target interaction_with_pipe_sample
 interaction_with_pipe_sample_OBJECTS = \
@@ -149,18 +149,18 @@ bin/interaction_with_pipe_sample: /usr/local/lib/libopencv_photo.so.4.10.0
 bin/interaction_with_pipe_sample: /usr/local/lib/libopencv_imgproc.so.4.10.0
 bin/interaction_with_pipe_sample: /usr/local/lib/libopencv_core.so.4.10.0
 bin/interaction_with_pipe_sample: samples/CMakeFiles/interaction_with_pipe_sample.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/interaction_with_pipe_sample"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/interaction_with_pipe_sample.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/interaction_with_pipe_sample"
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/interaction_with_pipe_sample.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 samples/CMakeFiles/interaction_with_pipe_sample.dir/build: bin/interaction_with_pipe_sample
 .PHONY : samples/CMakeFiles/interaction_with_pipe_sample.dir/build
 
 samples/CMakeFiles/interaction_with_pipe_sample.dir/clean:
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && $(CMAKE_COMMAND) -P CMakeFiles/interaction_with_pipe_sample.dir/cmake_clean.cmake
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && $(CMAKE_COMMAND) -P CMakeFiles/interaction_with_pipe_sample.dir/cmake_clean.cmake
 .PHONY : samples/CMakeFiles/interaction_with_pipe_sample.dir/clean
 
 samples/CMakeFiles/interaction_with_pipe_sample.dir/depend:
-	cd /home/ubuntu/instance_pipeline/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/instance_pipeline /home/ubuntu/instance_pipeline/samples /home/ubuntu/instance_pipeline/build_sdk /home/ubuntu/instance_pipeline/build_sdk/samples /home/ubuntu/instance_pipeline/build_sdk/samples/CMakeFiles/interaction_with_pipe_sample.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/core_ai_runtime/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/core_ai_runtime /home/ubuntu/core_ai_runtime/samples /home/ubuntu/core_ai_runtime/build_sdk /home/ubuntu/core_ai_runtime/build_sdk/samples /home/ubuntu/core_ai_runtime/build_sdk/samples/CMakeFiles/interaction_with_pipe_sample.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : samples/CMakeFiles/interaction_with_pipe_sample.dir/depend
 

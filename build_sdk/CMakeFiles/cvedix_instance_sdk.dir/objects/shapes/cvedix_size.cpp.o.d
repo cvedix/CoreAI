@@ -1,7 +1,7 @@
 CMakeFiles/cvedix_instance_sdk.dir/objects/shapes/cvedix_size.cpp.o: \
- /home/ubuntu/instance_pipeline/objects/shapes/cvedix_size.cpp \
+ /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_size.cpp \
  /usr/include/stdc-predef.h \
- /home/ubuntu/instance_pipeline/objects/shapes/cvedix_size.h \
+ /home/ubuntu/core_ai_runtime/objects/shapes/cvedix_size.h \
  /usr/include/c++/11/utility \
  /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/os_defines.h \

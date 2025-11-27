@@ -216,7 +216,7 @@ if(CVEDIX_WITH_RKNN)
     # Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
     find_library(RKNN_LIB 
         NAMES rknnrt
-        PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
+        PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/lib /usr/local/lib /usr/lib /opt/rockchip/lib
         NO_DEFAULT_PATH
     )
     if(RKNN_LIB)
@@ -236,7 +236,7 @@ if(CVEDIX_WITH_RKNN)
     # Find rknn_api.h - typically in /usr/local/include or /usr/include
     find_path(RKNN_INCLUDE_DIR
         NAMES rknn_api.h
-        PATHS /usr/local/include /usr/include /opt/rockchip/include
+        PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/include /usr/local/include /usr/include /opt/rockchip/include
         NO_DEFAULT_PATH
     )
     if(RKNN_INCLUDE_DIR)

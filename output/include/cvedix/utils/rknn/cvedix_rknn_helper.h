@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef CVEDIX_WITH_RKNN
 #include <string>
 #include <vector>
 #include <memory>
@@ -24,6 +23,7 @@ namespace cvedix_utils {
         // Input/output memory
         std::vector<rknn_input> inputs;
         std::vector<rknn_output> outputs;
+        std::vector<cv::Mat> input_buffers;
         
         // Helper methods
         int load_model(const std::string& path);
@@ -76,6 +76,3 @@ namespace cvedix_utils {
         std::string get_model_path() const { return model_path; }
     };
 }
-
-#endif // CVEDIX_WITH_RKNN
-

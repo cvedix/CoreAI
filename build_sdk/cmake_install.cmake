@@ -1,8 +1,8 @@
-# Install script for directory: /home/ubuntu/instance_pipeline
+# Install script for directory: /home/ubuntu/core_ai_runtime
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/instance_pipeline/debian/sdk-build/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/core_ai_runtime/output")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,7 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libtinyexpr.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/ubuntu/instance_pipeline/build_sdk/libs/libtinyexpr.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/ubuntu/core_ai_runtime/build_sdk/libs/libtinyexpr.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libtinyexpr.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libtinyexpr.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -68,12 +68,12 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcvedix_instance_sdk.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/ubuntu/instance_pipeline/build_sdk/libs/libcvedix_instance_sdk.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/ubuntu/core_ai_runtime/build_sdk/libs/libcvedix_instance_sdk.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcvedix_instance_sdk.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcvedix_instance_sdk.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcvedix_instance_sdk.so"
-         OLD_RPATH "/usr/local/lib:/home/ubuntu/instance_pipeline/build_sdk/libs:"
+         OLD_RPATH "/usr/local/lib:/home/ubuntu/core_ai_runtime/build_sdk/libs:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libcvedix_instance_sdk.so")
@@ -86,22 +86,22 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cvedix" TYPE DIRECTORY FILES
-    "/home/ubuntu/instance_pipeline/nodes"
-    "/home/ubuntu/instance_pipeline/objects"
-    "/home/ubuntu/instance_pipeline/utils"
-    "/home/ubuntu/instance_pipeline/excepts"
+    "/home/ubuntu/core_ai_runtime/nodes"
+    "/home/ubuntu/core_ai_runtime/objects"
+    "/home/ubuntu/core_ai_runtime/utils"
+    "/home/ubuntu/core_ai_runtime/excepts"
     FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cvedix" TYPE FILE FILES "/home/ubuntu/instance_pipeline/build_sdk/cvedix_version.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cvedix" TYPE FILE FILES "/home/ubuntu/core_ai_runtime/build_sdk/cvedix_version.h")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix/cvedix-targets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix/cvedix-targets.cmake"
-         "/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets.cmake")
+         "/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix/cvedix-targets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -110,27 +110,27 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix" TYPE FILE FILES "/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix" TYPE FILE FILES "/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix" TYPE FILE FILES "/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets-debug.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix" TYPE FILE FILES "/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles/Export/lib/cmake/cvedix/cvedix-targets-debug.cmake")
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/cvedix" TYPE FILE FILES
-    "/home/ubuntu/instance_pipeline/build_sdk/cvedix-config.cmake"
-    "/home/ubuntu/instance_pipeline/build_sdk/cvedix-config-version.cmake"
+    "/home/ubuntu/core_ai_runtime/build_sdk/cvedix-config.cmake"
+    "/home/ubuntu/core_ai_runtime/build_sdk/cvedix-config-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/instance_pipeline/build_sdk/cvedix.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/core_ai_runtime/build_sdk/cvedix.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/ubuntu/instance_pipeline/build_sdk/third_party/tinyexpr/cmake_install.cmake")
-  include("/home/ubuntu/instance_pipeline/build_sdk/samples/cmake_install.cmake")
+  include("/home/ubuntu/core_ai_runtime/build_sdk/third_party/tinyexpr/cmake_install.cmake")
+  include("/home/ubuntu/core_ai_runtime/build_sdk/samples/cmake_install.cmake")
 
 endif()
 
@@ -142,5 +142,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ubuntu/instance_pipeline/build_sdk/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ubuntu/core_ai_runtime/build_sdk/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

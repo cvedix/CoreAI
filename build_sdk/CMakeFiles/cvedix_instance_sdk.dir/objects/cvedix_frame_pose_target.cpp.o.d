@@ -1,7 +1,7 @@
 CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o: \
- /home/ubuntu/instance_pipeline/objects/cvedix_frame_pose_target.cpp \
+ /home/ubuntu/core_ai_runtime/objects/cvedix_frame_pose_target.cpp \
  /usr/include/stdc-predef.h \
- /home/ubuntu/instance_pipeline/objects/cvedix_frame_pose_target.h \
+ /home/ubuntu/core_ai_runtime/objects/cvedix_frame_pose_target.h \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/os_defines.h \
@@ -75,7 +75,6 @@ CMakeFiles/cvedix_instance_sdk.dir/objects/cvedix_frame_pose_target.cpp.o: \
  /usr/include/aarch64-linux-gnu/bits/types/FILE.h \
  /usr/include/aarch64-linux-gnu/bits/types/locale_t.h \
  /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/aarch64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/11/bits/shared_ptr_base.h /usr/include/c++/11/typeinfo \
  /usr/include/c++/11/bits/allocated_ptr.h \
  /usr/include/c++/11/bits/refwrap.h \

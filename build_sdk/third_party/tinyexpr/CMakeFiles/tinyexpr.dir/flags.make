@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -DCVEDIX_WITH_RTSP_SERVER -Dtinyexpr_EXPORTS
 
-C_INCLUDES = -I/usr/local/include/opencv4 -I/home/ubuntu/opencv_contrib/modules/freetype/include -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include
+C_INCLUDES = -I/usr/local/include/opencv4 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include
 
-C_FLAGS = -g -O2 -ffile-prefix-map=/home/ubuntu/instance_pipeline=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -g -fPIC
+C_FLAGS = -g -fPIC
 

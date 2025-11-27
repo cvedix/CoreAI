@@ -1,8 +1,8 @@
-# Install script for directory: /home/ubuntu/instance_pipeline/third_party/tinyexpr
+# Install script for directory: /home/ubuntu/core_ai_runtime/third_party/tinyexpr
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/instance_pipeline/debian/sdk-build/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/core_ai_runtime/output")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

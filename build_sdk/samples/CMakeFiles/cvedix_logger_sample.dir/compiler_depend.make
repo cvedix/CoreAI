@@ -38,7 +38,6 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: ../sampl
   /usr/include/aarch64-linux-gnu/bits/types/FILE.h \
   /usr/include/aarch64-linux-gnu/bits/types/locale_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/aarch64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/11/exception \
   /usr/include/c++/11/bits/exception.h \
   /usr/include/c++/11/bits/exception_ptr.h \
@@ -144,11 +143,8 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: ../sampl
   /usr/include/aarch64-linux-gnu/sys/select.h \
   /usr/include/aarch64-linux-gnu/bits/select.h \
   /usr/include/aarch64-linux-gnu/bits/types/sigset_t.h \
-  /usr/include/aarch64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
-  /usr/include/aarch64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/aarch64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/11/bits/std_abs.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
@@ -157,8 +153,6 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: ../sampl
   /usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/aarch64-linux-gnu/bits/stdio_lim.h \
-  /usr/include/aarch64-linux-gnu/bits/stdio.h \
-  /usr/include/aarch64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/cerrno \
   /usr/include/errno.h \
   /usr/include/aarch64-linux-gnu/bits/errno.h \
@@ -259,8 +253,6 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: ../sampl
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
-  /usr/include/aarch64-linux-gnu/bits/strings_fortified.h \
-  /usr/include/aarch64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/11/bits/regex_constants.h \
   /usr/include/c++/11/bits/regex_error.h \
   /usr/include/c++/11/bits/regex_automaton.h \
@@ -376,6 +368,8 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: ../sampl
   /usr/include/c++/11/experimental/bits/fs_ops.h \
   cvedix/utils/logger/cvedix_log_kafka_writer.h
 
+
+/usr/include/c++/11/experimental/bits/fs_ops.h:
 
 /usr/include/c++/11/experimental/bits/fs_path.h:
 
@@ -501,12 +495,6 @@ cvedix/utils/cvedix_semaphore.h:
 
 /usr/include/c++/11/bits/regex_scanner.tcc:
 
-/usr/include/c++/11/bits/regex_error.h:
-
-/usr/include/aarch64-linux-gnu/bits/string_fortified.h:
-
-/usr/include/strings.h:
-
 /usr/include/c++/11/ext/alloc_traits.h:
 
 /usr/include/c++/11/backward/binders.h:
@@ -547,7 +535,11 @@ cvedix/utils/cvedix_semaphore.h:
 
 /usr/include/c++/11/bits/ostream.tcc:
 
+/usr/include/c++/11/bits/regex_error.h:
+
 /usr/lib/gcc/aarch64-linux-gnu/11/include/stdint.h:
+
+/usr/include/aarch64-linux-gnu/c++/11/bits/c++allocator.h:
 
 /usr/include/c++/11/clocale:
 
@@ -573,8 +565,6 @@ cvedix/utils/cvedix_semaphore.h:
 
 /usr/include/aarch64-linux-gnu/c++/11/bits/c++locale.h:
 
-/usr/include/aarch64-linux-gnu/bits/stdio.h:
-
 /usr/include/c++/11/cerrno:
 
 /usr/local/include/opencv4/opencv2/core/traits.hpp:
@@ -591,8 +581,6 @@ cvedix/utils/cvedix_semaphore.h:
 
 /usr/include/c++/11/bits/functexcept.h:
 
-/usr/include/aarch64-linux-gnu/bits/select2.h:
-
 /usr/include/aarch64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/c++/11/streambuf:
@@ -600,10 +588,6 @@ cvedix/utils/cvedix_semaphore.h:
 /usr/include/aarch64-linux-gnu/bits/time64.h:
 
 /usr/include/alloca.h:
-
-/usr/include/c++/11/bits/regex_automaton.h:
-
-/usr/include/aarch64-linux-gnu/c++/11/bits/gthr-default.h:
 
 /usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
 
@@ -619,8 +603,6 @@ cvedix/utils/cvedix_utils.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
 
-/usr/include/c++/11/debug/assertions.h:
-
 /usr/include/c++/11/map:
 
 /usr/include/aarch64-linux-gnu/bits/pthread_stack_min-dynamic.h:
@@ -635,13 +617,7 @@ cvedix/utils/cvedix_utils.h:
 
 /usr/include/c++/11/bits/cxxabi_init_exception.h:
 
-/usr/include/aarch64-linux-gnu/bits/strings_fortified.h:
-
 /usr/include/c++/11/bits/stringfwd.h:
-
-/usr/include/aarch64-linux-gnu/c++/11/bits/c++allocator.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdlib.h:
 
 /usr/include/c++/11/system_error:
 
@@ -650,12 +626,6 @@ cvedix/utils/cvedix_utils.h:
 /usr/include/c++/11/cstddef:
 
 /usr/include/c++/11/bits/stl_vector.h:
-
-/usr/include/aarch64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/c++/11/bits/regex_constants.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/aarch64-linux-gnu/bits/math-vector.h:
 
@@ -811,8 +781,6 @@ cvedix/utils/logger/cvedix_log_file_writer.h:
 
 /usr/include/aarch64-linux-gnu/bits/floatn-common.h:
 
-/usr/include/aarch64-linux-gnu/bits/wchar2.h:
-
 /usr/include/aarch64-linux-gnu/bits/mathcalls.h:
 
 /usr/include/c++/11/bits/allocated_ptr.h:
@@ -826,8 +794,6 @@ cvedix/utils/logger/cvedix_log_file_writer.h:
 /usr/include/c++/11/bits/move.h:
 
 /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdio2.h:
 
 /usr/include/aarch64-linux-gnu/bits/errno.h:
 
@@ -859,10 +825,6 @@ cvedix/utils/logger/cvedix_log_file_writer.h:
 
 /usr/include/c++/11/bits/exception_ptr.h:
 
-/usr/include/c++/11/bits/regex_automaton.tcc:
-
-/usr/include/c++/11/ext/string_conversions.h:
-
 /usr/include/aarch64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/c++/11/regex:
@@ -873,11 +835,19 @@ cvedix/utils/logger/cvedix_log_file_writer.h:
 
 /usr/include/c++/11/cstring:
 
+/usr/include/aarch64-linux-gnu/bits/fp-logb.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/c++/11/bits/regex_constants.h:
+
 /usr/include/c++/11/bits/concept_check.h:
 
 /usr/include/c++/11/tr1/bessel_function.tcc:
 
 /usr/include/aarch64-linux-gnu/bits/byteswap.h:
+
+/usr/include/c++/11/debug/assertions.h:
 
 /usr/include/c++/11/string_view:
 
@@ -924,10 +894,6 @@ cvedix/utils/logger/cvedix_logger.h:
 /usr/include/aarch64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/include/c++/11/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/11/experimental/bits/fs_ops.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/include/stdio.h:
 
@@ -999,9 +965,9 @@ cvedix/utils/logger/cvedix_logger.h:
 
 /usr/include/c++/11/istream:
 
-/usr/include/c++/11/bits/regex_scanner.h:
-
 /usr/include/aarch64-linux-gnu/bits/sched.h:
+
+/usr/include/c++/11/bits/regex_scanner.h:
 
 /usr/include/c++/11/bits/istream.tcc:
 
@@ -1109,6 +1075,8 @@ cvedix/utils/logger/cvedix_logger.h:
 
 /usr/include/c++/11/bits/sstream.tcc:
 
+/usr/include/strings.h:
+
 /usr/include/c++/11/stack:
 
 /usr/include/c++/11/bits/stl_deque.h:
@@ -1122,3 +1090,11 @@ cvedix/utils/logger/cvedix_logger.h:
 /usr/include/c++/11/bits/streambuf.tcc:
 
 /usr/include/string.h:
+
+/usr/include/aarch64-linux-gnu/c++/11/bits/gthr-default.h:
+
+/usr/include/c++/11/bits/regex_automaton.h:
+
+/usr/include/c++/11/ext/string_conversions.h:
+
+/usr/include/c++/11/bits/regex_automaton.tcc:

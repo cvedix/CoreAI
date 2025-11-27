@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ubuntu/instance_pipeline/samples/1-1-N_sample.cpp" "samples/CMakeFiles/1-1-N_sample.dir/1-1-N_sample.cpp.o" "gcc" "samples/CMakeFiles/1-1-N_sample.dir/1-1-N_sample.cpp.o.d"
+  "/home/ubuntu/core_ai_runtime/samples/1-1-N_sample.cpp" "samples/CMakeFiles/1-1-N_sample.dir/1-1-N_sample.cpp.o" "gcc" "samples/CMakeFiles/1-1-N_sample.dir/1-1-N_sample.cpp.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles/cvedix_instance_sdk.dir/DependInfo.cmake"
+  "/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles/cvedix_instance_sdk.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

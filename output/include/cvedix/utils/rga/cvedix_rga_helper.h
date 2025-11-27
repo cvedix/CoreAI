@@ -1,6 +1,7 @@
 #pragma once
 
 #ifdef CVEDIX_WITH_RGA
+
 #include <opencv2/opencv.hpp>
 #include <string>
 
@@ -74,5 +75,25 @@ namespace cvedix_utils {
     };
 }
 
-#endif // CVEDIX_WITH_RGA
+#else // CVEDIX_WITH_RGA not defined
 
+// Stub implementation when RGA is not available
+#include <opencv2/opencv.hpp>
+#include <string>
+
+namespace cvedix_utils {
+    // Stub RGA helper class when RGA is not enabled
+    class cvedix_rga_helper {
+    public:
+        cvedix_rga_helper() {}
+        ~cvedix_rga_helper() {}
+        bool init() { return false; }
+        bool is_available() const { return false; }
+        int resize(const cv::Mat&, cv::Mat&, const cv::Size&) { return -1; }
+        int cvt_color(const cv::Mat&, cv::Mat&, int) { return -1; }
+        int crop_resize(const cv::Mat&, cv::Mat&, const cv::Rect&, const cv::Size&) { return -1; }
+        int resize_letterbox(const cv::Mat&, cv::Mat&, const cv::Size&, cv::Scalar = cv::Scalar(114, 114, 114)) { return -1; }
+    };
+}
+
+#endif // CVEDIX_WITH_RGA

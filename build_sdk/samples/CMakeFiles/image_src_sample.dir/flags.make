@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCVEDIX_WITH_RTSP_SERVER
 
-CXX_INCLUDES = -I/home/ubuntu/opencv_contrib/modules/freetype/include -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/home/ubuntu/instance_pipeline/build_sdk -I/home/ubuntu/instance_pipeline -isystem /usr/local/include/opencv4
+CXX_INCLUDES = -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -I/home/ubuntu/core_ai_runtime/build_sdk -I/home/ubuntu/core_ai_runtime -isystem /usr/local/include/opencv4
 
-CXX_FLAGS = -g -O2 -ffile-prefix-map=/home/ubuntu/instance_pipeline=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -g -fPIC -w -fdiagnostics-color=always -pthread -g
+CXX_FLAGS =  -g -fPIC -w -fdiagnostics-color=always -pthread -g
 

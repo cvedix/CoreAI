@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/instance_pipeline
+CMAKE_SOURCE_DIR = /home/ubuntu/core_ai_runtime
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/instance_pipeline/build_sdk
+CMAKE_BINARY_DIR = /home/ubuntu/core_ai_runtime/build_sdk
 
 # Include any dependencies generated for this target.
 include samples/CMakeFiles/message_broker_sample.dir/depend.make
@@ -72,16 +72,16 @@ include samples/CMakeFiles/message_broker_sample.dir/flags.make
 samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o: samples/CMakeFiles/message_broker_sample.dir/flags.make
 samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o: ../samples/message_broker_sample.cpp
 samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o: samples/CMakeFiles/message_broker_sample.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o -MF CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o.d -o CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o -c /home/ubuntu/instance_pipeline/samples/message_broker_sample.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o"
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o -MF CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o.d -o CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.o -c /home/ubuntu/core_ai_runtime/samples/message_broker_sample.cpp
 
 samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.i"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/instance_pipeline/samples/message_broker_sample.cpp > CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.i
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/core_ai_runtime/samples/message_broker_sample.cpp > CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.i
 
 samples/CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.s"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/instance_pipeline/samples/message_broker_sample.cpp -o CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.s
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/core_ai_runtime/samples/message_broker_sample.cpp -o CMakeFiles/message_broker_sample.dir/message_broker_sample.cpp.s
 
 # Object files for target message_broker_sample
 message_broker_sample_OBJECTS = \
@@ -149,18 +149,18 @@ bin/message_broker_sample: /usr/local/lib/libopencv_photo.so.4.10.0
 bin/message_broker_sample: /usr/local/lib/libopencv_imgproc.so.4.10.0
 bin/message_broker_sample: /usr/local/lib/libopencv_core.so.4.10.0
 bin/message_broker_sample: samples/CMakeFiles/message_broker_sample.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/message_broker_sample"
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/message_broker_sample.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/message_broker_sample"
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/message_broker_sample.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 samples/CMakeFiles/message_broker_sample.dir/build: bin/message_broker_sample
 .PHONY : samples/CMakeFiles/message_broker_sample.dir/build
 
 samples/CMakeFiles/message_broker_sample.dir/clean:
-	cd /home/ubuntu/instance_pipeline/build_sdk/samples && $(CMAKE_COMMAND) -P CMakeFiles/message_broker_sample.dir/cmake_clean.cmake
+	cd /home/ubuntu/core_ai_runtime/build_sdk/samples && $(CMAKE_COMMAND) -P CMakeFiles/message_broker_sample.dir/cmake_clean.cmake
 .PHONY : samples/CMakeFiles/message_broker_sample.dir/clean
 
 samples/CMakeFiles/message_broker_sample.dir/depend:
-	cd /home/ubuntu/instance_pipeline/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/instance_pipeline /home/ubuntu/instance_pipeline/samples /home/ubuntu/instance_pipeline/build_sdk /home/ubuntu/instance_pipeline/build_sdk/samples /home/ubuntu/instance_pipeline/build_sdk/samples/CMakeFiles/message_broker_sample.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/core_ai_runtime/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/core_ai_runtime /home/ubuntu/core_ai_runtime/samples /home/ubuntu/core_ai_runtime/build_sdk /home/ubuntu/core_ai_runtime/build_sdk/samples /home/ubuntu/core_ai_runtime/build_sdk/samples/CMakeFiles/message_broker_sample.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : samples/CMakeFiles/message_broker_sample.dir/depend
 

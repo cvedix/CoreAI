@@ -1,7 +1,7 @@
 samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
- /home/ubuntu/instance_pipeline/samples/cvedix_logger_sample.cpp \
+ /home/ubuntu/core_ai_runtime/samples/cvedix_logger_sample.cpp \
  /usr/include/stdc-predef.h \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/cvedix_utils.h \
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/cvedix_utils.h \
  /usr/include/c++/11/iostream \
  /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/os_defines.h \
@@ -31,7 +31,6 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/include/aarch64-linux-gnu/bits/types/FILE.h \
  /usr/include/aarch64-linux-gnu/bits/types/locale_t.h \
  /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/aarch64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/11/exception /usr/include/c++/11/bits/exception.h \
  /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/exception_defines.h \
@@ -120,10 +119,7 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/include/aarch64-linux-gnu/sys/select.h \
  /usr/include/aarch64-linux-gnu/bits/select.h \
  /usr/include/aarch64-linux-gnu/bits/types/sigset_t.h \
- /usr/include/aarch64-linux-gnu/bits/select2.h /usr/include/alloca.h \
- /usr/include/aarch64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
- /usr/include/aarch64-linux-gnu/bits/stdlib.h \
+ /usr/include/alloca.h /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
  /usr/include/c++/11/bits/std_abs.h /usr/include/c++/11/cstdio \
  /usr/include/stdio.h \
  /usr/include/aarch64-linux-gnu/bits/types/__fpos_t.h \
@@ -131,10 +127,9 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/aarch64-linux-gnu/bits/stdio_lim.h \
- /usr/include/aarch64-linux-gnu/bits/stdio.h \
- /usr/include/aarch64-linux-gnu/bits/stdio2.h /usr/include/c++/11/cerrno \
- /usr/include/errno.h /usr/include/aarch64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/aarch64-linux-gnu/asm/errno.h \
+ /usr/include/c++/11/cerrno /usr/include/errno.h \
+ /usr/include/aarch64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/aarch64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/aarch64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
@@ -204,8 +199,6 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h /usr/include/c++/11/cstring \
  /usr/include/string.h /usr/include/strings.h \
- /usr/include/aarch64-linux-gnu/bits/strings_fortified.h \
- /usr/include/aarch64-linux-gnu/bits/string_fortified.h \
  /usr/include/c++/11/bits/regex_constants.h \
  /usr/include/c++/11/bits/regex_error.h \
  /usr/include/c++/11/bits/regex_automaton.h \
@@ -290,15 +283,15 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/local/include/opencv4/opencv2/core/ovx.hpp \
  /usr/local/include/opencv4/opencv2/core/cvdef.h \
  /usr/local/include/opencv4/opencv2/imgproc/segmentation.hpp \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/date.h \
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/date.h \
  /usr/include/c++/11/cassert \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/logger/cvedix_logger.h \
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/logger/cvedix_logger.h \
  /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/queue \
  /usr/include/c++/11/bits/stl_queue.h \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/logger/../cvedix_semaphore.h \
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/logger/../cvedix_semaphore.h \
  /usr/include/c++/11/condition_variable \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/logger/cvedix_log_file_writer.h \
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/logger/cvedix_log_file_writer.h \
  /usr/include/c++/11/fstream \
  /usr/include/aarch64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/c++io.h \
@@ -309,4 +302,4 @@ samples/CMakeFiles/cvedix_logger_sample.dir/cvedix_logger_sample.cpp.o: \
  /usr/include/c++/11/codecvt /usr/include/c++/11/bits/quoted_string.h \
  /usr/include/c++/11/experimental/bits/fs_dir.h \
  /usr/include/c++/11/experimental/bits/fs_ops.h \
- /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils/logger/cvedix_log_kafka_writer.h
+ /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils/logger/cvedix_log_kafka_writer.h

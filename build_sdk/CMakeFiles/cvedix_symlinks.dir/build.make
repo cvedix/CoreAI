@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/instance_pipeline
+CMAKE_SOURCE_DIR = /home/ubuntu/core_ai_runtime
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/instance_pipeline/build_sdk
+CMAKE_BINARY_DIR = /home/ubuntu/core_ai_runtime/build_sdk
 
 # Utility rule file for cvedix_symlinks.
 
@@ -72,20 +72,20 @@ CMakeFiles/cvedix_symlinks: cvedix/utils
 CMakeFiles/cvedix_symlinks: cvedix/excepts
 
 cvedix/excepts:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Creating cvedix/excepts symlink"
-	/usr/bin/cmake -E create_symlink /home/ubuntu/instance_pipeline/excepts /home/ubuntu/instance_pipeline/build_sdk/cvedix/excepts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Creating cvedix/excepts symlink"
+	/usr/bin/cmake -E create_symlink /home/ubuntu/core_ai_runtime/excepts /home/ubuntu/core_ai_runtime/build_sdk/cvedix/excepts
 
 cvedix/nodes:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Creating cvedix/nodes symlink"
-	/usr/bin/cmake -E create_symlink /home/ubuntu/instance_pipeline/nodes /home/ubuntu/instance_pipeline/build_sdk/cvedix/nodes
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Creating cvedix/nodes symlink"
+	/usr/bin/cmake -E create_symlink /home/ubuntu/core_ai_runtime/nodes /home/ubuntu/core_ai_runtime/build_sdk/cvedix/nodes
 
 cvedix/objects:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Creating cvedix/objects symlink"
-	/usr/bin/cmake -E create_symlink /home/ubuntu/instance_pipeline/objects /home/ubuntu/instance_pipeline/build_sdk/cvedix/objects
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Creating cvedix/objects symlink"
+	/usr/bin/cmake -E create_symlink /home/ubuntu/core_ai_runtime/objects /home/ubuntu/core_ai_runtime/build_sdk/cvedix/objects
 
 cvedix/utils:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/instance_pipeline/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Creating cvedix/utils symlink"
-	/usr/bin/cmake -E create_symlink /home/ubuntu/instance_pipeline/utils /home/ubuntu/instance_pipeline/build_sdk/cvedix/utils
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Creating cvedix/utils symlink"
+	/usr/bin/cmake -E create_symlink /home/ubuntu/core_ai_runtime/utils /home/ubuntu/core_ai_runtime/build_sdk/cvedix/utils
 
 cvedix_symlinks: CMakeFiles/cvedix_symlinks
 cvedix_symlinks: cvedix/excepts
@@ -104,6 +104,6 @@ CMakeFiles/cvedix_symlinks.dir/clean:
 .PHONY : CMakeFiles/cvedix_symlinks.dir/clean
 
 CMakeFiles/cvedix_symlinks.dir/depend:
-	cd /home/ubuntu/instance_pipeline/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/instance_pipeline /home/ubuntu/instance_pipeline /home/ubuntu/instance_pipeline/build_sdk /home/ubuntu/instance_pipeline/build_sdk /home/ubuntu/instance_pipeline/build_sdk/CMakeFiles/cvedix_symlinks.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/core_ai_runtime/build_sdk && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/core_ai_runtime /home/ubuntu/core_ai_runtime /home/ubuntu/core_ai_runtime/build_sdk /home/ubuntu/core_ai_runtime/build_sdk /home/ubuntu/core_ai_runtime/build_sdk/CMakeFiles/cvedix_symlinks.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cvedix_symlinks.dir/depend
 

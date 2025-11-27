@@ -1,1 +1,1 @@
-/usr/bin/cc -fPIC -g -O2 -ffile-prefix-map=/home/ubuntu/instance_pipeline=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -g -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -shared -Wl,-soname,libtinyexpr.so -o ../../libs/libtinyexpr.so CMakeFiles/tinyexpr.dir/tinyexpr.c.o  -lm 
+/usr/bin/cc -fPIC -g -shared -Wl,-soname,libtinyexpr.so -o ../../libs/libtinyexpr.so CMakeFiles/tinyexpr.dir/tinyexpr.c.o  -lm 
