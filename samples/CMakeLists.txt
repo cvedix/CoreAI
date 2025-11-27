@@ -90,6 +90,9 @@ target_link_libraries(firesmoke_detect_sample ${PROJECT_NAME})
 add_executable(face_swap_sample "face_swap_sample.cpp")
 target_link_libraries(face_swap_sample ${PROJECT_NAME})
 
+add_executable(face_yunet_int8_sample "face_yunet_int8_sample.cpp")
+target_link_libraries(face_yunet_int8_sample ${PROJECT_NAME})
+
 add_executable(video_restoration_sample "video_restoration_sample.cpp")
 target_link_libraries(video_restoration_sample ${PROJECT_NAME})
 
@@ -117,6 +120,7 @@ install(TARGETS
     N-1-N_sample N-N_sample openpose_sample record_sample
     cvedix_logger_sample skip_sample obstacle_detect_sample
     multi_detectors_sample firesmoke_detect_sample face_swap_sample
+    face_yunet_int8_sample
     video_restoration_sample app_des_sample app_src_des_sample
     lane_detect_sample frame_fusion_sample cvedix_test
     DESTINATION bin
@@ -228,19 +232,24 @@ if(CVEDIX_WITH_RKNN)
         endif()
     endif()
 
-    # RKNN face tracking sample - build by default when RKNN is enabled
-    add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
-    target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
-    
-    # Link with mosquitto for MQTT
-    if(MOSQUITTO_FOUND)
-        target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
-    else()
-        find_library(MOSQUITTO_LIB NAMES mosquitto)
-        if(MOSQUITTO_LIB)
-            target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
+    # RKNN face tracking sample - build by default when RKNN is enabled and MQTT is enabled
+    if(CVEDIX_WITH_MQTT)
+        add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
+        target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
+        
+        # Link with mosquitto for MQTT
+        if(MOSQUITTO_FOUND)
+            target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
+        else()
+            find_library(MOSQUITTO_LIB NAMES mosquitto)
+            if(MOSQUITTO_LIB)
+                target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
+            endif()
         endif()
+        
+        # Install RKNN face tracking sample
+        install(TARGETS rknn_face_tracking_sample DESTINATION bin)
     endif()
 
     # Install RKNN samples
@@ -250,7 +259,6 @@ if(CVEDIX_WITH_RKNN)
         rknn_face_detection_sample
         rknn_face_detection_file_sample
         rknn_rtsp_tracking_sample
-        rknn_face_tracking_sample
         DESTINATION bin
     )
     

@@ -1,3 +1,13 @@
+<<<<<<< HEAD
 usr/lib/*.so
 usr/bin/
+=======
+# Only install project-specific .so files, not dependencies
+# Main library: libcvedix_instance_sdk.so
+usr/lib/*/libcvedix_instance_sdk.so*
+# Third-party library built with project: libtinyexpr.so
+usr/lib/*/libtinyexpr.so*
+# Binaries
+usr/bin/*
+>>>>>>> c3421eb (check)
 

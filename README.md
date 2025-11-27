@@ -154,6 +154,31 @@ int main() {
     board.display();
 }
 ```
+#### Node phát hiện khuôn mặt Yunet INT8 mới
+
+Đối với các trường hợp muốn chạy trực tiếp YuNet INT8 trên CPU (OpenCV FaceDetectorYN), bạn có thể sử dụng node mới `cvedix_face_yunet_int8_face_detection_mode`. Node này mặc định tải mô hình:
+
+```
+./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx
+```
+
+Ví dụ sử dụng:
+
+```c++
+auto yunet_int8 = std::make_shared<cvedix_nodes::cvedix_face_yunet_int8_face_detection_mode>(
+    "yunet_face_int8",
+    "./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx",
+    0.9f,   // score threshold
+    0.3f,   // nms threshold
+    5000,   // top_k
+    320,
+    320);
+
+yunet_int8->attach_to({file_src_0});
+```
+
+Node này sử dụng `cv::FaceDetectorYN` nên không yêu cầu RKNN và có thể chạy tốt trên CPU thông thường.
+
 Sau khi chạy mã trên, sẽ xuất hiện 3 màn hình:
 1. Biểu đồ trạng thái chạy của đường ống, trạng thái tự động làm mới
 2. Kết quả hiển thị màn hình (GUI)

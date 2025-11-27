@@ -157,8 +157,13 @@ cmake-build-debug-remote/
 cmake-build-debug/
 build/*
 build
+<<<<<<< HEAD
 build_package/*
 build_package
+=======
+build_package/
+build_debian
+>>>>>>> c3421eb (check)
 !build/build.sh
 
 .vscode

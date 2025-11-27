@@ -67,18 +67,26 @@ echo -e "${GREEN}===============================================${NC}"
 echo ""
 echo -e "Build type:      ${YELLOW}${BUILD_TYPE}${NC}"
 
-# Check if we're in the debian directory
-if [ ! -f "control" ]; then
-    echo -e "${RED}Error: Must run from debian directory${NC}"
-    echo "Usage: cd debian && ./build_deb.sh"
+# Check execution directory and ensure we are in project root
+if [ -f "debian/control" ]; then
+    # We are in the project root
+    echo -e "${BLUE}Running from project root...${NC}"
+elif [ -f "control" ]; then
+    # We are in the debian directory
+    echo -e "${BLUE}Running from debian directory, moving to root...${NC}"
+    cd ..
+else
+    echo -e "${RED}Error: Cannot determine project root.${NC}"
+    echo "Please run from the project root or the debian directory."
     exit 1
 fi
 
-# Go to project root
-cd ..
-
 # Check for required tools
 echo -e "${BLUE}[1/5] Checking required tools...${NC}"
+<<<<<<< HEAD
+=======
+REQUIRED_TOOLS=("dpkg-buildpackage" "dh")
+>>>>>>> c3421eb (check)
 MISSING_TOOLS=()
 
 # Check for dpkg-buildpackage
@@ -181,4 +189,5 @@ fi
 
 echo ""
 echo -e "${GREEN}✅ All done!${NC}"
+
 

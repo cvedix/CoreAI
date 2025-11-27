@@ -668,9 +668,14 @@ int main(int argc, char** argv) {
     custom_transform_0->attach_to({rknn_face_detector_0});
     sort_tracker_0->attach_to({custom_transform_0});
     
+#ifdef CVEDIX_WITH_MQTT
     // Enhanced MQTT broker nhận từ tracker (trước OSD)
     enhanced_mqtt_broker_0->attach_to({sort_tracker_0});
     face_osd_0->attach_to({enhanced_mqtt_broker_0});
+#else
+    // OSD nhận trực tiếp từ tracker (khi không có MQTT)
+    face_osd_0->attach_to({sort_tracker_0});
+#endif
     
     split_0->attach_to({face_osd_0});
     screen_des_0->attach_to({split_0});
