@@ -4,4 +4,5 @@ usr/lib/*/libcvedix_instance_sdk.so*
 # Third-party library built with project: libtinyexpr.so
 usr/lib/*/libtinyexpr.so*
 # Binaries (only if samples were built - will be added dynamically in debian/rules)
+# Service files are installed directly in debian/rules
 

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Pre-removal script for cvedix-ai-runtime
+
+set -e
+
+# Stop and disable service before removal
+if systemctl is-active --quiet cvedix-ai-runtime; then
+    echo "Stopping cvedix-ai-runtime service..."
+    systemctl stop cvedix-ai-runtime || true
+fi
+
+if systemctl is-enabled --quiet cvedix-ai-runtime; then
+    echo "Disabling cvedix-ai-runtime service..."
+    systemctl disable cvedix-ai-runtime || true
+fi
+
+# Reload systemd daemon
+systemctl daemon-reload || true
+
+# DEBHELPER#
+exit 0
+

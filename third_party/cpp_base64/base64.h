@@ -141,7 +141,7 @@ static std::string encode(String s, bool url) {
   return base64_encode(reinterpret_cast<const unsigned char*>(s.data()), s.length(), url);
 }
 
-std::string base64_encode(unsigned char const* bytes_to_encode, size_t in_len, bool url) {
+inline std::string base64_encode(unsigned char const* bytes_to_encode, size_t in_len, bool url) {
 
     size_t len_encoded = (in_len +2) / 3 * 4;
 
@@ -273,19 +273,19 @@ static std::string decode(String const& encoded_string, bool remove_linebreaks) 
     return ret;
 }
 
-std::string base64_decode(std::string const& s, bool remove_linebreaks) {
+inline std::string base64_decode(std::string const& s, bool remove_linebreaks) {
    return decode(s, remove_linebreaks);
 }
 
-std::string base64_encode(std::string const& s, bool url) {
+inline std::string base64_encode(std::string const& s, bool url) {
    return encode(s, url);
 }
 
-std::string base64_encode_pem (std::string const& s) {
+inline std::string base64_encode_pem (std::string const& s) {
    return encode_pem(s);
 }
 
-std::string base64_encode_mime(std::string const& s) {
+inline std::string base64_encode_mime(std::string const& s) {
    return encode_mime(s);
 }
 
@@ -296,19 +296,19 @@ std::string base64_encode_mime(std::string const& s) {
 // Provided by Yannic Bonenberger (https://github.com/Yannic)
 //
 
-std::string base64_encode(std::string_view s, bool url) {
+inline std::string base64_encode(std::string_view s, bool url) {
    return encode(s, url);
 }
 
-std::string base64_encode_pem(std::string_view s) {
+inline std::string base64_encode_pem(std::string_view s) {
    return encode_pem(s);
 }
 
-std::string base64_encode_mime(std::string_view s) {
+inline std::string base64_encode_mime(std::string_view s) {
    return encode_mime(s);
 }
 
-std::string base64_decode(std::string_view s, bool remove_linebreaks) {
+inline std::string base64_decode(std::string_view s, bool remove_linebreaks) {
    return decode(s, remove_linebreaks);
 }
 

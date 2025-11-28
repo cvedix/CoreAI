@@ -1,0 +1,14 @@
+# CVEDIX AI Runtime Service Configuration
+# Copy this file to /etc/cvedix/service.conf and modify as needed
+
+# Sample executable to run (without path, just the name)
+# Available samples: 1-1-1_sample, 1-1-N_sample, face_tracking_sample, etc.
+CVEDIX_SAMPLE="1-1-1_sample"
+
+# Working directory (where cvedix_data should be located)
+CVEDIX_WORK_DIR="/opt/cvedix"
+
+# Additional environment variables (optional)
+# export GST_DEBUG=3
+# export CVEDIX_LOG_LEVEL=INFO
+
