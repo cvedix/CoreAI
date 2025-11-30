@@ -1,5 +1,6 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_rknn_yolov11_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
@@ -8,9 +9,9 @@
 #include <cstring>
 
 /*
-* ## RKNN Detector Sample ##
-* 1 video input → 1 RKNN primary detector (YOLOv8) → 1 output (OSD on screen)
-* Uses generic YOLOv8 model (80 classes from COCO)
+ * ## RKNN Detector Sample ##
+ * 1 video input → 1 RKNN primary detector (YOLOv8 / YOLOv11) → 1 output (OSD on screen)
+ * Uses generic YOLOv8/YOLOv11 model (80 classes from COCO)
 *
 * Requirements:
 * - RKNN Model (.rknn)
@@ -25,7 +26,7 @@ int main(int argc, char** argv) {
     CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
     CVEDIX_LOGGER_INIT();
 
-    // Default model path
+    // Default model path (YOLOv8). To use YOLOv11, pass the YOLOv11 RKNN model path as argv[1].
     std::string model_path = "./cvedix_data/models/yolov8n.rknn";
     if (argc > 1) {
         model_path = argv[1];
@@ -43,10 +44,11 @@ int main(int argc, char** argv) {
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
         "file_src_0", 0, video_path, 0.0); // 0.0 = infinite loop
     
-    // Inference: Detect objects using RKNN YOLOv8
-    // Default COCO 80 classes
-    auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
-        "rknn_detector_0", 
+    // Inference: Detect objects using RKNN YOLOv8 or YOLOv11.
+    // For YOLOv11, simply change the detector type below to cvedix_rknn_yolov11_detector_node
+    // and provide a YOLOv11 RKNN model converted as in rknn-cpp-yolo [https://github.com/yuunnn-w/rknn-cpp-yolo].
+    auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov11_detector_node>(
+        "rknn_detector_0",
         model_path,
         0.5,  // score threshold
         0.45, // NMS threshold

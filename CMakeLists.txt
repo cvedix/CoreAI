@@ -214,42 +214,127 @@ endif()
 # optional for RKNN (Rockchip NPU)
 if(CVEDIX_WITH_RKNN)
     add_definitions(-DCVEDIX_WITH_RKNN)
-    # Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
-    find_library(RKNN_LIB 
-        NAMES rknnrt
-        PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/lib /usr/local/lib /usr/lib /opt/rockchip/lib
-        NO_DEFAULT_PATH
-    )
-    if(RKNN_LIB)
-        message(STATUS "RKNN library found: ${RKNN_LIB}")
-        list(APPEND CVEDIX_DEPEND_LIBS ${RKNN_LIB})
+    
+    # Check if RKNN is available in third_party/rknn
+    set(RKNN_THIRD_PARTY_LIB_DIR ${CMAKE_SOURCE_DIR}/third_party/rknn/libs)
+    set(RKNN_THIRD_PARTY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/rknn/include)
+    set(RKNN_BUILD_LIB_DIR ${CMAKE_BINARY_DIR}/libs/rknn)
+    set(RKNN_BUILD_INCLUDE_DIR ${CMAKE_BINARY_DIR}/include/rknn)
+    
+    # Check if third_party/rknn exists
+    if(EXISTS ${RKNN_THIRD_PARTY_LIB_DIR} AND EXISTS ${RKNN_THIRD_PARTY_INCLUDE_DIR})
+        message(STATUS "RKNN found in third_party/rknn - will copy to build directory")
+        
+        # Create build directories
+        file(MAKE_DIRECTORY ${RKNN_BUILD_LIB_DIR})
+        file(MAKE_DIRECTORY ${RKNN_BUILD_INCLUDE_DIR})
+        
+        # Get list of files to copy
+        file(GLOB RKNN_LIB_FILES "${RKNN_THIRD_PARTY_LIB_DIR}/*.so*")
+        file(GLOB RKNN_HEADER_FILES "${RKNN_THIRD_PARTY_INCLUDE_DIR}/*.h")
+        
+        # Create custom command to copy libraries
+        set(RKNN_COPIED_LIBS "")
+        foreach(lib_file ${RKNN_LIB_FILES})
+            get_filename_component(lib_name ${lib_file} NAME)
+            set(dest_lib ${RKNN_BUILD_LIB_DIR}/${lib_name})
+            add_custom_command(
+                OUTPUT ${dest_lib}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${lib_file} ${dest_lib}
+                DEPENDS ${lib_file}
+                COMMENT "Copying RKNN library: ${lib_name}"
+            )
+            list(APPEND RKNN_COPIED_LIBS ${dest_lib})
+        endforeach()
+        
+        # Create custom command to copy headers
+        set(RKNN_COPIED_HEADERS "")
+        foreach(header_file ${RKNN_HEADER_FILES})
+            get_filename_component(header_name ${header_file} NAME)
+            set(dest_header ${RKNN_BUILD_INCLUDE_DIR}/${header_name})
+            add_custom_command(
+                OUTPUT ${dest_header}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header_file} ${dest_header}
+                DEPENDS ${header_file}
+                COMMENT "Copying RKNN header: ${header_name}"
+            )
+            list(APPEND RKNN_COPIED_HEADERS ${dest_header})
+        endforeach()
+        
+        # Create custom target to ensure files are copied
+        add_custom_target(copy_rknn_files
+            DEPENDS ${RKNN_COPIED_LIBS} ${RKNN_COPIED_HEADERS}
+            COMMENT "Copying RKNN libraries and headers to build directory"
+        )
+        
+        message(STATUS "  RKNN libraries will be copied to: ${RKNN_BUILD_LIB_DIR}")
+        message(STATUS "  RKNN headers will be copied to: ${RKNN_BUILD_INCLUDE_DIR}")
+        
+        # Use copied files - set library path directly
+        set(RKNN_LIB_DIR ${RKNN_BUILD_LIB_DIR})
+        set(RKNN_INCLUDE_DIR ${RKNN_BUILD_INCLUDE_DIR})
+        
+        # Check if library exists in source directory
+        if(EXISTS ${RKNN_THIRD_PARTY_LIB_DIR}/librknnrt.so)
+            # Add link directory and use library name (CMake will find it at link time)
+            link_directories(${RKNN_BUILD_LIB_DIR})
+            list(APPEND CVEDIX_DEPEND_LIBS rknnrt)
+            message(STATUS "RKNN library (rknnrt) will be linked from: ${RKNN_BUILD_LIB_DIR}")
+        else()
+            message(WARNING "RKNN library (librknnrt.so) not found in ${RKNN_THIRD_PARTY_LIB_DIR}")
+        endif()
+        
+        include_directories(${RKNN_BUILD_INCLUDE_DIR})
+        message(STATUS "RKNN include path: ${RKNN_BUILD_INCLUDE_DIR}")
+        message(STATUS "RKNN library path: ${RKNN_BUILD_LIB_DIR}")
+        
+        # Install libraries and headers
+        install(DIRECTORY ${RKNN_BUILD_LIB_DIR}/
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/rknn
+            FILES_MATCHING PATTERN "*.so*"
+        )
+        install(DIRECTORY ${RKNN_BUILD_INCLUDE_DIR}/
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rknn
+            FILES_MATCHING PATTERN "*.h"
+        )
     else()
-        # Try to find in standard paths
-        find_library(RKNN_LIB NAMES rknnrt)
+        # Fallback: Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
+        find_library(RKNN_LIB 
+            NAMES rknnrt
+            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/libs /usr/local/lib /usr/lib /opt/rockchip/lib
+            NO_DEFAULT_PATH
+        )
         if(RKNN_LIB)
             message(STATUS "RKNN library found: ${RKNN_LIB}")
             list(APPEND CVEDIX_DEPEND_LIBS ${RKNN_LIB})
         else()
-            message(WARNING "RKNN library (librknnrt.so) not found. Please install rknn-toolkit2.")
+            # Try to find in standard paths
+            find_library(RKNN_LIB NAMES rknnrt)
+            if(RKNN_LIB)
+                message(STATUS "RKNN library found: ${RKNN_LIB}")
+                list(APPEND CVEDIX_DEPEND_LIBS ${RKNN_LIB})
+            else()
+                message(WARNING "RKNN library (librknnrt.so) not found. Please install rknn-toolkit2.")
+            endif()
         endif()
-    endif()
-    
-    # Find rknn_api.h - typically in /usr/local/include or /usr/include
-    find_path(RKNN_INCLUDE_DIR
-        NAMES rknn_api.h
-        PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/include /usr/local/include /usr/include /opt/rockchip/include
-        NO_DEFAULT_PATH
-    )
-    if(RKNN_INCLUDE_DIR)
-        message(STATUS "RKNN include path: ${RKNN_INCLUDE_DIR}")
-        include_directories(${RKNN_INCLUDE_DIR})
-    else()
-        find_path(RKNN_INCLUDE_DIR NAMES rknn_api.h)
+        
+        # Find rknn_api.h - typically in /usr/local/include or /usr/include
+        find_path(RKNN_INCLUDE_DIR
+            NAMES rknn_api.h
+            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/include /usr/local/include /usr/include /opt/rockchip/include
+            NO_DEFAULT_PATH
+        )
         if(RKNN_INCLUDE_DIR)
             message(STATUS "RKNN include path: ${RKNN_INCLUDE_DIR}")
             include_directories(${RKNN_INCLUDE_DIR})
         else()
-            message(WARNING "RKNN headers (rknn_api.h) not found. Please install rknn-toolkit2.")
+            find_path(RKNN_INCLUDE_DIR NAMES rknn_api.h)
+            if(RKNN_INCLUDE_DIR)
+                message(STATUS "RKNN include path: ${RKNN_INCLUDE_DIR}")
+                include_directories(${RKNN_INCLUDE_DIR})
+            else()
+                message(WARNING "RKNN headers (rknn_api.h) not found. Please install rknn-toolkit2.")
+            endif()
         endif()
     endif()
     message(STATUS "RKNN support: enabled")
@@ -258,41 +343,131 @@ endif()
 # optional for RGA (Rockchip Graphics Accelerator)
 if(CVEDIX_WITH_RGA)
     add_definitions(-DCVEDIX_WITH_RGA)
-    # Find librga.so
-    find_library(RGA_LIB
-        NAMES rga
-        PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
-        NO_DEFAULT_PATH
-    )
-    if(RGA_LIB)
-        message(STATUS "RGA library found: ${RGA_LIB}")
-        list(APPEND CVEDIX_DEPEND_LIBS ${RGA_LIB})
+    
+    # Check if RGA is available in third_party/librga
+    set(RGA_THIRD_PARTY_LIB_DIR ${CMAKE_SOURCE_DIR}/third_party/librga/libs)
+    set(RGA_THIRD_PARTY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/librga/include)
+    set(RGA_BUILD_LIB_DIR ${CMAKE_BINARY_DIR}/libs/rga)
+    set(RGA_BUILD_INCLUDE_DIR ${CMAKE_BINARY_DIR}/include/rga)
+    
+    # Check if third_party/librga exists
+    if(EXISTS ${RGA_THIRD_PARTY_LIB_DIR} AND EXISTS ${RGA_THIRD_PARTY_INCLUDE_DIR})
+        message(STATUS "RGA found in third_party/librga - will copy to build directory")
+        
+        # Create build directories
+        file(MAKE_DIRECTORY ${RGA_BUILD_LIB_DIR})
+        file(MAKE_DIRECTORY ${RGA_BUILD_INCLUDE_DIR})
+        
+        # Get list of files to copy
+        file(GLOB RGA_LIB_FILES "${RGA_THIRD_PARTY_LIB_DIR}/*.so*" "${RGA_THIRD_PARTY_LIB_DIR}/*.a")
+        file(GLOB RGA_HEADER_FILES "${RGA_THIRD_PARTY_INCLUDE_DIR}/*.h" "${RGA_THIRD_PARTY_INCLUDE_DIR}/*.hpp")
+        
+        # Create custom command to copy libraries
+        set(RGA_COPIED_LIBS "")
+        foreach(lib_file ${RGA_LIB_FILES})
+            get_filename_component(lib_name ${lib_file} NAME)
+            set(dest_lib ${RGA_BUILD_LIB_DIR}/${lib_name})
+            add_custom_command(
+                OUTPUT ${dest_lib}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${lib_file} ${dest_lib}
+                DEPENDS ${lib_file}
+                COMMENT "Copying RGA library: ${lib_name}"
+            )
+            list(APPEND RGA_COPIED_LIBS ${dest_lib})
+        endforeach()
+        
+        # Create custom command to copy headers
+        set(RGA_COPIED_HEADERS "")
+        foreach(header_file ${RGA_HEADER_FILES})
+            get_filename_component(header_name ${header_file} NAME)
+            set(dest_header ${RGA_BUILD_INCLUDE_DIR}/${header_name})
+            add_custom_command(
+                OUTPUT ${dest_header}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header_file} ${dest_header}
+                DEPENDS ${header_file}
+                COMMENT "Copying RGA header: ${header_name}"
+            )
+            list(APPEND RGA_COPIED_HEADERS ${dest_header})
+        endforeach()
+        
+        # Create custom target to ensure files are copied
+        add_custom_target(copy_rga_files
+            DEPENDS ${RGA_COPIED_LIBS} ${RGA_COPIED_HEADERS}
+            COMMENT "Copying RGA libraries and headers to build directory"
+        )
+        
+        message(STATUS "  RGA libraries will be copied to: ${RGA_BUILD_LIB_DIR}")
+        message(STATUS "  RGA headers will be copied to: ${RGA_BUILD_INCLUDE_DIR}")
+        
+        # Use copied files - set library path directly
+        set(RGA_LIB_DIR ${RGA_BUILD_LIB_DIR})
+        set(RGA_INCLUDE_DIR ${RGA_BUILD_INCLUDE_DIR})
+        
+        # Check if library exists in source directory (prefer .so over .a)
+        if(EXISTS ${RGA_THIRD_PARTY_LIB_DIR}/librga.so)
+            # Add link directory and use library name (CMake will find it at link time)
+            link_directories(${RGA_BUILD_LIB_DIR})
+            list(APPEND CVEDIX_DEPEND_LIBS rga)
+            message(STATUS "RGA library (rga) will be linked from: ${RGA_BUILD_LIB_DIR}")
+        elseif(EXISTS ${RGA_THIRD_PARTY_LIB_DIR}/librga.a)
+            # Use static library
+            link_directories(${RGA_BUILD_LIB_DIR})
+            list(APPEND CVEDIX_DEPEND_LIBS rga)
+            message(STATUS "RGA static library (rga) will be linked from: ${RGA_BUILD_LIB_DIR}")
+        else()
+            message(WARNING "RGA library (librga.so or librga.a) not found in ${RGA_THIRD_PARTY_LIB_DIR}")
+        endif()
+        
+        include_directories(${RGA_BUILD_INCLUDE_DIR})
+        message(STATUS "RGA include path: ${RGA_BUILD_INCLUDE_DIR}")
+        message(STATUS "RGA library path: ${RGA_BUILD_LIB_DIR}")
+        
+        # Install libraries and headers
+        install(DIRECTORY ${RGA_BUILD_LIB_DIR}/
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}/rga
+            FILES_MATCHING PATTERN "*.so*" PATTERN "*.a"
+        )
+        install(DIRECTORY ${RGA_BUILD_INCLUDE_DIR}/
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rga
+            FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+        )
     else()
-        find_library(RGA_LIB NAMES rga)
+        # Fallback: Find librga.so
+        find_library(RGA_LIB
+            NAMES rga
+            PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
+            NO_DEFAULT_PATH
+        )
         if(RGA_LIB)
             message(STATUS "RGA library found: ${RGA_LIB}")
             list(APPEND CVEDIX_DEPEND_LIBS ${RGA_LIB})
         else()
-            message(WARNING "RGA library (librga.so) not found. Please install RGA library.")
+            find_library(RGA_LIB NAMES rga)
+            if(RGA_LIB)
+                message(STATUS "RGA library found: ${RGA_LIB}")
+                list(APPEND CVEDIX_DEPEND_LIBS ${RGA_LIB})
+            else()
+                message(WARNING "RGA library (librga.so) not found. Please install RGA library.")
+            endif()
         endif()
-    endif()
-    
-    # Find rga.h
-    find_path(RGA_INCLUDE_DIR
-        NAMES rga.h
-        PATHS /usr/local/include /usr/include /opt/rockchip/include
-        NO_DEFAULT_PATH
-    )
-    if(RGA_INCLUDE_DIR)
-        message(STATUS "RGA include path: ${RGA_INCLUDE_DIR}")
-        include_directories(${RGA_INCLUDE_DIR})
-    else()
-        find_path(RGA_INCLUDE_DIR NAMES rga.h)
+        
+        # Find rga.h
+        find_path(RGA_INCLUDE_DIR
+            NAMES rga.h
+            PATHS /usr/local/include /usr/include /opt/rockchip/include
+            NO_DEFAULT_PATH
+        )
         if(RGA_INCLUDE_DIR)
             message(STATUS "RGA include path: ${RGA_INCLUDE_DIR}")
             include_directories(${RGA_INCLUDE_DIR})
         else()
-            message(WARNING "RGA headers (rga.h) not found. Please install RGA library.")
+            find_path(RGA_INCLUDE_DIR NAMES rga.h)
+            if(RGA_INCLUDE_DIR)
+                message(STATUS "RGA include path: ${RGA_INCLUDE_DIR}")
+                include_directories(${RGA_INCLUDE_DIR})
+            else()
+                message(WARNING "RGA headers (rga.h) not found. Please install RGA library.")
+            endif()
         endif()
     endif()
     message(STATUS "RGA support: enabled")
@@ -417,6 +592,18 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 # Ensure symlinks are created before building the library
 add_dependencies(${PROJECT_NAME} cvedix_symlinks)
+
+# Ensure RKNN and RGA files are copied before building (if enabled)
+if(CVEDIX_WITH_RKNN)
+    if(TARGET copy_rknn_files)
+        add_dependencies(${PROJECT_NAME} copy_rknn_files)
+    endif()
+endif()
+if(CVEDIX_WITH_RGA)
+    if(TARGET copy_rga_files)
+        add_dependencies(${PROJECT_NAME} copy_rga_files)
+    endif()
+endif()
 
 # Installation
 install(TARGETS ${PROJECT_NAME} EXPORT cvedix-targets
