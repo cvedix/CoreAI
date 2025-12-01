@@ -201,8 +201,8 @@ endif()
 
 # samples depend on RKNN
 if(CVEDIX_WITH_RKNN)
-    add_executable(rknn_detector_sample "rknn_detector_sample.cpp")
-    target_link_libraries(rknn_detector_sample ${PROJECT_NAME})
+    add_executable(rknn_yolov11_detector_sample "rknn_yolov11_detector_sample.cpp")
+    target_link_libraries(rknn_yolov11_detector_sample ${PROJECT_NAME})
 
     add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
     target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
@@ -254,7 +254,7 @@ if(CVEDIX_WITH_RKNN)
 
     # Install RKNN samples
     install(TARGETS 
-        rknn_detector_sample
+        rknn_yolov11_detector_sample
         rknn_face_detector_sample
         rknn_face_detection_sample
         rknn_face_detection_file_sample
