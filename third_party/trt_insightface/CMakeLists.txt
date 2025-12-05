@@ -53,3 +53,4 @@ if(NOT DEFINED VP_BUILD_FROM)
     target_link_libraries(face_recognition_test ${PROJECT_NAME})
 endif()
 
+

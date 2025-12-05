@@ -141,4 +141,47 @@ flask demo for face recognize<br/>
 flask demo for license plate recognize<br/>
 ![](../doc/p52.png)
 
+## InsightFace Face Recognition Samples ##
+Face recognition samples using InsightFace models (ONNX and TensorRT backends).
+
+### ONNX Samples (No TensorRT required)
+- **insightface_sample** - Basic face recognition pipeline
+- **insightface_register_recognize_face_sample** - Register and recognize faces with database
+
+📖 [README_INSIGHTFACE_ONNX.md](README_INSIGHTFACE_ONNX.md) - Chi tiết ONNX samples
+
+### TensorRT Samples (Requires TensorRT)
+- **insightface_trt_sample** - Basic face recognition with TensorRT
+- **insightface_register_recognize_face_trt_sample** - Register and recognize with TensorRT
+
+📖 [README_INSIGHTFACE_TRT.md](README_INSIGHTFACE_TRT.md) - Chi tiết TensorRT samples
+
+📖 [README_INSIGHTFACE.md](README_INSIGHTFACE.md) - Tổng quan tất cả InsightFace samples
+
+---
+
+## Documentation Index
+
+### Core Pipeline Patterns
+📖 [README_BASIC_PIPELINE_SAMPLES.md](README_BASIC_PIPELINE_SAMPLES.md) - Basic pipeline architectures (1-1-1, 1-1-N, 1-N-N, N-1-N, N-N)
+
+### Application Domains
+📖 [README_FACE_SAMPLES.md](README_FACE_SAMPLES.md) - Face processing (detection, tracking, recognition, swap)
+📖 [README_VEHICLE_SAMPLES.md](README_VEHICLE_SAMPLES.md) - Vehicle processing (detection, tracking, body scan, clustering)
+📖 [README_BEHAVIOR_ANALYSIS_SAMPLES.md](README_BEHAVIOR_ANALYSIS_SAMPLES.md) - Behavior analysis (crossline, stop, jam)
+📖 [README_DETECTION_SEGMENTATION_SAMPLES.md](README_DETECTION_SEGMENTATION_SAMPLES.md) - Detection & segmentation (OpenPose, Mask R-CNN, ENet, lane, fire/smoke, obstacle)
+
+### I/O & Integration
+📖 [README_SOURCE_DESTINATION_SAMPLES.md](README_SOURCE_DESTINATION_SAMPLES.md) - Input sources & output destinations (RTSP, RTMP, file, app, image, FFmpeg)
+📖 [README_MESSAGE_BROKER_SAMPLES.md](README_MESSAGE_BROKER_SAMPLES.md) - Message brokers (JSON, XML, MQTT, Kafka)
+
+### Hardware Acceleration
+📖 [README_TENSORRT_SAMPLES.md](README_TENSORRT_SAMPLES.md) - TensorRT samples (NVIDIA GPU optimization)
+📖 [README_RKNN_SAMPLES.md](README_RKNN_SAMPLES.md) - RKNN samples (Rockchip SoC optimization)
+
+### Utilities & Advanced Features
+📖 [README_UTILITY_SAMPLES.md](README_UTILITY_SAMPLES.md) - Utility samples (logger, record, dynamic pipeline, skip, fusion, etc.)
+
+---
+
 [for more samples](../SAMPLES.md)

@@ -1,29 +1,90 @@
-#ifdef CVEDIX_WITH_TRT
-#include "cvedix_trt_insight_face_recognition_node.h"
+#include "cvedix_insight_face_recognition_node.h"
 #include <algorithm>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/dnn.hpp>
 
 namespace cvedix_nodes {
         
-    cvedix_trt_insight_face_recognition_node::cvedix_trt_insight_face_recognition_node(
+    cvedix_insight_face_recognition_node::cvedix_insight_face_recognition_node(
         std::string node_name, 
         std::string model_path,
         int input_width,
         int input_height,
         bool enable_alignment):
-        cvedix_secondary_infer_node(node_name, "", "", "", 
+        cvedix_secondary_infer_node(node_name, model_path, "", "", 
                                    input_width, input_height, 
-                                   1, std::vector<int>(), 0, 0),
-        enable_alignment(enable_alignment) {
-        recognizer = std::make_shared<trt_insightface::InsightFaceRecognition>(model_path);
+                                   1, std::vector<int>(), 0, 0,
+                                   0,  // crop_padding (handled in prepare)
+                                   1.0f / 128.0f,  // scale: 1/128 for InsightFace normalization
+                                   cv::Scalar(127.5f, 127.5f, 127.5f),  // mean: 127.5 for (pixel - 127.5) / 128.0
+                                   cv::Scalar(1, 1, 1),  // std: 1 (already in scale)
+                                   true,  // swap_rb: BGR to RGB
+                                   false),  // swap_chn: keep NCHW
+        enable_alignment(enable_alignment),
+        embedding_size(512) {  // Default, will be detected from model
+        
+        // Load ONNX model using OpenCV DNN
+        try {
+            net = cv::dnn::readNetFromONNX(model_path);
+            if (net.empty()) {
+                CVEDIX_ERROR(cvedix_utils::string_format("[%s] Failed to load ONNX model: %s", 
+                    node_name.c_str(), model_path.c_str()));
+                assert(false);
+            }
+            
+            // Set backend and target (prefer CUDA if available)
+            #ifdef CVEDIX_WITH_CUDA
+            net.setPreferableBackend(cv::dnn::DNN_BACKEND_CUDA);
+            net.setPreferableTarget(cv::dnn::DNN_TARGET_CUDA);
+            #else
+            net.setPreferableBackend(cv::dnn::DNN_BACKEND_OPENCV);
+            net.setPreferableTarget(cv::dnn::DNN_TARGET_CPU);
+            #endif
+            
+            // Detect embedding size from model output shape
+            std::vector<std::string> output_names = net.getUnconnectedOutLayersNames();
+            if (!output_names.empty()) {
+                try {
+                    std::vector<cv::Mat> output_blobs;
+                    // Create a dummy input blob [1, 3, height, width] in NCHW format
+                    // Use blobFromImage to create proper 4D blob
+                    cv::Mat dummy_image = cv::Mat::zeros(input_height, input_width, CV_8UC3);
+                    cv::Mat dummy_blob;
+                    cv::dnn::blobFromImage(dummy_image, dummy_blob, 1.0f / 128.0f,
+                                          cv::Size(), cv::Scalar(127.5f, 127.5f, 127.5f),
+                                          false, false, CV_32F);
+                    net.setInput(dummy_blob);
+                    net.forward(output_blobs, output_names);
+                    
+                    if (!output_blobs.empty() && output_blobs[0].dims >= 2) {
+                        // Output shape is typically [batch, embedding_dim] or [1, embedding_dim]
+                        embedding_size = output_blobs[0].size[output_blobs[0].dims - 1];
+                        CVEDIX_INFO(cvedix_utils::string_format("[%s] Detected embedding size: %d", 
+                            node_name.c_str(), embedding_size));
+                    }
+                } catch (const std::exception& e) {
+                    CVEDIX_WARN(cvedix_utils::string_format("[%s] Could not detect embedding size, using default 512: %s", 
+                        node_name.c_str(), e.what()));
+                }
+            }
+            
+            CVEDIX_INFO(cvedix_utils::string_format("[%s] Loaded ONNX model: %s (embedding_size=%d)", 
+                node_name.c_str(), model_path.c_str(), embedding_size));
+        }
+        catch(const std::exception& e) {
+            CVEDIX_ERROR(cvedix_utils::string_format("[%s] Exception loading ONNX model: %s", 
+                node_name.c_str(), e.what()));
+            assert(false);
+        }
+        
         this->initialized();
     }
     
-    cvedix_trt_insight_face_recognition_node::~cvedix_trt_insight_face_recognition_node() {
+    cvedix_insight_face_recognition_node::~cvedix_insight_face_recognition_node() {
         deinitialized();
     }
 
-    void cvedix_trt_insight_face_recognition_node::prepare(
+    void cvedix_insight_face_recognition_node::prepare(
         const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch, 
         std::vector<cv::Mat>& mats_to_infer) {
         
@@ -74,52 +135,101 @@ namespace cvedix_nodes {
         }
     }
 
-    void cvedix_trt_insight_face_recognition_node::run_infer_combinations(
-        const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
+    void cvedix_insight_face_recognition_node::preprocess(
+        const std::vector<cv::Mat>& mats_to_infer, 
+        cv::Mat& blob_to_infer) {
         
-        assert(frame_meta_with_batch.size() == 1);
-        std::vector<cv::Mat> mats_to_infer;
-
-        // Start timing
-        auto start_time = std::chrono::system_clock::now();
-
-        // Prepare data (align & crop faces)
-        prepare(frame_meta_with_batch, mats_to_infer);
-        auto prepare_time = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now() - start_time);
-
         if (mats_to_infer.empty()) {
             return;
         }
 
-        // Run TensorRT inference
-        start_time = std::chrono::system_clock::now();
-        std::vector<std::vector<float>> embeddings;
-        recognizer->extract_features(mats_to_infer, embeddings);
-        auto infer_time = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now() - start_time);
-
-        // Map embeddings back to face_targets
-        auto& frame_meta = frame_meta_with_batch[0];
-        assert(embeddings.size() == frame_meta->face_targets.size());
-
-        for (size_t i = 0; i < embeddings.size(); i++) {
-            frame_meta->face_targets[i]->embeddings = embeddings[i];
+        // InsightFace preprocessing: BGR->RGB, normalize (pixel - 127.5) / 128.0
+        // Convert images to RGB first
+        std::vector<cv::Mat> rgb_images;
+        for (const auto& img : mats_to_infer) {
+            cv::Mat rgb;
+            cv::cvtColor(img, rgb, cv::COLOR_BGR2RGB);
+            
+            // Ensure correct size (should already be 112x112 from prepare, but check anyway)
+            if (rgb.rows != input_height || rgb.cols != input_width) {
+                cv::resize(rgb, rgb, cv::Size(input_width, input_height), 0, 0, cv::INTER_LINEAR);
+            }
+            rgb_images.push_back(rgb);
         }
 
-        // Record timing (preprocess and postprocess set to 0 as they're combined)
-        cvedix_infer_node::infer_combinations_time_cost(
-            mats_to_infer.size(), prepare_time.count(), 0, infer_time.count(), 0);
+        // Use blobFromImages with InsightFace normalization: (pixel - 127.5) / 128.0
+        // scale = 1/128, mean = 127.5, swapRB = false (already RGB), crop = false
+        cv::dnn::blobFromImages(rgb_images, blob_to_infer, 1.0f / 128.0f,
+                               cv::Size(), cv::Scalar(127.5f, 127.5f, 127.5f), 
+                               false, false, CV_32F);
     }
 
-    void cvedix_trt_insight_face_recognition_node::postprocess(
+    void cvedix_insight_face_recognition_node::postprocess(
         const std::vector<cv::Mat>& raw_outputs,
         const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
-        // Not used - inference is handled in run_infer_combinations
+        
+        if (raw_outputs.empty() || frame_meta_with_batch.empty()) {
+            return;
+        }
+
+        auto& frame_meta = frame_meta_with_batch[0];
+        const cv::Mat& output = raw_outputs[0];  // Get embedding output
+        
+        // Handle different output shapes
+        // Output can be [batch, embedding_dim] (2D) or [embedding_dim] (1D for batch=1)
+        int batch_size = 1;
+        int emb_dim = 0;
+        
+        if (output.dims == 2) {
+            // Shape: [batch, embedding_dim]
+            batch_size = output.size[0];
+            emb_dim = output.size[1];
+        } else if (output.dims == 1) {
+            // Shape: [embedding_dim] (single sample)
+            batch_size = 1;
+            emb_dim = output.size[0];
+        } else {
+            CVEDIX_ERROR(cvedix_utils::string_format("[%s] Unexpected output shape: %d dimensions", 
+                node_name.c_str(), output.dims));
+            return;
+        }
+        
+        assert(batch_size == static_cast<int>(frame_meta->face_targets.size()));
+
+        // Extract embeddings for each face
+        for (int i = 0; i < batch_size; i++) {
+            std::vector<float> embedding(emb_dim);
+            
+            // Get embedding for this batch item
+            const float* output_ptr = nullptr;
+            if (output.dims == 2) {
+                // 2D: [batch, embedding_dim]
+                output_ptr = output.ptr<float>(i);
+            } else {
+                // 1D: [embedding_dim] - only one sample
+                output_ptr = output.ptr<float>();
+            }
+            
+            std::copy(output_ptr, output_ptr + emb_dim, embedding.begin());
+
+            // L2 normalize (common for face recognition)
+            float norm = 0.0f;
+            for (float val : embedding) {
+                norm += val * val;
+            }
+            norm = std::sqrt(norm);
+            if (norm > 1e-6) {
+                for (float& val : embedding) {
+                    val /= norm;
+                }
+            }
+
+            frame_meta->face_targets[i]->embeddings = embedding;
+        }
     }
 
     // Face alignment methods (ported from cvedix_sface_feature_encoder_node)
-    cv::Mat cvedix_trt_insight_face_recognition_node::getSimilarityTransformMatrix(float src[5][2]) {
+    cv::Mat cvedix_insight_face_recognition_node::getSimilarityTransformMatrix(float src[5][2]) {
         using namespace cv;
         // Standard face alignment landmarks (for 112x112 output)
         float dst[5][2] = { 
@@ -239,7 +349,7 @@ namespace cvedix_nodes {
         return transform_mat;
     }
 
-    void cvedix_trt_insight_face_recognition_node::alignCrop(
+    void cvedix_insight_face_recognition_node::alignCrop(
         cv::Mat& _src_img, 
         float _src_point[5][2], 
         cv::Mat& _aligned_img) {
@@ -248,7 +358,4 @@ namespace cvedix_nodes {
                       cv::Size(input_width, input_height), cv::INTER_LINEAR);
     }
 }
-
-#endif  // CVEDIX_WITH_TRT
-
 
