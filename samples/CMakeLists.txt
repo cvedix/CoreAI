@@ -24,6 +24,29 @@ target_link_libraries(enet_seg_sample ${PROJECT_NAME})
 add_executable(face_tracking_sample "face_tracking_sample.cpp")
 target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
+# InsightFace ONNX samples (no TensorRT required)
+add_executable(insightface_sample "insightface_sample.cpp")
+target_link_libraries(insightface_sample ${PROJECT_NAME})
+
+add_executable(insightface_register_recognize_face_sample "insightface_register_recognize_face_sample.cpp")
+target_link_libraries(insightface_register_recognize_face_sample ${PROJECT_NAME})
+
+# InsightFace TensorRT samples (requires CVEDIX_WITH_TRT=ON)
+if(CVEDIX_WITH_TRT)
+    add_executable(insightface_trt_sample "insightface_trt_sample.cpp")
+    target_include_directories(insightface_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(insightface_trt_sample ${PROJECT_NAME})
+    
+    # Note: insightface_trt_simple_sample.cpp does not exist, commented out
+    # add_executable(insightface_trt_simple_sample "insightface_trt_simple_sample.cpp")
+    # target_link_libraries(insightface_trt_simple_sample ${PROJECT_NAME})
+    
+    # Use correct filename: insightface_register_recognize_face_trt_sample.cpp
+    add_executable(insightface_register_recognize_face_trt_sample "insightface_register_recognize_face_trt_sample.cpp")
+    target_include_directories(insightface_register_recognize_face_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(insightface_register_recognize_face_trt_sample ${PROJECT_NAME})
+endif()
+
 add_executable(face_tracking_rtsp_sample "face_tracking_rtsp_sample.cpp")
 target_include_directories(face_tracking_rtsp_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
 target_link_libraries(face_tracking_rtsp_sample ${PROJECT_NAME})
@@ -123,6 +146,7 @@ install(TARGETS
     face_yunet_int8_sample
     video_restoration_sample app_des_sample app_src_des_sample
     lane_detect_sample frame_fusion_sample cvedix_test
+    insightface_sample insightface_register_recognize_face_sample
     DESTINATION bin
     OPTIONAL
 )
@@ -300,84 +324,89 @@ endif()
 
 # samples depend on TensorRT
 if(CVEDIX_WITH_TRT)
-    add_executable(ba_jam_sample "ba_jam_sample.cpp")
-    target_link_libraries(ba_jam_sample ${PROJECT_NAME})
-
-    add_executable(ba_stop_sample "ba_stop_sample.cpp")
-    target_link_libraries(ba_stop_sample ${PROJECT_NAME})
-
-    add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
-    target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
-
-    add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")
-    target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
-
-    add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")
-    target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
-
-    add_executable(message_broker_sample2 "message_broker_sample2.cpp")
-    target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
-
-    add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")
-    target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
-
-    add_executable(plate_recognize_sample "plate_recognize_sample.cpp")
-    target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
-
-    add_executable(src_des_sample "src_des_sample.cpp")
-    target_link_libraries(src_des_sample ${PROJECT_NAME})
-
-    add_executable(trt_infer_sample "trt_infer_sample.cpp")
-    target_link_libraries(trt_infer_sample ${PROJECT_NAME})
-
-    add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
-    target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
-
-    add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
-    target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
-
-    add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
-    target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
-
-    add_executable(1-N-1_sample "1-N-1_sample.cpp")
-    target_link_libraries(1-N-1_sample ${PROJECT_NAME})
-
-    add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")
-    target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
-
-    add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")
-    target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
-
-    add_executable(trt_yolov8_sample "trt_yolov8_sample.cpp")
-    target_link_libraries(trt_yolov8_sample ${PROJECT_NAME})
-
-    add_executable(trt_yolov8_sample2 "trt_yolov8_sample2.cpp")
-    target_link_libraries(trt_yolov8_sample2 ${PROJECT_NAME})
-
-    add_executable(rtmp_src_sample "rtmp_src_sample.cpp")
-    target_link_libraries(rtmp_src_sample ${PROJECT_NAME})
+    # NOTE: Following samples require trt_vehicle which is temporarily disabled
+    # Uncomment when trt_vehicle is updated to TensorRT 10.x
     
-    # Install TensorRT samples
+    # add_executable(ba_jam_sample "ba_jam_sample.cpp")
+    # target_link_libraries(ba_jam_sample ${PROJECT_NAME})
+
+    # add_executable(ba_stop_sample "ba_stop_sample.cpp")
+    # target_link_libraries(ba_stop_sample ${PROJECT_NAME})
+
+    # add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
+    # target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
+
+    # add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")      # DISABLED - needs trt_vehicle
+    # target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
+
+    # add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")    # DISABLED - needs trt_vehicle
+    # target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
+
+    # add_executable(message_broker_sample2 "message_broker_sample2.cpp")       # DISABLED - needs trt_vehicle
+    # target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
+
+    # add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")  # DISABLED - needs trt_vehicle/trt_yolov8
+    # target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
+
+    # add_executable(plate_recognize_sample "plate_recognize_sample.cpp")       # DISABLED - needs trt_vehicle
+    # target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
+
+    # add_executable(src_des_sample "src_des_sample.cpp")
+    # target_link_libraries(src_des_sample ${PROJECT_NAME})
+
+    # add_executable(trt_infer_sample "trt_infer_sample.cpp")
+    # target_link_libraries(trt_infer_sample ${PROJECT_NAME})
+
+    # add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
+    # target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
+
+    # add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
+    # target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
+
+    # add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
+    # target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
+
+    # add_executable(1-N-1_sample "1-N-1_sample.cpp")                            # DISABLED - needs trt_vehicle
+    # target_link_libraries(1-N-1_sample ${PROJECT_NAME})
+
+    # add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")                          # DISABLED - needs trt_vehicle
+    # target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
+
+    # add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")                          # DISABLED - needs trt_vehicle
+    # target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
+
+    # add_executable(trt_yolov8_sample "trt_yolov8_sample.cpp")                  # DISABLED - needs trt_yolov8
+    # target_link_libraries(trt_yolov8_sample ${PROJECT_NAME})
+
+    # add_executable(trt_yolov8_sample2 "trt_yolov8_sample2.cpp")                # DISABLED - needs trt_yolov8
+    # target_link_libraries(trt_yolov8_sample2 ${PROJECT_NAME})
+
+    # add_executable(rtmp_src_sample "rtmp_src_sample.cpp")                      # DISABLED - needs trt_vehicle
+    # target_link_libraries(rtmp_src_sample ${PROJECT_NAME})
+    
+    # Install TensorRT samples (only working ones, vehicle/yolov8 samples disabled)
     install(TARGETS 
-        ba_jam_sample
-        ba_stop_sample
-        body_scan_and_plate_detect_sample
-        dynamic_pipeline_sample
-        dynamic_pipeline_sample2
-        message_broker_sample2
-        multi_trt_infer_nodes_sample
-        plate_recognize_sample
-        src_des_sample
-        trt_infer_sample
-        vehicle_body_scan_sample
-        vehicle_cluster_based_on_classify_encoding_sample
-        vehicle_tracking_sample
-        1-N-1_sample
-        1-N-1_sample2
-        1-N-1_sample3
-        trt_yolov8_sample
-        trt_yolov8_sample2
-        rtmp_src_sample
+        # ba_jam_sample                                    # DISABLED - needs trt_vehicle
+        # ba_stop_sample                                   # DISABLED - needs trt_vehicle
+        # body_scan_and_plate_detect_sample                # DISABLED - needs trt_vehicle
+        # dynamic_pipeline_sample                          # DISABLED - needs trt_vehicle
+        # dynamic_pipeline_sample2                         # DISABLED - needs trt_vehicle
+        # message_broker_sample2                           # DISABLED - needs trt_vehicle
+        # plate_recognize_sample                           # DISABLED - needs trt_vehicle
+        # src_des_sample                                   # DISABLED - needs trt_vehicle
+        # trt_infer_sample                                 # DISABLED - needs trt_vehicle
+        # vehicle_body_scan_sample                         # DISABLED - needs trt_vehicle
+        # vehicle_cluster_based_on_classify_encoding_sample # DISABLED - needs trt_vehicle
+        # vehicle_tracking_sample                          # DISABLED - needs trt_vehicle
+        # 1-N-1_sample                                     # DISABLED - needs trt_vehicle
+        # 1-N-1_sample2                                    # DISABLED - needs trt_vehicle
+        # 1-N-1_sample3                                    # DISABLED - needs trt_vehicle
+        # trt_yolov8_sample                                # DISABLED - needs trt_yolov8
+        # trt_yolov8_sample2                               # DISABLED - needs trt_yolov8
+        # rtmp_src_sample                                  # DISABLED - needs trt_vehicle
+        insightface_trt_sample
+        # insightface_trt_simple_sample                    # DISABLED - file does not exist
+        insightface_register_recognize_face_trt_sample
         DESTINATION bin
         OPTIONAL
     )
