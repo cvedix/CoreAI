@@ -497,3 +497,4 @@ osd->attach_to({recognizer});
 - [Build Guide](../doc/BUILD_GUIDE_INSIGHTFACE.md)
 - [Face Recognition Design](../doc/FACE_RECOGNITION_INSIGHTFACE.md)
 
+

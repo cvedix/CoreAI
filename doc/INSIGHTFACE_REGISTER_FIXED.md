@@ -182,3 +182,4 @@ Mỗi dòng lưu 1 người với 512 giá trị embedding (float, phân cách b
 - Thêm nhiều người vào database
 - Tối ưu threshold (hiện tại: 0.6) cho từng use case
 
+
