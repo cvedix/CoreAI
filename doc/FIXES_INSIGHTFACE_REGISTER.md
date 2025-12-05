@@ -77,3 +77,4 @@ cd build
 make insightface_register_face_trt_sample
 ```
 
+

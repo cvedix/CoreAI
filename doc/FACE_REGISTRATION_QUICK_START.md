@@ -76,3 +76,4 @@ make insightface_register_face_sample
 **Lưu ý**: Sample code cần được build và test trước khi sử dụng.
 
 
+

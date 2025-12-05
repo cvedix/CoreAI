@@ -409,3 +409,4 @@ std::vector<int> target_classes = {0, 1};  // Fire, Smoke
 - [Main README](README.md) - Tổng quan samples
 - [Vehicle Samples](README_VEHICLE_SAMPLES.md) - Vehicle detection
 
+

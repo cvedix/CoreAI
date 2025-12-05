@@ -143,3 +143,4 @@ export DISPLAY=:0
 - [Face Recognition Design](../doc/FACE_RECOGNITION_INSIGHTFACE.md)
 - [Model Preparation](../third_party/trt_insightface/MODEL_PREPARATION.md)
 
+
