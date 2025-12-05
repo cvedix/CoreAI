@@ -77,6 +77,7 @@ file_src_1                                                                --> tr
   - cvedix_ppocr_text_detector_node：Node phát hiện văn bản dựa trên paddleocr（paddleinference）
   - cvedix_restoration_node：Node nâng cấp và khôi phục hình ảnh dựa trên real-esrgan（opencv::dnn）
   - cvedix_sface_feature_encoder_node：Node trích xuất đặc trưng khuôn mặt dựa trên mạng sface（opencv::dnn）
+  - cvedix_trt_insight_face_recognition_node：Node trích xuất đặc trưng khuôn mặt dựa trên InsightFace ArcFace（tensorrt）
   - cvedix_trt_vehicle_color_classifier：Node phân loại màu xe dựa trên resnet18（tensorrt）
   - cvedix_trt_vehicle_detector：Node phát hiện xe dựa trên yolov5s（tensorrt）
   - cvedix_trt_vehicle_feature_encoder：Node trích xuất đặc trưng xe dựa trên fastreid（tensorrt）

@@ -12,6 +12,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 include_directories("/usr/local/tensorRT/include")   # change this line if possible
 link_directories("/usr/local/tensorRT/lib")          # change this line if possible
 set(CMAKE_CUDA_COMPILER "/usr/local/cuda/bin/nvcc")  # change this line if possible
+
+# Set CUDA architectures (auto-detect or specify manually)
+# Common architectures: 60 (Pascal), 61, 70 (Volta), 75 (Turing), 80 (Ampere), 86, 89 (Ada)
+if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+    set(CMAKE_CUDA_ARCHITECTURES "60;61;70;75;80;86;89")
+endif()
+
 enable_language(CUDA)
 
 # CUDA required
