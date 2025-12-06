@@ -11,7 +11,9 @@
 #include "../cvedix_semaphore.h"
 #include "../cvedix_utils.h"
 #include "cvedix_log_file_writer.h"
+#ifdef CVEDIX_WITH_KAFKA
 #include "cvedix_log_kafka_writer.h"
+#endif
 
 namespace cvedix_utils {
     // log levels

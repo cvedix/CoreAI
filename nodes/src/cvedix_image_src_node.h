@@ -1,6 +1,8 @@
 
 #pragma once
 
+#ifdef CVEDIX_WITH_GSTREAMER
+
 #include "../common/cvedix_src_node.h"
 
 namespace cvedix_nodes {

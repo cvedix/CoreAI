@@ -22,10 +22,33 @@ namespace cvedix_nodes {
                                         cvedix_src_node(node_name, channel_index, resize_ratio),
                                         rtsp_url(rtsp_url), gst_decoder_name(gst_decoder_name), skip_interval(skip_interval), codec_type(codec_type) {
         assert(skip_interval >= 0 && skip_interval <= 9);
-        // use mpp decoder if available (Rockchip platform)
-        // Note: This will be handled at runtime, file will be excluded in CMakeLists.txt if RKNN not enabled
+        // use mpp decoder if available (Rockchip platform only)
+        // Check if running on Rockchip platform (ARM64) and mppvideodec is available
         if (gst_decoder_name == "avdec_h264") {
-            gst_decoder_name = "mppvideodec";
+            // Check architecture - mppvideodec only available on ARM64 (Rockchip)
+            #ifdef __aarch64__
+            // Check if mppvideodec plugin is available in GStreamer
+            // Use popen instead of system() for better error handling
+            std::string check_cmd = "gst-inspect-1.0 mppvideodec 2>&1 | head -1";
+            std::array<char, 128> buffer;
+            std::string result;
+            std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(check_cmd.c_str(), "r"), pclose);
+            if (pipe) {
+                while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+                    result += buffer.data();
+                }
+            }
+            // If mppvideodec is available, result will contain "Factory Details"
+            if (!result.empty() && result.find("Factory Details") != std::string::npos) {
+                gst_decoder_name = "mppvideodec";
+                CVEDIX_INFO(cvedix_utils::string_format("[%s] Using mppvideodec (Rockchip hardware decoder)", node_name.c_str()));
+            } else {
+                CVEDIX_INFO(cvedix_utils::string_format("[%s] mppvideodec not available, using avdec_h264 (software decoder)", node_name.c_str()));
+            }
+            #else
+            // On x86_64/AMD64, always use software decoder (mppvideodec not available)
+            CVEDIX_INFO(cvedix_utils::string_format("[%s] Using avdec_h264 (software decoder) on x86_64 platform", node_name.c_str()));
+            #endif
         }
         // Auto detection logic
         if (this->codec_type == "auto") {

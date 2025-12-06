@@ -1,3 +1,4 @@
+#ifdef CVEDIX_WITH_GSTREAMER
 
 #include "cvedix_image_src_node.h"
 

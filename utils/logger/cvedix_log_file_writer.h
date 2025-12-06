@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <chrono>
+#include <regex>
 #include <experimental/filesystem>
 
 #include "../cvedix_utils.h"
@@ -31,6 +32,9 @@ namespace cvedix_utils {
 
         // get day of now
         int get_now_day();
+
+        // delete old log files (except current log file)
+        void delete_old_log_files(const std::string& current_log_file);
 
         #define NOW std::chrono::system_clock::now()
     public:

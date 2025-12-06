@@ -6,7 +6,7 @@
 ]]
 
 cmake_minimum_required(VERSION 3.10)
-project(cvedix_instance_sdk VERSION 2025.0.1.2)
+project(cvedix_instance_sdk VERSION 2025.0.1.3)
 
 include(GNUInstallDirs)
 
@@ -156,13 +156,68 @@ endif()
 
 # optional for Kafka
 if(CVEDIX_WITH_KAFKA)
+    # Check if librdkafka is available
+    find_library(RDKAFKA_LIB 
+        NAMES rdkafka++
+        PATHS /usr/lib /usr/local/lib /opt/lib
+    )
+    
+    find_path(RDKAFKA_INCLUDE_DIR
+        NAMES librdkafka/rdkafkacpp.h
+        PATHS /usr/include /usr/local/include /opt/include
+    )
+    
+    if(NOT RDKAFKA_LIB OR NOT RDKAFKA_INCLUDE_DIR)
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "librdkafka not found!\n"
+            "========================================\n"
+            "librdkafka is required when CVEDIX_WITH_KAFKA=ON\n"
+            "\n"
+            "To install librdkafka development packages:\n"
+            "  Ubuntu/Debian: sudo apt-get install librdkafka-dev\n"
+            "  Fedora/RHEL:   sudo dnf install librdkafka-devel\n"
+            "  Arch Linux:    sudo pacman -S librdkafka\n"
+            "\n"
+            "Or disable Kafka support:\n"
+            "  cmake -DCVEDIX_WITH_KAFKA=OFF ..\n"
+            "========================================\n"
+        )
+    endif()
+    
+    message(STATUS "librdkafka library status:")
+    message(STATUS "    library: ${RDKAFKA_LIB}")
+    message(STATUS "    include path: ${RDKAFKA_INCLUDE_DIR}")
+    include_directories(${RDKAFKA_INCLUDE_DIR})
+    list(APPEND CVEDIX_DEPEND_LIBS ${RDKAFKA_LIB})
     add_definitions(-DCVEDIX_WITH_KAFKA)
-    list(APPEND CVEDIX_DEPEND_LIBS rdkafka++)
+    message(STATUS "Kafka support: enabled")
 endif()
 
 # optional for LLM
 if(CVEDIX_WITH_LLM)
-    find_package(OpenSSL REQUIRED)
+    # Try to find OpenSSL
+    find_package(OpenSSL)
+    
+    # Check if OpenSSL was found (OpenSSL_FOUND is set by find_package)
+    if(NOT OpenSSL_FOUND)
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "OpenSSL not found!\n"
+            "========================================\n"
+            "OpenSSL is required when CVEDIX_WITH_LLM=ON\n"
+            "\n"
+            "To install OpenSSL development packages:\n"
+            "  Ubuntu/Debian: sudo apt-get install libssl-dev\n"
+            "  Fedora/RHEL:   sudo dnf install openssl-devel\n"
+            "  Arch Linux:    sudo pacman -S openssl\n"
+            "\n"
+            "Or disable LLM support:\n"
+            "  cmake -DCVEDIX_WITH_LLM=OFF ..\n"
+            "========================================\n"
+        )
+    endif()
+    
     message(STATUS "OpenSSL library status:")
     message(STATUS "    version: ${OPENSSL_VERSION}")
     message(STATUS "    libraries: ${OPENSSL_LIBRARIES}")
@@ -557,6 +612,12 @@ file(GLOB_RECURSE UTILS "utils/*.cpp")
 if(NOT CVEDIX_WITH_MQTT)
     list(FILTER UTILS EXCLUDE REGEX ".*mqtt_client.*")
     list(FILTER UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
+endif()
+
+# Exclude Kafka-related files if Kafka is not enabled
+if(NOT CVEDIX_WITH_KAFKA)
+    list(FILTER NODES EXCLUDE REGEX ".*kafka.*")
+    list(FILTER UTILS EXCLUDE REGEX ".*kafka.*")
 endif()
 
 # Exclude RKNN-related files if RKNN is not enabled

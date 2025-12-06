@@ -410,3 +410,5 @@ std::vector<int> target_classes = {0, 1};  // Fire, Smoke
 - [Vehicle Samples](README_VEHICLE_SAMPLES.md) - Vehicle detection
 
 
+
+
