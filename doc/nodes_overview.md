@@ -235,7 +235,7 @@ Khi mô tả “Input” bên dưới, mặc định node nhận `std::shared_pt
   - Mô tả: xuất ảnh tĩnh qua file/socket.
   - Input: `frame_meta`; tùy chọn ghi liên tục (ảnh chụp khung).
 - **cvedix_rtmp_des_node**, **cvedix_rtsp_des_node**
-  - Input: `frame_meta` (khung hình đã render). `rtsp_des` tự chạy RTSP server nếu build có `gstreamer-rtsp-server`.
+  - Input: `frame_meta` (khung hình đã render). `rtsp_des` tự chạy RTSP server (yêu cầu `gstreamer-rtsp-server`).
 - **cvedix_app_des_node**
   - Input: `frame_meta`; đẩy frame tới ứng dụng qua shared memory/IPC.
 - **cvedix_fake_des_node**

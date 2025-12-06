@@ -81,19 +81,15 @@ target_link_libraries(openpose_sample ${PROJECT_NAME})
 add_executable(record_sample "record_sample.cpp")
 target_link_libraries(record_sample ${PROJECT_NAME})
 
-# RTSP samples - only build if RTSP server is available
-if(CVEDIX_WITH_RTSP_SERVER)
-    add_executable(rtsp_des_sample "rtsp_des_sample.cpp")
-    target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
+# RTSP samples
+add_executable(rtsp_des_sample "rtsp_des_sample.cpp")
+target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
 
-    add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
-    target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
+add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
+target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
 
-    add_executable(rtsp_ba_crossline_sample "rtsp_ba_crossline_sample.cpp")
-    target_link_libraries(rtsp_ba_crossline_sample ${PROJECT_NAME})
-else()
-    message(STATUS "Skipping RTSP samples - RTSP server not available")
-endif()
+add_executable(rtsp_ba_crossline_sample "rtsp_ba_crossline_sample.cpp")
+target_link_libraries(rtsp_ba_crossline_sample ${PROJECT_NAME})
 
 add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
 target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
@@ -151,16 +147,14 @@ install(TARGETS
     OPTIONAL
 )
 
-# Install RTSP samples if available
-if(CVEDIX_WITH_RTSP_SERVER)
-    install(TARGETS 
-        rtsp_des_sample
-        rtsp_src_sample
-        rtsp_ba_crossline_sample
-        DESTINATION bin
-        OPTIONAL
-    )
-endif()
+# Install RTSP samples
+install(TARGETS 
+    rtsp_des_sample
+    rtsp_src_sample
+    rtsp_ba_crossline_sample
+    DESTINATION bin
+    OPTIONAL
+)
 
 # samples depend on Kafka
 if(CVEDIX_WITH_KAFKA)
@@ -286,14 +280,12 @@ if(CVEDIX_WITH_RKNN)
         DESTINATION bin
     )
     
-    # Install RKNN MQTT sample if available
-    if(CVEDIX_WITH_RTSP_SERVER)
-        install(TARGETS 
-            rknn_rtsp_tracking_mqtt_sample
-            DESTINATION bin
-            OPTIONAL
-        )
-    endif()
+    # Install RKNN MQTT sample
+    install(TARGETS 
+        rknn_rtsp_tracking_mqtt_sample
+        DESTINATION bin
+        OPTIONAL
+    )
 endif()
 
 # samples depend on PaddlePaddle

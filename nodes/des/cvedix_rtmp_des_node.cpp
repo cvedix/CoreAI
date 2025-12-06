@@ -1,4 +1,5 @@
 
+#ifdef CVEDIX_WITH_GSTREAMER
 #include <assert.h>
 #include "cvedix_rtmp_des_node.h"
 #include "../common/frame_utils.h"
@@ -61,3 +62,5 @@ namespace cvedix_nodes {
         return rtmp_url;
     }
 }
+
+#endif // CVEDIX_WITH_GSTREAMER

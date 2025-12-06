@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef CVEDIX_WITH_GSTREAMER
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
@@ -43,3 +44,5 @@ namespace cvedix_nodes {
         std::string gst_encoder_name = "x264enc";
     };
 }
+
+#endif // CVEDIX_WITH_GSTREAMER

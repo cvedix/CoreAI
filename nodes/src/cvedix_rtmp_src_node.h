@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef CVEDIX_WITH_GSTREAMER
 #include <string>
 
 #include "../common/cvedix_src_node.h"
@@ -34,3 +35,5 @@ namespace cvedix_nodes {
         int skip_interval = 0;
     };
 }
+
+#endif // CVEDIX_WITH_GSTREAMER

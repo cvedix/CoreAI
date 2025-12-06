@@ -33,7 +33,7 @@ Destination nodes are the exit points of a pipeline. They receive frame metadata
 - **cvedix_rtsp_des_node**: Acts as RTSP server (requires `gstreamer-rtsp-server`)
   - Built-in RTSP server, no external server needed
   - Clients can connect via RTSP URL
-  - Conditionally compiled based on availability
+  - Requires `libgstrtspserver-1.0-dev` and `gstreamer1.0-rtsp` packages
 
 - **cvedix_app_des_node**: Sends frame data to external applications
   - Allows integration with custom applications

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef CVEDIX_WITH_RTSP_SERVER
+#ifdef CVEDIX_WITH_GSTREAMER
 #include <gst/gst.h>
 #include <gst/rtsp-server/rtsp-server.h>
 #include "../common/cvedix_des_node.h"
@@ -61,4 +61,4 @@ namespace cvedix_nodes {
     };
 }
 
-#endif // CVEDIX_WITH_RTSP_SERVER
+#endif // CVEDIX_WITH_GSTREAMER

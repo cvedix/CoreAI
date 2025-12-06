@@ -449,7 +449,7 @@ public:
 * - libmosquitto-dev (cho MQTT support)
 *
 * Biên dịch:
-*   cmake -DCVEDIX_WITH_RKNN=ON -DCVEDIX_WITH_RTSP_SERVER=ON -DCVEDIX_WITH_MQTT=ON ..
+*   cmake -DCVEDIX_WITH_RKNN=ON -DCVEDIX_WITH_MQTT=ON ..
 *
 * Sử dụng:
 *   ./rknn_rtsp_tracking_mqtt_sample [model_path] [rtsp_url] [mqtt_broker] [mqtt_port] [mqtt_topic] [username] [password]

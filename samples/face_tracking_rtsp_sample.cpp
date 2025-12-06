@@ -46,7 +46,7 @@
 * - MQTT publisher on topic "2001" with cropped images (if CVEDIX_WITH_MQTT enabled)
 *
 * Build:
-*   cmake -DCVEDIX_WITH_RTSP_SERVER=ON -DCVEDIX_WITH_MQTT=ON ..
+*   cmake -DCVEDIX_WITH_MQTT=ON ..
 *   make
 *
 * Usage:
@@ -62,7 +62,7 @@
 * Output:
 *   - Screen: Real-time display
 *   - RTMP: rtmp://anhoidong.datacenter.cvedix.com:1935/live/2001
-*   - RTSP: rtsp://localhost:2001/2001 (optional, if CVEDIX_WITH_RTSP_SERVER=ON)
+*   - RTSP: rtsp://localhost:2001/2001
 *   - MQTT: Topic "2001" on broker anhoidong.datacenter.cvedix.com:1883 (with cropped images)
 */
 

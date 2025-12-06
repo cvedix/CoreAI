@@ -44,3 +44,5 @@ namespace cvedix_nodes {
     };
     
 }
+
+#endif // CVEDIX_WITH_GSTREAMER

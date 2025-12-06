@@ -130,3 +130,5 @@ namespace cvedix_nodes {
         return from_file ? port_or_location : "udp://127.0.0.1:" + port_or_location + "/jpg";
     }
 }
+
+#endif // CVEDIX_WITH_GSTREAMER

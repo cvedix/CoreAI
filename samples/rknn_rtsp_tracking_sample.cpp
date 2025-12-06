@@ -41,7 +41,7 @@
 * - gst-discoverer-1.0 (cho tính năng auto-detection codec)
 *
 * Biên dịch:
-*   cmake -DCVEDIX_WITH_RKNN=ON -DCVEDIX_WITH_RTSP_SERVER=ON ..
+*   cmake -DCVEDIX_WITH_RKNN=ON ..
 */
 
 // Cờ toàn cục để xử lý tín hiệu

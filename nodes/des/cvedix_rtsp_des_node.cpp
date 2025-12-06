@@ -1,9 +1,7 @@
 
-
+#ifdef CVEDIX_WITH_GSTREAMER
 #include "cvedix_rtsp_des_node.h"
 #include "../common/frame_utils.h"
-
-#ifdef CVEDIX_WITH_RTSP_SERVER
 
 namespace cvedix_nodes {
         
@@ -90,4 +88,4 @@ namespace cvedix_nodes {
     }
 }
 
-#endif // CVEDIX_WITH_RTSP_SERVER
+#endif // CVEDIX_WITH_GSTREAMER

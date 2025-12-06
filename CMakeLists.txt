@@ -17,6 +17,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 
 # optional for build, modify values when configure the project using 'cmake -DCVEDIX_WITH_CUDA=OFF ..'
+option(CVEDIX_WITH_GSTREAMER "prepared GStreamer or not?" ON)
 option(CVEDIX_WITH_CUDA "prepared CUDA or not?" OFF)
 option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
 option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
@@ -57,32 +58,32 @@ else()
     endif()
 endif()
 
-# Gstreamer required
-include(FindPkgConfig)
-pkg_check_modules(GST   REQUIRED gstreamer-1.0)
-pkg_check_modules(GSTAPP REQUIRED gstreamer-app-1.0)
-# RTSP server is optional - only needed for RTSP nodes
-pkg_check_modules(GST_RTSP gstreamer-rtsp-server-1.0)
-if(GST_RTSP_FOUND)
+# Gstreamer optional
+if(CVEDIX_WITH_GSTREAMER)
+    include(FindPkgConfig)
+    pkg_check_modules(GST   REQUIRED gstreamer-1.0)
+    pkg_check_modules(GSTAPP REQUIRED gstreamer-app-1.0)
+    # RTSP server is required
+    pkg_check_modules(GST_RTSP REQUIRED gstreamer-rtsp-server-1.0)
     message(STATUS "GStreamer RTSP server found - RTSP nodes will be available")
-    add_definitions(-DCVEDIX_WITH_RTSP_SERVER)
+    message(STATUS "GStreamer library status:")
+    message(STATUS "    version: ${GST_VERSION}")
+    message(STATUS "    libraries: ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES}")
+    message(STATUS "    include path: ${GST_INCLUDE_DIRS}")
+    include_directories(${GST_INCLUDE_DIRS})
+    set (GST_DEPEND_LIBS ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES})
+    add_definitions(-DCVEDIX_WITH_GSTREAMER)
+    set(CVEDIX_WITH_GSTREAMER ON)
 else()
-    message(WARNING "GStreamer RTSP server not found - RTSP nodes will be disabled")
-    message(WARNING "  Install with: sudo apt-get install libgstrtspserver-1.0-dev gstreamer1.0-rtsp")
-    set(GST_RTSP_LIBRARIES "")
-endif()
-message(STATUS "GStreamer library status:")
-message(STATUS "    version: ${GST_VERSION}")
-message(STATUS "    libraries: ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES}")
-message(STATUS "    include path: ${GST_INCLUDE_DIRS}")
-include_directories(${GST_INCLUDE_DIRS})
-set (GST_DEPEND_LIBS ${GST_LIBRARIES} ${GSTAPP_LIBRARIES})
-if(GST_RTSP_FOUND)
-    list(APPEND GST_DEPEND_LIBS ${GST_RTSP_LIBRARIES})
+    message(STATUS "GStreamer disabled - GStreamer nodes will not be available")
+    set(GST_DEPEND_LIBS "")
 endif()
 
 # collect dependent libs for videopipe
-list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} ${GST_DEPEND_LIBS} stdc++fs)
+list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} stdc++fs)
+if(CVEDIX_WITH_GSTREAMER)
+    list(APPEND CVEDIX_DEPEND_LIBS ${GST_DEPEND_LIBS})
+endif()
 
 # optional for CUDA
 if(CVEDIX_WITH_CUDA) # CUDA enabled
@@ -569,6 +570,23 @@ if(NOT CVEDIX_WITH_RGA)
     list(FILTER UTILS EXCLUDE REGEX ".*rga.*")
 endif()
 
+# Exclude GStreamer-related files if GStreamer is not enabled
+if(NOT CVEDIX_WITH_GSTREAMER)
+    list(FILTER NODES EXCLUDE REGEX ".*rtsp.*")
+    list(FILTER NODES EXCLUDE REGEX ".*rtmp.*")
+    list(FILTER NODES EXCLUDE REGEX ".*image.*")
+    list(FILTER NODES EXCLUDE REGEX ".*file.*")
+    list(FILTER NODES EXCLUDE REGEX ".*screen.*")
+    list(FILTER NODES EXCLUDE REGEX ".*udp.*")
+endif()
+
+# Exclude FFmpeg-related files if FFmpeg is not enabled
+if(NOT CVEDIX_WITH_FFMPEG)
+    list(FILTER NODES EXCLUDE REGEX ".*ffio.*")
+    list(FILTER NODES EXCLUDE REGEX ".*ff_.*")
+    list(FILTER NODES EXCLUDE REGEX ".*cvedix_ff.*")
+endif()
+
 # Exclude TensorRT-related inference nodes if TensorRT is not enabled
 # Note: This only excludes nodes, not the library itself (handled by CVEDIX_WITH_TRT guard)
 if(NOT CVEDIX_WITH_TRT)
@@ -681,8 +699,8 @@ endif()
 if(CVEDIX_WITH_RGA)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RGA)\n")
 endif()
-if(CVEDIX_WITH_RTSP_SERVER)
-    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RTSP_SERVER)\n")
+if(CVEDIX_WITH_GSTREAMER)
+    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_GSTREAMER)\n")
 endif()
 if(CVEDIX_WITH_CUDA)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_CUDA)\n")

@@ -1,5 +1,5 @@
 
-
+#ifdef CVEDIX_WITH_GSTREAMER
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
@@ -119,3 +119,5 @@ namespace cvedix_nodes {
         return rtmp_url;
     }
 }
+
+#endif // CVEDIX_WITH_GSTREAMER
