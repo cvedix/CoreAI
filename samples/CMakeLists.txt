@@ -106,6 +106,9 @@ target_link_libraries(multi_detectors_sample ${PROJECT_NAME})
 add_executable(firesmoke_detect_sample "firesmoke_detect_sample.cpp")
 target_link_libraries(firesmoke_detect_sample ${PROJECT_NAME})
 
+add_executable(yolov11_onnx_detector_sample "yolov11_onnx_detector_sample.cpp")
+target_link_libraries(yolov11_onnx_detector_sample ${PROJECT_NAME})
+
 add_executable(face_swap_sample "face_swap_sample.cpp")
 target_link_libraries(face_swap_sample ${PROJECT_NAME})
 
@@ -139,7 +142,7 @@ install(TARGETS
     N-1-N_sample N-N_sample openpose_sample record_sample
     cvedix_logger_sample skip_sample obstacle_detect_sample
     multi_detectors_sample firesmoke_detect_sample face_swap_sample
-    face_yunet_int8_sample
+    face_yunet_int8_sample yolov11_onnx_detector_sample
     video_restoration_sample app_des_sample app_src_des_sample
     lane_detect_sample frame_fusion_sample cvedix_test
     insightface_sample insightface_register_recognize_face_sample
@@ -225,6 +228,9 @@ if(CVEDIX_WITH_RKNN)
     add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
     target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
 
+    add_executable(rknn_yolov8_face_detection_simple_sample "rknn_yolov8_face_detection_simple_sample.cpp")
+    target_link_libraries(rknn_yolov8_face_detection_simple_sample ${PROJECT_NAME})
+
     add_executable(rknn_face_detection_sample "rknn_face_detection_sample.cpp")
     target_link_libraries(rknn_face_detection_sample ${PROJECT_NAME})
 
@@ -274,6 +280,7 @@ if(CVEDIX_WITH_RKNN)
     install(TARGETS 
         rknn_yolov11_detector_sample
         rknn_face_detector_sample
+        rknn_yolov8_face_detection_simple_sample
         rknn_face_detection_sample
         rknn_face_detection_file_sample
         rknn_rtsp_tracking_sample

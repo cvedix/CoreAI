@@ -39,7 +39,7 @@ void print_usage(const char* program_name) {
     std::cout << "  labels_path : Đường dẫn đến file labels (tùy chọn)" << std::endl;
     std::cout << std::endl;
     std::cout << "Example:" << std::endl;
-    std::cout << "  " << program_name << " ./cvedix_data/models/yolov11s.rknn ./cvedix_data/test_video/face_person.mp4 ./cvedix_data/models/det_cls/coco_labels.txt" << std::endl;
+    std::cout << "  " << program_name << " ./cvedix_data/models/face_detection_yolov11_fp.rknn ./cvedix_data/test_video/face_person.mp4 ./cvedix_data/models/det_cls/coco_labels.txt" << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Parse command line arguments
-    std::string model_path = "./cvedix_data/models/rknn/rk3588/yolov11s.rknn";
-    std::string video_path = "./cvedix_data/test_video/plate.mp4";
+    std::string model_path = "./cvedix_data/models/rknn/rk3588/face_detection_yolov11_fp.rknn";
+    std::string video_path = "./cvedix_data/test_video/face.mp4";
     std::string labels_path = "";  // Optional labels file
     
     if (argc > 1) {

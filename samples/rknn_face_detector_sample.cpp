@@ -36,7 +36,7 @@ int main() {
     
     // Đầu vào: đọc video từ file (có thể thay bằng RTSP/RTMP...)
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src_0", 0, "./cvedix_data/test_video/face_multis.mp4", 0.6);
+        "file_src_0", 0, "./cvedix_data/test_video/face.mp4", 0.6);
     
     // Suy luận cấp 1: phát hiện khuôn mặt bằng RKNN YOLOv8
     auto rknn_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
