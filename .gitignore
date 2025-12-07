@@ -186,3 +186,24 @@ debian/sdk-build/
 ../cvedix-instance-sdk_*.changes
 ../cvedix-instance-sdk_*.dsc
 ../cvedix-instance-sdk_*.tar.*
+
+# Files and directories to exclude when packaging SDK
+build/
+build_sdk/
+build_pkg/
+output/
+.git/
+.gitignore
+*.o
+*.so
+*.a
+*.swp
+*.swo
+*~
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.tmp
+cmake-build-*/
+output/
