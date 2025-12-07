@@ -231,6 +231,9 @@ if(CVEDIX_WITH_RKNN)
     add_executable(rknn_yolov8_face_detection_simple_sample "rknn_yolov8_face_detection_simple_sample.cpp")
     target_link_libraries(rknn_yolov8_face_detection_simple_sample ${PROJECT_NAME})
 
+    add_executable(rknn_yolov8_face_rtsp_sample "rknn_yolov8_face_rtsp_sample.cpp")
+    target_link_libraries(rknn_yolov8_face_rtsp_sample ${PROJECT_NAME})
+
     add_executable(rknn_face_detection_sample "rknn_face_detection_sample.cpp")
     target_link_libraries(rknn_face_detection_sample ${PROJECT_NAME})
 
@@ -281,6 +284,7 @@ if(CVEDIX_WITH_RKNN)
         rknn_yolov11_detector_sample
         rknn_face_detector_sample
         rknn_yolov8_face_detection_simple_sample
+        rknn_yolov8_face_rtsp_sample
         rknn_face_detection_sample
         rknn_face_detection_file_sample
         rknn_rtsp_tracking_sample

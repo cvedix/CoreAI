@@ -214,3 +214,4 @@ Sample này dùng `cvedix_rknn_yolov8_detector_node` với model YOLOv8 đã tra
 **Last Updated**: 2025-12-07  
 **Model**: yolov8n_face_detection.rknn
 
+

@@ -1,18 +1,20 @@
-#include "cvedix/nodes/src/cvedix_file_src_node.h"
+#include "cvedix/nodes/src/cvedix_rtsp_src_node.h"
 #include "cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include <csignal>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 /*
-* ## RKNN YOLOv8 Face Detection Sample ##
+* ## RKNN YOLOv8 Face Detection from RTSP Sample ##
 * 
-* Simple face detection using YOLOv8 RKNN model.
+* Face detection from RTSP camera stream using YOLOv8 RKNN model.
 * 
 * Pipeline:
-*   File Source -> YOLOv8 Face Detector (RKNN) -> OSD -> Screen Display
+*   RTSP Source -> YOLOv8 Face Detector (RKNN) -> OSD -> Screen Display
 * 
 * Model: yolov8n_face_detection.rknn
 *   - YOLOv8 nano model trained for face detection
@@ -25,11 +27,12 @@
 *   make
 * 
 * Usage:
-*   ./rknn_yolov8_face_detection_simple_sample [model_path] [video_path]
+*   ./rknn_yolov8_face_rtsp_sample [rtsp_url] [model_path]
 * 
 * Example:
-*   ./rknn_yolov8_face_detection_simple_sample
-*   ./rknn_yolov8_face_detection_simple_sample ./yolov8n_face.rknn ./test.mp4
+*   ./rknn_yolov8_face_rtsp_sample
+*   ./rknn_yolov8_face_rtsp_sample rtsp://user:pass@192.168.1.100:554/stream
+*   ./rknn_yolov8_face_rtsp_sample rtsp://camera-url ./yolov8n_face.rknn
 */
 
 volatile sig_atomic_t stop_flag = 0;
@@ -47,34 +50,35 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Configuration
+    std::string rtsp_url = "rtsp://cvedix:Admin123456@192.168.1.209:554/stream1";
     std::string model_path = "./cvedix_data/models/face/yolov8n_face_detection.rknn";
-    std::string video_path = "./cvedix_data/test_video/face.mp4";
 
     if (argc > 1) {
-        model_path = argv[1];
+        rtsp_url = argv[1];
     }
     if (argc > 2) {
-        video_path = argv[2];
+        model_path = argv[2];
     }
 
     CVEDIX_INFO("==================================================");
-    CVEDIX_INFO("RKNN YOLOv8 Face Detection Sample");
+    CVEDIX_INFO("RKNN YOLOv8 Face Detection from RTSP");
     CVEDIX_INFO("==================================================");
-    CVEDIX_INFO("Model: " + model_path);
-    CVEDIX_INFO("Video: " + video_path);
+    CVEDIX_INFO("RTSP URL: " + rtsp_url);
+    CVEDIX_INFO("Model:    " + model_path);
     CVEDIX_INFO("==================================================");
 
-    // 1. Create File Source
-    auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src",
+    // 1. Create RTSP Source
+    auto rtsp_src = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>(
+        "rtsp_src",
         0,
-        video_path,
-        1.0f,  // No resize
-        true   // Loop video
+        rtsp_url,
+        1.0f,       // No resize
+        "mppvideodec",  // MPP hardware decoder for Rockchip
+        0,          // No frame skip
+        "auto"      // Auto-detect H264/H265
     );
 
     // 2. Create RKNN YOLOv8 Face Detector
-    // Model: yolov8n trained for face detection
     auto face_detector = std::make_shared<cvedix_nodes::cvedix_rknn_yolov8_detector_node>(
         "yolov8_face_detector",
         model_path,
@@ -92,13 +96,15 @@ int main(int argc, char** argv) {
     auto screen_des = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des", 0);
 
     // 5. Build Pipeline
-    // file_src -> face_detector -> osd -> screen_des
-    face_detector->attach_to({file_src});
+    // rtsp_src -> face_detector -> osd -> screen_des
+    face_detector->attach_to({rtsp_src});
     osd->attach_to({face_detector});
     screen_des->attach_to({osd});
 
+    CVEDIX_INFO("Starting pipeline...");
+
     // 6. Start Pipeline
-    file_src->start();
+    rtsp_src->start();
 
     CVEDIX_INFO("Pipeline started. Press Ctrl+C to stop...");
 
@@ -108,9 +114,8 @@ int main(int argc, char** argv) {
     }
 
     CVEDIX_INFO("Stopping pipeline...");
-    file_src->detach_recursively();
+    rtsp_src->detach_recursively();
 
     return 0;
 }
-
 
