@@ -829,8 +829,13 @@ else()
 endif()
 
 # 2. Cài đặt release notes vào doc directory
-if(EXISTS "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_2025.0.1.2.md")
-    install(FILES "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_2025.0.1.2.md"
+if(EXISTS "${CMAKE_SOURCE_DIR}/doc/RELEASE_NOTES_${PROJECT_VERSION}.md")
+    install(FILES "${CMAKE_SOURCE_DIR}/doc/RELEASE_NOTES_${PROJECT_VERSION}.md"
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            RENAME "RELEASE_NOTES.md")
+    message(STATUS "Release notes will be included in package")
+elseif(EXISTS "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_${PROJECT_VERSION}.md")
+    install(FILES "${CMAKE_SOURCE_DIR}/RELEASE_NOTES_${PROJECT_VERSION}.md"
             DESTINATION ${CMAKE_INSTALL_DOCDIR}
             RENAME "RELEASE_NOTES.md")
     message(STATUS "Release notes will be included in package")
