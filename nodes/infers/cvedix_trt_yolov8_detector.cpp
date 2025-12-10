@@ -1,6 +1,9 @@
 
 #ifdef CVEDIX_WITH_TRT
 #include "cvedix_trt_yolov8_detector.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 
 namespace cvedix_nodes {
     
@@ -8,6 +11,11 @@ namespace cvedix_nodes {
                                                     std::string model_path,
                                                     std::string labels_path):
                                                     cvedix_primary_infer_node(node_name, "", "", labels_path) {
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("TensorRT features require a valid license. Please contact support.");
+        }
+        #endif
         yolov8_detector = std::make_shared<trt_yolov8::trt_yolov8_detector>(model_path);
         this->initialized();
     }

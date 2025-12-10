@@ -1,6 +1,9 @@
 #include "cvedix_rknn_face_detector_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -30,6 +33,12 @@ namespace cvedix_nodes {
           input_height(input_height),
           current_input_w(0),
           current_input_h(0) {
+
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("RKNN features require a valid license. Please contact support.");
+        }
+        #endif
 
         rknn_helper = std::make_shared<cvedix_utils::cvedix_rknn_helper>();
         int ret = rknn_helper->init(model_path);

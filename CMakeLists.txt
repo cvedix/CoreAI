@@ -10,7 +10,7 @@ project(cvedix_instance_sdk VERSION 2025.0.1.3)
 
 include(GNUInstallDirs)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -pthread")
 # save all libs(including third_party's) to 'libs'
@@ -26,6 +26,7 @@ option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
 option(CVEDIX_WITH_FFMPEG "prepared FFMPEG or not?" OFF)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
+option(CVEDIX_WITH_LICENSE "Enable license checking using licensecxx" OFF)
 option(CVEDIX_BUILD_SAMPLES "build samples or not? (saves build time and resources)" OFF)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
@@ -422,6 +423,65 @@ if(CVEDIX_WITH_RKNN)
     message(STATUS "RKNN support: enabled")
 endif()
 
+# optional for License (licensecxx)
+if(CVEDIX_WITH_LICENSE)
+    add_definitions(-DCVEDIX_WITH_LICENSE)
+    
+    # OpenSSL is required by licensecxx (version >= 3.0 recommended)
+    find_package(OpenSSL QUIET)
+    if(NOT OpenSSL_FOUND)
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "OpenSSL not found!\n"
+            "========================================\n"
+            "licensecxx requires OpenSSL (>= 3.0 recommended)\n"
+            "\n"
+            "To install OpenSSL development packages:\n"
+            "  Ubuntu/Debian: sudo apt-get install libssl-dev\n"
+            "  Fedora/RHEL:   sudo dnf install openssl-devel\n"
+            "  Arch Linux:    sudo pacman -S openssl\n"
+            "\n"
+            "Or disable license checking:\n"
+            "  cmake -DCVEDIX_WITH_LICENSE=OFF ..\n"
+            "========================================\n"
+        )
+    endif()
+    message(STATUS "OpenSSL found: ${OPENSSL_VERSION}")
+    
+    # Check if licensecxx is available as submodule
+    set(LICENSECXX_SUBMODULE_DIR ${CMAKE_SOURCE_DIR}/third_party/licensecxx)
+    
+    if(EXISTS ${LICENSECXX_SUBMODULE_DIR}/CMakeLists.txt)
+        message(STATUS "licensecxx found in third_party/licensecxx - building as submodule")
+        add_subdirectory(${LICENSECXX_SUBMODULE_DIR})
+        
+        # Link with licensecxx target
+        if(TARGET lcxx::lcxx)
+            message(STATUS "licensecxx target found: lcxx::lcxx")
+            # Note: licensecxx will be linked via target_link_libraries in utils/CMakeLists.txt
+        else()
+            message(WARNING "licensecxx target lcxx::lcxx not found after adding subdirectory")
+        endif()
+    else()
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "licensecxx not found!\n"
+            "========================================\n"
+            "licensecxx is required when CVEDIX_WITH_LICENSE=ON\n"
+            "\n"
+            "To add licensecxx as submodule:\n"
+            "  git submodule add https://github.com/felixjulianheitmann/licensecxx.git third_party/licensecxx\n"
+            "  git submodule update --init --recursive\n"
+            "\n"
+            "Or disable license checking:\n"
+            "  cmake -DCVEDIX_WITH_LICENSE=OFF ..\n"
+            "========================================\n"
+        )
+    endif()
+    
+    message(STATUS "License checking support: enabled (licensecxx)")
+endif()
+
 # optional for RGA (Rockchip Graphics Accelerator)
 if(CVEDIX_WITH_RGA)
     add_definitions(-DCVEDIX_WITH_RGA)
@@ -648,6 +708,11 @@ if(NOT CVEDIX_WITH_FFMPEG)
     list(FILTER NODES EXCLUDE REGEX ".*cvedix_ff.*")
 endif()
 
+# Exclude license-related files if license is not enabled
+if(NOT CVEDIX_WITH_LICENSE)
+    list(FILTER UTILS EXCLUDE REGEX ".*license.*")
+endif()
+
 # Exclude TensorRT-related inference nodes if TensorRT is not enabled
 # Note: This only excludes nodes, not the library itself (handled by CVEDIX_WITH_TRT guard)
 if(NOT CVEDIX_WITH_TRT)
@@ -665,6 +730,23 @@ list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${CVEDIX_DEPEND_LIBS})
 target_link_libraries(${PROJECT_NAME} PRIVATE tinyexpr)
+
+# Link licensecxx if license checking is enabled
+if(CVEDIX_WITH_LICENSE)
+    if(TARGET lcxx::lcxx)
+        # Use PRIVATE to avoid export issues (licensecxx won't be exported)
+        # This prevents CMake errors about absolute paths and missing nlohmann_json export
+        # PRIVATE linking still provides include directories for compilation, just not for export
+        target_link_libraries(${PROJECT_NAME} PRIVATE lcxx::lcxx)
+        message(STATUS "Linked ${PROJECT_NAME} with licensecxx (lcxx::lcxx)")
+        
+        # Link with identifiers for hardware binding support
+        if(TARGET lcxx::identifiers)
+            target_link_libraries(${PROJECT_NAME} PRIVATE lcxx::identifiers)
+            message(STATUS "Linked ${PROJECT_NAME} with licensecxx identifiers (hardware binding support)")
+        endif()
+    endif()
+endif()
 
 # Create a cvedix directory structure in build directory for build-time includes
 # This allows headers to use "cvedix/..." paths both when building from source and when installed
@@ -738,6 +820,8 @@ install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h
 )
 
 # Export targets
+# Note: licensecxx is linked PRIVATE so it doesn't need to be exported
+# This avoids issues with absolute paths in INTERFACE_INCLUDE_DIRECTORIES and nlohmann_json dependency
 install(EXPORT cvedix-targets
     FILE cvedix-targets.cmake
     NAMESPACE cvedix::
@@ -811,6 +895,11 @@ if(CVEDIX_BUILD_SAMPLES)
     add_subdirectory(samples)
 else()
     message(STATUS "Skipping samples build (enable with -DCVEDIX_BUILD_SAMPLES=ON)")
+endif()
+
+# build for tools (license generator, etc.)
+if(CVEDIX_WITH_LICENSE)
+    add_subdirectory(tools)
 endif()
 
 

@@ -25,6 +25,9 @@ message(STATUS "    libraries: ${CUDA_LIBRARIES}")
 message(STATUS "    include path: ${CUDA_INCLUDE_DIRS}")
 include_directories(${CUDA_INCLUDE_DIRS})
 
+# Note: License checking is handled by cvedix_trt_insight_face_recognition_node
+# No need to add license checking here as the node will perform the check
+
 # OpenCV required
 find_package(OpenCV REQUIRED)
 message(STATUS "OpenCV library status:")
@@ -34,7 +37,8 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # collect dependent libs for trt_insightface
-set(TRT_INSIGHTFACE_DEPEND_LIBS ${OpenCV_LIBS} ${CUDA_LIBRARIES} nvinfer stdc++fs)
+# Note: CUDA_LIBRARIES from find_package(CUDA) may not include cudart, so we add it explicitly
+set(TRT_INSIGHTFACE_DEPEND_LIBS ${OpenCV_LIBS} ${CUDA_LIBRARIES} cudart nvinfer stdc++fs)
 
 # collect source files for trt_insightface
 file(GLOB_RECURSE MODELS "models/*.cpp")

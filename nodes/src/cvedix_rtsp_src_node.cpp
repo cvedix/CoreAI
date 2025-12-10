@@ -40,7 +40,7 @@ namespace cvedix_nodes {
             }
             // If mppvideodec is available, result will contain "Factory Details"
             if (!result.empty() && result.find("Factory Details") != std::string::npos) {
-                gst_decoder_name = "mppvideodec";
+            gst_decoder_name = "mppvideodec";
                 CVEDIX_INFO(cvedix_utils::string_format("[%s] Using mppvideodec (Rockchip hardware decoder)", node_name.c_str()));
             } else {
                 CVEDIX_INFO(cvedix_utils::string_format("[%s] mppvideodec not available, using avdec_h264 (software decoder)", node_name.c_str()));

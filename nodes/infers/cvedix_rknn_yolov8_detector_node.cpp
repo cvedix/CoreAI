@@ -2,6 +2,9 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 #include "cvedix/objects/cvedix_frame_face_target.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -34,6 +37,12 @@ namespace cvedix_nodes {
           input_width(input_width),
           input_height(input_height),
           num_classes(num_classes) {
+
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("RKNN features require a valid license. Please contact support.");
+        }
+        #endif
 
         rknn_helper = std::make_shared<cvedix_utils::cvedix_rknn_helper>();
         int ret = rknn_helper->init(model_path);

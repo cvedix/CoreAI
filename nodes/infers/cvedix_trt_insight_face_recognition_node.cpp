@@ -1,5 +1,8 @@
 #ifdef CVEDIX_WITH_TRT
 #include "cvedix_trt_insight_face_recognition_node.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 #include <algorithm>
 #include <opencv2/imgproc.hpp>
 
@@ -15,6 +18,11 @@ namespace cvedix_nodes {
                                    input_width, input_height, 
                                    1, std::vector<int>(), 0, 0),
         enable_alignment(enable_alignment) {
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("TensorRT features require a valid license. Please contact support.");
+        }
+        #endif
         recognizer = std::make_shared<trt_insightface::InsightFaceRecognition>(model_path);
         this->initialized();
     }
