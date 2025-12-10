@@ -53,6 +53,22 @@ namespace cvedix_nodes {
         
         // Whether face alignment is enabled
         bool enable_alignment;
+        
+        /**
+         * @brief Extract face embeddings directly from aligned face images
+         * @param faces Vector of aligned face images (112x112 RGB)
+         * @param embeddings Output vector of embedding vectors
+         * 
+         * This is a convenience method for direct embedding extraction without pipeline.
+         * Useful for standalone face registration/recognition scenarios.
+         */
+        void extract_features(const std::vector<cv::Mat>& faces, std::vector<std::vector<float>>& embeddings) {
+            if (recognizer) {
+                recognizer->extract_features(faces, embeddings);
+            } else {
+                throw std::runtime_error("Recognizer not initialized");
+            }
+        }
     };
 }
 

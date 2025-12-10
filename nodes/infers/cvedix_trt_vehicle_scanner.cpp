@@ -1,11 +1,19 @@
 #ifdef CVEDIX_WITH_TRT
 #include "cvedix_trt_vehicle_scanner.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 
 namespace cvedix_nodes {
     
     cvedix_trt_vehicle_scanner::cvedix_trt_vehicle_scanner(std::string node_name, 
                                                     std::string vehicle_scan_model_path):
                                                     cvedix_primary_infer_node(node_name, "") {
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("TensorRT features require a valid license. Please contact support.");
+        }
+        #endif
         vehicle_scanner = std::make_shared<trt_vehicle::VehicleScanner>(vehicle_scan_model_path);
         this->initialized();
     }

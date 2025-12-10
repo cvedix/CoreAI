@@ -1,5 +1,8 @@
 #ifdef CVEDIX_WITH_TRT
 #include "cvedix_trt_vehicle_feature_encoder.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 
 namespace cvedix_nodes {
     cvedix_trt_vehicle_feature_encoder::cvedix_trt_vehicle_feature_encoder(std::string node_name, 
@@ -7,6 +10,11 @@ namespace cvedix_nodes {
                                                                     std::vector<int> p_class_ids_applied_to,
                                                                     int min_width_applied_to, int min_height_applied_to):
                                                                     cvedix_secondary_infer_node(node_name, "", "", "", 1, 1, 1, p_class_ids_applied_to, min_width_applied_to, min_height_applied_to) {
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("TensorRT features require a valid license. Please contact support.");
+        }
+        #endif
         vehicle_feature_encoder = std::make_shared<trt_vehicle::VehicleFeatureEncoder>(vehicle_feature_model_path);
         this->initialized();
     }

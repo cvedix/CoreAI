@@ -1,3 +1,0 @@
-[submodule "third_party/licensecxx"]
-	path = third_party/licensecxx
-	url = https://github.com/felixjulianheitmann/licensecxx.git

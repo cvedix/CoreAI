@@ -94,6 +94,16 @@ target_link_libraries(rtsp_ba_crossline_sample ${PROJECT_NAME})
 add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
 target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
 
+# License check sample (only build if license support is enabled)
+if(CVEDIX_WITH_LICENSE)
+    add_executable(license_check_sample "license_check_sample.cpp")
+    target_link_libraries(license_check_sample PUBLIC ${PROJECT_NAME})
+    # Ensure licensecxx include directories are available
+    if(TARGET lcxx::lcxx)
+        target_link_libraries(license_check_sample PUBLIC lcxx::lcxx)
+    endif()
+endif()
+
 add_executable(skip_sample "skip_sample.cpp")
 target_link_libraries(skip_sample ${PROJECT_NAME})
 

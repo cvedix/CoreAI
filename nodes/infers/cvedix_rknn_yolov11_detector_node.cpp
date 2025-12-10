@@ -4,6 +4,9 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 #include "cvedix/objects/cvedix_frame_face_target.h"
+#ifdef CVEDIX_WITH_LICENSE
+#include "cvedix/utils/license/cvedix_license_manager.h"
+#endif
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -35,6 +38,12 @@ namespace cvedix_nodes {
           input_width(input_width),
           input_height(input_height),
           num_classes(num_classes) {
+
+        #ifdef CVEDIX_WITH_LICENSE
+        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
+            throw std::runtime_error("RKNN features require a valid license. Please contact support.");
+        }
+        #endif
 
         detector = std::make_shared<rknn_yolov11::rknn_yolov11_detector>(model_path, num_classes);
         int ret = detector->init();

@@ -4,7 +4,8 @@
 #include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "third_party/trt_insightface/util/algorithm_util.h"
-#include "third_party/trt_insightface/models/insight_face_recognition.h"
+// Note: Using cvedix_trt_insight_face_recognition_node instead of trt_insightface::InsightFaceRecognition
+// to ensure license checking is performed
 
 #include <iostream>
 #include <fstream>
@@ -94,7 +95,7 @@ private:
     std::string db_file_path_;
     std::string project_root_;
     float threshold_ = 0.6f;
-    std::shared_ptr<trt_insightface::InsightFaceRecognition> recognizer_;
+    std::shared_ptr<cvedix_nodes::cvedix_trt_insight_face_recognition_node> recognizer_node_;
     
     std::string resolve_model_path(const std::string& relative_path) {
         std::filesystem::path full_path = std::filesystem::path(project_root_) / relative_path;
@@ -132,7 +133,8 @@ private:
                 embedding.push_back(std::stof(value));
             }
 
-            if (embedding.size() == 512) {
+            // Accept any embedding size (not just 512)
+            if (!embedding.empty()) {
                 database_[name] = embedding;
                 count++;
             }
@@ -182,10 +184,16 @@ public:
         }
         
         try {
-            recognizer_ = std::make_shared<trt_insightface::InsightFaceRecognition>(engine_path);
+            // Use cvedix_trt_insight_face_recognition_node instead of trt_insightface::InsightFaceRecognition
+            // This ensures license checking is performed
+            recognizer_node_ = std::make_shared<cvedix_nodes::cvedix_trt_insight_face_recognition_node>(
+                "face_recognition_node", engine_path, 112, 112, false);  // disable alignment as we already align
+        } catch (const std::runtime_error& e) {
+            std::cerr << "[DB] Error: Failed to load engine: " << e.what() << std::endl;
+            throw;  // Re-throw to be caught by caller
         } catch (const std::exception& e) {
             std::cerr << "[DB] Error: Failed to load engine: " << e.what() << std::endl;
-            throw;
+            throw std::runtime_error(std::string("Failed to initialize face recognition: ") + e.what());
         }
     }
 
@@ -265,7 +273,7 @@ public:
 
         std::vector<cv::Mat> faces_vec = {aligned_face};
         std::vector<std::vector<float>> embeddings;
-        recognizer_->extract_features(faces_vec, embeddings);
+        recognizer_node_->extract_features(faces_vec, embeddings);
 
         if (embeddings.empty() || embeddings[0].empty()) {
             std::cerr << "[Register] Error: Failed to extract embedding" << std::endl;
@@ -388,42 +396,53 @@ int recognize_image(const std::string& executable_path, const std::string& image
         }
     }
     
-    auto recognizer = std::make_shared<trt_insightface::InsightFaceRecognition>(engine_path);
-    cv::Mat result_image = image.clone();
-    std::cout << "\n[Results]" << std::endl;
-    
-    for (int i = 0; i < faces.rows; i++) {
-        float x = faces.at<float>(i, 0), y = faces.at<float>(i, 1);
-        float w = faces.at<float>(i, 2), h = faces.at<float>(i, 3);
-        float score = faces.at<float>(i, 14);
+    try {
+        // Use cvedix_trt_insight_face_recognition_node instead of trt_insightface::InsightFaceRecognition
+        // This ensures license checking is performed
+        auto recognizer_node = std::make_shared<cvedix_nodes::cvedix_trt_insight_face_recognition_node>(
+            "face_recognition_node", engine_path, 112, 112, false);  // disable alignment as we already align
+        cv::Mat result_image = image.clone();
+        std::cout << "\n[Results]" << std::endl;
         
-        x = std::max(0.0f, std::min(x, (float)(image.cols - 1)));
-        y = std::max(0.0f, std::min(y, (float)(image.rows - 1)));
-        w = std::max(1.0f, std::min(w, (float)(image.cols - x)));
-        h = std::max(1.0f, std::min(h, (float)(image.rows - y)));
+        for (int i = 0; i < faces.rows; i++) {
+            float x = faces.at<float>(i, 0), y = faces.at<float>(i, 1);
+            float w = faces.at<float>(i, 2), h = faces.at<float>(i, 3);
+            float score = faces.at<float>(i, 14);
+            
+            x = std::max(0.0f, std::min(x, (float)(image.cols - 1)));
+            y = std::max(0.0f, std::min(y, (float)(image.rows - 1)));
+            w = std::max(1.0f, std::min(w, (float)(image.cols - x)));
+            h = std::max(1.0f, std::min(h, (float)(image.rows - y)));
+            
+            cv::Mat face_roi = image(cv::Rect((int)x, (int)y, (int)w, (int)h)).clone();
+            cv::Mat aligned_face;
+            cv::resize(face_roi, aligned_face, cv::Size(112, 112));
+            
+            std::vector<cv::Mat> faces_vec = {aligned_face};
+            std::vector<std::vector<float>> embeddings;
+            recognizer_node->extract_features(faces_vec, embeddings);
+            
+            if (embeddings.empty() || embeddings[0].empty()) continue;
+            
+            std::string person_name = g_database->identify(embeddings[0]);
+            std::cout << "  Face " << (i+1) << ": (" << (int)x << "," << (int)y << ") " 
+                      << (int)w << "x" << (int)h << " -> " << person_name << std::endl;
+            
+            cv::rectangle(result_image, cv::Rect((int)x, (int)y, (int)w, (int)h), cv::Scalar(0, 255, 0), 2);
+            cv::putText(result_image, person_name, cv::Point((int)x, (int)y - 10),
+                        cv::FONT_HERSHEY_SIMPLEX, 0.9, cv::Scalar(0, 255, 0), 2);
+        }
         
-        cv::Mat face_roi = image(cv::Rect((int)x, (int)y, (int)w, (int)h)).clone();
-        cv::Mat aligned_face;
-        cv::resize(face_roi, aligned_face, cv::Size(112, 112));
-        
-        std::vector<cv::Mat> faces_vec = {aligned_face};
-        std::vector<std::vector<float>> embeddings;
-        recognizer->extract_features(faces_vec, embeddings);
-        
-        if (embeddings.empty() || embeddings[0].empty()) continue;
-        
-        std::string person_name = g_database->identify(embeddings[0]);
-        std::cout << "  Face " << (i+1) << ": (" << (int)x << "," << (int)y << ") " 
-                  << (int)w << "x" << (int)h << " -> " << person_name << std::endl;
-        
-        cv::rectangle(result_image, cv::Rect((int)x, (int)y, (int)w, (int)h), cv::Scalar(0, 255, 0), 2);
-        cv::putText(result_image, person_name, cv::Point((int)x, (int)y - 10),
-                    cv::FONT_HERSHEY_SIMPLEX, 0.9, cv::Scalar(0, 255, 0), 2);
+        cv::imwrite("recognition_result.jpg", result_image);
+        std::cout << "\n[Output] Result saved to: recognition_result.jpg" << std::endl;
+        return 0;
+    } catch (const std::runtime_error& e) {
+        std::cerr << "\n[Error] " << e.what() << std::endl;
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "\n[Error] Unexpected error: " << e.what() << std::endl;
+        return 1;
     }
-    
-    cv::imwrite("recognition_result.jpg", result_image);
-    std::cout << "\n[Output] Result saved to: recognition_result.jpg" << std::endl;
-    return 0;
 }
 
 int mode_register(int argc, char* argv[]) {
@@ -438,17 +457,26 @@ int mode_register(int argc, char* argv[]) {
     CVEDIX_LOGGER_INIT();
 
     std::cout << "\n=== Face Registration Mode ===" << std::endl;
-    auto db = std::make_shared<FaceDatabase>(argv[0]);
-    std::string resolved_image_path = resolve_path(argv[0], argv[2]);
-    bool success = db->register_face_from_image(resolved_image_path, argv[3]);
     
-    if (success) {
-        db->list_all();
-        std::cout << "\n✓ Registration completed!" << std::endl;
-        return 0;
+    try {
+        auto db = std::make_shared<FaceDatabase>(argv[0]);
+        std::string resolved_image_path = resolve_path(argv[0], argv[2]);
+        bool success = db->register_face_from_image(resolved_image_path, argv[3]);
+        
+        if (success) {
+            db->list_all();
+            std::cout << "\n✓ Registration completed!" << std::endl;
+            return 0;
+        }
+        std::cerr << "\n✗ Registration failed!" << std::endl;
+        return 1;
+    } catch (const std::runtime_error& e) {
+        std::cerr << "\n[Error] " << e.what() << std::endl;
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "\n[Error] Unexpected error: " << e.what() << std::endl;
+        return 1;
     }
-    std::cerr << "\n✗ Registration failed!" << std::endl;
-    return 1;
 }
 
 bool is_image_file(const std::string& path) {

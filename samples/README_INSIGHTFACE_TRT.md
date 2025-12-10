@@ -84,7 +84,7 @@ export LD_LIBRARY_PATH=./build/libs:$LD_LIBRARY_PATH
 InsightFace TensorRT Recognition Sample
 ========================================
 Configuration:
-  Video: ./cvedix_data/test_video/face.mp4
+Video: ./cvedix_data/test_video/face.mp4
   Model: ./cvedix_data/models/trt/face/w600k_mbf_fp16_trt10.9.engine
   Alignment: Enabled (5-point landmarks)
   Embedding: 512-dim L2-normalized

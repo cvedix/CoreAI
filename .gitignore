@@ -2,6 +2,8 @@
 *
 !*/
 !*.*
+# Allow git submodules and .gitmodules file
+!.gitmodules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -20,6 +22,11 @@ __pycache__/
 *.weights
 *.h264
 *.trt
+*.pt
+*.pth
+*.pb
+*.rknn
+*.engine
 models/
 test_video/
 log/
@@ -157,13 +164,8 @@ cmake-build-debug-remote/
 cmake-build-debug/
 build/*
 build
-<<<<<<< HEAD
 build_package/*
 build_package
-=======
-build_package/
-build_debian
->>>>>>> c3421eb (check)
 !build/build.sh
 obj-aarch64-linux-gnu/*
 obj-aarch64-linux-gnu
