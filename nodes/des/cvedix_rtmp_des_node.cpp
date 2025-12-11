@@ -2,7 +2,7 @@
 #ifdef CVEDIX_WITH_GSTREAMER
 #include <assert.h>
 #include "cvedix_rtmp_des_node.h"
-#include "../common/frame_utils.h"
+#include "cvedix/nodes/common/frame_utils.h"
 #include "cvedix/utils/cvedix_utils.h"
 
 namespace cvedix_nodes {

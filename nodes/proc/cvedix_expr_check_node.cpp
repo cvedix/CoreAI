@@ -1,6 +1,6 @@
 
 #include "cvedix_expr_check_node.h"
-#include "../../third_party/tinyexpr/tinyexpr.h"
+#include "third_party/tinyexpr/tinyexpr.h"
 
 namespace cvedix_nodes {
     

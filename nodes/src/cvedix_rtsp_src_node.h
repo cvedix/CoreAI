@@ -3,7 +3,7 @@
 #ifdef CVEDIX_WITH_GSTREAMER
 #include <string>
 
-#include "../common/cvedix_src_node.h"
+#include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // rtsp source node, receive video stream via rtsp protocal.

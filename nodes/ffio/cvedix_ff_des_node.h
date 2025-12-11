@@ -1,7 +1,7 @@
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include "ff_des.h"
-#include "../common/cvedix_des_node.h"
+#include "cvedix/nodes/common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
     /**

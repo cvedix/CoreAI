@@ -2,12 +2,12 @@
 
 #ifdef CVEDIX_WITH_PADDLE
 #include "base/cvedix_primary_infer_node.h"
-#include "../../third_party/paddle_ocr/include/paddleocr.h"
+#include "cvedix/third_party/paddle_ocr/include/paddleocr.h"
 
 namespace cvedix_nodes {
     // ocr based on paddle ocr
     // paddle ocr project(official): https://github.com/PaddlePaddle/PaddleOCR
-    // source code(modified based on official): ../../third_party/paddle_ocr
+    // source code(modified based on official): third_party/paddle_ocr
     // note:
     // this class is not based on opencv::dnn module but paddle, a few data members declared in base class are not usable any more(just ignore), such as cvedix_infer_node::net.
     class cvedix_ppocr_text_detector_node: public cvedix_primary_infer_node

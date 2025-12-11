@@ -3,7 +3,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/freetype.hpp>
 
-#include "../common/cvedix_node.h"
+#include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // on screen display(short as osd) node.

@@ -6,7 +6,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "../common/cvedix_des_node.h"
+#include "cvedix/nodes/common/cvedix_des_node.h"
 #include "cvedix/objects/cvedix_frame_meta.h"
 #include "cvedix/objects/cvedix_control_meta.h"
 #include "cvedix/utils/cvedix_utils.h"

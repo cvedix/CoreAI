@@ -1,5 +1,5 @@
 #include "cvedix_cluster_node.h"
-#include "../../third_party/bhtsne/tsne.h"
+#include "third_party/bhtsne/tsne.h"
 
 namespace cvedix_nodes {
     cvedix_cluster_node::cvedix_cluster_node(std::string node_name, 

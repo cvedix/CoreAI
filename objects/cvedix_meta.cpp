@@ -1,6 +1,6 @@
 
 #include "cvedix_meta.h"
-#include "../excepts/cvedix_invalid_argument_error.h"
+#include "cvedix/excepts/cvedix_invalid_argument_error.h"
 
 namespace cvedix_objects {
     

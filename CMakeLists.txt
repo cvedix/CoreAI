@@ -772,12 +772,18 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/excepts ${CMAKE_BINARY_DIR}/cvedix/excepts
     COMMENT "Creating cvedix/excepts symlink"
 )
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/third_party
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/third_party ${CMAKE_BINARY_DIR}/cvedix/third_party
+    COMMENT "Creating cvedix/third_party symlink"
+)
 # Create a custom target to ensure symlinks are created before building
 add_custom_target(cvedix_symlinks
     DEPENDS ${CMAKE_BINARY_DIR}/cvedix/nodes
             ${CMAKE_BINARY_DIR}/cvedix/objects
             ${CMAKE_BINARY_DIR}/cvedix/utils
             ${CMAKE_BINARY_DIR}/cvedix/excepts
+            ${CMAKE_BINARY_DIR}/cvedix/third_party
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

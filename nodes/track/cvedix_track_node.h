@@ -3,7 +3,7 @@
 
 #include <map>
 #include <assert.h>
-#include "../common/cvedix_node.h"
+#include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
     // track node applied to which type of target (cvedix_frame_target, cvedix_frame_face_target or others)

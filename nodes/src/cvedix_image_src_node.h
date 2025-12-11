@@ -3,7 +3,7 @@
 
 #ifdef CVEDIX_WITH_GSTREAMER
 
-#include "../common/cvedix_src_node.h"
+#include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
     // image src node, read image from local files or receive image from remote via udp.
