@@ -821,6 +821,16 @@ install(DIRECTORY nodes objects utils excepts
     FILES_MATCHING PATTERN "*.h"
 )
 
+# Install third_party headers so cvedix/third_party/... paths work after installation
+install(DIRECTORY third_party
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+    FILES_MATCHING 
+    PATTERN "*.h"
+    PATTERN "*.hpp"
+    PATTERN ".git" EXCLUDE
+    PATTERN "*.md" EXCLUDE
+)
+
 install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
 )
