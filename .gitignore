@@ -166,6 +166,8 @@ build/*
 build
 build_package/*
 build_package
+build_pkg_cpu/*
+build_pkg_cpu
 !build/build.sh
 obj-aarch64-linux-gnu/*
 obj-aarch64-linux-gnu

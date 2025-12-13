@@ -12,7 +12,7 @@ namespace cvedix_nodes {
                                                             std::string rec_char_dict_path):
                                                             cvedix_primary_infer_node(node_name, "") {
         // to make the code simpler, paddle_ocr has no more config other than model path
-        // we need modify source code at ../../third_party/paddle_ocr/ if we need tune the parameters 
+        // we need modify source code at third_party/paddle_ocr/ if we need tune the parameters 
         ocr = std::make_shared<PaddleOCR::PPOCR>(det_model_dir, cls_model_dir, rec_model_dir, rec_char_dict_path);
         this->initialized();
     }

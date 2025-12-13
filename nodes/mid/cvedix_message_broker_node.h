@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "../common/cvedix_node.h"
+#include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
     class cvedix_message_broker_node : public cvedix_node

@@ -2,7 +2,7 @@
 
 #ifdef CVEDIX_WITH_LLM
 #include "base/cvedix_primary_infer_node.h"
-#include "../../third_party/cpp_llmlib/llmlib.hpp"
+#include "cvedix/third_party/cpp_llmlib/llmlib.hpp"
 
 namespace cvedix_nodes {
     // image(frame) analyser based on Multimodal Large Language Model

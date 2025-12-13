@@ -590,22 +590,20 @@ namespace cvedix_nodes {
                     continue;
                 }
                 
-                // Convert landmarks from cv::Point2f to std::pair<int, int>
-                std::vector<std::pair<int, int>> landmarks;
+                auto face_target = std::make_shared<cvedix_objects::cvedix_frame_face_target>();
+                face_target->x = face.box.x;
+                face_target->y = face.box.y;
+                face_target->width = face.box.width;
+                face_target->height = face.box.height;
+                face_target->primary_class_id = 0;  // Face class
+                face_target->primary_class_name = "face";
+                face_target->confidence = face.score;
+                
+                // Add 5-point landmarks
                 for (const auto& pt : face.landmarks) {
-                    landmarks.push_back({static_cast<int>(pt.x), static_cast<int>(pt.y)});
+                    face_target->key_points.push_back({pt.x, pt.y});
                 }
-
-                // Create face_target using constructor
-                auto face_target = std::make_shared<cvedix_objects::cvedix_frame_face_target>(
-                    face.box.x,
-                    face.box.y,
-                    face.box.width,
-                    face.box.height,
-                    face.score,
-                    landmarks,
-                    std::vector<float>()  // Empty embeddings, will be filled by feature encoder
-                );
+                
                 frame_meta->face_targets.push_back(face_target);
             }
             

@@ -2,7 +2,7 @@
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_primary_infer_node.h"
-#include "../../third_party/trt_yolov8/trt_yolov8_pose_detector.h"
+#include "third_party/trt_yolov8/trt_yolov8_pose_detector.h"
 
 namespace cvedix_nodes {
     // universal yolov8 pose detector based on tensorrt using third_party/trt_yolov8 library

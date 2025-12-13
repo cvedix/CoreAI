@@ -4,7 +4,7 @@
 #include <deque>
 #include <map>
 
-#include "../common/cvedix_node.h"
+#include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/objects/cvedix_image_record_control_meta.h"
 #include "cvedix/objects/cvedix_video_record_control_meta.h"
 

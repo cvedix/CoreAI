@@ -1,7 +1,7 @@
 
 #ifdef CVEDIX_WITH_GSTREAMER
 #include "cvedix_rtsp_des_node.h"
-#include "../common/frame_utils.h"
+#include "cvedix/nodes/common/frame_utils.h"
 
 namespace cvedix_nodes {
         

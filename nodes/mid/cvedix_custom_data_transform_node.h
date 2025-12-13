@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../common/cvedix_node.h"
+#include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/objects/cvedix_frame_meta.h"
 #include <functional>
 

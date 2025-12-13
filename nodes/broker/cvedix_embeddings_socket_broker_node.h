@@ -4,7 +4,7 @@
 #include "cereal_archive/cvedix_objects_cereal_archive.h"
 
 // light weight socket support
-#include "../../third_party/kissnet/kissnet.hpp"
+#include "cvedix/third_party/kissnet/kissnet.hpp"
 
 namespace cvedix_nodes {
     // message broker node, broke ONLY embeddings (for cvedix_frame_target or cvedix_frame_face_target) to socket via udp.

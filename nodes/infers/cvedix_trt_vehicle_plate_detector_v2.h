@@ -3,7 +3,7 @@
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_primary_infer_node.h"
 // trt_vehicle is currently disabled due to TensorRT 10.x API incompatibility
-// #include "../../third_party/trt_vehicle/models/vehicle_plate_detector.h"
+// #include "third_party/trt_vehicle/models/vehicle_plate_detector.h"
 
 // Forward declaration (trt_vehicle library is disabled)
 namespace trt_vehicle {
@@ -12,7 +12,7 @@ namespace trt_vehicle {
 
 namespace cvedix_nodes {
     // vehicle plate detector based on tensorrt using trt_vehicle library
-    // source code: ../../third_party/trt_vehicle
+    // source code: third_party/trt_vehicle
     // note: derived from cvedix_primary_infer_node since it detects plates on the whole big frame, which is different from cvedix_trt_vehicle_plate_detector class
     // this class is not based on opencv::dnn module but tensorrt, a few data members declared in base class are not usable any more(just ignore), such as cvedix_infer_node::net.
     // NOTE: trt_vehicle library is currently disabled - this class will not work until trt_vehicle is re-enabled

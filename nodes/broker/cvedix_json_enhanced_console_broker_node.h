@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "cvedix_json_console_broker_node.h"
-#include "../../third_party/cpp_base64/base64.h"
+#include "cvedix/third_party/cpp_base64/base64.h"
 
 namespace cvedix_nodes {
     // Enhanced message broker node with base64 encoded images

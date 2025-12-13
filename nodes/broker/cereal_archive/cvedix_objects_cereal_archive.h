@@ -14,13 +14,13 @@
 /* extend for more types of objects in VideoPipe. */
 
 // headers from cereal
-#include "../../../third_party/cereal/cereal.hpp"
-#include "../../../third_party/cereal/types/vector.hpp"
-#include "../../../third_party/cereal/types/memory.hpp"
-#include "../../../third_party/cereal/types/string.hpp"
-#include "../../../third_party/cereal/types/utility.hpp"
-#include "../../../third_party/cereal/archives/json.hpp"
-#include "../../../third_party/cereal/archives/xml.hpp"
+#include "cvedix/third_party/cereal/cereal.hpp"
+#include "cvedix/third_party/cereal/types/vector.hpp"
+#include "cvedix/third_party/cereal/types/memory.hpp"
+#include "cvedix/third_party/cereal/types/string.hpp"
+#include "cvedix/third_party/cereal/types/utility.hpp"
+#include "cvedix/third_party/cereal/archives/json.hpp"
+#include "cvedix/third_party/cereal/archives/xml.hpp"
 
 /* same namespace as object types */
 namespace cvedix_objects {

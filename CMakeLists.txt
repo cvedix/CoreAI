@@ -772,12 +772,18 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/excepts ${CMAKE_BINARY_DIR}/cvedix/excepts
     COMMENT "Creating cvedix/excepts symlink"
 )
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/cvedix/third_party
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/third_party ${CMAKE_BINARY_DIR}/cvedix/third_party
+    COMMENT "Creating cvedix/third_party symlink"
+)
 # Create a custom target to ensure symlinks are created before building
 add_custom_target(cvedix_symlinks
     DEPENDS ${CMAKE_BINARY_DIR}/cvedix/nodes
             ${CMAKE_BINARY_DIR}/cvedix/objects
             ${CMAKE_BINARY_DIR}/cvedix/utils
             ${CMAKE_BINARY_DIR}/cvedix/excepts
+            ${CMAKE_BINARY_DIR}/cvedix/third_party
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -813,6 +819,16 @@ install(TARGETS ${PROJECT_NAME} EXPORT cvedix-targets
 install(DIRECTORY nodes objects utils excepts
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
     FILES_MATCHING PATTERN "*.h"
+)
+
+# Install third_party headers so cvedix/third_party/... paths work after installation
+install(DIRECTORY third_party
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+    FILES_MATCHING 
+    PATTERN "*.h"
+    PATTERN "*.hpp"
+    PATTERN ".git" EXCLUDE
+    PATTERN "*.md" EXCLUDE
 )
 
 install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h

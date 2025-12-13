@@ -2,7 +2,7 @@
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_secondary_infer_node.h"
-#include "../../third_party/trt_yolov8/trt_yolov8_classifier.h"
+#include "cvedix/third_party/trt_yolov8/trt_yolov8_classifier.h"
 
 namespace cvedix_nodes {
     // universal yolov8 classifier based on tensorrt using third_party/trt_yolov8 library

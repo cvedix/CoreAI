@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include "../shapes/cvedix_point.h"
+#include "cvedix/objects/shapes/cvedix_point.h"
 
 
 namespace cvedix_objects {

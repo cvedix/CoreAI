@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/cvedix_secondary_infer_node.h"
+#include "base/cvedix_primary_infer_node.h"
 
 namespace cvedix_nodes {
     /**
@@ -175,6 +176,8 @@ namespace cvedix_nodes {
         float score_threshold = 0.7f;  // Final detection confidence threshold
     };
 }
+
+
 
 
 

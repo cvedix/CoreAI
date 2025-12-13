@@ -3,7 +3,7 @@
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_secondary_infer_node.h"
 // trt_vehicle is currently disabled due to TensorRT 10.x API incompatibility
-// #include "../../third_party/trt_vehicle/models/vehicle_color_classifier.h"
+// #include "third_party/trt_vehicle/models/vehicle_color_classifier.h"
 
 // Forward declaration (trt_vehicle library is disabled)
 namespace trt_vehicle {
