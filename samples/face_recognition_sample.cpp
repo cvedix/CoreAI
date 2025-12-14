@@ -35,8 +35,12 @@ private:
     // Store multiple embeddings per person: vector of (name, embedding) pairs
     std::vector<std::pair<std::string, std::vector<float>>> database_;
     std::set<std::string> unique_names_;
-    float threshold_ = 0.4f;  // Cosine similarity threshold
-    float min_gap_ = 0.1f;    // Minimum gap between top-1 and top-2 to accept match
+    
+    // Thresholds for ArcFace (512-dim) model
+    float threshold_ = 0.55f;           // Minimum similarity to consider a match
+    float high_confidence_ = 0.95f;     // Score above this = instant match (skip gap check)
+    float ambiguity_threshold_ = 0.70f; // Only check gap if second score is above this
+    float min_gap_ = 0.08f;             // Minimum gap when both are above ambiguity_threshold
     
 public:
     bool load(const std::string& path) {
@@ -132,17 +136,26 @@ public:
             return {"Unknown", best_sim};
         }
         
-        // Confidence gap check: reject if difference between top-1 and top-2 is too small
+        // HIGH CONFIDENCE: If score is very high, match immediately (skip gap check)
+        if (best_sim >= high_confidence_) {
+            std::cout << "  [Debug] High confidence score (>=" << high_confidence_ << "), accepting match\n";
+            return {best_match, best_sim};
+        }
+        
+        // Confidence gap check: only relevant when second score is also high
         if (similarities.size() >= 2) {
             float second_sim = similarities[1].second;
             float gap = best_sim - second_sim;
             std::cout << "  [Debug] Gap between top-1 and top-2: " << std::fixed << std::setprecision(4) << gap << "\n";
             
-            // If gap is too small (< min_gap_) and both are above threshold, it's ambiguous
-            if (gap < min_gap_ && second_sim > threshold_) {
-                std::cout << "  [Debug] Gap too small and second is above threshold, returning Unknown\n";
-                // Ambiguous match - could be either person
-                return {"Unknown", best_sim};
+            // Only check gap if second score is above ambiguity threshold
+            // This prevents rejecting good matches just because another person has moderate similarity
+            if (second_sim > ambiguity_threshold_) {
+                std::cout << "  [Debug] Second score (" << second_sim << ") above ambiguity threshold (" << ambiguity_threshold_ << ")\n";
+                if (gap < min_gap_) {
+                    std::cout << "  [Debug] Gap too small (" << gap << " < " << min_gap_ << "), returning Unknown\n";
+                    return {"Unknown", best_sim};
+                }
             }
         }
         
@@ -222,9 +235,9 @@ int recognize_from_image(const std::string& image_path, const std::string& datab
     }
     std::cout << "✓ Created face detector\n";
 
-    // Create face recognizer (use same model as registration - SFace 128-dim)
+    // Create face recognizer (use ArcFace w600k_mbf 512-dim for higher accuracy)
     auto recognizer = cv::FaceRecognizerSF::create(
-        "./cvedix_data/models/face/face_recognition_sface_2021dec.onnx", ""
+        "./cvedix_data/models/face/face_recognition/w600k_mbf.onnx", ""
     );
     
     if (!recognizer) {
@@ -334,7 +347,7 @@ int recognize_from_video(const std::string& video_path, const std::string& datab
     );
     
     auto recognizer = cv::FaceRecognizerSF::create(
-        "./cvedix_data/models/face/face_recognition_sface_2021dec.onnx", ""
+        "./cvedix_data/models/face/face_recognition/w600k_mbf.onnx", ""
     );
     
     if (!detector || !recognizer) {

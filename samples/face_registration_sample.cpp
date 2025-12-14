@@ -111,7 +111,7 @@ int register_from_images(
     std::cout << "✓ Created face detector\n";
 
     // Load face recognition model using FaceRecognizerSF (OpenCV's high-level API)
-    std::string recog_model_path = "./cvedix_data/models/face/face_recognition_sface_2021dec.onnx";
+    std::string recog_model_path = "./cvedix_data/models/face/face_recognition/w600k_mbf.onnx";
     cv::Ptr<cv::FaceRecognizerSF> recognizer = cv::FaceRecognizerSF::create(
         recog_model_path, ""
     );
