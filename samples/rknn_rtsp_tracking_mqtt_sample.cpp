@@ -511,7 +511,7 @@ int main(int argc, char** argv) {
         model_path = argv[1];
     }
     
-    std::string rtsp_url = "rtsp://103.147.186.175:18554/livestream/5F0459EPAG1EB5A";
+    std::string rtsp_url = "rtsp://cvedix:Admin123456@192.168.1.209:554/stream1";
     if (argc > 2) {
         rtsp_url = argv[2];
     }

@@ -39,6 +39,25 @@ target_link_libraries(face_registration_sample ${PROJECT_NAME})
 add_executable(face_recognition_sample "face_recognition_sample.cpp")
 target_link_libraries(face_recognition_sample ${PROJECT_NAME})
 
+# Face recognition with ONNX Runtime (supports glintr100 and other InsightFace models)
+set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime)
+if(EXISTS ${ONNXRUNTIME_DIR}/lib/libonnxruntime.so)
+    add_executable(face_recognition_ort_sample "face_recognition_ort_sample.cpp")
+    target_include_directories(face_recognition_ort_sample PRIVATE ${ONNXRUNTIME_DIR}/include)
+    target_link_libraries(face_recognition_ort_sample 
+        ${PROJECT_NAME}
+        ${ONNXRUNTIME_DIR}/lib/libonnxruntime.so
+    )
+    # Set runtime path for finding libonnxruntime.so
+    set_target_properties(face_recognition_ort_sample PROPERTIES
+        BUILD_RPATH ${ONNXRUNTIME_DIR}/lib
+        INSTALL_RPATH ${ONNXRUNTIME_DIR}/lib
+    )
+    message(STATUS "Building face_recognition_ort_sample with ONNX Runtime")
+else()
+    message(STATUS "ONNX Runtime not found at ${ONNXRUNTIME_DIR}, skipping face_recognition_ort_sample")
+endif()
+
 # InsightFace TensorRT samples (requires CVEDIX_WITH_TRT=ON)
 if(CVEDIX_WITH_TRT)
     add_executable(insightface_trt_sample "insightface_trt_sample.cpp")
@@ -73,6 +92,10 @@ target_link_libraries(mask_rcnn_sample ${PROJECT_NAME})
 
 add_executable(message_broker_sample "message_broker_sample.cpp")
 target_link_libraries(message_broker_sample ${PROJECT_NAME})
+
+add_executable(face_recognition_mqtt_sample "face_recognition_mqtt_sample.cpp")
+target_link_libraries(face_recognition_mqtt_sample ${PROJECT_NAME})
+
 
 add_executable(multi_detectors_and_classifiers_sample "multi_detectors_and_classifiers_sample.cpp")
 target_link_libraries(multi_detectors_and_classifiers_sample ${PROJECT_NAME})

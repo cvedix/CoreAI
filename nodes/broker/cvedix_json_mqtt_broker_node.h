@@ -73,6 +73,10 @@ namespace cvedix_nodes {
         
         // Get current MQTT publisher function
         std::function<void(const std::string&)> get_mqtt_publisher() const;
+        
+        // Set max input queue size (default: 50)
+        // Increase this if experiencing "queue full" warnings with high FPS video
+        void set_max_queue_size(int size) { max_in_queue_size = size; }
     };
 }
 

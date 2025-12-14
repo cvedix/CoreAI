@@ -615,6 +615,20 @@ if(CVEDIX_WITH_RGA)
     message(STATUS "RGA support: enabled")
 endif()
 
+# optional for ONNX Runtime (for ORT-based nodes)
+set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime)
+if(EXISTS ${ONNXRUNTIME_DIR}/lib/libonnxruntime.so)
+    add_definitions(-DCVEDIX_WITH_ORT)
+    include_directories(${ONNXRUNTIME_DIR}/include)
+    link_directories(${ONNXRUNTIME_DIR}/lib)
+    list(APPEND CVEDIX_DEPEND_LIBS onnxruntime)
+    message(STATUS "ONNX Runtime found at ${ONNXRUNTIME_DIR} - ORT nodes will be available")
+    set(CVEDIX_WITH_ORT ON)
+else()
+    message(STATUS "ONNX Runtime not found at ${ONNXRUNTIME_DIR} - ORT nodes disabled")
+    set(CVEDIX_WITH_ORT OFF)
+endif()
+
 # tinyexpr
 message("-------------start build tinyexpr--------------")
 add_subdirectory(third_party/tinyexpr)
@@ -721,6 +735,11 @@ else()
     # Exclude trt_vehicle and trt_yolov8 nodes (temporarily disabled due to TensorRT 10.x incompatibility)
     list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_vehicle.*")
     list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_yolov8.*")
+endif()
+
+# Exclude ONNX Runtime-based nodes if ORT is not available
+if(NOT CVEDIX_WITH_ORT)
+    list(FILTER NODES EXCLUDE REGEX ".*_ort_node.*")
 endif()
 
 #...#
@@ -954,14 +973,14 @@ set(CPACK_PACKAGE_VENDOR "CVEDIX")
 # Generate version from timestamp and git hash
 string(TIMESTAMP PACKAGE_TIMESTAMP "%Y%m%d%H%M%S")
 # Use fixed version for release package with -dev suffix for development builds
-set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-dev")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-dev1")
 # For development builds with timestamp, uncomment below:
 # set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-${PACKAGE_TIMESTAMP}-${FINAL_GIT_VERSION}")
 
 # Package metadata
 set(CPACK_PACKAGE_CONTACT "CVEDIX Team <support@cvedix.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CVEDIX AI Runtime SDK with RKNN, MQTT and JSON Output Support")
-set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version (2025.0.1.3-dev) includes: License management node with hardware binding, face recognition improvements with confidence gap, Custom Data Transform Node for data customization, MQTT broker node for publishing detection results via MQTT protocol, enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities. Package includes libraries, headers, samples, and cvedix_data directory.")
+set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version (2025.0.1.3-dev1) includes: Face recognition with ONNX Runtime (ORT) node supporting glint360k_r100 model, License management node with hardware binding, face recognition improvements with confidence gap, Custom Data Transform Node for data customization, MQTT broker node for publishing detection results via MQTT protocol, enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities. Package includes libraries, headers, samples, and cvedix_data directory.")
 
 # Debian package metadata
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "CVEDIX Team <support@cvedix.com>")
