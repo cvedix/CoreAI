@@ -953,15 +953,15 @@ set(CPACK_PACKAGE_VENDOR "CVEDIX")
 
 # Generate version from timestamp and git hash
 string(TIMESTAMP PACKAGE_TIMESTAMP "%Y%m%d%H%M%S")
-# Use fixed version for release package
-set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-# For development builds, uncomment below:
+# Use fixed version for release package with -dev suffix for development builds
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-dev")
+# For development builds with timestamp, uncomment below:
 # set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}-${PACKAGE_TIMESTAMP}-${FINAL_GIT_VERSION}")
 
 # Package metadata
 set(CPACK_PACKAGE_CONTACT "CVEDIX Team <support@cvedix.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CVEDIX AI Runtime SDK with RKNN, MQTT and JSON Output Support")
-set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version (2025.0.1.2) includes: Custom Data Transform Node for data customization, MQTT broker node for publishing detection results via MQTT protocol, enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities. Package includes libraries, headers, samples, and cvedix_data directory.")
+set(CPACK_PACKAGE_DESCRIPTION "CVEDIX AI Runtime SDK provides a comprehensive framework for building AI video processing pipelines with support for RKNN, TensorRT, and other inference backends. This version (2025.0.1.3-dev) includes: License management node with hardware binding, face recognition improvements with confidence gap, Custom Data Transform Node for data customization, MQTT broker node for publishing detection results via MQTT protocol, enhanced JSON output with customizable structure, base64 encoded images, and flexible JSON transformation capabilities. Package includes libraries, headers, samples, and cvedix_data directory.")
 
 # Debian package metadata
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "CVEDIX Team <support@cvedix.com>")

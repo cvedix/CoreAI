@@ -1,7 +1,4 @@
 #include "cvedix_facenet_node.h"
-#ifdef CVEDIX_WITH_LICENSE
-#include "cvedix/utils/license/cvedix_license_manager.h"
-#endif
 #include <algorithm>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/dnn.hpp>
@@ -31,12 +28,6 @@ namespace cvedix_nodes {
         enable_alignment(enable_alignment),
         pretrained_dataset(pretrained_dataset),
         embedding_size(512) {  // FaceNet standard embedding size
-        
-        #ifdef CVEDIX_WITH_LICENSE
-        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-            throw std::runtime_error("FaceNet features require a valid license. Please contact support.");
-        }
-        #endif
         
         // Load ONNX model using OpenCV DNN
         try {
@@ -112,7 +103,7 @@ namespace cvedix_nodes {
     
     cvedix_facenet_node::~cvedix_facenet_node() {
         CVEDIX_INFO(cvedix_utils::string_format("[%s] Total faces processed: %d", 
-            node_name.c_str(), total_faces_processed));
+            node_name.c_str(), total_faces_processed.load(std::memory_order_relaxed)));
         deinitialized();
     }
 
@@ -187,8 +178,11 @@ namespace cvedix_nodes {
             mats_to_infer.push_back(face_img);
         }
         
-        total_faces_processed += mats_to_infer.size();
+        total_faces_processed.fetch_add(static_cast<int>(mats_to_infer.size()), std::memory_order_relaxed);
     }
+
+    // Constant for L2 normalization threshold
+    static constexpr float EMBEDDING_NORM_EPSILON = 1e-6f;
 
     void cvedix_facenet_node::preprocess(
         const std::vector<cv::Mat>& mats_to_infer, 
@@ -200,30 +194,21 @@ namespace cvedix_nodes {
 
         // FaceNet preprocessing: BGR->RGB, normalize (pixel / 255.0 - 0.5) / 0.5
         // This maps pixel values from [0, 255] to [-1, 1]
+        // Note: Images are already resized to input_width x input_height in prepare()
         
-        // Convert images to RGB first
-        std::vector<cv::Mat> rgb_images;
-        for (const auto& img : mats_to_infer) {
-            cv::Mat rgb;
-            cv::cvtColor(img, rgb, cv::COLOR_BGR2RGB);
-            
-            // Ensure correct size (should already be 160x160 from prepare)
-            if (rgb.rows != input_height || rgb.cols != input_width) {
-                cv::resize(rgb, rgb, cv::Size(input_width, input_height), 0, 0, cv::INTER_LINEAR);
-            }
-            rgb_images.push_back(rgb);
-        }
-
         // Use blobFromImages with FaceNet normalization
-        // Step 1: scale = 1/255, mean = 0 -> pixel / 255
-        // Step 2: subtract 0.5 in mean parameter
-        // Step 3: divide by 0.5 in std parameter
+        // - swapRB=true handles BGR->RGB conversion
+        // - scale = 1/255 -> pixel / 255
+        // - mean = 0.5 -> subtract 0.5
+        // - Then divide by 0.5 manually
         // Result: (pixel / 255 - 0.5) / 0.5 = pixel/127.5 - 1.0 (range [-1, 1])
-        cv::dnn::blobFromImages(rgb_images, blob_to_infer, 
+        cv::dnn::blobFromImages(mats_to_infer, blob_to_infer, 
                                1.0f / 255.0f,  // scale
-                               cv::Size(), 
+                               cv::Size(input_width, input_height),  // ensure correct size
                                cv::Scalar(0.5f, 0.5f, 0.5f),  // mean
-                               false, false, CV_32F);
+                               true,   // swapRB: BGR->RGB (handles color conversion)
+                               false,  // crop
+                               CV_32F);
         
         // Apply std normalization (divide by 0.5)
         blob_to_infer /= 0.5f;
@@ -271,6 +256,12 @@ namespace cvedix_nodes {
             return;
         }
 
+        // Pre-reshape 4D output outside the loop to avoid repeated reshape operations
+        cv::Mat reshaped_output;
+        if (output.dims == 4) {
+            reshaped_output = output.reshape(1, {batch_size, emb_dim});
+        }
+
         // Extract embeddings for each face
         for (int i = 0; i < batch_size; i++) {
             std::vector<float> embedding(emb_dim);
@@ -284,10 +275,8 @@ namespace cvedix_nodes {
                 // 1D: [embedding_dim] - only one sample
                 output_ptr = output.ptr<float>();
             } else if (output.dims == 4) {
-                // 4D: [batch, embedding_dim, 1, 1]
-                // Need to access data differently
-                cv::Mat flattened = output.reshape(1, {batch_size, emb_dim});
-                output_ptr = flattened.ptr<float>(i);
+                // 4D: [batch, embedding_dim, 1, 1] - use pre-reshaped matrix
+                output_ptr = reshaped_output.ptr<float>(i);
             }
             
             std::copy(output_ptr, output_ptr + emb_dim, embedding.begin());
@@ -299,7 +288,7 @@ namespace cvedix_nodes {
             }
             norm = std::sqrt(norm);
             
-            if (norm > 1e-6) {
+            if (norm > EMBEDDING_NORM_EPSILON) {
                 for (float& val : embedding) {
                     val /= norm;
                 }
@@ -473,12 +462,6 @@ namespace cvedix_nodes {
         cvedix_primary_infer_node(node_name, ""),  // Empty model path, we load manually
         min_face_size(min_face_size),
         thresholds(thresholds) {
-        
-        #ifdef CVEDIX_WITH_LICENSE
-        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-            throw std::runtime_error("MTCNN features require a valid license. Please contact support.");
-        }
-        #endif
         
         // Validate thresholds
         if (thresholds.size() != 3) {

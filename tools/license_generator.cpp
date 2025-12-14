@@ -48,7 +48,7 @@ std::string extract_public_key(const std::string& private_key_path) {
  *   license_generator <private_key.pem> <output.lic> <expiration_date> [features] [--bind-hardware] [--hardware-id ID]
  * 
  * Example:
- *   license_generator private_key.pem license.lic 2025-12-31 "tensorrt,rknn,insightface"
+ *   license_generator private_key.pem license.lic 2025-12-31 "tensorrt,rknn,face_recognition"
  *   license_generator private_key.pem license.lic 2025-12-31 --bind-hardware
  *   license_generator private_key.pem license.lic 2025-12-31 --hardware-id abc123xyz789...
  */
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "  output.lic       Output license file path" << std::endl;
         std::cerr << "  expiration_date Expiration date (YYYY-MM-DD format)" << std::endl;
         std::cerr << "  features         (Optional) Comma-separated feature list" << std::endl;
-        std::cerr << "                    Default: tensorrt,rknn,insightface" << std::endl;
+        std::cerr << "                    Default: tensorrt,rknn,face_recognition" << std::endl;
         std::cerr << "  --bind-hardware  (Optional) Bind license to current machine hardware" << std::endl;
         std::cerr << "  --hardware-id ID (Optional) Bind license to specific hardware ID" << std::endl;
         std::cerr << std::endl;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
     std::string private_key_path = argv[1];
     std::string output_file = argv[2];
     std::string expiration = argv[3];
-    std::string features = "tensorrt,rknn,insightface";
+    std::string features = "tensorrt,rknn,face_recognition";
     bool bind_hardware = false;
     std::string hardware_id = "";
 
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
             bind_hardware = true;
         } else if (arg == "--hardware-id" && i + 1 < argc) {
             hardware_id = argv[++i];
-        } else if (features == "tensorrt,rknn,insightface" && arg.find("--") != 0) {
+        } else if (features == "tensorrt,rknn,face_recognition" && arg.find("--") != 0) {
             // First non-option argument is features
             features = arg;
         }

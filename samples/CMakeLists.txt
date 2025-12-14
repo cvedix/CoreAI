@@ -31,6 +31,14 @@ target_link_libraries(insightface_sample ${PROJECT_NAME})
 add_executable(insightface_register_recognize_face_sample "insightface_register_recognize_face_sample.cpp")
 target_link_libraries(insightface_register_recognize_face_sample ${PROJECT_NAME})
 
+# Face registration sample with augmentation support
+add_executable(face_registration_sample "face_registration_sample.cpp")
+target_link_libraries(face_registration_sample ${PROJECT_NAME})
+
+# Face recognition sample (uses database from registration)
+add_executable(face_recognition_sample "face_recognition_sample.cpp")
+target_link_libraries(face_recognition_sample ${PROJECT_NAME})
+
 # InsightFace TensorRT samples (requires CVEDIX_WITH_TRT=ON)
 if(CVEDIX_WITH_TRT)
     add_executable(insightface_trt_sample "insightface_trt_sample.cpp")
@@ -101,6 +109,13 @@ if(CVEDIX_WITH_LICENSE)
     # Ensure licensecxx include directories are available
     if(TARGET lcxx::lcxx)
         target_link_libraries(license_check_sample PUBLIC lcxx::lcxx)
+    endif()
+    
+    # License info sample - demonstrates cvedix_license_node usage
+    add_executable(license_info_sample "license_info_sample.cpp")
+    target_link_libraries(license_info_sample PUBLIC ${PROJECT_NAME})
+    if(TARGET lcxx::lcxx)
+        target_link_libraries(license_info_sample PUBLIC lcxx::lcxx)
     endif()
 endif()
 

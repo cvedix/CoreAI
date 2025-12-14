@@ -16,7 +16,7 @@ PRIVATE_KEY="./private_key.pem"
 PUBLIC_KEY="./public_key.pem"
 OUTPUT_LICENSE="./license.lic"
 EXPIRATION_DATE=""
-FEATURES="tensorrt,rknn,insightface"
+FEATURES="tensorrt,rknn,face_recognition"
 
 # Function to print usage
 usage() {
@@ -28,7 +28,7 @@ usage() {
     echo "  -k, --private-key PATH    Path to private key file (default: ./private_key.pem)"
     echo "  -o, --output PATH         Output license file path (default: ./license.lic)"
     echo "  -e, --expiration DATE     Expiration date in YYYY-MM-DD format (required)"
-    echo "  -f, --features LIST       Comma-separated feature list (default: tensorrt,rknn,insightface)"
+    echo "  -f, --features LIST       Comma-separated feature list (default: tensorrt,rknn,face_recognition)"
     echo "  -g, --generate-keys       Generate new RSA key pair"
     echo "  -h, --help                Show this help message"
     echo ""
