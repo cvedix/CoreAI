@@ -2,6 +2,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <string>
 #include "shapes/cvedix_rect.h"
 
 
@@ -46,6 +47,10 @@ namespace cvedix_objects {
         // cache of track rects in the previous frames, filled by track node if it exists. 
         // we can draw / analyse depend on these track rects later.
         std::vector<cvedix_objects::cvedix_rect> tracks;
+        
+        // Face recognition results (filled by face registration/recognition node)
+        std::string identify = "";        // Recognized person name (empty or "Unknown" if not recognized)
+        float identify_score = 0.0f;      // Recognition confidence score
         
         // clone myself
         std::shared_ptr<cvedix_frame_face_target> clone();

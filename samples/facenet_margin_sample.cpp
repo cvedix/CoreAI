@@ -26,7 +26,7 @@
 #include "cvedix/nodes/osd/cvedix_face_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
-#include "face_database_with_margin.h"
+#include "cvedix/utils/face/face_database_with_margin.h"
 
 using namespace cvedix_nodes;
 using namespace cvedix_objects;

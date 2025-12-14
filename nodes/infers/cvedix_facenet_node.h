@@ -2,6 +2,7 @@
 
 #include "base/cvedix_secondary_infer_node.h"
 #include "base/cvedix_primary_infer_node.h"
+#include <atomic>
 
 namespace cvedix_nodes {
     /**
@@ -101,8 +102,8 @@ namespace cvedix_nodes {
         std::string pretrained_dataset;     // Dataset used for pretraining
         int embedding_size;                 // Embedding dimension (512 for FaceNet)
         
-        // Statistics
-        int total_faces_processed = 0;      // Total number of faces processed
+        // Statistics (thread-safe for concurrent inference)
+        std::atomic<int> total_faces_processed{0};
     };
     
     /**

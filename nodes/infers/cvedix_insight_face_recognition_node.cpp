@@ -1,7 +1,4 @@
 #include "cvedix_insight_face_recognition_node.h"
-#ifdef CVEDIX_WITH_LICENSE
-#include "cvedix/utils/license/cvedix_license_manager.h"
-#endif
 #include <algorithm>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/dnn.hpp>
@@ -25,12 +22,6 @@ namespace cvedix_nodes {
                                    false),  // swap_chn: keep NCHW
         enable_alignment(enable_alignment),
         embedding_size(512) {  // Default, will be detected from model
-        
-        #ifdef CVEDIX_WITH_LICENSE
-        if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-            throw std::runtime_error("InsightFace features require a valid license. Please contact support.");
-        }
-        #endif
         
         // Load ONNX model using OpenCV DNN
         try {
