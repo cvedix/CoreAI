@@ -12,7 +12,7 @@ set(PADDLE_LIB_PATH "/usr/local/lib")      # change this line if possible
 set(PADDLE_INC_PATH "/usr/local/include")  # change this line if possible
 link_directories(${PADDLE_LIB_PATH})     
 include_directories(${PADDLE_INC_PATH})
-if(DEFINED VP_BUILD_FROM) # tell videopipe where is paddle
+if(DEFINED VP_BUILD_FROM) # tell sdk where is paddle
     set(VP_PADDLE_LIB_PATH ${PADDLE_LIB_PATH} PARENT_SCOPE)     
     set(VP_PADDLE_INC_PATH ${PADDLE_INC_PATH} PARENT_SCOPE) 
 endif()

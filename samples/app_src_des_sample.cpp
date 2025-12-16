@@ -10,7 +10,7 @@
 * 1. receive images from host code， based on cvedix_app_src_node
 * 2. detect faces and draw results
 * 3. display on screen in host code again using cv::imshow(...) and print rectangles and keypoints of face, based on cvedix_app_des_node
-* we treat VideoPipe(pipeline) as a simple face detector tool in this sample.
+* we treat SDK(pipeline) as a simple face detector tool in this sample.
 */
 
 int main() {

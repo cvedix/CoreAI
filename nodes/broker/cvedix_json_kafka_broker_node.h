@@ -22,7 +22,7 @@ namespace cvedix_nodes {
     public:
         cvedix_json_kafka_broker_node(std::string node_name, 
                                     std::string kafka_servers = "127.0.0.1:9092",
-                                    std::string topic_name = "videopipe_topic",
+                                    std::string topic_name = "sdk_topic",
                                     cvedix_broke_for broke_for = cvedix_broke_for::NORMAL, 
                                     int broking_cache_warn_threshold = 50, 
                                     int broking_cache_ignore_threshold = 200);

@@ -1,13 +1,13 @@
 # rtsp_server #
 
-> NOTE: building of VideoPipe is not dependent on this project. 
+> NOTE: building of SDK is not dependent on this project. 
 
 a simple rtsp server based on `GStreamer` which can accept udp stream and distribute them using `rtsp` protocal something like `rtsp://127.0.0.1:8554/stream1`/`rtsp://127.0.0.1:8554/stream2`.
 
 
 ## how to build ##
 
-first install `GStreamer` refer to `VideoPipe`, and build using CMake:
+first install `GStreamer` refer to `SDK`, and build using CMake:
 
 ```
 mkdir build && cd build
@@ -51,6 +51,6 @@ rtsp://127.0.0.1:8555/rtsp1
 rtsp://127.0.0.1:8555/rtsp2
 ```
 
-## how rtsp_server serve VideoPipe? ##
+## how rtsp_server serve SDK? ##
 
-`vp_udp_des_node` in VideoPipe will push udp streams to rtsp_server, which distribute them by rtsp protocal.
+`vp_udp_des_node` in SDK will push udp streams to rtsp_server, which distribute them by rtsp protocal.

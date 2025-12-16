@@ -27,12 +27,12 @@ void my_mqtt_publisher(const std::string& json_message) {
     // Sử dụng MQTT client library của bạn
     // Ví dụ với Paho MQTT:
     static mqtt::async_client client("tcp://localhost:1883", "client_id");
-    auto msg = mqtt::make_message("videopipe/data", json_message);
+    auto msg = mqtt::make_message("sdk/data", json_message);
     msg->set_qos(1);
     client.publish(msg);
     
     // Hoặc với thư viện khác:
-    // mosquitto_publish(mosq, NULL, "videopipe/data", json_message.length(), json_message.c_str(), 1, false);
+    // mosquitto_publish(mosq, NULL, "sdk/data", json_message.length(), json_message.c_str(), 1, false);
 }
 ```
 

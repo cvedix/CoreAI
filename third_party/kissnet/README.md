@@ -2,5 +2,5 @@ a light weight header-only socket library from https://github.com/Ybalrid/kissne
 
 **NOTE**
 
-just used for logging & message broking via udp protocal in VideoPipe.
+just used for logging & message broking via udp protocal in SDK.
 

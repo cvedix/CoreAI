@@ -12,7 +12,7 @@ set(TRT_LIB_PATH "/usr/local/tensorRT/lib")      # change this line if possible
 set(TRT_INC_PATH "/usr/local/tensorRT/include")  # change this line if possible
 link_directories(${TRT_LIB_PATH})     
 include_directories(${TRT_INC_PATH})
-if(DEFINED VP_BUILD_FROM) # tell videopipe where is trt
+if(DEFINED VP_BUILD_FROM) # tell sdk where is trt
     set(VP_TRT_LIB_PATH ${TRT_LIB_PATH} PARENT_SCOPE)     
     set(VP_TRT_INC_PATH ${TRT_INC_PATH} PARENT_SCOPE) 
 endif()

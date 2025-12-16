@@ -24,7 +24,7 @@ namespace cvedix_utils {
         DEBUG = 4
     };
 
-    // a lightweight logger for VideoPipe, architecture: N producer * 1 consumer.
+    // a lightweight logger for SDK, architecture: N producer * 1 consumer.
     // 1. support 3 types of devices (console, file, kafka)
     // 2. multithread safe
     // 3. use Macros directly

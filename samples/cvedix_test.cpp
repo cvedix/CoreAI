@@ -11,7 +11,7 @@
 
 /*
 * ## cvedix_test ##
-* test anything for videopipe in this cpp.
+* test anything for sdk in this cpp.
 */
 
 int main() {

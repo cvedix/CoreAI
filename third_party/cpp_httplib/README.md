@@ -2,7 +2,7 @@ a header-only http library from github: https://github.com/yhirose/cpp-httplib
 
 **NOTE**
 
-support online LLM REST API calling based on OpenAI protocols or local deployment such as Ollama/vLLM in VideoPipe.
+support online LLM REST API calling based on OpenAI protocols or local deployment such as Ollama/vLLM in SDK.
 
 ```
 compile test:
