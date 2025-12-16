@@ -76,7 +76,7 @@ Please prepare kafka server AND install `librdkafka` client sdk if you want to e
 
 
 ## about Hardware Acceleration ##
-Since decode & encode in VideoPipe depend on gstreamer (encapsulated inside opencv), if you want to use your GPUs/NPUs to accelerate decoding and encoding performace, you need get/install HARD decode or HARD encode `gstreamer plugins` correctly first and modify gst launch string (take `cvedix_file_des_node` for example):
+Since decode & encode in SDK depend on gstreamer (encapsulated inside opencv), if you want to use your GPUs/NPUs to accelerate decoding and encoding performace, you need get/install HARD decode or HARD encode `gstreamer plugins` correctly first and modify gst launch string (take `cvedix_file_des_node` for example):
 ```cpp
 appsrc ! videoconvert ! x264enc bitrate=%d ! mp4mux ! filesink location=%s
 ```

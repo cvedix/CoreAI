@@ -3,9 +3,9 @@
 
 int main() {
     /**
-     * GET html from website: http://www.videopipe.cool
+     * GET html from website: http://www.sdk.cool
     */
-    httplib::Client get_cli("http://www.videopipe1.cool");
+    httplib::Client get_cli("http://www.sdk1.cool");
     if (auto res = get_cli.Get("/index.php/bloglist/")) {
         if (res->status == httplib::StatusCode::OK_200) {
             std::cout << res->body << std::endl;

@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* define EXTERNAL archive functions for objects which need to be serialized by cereal library in VideoPipe.
+* define EXTERNAL archive functions for objects which need to be serialized by cereal library in SDK.
 * refer to `https://uscilab.github.io/cereal/serialization_functions.html` for more details.
 */
 
@@ -11,7 +11,7 @@
 #include "cvedix/objects/cvedix_frame_text_target.h"
 #include "cvedix/objects/cvedix_frame_pose_target.h"
 #include "cvedix/objects/cvedix_sub_target.h"
-/* extend for more types of objects in VideoPipe. */
+/* extend for more types of objects in SDK. */
 
 // headers from cereal
 #include "cvedix/third_party/cereal/cereal.hpp"

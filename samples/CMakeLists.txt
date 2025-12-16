@@ -236,6 +236,24 @@ if(CVEDIX_WITH_MQTT)
     install(TARGETS mqtt_json_receiver_sample
             DESTINATION bin
             OPTIONAL)
+
+    add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
+    target_include_directories(ba_crossline_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
+    
+    # Link with mosquitto
+    if(MOSQUITTO_FOUND)
+        target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIBRARIES})
+    else()
+        find_library(MOSQUITTO_LIB NAMES mosquitto)
+        if(MOSQUITTO_LIB)
+            target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIB})
+        endif()
+    endif()
+    
+    install(TARGETS ba_crossline_mqtt_sample
+            DESTINATION bin
+            OPTIONAL)
 endif()
 
 # samples depend on LLM

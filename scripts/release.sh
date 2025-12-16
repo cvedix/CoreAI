@@ -2,7 +2,7 @@
 
 ####################################
 # run release.sh 
-# to collect libraries & header files used out of VideoPipe workspace.
+# to collect libraries & header files used out of SDK workspace.
 ####################################
 SO_SRC_DIRS=(
     "../build/libs"

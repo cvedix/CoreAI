@@ -26,11 +26,11 @@ Specifically in terms of video, the process of structured mainly involves these 
 </p>
 <div align="center">figure 1. core parts in video structured application. </div>
 
-each core part in `video structured` corresponding to one type of plugin in `VideoPipe`, namely **`Node`** in code.
+each core part in `video structured` corresponding to one type of plugin in `SDK`, namely **`Node`** in code.
 
 
-## Node in VideoPipe ##
-one `Node` in VideoPipe responsible for single task such as decoding or inference. we put many nodes together to construct a pipe, and let video data flow through the whole pipeline. every `Node` has 2 queues inside, one is for caching data from upstream nodes and another one is for caching data waiting for being pushed to downstream nodes. we can write logic code between the 2 queues, they are typical `producer-consumer` pattern.
+## Node in SDK ##
+one `Node` in SDK responsible for single task such as decoding or inference. we put many nodes together to construct a pipe, and let video data flow through the whole pipeline. every `Node` has 2 queues inside, one is for caching data from upstream nodes and another one is for caching data waiting for being pushed to downstream nodes. we can write logic code between the 2 queues, they are typical `producer-consumer` pattern.
 
 <p align="center">
 <img src="./p24.png">
@@ -44,7 +44,7 @@ by default, producer and consumer work with single thread inside node, we need w
 </p>
 <div align="center">figure 3. async task inside Node. </div>
 
-there are 3 types of `Node` in VideoPipe, namely:
+there are 3 types of `Node` in  SDK, namely:
 - `SRC Node`. source node where data was created (only 1 queue inside used for caching data being pushed to downstream nodes).
 - `MID Node`. middle node where data would be handled.
 - `DES Node`. destination node where data disappears (only 1 queue inside used for caching data from upstream nodes).
@@ -53,32 +53,32 @@ each `Node` `itself` has the ability to merge multi upstream nodes, and split in
 <p align="center">
 <img src="./p28.png">
 </p>
-<div align="center">figure 4. merge & split in VideoPipe. </div>
+<div align="center">figure 4. merge & split in SDK. </div>
 
-## Data flow in VideoPipe ##
-video (frame here) is a type of heavyweight data, so deep copying frequently would decrease the performance of pipeline. actually data transfered between 2 nodes in VideoPipe use `smart pointers` by default, once data was created by source nodes, the data content would NOT be copyed later at most time in the whole pipeline (but we can specify deep-copy if we need, using `cvedix_split_node` for instance).
+## Data flow in SDK ##
+video (frame here) is a type of heavyweight data, so deep copying frequently would decrease the performance of pipeline. actually data transfered between 2 nodes in SDK use `smart pointers` by default, once data was created by source nodes, the data content would NOT be copyed later at most time in the whole pipeline (but we can specify deep-copy if we need, using `cvedix_split_node` for instance).
 
 <p align="center">
 <img src="./p26.png">
 </p>
-<div align="center">figure 5. how data flows in VideoPipe. </div>
+<div align="center">figure 5. how data flows in SDK. </div>
 
-video consist of continuous frames, VideoPipe handle these frames One by One, so the `frame index` in frame meta would increase continuously as well.
+video consist of continuous frames, SDK handle these frames One by One, so the `frame index` in frame meta would increase continuously as well.
 
 
-## Hooks in VideoPipe ##
-hook is a mechanism which let host notify listeners when something happens, VideoPipe support hooks as well. pipeline invokes callback functions (via `std::function` object) to communicate with external code, such as export `fps`, `latency` and other status of pipeline itself. we should NOT block the callback functions when writing custom code inside it.
+## Hooks in SDK ##
+hook is a mechanism which let host notify listeners when something happens, SDK support hooks as well. pipeline invokes callback functions (via `std::function` object) to communicate with external code, such as export `fps`, `latency` and other status of pipeline itself. we should NOT block the callback functions when writing custom code inside it.
 
 <p align="center">
 <img src="./p27.png">
 </p>
-<div align="center">figure 6. hooks in VideoPipe. </div>
+<div align="center">figure 6. hooks in SDK. </div>
 
 hooks help to debug with our application and quickly find the bottleneck in whole pipe, visualization tool `cvedix_analysis_board` works depend on hooks.
 
 
-## Implement new Node type in VideoPipe ##
-`cvedix_node` is the base class for all nodes in VideoPipe. we can define a new node class derived from `cvedix_node` and override some virtual functions like `handle_frame_meta` and `handle_control_meta`.
+## Implement new Node type in SDK ##
+`cvedix_node` is the base class for all nodes in SDK. we can define a new node class derived from `cvedix_node` and override some virtual functions like `handle_frame_meta` and `handle_control_meta`.
 - `handle_frame_meta`. handle frame data flowing current node.
 - `handle_control_meta`. handle control data flowing current node.
 
@@ -87,15 +87,15 @@ hooks help to debug with our application and quickly find the bottleneck in whol
 </p>
 <div align="center">figure 7. override virtual functions in custom Node. </div>
 
-frame data means `cvedix_frame_meta` in VideoPipe, contains data related to frame such as `frame index`, `data buffer`, `original width`. control data means `cvedix_control_meta` in VideoPipe, contains data related command such as `record video`, `record image`.
+frame data means `cvedix_frame_meta` in SDK, contains data related to frame such as `frame index`, `data buffer`, `original width`. control data means `cvedix_control_meta` in SDK, contains data related command such as `record video`, `record image`.
 
 note, NOT all data flowing current node should be handled using new logic, they just pass through if no operations work on them. we just need handle what we are interested in. 
 
-## Hardware Acceleration in VideoPipe ##
-some operations in `video structured` applications can benefit from hardware such as GPUs/NPUs. for example, video encoding on GPUs have higher speed/performace than CPUs. VideoPipe support hardware acceleration for these parts:
+## Hardware Acceleration in SDK ##
+some operations in `video structured` applications can benefit from hardware such as GPUs/NPUs. for example, video encoding on GPUs have higher speed/performace than CPUs. SDK support hardware acceleration for these parts:
 
-- decode/encode. based on HARD decode/encode gstreamer plugins, [look more](https://github.com/sherlockchou86/video_pipe_c/blob/master/doc/env.md#about-hardware-acceleration).
+- decode/encode. based on HARD decode/encode gstreamer plugins
 - inference. no doubt about it.
 - osd. need implement based on hardware acceleration SDKs by yourself.
 
-it is important to note that, although VideoPipe support hardware acceleration for above logic, `they could NOT share memory between each others`. it means that data will be copyed from GPU to CPU or CPU to GPU over and over again, which is the biggest disadvantage compared to other similar SDKs such as DeepStream.
+it is important to note that, although SDK support hardware acceleration for above logic, `they could NOT share memory between each others`. it means that data will be copyed from GPU to CPU or CPU to GPU over and over again, which is the biggest disadvantage compared to other similar SDKs such as DeepStream.

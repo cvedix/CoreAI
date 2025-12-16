@@ -5,7 +5,7 @@
 #include <mutex>
 
 namespace cvedix_utils {
-    // semaphore for queue/deque data structures in VideoPipe, used for producer-consumer pattern.
+    // semaphore for queue/deque data structures in SDK, used for producer-consumer pattern.
     // it blocks the consumer thread until data has come.
     class cvedix_semaphore
     {

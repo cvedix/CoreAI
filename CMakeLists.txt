@@ -80,7 +80,7 @@ else()
     set(GST_DEPEND_LIBS "")
 endif()
 
-# collect dependent libs for videopipe
+# collect dependent libs for SDK
 list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} stdc++fs)
 if(CVEDIX_WITH_GSTREAMER)
     list(APPEND CVEDIX_DEPEND_LIBS ${GST_DEPEND_LIBS})
@@ -677,7 +677,7 @@ message(STATUS "    build_time: ${BUILD_TIME}")
 message(STATUS "    commit_hash: ${FINAL_GIT_VERSION}")
 message("-------------collect version info--------------")
 
-# collect source files for videopipe
+# collect source files for SDK
 file(GLOB_RECURSE NODES "nodes/*.cpp")
 file(GLOB_RECURSE OBJECTS "objects/*.cpp")
 file(GLOB_RECURSE UTILS "utils/*.cpp")
@@ -745,7 +745,7 @@ endif()
 #...#
 list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 
-# build for videopipe
+# build for SDK
 add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${CVEDIX_DEPEND_LIBS})
 target_link_libraries(${PROJECT_NAME} PRIVATE tinyexpr)

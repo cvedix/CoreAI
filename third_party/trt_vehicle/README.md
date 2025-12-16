@@ -35,7 +35,7 @@ we can build trt_vehicle separately.
 2. `cmake ..`
 3. `make -j8`
 
-all lib files saved to `build/libs`, all samples saved to `build/samples`. please refer to videopipe about how to run samples for trt_vehicle.
+all lib files saved to `build/libs`, all samples saved to `build/samples`. please refer to sdk about how to run samples for trt_vehicle.
 
 ## Sample screenshot ##
 ### vehicle detect
