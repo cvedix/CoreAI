@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['二、ưu_20điểm_20và_20đặc_20điểm_0',['二、Ưu điểm và đặc điểm',['../index.html#autotoc_md10',1,'']]]
+  ['七、triển_20khai_20thực_20tế_20đóng_20gói_0',['七、Triển khai Thực tế &amp; Đóng gói',['../index.html#autotoc_md20',1,'']]]
 ];

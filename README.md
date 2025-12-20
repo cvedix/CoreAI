@@ -1,16 +1,16 @@
 ## 一、Giới thiệu
 
-`InstancePipeline` là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, `InstancePipeline` có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.
+`AI Core Runtime` là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, `AI Core Runtime` có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.
 
 ## 二、Ưu điểm và đặc điểm
 
-`InstancePipeline` tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.
+`AI Core Runtime` tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.
 
-`InstancePipeline` sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu `Node` trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.
+`AI Core Runtime` sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu `Node` trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.
 
 ## 四、Tính năng
 
-InstancePipeline là một framework giúp tích hợp mô hình thuật toán thị giác máy tính trở nên đơn giản hơn, lưu ý rằng nó không phải là framework học sâu như TensorFlow, TensorRT. Các tính năng chính của InstancePipeline như sau:
+AI Core Runtime là một framework giúp tích hợp mô hình thuật toán thị giác máy tính trở nên đơn giản hơn, lưu ý rằng nó không phải là framework học sâu như TensorFlow, TensorRT. Các tính năng chính của AI Core Runtime như sau:
 
 - Đọc luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đọc hình ảnh.
 - Giải mã video: Hỗ trợ giải mã video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).
@@ -55,134 +55,67 @@ Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mìn
 
 [Cách cài đặt Paddle_Inference](./third_party/paddle_ocr/README.md)
 
-### 5.2 Biên dịch và gỡ lỗi
+### 5.2 Cài đặt & Tích hợp SDK
 
-1. Chạy `git clone <>`
-2. Chạy `cd InstancePipeline`
-3. Chạy `mkdir build && cd build`
-4. Chạy `cmake ..`
-5. Chạy `make -j8`
+Thay vì biên dịch toàn bộ mã nguồn framework, chúng tôi khuyến nghị sử dụng SDK đã đóng gói để phát triển ứng dụng.
 
-Sau khi biên dịch xong, tất cả các tệp thư viện được lưu trong `build/libs`, tất cả các tệp chạy Sample được lưu trong `build/bin`. Khi thực hiện bước 4, bạn có thể thêm một số tùy chọn biên dịch:
-- -DCVEDIX_WITH_CUDA=ON （Biên dịch các chức năng liên quan đến CUDA, mặc định là OFF）
-- -DCVEDIX_WITH_TRT=ON （Biên dịch các chức năng và Samples liên quan đến TensorRT, mặc định là OFF）
-- -DCVEDIX_WITH_PADDLE=ON （Biên dịch các chức năng và Samples liên quan đến PaddlePaddle, mặc định là OFF）
-- -DCVEDIX_WITH_KAFKA=ON （Biên dịch các chức năng và Samples liên quan đến Kafka, mặc định là OFF）
-- -DCVEDIX_WITH_LLM=ON （Biên dịch các chức năng và Samples liên quan đến LLM, mặc định là OFF）
-- -DCVEDIX_BUILD_COMPLEX_SAMPLES=ON （Biên dịch các Samples nâng cao, mặc định là OFF）
+#### 1. Cài đặt SDK
 
-Ví dụ, nếu cần bật các mô-đun liên quan đến CUDA và TensorRT, bạn có thể chạy `cmake -DCVEDIX_WITH_CUDA=ON -DCVEDIX_WITH_TRT=ON ..`. Nếu chỉ chạy `cmake ..`, thì tất cả mã sẽ chạy trên CPU.
-
-```
-# Bật tất cả
-cmake -DCVEDIX_WITH_CUDA=ON \
--DCVEDIX_WITH_TRT=ON \
--DCVEDIX_WITH_PADDLE=ON \
--DCVEDIX_WITH_KAFKA=ON \
--DCVEDIX_BUILD_COMPLEX_SAMPLES=ON ..
-
-# Tắt tất cả (mặc định)
-cmake ..
+Nếu bạn đã có gói `.deb`:
+```bash
+sudo dpkg -i libcvedix-dev_*.deb
 ```
 
-Nếu muốn chạy các Samples đã biên dịch, trước tiên hãy tải xuống các tệp mô hình và dữ liệu kiểm tra:
+Hoặc build và cài đặt SDK từ source (nếu chưa có gói pre-built):
+```bash
+./build_sdk.sh --prefix=/usr/local
+```
 
-1. [Tải xuống tệp kiểm tra và mô hình từ Google Drive](https://drive.google.com/drive/folders/1v9dVcR6xttUTB-WPsH3mZ_ZZMzD4wG-v?usp=sharing)
-2. [Tải xuống tệp kiểm tra và mô hình từ Baidu Netdisk](https://pan.baidu.com/s/1jr2nBnEDmuNaM5DiMjbC0g?pwd=nf53)
+#### 2. Tích hợp vào dự án CMake
 
-Đặt thư mục đã tải xuống (tên là cvedix_data) ở bất kỳ vị trí nào (ví dụ: đặt trong `/root/abc`), sau đó chạy Sample trong `cùng thư mục`, ví dụ: thực thi lệnh trong `/root/abc`: `[path to InstancePipeline]/build/bin/1-1-1_sample` để chạy 1-1-1_sample.
+Trong file `CMakeLists.txt` của dự án bạn:
 
-**Lưu ý**：`./third_party/` bên dưới đều là các dự án độc lập, một số là thư viện header-only, được InstancePipeline trực tiếp tham chiếu; một số chứa tệp cpp, có thể biên dịch hoặc chạy độc lập, InstancePipeline phụ thuộc vào các thư viện này, trong quá trình biên dịch InstancePipeline sẽ tự động biên dịch các thư viện này. Các thư viện này cũng chứa Samples của riêng chúng, cách sử dụng cụ thể có thể tham khảo tệp README trong thư mục con tương ứng.
+```cmake
+# Tìm gói cvedix
+find_package(cvedix REQUIRED)
 
-### 5.3 Cách sử dụng
+# Link thư viện (Tự động bao gồm cả đường dẫn include)
+target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)
 
-1. Trước tiên biên dịch InstancePipeline thành thư viện, sau đó tham chiếu nó.
-2. Hoặc trực tiếp tham chiếu mã nguồn, sau đó biên dịch toàn bộ Application.
+# Lưu ý: Không cần thêm include_directories() vì target đã chứa sẵn thông tin này.
+```
 
-Dưới đây là một Sample về cách xây dựng Pipeline rồi chạy (vui lòng sửa đổi đường dẫn tệp liên quan trong mã trước):
+#### 3. Ví dụ đơn giản (Minimal Example)
 
-```c++
-#include "../nodes/src/cvedix_file_src_node.h"
-#include "../nodes/infers/cvedix_yunet_face_detector_node.h"
-#include "../nodes/infers/cvedix_sface_feature_encoder_node.h"
-#include "../nodes/osd/cvedix_face_osd_node_v2.h"
-#include "../nodes/des/cvedix_screen_des_node.h"
-#include "../nodes/des/cvedix_rtmp_des_node.h"
-#include "../utils/analysis_board/cvedix_analysis_board.h"
-
-/*
-* Tên：1-1-N sample
-* Mã đầy đủ nằm tại：samples/1-1-N_sample.cpp
-* Mô tả chức năng：1 đầu vào video, 1 tác vụ phân tích video (phát hiện và nhận dạng khuôn mặt), 2 đầu ra (đầu ra màn hình/đầu ra đẩy luồng RTMP)
-*/
+```cpp
+#include <cvedix/nodes/src/cvedix_file_src_node.h>
+#include <cvedix/nodes/infers/cvedix_yunet_face_detector_node.h>
+#include <cvedix/utils/analysis_board/cvedix_analysis_board.h>
 
 int main() {
-    CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
-    CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
     CVEDIX_LOGGER_INIT();
 
-    // 1、Tạo nút
-    // Node lấy video
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./test_video/10.mp4", 0.6);
-    // 2、Node suy luận mô hình
-    // Suy luận cấp một：Phát hiện khuôn mặt
-    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("yunet_face_detector_0", "./models/face/face_detection_yunet_2022mar.onnx");
-    // Suy luận cấp hai：Nhận dạng khuôn mặt
-    auto sface_face_encoder_0 = std::make_shared<cvedix_nodes::cvedix_sface_feature_encoder_node>("sface_face_encoder_0", "./models/face/face_recognition_sface_2021dec.onnx");
-    // 3、Node OSD
-    // Vẽ kết quả xử lý lên khung hình
-    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd_0");
-    // Hiển thị màn hình
-    auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
-    // Hiển thị đẩy luồng
-    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://192.168.77.60/live/10000");
+    // 1. Tạo Source Node
+    auto source = std::make_shared<cvedix_nodes::cvedix_file_src_node>("src", 0, "video.mp4", 1.0);
+    
+    // 2. Tạo Inference Node
+    auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("detector", "face_detection_yunet.onnx");
 
-    // Xây dựng đường ống, liên kết kết quả xử lý của các nút
-    yunet_face_detector_0->attach_to({file_src_0});
-    sface_face_encoder_0->attach_to({yunet_face_detector_0});
-    osd_0->attach_to({sface_face_encoder_0});
+    // 3. Link Pipeline
+    detector->attach_to({source});
 
-    // Đường ống tự động tách, xuất kết quả qua màn hình/đẩy luồng
-    screen_des_0->attach_to({osd_0});
-    rtmp_des_0->attach_to({osd_0});
+    // 4. Chạy
+    source->start();
 
-    // Khởi động đường ống
-    file_src_0->start();
-
-    // Trực quan hóa đường ống
-    cvedix_utils::cvedix_analysis_board board({file_src_0});
+    // 5. Debug Visualizer
+    cvedix_utils::cvedix_analysis_board board({source});
     board.display();
+    
+    return 0;
 }
 ```
-#### Node phát hiện khuôn mặt Yunet INT8 mới
 
-Đối với các trường hợp muốn chạy trực tiếp YuNet INT8 trên CPU (OpenCV FaceDetectorYN), bạn có thể sử dụng node mới `cvedix_face_yunet_int8_face_detection_mode`. Node này mặc định tải mô hình:
-
-```
-./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx
-```
-
-Ví dụ sử dụng:
-
-```c++
-auto yunet_int8 = std::make_shared<cvedix_nodes::cvedix_face_yunet_int8_face_detection_mode>(
-    "yunet_face_int8",
-    "./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx",
-    0.9f,   // score threshold
-    0.3f,   // nms threshold
-    5000,   // top_k
-    320,
-    320);
-
-yunet_int8->attach_to({file_src_0});
-```
-
-Node này sử dụng `cv::FaceDetectorYN` nên không yêu cầu RKNN và có thể chạy tốt trên CPU thông thường.
-
-Sau khi chạy mã trên, sẽ xuất hiện 3 màn hình:
-1. Biểu đồ trạng thái chạy của đường ống, trạng thái tự động làm mới
-2. Kết quả hiển thị màn hình (GUI)
-3. Kết quả hiển thị trình phát (RTMP)
+Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#54-các-mẫu-nguyên-mẫu).
 
 ### 5.4 Các mẫu nguyên mẫu
 
@@ -190,7 +123,7 @@ Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem
 
 ## 六、Tài liệu thêm
 
-- [How InstancePipeline Works](./doc/about.md)
+- [How AI Core Runtime Works](./doc/about.md)
 - [Development Environment For Reference](./doc/env.md)
 
 ## 七、Triển khai Thực tế & Đóng gói

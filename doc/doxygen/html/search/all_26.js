@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['六、tài_20liệu_20thêm_0',['六、Tài liệu thêm',['../index.html#autotoc_md18',1,'']]]
+  ['五、bắt_20đầu_20nhanh_0',['五、Bắt đầu nhanh',['../index.html#autotoc_md12',1,'']]]
 ];

@@ -8,7 +8,6 @@ var searchData=
   ['kalmantracker_2eh_5',['KalmanTracker.h',['../KalmanTracker_8h.html',1,'']]],
   ['key_5fpoints_6',['key_points',['../structcvedix__objects_1_1enhanced__face__target__info.html#a2b3a5c039b47780dc8cdbbf0aaf05ef4',1,'cvedix_objects::enhanced_face_target_info']]],
   ['kf_5fcount_7',['kf_count',['../classKalmanTracker.html#afcabece10c56e883dfc6565d99f22253',1,'KalmanTracker']]],
-  ['khai_8',['3. Tùy chọn triển khai',['../index.html#autotoc_md22',1,'']]],
-  ['khai_20thực_20tế_20đóng_20gói_9',['七、Triển khai Thực tế &amp; Đóng gói',['../index.html#autotoc_md19',1,'']]],
-  ['khuôn_20mặt_20yunet_20int8_20mới_10',['Node phát hiện khuôn mặt Yunet INT8 mới',['../index.html#autotoc_md16',1,'']]]
+  ['khai_8',['3. Tùy chọn triển khai',['../index.html#autotoc_md23',1,'']]],
+  ['khai_20thực_20tế_20đóng_20gói_9',['七、Triển khai Thực tế &amp; Đóng gói',['../index.html#autotoc_md20',1,'']]]
 ];
