@@ -18,7 +18,6 @@
 #include <sstream>
 #include <iomanip>
 #include <chrono>
-#endif
 
 /*
 * ## ba crossline mqtt sample ##

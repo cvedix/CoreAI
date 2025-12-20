@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['face_5fbox_1496',['face_box',['../structcvedix__nodes_1_1cvedix__face__swap__node_1_1face__box.html',1,'cvedix_nodes::cvedix_face_swap_node']]],
-  ['fields_1497',['fields',['../structdate_1_1fields.html',1,'date']]]
+  ['enhanced_5fface_5ftarget_5finfo_0',['enhanced_face_target_info',['../structcvedix__objects_1_1enhanced__face__target__info.html',1,'cvedix_objects']]],
+  ['enhanced_5ftarget_5finfo_1',['enhanced_target_info',['../structcvedix__objects_1_1enhanced__target__info.html',1,'cvedix_objects']]],
+  ['event_2',['event',['../structevent__format_1_1event.html',1,'event_format']]],
+  ['event_5fmessage_3',['event_message',['../structevent__format_1_1event__message.html',1,'event_format']]]
 ];

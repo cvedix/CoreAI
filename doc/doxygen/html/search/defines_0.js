@@ -1,22 +1,4 @@
 var searchData=
 [
-  ['constcd11_2882',['CONSTCD11',['../date_8h.html#a98c025909efef28d356780da89fc44b6',1,'date.h']]],
-  ['constcd14_2883',['CONSTCD14',['../date_8h.html#a3893ed763f820a91f169a2e9777aa325',1,'date.h']]],
-  ['constdata_2884',['CONSTDATA',['../date_8h.html#a1262e7cef5d1d56fb1f1ed2a43bfe4d1',1,'date.h']]],
-  ['cvedix_5fdebug_2885',['CVEDIX_DEBUG',['../cvedix__logger_8h.html#aed91e87a0f3206def7d446fa0703012d',1,'cvedix_logger.h']]],
-  ['cvedix_5ferror_2886',['CVEDIX_ERROR',['../cvedix__logger_8h.html#aaf7912654b4e34d3ffb86f6833e929f4',1,'cvedix_logger.h']]],
-  ['cvedix_5finfo_2887',['CVEDIX_INFO',['../cvedix__logger_8h.html#af30986e800fe4947373e91bc63d0cf7f',1,'cvedix_logger.h']]],
-  ['cvedix_5flogger_5finit_2888',['CVEDIX_LOGGER_INIT',['../cvedix__logger_8h.html#a33828c276c818965a77b15a0a84a67ae',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fcache_5fwarn_5fthres_2889',['CVEDIX_SET_LOG_CACHE_WARN_THRES',['../cvedix__logger_8h.html#ac5df432002bfc6211eecbe1feeae5e13',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fdir_2890',['CVEDIX_SET_LOG_DIR',['../cvedix__logger_8h.html#a0e0c4a05e82dba1b1134763a554dd047',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5finclude_5fcode_5flocation_2891',['CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION',['../cvedix__logger_8h.html#afb776c3fe8bdb1e3b5e947519092bbc0',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5finclude_5flevel_2892',['CVEDIX_SET_LOG_INCLUDE_LEVEL',['../cvedix__logger_8h.html#ad4afef2702ad1b23512f190ab0d237ec',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5finclude_5fthread_5fid_2893',['CVEDIX_SET_LOG_INCLUDE_THREAD_ID',['../cvedix__logger_8h.html#a17920846089ac57453206c671993cb7b',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fkafka_5fservers_5fand_5ftopic_2894',['CVEDIX_SET_LOG_KAFKA_SERVERS_AND_TOPIC',['../cvedix__logger_8h.html#a49a261dacc7ecade450deb098a732469',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fkeywords_5ffor_5fdebug_2895',['CVEDIX_SET_LOG_KEYWORDS_FOR_DEBUG',['../cvedix__logger_8h.html#a9b01a57700fa32105a5ffb90f0d52318',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5flevel_2896',['CVEDIX_SET_LOG_LEVEL',['../cvedix__logger_8h.html#a97f00595c86c5fc46921ea9603462fd2',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fto_5fconsole_2897',['CVEDIX_SET_LOG_TO_CONSOLE',['../cvedix__logger_8h.html#aeebd5f804c40490598ef6889f05ba729',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fto_5ffile_2898',['CVEDIX_SET_LOG_TO_FILE',['../cvedix__logger_8h.html#a8cfed08b83fd9f83777f984d265fb2e9',1,'cvedix_logger.h']]],
-  ['cvedix_5fset_5flog_5fto_5fkafka_2899',['CVEDIX_SET_LOG_TO_KAFKA',['../cvedix__logger_8h.html#a34b2c8b2657746b78140c79d39cad2b0',1,'cvedix_logger.h']]],
-  ['cvedix_5fwarn_2900',['CVEDIX_WARN',['../cvedix__logger_8h.html#a58fcb6399e2682a0de297ed48c127238',1,'cvedix_logger.h']]]
+  ['box_5fthresh_0',['BOX_THRESH',['../rknn__yolov11_8h.html#a28a578f1ae5ebec62f6c46b7ca90a468',1,'rknn_yolov11.h']]]
 ];
