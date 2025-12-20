@@ -4,6 +4,5 @@ var searchData=
   ['y1_1',['y1',['../structcvedix__objects_1_1enhanced__target__info_1_1bbox__info.html#a7838cfb64ffa3dfa3c62c5f95b01acd3',1,'cvedix_objects::enhanced_target_info::bbox_info::y1'],['../structcvedix__objects_1_1enhanced__face__target__info_1_1bbox__info.html#a7c2a9c43c71a6bd8d9db8f3b48714f39',1,'cvedix_objects::enhanced_face_target_info::bbox_info::y1']]],
   ['y2_2',['y2',['../structcvedix__objects_1_1enhanced__target__info_1_1bbox__info.html#ab25d78b18e7fe2539fc3f3ba08336993',1,'cvedix_objects::enhanced_target_info::bbox_info::y2'],['../structcvedix__objects_1_1enhanced__face__target__info_1_1bbox__info.html#a692b7f0bc73df43cb9aa43b1c96fde6b',1,'cvedix_objects::enhanced_face_target_info::bbox_info::y2']]],
   ['y_5fpad_3',['y_pad',['../structrknn__yolov11_1_1letterbox__t.html#a835a4437a99a8fa44f5060509f7fca86',1,'rknn_yolov11::letterbox_t']]],
-  ['yolov11_5fonnx_5fdetector_5fsample_2ecpp_4',['yolov11_onnx_detector_sample.cpp',['../yolov11__onnx__detector__sample_8cpp.html',1,'']]],
-  ['yunet_20int8_20mới_5',['Node phát hiện khuôn mặt Yunet INT8 mới',['../index.html#autotoc_md16',1,'']]]
+  ['yolov11_5fonnx_5fdetector_5fsample_2ecpp_4',['yolov11_onnx_detector_sample.cpp',['../yolov11__onnx__detector__sample_8cpp.html',1,'']]]
 ];

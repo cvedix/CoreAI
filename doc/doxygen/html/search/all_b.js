@@ -14,9 +14,10 @@ var searchData=
   ['event_5fformat_11',['event_format',['../namespaceevent__format.html',1,'']]],
   ['event_5fmessage_12',['event_message',['../structevent__format_1_1event__message.html',1,'event_format']]],
   ['events_13',['events',['../structevent__format_1_1event__message.html#a5f35c5a0e84dc099bce9e5cb1ac05a51',1,'event_format::event_message']]],
-  ['expiration_14',['expiration',['../structcvedix__nodes_1_1LicenseInfo.html#ac3343a4c8669e539b6d9d8bac1d71396',1,'cvedix_nodes::LicenseInfo']]],
-  ['external_5fid_15',['external_id',['../structevent__format_1_1track__info.html#aee568a9ded30ac39e2571032320096a5',1,'event_format::track_info']]],
-  ['extract_5fpublic_5fkey_16',['extract_public_key',['../license__generator_8cpp.html#a18f43b59a3a155a32553134194aebfa0',1,'license_generator.cpp']]],
-  ['extractembedding_17',['extractembedding',['../classcvedix__nodes_1_1OpenCVDnnBackend.html#a2603a35296c3808ede98c212aedde0f0',1,'cvedix_nodes::OpenCVDnnBackend::extractEmbedding()'],['../classcvedix__nodes_1_1IFaceRecognitionBackend.html#a175d32a950d8b7ebc0b5fb20f4d0a9aa',1,'cvedix_nodes::IFaceRecognitionBackend::extractEmbedding()']]],
-  ['extractembeddings_18',['extractembeddings',['../classcvedix__nodes_1_1OpenCVDnnBackend.html#abc979c9e9842f165021269810d31d108',1,'cvedix_nodes::OpenCVDnnBackend::extractEmbeddings()'],['../classcvedix__nodes_1_1IFaceRecognitionBackend.html#a941b83da2b2f8e0e9bddbee34a4ccee5',1,'cvedix_nodes::IFaceRecognitionBackend::extractEmbeddings()']]]
+  ['example_14',['3. Ví dụ đơn giản (Minimal Example)',['../index.html#autotoc_md17',1,'']]],
+  ['expiration_15',['expiration',['../structcvedix__nodes_1_1LicenseInfo.html#ac3343a4c8669e539b6d9d8bac1d71396',1,'cvedix_nodes::LicenseInfo']]],
+  ['external_5fid_16',['external_id',['../structevent__format_1_1track__info.html#aee568a9ded30ac39e2571032320096a5',1,'event_format::track_info']]],
+  ['extract_5fpublic_5fkey_17',['extract_public_key',['../license__generator_8cpp.html#a18f43b59a3a155a32553134194aebfa0',1,'license_generator.cpp']]],
+  ['extractembedding_18',['extractembedding',['../classcvedix__nodes_1_1OpenCVDnnBackend.html#a2603a35296c3808ede98c212aedde0f0',1,'cvedix_nodes::OpenCVDnnBackend::extractEmbedding()'],['../classcvedix__nodes_1_1IFaceRecognitionBackend.html#a175d32a950d8b7ebc0b5fb20f4d0a9aa',1,'cvedix_nodes::IFaceRecognitionBackend::extractEmbedding()']]],
+  ['extractembeddings_19',['extractembeddings',['../classcvedix__nodes_1_1OpenCVDnnBackend.html#abc979c9e9842f165021269810d31d108',1,'cvedix_nodes::OpenCVDnnBackend::extractEmbeddings()'],['../classcvedix__nodes_1_1IFaceRecognitionBackend.html#a941b83da2b2f8e0e9bddbee34a4ccee5',1,'cvedix_nodes::IFaceRecognitionBackend::extractEmbeddings()']]]
 ];

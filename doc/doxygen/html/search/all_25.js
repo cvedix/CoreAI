@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['五、bắt_20đầu_20nhanh_0',['五、Bắt đầu nhanh',['../index.html#autotoc_md12',1,'']]]
+  ['二、ưu_20điểm_20và_20đặc_20điểm_0',['二、Ưu điểm và đặc điểm',['../index.html#autotoc_md10',1,'']]]
 ];
