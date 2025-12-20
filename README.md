@@ -32,9 +32,9 @@ Nền tảng
 - Ubuntu 18.04 x86_64 NVIDIA rtx/tesla GPUs
 - Ubuntu 18.04 aarch64 NVIDIA jetson serials device，tx2 tested
 - Ubuntu 22.04 x86_64 by VMware virtual machine on Windows 10, pure CPUs
-- Ubuntu 18.04 x86_64 Cambrian MLU serials device, MLU 370 tested (code not provided)
-- Ubuntu 18.04 aarch64 Rockchip RK35** serials device, RK3588 tested (code not provided)
-- Ubuntu 22.04 aarch64 Ascend 310/910 serials device, Atlas 300I-Pro tested (code not provided)
+- Ubuntu 18.04 x86_64 Cambrian MLU serials device, MLU 370 tested
+- Ubuntu 18.04 aarch64 Rockchip RK35** serials device, RK3588 tested
+- Ubuntu 22.04 aarch64 Ascend 310/910 serials device, Atlas 300I-Pro tested
 - Chờ bạn kiểm tra
 
 Cơ bản
