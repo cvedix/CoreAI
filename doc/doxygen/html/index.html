@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: Main Page</title>
+<title>Core AI Runtime: 一、Giới thiệu</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,14 +69,224 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Core AI Runtime Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">一、Giới thiệu </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_core__ai__runtime_2README"></a> <code>InstancePipeline</code> là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, <code>InstancePipeline</code> có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.</p>
+<h1><a class="anchor" id="autotoc_md10"></a>
+二、Ưu điểm và đặc điểm</h1>
+<p><code>InstancePipeline</code> tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.</p>
+<p><code>InstancePipeline</code> sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu <code>Node</code> trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
+四、Tính năng</h1>
+<p>InstancePipeline là một framework giúp tích hợp mô hình thuật toán thị giác máy tính trở nên đơn giản hơn, lưu ý rằng nó không phải là framework học sâu như TensorFlow, TensorRT. Các tính năng chính của InstancePipeline như sau:</p>
+<ul>
+<li>Đọc luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đọc hình ảnh.</li>
+<li>Giải mã video: Hỗ trợ giải mã video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).</li>
+<li>Suy luận thuật toán: Hỗ trợ suy luận đa cấp dựa trên thuật toán học sâu, chẳng hạn như phát hiện đối tượng, phân loại hình ảnh, trích xuất đặc trưng, tạo hình ảnh và các mạng liên quan khác. Đồng thời hỗ trợ tích hợp thuật toán hình ảnh truyền thống. <b>Hỗ trợ tích hợp mô hình đa phương thức lớn (mLLM) (cập nhật 2025/8/12)</b></li>
+<li>Theo dõi đối tượng: Hỗ trợ theo dõi đối tượng, chẳng hạn như thuật toán theo dõi IOU, SORT, v.v.</li>
+<li>Phân tích hành vi (BA): Hỗ trợ phân tích hành vi dựa trên theo dõi, chẳng hạn như vượt đường, đỗ xe, vi phạm giao thông và các hành vi giao thông khác.</li>
+<li>Logic nghiệp vụ: Hỗ trợ tích hợp logic nghiệp vụ tùy chỉnh bất kỳ, có thể liên quan chặt chẽ đến nghiệp vụ.</li>
+<li>Proxy dữ liệu: Hỗ trợ đẩy dữ liệu có cấu trúc (json/xml/định dạng tùy chỉnh) lên đám mây, tệp hoặc nền tảng bên thứ ba khác thông qua kafka/Socket, v.v.</li>
+<li>Ghi lại: Hỗ trợ ghi video trong khoảng thời gian cụ thể, chụp ảnh khung cụ thể và lưu vào tệp.</li>
+<li>Hiển thị màn hình (OSD): Hỗ trợ vẽ dữ liệu có cấu trúc và kết quả xử lý logic nghiệp vụ lên khung hình.</li>
+<li>Mã hóa video: Hỗ trợ mã hóa video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).</li>
+<li>Đẩy luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đẩy hình ảnh.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md12"></a>
+五、Bắt đầu nhanh</h1>
+<h2><a class="anchor" id="autotoc_md13"></a>
+5.1 Phụ thuộc</h2>
+<p>Nền tảng</p><ul>
+<li>Ubuntu 18.04 x86_64 NVIDIA rtx/tesla GPUs</li>
+<li>Ubuntu 18.04 aarch64 NVIDIA jetson serials device，tx2 tested</li>
+<li>Ubuntu 22.04 x86_64 by VMware virtual machine on Windows 10, pure CPUs</li>
+<li>Ubuntu 18.04 x86_64 Cambrian MLU serials device, MLU 370 tested (code not provided)</li>
+<li>Ubuntu 18.04 aarch64 Rockchip RK35** serials device, RK3588 tested (code not provided)</li>
+<li>Ubuntu 22.04 aarch64 Ascend 310/910 serials device, Atlas 300I-Pro tested (code not provided)</li>
+<li>Chờ bạn kiểm tra</li>
+</ul>
+<p>Cơ bản</p><ul>
+<li>C++ 17</li>
+<li>OpenCV &gt;= 4.6</li>
+<li>GStreamer 1.14.5 (Required by OpenCV)</li>
+<li>GCC &gt;= 7.5</li>
+</ul>
+<p>Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mình hoặc sử dụng backend suy luận khác ngoài <code>opencv::dnn</code>.</p><ul>
+<li>CUDA</li>
+<li>TensorRT</li>
+<li>Paddle Inference</li>
+<li>ONNX Runtime</li>
+<li>mLLM（Ollama/vLLM/OpenAI-compatible API Services）</li>
+<li>Bất kỳ thứ gì bạn thích</li>
+</ul>
+<p>Cách cài đặt CUDA và TensorRT</p>
+<p>Cách cài đặt Paddle_Inference</p>
+<h2><a class="anchor" id="autotoc_md14"></a>
+5.2 Biên dịch và gỡ lỗi</h2>
+<ol type="1">
+<li>Chạy <code>git clone <a href="https://github.com/sherlockchou86/InstancePipeline.git">https://github.com/sherlockchou86/InstancePipeline.git</a></code></li>
+<li>Chạy <code>cd InstancePipeline</code></li>
+<li>Chạy <code>mkdir build &amp;&amp; cd build</code></li>
+<li>Chạy <code>cmake ..</code></li>
+<li>Chạy <code>make -j8</code></li>
+</ol>
+<p>Sau khi biên dịch xong, tất cả các tệp thư viện được lưu trong <code>build/libs</code>, tất cả các tệp chạy Sample được lưu trong <code>build/bin</code>. Khi thực hiện bước 4, bạn có thể thêm một số tùy chọn biên dịch:</p><ul>
+<li>-DCVEDIX_WITH_CUDA=ON （Biên dịch các chức năng liên quan đến CUDA, mặc định là OFF）</li>
+<li>-DCVEDIX_WITH_TRT=ON （Biên dịch các chức năng và Samples liên quan đến TensorRT, mặc định là OFF）</li>
+<li>-DCVEDIX_WITH_PADDLE=ON （Biên dịch các chức năng và Samples liên quan đến PaddlePaddle, mặc định là OFF）</li>
+<li>-DCVEDIX_WITH_KAFKA=ON （Biên dịch các chức năng và Samples liên quan đến Kafka, mặc định là OFF）</li>
+<li>-DCVEDIX_WITH_LLM=ON （Biên dịch các chức năng và Samples liên quan đến LLM, mặc định là OFF）</li>
+<li>-DCVEDIX_BUILD_COMPLEX_SAMPLES=ON （Biên dịch các Samples nâng cao, mặc định là OFF）</li>
+</ul>
+<p>Ví dụ, nếu cần bật các mô-đun liên quan đến CUDA và TensorRT, bạn có thể chạy <code>cmake -DCVEDIX_WITH_CUDA=ON -DCVEDIX_WITH_TRT=ON ..</code>. Nếu chỉ chạy <code>cmake ..</code>, thì tất cả mã sẽ chạy trên CPU.</p>
+<div class="fragment"><div class="line"># Bật tất cả</div>
+<div class="line">cmake -DCVEDIX_WITH_CUDA=ON \</div>
+<div class="line">-DCVEDIX_WITH_TRT=ON \</div>
+<div class="line">-DCVEDIX_WITH_PADDLE=ON \</div>
+<div class="line">-DCVEDIX_WITH_KAFKA=ON \</div>
+<div class="line">-DCVEDIX_BUILD_COMPLEX_SAMPLES=ON ..</div>
+<div class="line"> </div>
+<div class="line"># Tắt tất cả (mặc định)</div>
+<div class="line">cmake ..</div>
+</div><!-- fragment --><p>Nếu muốn chạy các Samples đã biên dịch, trước tiên hãy tải xuống các tệp mô hình và dữ liệu kiểm tra:</p>
+<ol type="1">
+<li><a href="https://drive.google.com/drive/folders/1v9dVcR6xttUTB-WPsH3mZ_ZZMzD4wG-v?usp=sharing">Tải xuống tệp kiểm tra và mô hình từ Google Drive</a></li>
+<li><a href="https://pan.baidu.com/s/1jr2nBnEDmuNaM5DiMjbC0g?pwd=nf53">Tải xuống tệp kiểm tra và mô hình từ Baidu Netdisk</a></li>
+</ol>
+<p>Đặt thư mục đã tải xuống (tên là cvedix_data) ở bất kỳ vị trí nào (ví dụ: đặt trong <code>/root/abc</code>), sau đó chạy Sample trong <code>cùng thư mục</code>, ví dụ: thực thi lệnh trong <code>/root/abc</code>: <code>[path to InstancePipeline]/build/bin/1-1-1_sample</code> để chạy 1-1-1_sample.</p>
+<p>**Lưu ý**：<code>./third_party/</code> bên dưới đều là các dự án độc lập, một số là thư viện header-only, được InstancePipeline trực tiếp tham chiếu; một số chứa tệp cpp, có thể biên dịch hoặc chạy độc lập, InstancePipeline phụ thuộc vào các thư viện này, trong quá trình biên dịch InstancePipeline sẽ tự động biên dịch các thư viện này. Các thư viện này cũng chứa Samples của riêng chúng, cách sử dụng cụ thể có thể tham khảo tệp README trong thư mục con tương ứng.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+5.3 Cách sử dụng</h2>
+<ol type="1">
+<li>Trước tiên biên dịch InstancePipeline thành thư viện, sau đó tham chiếu nó.</li>
+<li>Hoặc trực tiếp tham chiếu mã nguồn, sau đó biên dịch toàn bộ Application.</li>
+</ol>
+<p>Dưới đây là một Sample về cách xây dựng Pipeline rồi chạy (vui lòng sửa đổi đường dẫn tệp liên quan trong mã trước):</p>
+<div class="fragment"><div class="line"> ++</div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/src/cvedix_file_src_node.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/infers/cvedix_yunet_face_detector_node.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/infers/cvedix_sface_feature_encoder_node.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/osd/cvedix_face_osd_node_v2.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/des/cvedix_screen_des_node.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../nodes/des/cvedix_rtmp_des_node.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../utils/analysis_board/cvedix_analysis_board.h&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment">* Tên：1-1-N sample</span></div>
+<div class="line"><span class="comment">* Mã đầy đủ nằm tại：samples/1-1-N_sample.cpp</span></div>
+<div class="line"><span class="comment">* Mô tả chức năng：1 đầu vào video, 1 tác vụ phân tích video (phát hiện và nhận dạng khuôn mặt), 2 đầu ra (đầu ra màn hình/đầu ra đẩy luồng RTMP)</span></div>
+<div class="line"><span class="comment">*/</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="1-1-1__sample_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION</a>(<span class="keyword">false</span>);</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">CVEDIX_SET_LOG_INCLUDE_THREAD_ID</a>(<span class="keyword">false</span>);</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">CVEDIX_LOGGER_INIT</a>();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 1、Tạo nút</span></div>
+<div class="line">    <span class="comment">// Node lấy video</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">file_src_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_file_src_node&gt;(<span class="stringliteral">&quot;file_src_0&quot;</span>, 0, <span class="stringliteral">&quot;./test_video/10.mp4&quot;</span>, 0.6);</div>
+<div class="line">    <span class="comment">// 2、Node suy luận mô hình</span></div>
+<div class="line">    <span class="comment">// Suy luận cấp một：Phát hiện khuôn mặt</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">yunet_face_detector_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_yunet_face_detector_node&gt;(<span class="stringliteral">&quot;yunet_face_detector_0&quot;</span>, <span class="stringliteral">&quot;./models/face/face_detection_yunet_2022mar.onnx&quot;</span>);</div>
+<div class="line">    <span class="comment">// Suy luận cấp hai：Nhận dạng khuôn mặt</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">sface_face_encoder_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_sface_feature_encoder_node&gt;(<span class="stringliteral">&quot;sface_face_encoder_0&quot;</span>, <span class="stringliteral">&quot;./models/face/face_recognition_sface_2021dec.onnx&quot;</span>);</div>
+<div class="line">    <span class="comment">// 3、Node OSD</span></div>
+<div class="line">    <span class="comment">// Vẽ kết quả xử lý lên khung hình</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">osd_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_face_osd_node_v2&gt;(<span class="stringliteral">&quot;osd_0&quot;</span>);</div>
+<div class="line">    <span class="comment">// Hiển thị màn hình</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">screen_des_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_screen_des_node&gt;(<span class="stringliteral">&quot;screen_des_0&quot;</span>, 0);</div>
+<div class="line">    <span class="comment">// Hiển thị đẩy luồng</span></div>
+<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">rtmp_des_0</a> = std::make_shared&lt;cvedix_nodes::cvedix_rtmp_des_node&gt;(<span class="stringliteral">&quot;rtmp_des_0&quot;</span>, 0, <span class="stringliteral">&quot;rtmp://192.168.77.60/live/10000&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Xây dựng đường ống, liên kết kết quả xử lý của các nút</span></div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">yunet_face_detector_0</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">file_src_0</a>});</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">sface_face_encoder_0</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">yunet_face_detector_0</a>});</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">osd_0</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">sface_face_encoder_0</a>});</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Đường ống tự động tách, xuất kết quả qua màn hình/đẩy luồng</span></div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">screen_des_0</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">osd_0</a>});</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">rtmp_des_0</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">osd_0</a>});</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Khởi động đường ống</span></div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">file_src_0</a>-&gt;start();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Trực quan hóa đường ống</span></div>
+<div class="line">    cvedix_utils::cvedix_analysis_board <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">board</a>({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">file_src_0</a>});</div>
+<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">board</a>.display();</div>
+<div class="line">}</div>
+<div class="ttc" id="a1-1-1__sample_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="1-1-1__sample_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> 1-1-1_sample.cpp:15</div></div>
+<div class="ttc" id="asamples_2CMakeLists_8txt_html_aefe643ad9dfd494136bdcbb82111b74c"><div class="ttname"><a href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">set</a></div><div class="ttdeci">set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime) if(EXISTS $</div><div class="ttdef"><b>Definition</b> CMakeLists.txt:43</div></div>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md16"></a>
+Node phát hiện khuôn mặt Yunet INT8 mới</h3>
+<p>Đối với các trường hợp muốn chạy trực tiếp YuNet INT8 trên CPU (OpenCV FaceDetectorYN), bạn có thể sử dụng node mới <code>cvedix_face_yunet_int8_face_detection_mode</code>. Node này mặc định tải mô hình:</p>
+<div class="fragment"><div class="line">./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx</div>
+</div><!-- fragment --><p>Ví dụ sử dụng:</p>
+<div class="fragment"><div class="line"> ++</div>
+<div class="line"><span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">yunet_int8</a> = std::make_shared&lt;cvedix_nodes::cvedix_face_yunet_int8_face_detection_mode&gt;(</div>
+<div class="line">    <span class="stringliteral">&quot;yunet_face_int8&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;./cvedix_data/models/face/face_detection_yunet_2023mar_int8.onnx&quot;</span>,</div>
+<div class="line">    0.9f,   <span class="comment">// score threshold</span></div>
+<div class="line">    0.3f,   <span class="comment">// nms threshold</span></div>
+<div class="line">    5000,   <span class="comment">// top_k</span></div>
+<div class="line">    320,</div>
+<div class="line">    320);</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">yunet_int8</a>-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">file_src_0</a>});</div>
+</div><!-- fragment --><p>Node này sử dụng <code>cv::FaceDetectorYN</code> nên không yêu cầu RKNN và có thể chạy tốt trên CPU thông thường.</p>
+<p>Sau khi chạy mã trên, sẽ xuất hiện 3 màn hình:</p><ol type="1">
+<li>Biểu đồ trạng thái chạy của đường ống, trạng thái tự động làm mới</li>
+<li>Kết quả hiển thị màn hình (GUI)</li>
+<li>Kết quả hiển thị trình phát (RTMP)</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md17"></a>
+5.4 Các mẫu nguyên mẫu</h2>
+<p>Tổng cộng hơn 40 mẫu nguyên mẫu, Nhấp vào để xem thêm.</p>
+<h1><a class="anchor" id="autotoc_md18"></a>
+六、Tài liệu thêm</h1>
+<ul>
+<li>How InstancePipeline Works</li>
+<li>Development Environment For Reference</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md19"></a>
+七、Triển khai Thực tế &amp; Đóng gói</h1>
+<p>Để triển khai dự án vào môi trường sản xuất (Production), chúng tôi cung cấp các công cụ đóng gói SDK và ứng dụng thành các gói cài đặt chuẩn (như <code>.deb</code> cho Debian/Ubuntu) để dễ dàng phân phối và cài đặt.</p>
+<h2><a class="anchor" id="autotoc_md20"></a>
+1. Quy trình đóng gói</h2>
+<p>Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và aarch64 (như NVIDIA Jetson, Rockchip).</p>
+<ul>
+<li><b>Đóng gói SDK</b>: Tạo gói <code>.deb</code> chứa thư viện (<code>.so</code>), header files, và các công cụ hỗ trợ phát triển.<ul>
+<li>Script: <code>build_cpu_deb_package.sh</code> (chỉ CPU) hoặc các script tương ứng cho GPU/NPU.</li>
+<li>Gói đầu ra: <code>libcvedix-dev_&lt;version&gt;_&lt;arch&gt;.deb</code></li>
+</ul>
+</li>
+<li><b>Đóng gói Ứng dụng/Runtime</b>: Tạo gói chứa runtime (thư viện động) và các ứng dụng mẫu/thực thi, cùng với mô hình AI cần thiết.<ul>
+<li>Script: <code>build_package_with_models.sh</code></li>
+<li>Tự động bao gồm các mô hình từ <code>cvedix_data</code>.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md21"></a>
+2. Cài đặt và Sử dụng</h2>
+<p>Sau khi đóng gói, việc cài đặt trên máy đích rất đơn giản:</p>
+<div class="fragment"><div class="line"># Cài đặt gói .deb</div>
+<div class="line">sudo dpkg -i libcvedix-dev_*.deb</div>
+<div class="line"> </div>
+<div class="line"># Kiểm tra cài đặt</div>
+<div class="line">pkg-config --modversion cvedix</div>
+</div><!-- fragment --><p>Sau khi cài đặt, SDK sẽ nằm trong hệ thống (thường là <code>/usr/lib</code> và <code>/usr/include</code>), cho phép bạn phát triển ứng dụng mới hoặc chạy ứng dụng đã biên dịch mà không cần thiết lập lại môi trường build phức tạp.</p>
+<h2><a class="anchor" id="autotoc_md22"></a>
+3. Tùy chọn triển khai</h2>
+<ul>
+<li><b>Docker</b>: Bạn có thể sử dụng các gói <code>.deb</code> này để xây dựng Docker image nhỏ gọn cho ứng dụng của mình.</li>
+<li><b>Service</b>: Tích hợp với <code>systemd</code> để chạy ứng dụng như một dịch vụ nền (background service), tự động khởi động cùng hệ thống. </li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 11:41:14 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Sat Dec 20 2025 12:10:23 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

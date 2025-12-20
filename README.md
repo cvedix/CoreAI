@@ -57,7 +57,7 @@ Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mìn
 
 ### 5.2 Biên dịch và gỡ lỗi
 
-1. Chạy `git clone https://github.com/sherlockchou86/InstancePipeline.git`
+1. Chạy `git clone <>`
 2. Chạy `cd InstancePipeline`
 3. Chạy `mkdir build && cd build`
 4. Chạy `cmake ..`
@@ -190,7 +190,37 @@ Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem
 
 ## 六、Tài liệu thêm
 
-- [Sample Code](./samples)
-- [Node Table](./nodes/README.md)
 - [How InstancePipeline Works](./doc/about.md)
 - [Development Environment For Reference](./doc/env.md)
+
+## 七、Triển khai Thực tế & Đóng gói
+
+Để triển khai dự án vào môi trường sản xuất (Production), chúng tôi cung cấp các công cụ đóng gói SDK và ứng dụng thành các gói cài đặt chuẩn (như `.deb` cho Debian/Ubuntu) để dễ dàng phân phối và cài đặt.
+
+### 1. Quy trình đóng gói
+Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và aarch64 (như NVIDIA Jetson, Rockchip).
+
+- **Đóng gói SDK**: Tạo gói `.deb` chứa thư viện (`.so`), header files, và các công cụ hỗ trợ phát triển.
+  - Script: `build_cpu_deb_package.sh` (chỉ CPU) hoặc các script tương ứng cho GPU/NPU.
+  - Gói đầu ra: `libcvedix-dev_<version>_<arch>.deb`
+  
+- **Đóng gói Ứng dụng/Runtime**: Tạo gói chứa runtime (thư viện động) và các ứng dụng mẫu/thực thi, cùng với mô hình AI cần thiết.
+  - Script: `build_package_with_models.sh`
+  - Tự động bao gồm các mô hình từ `cvedix_data`.
+
+### 2. Cài đặt và Sử dụng
+Sau khi đóng gói, việc cài đặt trên máy đích rất đơn giản:
+
+```bash
+# Cài đặt gói .deb
+sudo dpkg -i libcvedix-dev_*.deb
+
+# Kiểm tra cài đặt
+pkg-config --modversion cvedix
+```
+
+Sau khi cài đặt, SDK sẽ nằm trong hệ thống (thường là `/usr/lib` và `/usr/include`), cho phép bạn phát triển ứng dụng mới hoặc chạy ứng dụng đã biên dịch mà không cần thiết lập lại môi trường build phức tạp.
+
+### 3. Tùy chọn triển khai
+- **Docker**: Bạn có thể sử dụng các gói `.deb` này để xây dựng Docker image nhỏ gọn cho ứng dụng của mình.
+- **Service**: Tích hợp với `systemd` để chạy ứng dụng như một dịch vụ nền (background service), tự động khởi động cùng hệ thống.

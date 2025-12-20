@@ -1,7 +1,15 @@
 var searchData=
 [
-  ['x_0',['x',['../structcvedix__objects_1_1enhanced__target__info.html#ac01802ca10403faf6924c2653da40b19',1,'cvedix_objects::enhanced_target_info::x'],['../structcvedix__objects_1_1enhanced__face__target__info.html#ac87cd9cfd4f85331a6561a2a219bb634',1,'cvedix_objects::enhanced_face_target_info::x'],['../structevent__format_1_1normalized__bbox.html#a0de0f2e63f26dcde00c8ec24073d4dd4',1,'event_format::normalized_bbox::x']]],
-  ['x1_1',['x1',['../structcvedix__objects_1_1enhanced__target__info_1_1bbox__info.html#a7b0682b58cbaa7a3742a75df8464d75c',1,'cvedix_objects::enhanced_target_info::bbox_info::x1'],['../structcvedix__objects_1_1enhanced__face__target__info_1_1bbox__info.html#a46a56ebe8295a6533a5da50594c50897',1,'cvedix_objects::enhanced_face_target_info::bbox_info::x1']]],
-  ['x2_2',['x2',['../structcvedix__objects_1_1enhanced__target__info_1_1bbox__info.html#a02ed02717886e97c050b10f959852c2a',1,'cvedix_objects::enhanced_target_info::bbox_info::x2'],['../structcvedix__objects_1_1enhanced__face__target__info_1_1bbox__info.html#aa166bc54933ba2cca54349c48a1e1bc3',1,'cvedix_objects::enhanced_face_target_info::bbox_info::x2']]],
-  ['x_5fpad_3',['x_pad',['../structrknn__yolov11_1_1letterbox__t.html#a7cd2c26b60f746d3c9df63511551315d',1,'rknn_yolov11::letterbox_t']]]
+  ['và_20đặc_20điểm_0',['二、Ưu điểm và đặc điểm',['../index.html#autotoc_md10',1,'']]],
+  ['và_20gỡ_20lỗi_1',['5.2 Biên dịch và gỡ lỗi',['../index.html#autotoc_md14',1,'']]],
+  ['và_20sử_20dụng_2',['2. Cài đặt và Sử dụng',['../index.html#autotoc_md21',1,'']]],
+  ['valid_3',['valid',['../structcvedix__nodes_1_1LicenseInfo.html#a368f78ff97659faf11e21ad42c9c3d06',1,'cvedix_nodes::LicenseInfo']]],
+  ['vehicle_5fbody_5fscan_5fsample_2ecpp_4',['vehicle_body_scan_sample.cpp',['../vehicle__body__scan__sample_8cpp.html',1,'']]],
+  ['vehicle_5fcluster_5fbased_5fon_5fclassify_5fencoding_5fsample_2ecpp_5',['vehicle_cluster_based_on_classify_encoding_sample.cpp',['../vehicle__cluster__based__on__classify__encoding__sample_8cpp.html',1,'']]],
+  ['vehicle_5ftracking_5fsample_2ecpp_6',['vehicle_tracking_sample.cpp',['../vehicle__tracking__sample_8cpp.html',1,'']]],
+  ['version_7',['version',['../structcvedix__nodes_1_1LicenseInfo.html#a7b9d9880707242b16415f5fef6b61c1a',1,'cvedix_nodes::LicenseInfo']]],
+  ['video_8',['VIDEO',['../namespacecvedix__nodes.html#a53c04c9964e3bf89f4619fc0bf2d4c5da9c6aaf82a8549b36ee143803f186c97d',1,'cvedix_nodes']]],
+  ['video_5frecord_5fcomplete_5fhooker_9',['video_record_complete_hooker',['../classcvedix__nodes_1_1cvedix__record__status__hookable.html#ac927cd2c319047bbe47ddd6009a1cc0b',1,'cvedix_nodes::cvedix_record_status_hookable']]],
+  ['video_5frestoration_5fsample_2ecpp_10',['video_restoration_sample.cpp',['../video__restoration__sample_8cpp.html',1,'']]],
+  ['voting_20default_3a_20on_11',['1. Temporal Voting (Default: ON)',['../cvedix__face__recognition__node_8cpp.html#autotoc_md0',1,'']]]
 ];
