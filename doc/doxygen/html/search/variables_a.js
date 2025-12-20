@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['kafka_5fservers_5fand_5ftopic_2524',['kafka_servers_and_topic',['../classcvedix__utils_1_1cvedix__logger.html#a3ef7aab58440c17768821da1e3914b42',1,'cvedix_utils::cvedix_logger']]],
-  ['key_5fpoints_2525',['key_points',['../classcvedix__objects_1_1cvedix__frame__face__target.html#ac166606f5bad43ed4be394635a288805',1,'cvedix_objects::cvedix_frame_face_target::key_points()'],['../classcvedix__objects_1_1cvedix__frame__pose__target.html#a63457675ab49bc87efc4e8b0fb14ad22',1,'cvedix_objects::cvedix_frame_pose_target::key_points()']]],
-  ['keywords_5ffor_5fdebug_5flog_2526',['keywords_for_debug_log',['../classcvedix__utils_1_1cvedix__logger.html#a35d5c9f79801ef06e28a3738a0883954',1,'cvedix_utils::cvedix_logger']]],
-  ['kf_2527',['kf',['../classKalmanTracker.html#a2315f1097e55119c719a4fd2c76f2ec8',1,'KalmanTracker']]],
-  ['kf_5fcount_2528',['kf_count',['../classKalmanTracker.html#afcabece10c56e883dfc6565d99f22253',1,'KalmanTracker']]],
-  ['kps_2529',['kps',['../structcvedix__nodes_1_1cvedix__face__swap__node_1_1face__box.html#a3012a5f0d0cd7a0b563d7750ffcce1ed',1,'cvedix_nodes::cvedix_face_swap_node::face_box']]]
+  ['label_0',['label',['../structevent__format_1_1best__thumbnail.html#a5fb0d89e454d3e1080d832e71fd1f9da',1,'event_format::best_thumbnail']]],
+  ['labels_1',['labels',['../classcvedix__nodes_1_1cvedix__infer__node.html#ae09025448d2019a4645b680fcdc97bf2',1,'cvedix_nodes::cvedix_infer_node']]],
+  ['labels_5fpath_2',['labels_path',['../classcvedix__nodes_1_1cvedix__infer__node.html#aa63b9e64774ad3952c80450d7057415d',1,'cvedix_nodes::cvedix_infer_node']]],
+  ['last_5fseen_3',['last_seen',['../structevent__format_1_1track__info.html#ab27c2b6aeb2ea4a00e6d7782e4ce7fa5',1,'event_format::track_info']]],
+  ['latency_4',['latency',['../structcvedix__nodes_1_1cvedix__stream__status.html#a91953fc4be242328d9ca1937e5fb6e3f',1,'cvedix_nodes::cvedix_stream_status']]],
+  ['left_5',['left',['../structrknn__yolov11_1_1image__rect__t.html#a168c5acc1ee4134b599b32a4f4966077',1,'rknn_yolov11::image_rect_t']]]
 ];

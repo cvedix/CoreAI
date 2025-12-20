@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validpair_1528',['ValidPair',['../structcvedix__nodes_1_1cvedix__openpose__detector__node_1_1ValidPair.html',1,'cvedix_nodes::cvedix_openpose_detector_node']]]
+  ['track_5finfo_0',['track_info',['../structevent__format_1_1track__info.html',1,'event_format']]]
 ];

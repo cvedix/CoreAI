@@ -29,6 +29,7 @@
 #include <cmath>
 #include <iomanip>
 #include <opencv2/opencv.hpp>
+#include "cvedix/utils/logger/cvedix_logger.h"
 
 // Include the ORT node if available
 #ifdef CVEDIX_WITH_ORT
@@ -126,11 +127,14 @@ public:
 
 #ifdef CVEDIX_WITH_ORT
 
-int register_face(const std::string& image_path, const std::string& name,
+int register_face(const std::string& name, const std::vector<std::string>& image_paths,
                   const std::string& model_path, const std::string& detector_path) {
     
     std::cout << "\n========================================\n";
     std::cout << "📝 Registration Mode (ORT Node)\n";
+    std::cout << "========================================\n";
+    std::cout << "Name: " << name << "\n";
+    std::cout << "Images: " << image_paths.size() << " file(s)\n";
     std::cout << "========================================\n";
     
     // Load face detector (YuNet)
@@ -154,46 +158,55 @@ int register_face(const std::string& image_path, const std::string& name,
     // Load database
     SimpleFaceDatabase db("./face_database.txt");
     
-    // Load image
-    cv::Mat image = cv::imread(image_path);
-    if (image.empty()) {
-        std::cerr << "❌ Failed to load image: " << image_path << "\n";
-        return 1;
-    }
-    
-    // Detect faces
-    detector->setInputSize(image.size());
-    cv::Mat faces;
-    detector->detect(image, faces);
-    
-    if (faces.rows == 0) {
-        std::cout << "⚠️ No faces detected\n";
-        return 1;
-    }
-    
-    std::cout << "Found " << faces.rows << " face(s)\n";
-    
     int registered = 0;
-    for (int i = 0; i < faces.rows; i++) {
-        // Get 5-point landmarks from YuNet output
+    
+    // Process each image
+    for (size_t img_idx = 0; img_idx < image_paths.size(); img_idx++) {
+        const std::string& image_path = image_paths[img_idx];
+        
+        // Load image
+        cv::Mat image = cv::imread(image_path);
+        if (image.empty()) {
+            std::cerr << "❌ Failed to load image: " << image_path << "\n";
+            continue;
+        }
+        
+        // Detect faces
+        detector->setInputSize(image.size());
+        cv::Mat faces;
+        detector->detect(image, faces);
+        
+        if (faces.rows == 0) {
+            std::cout << "⚠️ No faces detected in: " << image_path << "\n";
+            continue;
+        }
+        
+        // Use first face from each image
         float landmarks[5][2];
         for (int j = 0; j < 5; j++) {
-            landmarks[j][0] = faces.at<float>(i, 4 + j * 2);
-            landmarks[j][1] = faces.at<float>(i, 4 + j * 2 + 1);
+            landmarks[j][0] = faces.at<float>(0, 4 + j * 2);
+            landmarks[j][1] = faces.at<float>(0, 4 + j * 2 + 1);
         }
         
         // Align and extract embedding using ORT
         cv::Mat aligned = ort_node->alignFace(image, landmarks);
         std::vector<float> embedding = ort_node->extractEmbedding(aligned);
         
+        // Add embedding separately (no averaging)
         db.add(name, embedding);
         registered++;
         
-        std::cout << "✅ Registered face " << (i+1) << " for " << name << "\n";
+        std::cout << "✅ [" << (img_idx + 1) << "/" << image_paths.size() << "] "
+                  << "Registered embedding from: " << fs::path(image_path).filename().string() << "\n";
     }
     
-    db.save();
-    std::cout << "\n📊 Total: " << registered << " embedding(s) registered for " << name << "\n";
+    if (registered > 0) {
+        db.save();
+        std::cout << "\n📊 Total: " << registered << " embedding(s) registered for " << name << "\n";
+    } else {
+        std::cerr << "\n❌ No embeddings registered\n";
+        return 1;
+    }
     
     return 0;
 }
@@ -267,6 +280,9 @@ int recognize_faces(const std::string& image_path,
         // Identify using node's database
         auto match = ort_node->get_database().find_match(embedding);
         
+        // Get all similarity scores sorted high to low
+        auto all_scores = ort_node->get_database().get_all_scores(embedding);
+        
         // Draw results
         cv::Scalar color = match.confident ? cv::Scalar(0, 255, 0) : cv::Scalar(0, 0, 255);
         cv::rectangle(result_image, cv::Rect((int)x, (int)y, (int)w, (int)h), color, 2);
@@ -282,6 +298,17 @@ int recognize_faces(const std::string& image_path,
             std::cout << "❓ Face " << (i+1) << ": Unknown (best: " 
                       << std::fixed << std::setprecision(4) << match.score << ")\n";
         }
+        
+        // Print all similarity scores sorted from high to low
+        std::cout << "\n📊 All similarities (high→low):\n";
+        std::cout << "   ┌────────────────────┬──────────┐\n";
+        std::cout << "   │ Name               │ Score    │\n";
+        std::cout << "   ├────────────────────┼──────────┤\n";
+        for (size_t j = 0; j < all_scores.size(); j++) {
+            std::cout << "   │ " << std::left << std::setw(18) << all_scores[j].first 
+                      << " │ " << std::fixed << std::setprecision(4) << all_scores[j].second << "   │\n";
+        }
+        std::cout << "   └────────────────────┴──────────┘\n\n";
     }
     
     cv::imwrite("recognition_result.jpg", result_image);
@@ -310,10 +337,14 @@ int recognize_faces(const std::string&, const std::string&, const std::string&) 
 // ========================================
 
 int main(int argc, char* argv[]) {
+    // Initialize logger - required before using any CVEDIX nodes
+    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
+    CVEDIX_LOGGER_INIT();
+    
     if (argc < 2) {
         std::cout << "Face Recognition with ONNX Runtime Node\n\n";
         std::cout << "Usage:\n";
-        std::cout << "  " << argv[0] << " register <image_path> <name>\n";
+        std::cout << "  " << argv[0] << " register <name> <image1> [image2] ... [image5]\n";
         std::cout << "  " << argv[0] << " recognize <image_path>\n";
         std::cout << "  " << argv[0] << " list\n";
         return 1;
@@ -327,10 +358,16 @@ int main(int argc, char* argv[]) {
     
     if (mode == "register") {
         if (argc < 4) {
-            std::cerr << "Usage: " << argv[0] << " register <image_path> <name>\n";
+            std::cerr << "Usage: " << argv[0] << " register <name> <image1> [image2] ... [image5]\n";
+            std::cerr << "  Registers multiple images for one person (up to 5 separate embeddings)\n";
             return 1;
         }
-        return register_face(argv[2], argv[3], model_path, detector_path);
+        std::string name = argv[2];
+        std::vector<std::string> image_paths;
+        for (int i = 3; i < argc && i < 8; i++) {  // Max 5 images
+            image_paths.push_back(argv[i]);
+        }
+        return register_face(name, image_paths, model_path, detector_path);
         
     } else if (mode == "recognize") {
         if (argc < 3) {

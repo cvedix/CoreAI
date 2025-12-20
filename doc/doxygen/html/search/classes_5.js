@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['last_5fspec_1502',['last_spec',['../structdate_1_1last__spec.html',1,'date']]],
-  ['local_5ft_1503',['local_t',['../structdate_1_1local__t.html',1,'date']]]
+  ['ifacerecognitionbackend_0',['IFaceRecognitionBackend',['../classcvedix__nodes_1_1IFaceRecognitionBackend.html',1,'cvedix_nodes']]],
+  ['image_5frect_5ft_1',['image_rect_t',['../structrknn__yolov11_1_1image__rect__t.html',1,'rknn_yolov11']]]
 ];

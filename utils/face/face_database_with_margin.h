@@ -256,6 +256,36 @@ public:
     }
     
     /**
+     * @brief Get all similarity scores for a query, sorted from high to low
+     * 
+     * @param query_embedding Query embedding (should be L2 normalized)
+     * @return Vector of (name, score) pairs sorted by score descending
+     */
+    std::vector<std::pair<std::string, float>> get_all_scores(const std::vector<float>& query_embedding) {
+        std::vector<std::pair<std::string, float>> scores;
+        
+        if (embeddings.empty()) {
+            return scores;
+        }
+        
+        for (const auto& [name, emb_list] : embeddings) {
+            // For multiple embeddings per person, use the best match
+            float best_score = -1.0f;
+            for (const auto& db_emb : emb_list) {
+                float score = cosine_similarity(query_embedding, db_emb);
+                best_score = std::max(best_score, score);
+            }
+            scores.push_back({name, best_score});
+        }
+        
+        // Sort by score descending
+        std::sort(scores.begin(), scores.end(),
+                 [](const auto& a, const auto& b) { return a.second > b.second; });
+        
+        return scores;
+    }
+    
+    /**
      * @brief Add face to database
      */
     void add_face(const std::string& name, const std::vector<float>& embedding) {
