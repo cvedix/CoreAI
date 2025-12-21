@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_mask_rcnn_detector_node.h
+ * @brief Mask R-CNN instance segmentation
+ * 
+ * Instance segmentation with bounding boxes and pixel masks.
+ * 
+ * @see https://github.com/matterport/Mask_RCNN
+ */
 
 #pragma once
 
@@ -7,10 +15,12 @@
 
 
 namespace cvedix_nodes {
-    // image segmentation based on Mask RCNN
-    // https://github.com/matterport/Mask_RCNN
+    /**
+     * @brief Mask R-CNN instance segmentation
+     */
     class cvedix_mask_rcnn_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         /* data */
         // names of output layers in mask_rcnn

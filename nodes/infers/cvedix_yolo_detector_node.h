@@ -1,13 +1,37 @@
+/**
+ * @file cvedix_yolo_detector_node.h
+ * @brief YOLO object detector (v3/v4/v5) using OpenCV DNN
+ * 
+ * Primary detection node for YOLOv3/v4/v5 models.
+ * 
+ * @section yolo_usage Usage
+ * @code
+ * auto detector = std::make_shared<cvedix_yolo_detector_node>(
+ *     "yolo", "yolov5s.onnx", "yolov5s.cfg", "coco.names",
+ *     640, 640
+ * );
+ * detector->attach_to({src_node});
+ * @endcode
+ * 
+ * @see cvedix_yolov11_detector_node For YOLOv11
+ * @see cvedix_primary_infer_node Base class
+ */
 
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 
 namespace cvedix_nodes {
-    // yolo detector, support yolov3/4/5
-    // https://github.com/pjreddie/darknet
+    /**
+     * @brief YOLO object detector (v3/v4/v5)
+     * 
+     * Uses Darknet-style YOLO models via OpenCV DNN.
+     * 
+     * @see cvedix_primary_infer_node Base class
+     */
     class cvedix_yolo_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         float score_threshold;
         float confidence_threshold;

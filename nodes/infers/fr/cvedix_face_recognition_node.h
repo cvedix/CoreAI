@@ -1,3 +1,30 @@
+/**
+ * @file cvedix_face_recognition_node.h
+ * @brief Unified face recognition node with multi-backend support
+ * 
+ * High-performance face recognition with automatic backend selection:
+ * - TensorRT (fastest, requires CVEDIX_WITH_TRT)
+ * - ONNX Runtime (fast, requires CVEDIX_WITH_ORT)
+ * - OpenCV DNN (fallback, always available)
+ * 
+ * @section fr_techniques Advanced Techniques
+ * - Temporal Voting for stable video stream results
+ * - Test-Time Augmentation (TTA) for higher accuracy
+ * - ID-specific thresholds for per-person security
+ * 
+ * @section fr_usage Usage
+ * @code
+ * auto fr = std::make_shared<cvedix_face_recognition_node>(
+ *     "face_rec", "model.onnx", "database.db"
+ * );
+ * fr->set_voting_enabled(true);
+ * fr->attach_to({face_detector});
+ * @endcode
+ * 
+ * @see IFaceRecognitionBackend Backend interface
+ * @see cvedix_face_registration_node For database management
+ */
+
 #pragma once
 
 #include "../base/cvedix_secondary_infer_node.h"
@@ -17,6 +44,7 @@ namespace cvedix_nodes {
  * - ONNX Runtime (fast, requires CVEDIX_WITH_ORT)
  * - OpenCV DNN (fallback, always available)
  * 
+
  * ## Techniques (configurable):
  * 1. **Temporal Voting** (default ON) - Stable results from video streams
  * 2. **TTA** (default OFF) - Test-time augmentation for higher accuracy

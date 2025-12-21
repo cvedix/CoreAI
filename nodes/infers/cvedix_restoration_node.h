@@ -1,12 +1,23 @@
+/**
+ * @file cvedix_restoration_node.h
+ * @brief Image restoration using Real-ESRGAN
+ * 
+ * Video/image super-resolution and enhancement.
+ * 
+ * @see https://github.com/xinntao/Real-ESRGAN
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 
 namespace cvedix_nodes {
-    // general image restoration node using Real-ESRGAN
-    // used to enhance quality of frames in video， see more: https://github.com/xinntao/Real-ESRGAN
+    /**
+     * @brief Real-ESRGAN image restoration node
+     */
     class cvedix_restoration_node: public cvedix_primary_infer_node
     {   
+
     private:
         /* onnx network using opencv::dnn as backend */
         cv::dnn::Net restoration_net;

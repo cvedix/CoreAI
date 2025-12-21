@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/broker/cvedix_expr_socket_broker_node.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/broker/cvedix_expr_socket_broker_node.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,71 +74,67 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_a62cd8d84082acf74d61cbcd00b71a67.html">broker</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_24b6c6a7d7ce5e273f361ce3fcbf9991.html">broker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_expr_socket_broker_node.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__expr__socket__broker__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;cvedix/objects/ba/cvedix_ba_result.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__objects__cereal__archive_8h.html">cereal_archive/cvedix_objects_cereal_archive.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// light weight socket support</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;cvedix/third_party/kissnet/kissnet.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// message broker node, broke math expression checking results (ONLY for cvedix_frame_text_target) to socket via udp.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">// math expression checking results could be used for archive.</span></div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">   13</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_expr_socket_broker_node</a>: <span class="keyword">public</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html">cvedix_msg_broker_node</a></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="comment">// save dir for screenshot images, which would be used for displaying in web client</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        std::string screenshot_dir = <span class="stringliteral">&quot;screenshot_images&quot;</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="comment">// host the data sent to via udp</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        std::string des_ip = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// port the data sent to via udp</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">int</span> des_port = 0;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// udp socket writer</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        kissnet::udp_socket udp_writer;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// to custom format</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a8552d08b5bb43fbd6d114cef17bdf89d">format_msg</a>(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, std::string&amp; msg) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// to socket via udp</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a2e0a2cdfae8e42012cb3f87509dee7bd">broke_msg</a>(<span class="keyword">const</span> std::string&amp; msg) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_expr_socket_broker_node</a>(std::string <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a>, </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                std::string des_ip = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                                <span class="keywordtype">int</span> des_port = 0,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                                std::string screenshot_dir = <span class="stringliteral">&quot;screenshot_images&quot;</span>,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                <a class="code hl_enumeration" href="namespacecvedix__nodes.html#a3843c16f9f18022940568c0d23d37b46">cvedix_broke_for</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#ae499717acc9b9b052d088efe23cb7143">broke_for</a> = <a class="code hl_enumvalue" href="namespacecvedix__nodes.html#a3843c16f9f18022940568c0d23d37b46a61a96ffcb251bb9bf0abf8fec19d0ea8">cvedix_broke_for::TEXT</a>, </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                <span class="keywordtype">int</span> broking_cache_warn_threshold = 50, </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                <span class="keywordtype">int</span> broking_cache_ignore_threshold = 200);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89">~cvedix_expr_socket_broker_node</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    };</div>
+<a href="cvedix__expr__socket__broker__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a>&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;cvedix/objects/ba/cvedix_ba_result.h&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__objects__cereal__archive_8h.html">cereal_archive/cvedix_objects_cereal_archive.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// light weight socket support</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &quot;cvedix/third_party/kissnet/kissnet.hpp&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">   54</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_expr_socket_broker_node</a>: <span class="keyword">public</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html">cvedix_msg_broker_node</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        std::string screenshot_dir = <span class="stringliteral">&quot;screenshot_images&quot;</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::string des_ip = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">int</span> des_port = 0;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        kissnet::udp_socket udp_writer;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a8552d08b5bb43fbd6d114cef17bdf89d">format_msg</a>(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, std::string&amp; msg) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a2e0a2cdfae8e42012cb3f87509dee7bd">broke_msg</a>(<span class="keyword">const</span> std::string&amp; msg) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_expr_socket_broker_node</a>(std::string <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a>, </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                std::string des_ip = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                <span class="keywordtype">int</span> des_port = 0,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                std::string screenshot_dir = <span class="stringliteral">&quot;screenshot_images&quot;</span>,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                <a class="code hl_enumeration" href="cvedix__msg__broker__node_8h.html#a3843c16f9f18022940568c0d23d37b46">cvedix_broke_for</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#ae499717acc9b9b052d088efe23cb7143">broke_for</a> = cvedix_broke_for::TEXT, </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                <span class="keywordtype">int</span> broking_cache_warn_threshold = 50, </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                                <span class="keywordtype">int</span> broking_cache_ignore_threshold = 200);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89">~cvedix_expr_socket_broker_node</a>();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    };</div>
 </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_nodes::cvedix_expr_socket_broker_node</a></div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.h:14</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_a2e0a2cdfae8e42012cb3f87509dee7bd"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a2e0a2cdfae8e42012cb3f87509dee7bd">cvedix_nodes::cvedix_expr_socket_broker_node::broke_msg</a></div><div class="ttdeci">virtual void broke_msg(const std::string &amp;msg) override</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:89</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_a8552d08b5bb43fbd6d114cef17bdf89d"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a8552d08b5bb43fbd6d114cef17bdf89d">cvedix_nodes::cvedix_expr_socket_broker_node::format_msg</a></div><div class="ttdeci">virtual void format_msg(const std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;meta, std::string &amp;msg) override</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:31</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_aa4ca00070fa7fca6767077a359c3fb89"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89">cvedix_nodes::cvedix_expr_socket_broker_node::~cvedix_expr_socket_broker_node</a></div><div class="ttdeci">~cvedix_expr_socket_broker_node()</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:26</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__msg__broker__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__msg__broker__node.html">cvedix_nodes::cvedix_msg_broker_node</a></div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:22</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__msg__broker__node_html_ae499717acc9b9b052d088efe23cb7143"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#ae499717acc9b9b052d088efe23cb7143">cvedix_nodes::cvedix_msg_broker_node::broke_for</a></div><div class="ttdeci">cvedix_broke_for broke_for</div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:51</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html_a211aee98734305ca41915ae62dc77e08"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">cvedix_nodes::cvedix_node::node_name</a></div><div class="ttdeci">std::string node_name</div><div class="ttdef"><b>Definition</b> cvedix_node.h:98</div></div>
-<div class="ttc" id="acvedix__msg__broker__node_8h_html"><div class="ttname"><a href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a></div></div>
-<div class="ttc" id="acvedix__objects__cereal__archive_8h_html"><div class="ttname"><a href="cvedix__objects__cereal__archive_8h.html">cvedix_objects_cereal_archive.h</a></div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html_a3843c16f9f18022940568c0d23d37b46"><div class="ttname"><a href="namespacecvedix__nodes.html#a3843c16f9f18022940568c0d23d37b46">cvedix_nodes::cvedix_broke_for</a></div><div class="ttdeci">cvedix_broke_for</div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:8</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html_a3843c16f9f18022940568c0d23d37b46a61a96ffcb251bb9bf0abf8fec19d0ea8"><div class="ttname"><a href="namespacecvedix__nodes.html#a3843c16f9f18022940568c0d23d37b46a61a96ffcb251bb9bf0abf8fec19d0ea8">cvedix_nodes::cvedix_broke_for::TEXT</a></div><div class="ttdeci">@ TEXT</div></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html">cvedix_nodes::cvedix_expr_socket_broker_node</a></div><div class="ttdoc">UDP socket broker for math expression validation results.</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.h:55</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_a2e0a2cdfae8e42012cb3f87509dee7bd"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a2e0a2cdfae8e42012cb3f87509dee7bd">cvedix_nodes::cvedix_expr_socket_broker_node::broke_msg</a></div><div class="ttdeci">virtual void broke_msg(const std::string &amp;msg) override</div><div class="ttdoc">Send via UDP socket.</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:89</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_a8552d08b5bb43fbd6d114cef17bdf89d"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a8552d08b5bb43fbd6d114cef17bdf89d">cvedix_nodes::cvedix_expr_socket_broker_node::format_msg</a></div><div class="ttdeci">virtual void format_msg(const std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;meta, std::string &amp;msg) override</div><div class="ttdoc">Format expression validation result to message.</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:31</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__expr__socket__broker__node_html_aa4ca00070fa7fca6767077a359c3fb89"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89">cvedix_nodes::cvedix_expr_socket_broker_node::~cvedix_expr_socket_broker_node</a></div><div class="ttdeci">~cvedix_expr_socket_broker_node()</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition</b> cvedix_expr_socket_broker_node.cpp:26</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__msg__broker__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__msg__broker__node.html">cvedix_nodes::cvedix_msg_broker_node</a></div><div class="ttdoc">Base class for all message broker nodes.</div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:80</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__msg__broker__node_html_ae499717acc9b9b052d088efe23cb7143"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#ae499717acc9b9b052d088efe23cb7143">cvedix_nodes::cvedix_msg_broker_node::broke_for</a></div><div class="ttdeci">cvedix_broke_for broke_for</div><div class="ttdoc">The target type this broker is configured for.</div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:146</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html_a211aee98734305ca41915ae62dc77e08"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">cvedix_nodes::cvedix_node::node_name</a></div><div class="ttdeci">std::string node_name</div><div class="ttdoc">Unique identifier for this node.</div><div class="ttdef"><b>Definition</b> cvedix_node.h:226</div></div>
+<div class="ttc" id="acvedix__msg__broker__node_8h_html"><div class="ttname"><a href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a></div><div class="ttdoc">Base class for message broker nodes in Core AI Runtime.</div></div>
+<div class="ttc" id="acvedix__msg__broker__node_8h_html_a3843c16f9f18022940568c0d23d37b46"><div class="ttname"><a href="cvedix__msg__broker__node_8h.html#a3843c16f9f18022940568c0d23d37b46">cvedix_nodes::cvedix_broke_for</a></div><div class="ttdeci">cvedix_broke_for</div><div class="ttdoc">Specifies the data type that the broker node will serialize.</div><div class="ttdef"><b>Definition</b> cvedix_msg_broker_node.h:52</div></div>
+<div class="ttc" id="acvedix__objects__cereal__archive_8h_html"><div class="ttname"><a href="cvedix__objects__cereal__archive_8h.html">cvedix_objects_cereal_archive.h</a></div><div class="ttdoc">Cereal serialization functions for Core AI Runtime objects.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

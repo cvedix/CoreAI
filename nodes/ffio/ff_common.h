@@ -1,3 +1,20 @@
+/**
+ * @file ff_common.h
+ * @brief Common FFmpeg utilities and type definitions
+ * 
+ * Provides shared utilities for FFmpeg-based video I/O:
+ * - Smart pointer types for AVPacket, AVFrame
+ * - Color conversion and scaling (ff_scaler)
+ * - Thread-safe packet queue (ff_packet_queue)
+ * 
+ * @section ff_common_prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_FFMPEG`
+ * - FFmpeg development libraries
+ * 
+ * @see ff_src Source/demux/decode
+ * @see ff_des Destination/encode/mux
+ */
+
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include <memory>
@@ -8,6 +25,7 @@
 #include <unordered_map>
 #include <queue>
 extern "C" {
+
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libswscale/swscale.h>

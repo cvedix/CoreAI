@@ -1,3 +1,26 @@
+/**
+ * @file cvedix_ff_src_node.h
+ * @brief FFmpeg-based universal source node for file/network input
+ * 
+ * High-performance video input using FFmpeg with hardware decoding support.
+ * 
+ * @section ff_src_inputs Supported Inputs
+ * - Local files: `./video.mp4`, `./video.mkv`
+ * - RTSP streams: `rtsp://camera/stream`
+ * - HTTP streams, RTMP, RTP
+ * 
+ * @section ff_src_decoders Supported Decoders
+ * - `h264`, `hevc` (CPU)
+ * - `h264_cuvid`, `hevc_cuvid` (NVIDIA GPU)
+ * - `h264_vaapi`, `hevc_vaapi` (Intel GPU)
+ * 
+ * @section ff_src_prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_FFMPEG`
+ * - FFmpeg with required decoder support
+ * 
+ * @see ff_src Low-level FFmpeg wrapper
+ * @see cvedix_src_node Base class
+ */
 
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
@@ -6,13 +29,14 @@
 
 namespace cvedix_nodes {
     /**
-     * universal SRC node using FFmpeg.
+     * @brief Universal source node using FFmpeg
      * 
-     * support uri:
-     * 1. path of file streams like `./cvedix_data/cvedix_test.mp4`.
-     * 2. url of network streams like `rtsp://192.168.77.68/main_stream`.
+     * Supports file streams and network protocols (RTSP, RTMP, HTTP).
+     * 
+     * @see cvedix_src_node Base class
      */
     class cvedix_ff_src_node final: public cvedix_src_node {
+
     private:
         /* inner members. */
         std::string m_decoder_name = "";

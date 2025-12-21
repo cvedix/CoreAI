@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/des/cvedix_rtsp_des_node.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/des/cvedix_rtsp_des_node.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,82 +74,69 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_60f1eec9686f7c5d9f7c52f2f778e3fb.html">des</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_8eebab1d2f6d148db978aea4c8e477a8.html">des</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_rtsp_des_node.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__rtsp__des__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef CVEDIX_WITH_GSTREAMER</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;gst/gst.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;gst/rtsp-server/rtsp-server.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;cvedix/nodes/common/cvedix_des_node.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">* ##### Compile Tips #####</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">* install additional packages for this node before compiling:</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">* sudo apt-get install libgstrtspserver-1.0-dev gstreamer1.0-rtsp</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">* https://github.com/GStreamer/gst-rtsp-server</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">*/</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="comment">// rtsp des node, push video stream via rtsp.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// example: rtsp://localhost:7890/test</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// note, no specialized rtsp server needed since this node itself is a rtsp server, which can be pulled directly by video players such as VLC.</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">class </span>cvedix_rtsp_des_node: <span class="keyword">public</span> cvedix_des_node {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="comment">/* data */</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        std::string gst_template = <span class="stringliteral">&quot;appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! rtph264pay ! udpsink host=localhost port=%d&quot;</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        cv::VideoWriter rtsp_writer;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// start rtsp server</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> start_rtsp_streaming ();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// resolution for rtsp stream</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        cvedix_objects::cvedix_size resolution_w_h;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">int</span> bitrate;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">// for osd frame </span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">bool</span> osd;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">int</span> udp_buffer_size = 0;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="comment">// base udp port for stream data exchange internally, base_udp_port + channel_index would be used for each channel, MUST not occupied by others.</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> base_udp_port = 7890;</div>
+<a href="cvedix__rtsp__des__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#ifdef CVEDIX_WITH_GSTREAMER</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;gst/gst.h&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;gst/rtsp-server/rtsp-server.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;cvedix/nodes/common/cvedix_des_node.h&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span>cvedix_nodes {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">int</span> rtsp_port = 9000;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::string rtsp_name = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">/* gst-rtsp-server variables shared between instances for different channels */</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">static</span> GstRTSPServer* rtsp_server;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">// set x264enc as the default encoder, we can use hardware encoder instead.</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        std::string gst_encoder_name = <span class="stringliteral">&quot;x264enc&quot;</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">// re-implementation, return nullptr.</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">virtual</span> std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; handle_frame_meta(std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt; meta) <span class="keyword">override</span>; </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        cvedix_rtsp_des_node(std::string node_name, </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                        <span class="keywordtype">int</span> channel_index, </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                        <span class="keywordtype">int</span> rtsp_port = 9000, </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                        std::string rtsp_name = <span class="stringliteral">&quot;&quot;</span>, </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                        cvedix_objects::cvedix_size resolution_w_h = {}, </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                        <span class="keywordtype">int</span> bitrate = 512,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                        <span class="keywordtype">bool</span> osd = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                        std::string gst_encoder_name = <span class="stringliteral">&quot;x264enc&quot;</span>);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        ~cvedix_rtsp_des_node();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>         <span class="keyword">virtual</span> std::string to_string() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    };</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">// CVEDIX_WITH_GSTREAMER</span></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">class </span>cvedix_rtsp_des_node: <span class="keyword">public</span> cvedix_des_node {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        std::string gst_template = <span class="stringliteral">&quot;appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! rtph264pay ! udpsink host=localhost port=%d&quot;</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        cv::VideoWriter rtsp_writer;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> start_rtsp_streaming();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_class" href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a> resolution_w_h;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">int</span> bitrate;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">bool</span> osd;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">int</span> udp_buffer_size = 0;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> base_udp_port = 7890;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">int</span> rtsp_port = 9000;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        std::string rtsp_name = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">static</span> GstRTSPServer* rtsp_server;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        std::string gst_encoder_name = <span class="stringliteral">&quot;x264enc&quot;</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">virtual</span> std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; handle_frame_meta(std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt; meta) <span class="keyword">override</span>; </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        cvedix_rtsp_des_node(std::string node_name, </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                        <span class="keywordtype">int</span> channel_index, </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                        <span class="keywordtype">int</span> rtsp_port = 9000, </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                        std::string rtsp_name = <span class="stringliteral">&quot;&quot;</span>, </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                        <a class="code hl_class" href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a> resolution_w_h = {}, </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                        <span class="keywordtype">int</span> bitrate = 512,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                        <span class="keywordtype">bool</span> osd = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                        std::string gst_encoder_name = <span class="stringliteral">&quot;x264enc&quot;</span>);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        ~cvedix_rtsp_des_node();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keyword">virtual</span> std::string to_string() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    };</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif </span><span class="comment">// CVEDIX_WITH_GSTREAMER</span></div>
+<div class="ttc" id="aclasscvedix__objects_1_1cvedix__size_html"><div class="ttname"><a href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a></div><div class="ttdoc">2D size (width, height)</div><div class="ttdef"><b>Definition</b> cvedix_size.h:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

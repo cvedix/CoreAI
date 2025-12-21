@@ -1,3 +1,8 @@
+/**
+ * @file cvedix_version.h
+ * @brief SDK version macros (generated from CMake)
+ */
+
 #pragma once
 
 #define CVEDIX_BUILD_TIME "@BUILD_TIME@"

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/broker/cvedix_json_kafka_broker_node.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/broker/cvedix_json_kafka_broker_node.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,53 +74,54 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_a62cd8d84082acf74d61cbcd00b71a67.html">broker</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_24b6c6a7d7ce5e273f361ce3fcbf9991.html">broker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_json_kafka_broker_node.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__json__kafka__broker__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef CVEDIX_WITH_KAFKA</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="KafkaProducer_8h.html">kafka_utils/KafkaProducer.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__objects__cereal__archive_8h.html">cereal_archive/cvedix_objects_cereal_archive.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// message broker node, broke json data to kafka.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span>cvedix_json_kafka_broker_node: <span class="keyword">public</span> cvedix_msg_broker_node</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="comment">/* data */</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        std::shared_ptr&lt;KafkaProducer&gt; kafka_producer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="comment">// to json</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> format_msg(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, std::string&amp; msg) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// to console</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> broke_msg(<span class="keyword">const</span> std::string&amp; msg) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        cvedix_json_kafka_broker_node(std::string node_name, </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                                    std::string kafka_servers = <span class="stringliteral">&quot;127.0.0.1:9092&quot;</span>,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                                    std::string topic_name = <span class="stringliteral">&quot;sdk_topic&quot;</span>,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                                    cvedix_broke_for broke_for = cvedix_broke_for::NORMAL, </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                                    <span class="keywordtype">int</span> broking_cache_warn_threshold = 50, </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                                    <span class="keywordtype">int</span> broking_cache_ignore_threshold = 200);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        ~cvedix_json_kafka_broker_node();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    };</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aKafkaProducer_8h_html"><div class="ttname"><a href="KafkaProducer_8h.html">KafkaProducer.h</a></div></div>
-<div class="ttc" id="acvedix__msg__broker__node_8h_html"><div class="ttname"><a href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a></div></div>
-<div class="ttc" id="acvedix__objects__cereal__archive_8h_html"><div class="ttname"><a href="cvedix__objects__cereal__archive_8h.html">cvedix_objects_cereal_archive.h</a></div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
+<a href="cvedix__json__kafka__broker__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifdef CVEDIX_WITH_KAFKA</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="KafkaProducer_8h.html">kafka_utils/KafkaProducer.h</a>&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &quot;<a class="code" href="cvedix__objects__cereal__archive_8h.html">cereal_archive/cvedix_objects_cereal_archive.h</a>&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">class </span>cvedix_json_kafka_broker_node: <span class="keyword">public</span> cvedix_msg_broker_node</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::shared_ptr&lt;KafkaProducer&gt; kafka_producer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> format_msg(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, std::string&amp; msg) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> broke_msg(<span class="keyword">const</span> std::string&amp; msg) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        cvedix_json_kafka_broker_node(std::string node_name, </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                    std::string kafka_servers = <span class="stringliteral">&quot;127.0.0.1:9092&quot;</span>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                                    std::string topic_name = <span class="stringliteral">&quot;sdk_topic&quot;</span>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                    cvedix_broke_for broke_for = cvedix_broke_for::NORMAL, </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                                    <span class="keywordtype">int</span> broking_cache_warn_threshold = 50, </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                                    <span class="keywordtype">int</span> broking_cache_ignore_threshold = 200);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        ~cvedix_json_kafka_broker_node();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    };</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aKafkaProducer_8h_html"><div class="ttname"><a href="KafkaProducer_8h.html">KafkaProducer.h</a></div><div class="ttdoc">Apache Kafka producer wrapper for Core AI Runtime.</div></div>
+<div class="ttc" id="acvedix__msg__broker__node_8h_html"><div class="ttname"><a href="cvedix__msg__broker__node_8h.html">cvedix_msg_broker_node.h</a></div><div class="ttdoc">Base class for message broker nodes in Core AI Runtime.</div></div>
+<div class="ttc" id="acvedix__objects__cereal__archive_8h_html"><div class="ttname"><a href="cvedix__objects__cereal__archive_8h.html">cvedix_objects_cereal_archive.h</a></div><div class="ttdoc">Cereal serialization functions for Core AI Runtime objects.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

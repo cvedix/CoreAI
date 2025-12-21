@@ -1,51 +1,99 @@
 <map id="cvedix_nodes::cvedix_node" name="cvedix_nodes::cvedix_node">
-<area shape="rect" id="node1" title=" " alt="" coords="256,961,457,987"/>
-<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__ba__crossline__node.html" title=" " alt="" coords="513,5,676,47"/>
-<area shape="rect" id="node7" href="$classcvedix__nodes_1_1cvedix__ba__crossline__osd__node.html" title=" " alt="" coords="505,71,684,112"/>
-<area shape="rect" id="node8" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html" title=" " alt="" coords="513,136,676,177"/>
-<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__ba__jam__osd__node.html" title=" " alt="" coords="513,201,676,243"/>
-<area shape="rect" id="node10" href="$classcvedix__nodes_1_1cvedix__ba__stop__node.html" title=" " alt="" coords="513,267,676,308"/>
-<area shape="rect" id="node11" href="$classcvedix__nodes_1_1cvedix__ba__stop__osd__node.html" title=" " alt="" coords="513,332,676,373"/>
-<area shape="rect" id="node12" href="$classcvedix__nodes_1_1cvedix__cluster__node.html" title=" " alt="" coords="513,397,676,439"/>
-<area shape="rect" id="node13" href="$classcvedix__nodes_1_1cvedix__des__node.html" title=" " alt="" coords="513,463,676,504"/>
-<area shape="rect" id="node20" href="$classcvedix__nodes_1_1cvedix__expr__check__node.html" title=" " alt="" coords="513,528,676,569"/>
-<area shape="rect" id="node21" href="$classcvedix__nodes_1_1cvedix__expr__osd__node.html" title=" " alt="" coords="513,593,676,635"/>
-<area shape="rect" id="node22" href="$classcvedix__nodes_1_1cvedix__face__osd__node.html" title=" " alt="" coords="513,659,676,700"/>
-<area shape="rect" id="node23" href="$classcvedix__nodes_1_1cvedix__face__osd__node__v2.html" title=" " alt="" coords="513,724,676,765"/>
-<area shape="rect" id="node24" href="$classcvedix__nodes_1_1cvedix__frame__fusion__node.html" title=" " alt="" coords="513,789,676,831"/>
-<area shape="rect" id="node25" href="$classcvedix__nodes_1_1cvedix__infer__node.html" title=" " alt="" coords="513,855,676,896"/>
-<area shape="rect" id="node28" href="$classcvedix__nodes_1_1cvedix__lane__osd__node.html" title=" " alt="" coords="513,920,676,961"/>
-<area shape="rect" id="node29" href="$classcvedix__nodes_1_1cvedix__message__broker__node.html" title=" " alt="" coords="507,985,682,1027"/>
-<area shape="rect" id="node30" href="$classcvedix__nodes_1_1cvedix__msg__broker__node.html" title=" " alt="" coords="513,1051,676,1092"/>
-<area shape="rect" id="node37" href="$classcvedix__nodes_1_1cvedix__osd__node.html" title=" " alt="" coords="513,1116,676,1157"/>
-<area shape="rect" id="node38" href="$classcvedix__nodes_1_1cvedix__osd__node__v2.html" title=" " alt="" coords="513,1181,676,1223"/>
-<area shape="rect" id="node39" href="$classcvedix__nodes_1_1cvedix__osd__node__v3.html" title=" " alt="" coords="513,1247,676,1288"/>
-<area shape="rect" id="node40" href="$classcvedix__nodes_1_1cvedix__placeholder__node.html" title=" " alt="" coords="513,1312,676,1353"/>
-<area shape="rect" id="node41" href="$classcvedix__nodes_1_1cvedix__plate__osd__node.html" title=" " alt="" coords="513,1377,676,1419"/>
-<area shape="rect" id="node42" href="$classcvedix__nodes_1_1cvedix__pose__osd__node.html" title=" " alt="" coords="513,1443,676,1484"/>
-<area shape="rect" id="node43" href="$classcvedix__nodes_1_1cvedix__record__node.html" title=" " alt="" coords="513,1508,676,1549"/>
-<area shape="rect" id="node44" href="$classcvedix__nodes_1_1cvedix__seg__osd__node.html" title=" " alt="" coords="513,1573,676,1615"/>
-<area shape="rect" id="node45" href="$classcvedix__nodes_1_1cvedix__split__node.html" title=" " alt="" coords="513,1639,676,1680"/>
-<area shape="rect" id="node46" href="$classcvedix__nodes_1_1cvedix__src__node.html" title=" " alt="" coords="513,1704,676,1745"/>
-<area shape="rect" id="node47" href="$classcvedix__nodes_1_1cvedix__sync__node.html" title=" " alt="" coords="513,1769,676,1811"/>
-<area shape="rect" id="node48" href="$classcvedix__nodes_1_1cvedix__text__osd__node.html" title=" " alt="" coords="513,1835,676,1876"/>
-<area shape="rect" id="node49" href="$classcvedix__nodes_1_1cvedix__track__node.html" title=" " alt="" coords="513,1900,676,1941"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,855,188,896"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,920,188,961"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,985,188,1027"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,1051,208,1092"/>
-<area shape="rect" id="node14" href="$classcvedix__nodes_1_1cvedix__app__des__node.html" title=" " alt="" coords="773,300,936,341"/>
-<area shape="rect" id="node15" href="$classcvedix__nodes_1_1cvedix__fake__des__node.html" title=" " alt="" coords="773,365,936,407"/>
-<area shape="rect" id="node16" href="$classcvedix__nodes_1_1cvedix__file__des__node.html" title=" " alt="" coords="773,431,936,472"/>
-<area shape="rect" id="node17" href="$classcvedix__nodes_1_1cvedix__image__des__node.html" title=" " alt="" coords="773,496,936,537"/>
-<area shape="rect" id="node18" href="$classcvedix__nodes_1_1cvedix__rtmp__des__node.html" title=" " alt="" coords="773,561,936,603"/>
-<area shape="rect" id="node19" href="$classcvedix__nodes_1_1cvedix__screen__des__node.html" title=" " alt="" coords="773,627,936,668"/>
-<area shape="rect" id="node26" href="$classcvedix__nodes_1_1cvedix__primary__infer__node.html" title=" " alt="" coords="773,781,936,823"/>
-<area shape="rect" id="node27" href="$classcvedix__nodes_1_1cvedix__secondary__infer__node.html" title=" " alt="" coords="769,847,941,888"/>
-<area shape="rect" id="node31" href="$classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html" title=" " alt="" coords="764,912,945,953"/>
-<area shape="rect" id="node32" href="$classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html" title=" " alt="" coords="763,978,946,1034"/>
-<area shape="rect" id="node33" href="$classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html" title=" " alt="" coords="732,1059,977,1100"/>
-<area shape="rect" id="node34" href="$classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html" title=" " alt="" coords="757,1124,952,1165"/>
-<area shape="rect" id="node35" href="$classcvedix__nodes_1_1cvedix__json__console__broker__node.html" title=" " alt="" coords="755,1189,955,1231"/>
-<area shape="rect" id="node36" href="$classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html" title=" " alt="" coords="755,1255,954,1296"/>
+<area shape="rect" id="Node000001" title="Base class for all pipeline nodes." alt="" coords="256,973,457,998"/>
+<area shape="rect" id="Node000006" href="$classcvedix__nodes_1_1cvedix__ba__crossline__node.html" title="Crossline detection behavior analysis node." alt="" coords="535,5,698,45"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="356,959,363,780,371,650,384,509,403,367,428,237,444,180,461,129,481,88,503,56,517,43,534,35,536,39,520,48,507,59,486,90,466,131,449,181,434,238,408,368,390,509,377,651,368,780,361,959"/>
+<area shape="rect" id="Node000007" href="$classcvedix__nodes_1_1cvedix__ba__crossline__osd__node.html" title="Crossline BA visualization." alt="" coords="527,69,706,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="356,959,365,790,388,539,407,408,432,287,464,188,483,149,503,119,525,103,529,107,507,123,487,152,469,190,437,289,412,409,393,539,370,791,362,959"/>
+<area shape="rect" id="Node000008" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html" title="Traffic jam detection behavior analysis node." alt="" coords="535,133,698,173"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="357,959,367,802,392,570,411,449,436,338,466,246,484,211,503,184,518,171,534,163,536,167,521,176,507,187,488,214,471,248,441,339,416,450,397,570,372,803,362,959"/>
+<area shape="rect" id="Node000009" href="$classcvedix__nodes_1_1cvedix__ba__jam__osd__node.html" title="Traffic jam BA visualization." alt="" coords="535,197,698,237"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="357,959,369,813,396,600,415,489,439,388,469,305,485,272,503,248,517,236,534,227,536,232,520,240,507,251,490,275,474,307,445,390,421,490,401,600,375,814,362,959"/>
+<area shape="rect" id="Node000010" href="$classcvedix__nodes_1_1cvedix__ba__stop__node.html" title="Individual object stop detection behavior analysis node." alt="" coords="535,261,698,301"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="358,959,372,824,400,630,420,530,443,439,471,363,487,334,503,311,518,300,534,291,536,296,521,304,507,315,491,337,476,365,448,440,425,532,405,631,377,825,363,959"/>
+<area shape="rect" id="Node000011" href="$classcvedix__nodes_1_1cvedix__ba__stop__osd__node.html" title="Vehicle stop BA visualization." alt="" coords="535,325,698,365"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="358,958,374,835,404,660,424,571,447,489,473,422,488,396,503,375,518,364,534,355,536,360,521,368,507,379,492,398,478,424,452,491,429,572,409,661,380,836,364,959"/>
+<area shape="rect" id="Node000012" href="$classcvedix__nodes_1_1cvedix__cluster__node.html" title="Target clustering visualization node." alt="" coords="535,389,698,429"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="359,959,377,847,408,691,428,612,451,540,476,480,503,439,534,420,537,424,507,443,481,483,456,542,433,614,413,693,382,848,364,959"/>
+<area shape="rect" id="Node000013" href="$classcvedix__nodes_1_1cvedix__custom__data__transform__node.html" title=" " alt="" coords="505,453,728,493"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="355,959,360,872,368,814,380,750,399,684,425,618,459,557,503,503,519,491,523,496,507,507,463,560,429,621,404,686,385,751,373,815,366,873,361,959"/>
+<area shape="rect" id="Node000014" href="$classcvedix__nodes_1_1cvedix__des__node.html" title="Base class for all destination nodes." alt="" coords="535,517,698,557"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="357,959,365,883,388,777,407,721,432,665,464,613,504,567,534,548,537,553,507,571,468,616,437,668,412,723,393,779,371,883,362,959"/>
+<area shape="rect" id="Node000020" href="$classcvedix__nodes_1_1cvedix__expr__check__node.html" title="Math expression validation node." alt="" coords="535,581,698,621"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="359,958,371,893,397,805,415,758,439,712,468,669,504,631,534,613,537,618,507,635,473,672,444,714,420,760,402,806,376,894,364,959"/>
+<area shape="rect" id="Node000021" href="$classcvedix__nodes_1_1cvedix__expr__osd__node.html" title="Math expression OSD visualization." alt="" coords="535,645,698,685"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="361,958,377,903,405,832,447,759,473,725,504,695,534,678,536,683,507,699,477,728,451,762,410,835,383,905,367,960"/>
+<area shape="rect" id="Node000022" href="$classcvedix__nodes_1_1cvedix__face__osd__node.html" title="Face OSD visualization." alt="" coords="535,709,698,749"/>
+<area shape="poly" id="edge21_Node000001_Node000022" title=" " alt="" coords="365,959,385,915,415,861,454,806,478,781,504,759,534,743,536,748,507,764,481,785,458,810,419,864,390,918,370,961"/>
+<area shape="rect" id="Node000023" href="$classcvedix__nodes_1_1cvedix__face__osd__node__v2.html" title="Face OSD v2 with similarity display." alt="" coords="535,773,698,813"/>
+<area shape="poly" id="edge22_Node000001_Node000023" title=" " alt="" coords="372,960,425,892,462,855,504,823,534,809,536,813,507,828,465,859,429,895,376,963"/>
+<area shape="rect" id="Node000024" href="$classcvedix__nodes_1_1cvedix__frame__fusion__node.html" title="Frame fusion node (2 channels)" alt="" coords="535,837,698,877"/>
+<area shape="poly" id="edge23_Node000001_Node000024" title=" " alt="" coords="383,962,438,924,504,887,535,875,537,880,506,892,440,929,387,966"/>
+<area shape="rect" id="Node000025" href="$classcvedix__nodes_1_1cvedix__infer__node.html" title="Base class for all deep learning inference nodes." alt="" coords="535,901,698,941"/>
+<area shape="poly" id="edge24_Node000001_Node000025" title=" " alt="" coords="422,967,534,939,536,944,423,972"/>
+<area shape="rect" id="Node000048" href="$classcvedix__nodes_1_1cvedix__lane__osd__node.html" title="Lane detection OSD visualization." alt="" coords="535,965,698,1005"/>
+<area shape="poly" id="edge27_Node000001_Node000048" title=" " alt="" coords="471,983,535,983,535,988,471,988"/>
+<area shape="rect" id="Node000049" href="$classcvedix__nodes_1_1cvedix__message__broker__node.html" title="Generic message broker node." alt="" coords="529,1029,704,1069"/>
+<area shape="poly" id="edge28_Node000001_Node000049" title=" " alt="" coords="423,999,535,1027,534,1032,422,1004"/>
+<area shape="rect" id="Node000050" href="$classcvedix__nodes_1_1cvedix__msg__broker__node.html" title="Base class for all message broker nodes." alt="" coords="535,1093,698,1133"/>
+<area shape="poly" id="edge29_Node000001_Node000050" title=" " alt="" coords="387,1004,440,1042,506,1079,537,1091,535,1096,504,1084,438,1046,383,1009"/>
+<area shape="rect" id="Node000061" href="$classcvedix__nodes_1_1cvedix__osd__node.html" title="Base OSD node for target visualization." alt="" coords="535,1157,698,1197"/>
+<area shape="poly" id="edge36_Node000001_Node000061" title=" " alt="" coords="376,1008,429,1075,465,1112,507,1143,536,1157,534,1162,504,1148,462,1116,425,1079,372,1011"/>
+<area shape="rect" id="Node000062" href="$classcvedix__nodes_1_1cvedix__osd__node__v2.html" title="OSD v2 with bottom panel for sub&#45;targets." alt="" coords="535,1221,698,1261"/>
+<area shape="poly" id="edge37_Node000001_Node000062" title=" " alt="" coords="370,1010,390,1053,419,1106,458,1161,481,1186,507,1207,536,1223,534,1228,504,1212,478,1189,454,1164,415,1109,385,1055,365,1012"/>
+<area shape="rect" id="Node000063" href="$classcvedix__nodes_1_1cvedix__osd__node__v3.html" title="OSD v3 with segmentation mask overlay." alt="" coords="535,1285,698,1325"/>
+<area shape="poly" id="edge38_Node000001_Node000063" title=" " alt="" coords="367,1011,383,1066,410,1136,451,1209,477,1242,507,1271,536,1288,534,1293,504,1275,473,1246,447,1212,405,1138,377,1068,361,1013"/>
+<area shape="rect" id="Node000064" href="$classcvedix__nodes_1_1cvedix__placeholder__node.html" title="Placeholder node &#45; passes data through unchanged." alt="" coords="535,1349,698,1389"/>
+<area shape="poly" id="edge39_Node000001_Node000064" title=" " alt="" coords="364,1011,376,1077,402,1164,420,1211,444,1256,473,1298,507,1335,537,1353,534,1358,504,1339,468,1302,439,1259,415,1213,397,1166,371,1078,359,1012"/>
+<area shape="rect" id="Node000065" href="$classcvedix__nodes_1_1cvedix__plate__osd__node.html" title="LPR OSD visualization with plate history." alt="" coords="535,1413,698,1453"/>
+<area shape="poly" id="edge40_Node000001_Node000065" title=" " alt="" coords="362,1011,371,1087,393,1192,412,1248,437,1303,468,1354,507,1399,537,1418,534,1422,504,1403,464,1358,432,1306,407,1250,388,1193,365,1088,357,1012"/>
+<area shape="rect" id="Node000066" href="$classcvedix__nodes_1_1cvedix__pose__osd__node.html" title="Pose estimation OSD visualization." alt="" coords="535,1477,698,1517"/>
+<area shape="poly" id="edge41_Node000001_Node000066" title=" " alt="" coords="361,1012,366,1098,373,1156,385,1219,404,1285,429,1350,463,1410,507,1463,536,1482,534,1487,504,1467,459,1413,425,1352,399,1287,380,1221,368,1157,360,1098,355,1012"/>
+<area shape="rect" id="Node000067" href="$classcvedix__nodes_1_1cvedix__record__node.html" title="Async video/image recording node." alt="" coords="535,1541,698,1581"/>
+<area shape="poly" id="edge42_Node000001_Node000067" title=" " alt="" coords="364,1011,382,1123,413,1278,433,1357,456,1429,481,1488,507,1527,537,1547,534,1551,503,1531,476,1490,451,1431,428,1359,408,1279,377,1124,359,1012"/>
+<area shape="rect" id="Node000068" href="$classcvedix__nodes_1_1cvedix__seg__osd__node.html" title="Semantic segmentation OSD visualization." alt="" coords="535,1605,698,1645"/>
+<area shape="poly" id="edge43_Node000001_Node000068" title=" " alt="" coords="364,1012,380,1135,409,1309,429,1399,452,1480,478,1547,492,1572,507,1591,521,1602,536,1611,534,1615,518,1607,503,1595,488,1575,473,1549,447,1482,424,1400,404,1310,374,1136,358,1012"/>
+<area shape="rect" id="Node000069" href="$classcvedix__nodes_1_1cvedix__split__node.html" title="Pipeline splitting node with configurable behavior." alt="" coords="535,1669,698,1709"/>
+<area shape="poly" id="edge44_Node000001_Node000069" title=" " alt="" coords="363,1011,377,1146,405,1339,425,1439,448,1530,476,1605,491,1634,507,1655,521,1667,536,1675,534,1679,518,1671,503,1659,487,1637,471,1607,443,1532,420,1440,400,1340,372,1146,358,1012"/>
+<area shape="rect" id="Node000070" href="$classcvedix__nodes_1_1cvedix__src__node.html" title="Base class for all source nodes." alt="" coords="535,1733,698,1773"/>
+<area shape="poly" id="edge45_Node000001_Node000070" title=" " alt="" coords="362,1011,375,1157,401,1370,421,1480,445,1581,474,1664,490,1696,507,1720,520,1731,536,1739,534,1744,517,1735,503,1723,485,1698,469,1666,439,1582,415,1481,396,1371,369,1158,357,1012"/>
+<area shape="rect" id="Node000074" href="$classcvedix__nodes_1_1cvedix__sync__node.html" title="Synchronization node for parallel branch merging." alt="" coords="535,1797,698,1837"/>
+<area shape="poly" id="edge46_Node000001_Node000074" title=" " alt="" coords="362,1011,372,1168,397,1400,416,1521,441,1631,471,1722,488,1757,507,1784,521,1795,536,1803,534,1808,518,1799,503,1787,484,1760,466,1724,436,1633,411,1522,392,1401,367,1169,357,1012"/>
+<area shape="rect" id="Node000075" href="$classcvedix__nodes_1_1cvedix__text__osd__node.html" title="OCR text OSD visualization." alt="" coords="535,1861,698,1901"/>
+<area shape="poly" id="edge47_Node000001_Node000075" title=" " alt="" coords="362,1012,370,1180,393,1431,412,1562,437,1682,469,1781,487,1819,507,1848,521,1859,536,1867,534,1872,518,1863,503,1851,483,1822,464,1783,432,1683,407,1563,388,1432,365,1180,356,1012"/>
+<area shape="rect" id="Node000076" href="$classcvedix__nodes_1_1cvedix__track__node.html" title="Base class for multi&#45;object tracking nodes." alt="" coords="535,1925,698,1965"/>
+<area shape="poly" id="edge48_Node000001_Node000076" title=" " alt="" coords="361,1012,368,1190,377,1320,390,1461,408,1602,434,1732,449,1789,466,1839,486,1880,507,1912,520,1923,536,1931,534,1936,517,1927,503,1915,481,1883,461,1841,444,1791,428,1733,403,1603,384,1462,371,1320,363,1191,356,1012"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,869,188,909"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,911,209,919,329,970,327,975,207,924,186,916"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,933,188,973"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,963,258,970,257,975,202,968"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,997,188,1037"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="202,1003,257,995,258,1001,202,1008"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,1061,208,1101"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,1054,207,1047,327,996,329,1001,209,1052,188,1059"/>
+<area shape="rect" id="Node000015" href="$classcvedix__nodes_1_1cvedix__app__des__node.html" title="Application destination node with callback interface." alt="" coords="817,389,980,429"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="710,513,726,503,742,488,750,472,758,455,774,439,816,420,818,425,778,444,762,458,754,474,746,491,730,507,712,518"/>
+<area shape="rect" id="Node000016" href="$classcvedix__nodes_1_1cvedix__fake__des__node.html" title="Placeholder destination node." alt="" coords="817,453,980,493"/>
+<area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="711,513,817,489,818,494,712,519"/>
+<area shape="rect" id="Node000017" href="$classcvedix__nodes_1_1cvedix__file__des__node.html" title="Video file recording destination node." alt="" coords="817,517,980,557"/>
+<area shape="poly" id="edge16_Node000014_Node000017" title=" " alt="" coords="711,535,817,535,817,540,711,540"/>
+<area shape="rect" id="Node000018" href="$classcvedix__nodes_1_1cvedix__image__des__node.html" title="Image capture destination node." alt="" coords="817,581,980,621"/>
+<area shape="poly" id="edge17_Node000014_Node000018" title=" " alt="" coords="712,556,818,580,817,586,711,561"/>
+<area shape="rect" id="Node000019" href="$classcvedix__nodes_1_1cvedix__screen__des__node.html" title="Local screen display destination node." alt="" coords="817,645,980,685"/>
+<area shape="poly" id="edge18_Node000014_Node000019" title=" " alt="" coords="712,557,730,567,746,584,754,600,762,616,778,631,818,650,816,655,774,636,758,619,750,603,742,587,726,571,710,562"/>
+<area shape="rect" id="Node000026" href="$classcvedix__nodes_1_1cvedix__primary__infer__node.html" title="Base class for primary (full&#45;frame) inference nodes." alt="" coords="817,829,980,869"/>
+<area shape="poly" id="edge25_Node000025_Node000026" title=" " alt="" coords="708,895,819,867,820,872,709,901"/>
+<area shape="rect" id="Node000041" href="$classcvedix__nodes_1_1cvedix__secondary__infer__node.html" title="Base class for secondary (ROI&#45;based) inference nodes." alt="" coords="813,893,985,933"/>
+<area shape="poly" id="edge26_Node000025_Node000041" title=" " alt="" coords="712,916,812,913,812,918,712,921"/>
+<area shape="rect" id="Node000051" href="$classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html" title="UDP socket broker for behavior analysis results." alt="" coords="808,957,989,997"/>
+<area shape="poly" id="edge30_Node000050_Node000051" title=" " alt="" coords="709,1090,726,1079,742,1063,749,1045,758,1026,774,1009,807,992,809,996,778,1013,762,1029,754,1047,746,1065,730,1083,712,1094"/>
+<area shape="rect" id="Node000052" href="$classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html" title="UDP socket broker for target embeddings and properties." alt="" coords="807,1022,990,1077"/>
+<area shape="poly" id="edge31_Node000050_Node000052" title=" " alt="" coords="710,1089,806,1067,808,1073,712,1095"/>
+<area shape="rect" id="Node000053" href="$classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html" title="UDP socket broker for embeddings only." alt="" coords="776,1101,1021,1141"/>
+<area shape="poly" id="edge32_Node000050_Node000053" title=" " alt="" coords="712,1113,776,1115,776,1121,712,1119"/>
+<area shape="rect" id="Node000054" href="$classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html" title="UDP socket broker for math expression validation results." alt="" coords="801,1165,996,1205"/>
+<area shape="poly" id="edge33_Node000050_Node000054" title=" " alt="" coords="709,1134,820,1163,819,1168,708,1139"/>
+<area shape="rect" id="Node000055" href="$classcvedix__nodes_1_1cvedix__json__console__broker__node.html" title="Debug broker &#45; JSON output to console." alt="" coords="799,1229,999,1269"/>
+<area shape="poly" id="edge34_Node000050_Node000055" title=" " alt="" coords="712,1132,730,1143,746,1162,754,1180,762,1198,778,1215,800,1228,797,1232,774,1219,757,1201,749,1183,742,1164,726,1147,709,1137"/>
+<area shape="rect" id="Node000057" href="$classcvedix__nodes_1_1cvedix__json__mqtt__broker__node.html" title="Flexible MQTT JSON broker." alt="" coords="808,1293,989,1333"/>
+<area shape="poly" id="edge35_Node000050_Node000057" title=" " alt="" coords="712,1130,730,1143,744,1161,751,1178,754,1213,758,1247,765,1263,778,1279,809,1298,807,1303,774,1283,760,1266,753,1249,749,1214,746,1180,739,1163,726,1147,709,1135"/>
 </map>

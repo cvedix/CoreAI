@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_rknn_yolov11_detector_node.h
+ * @brief YOLOv11 detector for Rockchip RKNN NPU
+ * 
+ * NPU-accelerated YOLOv11 with Split Head and DFL processing.
+ */
+
 #pragma once
 
 #include <vector>
@@ -8,11 +15,12 @@
 #include "rknn_yolov11.h"
 
 namespace cvedix_nodes {
-    // YOLOv11 detector optimized for Rockchip RKNN.
-    // Now integrated with rknn_yolov11 detector implementation which supports
-    // Split Head models and optimized DFL processing.
+    /**
+     * @brief RKNN NPU YOLOv11 detector
+     */
     class cvedix_rknn_yolov11_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         std::shared_ptr<rknn_yolov11::rknn_yolov11_detector> detector;
 

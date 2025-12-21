@@ -1,4 +1,7 @@
-
+/**
+ * @file cvedix_polygon.h
+ * @brief 2D polygon geometry primitive
+ */
 
 #pragma once
 
@@ -6,8 +9,12 @@
 #include "cvedix_point.h"
 
 namespace cvedix_objects {
+    /**
+     * @brief 2D polygon with point containment check
+     */
     class cvedix_polygon
     {
+
     private:
         /* data */
     public:

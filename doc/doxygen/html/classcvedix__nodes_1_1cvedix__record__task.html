@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: cvedix_nodes::cvedix_record_task Class Reference</title>
+<title>CVEDIX AI Runtime: cvedix_nodes::cvedix_record_task Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></li><li class="navelem"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html">cvedix_record_task</a></li>  </ul>
+<li class="navelem"><b>cvedix_nodes</b></li><li class="navelem"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html">cvedix_record_task</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,469 +83,100 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for recording tasks.  
+ <a href="classcvedix__nodes_1_1cvedix__record__task.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="cvedix__record__task_8h_source.html">cvedix_record_task.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for cvedix_nodes::cvedix_record_task:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classcvedix__nodes_1_1cvedix__record__task.png" usemap="#cvedix_5Fnodes::cvedix_5Frecord_5Ftask_map" alt=""/>
-  <map id="cvedix_5Fnodes::cvedix_5Frecord_5Ftask_map" name="cvedix_5Fnodes::cvedix_5Frecord_5Ftask_map">
-<area href="classcvedix__nodes_1_1cvedix__image__record__task.html" alt="cvedix_nodes::cvedix_image_record_task" shape="rect" coords="0,56,247,80"/>
-<area href="classcvedix__nodes_1_1cvedix__video__record__task.html" alt="cvedix_nodes::cvedix_video_record_task" shape="rect" coords="257,56,504,80"/>
-  </map>
-</div></div>
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__record__task__inherit__graph.png" border="0" usemap="#acvedix__nodes_1_1cvedix__record__task_inherit__map" alt="Inheritance graph"/></div>
+<map name="acvedix__nodes_1_1cvedix__record__task_inherit__map" id="acvedix__nodes_1_1cvedix__record__task_inherit__map">
+<area shape="rect" title="Base class for recording tasks." alt="" coords="99,5,261,45"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__record__task.html" title="Async image recording task." alt="" coords="5,93,168,133"/>
+<area shape="poly" title=" " alt="" coords="151,57,109,95,106,91,147,53"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__video__record__task.html" title="Async video recording task." alt="" coords="192,93,355,133"/>
+<area shape="poly" title=" " alt="" coords="213,53,254,91,251,95,209,57"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for cvedix_nodes::cvedix_record_task:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__record__task__coll__graph.png" border="0" usemap="#acvedix__nodes_1_1cvedix__record__task_coll__map" alt="Collaboration graph"/></div>
+<map name="acvedix__nodes_1_1cvedix__record__task_coll__map" id="acvedix__nodes_1_1cvedix__record__task_coll__map">
+<area shape="rect" title="Base class for recording tasks." alt="" coords="5,108,168,148"/>
+<area shape="rect" href="classcvedix__utils_1_1cvedix__semaphore.html" title="Semaphore for queue synchronization." alt="" coords="11,5,162,45"/>
+<area shape="poly" title=" " alt="" coords="89,59,89,108,84,108,84,59"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac4828428c4d30ca23ad452450b698d1d" id="r_ac4828428c4d30ca23ad452450b698d1d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#ac4828428c4d30ca23ad452450b698d1d">get_full_record_path</a> ()</td></tr>
+<tr class="memitem:ac4828428c4d30ca23ad452450b698d1d" id="r_ac4828428c4d30ca23ad452450b698d1d"><td class="memItemLeft" align="right" valign="top"><a id="ac4828428c4d30ca23ad452450b698d1d" name="ac4828428c4d30ca23ad452450b698d1d"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_full_record_path</b> ()</td></tr>
 <tr class="separator:ac4828428c4d30ca23ad452450b698d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50d2c3b537037b0d835ea7b9ef68a4b2" id="r_a50d2c3b537037b0d835ea7b9ef68a4b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a50d2c3b537037b0d835ea7b9ef68a4b2">set_task_complete_hooker</a> (<a class="el" href="namespacecvedix__nodes.html#a66a101b9f32f715a1a67b1e4d3fa3b81">cvedix_record_task_complete_hooker</a> task_complete_hooker)</td></tr>
+<tr class="memitem:a50d2c3b537037b0d835ea7b9ef68a4b2" id="r_a50d2c3b537037b0d835ea7b9ef68a4b2"><td class="memItemLeft" align="right" valign="top"><a id="a50d2c3b537037b0d835ea7b9ef68a4b2" name="a50d2c3b537037b0d835ea7b9ef68a4b2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_task_complete_hooker</b> (<a class="el" href="cvedix__record__task_8h.html#a66a101b9f32f715a1a67b1e4d3fa3b81">cvedix_record_task_complete_hooker</a> task_complete_hooker)</td></tr>
 <tr class="separator:a50d2c3b537037b0d835ea7b9ef68a4b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affc0cc1b5cf736b496910a9c2731cb28" id="r_affc0cc1b5cf736b496910a9c2731cb28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#affc0cc1b5cf736b496910a9c2731cb28">start</a> ()</td></tr>
+<tr class="memitem:affc0cc1b5cf736b496910a9c2731cb28" id="r_affc0cc1b5cf736b496910a9c2731cb28"><td class="memItemLeft" align="right" valign="top"><a id="affc0cc1b5cf736b496910a9c2731cb28" name="affc0cc1b5cf736b496910a9c2731cb28"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
 <tr class="separator:affc0cc1b5cf736b496910a9c2731cb28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb610d02dd02f21951f551bfb192d1c" id="r_a1fb610d02dd02f21951f551bfb192d1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a1fb610d02dd02f21951f551bfb192d1c">append_async</a> (std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">frame_meta</a>)</td></tr>
+<tr class="memitem:a1fb610d02dd02f21951f551bfb192d1c" id="r_a1fb610d02dd02f21951f551bfb192d1c"><td class="memItemLeft" align="right" valign="top"><a id="a1fb610d02dd02f21951f551bfb192d1c" name="a1fb610d02dd02f21951f551bfb192d1c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>append_async</b> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; frame_meta)</td></tr>
 <tr class="separator:a1fb610d02dd02f21951f551bfb192d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a014783d30fea54c56001416638ba1a4e" id="r_a014783d30fea54c56001416638ba1a4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a014783d30fea54c56001416638ba1a4e">cvedix_record_task</a> (<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> channel_index, std::string file_name_without_ext, std::string save_dir, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a> auto_sub_dir, cvedix_objects::cvedix_size resolution_w_h, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a> osd, std::string <a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a9cc55a842c92cbc25524fee4313169dd">host_node_name</a>)</td></tr>
+<tr class="memitem:a014783d30fea54c56001416638ba1a4e" id="r_a014783d30fea54c56001416638ba1a4e"><td class="memItemLeft" align="right" valign="top"><a id="a014783d30fea54c56001416638ba1a4e" name="a014783d30fea54c56001416638ba1a4e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>cvedix_record_task</b> (int channel_index, std::string file_name_without_ext, std::string save_dir, bool auto_sub_dir, <a class="el" href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a> resolution_w_h, bool osd, std::string host_node_name)</td></tr>
 <tr class="separator:a014783d30fea54c56001416638ba1a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01d66a65fe70379f51d258c696141b70" id="r_a01d66a65fe70379f51d258c696141b70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a01d66a65fe70379f51d258c696141b70">~cvedix_record_task</a> ()</td></tr>
-<tr class="separator:a01d66a65fe70379f51d258c696141b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aabacba61894328cfa679fb89c2f489c7" id="r_aabacba61894328cfa679fb89c2f489c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#a0d5ca45f68486d2bb1f09ef5cf411ba4">cvedix_record_task_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#aabacba61894328cfa679fb89c2f489c7">status</a> = <a class="el" href="namespacecvedix__nodes.html#a0d5ca45f68486d2bb1f09ef5cf411ba4ab9517f1a93ca3fcd8608929b57efe112">cvedix_record_task_status::NOSTRAT</a></td></tr>
+<tr class="memitem:aabacba61894328cfa679fb89c2f489c7" id="r_aabacba61894328cfa679fb89c2f489c7"><td class="memItemLeft" align="right" valign="top"><a id="aabacba61894328cfa679fb89c2f489c7" name="aabacba61894328cfa679fb89c2f489c7"></a>
+<a class="el" href="cvedix__record__task_8h.html#a0d5ca45f68486d2bb1f09ef5cf411ba4">cvedix_record_task_status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>status</b> = <a class="el" href="cvedix__record__task_8h.html#a0d5ca45f68486d2bb1f09ef5cf411ba4ab9517f1a93ca3fcd8608929b57efe112">cvedix_record_task_status::NOSTRAT</a></td></tr>
 <tr class="separator:aabacba61894328cfa679fb89c2f489c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5bf2cbb3bf812c2afc1bf0ed9b38815c" id="r_a5bf2cbb3bf812c2afc1bf0ed9b38815c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a5bf2cbb3bf812c2afc1bf0ed9b38815c">record_task_run</a> ()=0</td></tr>
+<tr class="memitem:a5bf2cbb3bf812c2afc1bf0ed9b38815c" id="r_a5bf2cbb3bf812c2afc1bf0ed9b38815c"><td class="memItemLeft" align="right" valign="top"><a id="a5bf2cbb3bf812c2afc1bf0ed9b38815c" name="a5bf2cbb3bf812c2afc1bf0ed9b38815c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>record_task_run</b> ()=0</td></tr>
 <tr class="separator:a5bf2cbb3bf812c2afc1bf0ed9b38815c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af34b96bef1bb6d65e86d57dd82cbff50" id="r_af34b96bef1bb6d65e86d57dd82cbff50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#af34b96bef1bb6d65e86d57dd82cbff50">stop_task</a> ()</td></tr>
+<tr class="memitem:af34b96bef1bb6d65e86d57dd82cbff50" id="r_af34b96bef1bb6d65e86d57dd82cbff50"><td class="memItemLeft" align="right" valign="top"><a id="af34b96bef1bb6d65e86d57dd82cbff50" name="af34b96bef1bb6d65e86d57dd82cbff50"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>stop_task</b> ()</td></tr>
 <tr class="separator:af34b96bef1bb6d65e86d57dd82cbff50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8035857160dae86fc83ab6d5bdcb26e" id="r_ad8035857160dae86fc83ab6d5bdcb26e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#ad8035857160dae86fc83ab6d5bdcb26e">preprocess</a> (std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">frame_to_record</a>, cv::Mat &amp;<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">data</a>)</td></tr>
+<tr class="memitem:ad8035857160dae86fc83ab6d5bdcb26e" id="r_ad8035857160dae86fc83ab6d5bdcb26e"><td class="memItemLeft" align="right" valign="top"><a id="ad8035857160dae86fc83ab6d5bdcb26e" name="ad8035857160dae86fc83ab6d5bdcb26e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>preprocess</b> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; &amp;frame_to_record, cv::Mat &amp;data)</td></tr>
 <tr class="separator:ad8035857160dae86fc83ab6d5bdcb26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7516e53ffba3da3428ee9abff66b94d1" id="r_a7516e53ffba3da3428ee9abff66b94d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a7516e53ffba3da3428ee9abff66b94d1">get_file_ext</a> ()=0</td></tr>
+<tr class="memitem:a7516e53ffba3da3428ee9abff66b94d1" id="r_a7516e53ffba3da3428ee9abff66b94d1"><td class="memItemLeft" align="right" valign="top"><a id="a7516e53ffba3da3428ee9abff66b94d1" name="a7516e53ffba3da3428ee9abff66b94d1"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_file_ext</b> ()=0</td></tr>
 <tr class="separator:a7516e53ffba3da3428ee9abff66b94d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cf65b2ab8d225f71400df6e1e2cb8e4" id="r_a5cf65b2ab8d225f71400df6e1e2cb8e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a5cf65b2ab8d225f71400df6e1e2cb8e4">notify_task_complete</a> (<a class="el" href="structcvedix__nodes_1_1cvedix__record__info.html">cvedix_record_info</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">record_info</a>)</td></tr>
+<tr class="memitem:a5cf65b2ab8d225f71400df6e1e2cb8e4" id="r_a5cf65b2ab8d225f71400df6e1e2cb8e4"><td class="memItemLeft" align="right" valign="top"><a id="a5cf65b2ab8d225f71400df6e1e2cb8e4" name="a5cf65b2ab8d225f71400df6e1e2cb8e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>notify_task_complete</b> (<a class="el" href="structcvedix__nodes_1_1cvedix__record__info.html">cvedix_record_info</a> record_info)</td></tr>
 <tr class="separator:a5cf65b2ab8d225f71400df6e1e2cb8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a470773ccd04925e7309d331089f7427f" id="r_a470773ccd04925e7309d331089f7427f"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a470773ccd04925e7309d331089f7427f">record_task_th</a></td></tr>
+<tr class="memitem:a470773ccd04925e7309d331089f7427f" id="r_a470773ccd04925e7309d331089f7427f"><td class="memItemLeft" align="right" valign="top"><a id="a470773ccd04925e7309d331089f7427f" name="a470773ccd04925e7309d331089f7427f"></a>
+std::thread&#160;</td><td class="memItemRight" valign="bottom"><b>record_task_th</b></td></tr>
 <tr class="separator:a470773ccd04925e7309d331089f7427f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c58bff92bc7e48ef642f95f74aadf5" id="r_ac7c58bff92bc7e48ef642f95f74aadf5"><td class="memItemLeft" align="right" valign="top">std::deque&lt; std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#ac7c58bff92bc7e48ef642f95f74aadf5">frames_to_record</a></td></tr>
+<tr class="memitem:ac7c58bff92bc7e48ef642f95f74aadf5" id="r_ac7c58bff92bc7e48ef642f95f74aadf5"><td class="memItemLeft" align="right" valign="top"><a id="ac7c58bff92bc7e48ef642f95f74aadf5" name="ac7c58bff92bc7e48ef642f95f74aadf5"></a>
+std::deque&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>frames_to_record</b></td></tr>
 <tr class="separator:ac7c58bff92bc7e48ef642f95f74aadf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1517e120306dd537f47d7d68d6f96a2" id="r_aa1517e120306dd537f47d7d68d6f96a2"><td class="memItemLeft" align="right" valign="top">cvedix_utils::cvedix_semaphore&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#aa1517e120306dd537f47d7d68d6f96a2">cache_semaphore</a></td></tr>
+<tr class="memitem:aa1517e120306dd537f47d7d68d6f96a2" id="r_aa1517e120306dd537f47d7d68d6f96a2"><td class="memItemLeft" align="right" valign="top"><a id="aa1517e120306dd537f47d7d68d6f96a2" name="aa1517e120306dd537f47d7d68d6f96a2"></a>
+<a class="el" href="classcvedix__utils_1_1cvedix__semaphore.html">cvedix_utils::cvedix_semaphore</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cache_semaphore</b></td></tr>
 <tr class="separator:aa1517e120306dd537f47d7d68d6f96a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cc55a842c92cbc25524fee4313169dd" id="r_a9cc55a842c92cbc25524fee4313169dd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__record__task.html#a9cc55a842c92cbc25524fee4313169dd">host_node_name</a></td></tr>
+<tr class="memitem:a9cc55a842c92cbc25524fee4313169dd" id="r_a9cc55a842c92cbc25524fee4313169dd"><td class="memItemLeft" align="right" valign="top"><a id="a9cc55a842c92cbc25524fee4313169dd" name="a9cc55a842c92cbc25524fee4313169dd"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>host_node_name</b></td></tr>
 <tr class="separator:a9cc55a842c92cbc25524fee4313169dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a014783d30fea54c56001416638ba1a4e" name="a014783d30fea54c56001416638ba1a4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a014783d30fea54c56001416638ba1a4e">&#9670;&#160;</a></span>cvedix_record_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_nodes::cvedix_record_task::cvedix_record_task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a>&#160;</td>
-          <td class="paramname"><em>channel_index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>file_name_without_ext</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>save_dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a>&#160;</td>
-          <td class="paramname"><em>auto_sub_dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">cvedix_objects::cvedix_size&#160;</td>
-          <td class="paramname"><em>resolution_w_h</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a>&#160;</td>
-          <td class="paramname"><em>osd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>host_node_name</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a01d66a65fe70379f51d258c696141b70" name="a01d66a65fe70379f51d258c696141b70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01d66a65fe70379f51d258c696141b70">&#9670;&#160;</a></span>~cvedix_record_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_nodes::cvedix_record_task::~cvedix_record_task </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1fb610d02dd02f21951f551bfb192d1c" name="a1fb610d02dd02f21951f551bfb192d1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fb610d02dd02f21951f551bfb192d1c">&#9670;&#160;</a></span>append_async()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::append_async </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;&#160;</td>
-          <td class="paramname"><em>frame_meta</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7516e53ffba3da3428ee9abff66b94d1" name="a7516e53ffba3da3428ee9abff66b94d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7516e53ffba3da3428ee9abff66b94d1">&#9670;&#160;</a></span>get_file_ext()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> std::string cvedix_nodes::cvedix_record_task::get_file_ext </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classcvedix__nodes_1_1cvedix__image__record__task.html#a71d027f8e05be7ca3688c51fb027ba7e">cvedix_nodes::cvedix_image_record_task</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__video__record__task.html#ab6f89ded1d0c6d9cfcd53d462a834892">cvedix_nodes::cvedix_video_record_task</a>.</p>
-
-</div>
-</div>
-<a id="ac4828428c4d30ca23ad452450b698d1d" name="ac4828428c4d30ca23ad452450b698d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4828428c4d30ca23ad452450b698d1d">&#9670;&#160;</a></span>get_full_record_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string cvedix_nodes::cvedix_record_task::get_full_record_path </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5cf65b2ab8d225f71400df6e1e2cb8e4" name="a5cf65b2ab8d225f71400df6e1e2cb8e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cf65b2ab8d225f71400df6e1e2cb8e4">&#9670;&#160;</a></span>notify_task_complete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::notify_task_complete </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcvedix__nodes_1_1cvedix__record__info.html">cvedix_record_info</a>&#160;</td>
-          <td class="paramname"><em>record_info</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad8035857160dae86fc83ab6d5bdcb26e" name="ad8035857160dae86fc83ab6d5bdcb26e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8035857160dae86fc83ab6d5bdcb26e">&#9670;&#160;</a></span>preprocess()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::preprocess </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;&#160;</td>
-          <td class="paramname"><em>frame_to_record</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5bf2cbb3bf812c2afc1bf0ed9b38815c" name="a5bf2cbb3bf812c2afc1bf0ed9b38815c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bf2cbb3bf812c2afc1bf0ed9b38815c">&#9670;&#160;</a></span>record_task_run()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::record_task_run </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classcvedix__nodes_1_1cvedix__image__record__task.html#a4f50ce13a1d0c4b6731b75f76dc743d2">cvedix_nodes::cvedix_image_record_task</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__video__record__task.html#a7e965523673d3e95d7e0ab35b8674b84">cvedix_nodes::cvedix_video_record_task</a>.</p>
-
-</div>
-</div>
-<a id="a50d2c3b537037b0d835ea7b9ef68a4b2" name="a50d2c3b537037b0d835ea7b9ef68a4b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50d2c3b537037b0d835ea7b9ef68a4b2">&#9670;&#160;</a></span>set_task_complete_hooker()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::set_task_complete_hooker </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecvedix__nodes.html#a66a101b9f32f715a1a67b1e4d3fa3b81">cvedix_record_task_complete_hooker</a>&#160;</td>
-          <td class="paramname"><em>task_complete_hooker</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="affc0cc1b5cf736b496910a9c2731cb28" name="affc0cc1b5cf736b496910a9c2731cb28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affc0cc1b5cf736b496910a9c2731cb28">&#9670;&#160;</a></span>start()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::start </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af34b96bef1bb6d65e86d57dd82cbff50" name="af34b96bef1bb6d65e86d57dd82cbff50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af34b96bef1bb6d65e86d57dd82cbff50">&#9670;&#160;</a></span>stop_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_record_task::stop_task </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa1517e120306dd537f47d7d68d6f96a2" name="aa1517e120306dd537f47d7d68d6f96a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1517e120306dd537f47d7d68d6f96a2">&#9670;&#160;</a></span>cache_semaphore</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_utils::cvedix_semaphore cvedix_nodes::cvedix_record_task::cache_semaphore</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac7c58bff92bc7e48ef642f95f74aadf5" name="ac7c58bff92bc7e48ef642f95f74aadf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7c58bff92bc7e48ef642f95f74aadf5">&#9670;&#160;</a></span>frames_to_record</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::deque&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt; &gt; cvedix_nodes::cvedix_record_task::frames_to_record</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9cc55a842c92cbc25524fee4313169dd" name="a9cc55a842c92cbc25524fee4313169dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cc55a842c92cbc25524fee4313169dd">&#9670;&#160;</a></span>host_node_name</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string cvedix_nodes::cvedix_record_task::host_node_name</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a470773ccd04925e7309d331089f7427f" name="a470773ccd04925e7309d331089f7427f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a470773ccd04925e7309d331089f7427f">&#9670;&#160;</a></span>record_task_th</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::thread cvedix_nodes::cvedix_record_task::record_task_th</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aabacba61894328cfa679fb89c2f489c7" name="aabacba61894328cfa679fb89c2f489c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabacba61894328cfa679fb89c2f489c7">&#9670;&#160;</a></span>status</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacecvedix__nodes.html#a0d5ca45f68486d2bb1f09ef5cf411ba4">cvedix_record_task_status</a> cvedix_nodes::cvedix_record_task::status = <a class="el" href="namespacecvedix__nodes.html#a0d5ca45f68486d2bb1f09ef5cf411ba4ab9517f1a93ca3fcd8608929b57efe112">cvedix_record_task_status::NOSTRAT</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>core_ai_runtime/nodes/record/<a class="el" href="cvedix__record__task_8h_source.html">cvedix_record_task.h</a></li>
-<li>core_ai_runtime/nodes/record/<a class="el" href="cvedix__record__task_8cpp.html">cvedix_record_task.cpp</a></li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for recording tasks. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>nodes/record/<a class="el" href="cvedix__record__task_8h_source.html">cvedix_record_task.h</a></li>
+<li>nodes/record/<b>cvedix_record_task.cpp</b></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:49:00 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['marginawarefaceosd_0',['MarginAwareFaceOSD',['../classMarginAwareFaceOSD.html',1,'']]]
+  ['kalmantracker_0',['KalmanTracker',['../classKalmanTracker.html',1,'']]]
 ];

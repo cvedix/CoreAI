@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/fr/cvedix_face_recognition_node.cpp File Reference</title>
+<title>CVEDIX AI Runtime: nodes/infers/fr/cvedix_face_recognition_node.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,12 +69,10 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li><li class="navelem"><a class="el" href="dir_d05a70e3d23156014c545ddd1a9cf680.html">fr</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li><li class="navelem"><a class="el" href="dir_4fba531cec739f505c35320fa70c92d0.html">fr</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">cvedix_face_recognition_node.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -87,52 +84,94 @@ $(function() {
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;opencv2/imgproc.hpp&gt;</code><br />
 <code>#include &lt;opencv2/dnn.hpp&gt;</code><br />
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_face_recognition_node.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__face__recognition__node_8cpp__incl.png" border="0" usemap="#anodes_2infers_2fr_2cvedix__face__recognition__node_8cpp" alt=""/></div>
+<map name="anodes_2infers_2fr_2cvedix__face__recognition__node_8cpp" id="anodes_2infers_2fr_2cvedix__face__recognition__node_8cpp">
+<area shape="rect" title="Face recognition node with advanced accuracy improvement techniques." alt="" coords="420,5,623,45"/>
+<area shape="rect" href="cvedix__face__recognition__node_8h.html" title="Unified face recognition node with multi&#45;backend support." alt="" coords="431,93,611,133"/>
+<area shape="poly" title=" " alt="" coords="524,46,524,79,519,79,519,46"/>
+<area shape="rect" title=" " alt="" coords="5,365,139,390"/>
+<area shape="poly" title=" " alt="" coords="420,36,370,43,317,55,264,72,215,96,162,130,127,166,102,210,80,270,73,312,72,351,67,351,67,312,75,269,97,208,122,163,158,126,212,91,262,67,316,50,369,38,419,30"/>
+<area shape="rect" href="opencv__dnn__backend_8h.html" title="OpenCV DNN backend for face recognition (always available)" alt="" coords="225,93,391,133"/>
+<area shape="poly" title=" " alt="" coords="476,48,368,91,366,86,474,43"/>
+<area shape="rect" title=" " alt="" coords="636,101,721,126"/>
+<area shape="poly" title=" " alt="" coords="557,43,647,92,644,96,555,48"/>
+<area shape="rect" title=" " alt="" coords="745,101,908,126"/>
+<area shape="poly" title=" " alt="" coords="589,43,774,94,772,100,588,48"/>
+<area shape="rect" href="cvedix__secondary__infer__node_8h.html" title="Base class for secondary inference nodes (ROI&#45;based inference)" alt="" coords="575,181,761,221"/>
+<area shape="poly" title=" " alt="" coords="555,131,625,172,622,177,552,136"/>
+<area shape="rect" title=" " alt="" coords="785,181,975,221"/>
+<area shape="poly" title=" " alt="" coords="601,131,789,176,788,181,599,136"/>
+<area shape="rect" title=" " alt="" coords="999,181,1161,221"/>
+<area shape="poly" title=" " alt="" coords="612,129,624,131,803,154,986,179,985,184,803,159,624,136,611,134"/>
+<area shape="rect" href="face__recognition__backend_8h.html" title="Abstract backend interface for face recognition with auto&#45;detection." alt="" coords="207,189,409,214"/>
+<area shape="poly" title=" " alt="" coords="476,136,350,186,348,181,474,131"/>
+<area shape="rect" title=" " alt="" coords="499,277,576,302"/>
+<area shape="poly" title=" " alt="" coords="526,133,538,263,532,263,520,134"/>
+<area shape="rect" title=" " alt="" coords="433,189,500,214"/>
+<area shape="poly" title=" " alt="" coords="511,135,484,178,479,175,507,132"/>
+<area shape="rect" href="cvedix__infer__node_8h.html" title="Base class for all inference nodes in Core AI Runtime." alt="" coords="601,277,754,302"/>
+<area shape="poly" title=" " alt="" coords="673,221,677,263,672,263,667,222"/>
+<area shape="rect" title=" " alt="" coords="567,365,641,390"/>
+<area shape="poly" title=" " alt="" coords="669,304,625,355,621,352,665,300"/>
+<area shape="poly" title=" " alt="" coords="627,305,588,312,352,347,153,370,153,365,351,341,588,307,626,299"/>
+<area shape="rect" title=" " alt="" coords="313,365,450,390"/>
+<area shape="poly" title=" " alt="" coords="638,305,435,363,433,358,637,300"/>
+<area shape="rect" title=" " alt="" coords="666,357,835,397"/>
+<area shape="poly" title=" " alt="" coords="689,300,727,345,723,348,685,304"/>
+<area shape="poly" title=" " alt="" coords="309,215,308,257,312,283,320,308,336,333,357,354,353,358,332,337,315,310,307,285,303,258,304,214"/>
+<area shape="rect" title=" " alt="" coords="329,277,391,302"/>
+<area shape="poly" title=" " alt="" coords="317,213,348,263,343,266,313,216"/>
+<area shape="rect" title=" " alt="" coords="416,277,475,302"/>
+<area shape="poly" title=" " alt="" coords="328,212,417,267,414,272,325,216"/>
+<area shape="poly" title=" " alt="" coords="340,212,495,269,493,274,338,217"/>
+<area shape="rect" title=" " alt="" coords="110,269,253,309"/>
+<area shape="poly" title=" " alt="" coords="292,216,222,264,219,259,289,212"/>
+<area shape="poly" title=" " alt="" coords="266,136,224,158,179,188,135,226,100,271,83,312,76,351,71,350,78,310,95,268,131,222,175,184,222,153,263,131"/>
+<area shape="poly" title=" " alt="" coords="311,134,311,175,305,175,305,134"/>
+</map>
+</div>
+</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Face recognition node with advanced accuracy improvement techniques. </p>
 <p>This node provides face recognition capabilities using InsightFace/ArcFace models. It includes three optional accuracy improvement techniques:</p>
-<h2><a class="anchor" id="autotoc_md0"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 1. Temporal Voting (Default: ON)</h2>
 <p>Collects recognition results over multiple frames and returns majority vote. Reduces flickering and improves stability in video streams.</p><ul>
 <li>Window size: Configurable (default 10 frames)</li>
 <li>Majority threshold: Configurable (default 50%)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md52"></a>
 2. TTA - Test Time Augmentation (Default: OFF)</h2>
 <p>Generates multiple augmented versions of input face:</p><ul>
 <li>Original image</li>
 <li>Horizontally flipped</li>
 <li>Brightness variations (optional) Averages embeddings for more robust matching. Trade-off: ~3x slower.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md53"></a>
 3. ID-Specific Threshold (Default: OFF)</h2>
 <p>Allows setting different similarity thresholds per person.</p><ul>
 <li>Higher threshold for common-looking faces</li>
 <li>Lower threshold for distinctive faces</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 Pipeline Integration</h2>
-<div class="fragment"><div class="line"><a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Source</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">→</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Face</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Detector</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">→</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Face</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Recognition</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">→</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">OSD</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">→</a> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Display</a></div>
-<div class="ttc" id="asamples_2CMakeLists_8txt_html_aefe643ad9dfd494136bdcbb82111b74c"><div class="ttname"><a href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">set</a></div><div class="ttdeci">set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime) if(EXISTS $</div><div class="ttdef"><b>Definition</b> CMakeLists.txt:43</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
+<div class="fragment"><div class="line">Source → Face Detector → Face Recognition → OSD → Display</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md55"></a>
 Input Requirements</h2>
 <ul>
 <li>Face targets with 5-point landmarks (from YuNet, RetinaFace, etc.)</li>
 <li>Or bounding boxes (alignment will be skipped)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md56"></a>
 Output</h2>
 <ul>
 <li>face_targets[i]-&gt;identify: Recognized name or "Unknown"</li>
 <li>face_targets[i]-&gt;identify_score: Similarity score</li>
 <li>face_targets[i]-&gt;embeddings: 512-dim feature vector</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md57"></a>
 Configuration Presets</h2>
 <ul>
 <li>RecognitionConfig::fast() - Real-time priority</li>
@@ -142,13 +181,13 @@ Configuration Presets</h2>
 <dl class="section author"><dt>Author</dt><dd>CVEDIX Team </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>CVEDIX Corporation</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="cvedix__face__registration__node_8h.html">cvedix_face_registration_node.h</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">For</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">face</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">registration</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">with</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">augmentation</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="cvedix__face__registration__node_8h.html" title="Face registration node with augmentation support.">cvedix_face_registration_node.h</a> For face registration with augmentation </dd>
 <dd>
-face_recognition_utils.h <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">For</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">VotingBuffer</a>, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">TTAConfig</a>, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">RecognitionConfig</a> </dd></dl>
+<a class="el" href="face__recognition__utils_8h.html" title="Advanced utilities for face recognition: Voting, TTA, ID-Specific Threshold.">face_recognition_utils.h</a> For VotingBuffer, TTAConfig, RecognitionConfig </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

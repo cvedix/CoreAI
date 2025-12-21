@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_ba_crossline_osd_node.h
+ * @brief OSD for crossline detection behavior analysis
+ * 
+ * Draws crossline and displays crossing statistics.
+ */
+
 #pragma once
 
 #include <map>
@@ -7,9 +14,12 @@
 #include "cvedix/objects/shapes/cvedix_line.h"
 
 namespace cvedix_nodes {
-    // osd node for behaviour analysis of crossline
+    /**
+     * @brief Crossline BA visualization
+     */
     class cvedix_ba_crossline_osd_node: public cvedix_node
     {
+
     private:
         // support chinese font
         cv::Ptr<cv::freetype::FreeType2> ft2;

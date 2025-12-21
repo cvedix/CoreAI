@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/fr/face_recognition_backend.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/infers/fr/face_recognition_backend.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,13 +69,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li><li class="navelem"><a class="el" href="dir_d05a70e3d23156014c545ddd1a9cf680.html">fr</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li><li class="navelem"><a class="el" href="dir_4fba531cec739f505c35320fa70c92d0.html">fr</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">face_recognition_backend.h File Reference</div></div>
@@ -90,6 +88,39 @@ $(function() {
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;cvedix/utils/logger/cvedix_logger.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for face_recognition_backend.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="face__recognition__backend_8h__incl.png" border="0" usemap="#anodes_2infers_2fr_2face__recognition__backend_8h" alt=""/></div>
+<map name="anodes_2infers_2fr_2face__recognition__backend_8h" id="anodes_2infers_2fr_2face__recognition__backend_8h">
+<area shape="rect" title="Abstract backend interface for face recognition with auto&#45;detection." alt="" coords="196,5,371,45"/>
+<area shape="rect" title=" " alt="" coords="5,101,143,126"/>
+<area shape="poly" title=" " alt="" coords="238,48,116,98,114,93,236,43"/>
+<area shape="rect" title=" " alt="" coords="167,101,229,126"/>
+<area shape="poly" title=" " alt="" coords="266,47,221,92,218,89,263,44"/>
+<area shape="rect" title=" " alt="" coords="254,101,313,126"/>
+<area shape="poly" title=" " alt="" coords="286,46,286,87,281,87,281,46"/>
+<area shape="rect" title=" " alt="" coords="337,101,414,126"/>
+<area shape="poly" title=" " alt="" coords="306,44,354,89,351,93,302,48"/>
+<area shape="rect" title=" " alt="" coords="439,93,581,133"/>
+<area shape="poly" title=" " alt="" coords="334,43,448,86,447,91,332,48"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="face__recognition__backend_8h__dep__incl.png" border="0" usemap="#anodes_2infers_2fr_2face__recognition__backend_8hdep" alt=""/></div>
+<map name="anodes_2infers_2fr_2face__recognition__backend_8hdep" id="anodes_2infers_2fr_2face__recognition__backend_8hdep">
+<area shape="rect" title="Abstract backend interface for face recognition with auto&#45;detection." alt="" coords="113,5,287,45"/>
+<area shape="rect" href="opencv__dnn__backend_8h.html" title="OpenCV DNN backend for face recognition (always available)" alt="" coords="5,93,187,133"/>
+<area shape="poly" title=" " alt="" coords="168,56,121,95,117,91,165,52"/>
+<area shape="rect" href="cvedix__face__recognition__node_8h.html" title="Unified face recognition node with multi&#45;backend support." alt="" coords="211,93,399,133"/>
+<area shape="poly" title=" " alt="" coords="235,52,284,91,280,95,232,56"/>
+<area shape="rect" href="cvedix__face__recognition__node_8cpp.html" title="Face recognition node with advanced accuracy improvement techniques." alt="" coords="99,181,301,221"/>
+<area shape="poly" title=" " alt="" coords="131,140,179,179,175,183,128,144"/>
+<area shape="poly" title=" " alt="" coords="273,144,225,183,222,179,270,140"/>
+</map>
+</div>
 </div>
 <p><a href="face__recognition__backend_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -99,31 +130,28 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract interface for face recognition backends.  <a href="classcvedix__nodes_1_1IFaceRecognitionBackend.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a59f9165da346e6d16f9da402cb738b59" id="r_a59f9165da346e6d16f9da402cb738b59"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59">cvedix_nodes::FaceRecognitionBackend</a> { <a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59ae1f2d5134ed2543d38a0de9751cf75d9">cvedix_nodes::AUTO</a>
-, <a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59a29434d65a35783f4be69be9095a8ef74">cvedix_nodes::OPENCV_DNN</a>
-, <a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59a2030dbbca057b06013e97fed36df5de5">cvedix_nodes::ONNX_RUNTIME</a>
-, <a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59aa068bc4c46ed0030f5dfa3a4d4c92179">cvedix_nodes::TENSORRT</a>
+<tr class="memitem:a59f9165da346e6d16f9da402cb738b59" id="r_a59f9165da346e6d16f9da402cb738b59"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">cvedix_nodes::FaceRecognitionBackend</a> { <a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59ae1f2d5134ed2543d38a0de9751cf75d9">AUTO</a>
+, <a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59a29434d65a35783f4be69be9095a8ef74">OPENCV_DNN</a>
+, <a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59a2030dbbca057b06013e97fed36df5de5">ONNX_RUNTIME</a>
+, <a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59aa068bc4c46ed0030f5dfa3a4d4c92179">TENSORRT</a>
  }</td></tr>
-<tr class="memdesc:a59f9165da346e6d16f9da402cb738b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available face recognition backends.  <a href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59">More...</a><br /></td></tr>
+<tr class="memdesc:a59f9165da346e6d16f9da402cb738b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available face recognition backends.  <a href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">More...</a><br /></td></tr>
 <tr class="separator:a59f9165da346e6d16f9da402cb738b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a27cc16b652fce30466db020d32b39962" id="r_a27cc16b652fce30466db020d32b39962"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#a27cc16b652fce30466db020d32b39962">cvedix_nodes::backendToString</a> (<a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">backend</a>)</td></tr>
-<tr class="memdesc:a27cc16b652fce30466db020d32b39962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert backend enum to string.  <br /></td></tr>
+<tr class="memitem:a27cc16b652fce30466db020d32b39962" id="r_a27cc16b652fce30466db020d32b39962"><td class="memItemLeft" align="right" valign="top"><a id="a27cc16b652fce30466db020d32b39962" name="a27cc16b652fce30466db020d32b39962"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>cvedix_nodes::backendToString</b> (<a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a> backend)</td></tr>
+<tr class="memdesc:a27cc16b652fce30466db020d32b39962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert backend enum to string. <br /></td></tr>
 <tr class="separator:a27cc16b652fce30466db020d32b39962"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2df9cdc941f0dc54e6d0e9315297a596" id="r_a2df9cdc941f0dc54e6d0e9315297a596"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#a2df9cdc941f0dc54e6d0e9315297a596">cvedix_nodes::detectBestBackend</a> ()</td></tr>
+<tr class="memitem:a2df9cdc941f0dc54e6d0e9315297a596" id="r_a2df9cdc941f0dc54e6d0e9315297a596"><td class="memItemLeft" align="right" valign="top"><a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="face__recognition__backend_8h.html#a2df9cdc941f0dc54e6d0e9315297a596">cvedix_nodes::detectBestBackend</a> ()</td></tr>
 <tr class="memdesc:a2df9cdc941f0dc54e6d0e9315297a596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect best available backend at runtime.  <br /></td></tr>
 <tr class="separator:a2df9cdc941f0dc54e6d0e9315297a596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab54047cd1dc5556cd573f916e2a3f48c" id="r_ab54047cd1dc5556cd573f916e2a3f48c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#ab54047cd1dc5556cd573f916e2a3f48c">cvedix_nodes::isBackendAvailable</a> (<a class="el" href="namespacecvedix__nodes.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">backend</a>)</td></tr>
-<tr class="memdesc:ab54047cd1dc5556cd573f916e2a3f48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a specific backend is available.  <br /></td></tr>
+<tr class="memitem:ab54047cd1dc5556cd573f916e2a3f48c" id="r_ab54047cd1dc5556cd573f916e2a3f48c"><td class="memItemLeft" align="right" valign="top"><a id="ab54047cd1dc5556cd573f916e2a3f48c" name="ab54047cd1dc5556cd573f916e2a3f48c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>cvedix_nodes::isBackendAvailable</b> (<a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">FaceRecognitionBackend</a> backend)</td></tr>
+<tr class="memdesc:ab54047cd1dc5556cd573f916e2a3f48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a specific backend is available. <br /></td></tr>
 <tr class="separator:ab54047cd1dc5556cd573f916e2a3f48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -133,10 +161,92 @@ Functions</h2></td></tr>
 <li>ONNX Runtime (if CVEDIX_WITH_ORT)</li>
 <li>TensorRT (if CVEDIX_WITH_TRT) </li>
 </ul>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a59f9165da346e6d16f9da402cb738b59" name="a59f9165da346e6d16f9da402cb738b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59f9165da346e6d16f9da402cb738b59">&#9670;&#160;</a></span>FaceRecognitionBackend</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59">cvedix_nodes::FaceRecognitionBackend</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Available face recognition backends. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59f9165da346e6d16f9da402cb738b59ae1f2d5134ed2543d38a0de9751cf75d9" name="a59f9165da346e6d16f9da402cb738b59ae1f2d5134ed2543d38a0de9751cf75d9"></a>AUTO&#160;</td><td class="fielddoc"><p>Automatically select best available backend. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59f9165da346e6d16f9da402cb738b59a29434d65a35783f4be69be9095a8ef74" name="a59f9165da346e6d16f9da402cb738b59a29434d65a35783f4be69be9095a8ef74"></a>OPENCV_DNN&#160;</td><td class="fielddoc"><p>OpenCV DNN (always available, CPU/CUDA) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59f9165da346e6d16f9da402cb738b59a2030dbbca057b06013e97fed36df5de5" name="a59f9165da346e6d16f9da402cb738b59a2030dbbca057b06013e97fed36df5de5"></a>ONNX_RUNTIME&#160;</td><td class="fielddoc"><p>ONNX Runtime (requires CVEDIX_WITH_ORT) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a59f9165da346e6d16f9da402cb738b59aa068bc4c46ed0030f5dfa3a4d4c92179" name="a59f9165da346e6d16f9da402cb738b59aa068bc4c46ed0030f5dfa3a4d4c92179"></a>TENSORRT&#160;</td><td class="fielddoc"><p>TensorRT (requires CVEDIX_WITH_TRT) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a2df9cdc941f0dc54e6d0e9315297a596" name="a2df9cdc941f0dc54e6d0e9315297a596"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df9cdc941f0dc54e6d0e9315297a596">&#9670;&#160;</a></span>detectBestBackend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FaceRecognitionBackend cvedix_nodes::detectBestBackend </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Detect best available backend at runtime. </p>
+<p>Priority: TensorRT &gt; ONNX Runtime &gt; OpenCV DNN </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="face__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_cgraph.png" border="0" usemap="#aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_cgraph" alt=""/></div>
+<map name="aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_cgraph" id="aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_cgraph">
+<area shape="rect" title="Detect best available backend at runtime." alt="" coords="5,29,195,69"/>
+<area shape="poly" title=" " alt="" coords="64,30,62,20,68,11,81,5,100,3,122,6,135,13,132,17,121,11,100,8,82,10,71,15,67,21,69,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="face__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_icgraph.png" border="0" usemap="#aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_icgraph" alt=""/></div>
+<map name="aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_icgraph" id="aface__recognition__backend_8h_a2df9cdc941f0dc54e6d0e9315297a596_icgraph">
+<area shape="rect" title="Detect best available backend at runtime." alt="" coords="5,29,195,69"/>
+<area shape="poly" title=" " alt="" coords="132,17,121,11,100,8,82,10,71,15,67,21,69,28,64,30,62,20,68,11,81,5,100,3,122,6,135,13"/>
+</map>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,15 +1,23 @@
+/**
+ * @file cvedix_text_osd_node.h
+ * @brief OSD for OCR text detection results
+ * 
+ * Draws cvedix_frame_text_target bounding boxes and recognized text.
+ */
 
 #pragma once
+
 #include <opencv2/imgproc.hpp>
 #include <opencv2/freetype.hpp>
-
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // mainly used to display cvedix_frame_text_target on frame.
+    /**
+     * @brief OCR text OSD visualization
+     */
     class cvedix_text_osd_node: public cvedix_node
     {
+
     private:
         // support chinese font
         cv::Ptr<cv::freetype::FreeType2> ft2;

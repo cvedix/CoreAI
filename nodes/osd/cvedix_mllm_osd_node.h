@@ -1,17 +1,25 @@
+/**
+ * @file cvedix_mllm_osd_node.h
+ * @brief OSD for LLM description display
+ * 
+ * Shows multimodal LLM output text in bottom panel.
+ * Requires CVEDIX_WITH_LLM.
+ */
 
 #pragma once
 
 #ifdef CVEDIX_WITH_LLM
 #include <opencv2/imgproc.hpp>
 #include <opencv2/freetype.hpp>
-
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // mainly used to display description(output from LLM) on frame.
+    /**
+     * @brief LLM output OSD visualization
+     */
     class cvedix_mllm_osd_node: public cvedix_node
     {
+
     private:
         // leave a gap at the bottom of osd frame
         int gap_height = 112;

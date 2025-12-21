@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_rtmp_src_node.h
+ * @brief RTMP source node for live streaming
+ * 
+ * Receives live video via RTMP protocol.
+ * Requires CVEDIX_WITH_GSTREAMER.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_GSTREAMER
@@ -6,10 +14,11 @@
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // rtmp source node, receive live video stream via rtmp protocal.
-    // example:
-    // rtmp://your-rtmp-server/live/streamname
+    /**
+     * @brief RTMP source node
+     */
     class cvedix_rtmp_src_node: public cvedix_src_node {
+
     private:
         /* data */
         std::string gst_template = "rtmpsrc location=%s ! flvdemux ! h264parse ! %s ! videoconvert ! appsink";

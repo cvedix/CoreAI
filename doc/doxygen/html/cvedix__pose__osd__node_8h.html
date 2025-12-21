@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/osd/cvedix_pose_osd_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/osd/cvedix_pose_osd_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,37 +69,54 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_a676d2dc2ff7b032cdd6bf66f496fae3.html">osd</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_40258405c2fc5c96545d94f202f78e11.html">osd</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_pose_osd_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>OSD for human pose estimation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;random&gt;</code><br />
 <code>#include &lt;opencv2/highgui.hpp&gt;</code><br />
 <code>#include &lt;opencv2/imgproc.hpp&gt;</code><br />
 <code>#include &quot;cvedix/nodes/common/cvedix_node.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_pose_osd_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__pose__osd__node_8h__incl.png" border="0" usemap="#anodes_2osd_2cvedix__pose__osd__node_8h" alt=""/></div>
+<map name="anodes_2osd_2cvedix__pose__osd__node_8h" id="anodes_2osd_2cvedix__pose__osd__node_8h">
+<area shape="rect" title="OSD for human pose estimation." alt="" coords="185,5,359,45"/>
+<area shape="rect" title=" " alt="" coords="5,101,77,126"/>
+<area shape="poly" title=" " alt="" coords="221,48,90,96,84,98,82,93,88,91,219,43"/>
+<area shape="rect" title=" " alt="" coords="101,101,259,126"/>
+<area shape="poly" title=" " alt="" coords="253,48,204,93,201,89,250,44"/>
+<area shape="rect" title=" " alt="" coords="283,101,445,126"/>
+<area shape="poly" title=" " alt="" coords="294,44,343,89,340,93,291,48"/>
+<area shape="rect" title=" " alt="" coords="470,93,639,133"/>
+<area shape="poly" title=" " alt="" coords="335,43,480,87,479,92,333,48"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__pose__osd__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__pose__osd__node.html">cvedix_nodes::cvedix_pose_osd_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose estimation OSD visualization.  <a href="classcvedix__nodes_1_1cvedix__pose__osd__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>OSD for human pose estimation. </p>
+<p>Draws skeleton keypoints and limb connections (BODY25, COCO, MPI, YOLOv8). </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

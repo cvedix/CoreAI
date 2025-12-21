@@ -1,3 +1,12 @@
+/**
+ * @file cvedix_openpose_detector_node.h
+ * @brief OpenPose body keypoint detector
+ * 
+ * Multi-person pose estimation using CMU OpenPose.
+ * Supports BODY_25, COCO, and MPI_15 pose formats.
+ * 
+ * @see cvedix_frame_pose_target Pose target type
+ */
 
 #pragma once
 
@@ -11,10 +20,15 @@
 
 
 namespace cvedix_nodes {
-    // body keypoints detector using openpose
-    // https://github.com/CMU-Perceptual-Computing-Lab/openpose
+    /**
+     * @brief OpenPose body keypoint detector
+     * 
+     * Multi-person pose estimation with PAF-based association.
+     * @see https://github.com/CMU-Perceptual-Computing-Lab/openpose
+     */
     class cvedix_openpose_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         float score_threshold;
         // pose type (model type)

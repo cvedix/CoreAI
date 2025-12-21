@@ -1,0 +1,17 @@
+<map id="cvedix_nodes::cvedix_rknn_yolov8_detector_node" name="cvedix_nodes::cvedix_rknn_yolov8_detector_node">
+<area shape="rect" id="Node000001" title="RKNN NPU YOLOv8 detector." alt="" coords="927,101,1136,141"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__primary__infer__node.html" title="Base class for primary (full&#45;frame) inference nodes." alt="" coords="716,101,879,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="892,119,927,119,927,124,892,124"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__infer__node.html" title="Base class for all deep learning inference nodes." alt="" coords="505,101,668,141"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="682,119,716,119,716,124,682,124"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html" title="Base class for all pipeline nodes." alt="" coords="256,109,457,134"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="471,119,505,119,505,124,471,124"/>
+<area shape="rect" id="Node000005" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,5,188,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="188,47,209,55,329,106,327,111,207,60,186,52"/>
+<area shape="rect" id="Node000006" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,69,188,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="202,99,258,106,257,111,202,104"/>
+<area shape="rect" id="Node000007" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,133,188,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="202,139,257,131,258,137,202,144"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="5,197,208,237"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="186,190,207,183,327,132,329,137,209,188,188,195"/>
+</map>

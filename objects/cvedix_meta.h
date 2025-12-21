@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_meta.h
+ * @brief Base class for all metadata in the pipeline
+ * 
+ * Core abstraction for data flowing through the pipeline.
+ * Derived classes: cvedix_frame_meta (frames), cvedix_control_meta (commands)
+ */
+
 #pragma once
 
 #include <string>
@@ -10,18 +18,13 @@
 
 namespace cvedix_objects {
 
-    // meta type
+    /** @brief Type of metadata */
     enum cvedix_meta_type {
         FRAME,
         CONTROL
     };
 
-    // meta trace field
-    // 1. sequence   ->int       ,sequence number the meta flowing through pipeline
-    // 2. node_name  ->string    ,name of current node the meta flow through
-    // 3. in_time    ->long      ,time when the meta arrive current node
-    // 4. out_time   ->long      ,time when the meta leave current node
-    // 5. text_info  ->vector    ,text info while the meta inside node
+    /** @brief Trace field for debugging */
     enum cvedix_meta_trace_field {
         SEQUENCE,
         NODE_NAME,
@@ -30,8 +33,11 @@ namespace cvedix_objects {
         TEXT_INFO
     };
 
-    // base class for meta
+    /**
+     * @brief Base class for all pipeline metadata
+     */
     class cvedix_meta {
+
     private:
     
     protected:

@@ -1,17 +1,15 @@
 <map id="cvedix_nodes::cvedix_embeddings_properties_socket_broker_node::cvedix_embeddings_properties_socket_broker_node" name="cvedix_nodes::cvedix_embeddings_properties_socket_broker_node::cvedix_embeddings_properties_socket_broker_node">
-<area shape="rect" id="node1" title=" " alt="" coords="5,166,236,251"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title=" " alt="" coords="284,159,447,200"/>
-<area shape="rect" id="node6" href="$namespacecvedix__utils.html#af733f31023d9a14691ee46baafa23d3a" title=" " alt="" coords="738,217,883,259"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title=" " alt="" coords="495,152,657,193"/>
-<area shape="rect" id="node9" href="$classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title=" " alt="" coords="495,348,657,389"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html#a21b633156569bf221c55f9a715431d05" title=" " alt="" coords="721,71,901,127"/>
-<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html#a462ffd8c2eaca95b4263422f9cd76161" title=" " alt="" coords="705,5,916,47"/>
-<area shape="rect" id="node8" href="$classcvedix__utils_1_1cvedix__semaphore.html#af56ea07ba56feeab1dfb1a37e0dfabbb" title=" " alt="" coords="735,152,886,193"/>
-<area shape="rect" id="node7" href="$namespacedate.html#a4c1df8b60171571aab1fd6bd38b9ae6f" title=" " alt="" coords="964,225,1067,251"/>
-<area shape="rect" id="node10" href="$classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title=" " alt="" coords="707,283,914,324"/>
-<area shape="rect" id="node11" href="$classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title=" " alt="" coords="711,348,911,389"/>
-<area shape="rect" id="node12" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719" title=" " alt="" coords="721,414,901,470"/>
-<area shape="rect" id="node13" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html#a3086b0383847b66a454934d3d6324555" title=" " alt="" coords="721,494,901,550"/>
-<area shape="rect" id="node14" href="$classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title=" " alt="" coords="729,640,892,681"/>
-<area shape="rect" id="node15" href="$classcvedix__utils_1_1cvedix__semaphore.html#aa0135494f284a38fb0b52837bfcd9093" title=" " alt="" coords="735,575,886,616"/>
+<area shape="rect" id="Node000001" title="Constructor." alt="" coords="5,15,236,99"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="284,37,447,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,55,270,55,270,60,236,60"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title="Main dispatch loop for sending meta to next nodes." alt="" coords="495,5,657,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="447,42,481,37,482,42,447,48"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="495,69,657,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="447,67,482,72,481,78,447,72"/>
+<area shape="rect" id="Node000005" href="$classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title="Handle a single control meta object." alt="" coords="705,5,912,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="649,67,722,46,723,52,650,72"/>
+<area shape="rect" id="Node000006" href="$classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title="Handle a single frame meta object." alt="" coords="709,69,909,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="658,87,695,87,695,92,658,92"/>
+<area shape="rect" id="Node000007" href="$classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="727,133,890,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="650,107,723,127,722,132,649,112"/>
 </map>

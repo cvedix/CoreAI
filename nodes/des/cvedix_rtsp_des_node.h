@@ -1,3 +1,31 @@
+/**
+ * @file cvedix_rtsp_des_node.h
+ * @brief RTSP server destination node (built-in server)
+ * 
+ * Creates an embedded RTSP server - clients can pull stream directly.
+ * No external RTSP server required.
+ * 
+ * @section rtsp_prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_GSTREAMER`
+ * - Install: `sudo apt-get install libgstrtspserver-1.0-dev gstreamer1.0-rtsp`
+ * 
+ * @section rtsp_usage Usage
+ * @code
+ * auto rtsp_des = std::make_shared<cvedix_rtsp_des_node>(
+ *     "rtsp_server", 0,
+ *     9000,           // RTSP port
+ *     "stream1",      // stream name
+ *     {1280, 720},    // resolution
+ *     512             // bitrate
+ * );
+ * rtsp_des->attach_to({pipeline_node});
+ * // Access: rtsp://localhost:9000/stream1
+ * @endcode
+ * 
+ * @see cvedix_des_node Base class
+ * @see cvedix_rtmp_des_node For RTMP push output
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_GSTREAMER
@@ -5,48 +33,74 @@
 #include <gst/rtsp-server/rtsp-server.h>
 #include "cvedix/nodes/common/cvedix_des_node.h"
 
-/*
-* ##### Compile Tips #####
-* install additional packages for this node before compiling:
-* sudo apt-get install libgstrtspserver-1.0-dev gstreamer1.0-rtsp
-* https://github.com/GStreamer/gst-rtsp-server
-*/
-
 namespace cvedix_nodes {
-    // rtsp des node, push video stream via rtsp.
-    // example: rtsp://localhost:7890/test
-    // note, no specialized rtsp server needed since this node itself is a rtsp server, which can be pulled directly by video players such as VLC.
+
+    /**
+     * @brief RTSP server destination node
+     * 
+     * Built-in RTSP server - no external server needed.
+     * Clients pull stream via VLC, FFplay, etc.
+     * 
+     * @note Only available with CVEDIX_WITH_GSTREAMER
+     * @note Static server shared between all channel instances
+     * 
+     * @see cvedix_des_node Base class
+     */
     class cvedix_rtsp_des_node: public cvedix_des_node {
     private:
-        /* data */
+        /// @brief GStreamer pipeline template
         std::string gst_template = "appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! rtph264pay ! udpsink host=localhost port=%d";
+        /// @brief OpenCV video writer
         cv::VideoWriter rtsp_writer;
 
-        // start rtsp server
-        void start_rtsp_streaming ();
+        /**
+         * @brief Start RTSP server thread
+         */
+        void start_rtsp_streaming();
         
-        // resolution for rtsp stream
+        /// @brief Output resolution
         cvedix_objects::cvedix_size resolution_w_h;
+        /// @brief Video bitrate
         int bitrate;
-        // for osd frame 
+        /// @brief OSD enabled
         bool osd;
 
+        /// @brief UDP buffer size
         int udp_buffer_size = 0;
-        // base udp port for stream data exchange internally, base_udp_port + channel_index would be used for each channel, MUST not occupied by others.
+        /// @brief Base UDP port (channel_index added for each channel)
         const int base_udp_port = 7890;
 
+        /// @brief RTSP server port
         int rtsp_port = 9000;
+        /// @brief RTSP stream name
         std::string rtsp_name = "";
 
-        /* gst-rtsp-server variables shared between instances for different channels */
+        /// @brief Shared RTSP server instance
         static GstRTSPServer* rtsp_server;
 
-        // set x264enc as the default encoder, we can use hardware encoder instead.
+        /// @brief GStreamer encoder name
         std::string gst_encoder_name = "x264enc";
+
     protected:
-        // re-implementation, return nullptr.
+        /**
+         * @brief Encode and serve frame
+         * @param meta Frame to stream
+         * @return nullptr (terminal node)
+         */
         virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override; 
+
     public:
+        /**
+         * @brief Constructor
+         * @param node_name Unique node identifier
+         * @param channel_index Channel index
+         * @param rtsp_port RTSP server port (default: 9000)
+         * @param rtsp_name Stream name in URL
+         * @param resolution_w_h Output resolution
+         * @param bitrate Video bitrate (kbps)
+         * @param osd Enable OSD overlay
+         * @param gst_encoder_name GStreamer encoder (default: x264enc)
+         */
         cvedix_rtsp_des_node(std::string node_name, 
                         int channel_index, 
                         int rtsp_port = 9000, 
@@ -55,9 +109,12 @@ namespace cvedix_nodes {
                         int bitrate = 512,
                         bool osd = true,
                         std::string gst_encoder_name = "x264enc");
+
+        /// @brief Destructor
         ~cvedix_rtsp_des_node();
 
-         virtual std::string to_string() override;
+        /// @brief Get node description
+        virtual std::string to_string() override;
     };
 }
 

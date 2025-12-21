@@ -1,3 +1,27 @@
+/**
+ * @file cvedix_ff_des_node.h
+ * @brief FFmpeg-based universal destination node for file/network output
+ * 
+ * High-performance video output using FFmpeg with hardware acceleration support.
+ * 
+ * @section ff_des_outputs Supported Outputs
+ * - Local files: `./output.mp4`, `./output.mkv`
+ * - RTMP streams: `rtmp://server/live/stream`
+ * - RTSP streams, UDP, RTP
+ * 
+ * @section ff_des_encoders Supported Encoders
+ * - `libx264`, `libx265` (CPU)
+ * - `h264_nvenc`, `hevc_nvenc` (NVIDIA GPU)
+ * - `h264_vaapi`, `hevc_vaapi` (Intel GPU)
+ * 
+ * @section ff_des_prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_FFMPEG`
+ * - FFmpeg with required encoder support
+ * 
+ * @see ff_des Low-level FFmpeg wrapper
+ * @see cvedix_des_node Base class
+ */
+
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include "ff_des.h"
@@ -5,13 +29,14 @@
 
 namespace cvedix_nodes {
     /**
-     * universal DES node using FFmpeg.
+     * @brief Universal destination node using FFmpeg
      * 
-     * support output uri:
-     * 1. path of file streams like `./cvedix_data/out_cvedix_test.mp4`.
-     * 2. url of network streams like `rtmp://192.168.77.68/live/stream`.
+     * Supports file streams and network protocols (RTMP, RTSP, etc.).
+     * 
+     * @see cvedix_des_node Base class
      */
     class cvedix_ff_des_node final: public cvedix_des_node {
+
     private:
         /* inner members. */
         std::string m_out_uri = "";

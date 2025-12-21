@@ -1,20 +1,31 @@
+/**
+ * @file cvedix_split_node.h
+ * @brief Pipeline splitting with configurable behavior
+ * 
+ * Splits pipeline into multiple branches with options:
+ * - split_with_channel_index: Route by channel index
+ * - split_with_deep_copy: Deep copy meta for thread safety
+ * 
+ * @see cvedix_sync_node For merging split branches
+ */
+
+#pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
 
-    // split pipeline into multi branches. although all other non-Des nodes have the ability to split pipeline, but cvedix_split_node has more parameters and flexible behaviour.  
-    // by default, other non-Des nodes split pipeline by simple copying, which just copy pointer of meta and push to next nodes, each next node handle the same meta allocated in heap(not thread-safe).
-    // in addition, other non-Des nodes push meta to next nodes without difference, each next node receive equal number of meta to previous node.  
-    // 
-    // in cvedix_split_node, we have below parameters to set:
-    // split_with_channel_index (false by default): if true, push meta according to its channel index, only those next nodes having the same channel index can receive meta.
-    // split_with_deep_copy (false by default)    : if true, copy meta in heap and create new pointer, then push the new pointer to next nodes, next nodes have a totally different meta with previous.
-    // 
-    // note: split_with_deep_copy = true will affect the performance of pipeline.
-    // above paramters can be set as true at the same time.
+    /**
+     * @brief Pipeline splitting node with configurable behavior
+     * 
+     * Unlike default node splitting (shallow copy, broadcast to all),
+     * this node provides:
+     * - Channel-based routing
+     * - Deep copy for thread safety
+     */
     class cvedix_split_node: public cvedix_node
     {
+
     private:
         /* data */
     protected:

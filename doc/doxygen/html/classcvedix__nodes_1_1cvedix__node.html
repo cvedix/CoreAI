@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: cvedix_nodes::cvedix_node Class Reference</title>
+<title>CVEDIX AI Runtime: cvedix_nodes::cvedix_node Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></li><li class="navelem"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a></li>  </ul>
+<li class="navelem"><b>cvedix_nodes</b></li><li class="navelem"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,181 +83,326 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for all pipeline nodes.  
+ <a href="classcvedix__nodes_1_1cvedix__node.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="cvedix__node_8h_source.html">cvedix_node.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for cvedix_nodes::cvedix_node:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classcvedix__nodes_1_1cvedix__node.png" usemap="#cvedix_5Fnodes::cvedix_5Fnode_map" alt=""/>
-  <map id="cvedix_5Fnodes::cvedix_5Fnode_map" name="cvedix_5Fnodes::cvedix_5Fnode_map">
-<area href="classcvedix__nodes_1_1cvedix__meta__publisher.html" alt="cvedix_nodes::cvedix_meta_publisher" shape="rect" coords="0,0,305,24"/>
-<area href="classcvedix__nodes_1_1cvedix__meta__subscriber.html" alt="cvedix_nodes::cvedix_meta_subscriber" shape="rect" coords="315,0,620,24"/>
-<area href="classcvedix__nodes_1_1cvedix__meta__hookable.html" alt="cvedix_nodes::cvedix_meta_hookable" shape="rect" coords="630,0,935,24"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html" alt="cvedix_nodes::cvedix_ba_crossline_node" shape="rect" coords="787,112,1092,136"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__crossline__osd__node.html" alt="cvedix_nodes::cvedix_ba_crossline_osd_node" shape="rect" coords="787,168,1092,192"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__jam__node.html" alt="cvedix_nodes::cvedix_ba_jam_node" shape="rect" coords="787,224,1092,248"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__jam__osd__node.html" alt="cvedix_nodes::cvedix_ba_jam_osd_node" shape="rect" coords="787,280,1092,304"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__stop__node.html" alt="cvedix_nodes::cvedix_ba_stop_node" shape="rect" coords="787,336,1092,360"/>
-<area href="classcvedix__nodes_1_1cvedix__ba__stop__osd__node.html" alt="cvedix_nodes::cvedix_ba_stop_osd_node" shape="rect" coords="787,392,1092,416"/>
-<area href="classcvedix__nodes_1_1cvedix__cluster__node.html" alt="cvedix_nodes::cvedix_cluster_node" shape="rect" coords="787,448,1092,472"/>
-<area href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html" alt="cvedix_nodes::cvedix_custom_data_transform_node" shape="rect" coords="787,504,1092,528"/>
-<area href="classcvedix__nodes_1_1cvedix__des__node.html" alt="cvedix_nodes::cvedix_des_node" shape="rect" coords="787,560,1092,584"/>
-<area href="classcvedix__nodes_1_1cvedix__expr__check__node.html" alt="cvedix_nodes::cvedix_expr_check_node" shape="rect" coords="787,616,1092,640"/>
-<area href="classcvedix__nodes_1_1cvedix__expr__osd__node.html" alt="cvedix_nodes::cvedix_expr_osd_node" shape="rect" coords="787,672,1092,696"/>
-<area href="classcvedix__nodes_1_1cvedix__face__osd__node.html" alt="cvedix_nodes::cvedix_face_osd_node" shape="rect" coords="787,728,1092,752"/>
-<area href="classcvedix__nodes_1_1cvedix__face__osd__node__v2.html" alt="cvedix_nodes::cvedix_face_osd_node_v2" shape="rect" coords="787,784,1092,808"/>
-<area href="classcvedix__nodes_1_1cvedix__frame__fusion__node.html" alt="cvedix_nodes::cvedix_frame_fusion_node" shape="rect" coords="787,840,1092,864"/>
-<area href="classcvedix__nodes_1_1cvedix__infer__node.html" alt="cvedix_nodes::cvedix_infer_node" shape="rect" coords="787,896,1092,920"/>
-<area href="classcvedix__nodes_1_1cvedix__lane__osd__node.html" alt="cvedix_nodes::cvedix_lane_osd_node" shape="rect" coords="787,952,1092,976"/>
-<area href="classcvedix__nodes_1_1cvedix__message__broker__node.html" alt="cvedix_nodes::cvedix_message_broker_node" shape="rect" coords="787,1008,1092,1032"/>
-<area href="classcvedix__nodes_1_1cvedix__msg__broker__node.html" alt="cvedix_nodes::cvedix_msg_broker_node" shape="rect" coords="787,1064,1092,1088"/>
-<area href="classcvedix__nodes_1_1cvedix__osd__node.html" alt="cvedix_nodes::cvedix_osd_node" shape="rect" coords="787,1120,1092,1144"/>
-<area href="classcvedix__nodes_1_1cvedix__osd__node__v2.html" alt="cvedix_nodes::cvedix_osd_node_v2" shape="rect" coords="787,1176,1092,1200"/>
-<area href="classcvedix__nodes_1_1cvedix__osd__node__v3.html" alt="cvedix_nodes::cvedix_osd_node_v3" shape="rect" coords="787,1232,1092,1256"/>
-<area href="classcvedix__nodes_1_1cvedix__placeholder__node.html" alt="cvedix_nodes::cvedix_placeholder_node" shape="rect" coords="787,1288,1092,1312"/>
-<area href="classcvedix__nodes_1_1cvedix__plate__osd__node.html" alt="cvedix_nodes::cvedix_plate_osd_node" shape="rect" coords="787,1344,1092,1368"/>
-<area href="classcvedix__nodes_1_1cvedix__pose__osd__node.html" alt="cvedix_nodes::cvedix_pose_osd_node" shape="rect" coords="787,1400,1092,1424"/>
-<area href="classcvedix__nodes_1_1cvedix__record__node.html" alt="cvedix_nodes::cvedix_record_node" shape="rect" coords="787,1456,1092,1480"/>
-<area href="classcvedix__nodes_1_1cvedix__seg__osd__node.html" alt="cvedix_nodes::cvedix_seg_osd_node" shape="rect" coords="787,1512,1092,1536"/>
-<area href="classcvedix__nodes_1_1cvedix__split__node.html" alt="cvedix_nodes::cvedix_split_node" shape="rect" coords="787,1568,1092,1592"/>
-<area href="classcvedix__nodes_1_1cvedix__src__node.html" alt="cvedix_nodes::cvedix_src_node" shape="rect" coords="787,1624,1092,1648"/>
-<area href="classcvedix__nodes_1_1cvedix__sync__node.html" alt="cvedix_nodes::cvedix_sync_node" shape="rect" coords="787,1680,1092,1704"/>
-<area href="classcvedix__nodes_1_1cvedix__text__osd__node.html" alt="cvedix_nodes::cvedix_text_osd_node" shape="rect" coords="787,1736,1092,1760"/>
-<area href="classcvedix__nodes_1_1cvedix__track__node.html" alt="cvedix_nodes::cvedix_track_node" shape="rect" coords="787,1792,1092,1816"/>
-  </map>
-</div></div>
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node__inherit__graph.png" border="0" usemap="#acvedix__nodes_1_1cvedix__node_inherit__map" alt="Inheritance graph"/></div>
+<map name="acvedix__nodes_1_1cvedix__node_inherit__map" id="acvedix__nodes_1_1cvedix__node_inherit__map">
+<area shape="rect" title="Base class for all pipeline nodes." alt="" coords="256,973,457,998"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html" title="Crossline detection behavior analysis node." alt="" coords="535,5,698,45"/>
+<area shape="poly" title=" " alt="" coords="356,959,363,780,371,650,384,509,403,367,428,237,444,180,461,129,481,88,503,56,517,43,534,35,536,39,520,48,507,59,486,90,466,131,449,181,434,238,408,368,390,509,377,651,368,780,361,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__osd__node.html" title="Crossline BA visualization." alt="" coords="527,69,706,109"/>
+<area shape="poly" title=" " alt="" coords="356,959,365,790,388,539,407,408,432,287,464,188,483,149,503,119,525,103,529,107,507,123,487,152,469,190,437,289,412,409,393,539,370,791,362,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html" title="Traffic jam detection behavior analysis node." alt="" coords="535,133,698,173"/>
+<area shape="poly" title=" " alt="" coords="357,959,367,802,392,570,411,449,436,338,466,246,484,211,503,184,518,171,534,163,536,167,521,176,507,187,488,214,471,248,441,339,416,450,397,570,372,803,362,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__osd__node.html" title="Traffic jam BA visualization." alt="" coords="535,197,698,237"/>
+<area shape="poly" title=" " alt="" coords="357,959,369,813,396,600,415,489,439,388,469,305,485,272,503,248,517,236,534,227,536,232,520,240,507,251,490,275,474,307,445,390,421,490,401,600,375,814,362,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html" title="Individual object stop detection behavior analysis node." alt="" coords="535,261,698,301"/>
+<area shape="poly" title=" " alt="" coords="358,959,372,824,400,630,420,530,443,439,471,363,487,334,503,311,518,300,534,291,536,296,521,304,507,315,491,337,476,365,448,440,425,532,405,631,377,825,363,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__osd__node.html" title="Vehicle stop BA visualization." alt="" coords="535,325,698,365"/>
+<area shape="poly" title=" " alt="" coords="358,958,374,835,404,660,424,571,447,489,473,422,488,396,503,375,518,364,534,355,536,360,521,368,507,379,492,398,478,424,452,491,429,572,409,661,380,836,364,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__cluster__node.html" title="Target clustering visualization node." alt="" coords="535,389,698,429"/>
+<area shape="poly" title=" " alt="" coords="359,959,377,847,408,691,428,612,451,540,476,480,503,439,534,420,537,424,507,443,481,483,456,542,433,614,413,693,382,848,364,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html" title=" " alt="" coords="505,453,728,493"/>
+<area shape="poly" title=" " alt="" coords="355,959,360,872,368,814,380,750,399,684,425,618,459,557,503,503,519,491,523,496,507,507,463,560,429,621,404,686,385,751,373,815,366,873,361,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__des__node.html" title="Base class for all destination nodes." alt="" coords="535,517,698,557"/>
+<area shape="poly" title=" " alt="" coords="357,959,365,883,388,777,407,721,432,665,464,613,504,567,534,548,537,553,507,571,468,616,437,668,412,723,393,779,371,883,362,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__check__node.html" title="Math expression validation node." alt="" coords="535,581,698,621"/>
+<area shape="poly" title=" " alt="" coords="359,958,371,893,397,805,415,758,439,712,468,669,504,631,534,613,537,618,507,635,473,672,444,714,420,760,402,806,376,894,364,959"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__osd__node.html" title="Math expression OSD visualization." alt="" coords="535,645,698,685"/>
+<area shape="poly" title=" " alt="" coords="361,958,377,903,405,832,447,759,473,725,504,695,534,678,536,683,507,699,477,728,451,762,410,835,383,905,367,960"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__osd__node.html" title="Face OSD visualization." alt="" coords="535,709,698,749"/>
+<area shape="poly" title=" " alt="" coords="365,959,385,915,415,861,454,806,478,781,504,759,534,743,536,748,507,764,481,785,458,810,419,864,390,918,370,961"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__osd__node__v2.html" title="Face OSD v2 with similarity display." alt="" coords="535,773,698,813"/>
+<area shape="poly" title=" " alt="" coords="372,960,425,892,462,855,504,823,534,809,536,813,507,828,465,859,429,895,376,963"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__frame__fusion__node.html" title="Frame fusion node (2 channels)" alt="" coords="535,837,698,877"/>
+<area shape="poly" title=" " alt="" coords="383,962,438,924,504,887,535,875,537,880,506,892,440,929,387,966"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__infer__node.html" title="Base class for all deep learning inference nodes." alt="" coords="535,901,698,941"/>
+<area shape="poly" title=" " alt="" coords="422,967,534,939,536,944,423,972"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__lane__osd__node.html" title="Lane detection OSD visualization." alt="" coords="535,965,698,1005"/>
+<area shape="poly" title=" " alt="" coords="471,983,535,983,535,988,471,988"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__message__broker__node.html" title="Generic message broker node." alt="" coords="529,1029,704,1069"/>
+<area shape="poly" title=" " alt="" coords="423,999,535,1027,534,1032,422,1004"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html" title="Base class for all message broker nodes." alt="" coords="535,1093,698,1133"/>
+<area shape="poly" title=" " alt="" coords="387,1004,440,1042,506,1079,537,1091,535,1096,504,1084,438,1046,383,1009"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__osd__node.html" title="Base OSD node for target visualization." alt="" coords="535,1157,698,1197"/>
+<area shape="poly" title=" " alt="" coords="376,1008,429,1075,465,1112,507,1143,536,1157,534,1162,504,1148,462,1116,425,1079,372,1011"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__osd__node__v2.html" title="OSD v2 with bottom panel for sub&#45;targets." alt="" coords="535,1221,698,1261"/>
+<area shape="poly" title=" " alt="" coords="370,1010,390,1053,419,1106,458,1161,481,1186,507,1207,536,1223,534,1228,504,1212,478,1189,454,1164,415,1109,385,1055,365,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__osd__node__v3.html" title="OSD v3 with segmentation mask overlay." alt="" coords="535,1285,698,1325"/>
+<area shape="poly" title=" " alt="" coords="367,1011,383,1066,410,1136,451,1209,477,1242,507,1271,536,1288,534,1293,504,1275,473,1246,447,1212,405,1138,377,1068,361,1013"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__placeholder__node.html" title="Placeholder node &#45; passes data through unchanged." alt="" coords="535,1349,698,1389"/>
+<area shape="poly" title=" " alt="" coords="364,1011,376,1077,402,1164,420,1211,444,1256,473,1298,507,1335,537,1353,534,1358,504,1339,468,1302,439,1259,415,1213,397,1166,371,1078,359,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__osd__node.html" title="LPR OSD visualization with plate history." alt="" coords="535,1413,698,1453"/>
+<area shape="poly" title=" " alt="" coords="362,1011,371,1087,393,1192,412,1248,437,1303,468,1354,507,1399,537,1418,534,1422,504,1403,464,1358,432,1306,407,1250,388,1193,365,1088,357,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__pose__osd__node.html" title="Pose estimation OSD visualization." alt="" coords="535,1477,698,1517"/>
+<area shape="poly" title=" " alt="" coords="361,1012,366,1098,373,1156,385,1219,404,1285,429,1350,463,1410,507,1463,536,1482,534,1487,504,1467,459,1413,425,1352,399,1287,380,1221,368,1157,360,1098,355,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__record__node.html" title="Async video/image recording node." alt="" coords="535,1541,698,1581"/>
+<area shape="poly" title=" " alt="" coords="364,1011,382,1123,413,1278,433,1357,456,1429,481,1488,507,1527,537,1547,534,1551,503,1531,476,1490,451,1431,428,1359,408,1279,377,1124,359,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__seg__osd__node.html" title="Semantic segmentation OSD visualization." alt="" coords="535,1605,698,1645"/>
+<area shape="poly" title=" " alt="" coords="364,1012,380,1135,409,1309,429,1399,452,1480,478,1547,492,1572,507,1591,521,1602,536,1611,534,1615,518,1607,503,1595,488,1575,473,1549,447,1482,424,1400,404,1310,374,1136,358,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__split__node.html" title="Pipeline splitting node with configurable behavior." alt="" coords="535,1669,698,1709"/>
+<area shape="poly" title=" " alt="" coords="363,1011,377,1146,405,1339,425,1439,448,1530,476,1605,491,1634,507,1655,521,1667,536,1675,534,1679,518,1671,503,1659,487,1637,471,1607,443,1532,420,1440,400,1340,372,1146,358,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__src__node.html" title="Base class for all source nodes." alt="" coords="535,1733,698,1773"/>
+<area shape="poly" title=" " alt="" coords="362,1011,375,1157,401,1370,421,1480,445,1581,474,1664,490,1696,507,1720,520,1731,536,1739,534,1744,517,1735,503,1723,485,1698,469,1666,439,1582,415,1481,396,1371,369,1158,357,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__sync__node.html" title="Synchronization node for parallel branch merging." alt="" coords="535,1797,698,1837"/>
+<area shape="poly" title=" " alt="" coords="362,1011,372,1168,397,1400,416,1521,441,1631,471,1722,488,1757,507,1784,521,1795,536,1803,534,1808,518,1799,503,1787,484,1760,466,1724,436,1633,411,1522,392,1401,367,1169,357,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__text__osd__node.html" title="OCR text OSD visualization." alt="" coords="535,1861,698,1901"/>
+<area shape="poly" title=" " alt="" coords="362,1012,370,1180,393,1431,412,1562,437,1682,469,1781,487,1819,507,1848,521,1859,536,1867,534,1872,518,1863,503,1851,483,1822,464,1783,432,1683,407,1563,388,1432,365,1180,356,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__track__node.html" title="Base class for multi&#45;object tracking nodes." alt="" coords="535,1925,698,1965"/>
+<area shape="poly" title=" " alt="" coords="361,1012,368,1190,377,1320,390,1461,408,1602,434,1732,449,1789,466,1839,486,1880,507,1912,520,1923,536,1931,534,1936,517,1927,503,1915,481,1883,461,1841,444,1791,428,1733,403,1603,384,1462,371,1320,363,1191,356,1012"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,869,188,909"/>
+<area shape="poly" title=" " alt="" coords="188,911,209,919,329,970,327,975,207,924,186,916"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,933,188,973"/>
+<area shape="poly" title=" " alt="" coords="202,963,258,970,257,975,202,968"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,997,188,1037"/>
+<area shape="poly" title=" " alt="" coords="202,1003,257,995,258,1001,202,1008"/>
+<area shape="rect" title=" " alt="" coords="5,1061,208,1101"/>
+<area shape="poly" title=" " alt="" coords="186,1054,207,1047,327,996,329,1001,209,1052,188,1059"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html" title="Application destination node with callback interface." alt="" coords="817,389,980,429"/>
+<area shape="poly" title=" " alt="" coords="710,513,726,503,742,488,750,472,758,455,774,439,816,420,818,425,778,444,762,458,754,474,746,491,730,507,712,518"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html" title="Placeholder destination node." alt="" coords="817,453,980,493"/>
+<area shape="poly" title=" " alt="" coords="711,513,817,489,818,494,712,519"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html" title="Video file recording destination node." alt="" coords="817,517,980,557"/>
+<area shape="poly" title=" " alt="" coords="711,535,817,535,817,540,711,540"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html" title="Image capture destination node." alt="" coords="817,581,980,621"/>
+<area shape="poly" title=" " alt="" coords="712,556,818,580,817,586,711,561"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html" title="Local screen display destination node." alt="" coords="817,645,980,685"/>
+<area shape="poly" title=" " alt="" coords="712,557,730,567,746,584,754,600,762,616,778,631,818,650,816,655,774,636,758,619,750,603,742,587,726,571,710,562"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__primary__infer__node.html" title="Base class for primary (full&#45;frame) inference nodes." alt="" coords="817,829,980,869"/>
+<area shape="poly" title=" " alt="" coords="708,895,819,867,820,872,709,901"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__secondary__infer__node.html" title="Base class for secondary (ROI&#45;based) inference nodes." alt="" coords="813,893,985,933"/>
+<area shape="poly" title=" " alt="" coords="712,916,812,913,812,918,712,921"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html" title="UDP socket broker for behavior analysis results." alt="" coords="808,957,989,997"/>
+<area shape="poly" title=" " alt="" coords="709,1090,726,1079,742,1063,749,1045,758,1026,774,1009,807,992,809,996,778,1013,762,1029,754,1047,746,1065,730,1083,712,1094"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html" title="UDP socket broker for target embeddings and properties." alt="" coords="807,1022,990,1077"/>
+<area shape="poly" title=" " alt="" coords="710,1089,806,1067,808,1073,712,1095"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html" title="UDP socket broker for embeddings only." alt="" coords="776,1101,1021,1141"/>
+<area shape="poly" title=" " alt="" coords="712,1113,776,1115,776,1121,712,1119"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html" title="UDP socket broker for math expression validation results." alt="" coords="801,1165,996,1205"/>
+<area shape="poly" title=" " alt="" coords="709,1134,820,1163,819,1168,708,1139"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html" title="Debug broker &#45; JSON output to console." alt="" coords="799,1229,999,1269"/>
+<area shape="poly" title=" " alt="" coords="712,1132,730,1143,746,1162,754,1180,762,1198,778,1215,800,1228,797,1232,774,1219,757,1201,749,1183,742,1164,726,1147,709,1137"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__mqtt__broker__node.html" title="Flexible MQTT JSON broker." alt="" coords="808,1293,989,1333"/>
+<area shape="poly" title=" " alt="" coords="712,1130,730,1143,744,1161,751,1178,754,1213,758,1247,765,1263,778,1279,809,1298,807,1303,774,1283,760,1266,753,1249,749,1214,746,1180,739,1163,726,1147,709,1135"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for cvedix_nodes::cvedix_node:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node__coll__graph.png" border="0" usemap="#acvedix__nodes_1_1cvedix__node_coll__map" alt="Collaboration graph"/></div>
+<map name="acvedix__nodes_1_1cvedix__node_coll__map" id="acvedix__nodes_1_1cvedix__node_coll__map">
+<area shape="rect" title="Base class for all pipeline nodes." alt="" coords="405,141,607,166"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,5,188,45"/>
+<area shape="poly" title=" " alt="" coords="202,46,382,100,477,138,475,143,380,105,201,52"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,69,188,109"/>
+<area shape="poly" title=" " alt="" coords="202,102,426,138,425,143,201,107"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,133,188,173"/>
+<area shape="poly" title=" " alt="" coords="202,151,405,151,405,156,202,156"/>
+<area shape="rect" title=" " alt="" coords="5,197,208,237"/>
+<area shape="poly" title=" " alt="" coords="221,196,425,163,426,169,222,202"/>
+<area shape="rect" href="classcvedix__utils_1_1cvedix__semaphore.html" title="Semaphore for queue synchronization." alt="" coords="31,261,182,301"/>
+<area shape="poly" title=" " alt="" coords="195,272,286,257,334,245,380,230,441,197,487,164,491,168,444,202,382,234,336,250,287,262,196,277"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a538975ae6de8f6ed2b3833c4a6b06d5c" id="r_a538975ae6de8f6ed2b3833c4a6b06d5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a538975ae6de8f6ed2b3833c4a6b06d5c">~cvedix_node</a> ()</td></tr>
+<tr class="memitem:a538975ae6de8f6ed2b3833c4a6b06d5c" id="r_a538975ae6de8f6ed2b3833c4a6b06d5c"><td class="memItemLeft" align="right" valign="top"><a id="a538975ae6de8f6ed2b3833c4a6b06d5c" name="a538975ae6de8f6ed2b3833c4a6b06d5c"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~cvedix_node</b> ()</td></tr>
+<tr class="memdesc:a538975ae6de8f6ed2b3833c4a6b06d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor. <br /></td></tr>
 <tr class="separator:a538975ae6de8f6ed2b3833c4a6b06d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4afd618e476764a19b8da07292c2365c" id="r_a4afd618e476764a19b8da07292c2365c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4afd618e476764a19b8da07292c2365c">meta_flow</a> (std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>) <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">override</a></td></tr>
+<tr class="memitem:a4afd618e476764a19b8da07292c2365c" id="r_a4afd618e476764a19b8da07292c2365c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4afd618e476764a19b8da07292c2365c">meta_flow</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta) override</td></tr>
+<tr class="memdesc:a4afd618e476764a19b8da07292c2365c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive and process meta from previous nodes.  <br /></td></tr>
 <tr class="separator:a4afd618e476764a19b8da07292c2365c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae58c2580b075d729394e4ee9660b50f8" id="r_ae58c2580b075d729394e4ee9660b50f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="namespacecvedix__nodes.html#abc9768735e0c9c6b7901cc0e008757db">cvedix_node_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8">node_type</a> ()</td></tr>
+<tr class="memitem:ae58c2580b075d729394e4ee9660b50f8" id="r_ae58c2580b075d729394e4ee9660b50f8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="cvedix__node_8h.html#abc9768735e0c9c6b7901cc0e008757db">cvedix_node_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8">node_type</a> ()</td></tr>
+<tr class="memdesc:ae58c2580b075d729394e4ee9660b50f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type of this node.  <br /></td></tr>
 <tr class="separator:ae58c2580b075d729394e4ee9660b50f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f7efa89ee6b704bc1a2c2715ad566f4" id="r_a4f7efa89ee6b704bc1a2c2715ad566f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4f7efa89ee6b704bc1a2c2715ad566f4">detach</a> ()</td></tr>
+<tr class="memitem:a4f7efa89ee6b704bc1a2c2715ad566f4" id="r_a4f7efa89ee6b704bc1a2c2715ad566f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4f7efa89ee6b704bc1a2c2715ad566f4">detach</a> ()</td></tr>
+<tr class="memdesc:a4f7efa89ee6b704bc1a2c2715ad566f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach this node from all previous nodes.  <br /></td></tr>
 <tr class="separator:a4f7efa89ee6b704bc1a2c2715ad566f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed4a159b514acaaefdac5676cd8be4d1" id="r_aed4a159b514acaaefdac5676cd8be4d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#aed4a159b514acaaefdac5676cd8be4d1">detach_from</a> (std::vector&lt; std::string &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">pre_node_names</a>)</td></tr>
+<tr class="memitem:aed4a159b514acaaefdac5676cd8be4d1" id="r_aed4a159b514acaaefdac5676cd8be4d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#aed4a159b514acaaefdac5676cd8be4d1">detach_from</a> (std::vector&lt; std::string &gt; pre_node_names)</td></tr>
+<tr class="memdesc:aed4a159b514acaaefdac5676cd8be4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach this node from specific previous nodes.  <br /></td></tr>
 <tr class="separator:aed4a159b514acaaefdac5676cd8be4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a177f858627283fc9cc1a3a722993dc3a" id="r_a177f858627283fc9cc1a3a722993dc3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a177f858627283fc9cc1a3a722993dc3a">detach_recursively</a> ()</td></tr>
+<tr class="memitem:a177f858627283fc9cc1a3a722993dc3a" id="r_a177f858627283fc9cc1a3a722993dc3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a177f858627283fc9cc1a3a722993dc3a">detach_recursively</a> ()</td></tr>
+<tr class="memdesc:a177f858627283fc9cc1a3a722993dc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively detach this node and all downstream nodes.  <br /></td></tr>
 <tr class="separator:a177f858627283fc9cc1a3a722993dc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1878308192ad2e4bd9b9f8a71cc0a44e" id="r_a1878308192ad2e4bd9b9f8a71cc0a44e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a1878308192ad2e4bd9b9f8a71cc0a44e">attach_to</a> (std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> &gt; &gt; pre_nodes)</td></tr>
+<tr class="memitem:a1878308192ad2e4bd9b9f8a71cc0a44e" id="r_a1878308192ad2e4bd9b9f8a71cc0a44e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a1878308192ad2e4bd9b9f8a71cc0a44e">attach_to</a> (std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> &gt; &gt; pre_nodes)</td></tr>
+<tr class="memdesc:a1878308192ad2e4bd9b9f8a71cc0a44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach this node to previous nodes in the pipeline.  <br /></td></tr>
 <tr class="separator:a1878308192ad2e4bd9b9f8a71cc0a44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a2175349d77fbab3124341ace8aad01" id="r_a1a2175349d77fbab3124341ace8aad01"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a1a2175349d77fbab3124341ace8aad01">next_nodes</a> ()</td></tr>
+<tr class="memdesc:a1a2175349d77fbab3124341ace8aad01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all nodes that this node dispatches to.  <br /></td></tr>
 <tr class="separator:a1a2175349d77fbab3124341ace8aad01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75b8568816c2ae311db9f33586240a78" id="r_a75b8568816c2ae311db9f33586240a78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78">to_string</a> ()</td></tr>
+<tr class="memitem:a75b8568816c2ae311db9f33586240a78" id="r_a75b8568816c2ae311db9f33586240a78"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78">to_string</a> ()</td></tr>
+<tr class="memdesc:a75b8568816c2ae311db9f33586240a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a human-readable description of this node.  <br /></td></tr>
 <tr class="separator:a75b8568816c2ae311db9f33586240a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html">cvedix_nodes::cvedix_meta_publisher</a></td></tr>
-<tr class="memitem:a21ca69b56ac7c9b907a826c7fb15c4a7 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_a21ca69b56ac7c9b907a826c7fb15c4a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#a21ca69b56ac7c9b907a826c7fb15c4a7">cvedix_meta_publisher</a> ()</td></tr>
-<tr class="separator:a21ca69b56ac7c9b907a826c7fb15c4a7 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f51ceae39e2e81f2c77e4578d4b2d5 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_ab1f51ceae39e2e81f2c77e4578d4b2d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#ab1f51ceae39e2e81f2c77e4578d4b2d5">~cvedix_meta_publisher</a> ()</td></tr>
-<tr class="separator:ab1f51ceae39e2e81f2c77e4578d4b2d5 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad674bdb9107ec6c895904c115d096091 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_ad674bdb9107ec6c895904c115d096091"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#ad674bdb9107ec6c895904c115d096091">add_subscriber</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">subscriber</a>)</td></tr>
+<tr class="memitem:ad674bdb9107ec6c895904c115d096091 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_ad674bdb9107ec6c895904c115d096091"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add_subscriber</b> (std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; subscriber)</td></tr>
 <tr class="separator:ad674bdb9107ec6c895904c115d096091 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae250b541001c8b9fec5621939ee0f737 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_ae250b541001c8b9fec5621939ee0f737"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#ae250b541001c8b9fec5621939ee0f737">remove_subscriber</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">subscriber</a>)</td></tr>
+<tr class="memitem:ae250b541001c8b9fec5621939ee0f737 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_ae250b541001c8b9fec5621939ee0f737"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>remove_subscriber</b> (std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; subscriber)</td></tr>
 <tr class="separator:ae250b541001c8b9fec5621939ee0f737 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_nodes::cvedix_meta_subscriber</a></td></tr>
-<tr class="memitem:a65d5489d40a3db0afece03680c42e4c5 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_a65d5489d40a3db0afece03680c42e4c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a65d5489d40a3db0afece03680c42e4c5">cvedix_meta_subscriber</a> ()</td></tr>
-<tr class="separator:a65d5489d40a3db0afece03680c42e4c5 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5a60a5cbcb0b6603c2f0f8fead4ef8a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_aa5a60a5cbcb0b6603c2f0f8fead4ef8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#aa5a60a5cbcb0b6603c2f0f8fead4ef8a">~cvedix_meta_subscriber</a> ()</td></tr>
-<tr class="separator:aa5a60a5cbcb0b6603c2f0f8fead4ef8a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ff7aab7a0e2194fc548df3a513db77f inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_a1ff7aab7a0e2194fc548df3a513db77f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a1ff7aab7a0e2194fc548df3a513db77f">cvedix_meta_subscriber</a> (<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">const</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;)=<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">delete</a></td></tr>
+<tr class="memitem:a1ff7aab7a0e2194fc548df3a513db77f inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_a1ff7aab7a0e2194fc548df3a513db77f"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>cvedix_meta_subscriber</b> (const <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;)=delete</td></tr>
 <tr class="separator:a1ff7aab7a0e2194fc548df3a513db77f inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a766403932949c872a0078a3376f3fb inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_a8a766403932949c872a0078a3376f3fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a766403932949c872a0078a3376f3fb">operator=</a> (<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">const</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;)=<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">delete</a></td></tr>
+<tr class="memitem:a8a766403932949c872a0078a3376f3fb inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber" id="r_a8a766403932949c872a0078a3376f3fb"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &amp;)=delete</td></tr>
 <tr class="separator:a8a766403932949c872a0078a3376f3fb inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__subscriber"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_nodes::cvedix_meta_hookable</a></td></tr>
-<tr class="memitem:a2f0819a144a7bccfb2865da487e9c734 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a2f0819a144a7bccfb2865da487e9c734"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a2f0819a144a7bccfb2865da487e9c734">cvedix_meta_hookable</a> ()</td></tr>
-<tr class="separator:a2f0819a144a7bccfb2865da487e9c734 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c6add9aa49861cd49fa7be17e94f1a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a31c6add9aa49861cd49fa7be17e94f1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a31c6add9aa49861cd49fa7be17e94f1a">~cvedix_meta_hookable</a> ()</td></tr>
-<tr class="separator:a31c6add9aa49861cd49fa7be17e94f1a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60ed1543dbeac9d5459ded58a4d92ff inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aa60ed1543dbeac9d5459ded58a4d92ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aa60ed1543dbeac9d5459ded58a4d92ff">set_meta_arriving_hooker</a> (<a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a>)</td></tr>
+<tr class="memitem:aa60ed1543dbeac9d5459ded58a4d92ff inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aa60ed1543dbeac9d5459ded58a4d92ff"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_meta_arriving_hooker</b> (cvedix_meta_hooker meta_arriving_hooker)</td></tr>
 <tr class="separator:aa60ed1543dbeac9d5459ded58a4d92ff inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ee8c45e53a208fa9f9620c47e8c6a45 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a6ee8c45e53a208fa9f9620c47e8c6a45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a6ee8c45e53a208fa9f9620c47e8c6a45">set_meta_handling_hooker</a> (<a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a>)</td></tr>
+<tr class="memitem:a6ee8c45e53a208fa9f9620c47e8c6a45 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a6ee8c45e53a208fa9f9620c47e8c6a45"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_meta_handling_hooker</b> (cvedix_meta_hooker meta_handling_hooker)</td></tr>
 <tr class="separator:a6ee8c45e53a208fa9f9620c47e8c6a45 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96c23d883f7ffb84ca4bb138319ccdae inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a96c23d883f7ffb84ca4bb138319ccdae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a96c23d883f7ffb84ca4bb138319ccdae">set_meta_handled_hooker</a> (<a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a>)</td></tr>
+<tr class="memitem:a96c23d883f7ffb84ca4bb138319ccdae inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a96c23d883f7ffb84ca4bb138319ccdae"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_meta_handled_hooker</b> (cvedix_meta_hooker meta_handled_hooker)</td></tr>
 <tr class="separator:a96c23d883f7ffb84ca4bb138319ccdae inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68e46ec78e8e503f7775cced833246c8 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a68e46ec78e8e503f7775cced833246c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a68e46ec78e8e503f7775cced833246c8">set_meta_leaving_hooker</a> (<a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a>)</td></tr>
+<tr class="memitem:a68e46ec78e8e503f7775cced833246c8 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a68e46ec78e8e503f7775cced833246c8"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_meta_leaving_hooker</b> (cvedix_meta_hooker meta_leaving_hooker)</td></tr>
 <tr class="separator:a68e46ec78e8e503f7775cced833246c8 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79fecc127e69faafad8927485c7ff77a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a79fecc127e69faafad8927485c7ff77a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a79fecc127e69faafad8927485c7ff77a">invoke_meta_arriving_hooker</a> (std::string node_name, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">queue_size</a>, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:a79fecc127e69faafad8927485c7ff77a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a79fecc127e69faafad8927485c7ff77a"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>invoke_meta_arriving_hooker</b> (std::string node_name, int queue_size, std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
 <tr class="separator:a79fecc127e69faafad8927485c7ff77a inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3086b0383847b66a454934d3d6324555 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a3086b0383847b66a454934d3d6324555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a3086b0383847b66a454934d3d6324555">invoke_meta_handling_hooker</a> (std::string node_name, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">queue_size</a>, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:a3086b0383847b66a454934d3d6324555 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a3086b0383847b66a454934d3d6324555"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>invoke_meta_handling_hooker</b> (std::string node_name, int queue_size, std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
 <tr class="separator:a3086b0383847b66a454934d3d6324555 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9bd7ed3d9cd443bb905be287b828719 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_ad9bd7ed3d9cd443bb905be287b828719"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719">invoke_meta_handled_hooker</a> (std::string node_name, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">queue_size</a>, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:ad9bd7ed3d9cd443bb905be287b828719 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_ad9bd7ed3d9cd443bb905be287b828719"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>invoke_meta_handled_hooker</b> (std::string node_name, int queue_size, std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
 <tr class="separator:ad9bd7ed3d9cd443bb905be287b828719 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21b633156569bf221c55f9a715431d05 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a21b633156569bf221c55f9a715431d05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a21b633156569bf221c55f9a715431d05">invoke_meta_leaving_hooker</a> (std::string node_name, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">queue_size</a>, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:a21b633156569bf221c55f9a715431d05 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a21b633156569bf221c55f9a715431d05"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>invoke_meta_leaving_hooker</b> (std::string node_name, int queue_size, std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
 <tr class="separator:a21b633156569bf221c55f9a715431d05 inherit pub_methods_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a211aee98734305ca41915ae62dc77e08" id="r_a211aee98734305ca41915ae62dc77e08"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a></td></tr>
+<tr class="memdesc:a211aee98734305ca41915ae62dc77e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique identifier for this node.  <br /></td></tr>
 <tr class="separator:a211aee98734305ca41915ae62dc77e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2993426bb93da626f8f92858956aedbf" id="r_a2993426bb93da626f8f92858956aedbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf">handle_run</a> ()</td></tr>
+<tr class="memitem:a2993426bb93da626f8f92858956aedbf" id="r_a2993426bb93da626f8f92858956aedbf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf">handle_run</a> ()</td></tr>
+<tr class="memdesc:a2993426bb93da626f8f92858956aedbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main processing loop for handling incoming meta.  <br /></td></tr>
 <tr class="separator:a2993426bb93da626f8f92858956aedbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a131b07d3e33ad85efed427aa490513df" id="r_a131b07d3e33ad85efed427aa490513df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df">dispatch_run</a> ()</td></tr>
+<tr class="memitem:a131b07d3e33ad85efed427aa490513df" id="r_a131b07d3e33ad85efed427aa490513df"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df">dispatch_run</a> ()</td></tr>
+<tr class="memdesc:a131b07d3e33ad85efed427aa490513df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main dispatch loop for sending meta to next nodes.  <br /></td></tr>
 <tr class="separator:a131b07d3e33ad85efed427aa490513df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fd53912a3a0a2bf1c87be61072bc6d2" id="r_a3fd53912a3a0a2bf1c87be61072bc6d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2">handle_frame_meta</a> (std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:a3fd53912a3a0a2bf1c87be61072bc6d2" id="r_a3fd53912a3a0a2bf1c87be61072bc6d2"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2">handle_frame_meta</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; meta)</td></tr>
+<tr class="memdesc:a3fd53912a3a0a2bf1c87be61072bc6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a single frame meta object.  <br /></td></tr>
 <tr class="separator:a3fd53912a3a0a2bf1c87be61072bc6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac35fd6fcf35abd831693a2efdd3b63ca" id="r_ac35fd6fcf35abd831693a2efdd3b63ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca">handle_control_meta</a> (std::shared_ptr&lt; cvedix_objects::cvedix_control_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:ac35fd6fcf35abd831693a2efdd3b63ca" id="r_ac35fd6fcf35abd831693a2efdd3b63ca"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca">handle_control_meta</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__control__meta.html">cvedix_objects::cvedix_control_meta</a> &gt; meta)</td></tr>
+<tr class="memdesc:ac35fd6fcf35abd831693a2efdd3b63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a single control meta object.  <br /></td></tr>
 <tr class="separator:ac35fd6fcf35abd831693a2efdd3b63ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a138f375a02b3d9a1375505f7ab15b4d1" id="r_a138f375a02b3d9a1375505f7ab15b4d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a138f375a02b3d9a1375505f7ab15b4d1">handle_frame_meta</a> (<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">const</a> std::vector&lt; std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &gt; &amp;<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta_with_batch</a>)</td></tr>
+<tr class="memitem:a138f375a02b3d9a1375505f7ab15b4d1" id="r_a138f375a02b3d9a1375505f7ab15b4d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a138f375a02b3d9a1375505f7ab15b4d1">handle_frame_meta</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; &gt; &amp;meta_with_batch)</td></tr>
+<tr class="memdesc:a138f375a02b3d9a1375505f7ab15b4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle frame meta objects in batch mode.  <br /></td></tr>
 <tr class="separator:a138f375a02b3d9a1375505f7ab15b4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac578eef376d00053a52b11cac009e55e" id="r_ac578eef376d00053a52b11cac009e55e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e">initialized</a> ()</td></tr>
+<tr class="memitem:ac578eef376d00053a52b11cac009e55e" id="r_ac578eef376d00053a52b11cac009e55e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e">initialized</a> ()</td></tr>
+<tr class="memdesc:ac578eef376d00053a52b11cac009e55e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal that node initialization is complete.  <br /></td></tr>
 <tr class="separator:ac578eef376d00053a52b11cac009e55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ad2d2b770f0cb20ce6032dba9193259" id="r_a0ad2d2b770f0cb20ce6032dba9193259"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a0ad2d2b770f0cb20ce6032dba9193259">deinitialized</a> ()</td></tr>
+<tr class="memitem:a0ad2d2b770f0cb20ce6032dba9193259" id="r_a0ad2d2b770f0cb20ce6032dba9193259"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a0ad2d2b770f0cb20ce6032dba9193259">deinitialized</a> ()</td></tr>
+<tr class="memdesc:a0ad2d2b770f0cb20ce6032dba9193259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal that node is being destroyed.  <br /></td></tr>
 <tr class="separator:a0ad2d2b770f0cb20ce6032dba9193259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad52ca94e7e3d9ddb3e225201a6576814" id="r_ad52ca94e7e3d9ddb3e225201a6576814"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814">pendding_meta</a> (std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:ad52ca94e7e3d9ddb3e225201a6576814" id="r_ad52ca94e7e3d9ddb3e225201a6576814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814">pendding_meta</a> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
+<tr class="memdesc:ad52ca94e7e3d9ddb3e225201a6576814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue meta for dispatch to next nodes.  <br /></td></tr>
 <tr class="separator:ad52ca94e7e3d9ddb3e225201a6576814"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc724f1071dda30e4a728db3a2e101b3" id="r_adc724f1071dda30e4a728db3a2e101b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#adc724f1071dda30e4a728db3a2e101b3">cvedix_node</a> (std::string <a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a>)</td></tr>
+<tr class="memdesc:adc724f1071dda30e4a728db3a2e101b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor.  <br /></td></tr>
 <tr class="separator:adc724f1071dda30e4a728db3a2e101b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcvedix__nodes_1_1cvedix__meta__publisher')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html">cvedix_nodes::cvedix_meta_publisher</a></td></tr>
-<tr class="memitem:a462ffd8c2eaca95b4263422f9cd76161 inherit pro_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_a462ffd8c2eaca95b4263422f9cd76161"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">virtual</a> <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#a462ffd8c2eaca95b4263422f9cd76161">push_meta</a> (std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>)</td></tr>
+<tr class="memitem:a462ffd8c2eaca95b4263422f9cd76161 inherit pro_methods_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_a462ffd8c2eaca95b4263422f9cd76161"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>push_meta</b> (std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; meta)</td></tr>
 <tr class="separator:a462ffd8c2eaca95b4263422f9cd76161 inherit pro_methods_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a56f92d5307446aa36f70a84c1f2056d4" id="r_a56f92d5307446aa36f70a84c1f2056d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a56f92d5307446aa36f70a84c1f2056d4">alive</a> = <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">true</a></td></tr>
+<tr class="memitem:a56f92d5307446aa36f70a84c1f2056d4" id="r_a56f92d5307446aa36f70a84c1f2056d4"><td class="memItemLeft" align="right" valign="top"><a id="a56f92d5307446aa36f70a84c1f2056d4" name="a56f92d5307446aa36f70a84c1f2056d4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>alive</b> = true</td></tr>
+<tr class="memdesc:a56f92d5307446aa36f70a84c1f2056d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating if node is alive and processing. <br /></td></tr>
 <tr class="separator:a56f92d5307446aa36f70a84c1f2056d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d9eb188e411207d7146dcff08f29a66" id="r_a4d9eb188e411207d7146dcff08f29a66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4d9eb188e411207d7146dcff08f29a66">max_in_queue_size</a> = 50</td></tr>
+<tr class="memitem:a4d9eb188e411207d7146dcff08f29a66" id="r_a4d9eb188e411207d7146dcff08f29a66"><td class="memItemLeft" align="right" valign="top"><a id="a4d9eb188e411207d7146dcff08f29a66" name="a4d9eb188e411207d7146dcff08f29a66"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>max_in_queue_size</b> = 50</td></tr>
+<tr class="memdesc:a4d9eb188e411207d7146dcff08f29a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum size for input queue (default: 50) <br /></td></tr>
 <tr class="separator:a4d9eb188e411207d7146dcff08f29a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb45318c20c06ce04cac9e5dc765e00f" id="r_acb45318c20c06ce04cac9e5dc765e00f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#acb45318c20c06ce04cac9e5dc765e00f">frame_meta_handle_batch</a> = 1</td></tr>
+<tr class="memitem:acb45318c20c06ce04cac9e5dc765e00f" id="r_acb45318c20c06ce04cac9e5dc765e00f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#acb45318c20c06ce04cac9e5dc765e00f">frame_meta_handle_batch</a> = 1</td></tr>
+<tr class="memdesc:acb45318c20c06ce04cac9e5dc765e00f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batch size for frame meta handling.  <br /></td></tr>
 <tr class="separator:acb45318c20c06ce04cac9e5dc765e00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3db745fb2179330c274ec323b0d5a692" id="r_a3db745fb2179330c274ec323b0d5a692"><td class="memItemLeft" align="right" valign="top">std::queue&lt; std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a3db745fb2179330c274ec323b0d5a692">in_queue</a></td></tr>
+<tr class="memitem:a3db745fb2179330c274ec323b0d5a692" id="r_a3db745fb2179330c274ec323b0d5a692"><td class="memItemLeft" align="right" valign="top"><a id="a3db745fb2179330c274ec323b0d5a692" name="a3db745fb2179330c274ec323b0d5a692"></a>
+std::queue&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>in_queue</b></td></tr>
+<tr class="memdesc:a3db745fb2179330c274ec323b0d5a692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue for incoming meta from previous nodes. <br /></td></tr>
 <tr class="separator:a3db745fb2179330c274ec323b0d5a692"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a008d04130903bcc75b0c253919666af3" id="r_a008d04130903bcc75b0c253919666af3"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a008d04130903bcc75b0c253919666af3">in_queue_lock</a></td></tr>
+<tr class="memitem:a008d04130903bcc75b0c253919666af3" id="r_a008d04130903bcc75b0c253919666af3"><td class="memItemLeft" align="right" valign="top"><a id="a008d04130903bcc75b0c253919666af3" name="a008d04130903bcc75b0c253919666af3"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>in_queue_lock</b></td></tr>
+<tr class="memdesc:a008d04130903bcc75b0c253919666af3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex for thread-safe access to in_queue. <br /></td></tr>
 <tr class="separator:a008d04130903bcc75b0c253919666af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af36df29b8bf52d277996fb3e2ad62783" id="r_af36df29b8bf52d277996fb3e2ad62783"><td class="memItemLeft" align="right" valign="top">std::queue&lt; std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#af36df29b8bf52d277996fb3e2ad62783">out_queue</a></td></tr>
+<tr class="memitem:af36df29b8bf52d277996fb3e2ad62783" id="r_af36df29b8bf52d277996fb3e2ad62783"><td class="memItemLeft" align="right" valign="top"><a id="af36df29b8bf52d277996fb3e2ad62783" name="af36df29b8bf52d277996fb3e2ad62783"></a>
+std::queue&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>out_queue</b></td></tr>
+<tr class="memdesc:af36df29b8bf52d277996fb3e2ad62783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue for outgoing meta to next nodes. <br /></td></tr>
 <tr class="separator:af36df29b8bf52d277996fb3e2ad62783"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79a2a142bec72e17c7e99165444281c4" id="r_a79a2a142bec72e17c7e99165444281c4"><td class="memItemLeft" align="right" valign="top">cvedix_utils::cvedix_semaphore&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a79a2a142bec72e17c7e99165444281c4">in_queue_semaphore</a></td></tr>
+<tr class="memitem:a79a2a142bec72e17c7e99165444281c4" id="r_a79a2a142bec72e17c7e99165444281c4"><td class="memItemLeft" align="right" valign="top"><a id="a79a2a142bec72e17c7e99165444281c4" name="a79a2a142bec72e17c7e99165444281c4"></a>
+<a class="el" href="classcvedix__utils_1_1cvedix__semaphore.html">cvedix_utils::cvedix_semaphore</a>&#160;</td><td class="memItemRight" valign="bottom"><b>in_queue_semaphore</b></td></tr>
+<tr class="memdesc:a79a2a142bec72e17c7e99165444281c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semaphore for synchronizing in_queue access. <br /></td></tr>
 <tr class="separator:a79a2a142bec72e17c7e99165444281c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bdd1b2a7b4fd23ce1dc9814593e028e" id="r_a6bdd1b2a7b4fd23ce1dc9814593e028e"><td class="memItemLeft" align="right" valign="top">cvedix_utils::cvedix_semaphore&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a6bdd1b2a7b4fd23ce1dc9814593e028e">out_queue_semaphore</a></td></tr>
+<tr class="memitem:a6bdd1b2a7b4fd23ce1dc9814593e028e" id="r_a6bdd1b2a7b4fd23ce1dc9814593e028e"><td class="memItemLeft" align="right" valign="top"><a id="a6bdd1b2a7b4fd23ce1dc9814593e028e" name="a6bdd1b2a7b4fd23ce1dc9814593e028e"></a>
+<a class="el" href="classcvedix__utils_1_1cvedix__semaphore.html">cvedix_utils::cvedix_semaphore</a>&#160;</td><td class="memItemRight" valign="bottom"><b>out_queue_semaphore</b></td></tr>
+<tr class="memdesc:a6bdd1b2a7b4fd23ce1dc9814593e028e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semaphore for synchronizing out_queue access. <br /></td></tr>
 <tr class="separator:a6bdd1b2a7b4fd23ce1dc9814593e028e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html">cvedix_nodes::cvedix_meta_publisher</a></td></tr>
-<tr class="memitem:adef3feee95ab154798fc13443a5cb33d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_adef3feee95ab154798fc13443a5cb33d"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#adef3feee95ab154798fc13443a5cb33d">subscribers_lock</a></td></tr>
+<tr class="memitem:adef3feee95ab154798fc13443a5cb33d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_adef3feee95ab154798fc13443a5cb33d"><td class="memItemLeft" align="right" valign="top">
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>subscribers_lock</b></td></tr>
 <tr class="separator:adef3feee95ab154798fc13443a5cb33d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77d74a16d394444f3d9c6316569d8a1d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_a77d74a16d394444f3d9c6316569d8a1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html#a77d74a16d394444f3d9c6316569d8a1d">subscribers</a></td></tr>
+<tr class="memitem:a77d74a16d394444f3d9c6316569d8a1d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher" id="r_a77d74a16d394444f3d9c6316569d8a1d"><td class="memItemLeft" align="right" valign="top">
+std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>subscribers</b></td></tr>
 <tr class="separator:a77d74a16d394444f3d9c6316569d8a1d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__publisher"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_nodes::cvedix_meta_hookable</a></td></tr>
-<tr class="memitem:a76e02089cec8063e58ba6fcc20e1531e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a76e02089cec8063e58ba6fcc20e1531e"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">meta_arriving_hooker_lock</a></td></tr>
+<tr class="memitem:a76e02089cec8063e58ba6fcc20e1531e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a76e02089cec8063e58ba6fcc20e1531e"><td class="memItemLeft" align="right" valign="top">
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>meta_arriving_hooker_lock</b></td></tr>
 <tr class="separator:a76e02089cec8063e58ba6fcc20e1531e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafcd7d7ae22dbc64a518ca7a7f0f8a50 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aafcd7d7ae22dbc64a518ca7a7f0f8a50"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">meta_handling_hooker_lock</a></td></tr>
+<tr class="memitem:aafcd7d7ae22dbc64a518ca7a7f0f8a50 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aafcd7d7ae22dbc64a518ca7a7f0f8a50"><td class="memItemLeft" align="right" valign="top">
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>meta_handling_hooker_lock</b></td></tr>
 <tr class="separator:aafcd7d7ae22dbc64a518ca7a7f0f8a50 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776f8838ef87f7fef44bf807c1b5240d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a776f8838ef87f7fef44bf807c1b5240d"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">meta_handled_hooker_lock</a></td></tr>
+<tr class="memitem:a776f8838ef87f7fef44bf807c1b5240d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a776f8838ef87f7fef44bf807c1b5240d"><td class="memItemLeft" align="right" valign="top">
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>meta_handled_hooker_lock</b></td></tr>
 <tr class="separator:a776f8838ef87f7fef44bf807c1b5240d inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59543c847fc0fe76e1efb0c6dfaa3882 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a59543c847fc0fe76e1efb0c6dfaa3882"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">meta_leaving_hooker_lock</a></td></tr>
+<tr class="memitem:a59543c847fc0fe76e1efb0c6dfaa3882 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a59543c847fc0fe76e1efb0c6dfaa3882"><td class="memItemLeft" align="right" valign="top">
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>meta_leaving_hooker_lock</b></td></tr>
 <tr class="separator:a59543c847fc0fe76e1efb0c6dfaa3882 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cc4ec0264635f2250fd11730fcae968 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a7cc4ec0264635f2250fd11730fcae968"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a></td></tr>
+<tr class="memitem:a7cc4ec0264635f2250fd11730fcae968 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a7cc4ec0264635f2250fd11730fcae968"><td class="memItemLeft" align="right" valign="top">
+cvedix_meta_hooker&#160;</td><td class="memItemRight" valign="bottom"><b>meta_arriving_hooker</b></td></tr>
 <tr class="separator:a7cc4ec0264635f2250fd11730fcae968 inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4347c8386d2c4e357e5e7090411b60e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_ab4347c8386d2c4e357e5e7090411b60e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a></td></tr>
+<tr class="memitem:ab4347c8386d2c4e357e5e7090411b60e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_ab4347c8386d2c4e357e5e7090411b60e"><td class="memItemLeft" align="right" valign="top">
+cvedix_meta_hooker&#160;</td><td class="memItemRight" valign="bottom"><b>meta_handling_hooker</b></td></tr>
 <tr class="separator:ab4347c8386d2c4e357e5e7090411b60e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca8314ca4ccce070cd36dde705d9d7fb inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aca8314ca4ccce070cd36dde705d9d7fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a></td></tr>
+<tr class="memitem:aca8314ca4ccce070cd36dde705d9d7fb inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_aca8314ca4ccce070cd36dde705d9d7fb"><td class="memItemLeft" align="right" valign="top">
+cvedix_meta_hooker&#160;</td><td class="memItemRight" valign="bottom"><b>meta_handled_hooker</b></td></tr>
 <tr class="separator:aca8314ca4ccce070cd36dde705d9d7fb inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92b1d47c247775f7132aad10702e759e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a92b1d47c247775f7132aad10702e759e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a></td></tr>
+<tr class="memitem:a92b1d47c247775f7132aad10702e759e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable" id="r_a92b1d47c247775f7132aad10702e759e"><td class="memItemLeft" align="right" valign="top">
+cvedix_meta_hooker&#160;</td><td class="memItemRight" valign="bottom"><b>meta_leaving_hooker</b></td></tr>
 <tr class="separator:a92b1d47c247775f7132aad10702e759e inherit pro_attribs_classcvedix__nodes_1_1cvedix__meta__hookable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for all pipeline nodes. </p>
+<p><a class="el" href="classcvedix__nodes_1_1cvedix__node.html" title="Base class for all pipeline nodes.">cvedix_node</a> is the fundamental building block of the video analytics pipeline. It provides the core infrastructure for:</p><ul>
+<li>Receiving and dispatching metadata between nodes</li>
+<li>Thread management for asynchronous processing</li>
+<li>Queue-based buffering for flow control</li>
+<li>Node attachment/detachment for dynamic pipeline construction</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>This class cannot be instantiated directly. Use derived classes such as <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html" title="Base class for all source nodes.">cvedix_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__des__node.html" title="Base class for all destination nodes.">cvedix_des_node</a>, or <a class="el" href="classcvedix__nodes_1_1cvedix__infer__node.html" title="Base class for all deep learning inference nodes.">cvedix_infer_node</a>.</dd>
+<dd>
+Most nodes support multi-channel operation. However, source and destination nodes require channel index specification at construction.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html">cvedix_meta_publisher</a> For meta publishing interface </dd>
+<dd>
+<a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> For meta subscription interface </dd>
+<dd>
+<a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_meta_hookable</a> For meta hooking interface </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adc724f1071dda30e4a728db3a2e101b3" name="adc724f1071dda30e4a728db3a2e101b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc724f1071dda30e4a728db3a2e101b3">&#9670;&#160;</a></span>cvedix_node()</h2>
 
@@ -283,30 +427,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a538975ae6de8f6ed2b3833c4a6b06d5c" name="a538975ae6de8f6ed2b3833c4a6b06d5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a538975ae6de8f6ed2b3833c4a6b06d5c">&#9670;&#160;</a></span>~cvedix_node()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_nodes::cvedix_node::~cvedix_node </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Protected constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_name</td><td>Unique identifier for this node (e.g., "detector_0")</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Protected to prevent direct instantiation - use derived classes </dd></dl>
 
 </div>
 </div>
@@ -318,7 +446,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::attach_to </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::attach_to </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> &gt; &gt;&#160;</td>
           <td class="paramname"><em>pre_nodes</em></td><td>)</td>
@@ -326,6 +454,29 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Attach this node to previous nodes in the pipeline. </p>
+<p>Subscribes this node to receive meta from the specified previous nodes. This is the primary method for building pipelines.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pre_nodes</td><td>Vector of nodes to attach to (receive meta from)</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><span class="comment">// Build a simple pipeline</span></div>
+<div class="line">detector-&gt;attach_to({source});</div>
+<div class="line">osd-&gt;attach_to({detector});</div>
+<div class="line">screen-&gt;attach_to({osd});</div>
+</div><!-- fragment --> <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a1878308192ad2e4bd9b9f8a71cc0a44e_cgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a1878308192ad2e4bd9b9f8a71cc0a44e_cgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a1878308192ad2e4bd9b9f8a71cc0a44e_cgraph" id="aclasscvedix__nodes_1_1cvedix__node_a1878308192ad2e4bd9b9f8a71cc0a44e_cgraph">
+<area shape="rect" title="Attach this node to previous nodes in the pipeline." alt="" coords="5,5,168,45"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="216,5,379,45"/>
+<area shape="poly" title=" " alt="" coords="168,23,202,23,202,28,168,28"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -339,7 +490,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::deinitialized </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::deinitialized </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -352,7 +503,52 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Signal that node is being destroyed. </p>
+<p>Called by derived classes before resources are destroyed (typically at the start of the destructor chain). Stops internal threads. </p>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html#ada67b250df8fdf85abed3dc6698beee1">cvedix_nodes::cvedix_src_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a0ad2d2b770f0cb20ce6032dba9193259_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a0ad2d2b770f0cb20ce6032dba9193259_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a0ad2d2b770f0cb20ce6032dba9193259_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a0ad2d2b770f0cb20ce6032dba9193259_icgraph">
+<area shape="rect" title="Signal that node is being destroyed." alt="" coords="309,673,472,713"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__src__node.html#ada67b250df8fdf85abed3dc6698beee1" title="Cleanup on destruction." alt="" coords="46,5,221,45"/>
+<area shape="poly" title=" " alt="" coords="385,660,373,528,350,348,333,256,313,173,288,105,274,79,259,59,241,45,220,36,222,31,244,41,263,55,279,76,293,103,318,171,339,255,355,347,379,528,390,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a7d67974b8447662a9420988dcbec868a" title="Destructor." alt="" coords="41,70,225,125"/>
+<area shape="poly" title=" " alt="" coords="383,660,369,543,344,387,327,308,307,236,285,178,259,138,243,125,225,115,227,110,246,120,263,134,289,175,312,234,332,306,349,386,374,542,389,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a074a99eb481d4ead935cdae803613cc7" title="Destructor." alt="" coords="32,149,235,203"/>
+<area shape="poly" title=" " alt="" coords="382,660,366,559,339,426,322,359,303,299,282,250,259,217,234,198,237,194,263,213,286,247,308,297,327,358,344,424,371,558,387,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#ab2e5ee23df798997954a85733300c240" title="Destructor." alt="" coords="44,227,223,282"/>
+<area shape="poly" title=" " alt="" coords="386,659,379,584,360,487,344,435,322,384,294,337,259,295,242,282,222,272,224,267,245,277,263,291,299,334,327,382,349,433,365,485,384,584,391,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#a536c570c0c7d1029f2c9ef50cfc6c051" title="Destructor." alt="" coords="12,306,255,361"/>
+<area shape="poly" title=" " alt="" coords="383,660,372,599,350,522,333,482,313,442,289,406,260,374,245,363,248,359,263,370,293,403,318,440,338,479,355,520,377,598,388,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#aca9568655730dfc79db716aa70b649a3" title="Destructor." alt="" coords="43,385,224,439"/>
+<area shape="poly" title=" " alt="" coords="378,661,363,614,338,558,304,501,283,475,260,453,223,432,226,427,263,449,287,472,309,498,343,555,368,612,383,659"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#ab2fededa88d00342fdb27a248231dc25" title="Destructor." alt="" coords="18,463,249,547"/>
+<area shape="poly" title=" " alt="" coords="364,665,319,613,290,586,260,562,240,550,243,545,263,558,294,582,322,609,368,661"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#af8691f4ae71e0fc2f62cda97c996eca8" title="Destructor." alt="" coords="28,572,239,641"/>
+<area shape="poly" title=" " alt="" coords="317,671,236,644,238,639,318,666"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89" title="Destructor." alt="" coords="5,666,261,721"/>
+<area shape="poly" title=" " alt="" coords="296,696,262,696,262,691,296,691"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#a89031eae25dc3119e0bab07ad8d7979f" title="Destructor." alt="" coords="39,745,227,799"/>
+<area shape="poly" title=" " alt="" coords="312,720,224,747,223,742,311,715"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#a985c5f49bfa6f1f0fb038c6c56ce5d09" title="Destructor." alt="" coords="43,823,223,878"/>
+<area shape="poly" title=" " alt="" coords="365,726,320,771,263,813,225,830,223,826,260,808,316,766,361,722"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#aa7487c328156ea9c0bea23096378aa5c" title="Destructor." alt="" coords="33,902,234,957"/>
+<area shape="poly" title=" " alt="" coords="379,727,361,765,335,809,303,854,263,891,235,908,233,903,260,887,299,850,331,806,356,763,374,725"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6857e2ee1d69965b2ed88ed7e11b85a9" title="Destructor." alt="" coords="26,981,241,1051"/>
+<area shape="poly" title=" " alt="" coords="385,728,371,780,346,845,311,911,289,942,263,970,242,985,239,981,260,966,285,939,307,909,342,843,365,778,380,726"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#ac6772a65f42ccd40d7bc35ef0a0e1190" title="Destructor." alt="" coords="27,1075,239,1144"/>
+<area shape="poly" title=" " alt="" coords="390,727,381,797,360,886,343,934,322,981,296,1025,263,1065,241,1082,238,1078,259,1061,291,1022,317,979,338,932,354,885,375,796,384,727"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ad01d0c183384b006564c50e3719df22c" title="Destructor." alt="" coords="32,1169,235,1223"/>
+<area shape="poly" title=" " alt="" coords="393,728,390,813,383,868,373,928,357,990,334,1050,303,1107,263,1158,237,1177,233,1173,259,1154,299,1104,329,1048,352,988,368,927,378,868,384,813,388,727"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#acd5602517eec4ee348b8e64e6872cf58" title="Destructor." alt="" coords="18,1247,249,1302"/>
+<area shape="poly" title=" " alt="" coords="388,727,374,841,348,993,331,1070,311,1139,289,1197,263,1236,248,1249,245,1245,259,1233,284,1194,306,1138,326,1068,343,992,368,840,383,727"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a49f77a086cf63734bed55e8dc8313c6e" title="Destructor." alt="" coords="7,1326,259,1381"/>
+<area shape="poly" title=" " alt="" coords="389,727,377,856,353,1031,336,1120,316,1202,292,1269,278,1295,263,1315,249,1328,246,1324,259,1312,273,1292,287,1267,311,1200,331,1119,348,1030,372,855,384,727"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -363,13 +559,26 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::detach </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::detach </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Detach this node from all previous nodes. </p>
+<p>Removes this node from the subscriber list of all previous nodes. After calling, this node will no longer receive meta from any source. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a4f7efa89ee6b704bc1a2c2715ad566f4_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a4f7efa89ee6b704bc1a2c2715ad566f4_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a4f7efa89ee6b704bc1a2c2715ad566f4_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a4f7efa89ee6b704bc1a2c2715ad566f4_icgraph">
+<area shape="rect" title="Detach this node from all previous nodes." alt="" coords="245,5,408,45"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a177f858627283fc9cc1a3a722993dc3a" title="Recursively detach this node and all downstream nodes." alt="" coords="5,5,197,45"/>
+<area shape="poly" title=" " alt="" coords="231,28,197,28,197,23,231,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -380,7 +589,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::detach_from </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::detach_from </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::string &gt;&#160;</td>
           <td class="paramname"><em>pre_node_names</em></td><td>)</td>
@@ -388,6 +597,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Detach this node from specific previous nodes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pre_node_names</td><td>Names of previous nodes to detach from </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -398,13 +615,29 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::detach_recursively </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::detach_recursively </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Recursively detach this node and all downstream nodes. </p>
+<p>Detaches this node from previous nodes, then does the same for all next nodes recursively. Useful for clean pipeline teardown. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a177f858627283fc9cc1a3a722993dc3a_cgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a177f858627283fc9cc1a3a722993dc3a_cgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a177f858627283fc9cc1a3a722993dc3a_cgraph" id="aclasscvedix__nodes_1_1cvedix__node_a177f858627283fc9cc1a3a722993dc3a_cgraph">
+<area shape="rect" title="Recursively detach this node and all downstream nodes." alt="" coords="5,49,197,89"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a4f7efa89ee6b704bc1a2c2715ad566f4" title="Detach this node from all previous nodes." alt="" coords="245,5,408,45"/>
+<area shape="poly" title=" " alt="" coords="197,48,232,41,233,46,198,53"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a1a2175349d77fbab3124341ace8aad01" title="Get all nodes that this node dispatches to." alt="" coords="245,93,408,133"/>
+<area shape="poly" title=" " alt="" coords="198,86,233,92,232,98,197,91"/>
+<area shape="poly" title=" " alt="" coords="285,94,282,84,289,74,304,69,327,67,353,70,367,77,365,82,351,75,327,72,305,74,292,79,287,85,290,92"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -418,7 +651,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::dispatch_run </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::dispatch_run </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -431,7 +664,64 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Main dispatch loop for sending meta to next nodes. </p>
+<p>Gets meta from out_queue and pushes to subscribed next nodes. Destination nodes should override this to do nothing (no next nodes). </p>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__des__node.html#a3d90d19b774fc233e6369f8950f336bb">cvedix_nodes::cvedix_des_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a131b07d3e33ad85efed427aa490513df_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a131b07d3e33ad85efed427aa490513df_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a131b07d3e33ad85efed427aa490513df_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a131b07d3e33ad85efed427aa490513df_icgraph">
+<area shape="rect" title="Main dispatch loop for sending meta to next nodes." alt="" coords="509,901,672,941"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="poly" title=" " alt="" coords="495,923,462,923,462,918,495,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -445,9 +735,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; cvedix_nodes::cvedix_node::handle_control_meta </td>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; cvedix_nodes::cvedix_node::handle_control_meta </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_control_meta &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__control__meta.html">cvedix_objects::cvedix_control_meta</a> &gt;&#160;</td>
           <td class="paramname"><em>meta</em></td><td>)</td>
           <td></td>
         </tr>
@@ -459,7 +749,73 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handle a single control meta object. </p>
+<p>Override this method to define custom control message handling.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meta</td><td>The control meta to process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Processed meta to pass to next nodes, or nullptr to stop propagation </dd></dl>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__des__node.html#a726e5e9eac0361899177d5cb51d88b93">cvedix_nodes::cvedix_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html#acc5853741ea57ad99f2041aa4aa54e0a">cvedix_nodes::cvedix_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__app__des__node.html#aa79e7bfe2797275bde69970415a958fb">cvedix_nodes::cvedix_app_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__file__des__node.html#a9ae2388b4ed93cc0e4ff30239c88f788">cvedix_nodes::cvedix_file_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#af03477b0f820aa3bc4e79962eb8fbfc2">cvedix_nodes::cvedix_screen_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__message__broker__node.html#ab7e74d6ee488edea3ebe9a96dae28c5d">cvedix_nodes::cvedix_message_broker_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__sync__node.html#a8acc19a572ad07492cec55882cf283e7">cvedix_nodes::cvedix_sync_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__cluster__node.html#a23eaf168cbee6406261f869f0f3c4f65">cvedix_nodes::cvedix_cluster_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__face__osd__node.html#a61986e6984de0bfadfdd9a02ad7c9383">cvedix_nodes::cvedix_face_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__osd__node.html#af6335efcef68b51b3364a07435f0f5a9">cvedix_nodes::cvedix_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__pose__osd__node.html#a46d9ad5c261b87c690da63301e0a6df1">cvedix_nodes::cvedix_pose_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__record__node.html#a188426b531245f03e5b3c395c7075afc">cvedix_nodes::cvedix_record_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__app__src__node.html#ae610decbf9d3bd8175e2b93236c8f297">cvedix_nodes::cvedix_app_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#aee8a091c3883036de004a9070a0fe70a">cvedix_nodes::cvedix_msg_broker_node</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__track__node.html#a97385fd82ac851ff720f80f62d823216">cvedix_nodes::cvedix_track_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_ac35fd6fcf35abd831693a2efdd3b63ca_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_ac35fd6fcf35abd831693a2efdd3b63ca_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_ac35fd6fcf35abd831693a2efdd3b63ca_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_ac35fd6fcf35abd831693a2efdd3b63ca_icgraph">
+<area shape="rect" title="Handle a single control meta object." alt="" coords="720,901,927,941"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="509,901,672,941"/>
+<area shape="poly" title=" " alt="" coords="706,923,672,923,672,918,706,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="poly" title=" " alt="" coords="495,923,462,923,462,918,495,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -473,9 +829,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::handle_frame_meta </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::handle_frame_meta </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">const</a> std::vector&lt; std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt; &gt; &amp;&#160;</td>
           <td class="paramname"><em>meta_with_batch</em></td><td>)</td>
           <td></td>
         </tr>
@@ -486,6 +842,15 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Handle frame meta objects in batch mode. </p>
+<p>Override this method when frame_meta_handle_batch &gt; 1. Useful for inference nodes that benefit from batch processing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meta_with_batch</td><td>Vector of frame metas to process as a batch </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__infer__node.html#a521be339b8addee2f5b10e8c80e486c1">cvedix_nodes::cvedix_infer_node</a>.</p>
 
@@ -501,9 +866,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; cvedix_nodes::cvedix_node::handle_frame_meta </td>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt; cvedix_nodes::cvedix_node::handle_frame_meta </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__frame__meta.html">cvedix_objects::cvedix_frame_meta</a> &gt;&#160;</td>
           <td class="paramname"><em>meta</em></td><td>)</td>
           <td></td>
         </tr>
@@ -515,7 +880,74 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Handle a single frame meta object. </p>
+<p>Override this method to define custom frame processing logic. This is called when frame_meta_handle_batch == 1 (default).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meta</td><td>The frame meta to process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Processed meta to pass to next nodes, or nullptr to stop propagation</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Destination nodes typically return nullptr </dd></dl>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a2de760db7abde2e75fb19751cfa7e940">cvedix_nodes::cvedix_ba_crossline_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a97a97b904462e37f95e45caf9579f18a">cvedix_nodes::cvedix_ba_jam_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a60fb00aa11262621411c6b10b8fc7d64">cvedix_nodes::cvedix_ba_stop_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__des__node.html#a84400a99e1ff9e04307efd84884dfced">cvedix_nodes::cvedix_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html#ac1a92e8837164accc2ce1399832bcc03">cvedix_nodes::cvedix_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__app__des__node.html#ada8a12c9c97b9c9e32edc3408848f279">cvedix_nodes::cvedix_app_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ac7373f2437548f9c8686805cf4d953ee">cvedix_nodes::cvedix_file_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__image__des__node.html#a42b64548333ffdc04e0ca155e5dd1b36">cvedix_nodes::cvedix_image_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#a79fa5e2cf9f6fd4652dc0afd90a734eb">cvedix_nodes::cvedix_screen_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a11b02ccbaeb517cc5b7a4556dd9f81bd">cvedix_nodes::cvedix_custom_data_transform_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__message__broker__node.html#a5634d1c1124e554d97594d9424c23bd6">cvedix_nodes::cvedix_message_broker_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__sync__node.html#a46290daaf2e8523dc4c9c8f44cd5ade4">cvedix_nodes::cvedix_sync_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__crossline__osd__node.html#af9c313165e4896e8da0abb0d8f8b94a8">cvedix_nodes::cvedix_ba_crossline_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__jam__osd__node.html#a37fff7ef3bc802f4d28e24492f366829">cvedix_nodes::cvedix_ba_jam_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__stop__osd__node.html#a8c5324a80429b1db5c635f1026341ac9">cvedix_nodes::cvedix_ba_stop_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__cluster__node.html#a98947650c86c8ccbab84c7ac80175f16">cvedix_nodes::cvedix_cluster_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__expr__osd__node.html#a34c1759be894ef5be4d2733ba52065f3">cvedix_nodes::cvedix_expr_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__face__osd__node.html#a405a103a382efa4e03fd6eee29ef824c">cvedix_nodes::cvedix_face_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__face__osd__node__v2.html#af4a03f04859da5d1083a3c47e60629d0">cvedix_nodes::cvedix_face_osd_node_v2</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__lane__osd__node.html#a622eddca6cea8f04685fe405d44b08b0">cvedix_nodes::cvedix_lane_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__osd__node.html#a694a2ed82435c543d1e9c03661cc1bc2">cvedix_nodes::cvedix_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__osd__node__v2.html#aca5e4cde90078ecbc58c5558361a7e1b">cvedix_nodes::cvedix_osd_node_v2</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__osd__node__v3.html#a4f2c6b6cad3982f4a240321fe8f726b6">cvedix_nodes::cvedix_osd_node_v3</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__plate__osd__node.html#a1ec8b660126b94336063634b1c8d49e1">cvedix_nodes::cvedix_plate_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__pose__osd__node.html#afed8cdf541539a793798bd9df08aa5b5">cvedix_nodes::cvedix_pose_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__seg__osd__node.html#a738d0cec9bdc64effc14058be9a8a0d8">cvedix_nodes::cvedix_seg_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__text__osd__node.html#a6448032265acab4f2dd0921571223c7f">cvedix_nodes::cvedix_text_osd_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__expr__check__node.html#af63954ea3583d2dd82448f090ff4fa94">cvedix_nodes::cvedix_expr_check_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__frame__fusion__node.html#ac82c60bd8621bd86dc200c165796e611">cvedix_nodes::cvedix_frame_fusion_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__record__node.html#abf4589ced253ffc7d9b185ad198b5597">cvedix_nodes::cvedix_record_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__app__src__node.html#a4f9f1eaacdf501bceef0ba42b1d47303">cvedix_nodes::cvedix_app_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__msg__broker__node.html#ae1dc42e35309b675f8b947c8d59e41fd">cvedix_nodes::cvedix_msg_broker_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__infer__node.html#a98bbceb7a708af3d932ad80d9ed4b7eb">cvedix_nodes::cvedix_infer_node</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__track__node.html#a54e03d6617012614d500385ace240235">cvedix_nodes::cvedix_track_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a3fd53912a3a0a2bf1c87be61072bc6d2_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a3fd53912a3a0a2bf1c87be61072bc6d2_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a3fd53912a3a0a2bf1c87be61072bc6d2_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a3fd53912a3a0a2bf1c87be61072bc6d2_icgraph">
+<area shape="rect" title="Handle a single frame meta object." alt="" coords="720,901,920,941"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="509,901,672,941"/>
+<area shape="poly" title=" " alt="" coords="706,923,672,923,672,918,706,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="poly" title=" " alt="" coords="495,923,462,923,462,918,495,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -529,7 +961,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::handle_run </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::handle_run </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -542,7 +974,78 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Main processing loop for handling incoming meta. </p>
+<p>Gets meta from in_queue, processes it, and puts results into out_queue. Source nodes should override this to generate meta instead of receiving. </p>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html#a9dc9860a2cbc91ba44254137abd3668f">cvedix_nodes::cvedix_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__app__src__node.html#a8b9a00e256380db724fd353d4d178758">cvedix_nodes::cvedix_app_src_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__file__src__node.html#a31363f477166390c3e649702965a1e87">cvedix_nodes::cvedix_file_src_node</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__udp__src__node.html#a4b6b45df7f065e60c293b2880718e1b7">cvedix_nodes::cvedix_udp_src_node</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_cgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_cgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_cgraph" id="aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_cgraph">
+<area shape="rect" title="Main processing loop for handling incoming meta." alt="" coords="5,69,168,109"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title="Handle a single control meta object." alt="" coords="216,5,423,45"/>
+<area shape="poly" title=" " alt="" coords="159,67,232,46,234,52,161,72"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title="Handle a single frame meta object." alt="" coords="219,69,419,109"/>
+<area shape="poly" title=" " alt="" coords="168,87,205,87,205,92,168,92"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="238,133,401,173"/>
+<area shape="poly" title=" " alt="" coords="161,107,234,127,232,132,159,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a2993426bb93da626f8f92858956aedbf_icgraph">
+<area shape="rect" title="Main processing loop for handling incoming meta." alt="" coords="509,901,672,941"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="poly" title=" " alt="" coords="495,923,462,923,462,918,495,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -556,7 +1059,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::initialized </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::initialized </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -568,6 +1071,79 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Signal that node initialization is complete. </p>
+<p>Must be called by derived classes after all resources are initialized (typically at the end of the constructor chain). Starts internal threads. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_cgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_cgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_cgraph" id="aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_cgraph">
+<area shape="rect" title="Signal that node initialization is complete." alt="" coords="5,37,168,77"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title="Main dispatch loop for sending meta to next nodes." alt="" coords="216,5,379,45"/>
+<area shape="poly" title=" " alt="" coords="168,42,202,37,203,42,169,48"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="216,69,379,109"/>
+<area shape="poly" title=" " alt="" coords="169,67,203,72,202,78,168,72"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title="Handle a single control meta object." alt="" coords="427,5,633,45"/>
+<area shape="poly" title=" " alt="" coords="370,67,443,46,444,52,372,72"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title="Handle a single frame meta object." alt="" coords="430,69,630,109"/>
+<area shape="poly" title=" " alt="" coords="379,87,416,87,416,92,379,92"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="449,133,611,173"/>
+<area shape="poly" title=" " alt="" coords="372,107,444,127,443,132,370,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_ac578eef376d00053a52b11cac009e55e_icgraph">
+<area shape="rect" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -581,9 +1157,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::meta_flow </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::meta_flow </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt;&#160;</td>
           <td class="paramname"><em>meta</em></td><td>)</td>
           <td></td>
         </tr>
@@ -595,7 +1171,17 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a13de4e0453f927b19c4c9d3238d3da">cvedix_nodes::cvedix_meta_subscriber</a>.</p>
+<p>Receive and process meta from previous nodes. </p>
+<p>Entry point for incoming meta. Can be overridden in derived classes to hook/modify meta before standard processing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meta</td><td>The incoming meta object</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>When overriding, always call base <a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a4afd618e476764a19b8da07292c2365c" title="Receive and process meta from previous nodes.">cvedix_node::meta_flow()</a> after custom logic </dd></dl>
+
+<p>Implements <a class="el" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_nodes::cvedix_meta_subscriber</a>.</p>
 
 </div>
 </div>
@@ -614,6 +1200,29 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get all nodes that this node dispatches to. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vector of next nodes in the pipeline </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_cgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_cgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_cgraph" id="aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_cgraph">
+<area shape="rect" title="Get all nodes that this node dispatches to." alt="" coords="5,29,168,69"/>
+<area shape="poly" title=" " alt="" coords="55,29,54,20,59,11,70,5,87,3,106,6,117,13,114,17,104,11,87,8,71,10,62,14,59,21,61,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a1a2175349d77fbab3124341ace8aad01_icgraph">
+<area shape="rect" title="Get all nodes that this node dispatches to." alt="" coords="245,29,408,69"/>
+<area shape="poly" title=" " alt="" coords="365,18,351,11,327,8,305,10,292,15,287,21,290,28,285,30,282,20,289,10,304,5,327,3,353,6,367,13"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a177f858627283fc9cc1a3a722993dc3a" title="Recursively detach this node and all downstream nodes." alt="" coords="5,29,197,69"/>
+<area shape="poly" title=" " alt="" coords="231,52,197,52,197,47,231,47"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="ae58c2580b075d729394e4ee9660b50f8" name="ae58c2580b075d729394e4ee9660b50f8"></a>
@@ -626,7 +1235,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacecvedix__nodes.html#abc9768735e0c9c6b7901cc0e008757db">cvedix_node_type</a> cvedix_nodes::cvedix_node::node_type </td>
+          <td class="memname"><a class="el" href="cvedix__node_8h.html#abc9768735e0c9c6b7901cc0e008757db">cvedix_node_type</a> cvedix_nodes::cvedix_node::node_type </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -639,7 +1248,68 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the type of this node. </p>
+<dl class="section return"><dt>Returns</dt><dd>cvedix_node_type SRC, DES, or MID </dd></dl>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__des__node.html#a9b01587b1b773d53d7b09783d23cbeec">cvedix_nodes::cvedix_des_node</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html#adc971b5cc518ac493bae68b1ad7aa321">cvedix_nodes::cvedix_src_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_ae58c2580b075d729394e4ee9660b50f8_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_ae58c2580b075d729394e4ee9660b50f8_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_ae58c2580b075d729394e4ee9660b50f8_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_ae58c2580b075d729394e4ee9660b50f8_icgraph">
+<area shape="rect" title="Get the type of this node." alt="" coords="720,869,883,909"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a1878308192ad2e4bd9b9f8a71cc0a44e" title="Attach this node to previous nodes in the pipeline." alt="" coords="509,837,672,877"/>
+<area shape="poly" title=" " alt="" coords="706,877,672,872,673,866,707,872"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="509,901,672,941"/>
+<area shape="poly" title=" " alt="" coords="707,906,673,911,672,906,706,900"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="299,901,461,941"/>
+<area shape="poly" title=" " alt="" coords="495,923,462,923,462,918,495,918"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#a1b41f12b01be5bd58e8e491293e26e55" title="Constructor." alt="" coords="41,5,215,60"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,718,351,474,335,348,313,233,284,138,267,101,249,73,233,59,214,49,216,44,236,55,253,70,272,98,289,136,318,231,340,347,356,473,375,717,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#adde78910e364673812747c4ff5754ba4" title="Constructor." alt="" coords="28,84,228,139"/>
+<area shape="poly" title=" " alt="" coords="375,887,367,731,346,511,330,398,309,295,282,210,266,177,249,152,226,134,230,130,253,148,270,174,286,208,314,293,335,397,352,510,372,731,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="45,163,211,217"/>
+<area shape="poly" title=" " alt="" coords="374,887,364,745,342,549,325,448,304,357,279,282,264,253,249,230,231,216,210,205,213,201,234,211,253,227,269,250,284,280,309,355,330,447,347,548,369,745,380,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#ad9b7b5db19788b2fa238e0645e0c0f48" title="Constructor." alt="" coords="12,241,244,296"/>
+<area shape="poly" title=" " alt="" coords="373,887,361,760,337,587,320,499,300,419,276,354,263,328,249,309,237,298,240,294,253,306,267,326,281,351,305,418,325,498,342,586,366,760,379,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a73a3e12cd5d97e18552351842c75d69e" title="Constructor." alt="" coords="43,320,213,375"/>
+<area shape="poly" title=" " alt="" coords="372,887,357,775,331,626,314,551,295,483,273,427,249,389,232,375,212,365,215,360,235,371,253,386,278,425,300,481,319,550,336,625,362,774,377,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a162defaf2263939adf1c929f51c97cb0" title=" " alt="" coords="27,399,229,469"/>
+<area shape="poly" title=" " alt="" coords="376,887,370,807,352,699,336,641,314,584,285,530,249,483,228,465,231,461,253,479,290,527,319,582,341,639,357,698,376,806,381,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#afc4b2a04f2b1d7b20d8b38aefc7784c6" title="Constructor." alt="" coords="13,493,243,577"/>
+<area shape="poly" title=" " alt="" coords="372,887,360,826,337,747,301,665,277,626,249,592,235,579,238,575,253,588,281,623,306,663,342,746,365,825,377,886"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#a2dc9d5a3a2ed591475813b39ac11b0ca" title="Constructor." alt="" coords="25,602,231,671"/>
+<area shape="poly" title=" " alt="" coords="367,888,350,843,325,789,292,734,249,685,230,672,233,667,252,681,296,730,330,786,355,841,372,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#a205ca02661d6266523304074800d236d" title="Constructor." alt="" coords="5,696,251,751"/>
+<area shape="poly" title=" " alt="" coords="359,890,314,826,284,793,249,764,230,753,233,749,252,760,287,789,318,823,363,887"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__recognition__node.html#ac800202841d5aaa9fd939d86a1bdc4d3" title="Constructor with custom recognition config." alt="" coords="15,775,241,829"/>
+<area shape="poly" title=" " alt="" coords="338,895,296,868,250,843,223,832,225,827,252,838,299,864,341,891"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="13,853,243,908"/>
+<area shape="poly" title=" " alt="" coords="285,908,243,902,243,896,285,903"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__facenet__node.html#a85c2f9eb49fd997cb814a4aed3b4cbde" title="Constructor." alt="" coords="44,932,212,987"/>
+<area shape="poly" title=" " alt="" coords="285,938,212,949,212,944,284,933"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__fake__des__node.html#ae76cfb6c6fbefa978b6865313d639190" title="Constructor." alt="" coords="39,1011,217,1065"/>
+<area shape="poly" title=" " alt="" coords="340,951,298,976,252,1000,218,1014,216,1009,250,996,295,972,337,946"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ade2c6ec8c3a9539243bd1a7ff974f6ad" title="Constructor." alt="" coords="43,1089,213,1144"/>
+<area shape="poly" title=" " alt="" coords="362,954,317,1017,287,1050,252,1079,214,1098,212,1094,249,1074,283,1046,313,1014,358,951"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#ad2d9b469baae554e6eb32d8278580f43" title="Constructor." alt="" coords="33,1168,223,1223"/>
+<area shape="poly" title=" " alt="" coords="372,955,356,1000,331,1055,297,1110,276,1135,252,1157,225,1174,222,1170,249,1153,272,1131,292,1107,326,1052,351,998,367,953"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6b9dcc0341602cc13fed2044cca97e54" title="Constructor." alt="" coords="27,1247,229,1317"/>
+<area shape="poly" title=" " alt="" coords="376,955,364,1014,341,1089,305,1167,281,1203,253,1236,231,1253,228,1248,249,1232,276,1200,300,1164,336,1087,359,1013,371,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a57199a828448072012469c348e55f5e2" title="Constructor." alt="" coords="31,1341,225,1410"/>
+<area shape="poly" title=" " alt="" coords="380,955,373,1030,353,1130,337,1184,315,1236,287,1286,253,1331,227,1350,224,1346,249,1327,283,1283,310,1234,332,1182,348,1129,368,1030,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#a41b075eb0df965f72418f713e2f2399c" title="Constructor." alt="" coords="27,1434,229,1503"/>
+<area shape="poly" title=" " alt="" coords="377,955,360,1060,333,1200,316,1270,297,1334,276,1387,253,1424,230,1442,227,1438,249,1420,271,1384,292,1332,311,1269,328,1199,355,1059,372,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#ab5896cb8fdaa0c266f7fd506d757f22d" title="Constructor." alt="" coords="32,1528,224,1583"/>
+<area shape="poly" title=" " alt="" coords="378,954,365,1078,341,1246,324,1331,303,1409,280,1473,253,1517,226,1537,223,1533,249,1514,275,1470,298,1407,318,1330,335,1245,360,1077,373,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#a56c5ea2514ec2f5e59274278be1846ff" title="Constructor." alt="" coords="19,1607,237,1661"/>
+<area shape="poly" title=" " alt="" coords="379,954,368,1092,346,1284,329,1381,308,1471,283,1545,268,1573,253,1596,239,1608,235,1604,249,1592,264,1571,278,1542,303,1469,323,1380,340,1283,363,1092,374,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a53f55734b2e98316173d58ba465d4816" title="Constructor." alt="" coords="7,1685,249,1740"/>
+<area shape="poly" title=" " alt="" coords="380,955,371,1107,350,1322,334,1432,312,1533,286,1616,270,1649,253,1674,239,1687,235,1683,249,1671,265,1647,281,1615,307,1532,328,1431,345,1321,366,1107,375,954"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__yolov11__detector__node.html#a49fcda262f2980e47eabc1f7d84d517a" title=" " alt="" coords="12,1764,244,1819"/>
+<area shape="poly" title=" " alt="" coords="381,954,374,1121,355,1359,339,1482,317,1595,289,1688,272,1725,253,1753,239,1766,235,1762,249,1750,267,1722,284,1686,312,1594,333,1481,350,1359,369,1120,375,954"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -653,9 +1323,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a> cvedix_nodes::cvedix_node::pendding_meta </td>
+          <td class="memname">void cvedix_nodes::cvedix_node::pendding_meta </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt;&#160;</td>
           <td class="paramname"><em>meta</em></td><td>)</td>
           <td></td>
         </tr>
@@ -666,6 +1336,30 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Queue meta for dispatch to next nodes. </p>
+<p>Adds meta to out_queue for orderly dispatch by <a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title="Main dispatch loop for sending meta to next nodes.">dispatch_run()</a>. Different from push_meta() which dispatches directly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meta</td><td>The meta object to queue for dispatch</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Warning</dt><dd>Must only be called from <a class="el" href="classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta.">handle_run()</a> thread context </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_ad52ca94e7e3d9ddb3e225201a6576814_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_ad52ca94e7e3d9ddb3e225201a6576814_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_ad52ca94e7e3d9ddb3e225201a6576814_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_ad52ca94e7e3d9ddb3e225201a6576814_icgraph">
+<area shape="rect" title="Queue meta for dispatch to next nodes." alt="" coords="255,91,425,131"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a2de760db7abde2e75fb19751cfa7e940" title="Process frame meta for crossline detection." alt="" coords="5,5,207,60"/>
+<area shape="poly" title=" " alt="" coords="266,89,187,63,189,58,268,84"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a97a97b904462e37f95e45caf9579f18a" title="Process frame for jam detection." alt="" coords="22,84,190,139"/>
+<area shape="poly" title=" " alt="" coords="241,114,190,114,190,109,241,109"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#a60fb00aa11262621411c6b10b8fc7d64" title="Process frame for stop detection." alt="" coords="21,163,191,217"/>
+<area shape="poly" title=" " alt="" coords="268,138,189,165,187,160,266,133"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -692,33 +1386,32 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get a human-readable description of this node. </p>
+<dl class="section return"><dt>Returns</dt><dd>String representation including node name and configuration </dd></dl>
+
 <p>Reimplemented in <a class="el" href="classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a07dbee7d8770e0304433da16a293ed91">cvedix_nodes::cvedix_ba_crossline_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__jam__node.html#a7a4e45c123ab929f74ceba7de2438a2d">cvedix_nodes::cvedix_ba_jam_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__ba__stop__node.html#aa3685056cc6cd150e9f01e898280a5e2">cvedix_nodes::cvedix_ba_stop_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__image__des__node.html#a94e1d4ce6340e1e86f91d4aa23654d76">cvedix_nodes::cvedix_image_des_node</a>, <a class="el" href="classcvedix__nodes_1_1cvedix__file__src__node.html#ae5528d52b62be51dfb7fd4fbf011d2f6">cvedix_nodes::cvedix_file_src_node</a>, and <a class="el" href="classcvedix__nodes_1_1cvedix__udp__src__node.html#abffc0a0ed7fd6481e89234e87a3c731d">cvedix_nodes::cvedix_udp_src_node</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcvedix__nodes_1_1cvedix__node_a75b8568816c2ae311db9f33586240a78_icgraph.png" border="0" usemap="#aclasscvedix__nodes_1_1cvedix__node_a75b8568816c2ae311db9f33586240a78_icgraph" alt=""/></div>
+<map name="aclasscvedix__nodes_1_1cvedix__node_a75b8568816c2ae311db9f33586240a78_icgraph" id="aclasscvedix__nodes_1_1cvedix__node_a75b8568816c2ae311db9f33586240a78_icgraph">
+<area shape="rect" title="Get a human&#45;readable description of this node." alt="" coords="525,131,688,171"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__des__node.html#a84400a99e1ff9e04307efd84884dfced" title="Process incoming frame meta." alt="" coords="247,131,477,171"/>
+<area shape="poly" title=" " alt="" coords="512,154,477,154,477,149,512,149"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__app__des__node.html#ada8a12c9c97b9c9e32edc3408848f279" title="Process frame meta and invoke callback." alt="" coords="15,5,189,60"/>
+<area shape="poly" title=" " alt="" coords="309,127,198,74,172,63,174,58,200,69,311,123"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__file__des__node.html#ac7373f2437548f9c8686805cf4d953ee" title="Record frame to file." alt="" coords="17,84,187,139"/>
+<area shape="poly" title=" " alt="" coords="232,134,187,127,188,122,233,129"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__image__des__node.html#a42b64548333ffdc04e0ca155e5dd1b36" title="Capture and output image." alt="" coords="7,163,197,217"/>
+<area shape="poly" title=" " alt="" coords="233,173,198,178,197,173,233,168"/>
+<area shape="rect" href="classcvedix__nodes_1_1cvedix__screen__des__node.html#a79fa5e2cf9f6fd4652dc0afd90a734eb" title="Display frame in window." alt="" coords="5,241,199,296"/>
+<area shape="poly" title=" " alt="" coords="309,180,200,231,171,244,169,239,198,226,307,175"/>
+</map>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a56f92d5307446aa36f70a84c1f2056d4" name="a56f92d5307446aa36f70a84c1f2056d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f92d5307446aa36f70a84c1f2056d4">&#9670;&#160;</a></span>alive</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">bool</a> cvedix_nodes::cvedix_node::alive = <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">true</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="acb45318c20c06ce04cac9e5dc765e00f" name="acb45318c20c06ce04cac9e5dc765e00f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb45318c20c06ce04cac9e5dc765e00f">&#9670;&#160;</a></span>frame_meta_handle_batch</h2>
 
@@ -729,7 +1422,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> cvedix_nodes::cvedix_node::frame_meta_handle_batch = 1</td>
+          <td class="memname">int cvedix_nodes::cvedix_node::frame_meta_handle_batch = 1</td>
         </tr>
       </table>
   </td>
@@ -739,93 +1432,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a3db745fb2179330c274ec323b0d5a692" name="a3db745fb2179330c274ec323b0d5a692"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3db745fb2179330c274ec323b0d5a692">&#9670;&#160;</a></span>in_queue</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::queue&lt;std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; &gt; cvedix_nodes::cvedix_node::in_queue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a008d04130903bcc75b0c253919666af3" name="a008d04130903bcc75b0c253919666af3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a008d04130903bcc75b0c253919666af3">&#9670;&#160;</a></span>in_queue_lock</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex cvedix_nodes::cvedix_node::in_queue_lock</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a79a2a142bec72e17c7e99165444281c4" name="a79a2a142bec72e17c7e99165444281c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79a2a142bec72e17c7e99165444281c4">&#9670;&#160;</a></span>in_queue_semaphore</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_utils::cvedix_semaphore cvedix_nodes::cvedix_node::in_queue_semaphore</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4d9eb188e411207d7146dcff08f29a66" name="a4d9eb188e411207d7146dcff08f29a66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d9eb188e411207d7146dcff08f29a66">&#9670;&#160;</a></span>max_in_queue_size</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a> cvedix_nodes::cvedix_node::max_in_queue_size = 50</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Batch size for frame meta handling. </p>
+<p>By default (=1), frame meta is handled one by one. Setting &gt; 1 enables batch mode, calling handle_frame_meta(vector&lt;&gt;) instead.</p>
+<dl class="section note"><dt>Note</dt><dd>Control meta is always handled one by one regardless of this setting. </dd></dl>
 
 </div>
 </div>
@@ -841,60 +1450,19 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="af36df29b8bf52d277996fb3e2ad62783" name="af36df29b8bf52d277996fb3e2ad62783"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af36df29b8bf52d277996fb3e2ad62783">&#9670;&#160;</a></span>out_queue</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::queue&lt;std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; &gt; cvedix_nodes::cvedix_node::out_queue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6bdd1b2a7b4fd23ce1dc9814593e028e" name="a6bdd1b2a7b4fd23ce1dc9814593e028e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bdd1b2a7b4fd23ce1dc9814593e028e">&#9670;&#160;</a></span>out_queue_semaphore</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">cvedix_utils::cvedix_semaphore cvedix_nodes::cvedix_node::out_queue_semaphore</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Unique identifier for this node. </p>
+<p>Format: "&lt;type&gt;_&lt;channel&gt;", e.g., "file_src_0", "detector_1" </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>core_ai_runtime/nodes/common/<a class="el" href="cvedix__node_8h_source.html">cvedix_node.h</a></li>
-<li>core_ai_runtime/nodes/common/<a class="el" href="cvedix__node_8cpp.html">cvedix_node.cpp</a></li>
+<li>nodes/common/<a class="el" href="cvedix__node_8h_source.html">cvedix_node.h</a></li>
+<li>nodes/common/<b>cvedix_node.cpp</b></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:49:00 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

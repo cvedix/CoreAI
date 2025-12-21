@@ -1,3 +1,9 @@
+/**
+ * @file cvedix_frame_text_target.h
+ * @brief OCR text detection target
+ * 
+ * Detected text region with recognized text string.
+ */
 
 #pragma once
 
@@ -6,8 +12,12 @@
 #include <string>
 
 namespace cvedix_objects {
+    /**
+     * @brief OCR text detection result
+     */
     class cvedix_frame_text_target
     {
+
     private:
         /* data */
     public:

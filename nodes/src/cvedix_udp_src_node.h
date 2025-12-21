@@ -1,4 +1,11 @@
+/**
+ * @file cvedix_udp_src_node.h
+ * @brief UDP source node for RTP video streaming
+ * 
+ * Receives video via UDP/RTP protocol.
+ */
 
+#pragma once
 
 #include <string>
 #include <opencv2/core/core.hpp>
@@ -7,11 +14,12 @@
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // udp source node, receive video stream via udp(rtp) protocal.
-    // example:
-    // udp://127.0.0.1:6000
+    /**
+     * @brief UDP/RTP source node
+     */
     class cvedix_udp_src_node: public cvedix_src_node
     {
+
     private:
         std::string gst_template = "udpsrc port=%d ! application/x-rtp,mdeia=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";
         cv::VideoCapture udp_capture;

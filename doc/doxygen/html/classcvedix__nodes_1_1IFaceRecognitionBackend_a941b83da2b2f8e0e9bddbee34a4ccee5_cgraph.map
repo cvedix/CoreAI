@@ -1,0 +1,5 @@
+<map id="cvedix_nodes::IFaceRecognitionBackend::extractEmbeddings" name="cvedix_nodes::IFaceRecognitionBackend::extractEmbeddings">
+<area shape="rect" id="Node000001" title="Extract embeddings from multiple faces (batch)" alt="" coords="5,5,235,45"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1IFaceRecognitionBackend.html#a175d32a950d8b7ebc0b5fb20f4d0a9aa" title="Extract face embedding from aligned face image." alt="" coords="283,5,512,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,23,269,23,269,28,235,28"/>
+</map>

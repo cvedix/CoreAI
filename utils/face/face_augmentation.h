@@ -1,3 +1,10 @@
+/**
+ * @file face_augmentation.h
+ * @brief Face augmentation with glasses, masks, hats
+ * 
+ * Overlays accessories on aligned faces for data augmentation.
+ */
+
 #pragma once
 
 #include <opencv2/core.hpp>
@@ -8,6 +15,7 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 
 namespace cvedix_face_utils {
+
 
 /**
  * @brief Face augmentation types

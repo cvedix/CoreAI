@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_meta_subscriber.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_meta_subscriber.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,48 +74,44 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_meta_subscriber.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__meta__subscriber_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_meta.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">    7</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="comment">/* data */</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a65d5489d40a3db0afece03680c42e4c5">cvedix_meta_subscriber</a>(<span class="comment">/* args */</span>);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#aa5a60a5cbcb0b6603c2f0f8fead4ef8a">~cvedix_meta_subscriber</a>();</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="comment">// non-copyable for all child class</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a1ff7aab7a0e2194fc548df3a513db77f">   15</a></span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a1ff7aab7a0e2194fc548df3a513db77f">cvedix_meta_subscriber</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a766403932949c872a0078a3376f3fb">   16</a></span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp; <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a766403932949c872a0078a3376f3fb">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="comment">// receive meta from previous nodes</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a13de4e0453f927b19c4c9d3238d3da">   19</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a13de4e0453f927b19c4c9d3238d3da">meta_flow</a>(std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) = 0;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
+<a href="cvedix__meta__subscriber_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_meta.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">/* data */</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>(<span class="comment">/* args */</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">~cvedix_meta_subscriber</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// non-copyable for all child class</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_meta_subscriber</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="comment">// receive meta from previous nodes</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> meta_flow(std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_nodes::cvedix_meta_subscriber</a></div><div class="ttdef"><b>Definition</b> cvedix_meta_subscriber.h:7</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html_a1ff7aab7a0e2194fc548df3a513db77f"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a1ff7aab7a0e2194fc548df3a513db77f">cvedix_nodes::cvedix_meta_subscriber::cvedix_meta_subscriber</a></div><div class="ttdeci">cvedix_meta_subscriber(const cvedix_meta_subscriber &amp;)=delete</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html_a65d5489d40a3db0afece03680c42e4c5"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a65d5489d40a3db0afece03680c42e4c5">cvedix_nodes::cvedix_meta_subscriber::cvedix_meta_subscriber</a></div><div class="ttdeci">cvedix_meta_subscriber()</div><div class="ttdef"><b>Definition</b> cvedix_meta_subscriber.cpp:6</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html_a8a13de4e0453f927b19c4c9d3238d3da"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a13de4e0453f927b19c4c9d3238d3da">cvedix_nodes::cvedix_meta_subscriber::meta_flow</a></div><div class="ttdeci">virtual void meta_flow(std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; meta)=0</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html_a8a766403932949c872a0078a3376f3fb"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#a8a766403932949c872a0078a3376f3fb">cvedix_nodes::cvedix_meta_subscriber::operator=</a></div><div class="ttdeci">cvedix_meta_subscriber &amp; operator=(const cvedix_meta_subscriber &amp;)=delete</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html_aa5a60a5cbcb0b6603c2f0f8fead4ef8a"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html#aa5a60a5cbcb0b6603c2f0f8fead4ef8a">cvedix_nodes::cvedix_meta_subscriber::~cvedix_meta_subscriber</a></div><div class="ttdeci">~cvedix_meta_subscriber()</div><div class="ttdef"><b>Definition</b> cvedix_meta_subscriber.cpp:10</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__subscriber_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__subscriber.html">cvedix_nodes::cvedix_meta_subscriber</a></div><div class="ttdef"><b>Definition</b> cvedix_meta_subscriber.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

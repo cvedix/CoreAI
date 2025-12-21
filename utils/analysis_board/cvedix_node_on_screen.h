@@ -1,3 +1,9 @@
+/**
+ * @file cvedix_node_on_screen.h
+ * @brief Node visualization for analysis board
+ * 
+ * Maps pipeline nodes to screen coordinates with FPS/latency stats.
+ */
 
 #pragma once
 
@@ -12,20 +18,23 @@
 
 namespace cvedix_utils {
 
-    // mainly used to store data from meta hookers' callback
+    /** @brief Storage for meta hooker callback data */
     struct cvedix_meta_hooker_storage {
-        int queue_size = -1;                      // size of in/out queue of node
-        int latency = 0;                          // latency(ms) relative to src node at current port
-        int called_count_since_epoch_start = -1;  // used for calculating fps at current port 
-        std::chrono::system_clock::time_point time_epoch_start;      // used for calculating fps at current port
-        std::chrono::system_clock::time_point last_active_time;      // used for flashing effect
-        std::shared_ptr<cvedix_objects::cvedix_meta> meta = nullptr;         // the latest meta (ptr) flowing through current port inside node (total 4 ports) 
-        std::string pre_fps;  // cache
+        int queue_size = -1;
+        int latency = 0;
+        int called_count_since_epoch_start = -1;
+        std::chrono::system_clock::time_point time_epoch_start;
+        std::chrono::system_clock::time_point last_active_time;
+        std::shared_ptr<cvedix_objects::cvedix_meta> meta = nullptr;
+        std::string pre_fps;
     };
 
-    // a class corresponding to cvedix_node, used to display node on screen and map the whole pipe from memery to screen.
+    /**
+     * @brief Node screen representation for visualization
+     */
     class cvedix_node_on_screen
     {
+
     private:
         // orignal node in memery
         std::shared_ptr<cvedix_nodes::cvedix_node> original_node = nullptr;

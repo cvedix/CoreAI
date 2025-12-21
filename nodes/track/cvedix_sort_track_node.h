@@ -1,3 +1,12 @@
+/**
+ * @file cvedix_sort_track_node.h
+ * @brief SORT tracking algorithm implementation
+ * 
+ * Simple Online Realtime Tracking using Kalman filter + Hungarian matching.
+ * 
+ * @see cvedix_track_node Base class
+ */
+
 #pragma once
 
 #include <vector>
@@ -8,9 +17,12 @@
 #include "sort/KalmanTracker.h"
 
 namespace cvedix_nodes {
-    // track node using sort
+    /**
+     * @brief SORT tracker node
+     */
     class cvedix_sort_track_node: public cvedix_track_node
     {
+
     private:
         /* config data for sort algo */
         /* data */

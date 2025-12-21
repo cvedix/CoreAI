@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_sub_target.h
+ * @brief Sub-target within a parent target
+ * 
+ * Detections on cropped images (e.g., plate on vehicle).
+ */
+
 #pragma once
 
 #include <string>
@@ -7,11 +14,12 @@
 #include "shapes/cvedix_rect.h"
 
 namespace cvedix_objects {
-    // sub target inside cvedix_frame_target, created by detectors which MUST infer on small cropped images (detectors are derived from cvedix_secondary_infer_node).
-    // this class has less properties/functions than cvedix_frame_target.
-    // see cvedix_frame_target also.
+    /**
+     * @brief Sub-target within parent target
+     */
     class cvedix_sub_target
     {
+
     private:
         /* data */
     public:

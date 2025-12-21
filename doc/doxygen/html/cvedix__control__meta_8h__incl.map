@@ -1,11 +1,20 @@
 <map id="objects/cvedix_control_meta.h" name="objects/cvedix_control_meta.h">
-<area shape="rect" id="node1" title=" " alt="" coords="73,5,241,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,169,72,196"/>
-<area shape="rect" id="node3" href="$cvedix__meta_8h.html" title=" " alt="" coords="181,95,299,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="96,169,155,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="179,169,229,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="254,169,301,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="325,169,387,196"/>
-<area shape="rect" id="node8" title=" " alt="" coords="412,169,489,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="513,169,588,196"/>
+<area shape="rect" id="Node000001" title="Control metadata for pipeline commands." alt="" coords="73,5,241,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,72,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,47,58,157,54,154,140,44"/>
+<area shape="rect" id="Node000003" href="$cvedix__meta_8h.html" title="Base class for all metadata in the pipeline." alt="" coords="181,93,299,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,44,220,82,216,86,176,47"/>
+<area shape="poly" id="edge8_Node000003_Node000002" title=" " alt="" coords="209,121,85,165,83,159,207,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="96,167,155,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="223,121,157,162,154,157,220,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="179,167,229,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="236,120,218,156,214,153,232,118"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="254,167,301,192"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="249,118,267,153,263,156,244,120"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="325,167,387,192"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="260,116,327,157,324,162,257,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="412,167,489,192"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="275,116,405,160,403,165,273,121"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="513,167,588,192"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="291,116,500,164,499,169,290,121"/>
 </map>

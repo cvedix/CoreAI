@@ -1,0 +1,44 @@
+<map id="nodes/infers/fr/cvedix_face_recognition_node.cpp" name="nodes/infers/fr/cvedix_face_recognition_node.cpp">
+<area shape="rect" id="Node000001" title="Face recognition node with advanced accuracy improvement techniques." alt="" coords="420,5,623,45"/>
+<area shape="rect" id="Node000002" href="$cvedix__face__recognition__node_8h.html" title="Unified face recognition node with multi&#45;backend support." alt="" coords="431,93,611,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="524,46,524,79,519,79,519,46"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,365,139,390"/>
+<area shape="poly" id="edge23_Node000001_Node000006" title=" " alt="" coords="420,36,370,43,317,55,264,72,215,96,162,130,127,166,102,210,80,270,73,312,72,351,67,351,67,312,75,269,97,208,122,163,158,126,212,91,262,67,316,50,369,38,419,30"/>
+<area shape="rect" id="Node000017" href="$opencv__dnn__backend_8h.html" title="OpenCV DNN backend for face recognition (always available)" alt="" coords="225,93,391,133"/>
+<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="476,48,368,91,366,86,474,43"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="636,101,721,126"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="557,43,647,92,644,96,555,48"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="745,101,908,126"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="589,43,774,94,772,100,588,48"/>
+<area shape="rect" id="Node000003" href="$cvedix__secondary__infer__node_8h.html" title="Base class for secondary inference nodes (ROI&#45;based inference)" alt="" coords="575,181,761,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="555,131,625,172,622,177,552,136"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="785,181,975,221"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="601,131,789,176,788,181,599,136"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="999,181,1161,221"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="612,129,624,131,803,154,986,179,985,184,803,159,624,136,611,134"/>
+<area shape="rect" id="Node000011" href="$face__recognition__backend_8h.html" title="Abstract backend interface for face recognition with auto&#45;detection." alt="" coords="207,189,409,214"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="476,136,350,186,348,181,474,131"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="499,277,576,302"/>
+<area shape="poly" id="edge17_Node000002_Node000014" title=" " alt="" coords="526,133,538,263,532,263,520,134"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="433,189,500,214"/>
+<area shape="poly" id="edge16_Node000002_Node000016" title=" " alt="" coords="511,135,484,178,479,175,507,132"/>
+<area shape="rect" id="Node000004" href="$cvedix__infer__node_8h.html" title="Base class for all inference nodes in Core AI Runtime." alt="" coords="601,277,754,302"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="673,221,677,263,672,263,667,222"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="567,365,641,390"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="669,304,625,355,621,352,665,300"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="627,305,588,312,352,347,153,370,153,365,351,341,588,307,626,299"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="313,365,450,390"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="638,305,435,363,433,358,637,300"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="666,357,835,397"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="689,300,727,345,723,348,685,304"/>
+<area shape="poly" id="edge11_Node000011_Node000007" title=" " alt="" coords="309,215,308,257,312,283,320,308,336,333,357,354,353,358,332,337,315,310,307,285,303,258,304,214"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="329,277,391,302"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="317,213,348,263,343,266,313,216"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="416,277,475,302"/>
+<area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="328,212,417,267,414,272,325,216"/>
+<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="340,212,495,269,493,274,338,217"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="110,269,253,309"/>
+<area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="292,216,222,264,219,259,289,212"/>
+<area shape="poly" id="edge20_Node000017_Node000006" title=" " alt="" coords="266,136,224,158,179,188,135,226,100,271,83,312,76,351,71,350,78,310,95,268,131,222,175,184,222,153,263,131"/>
+<area shape="poly" id="edge19_Node000017_Node000011" title=" " alt="" coords="311,134,311,175,305,175,305,134"/>
+</map>

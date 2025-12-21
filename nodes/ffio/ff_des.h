@@ -1,3 +1,22 @@
+/**
+ * @file ff_des.h
+ * @brief Low-level FFmpeg encoder and muxer wrapper
+ * 
+ * Provides encoding and muxing for video output with:
+ * - Hardware encoding support (NVENC, VAAPI)
+ * - Multiple output formats (MP4, MKV, FLV)
+ * - Network streaming (RTMP, RTSP, UDP)
+ * 
+ * @section ff_des_files Supported Formats
+ * - mp4, mkv, flv, h265, h264
+ * 
+ * @section ff_des_protocols Supported Protocols
+ * - rtsp, rtmp, udp, rtp
+ * 
+ * @see cvedix_ff_des_node High-level node wrapper
+ * @see ff_src For input/decoding
+ */
+
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include <string>
@@ -13,10 +32,12 @@
 
 namespace cvedix_nodes {
     /**
-     * encode and enmux using FFmpeg.
-     * used to encode & enmux network streams or file streams.
+     * @brief Encode and mux using FFmpeg
+     * 
+     * Used to encode & mux network streams or file streams.
      */
     class ff_des: public std::enable_shared_from_this<ff_des> {
+
     private:
         /* core members */
         const std::vector<std::string> m_supported_files = {"mp4", "mkv", "flv", "h265", "h264"};

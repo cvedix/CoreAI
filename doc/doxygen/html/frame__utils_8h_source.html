@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/frame_utils.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/common/frame_utils.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,53 +74,47 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">frame_utils.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="frame__utils_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;opencv2/imgproc.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_frame_meta.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="namespacecvedix__nodes_1_1utils.html">    8</a></span>    <span class="keyword">namespace </span>utils {</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespacecvedix__nodes_1_1utils.html#afeb68231440ffb97572400d710de2d3c">    9</a></span>        <span class="keyword">inline</span> <span class="keyword">const</span> cv::Mat&amp; <a class="code hl_function" href="namespacecvedix__nodes_1_1utils.html#afeb68231440ffb97572400d710de2d3c">select_source_frame</a>(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, <span class="keywordtype">bool</span> use_osd) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            <span class="keywordflow">return</span> (use_osd &amp;&amp; !meta-&gt;osd_frame.empty()) ? meta-&gt;osd_frame : meta-&gt;frame;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        }</div>
-</div>
+<a href="frame__utils_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;opencv2/imgproc.hpp&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="namespacecvedix__nodes_1_1utils.html#a7876101c0395d65b296b0540bf139b77">   13</a></span>        <span class="keyword">inline</span> cv::Mat <a class="code hl_function" href="namespacecvedix__nodes_1_1utils.html#a7876101c0395d65b296b0540bf139b77">prepare_output_frame</a>(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>                                            <span class="keywordtype">bool</span> use_osd,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                                            <span class="keyword">const</span> cvedix_objects::cvedix_size&amp; target_size) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; source = <a class="code hl_function" href="namespacecvedix__nodes_1_1utils.html#afeb68231440ffb97572400d710de2d3c">select_source_frame</a>(meta, use_osd);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <span class="keywordflow">if</span> (target_size.width &gt; 0 &amp;&amp; target_size.height &gt; 0 &amp;&amp;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                (source.cols != target_size.width || source.rows != target_size.height)) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                cv::Mat resized;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                cv::resize(source, resized, cv::Size(target_size.width, target_size.height));</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                <span class="keywordflow">return</span> resized;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            }</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keywordflow">return</span> source;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
-</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
-</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="ttc" id="anamespacecvedix__nodes_1_1utils_html_a7876101c0395d65b296b0540bf139b77"><div class="ttname"><a href="namespacecvedix__nodes_1_1utils.html#a7876101c0395d65b296b0540bf139b77">cvedix_nodes::utils::prepare_output_frame</a></div><div class="ttdeci">cv::Mat prepare_output_frame(const std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;meta, bool use_osd, const cvedix_objects::cvedix_size &amp;target_size)</div><div class="ttdef"><b>Definition</b> frame_utils.h:13</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_1_1utils_html_afeb68231440ffb97572400d710de2d3c"><div class="ttname"><a href="namespacecvedix__nodes_1_1utils.html#afeb68231440ffb97572400d710de2d3c">cvedix_nodes::utils::select_source_frame</a></div><div class="ttdeci">const cv::Mat &amp; select_source_frame(const std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; &amp;meta, bool use_osd)</div><div class="ttdef"><b>Definition</b> frame_utils.h:9</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_frame_meta.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">namespace </span>utils {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">inline</span> <span class="keyword">const</span> cv::Mat&amp; select_source_frame(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta, <span class="keywordtype">bool</span> use_osd) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <span class="keywordflow">return</span> (use_osd &amp;&amp; !meta-&gt;osd_frame.empty()) ? meta-&gt;osd_frame : meta-&gt;frame;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">inline</span> cv::Mat prepare_output_frame(<span class="keyword">const</span> std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;&amp; meta,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                            <span class="keywordtype">bool</span> use_osd,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                                            <span class="keyword">const</span> <a class="code hl_class" href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a>&amp; target_size) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; source = select_source_frame(meta, use_osd);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">if</span> (target_size.width &gt; 0 &amp;&amp; target_size.height &gt; 0 &amp;&amp;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                (source.cols != target_size.width || source.rows != target_size.height)) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                cv::Mat resized;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                cv::resize(source, resized, cv::Size(target_size.width, target_size.height));</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                <span class="keywordflow">return</span> resized;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="keywordflow">return</span> source;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="ttc" id="aclasscvedix__objects_1_1cvedix__size_html"><div class="ttname"><a href="classcvedix__objects_1_1cvedix__size.html">cvedix_objects::cvedix_size</a></div><div class="ttdoc">2D size (width, height)</div><div class="ttdef"><b>Definition</b> cvedix_size.h:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

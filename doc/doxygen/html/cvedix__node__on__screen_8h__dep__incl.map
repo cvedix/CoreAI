@@ -1,6 +1,5 @@
 <map id="utils/analysis_board/cvedix_node_on_screen.h" name="utils/analysis_board/cvedix_node_on_screen.h">
-<area shape="rect" id="node1" title=" " alt="" coords="120,5,313,47"/>
-<area shape="rect" id="node2" href="$cvedix__analysis__board_8h.html" title=" " alt="" coords="13,95,199,136"/>
-<area shape="rect" id="node4" href="$cvedix__node__on__screen_8cpp.html" title=" " alt="" coords="223,95,431,136"/>
-<area shape="rect" id="node3" href="$cvedix__analysis__board_8cpp.html" title=" " alt="" coords="5,184,207,225"/>
+<area shape="rect" id="Node000001" title="Node visualization for analysis board." alt="" coords="5,5,199,45"/>
+<area shape="rect" id="Node000002" href="$cvedix__analysis__board_8h.html" title="Pipeline visualization and debug board." alt="" coords="9,93,195,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,105,93,99,93,99,59"/>
 </map>

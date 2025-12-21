@@ -1,3 +1,8 @@
+/**
+ * @file cvedix_log_file_writer.h
+ * @brief Log file writer with auto-rotation by date
+ */
+
 #pragma once
 
 #include <string>
@@ -9,10 +14,12 @@
 #include "../cvedix_utils.h"
 
 namespace cvedix_utils {
-    // log file writer, write log to local file. auto create new log file bye date.
-    // NOT thread safe, MUST use in single thread.
+    /**
+     * @brief Log file writer (single-thread only)
+     */
     class cvedix_log_file_writer
     {
+
     private:
         // ready to go
         bool inited = false;

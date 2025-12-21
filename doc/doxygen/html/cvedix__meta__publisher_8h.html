@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_meta_publisher.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_meta_publisher.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,21 +69,58 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_meta_publisher.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Publisher interface for the publish-subscribe pattern.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &quot;<a class="el" href="cvedix__meta__subscriber_8h_source.html">cvedix_meta_subscriber.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_meta_publisher.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__meta__publisher_8h__incl.png" border="0" usemap="#anodes_2common_2cvedix__meta__publisher_8h" alt=""/></div>
+<map name="anodes_2common_2cvedix__meta__publisher_8h" id="anodes_2common_2cvedix__meta__publisher_8h">
+<area shape="rect" title="Publisher interface for the publish&#45;subscribe pattern." alt="" coords="58,5,227,45"/>
+<area shape="rect" title=" " alt="" coords="81,174,159,199"/>
+<area shape="poly" title=" " alt="" coords="74,48,39,67,25,80,13,95,9,106,9,116,22,136,46,153,74,167,72,171,43,157,18,139,4,118,3,105,8,92,21,76,36,62,71,43"/>
+<area shape="rect" title=" " alt="" coords="23,93,86,119"/>
+<area shape="poly" title=" " alt="" coords="123,48,80,86,76,82,120,44"/>
+<area shape="rect" title=" " alt="" coords="111,93,175,119"/>
+<area shape="poly" title=" " alt="" coords="145,46,145,79,140,79,140,46"/>
+<area shape="rect" title=" " alt="" coords="199,93,279,119"/>
+<area shape="poly" title=" " alt="" coords="168,43,216,82,212,87,164,48"/>
+<area shape="rect" href="cvedix__meta__subscriber_8h.html" title="Subscriber interface for the publish&#45;subscribe pattern." alt="" coords="303,93,494,119"/>
+<area shape="poly" title=" " alt="" coords="205,43,349,87,348,92,203,48"/>
+<area shape="poly" title=" " alt="" coords="359,121,172,173,171,168,357,116"/>
+<area shape="rect" title=" " alt="" coords="317,167,480,207"/>
+<area shape="poly" title=" " alt="" coords="401,119,401,153,396,153,396,119"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__meta__publisher_8h__dep__incl.png" border="0" usemap="#anodes_2common_2cvedix__meta__publisher_8hdep" alt=""/></div>
+<map name="anodes_2common_2cvedix__meta__publisher_8hdep" id="anodes_2common_2cvedix__meta__publisher_8hdep">
+<area shape="rect" title="Publisher interface for the publish&#45;subscribe pattern." alt="" coords="101,5,271,45"/>
+<area shape="rect" href="cvedix__node_8h.html" title="Base class definition for all pipeline nodes in Core AI Runtime." alt="" coords="101,93,271,133"/>
+<area shape="poly" title=" " alt="" coords="189,59,189,93,183,93,183,59"/>
+<area shape="rect" href="cvedix__des__node_8h.html" title="Base class for all destination nodes in Core AI Runtime." alt="" coords="5,181,175,221"/>
+<area shape="poly" title=" " alt="" coords="156,145,113,183,109,179,153,141"/>
+<area shape="rect" href="cvedix__src__node_8h.html" title="Base class for all source nodes in Core AI Runtime." alt="" coords="199,181,368,221"/>
+<area shape="poly" title=" " alt="" coords="219,140,264,179,260,183,216,144"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__meta__publisher_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -92,16 +128,15 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__publisher.html">cvedix_nodes::cvedix_meta_publisher</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Publisher interface for the publish-subscribe pattern. </p>
+<p>This file defines the cvedix_meta_publisher class which enables nodes to push metadata to downstream subscribers.</p>
+<dl class="section see"><dt>See also</dt><dd>cvedix_meta_subscriber Subscriber counterpart </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,11 +1,18 @@
+/**
+ * @file cvedix_not_implemented_error.h
+ * @brief Exception for unimplemented features
+ */
 
 #pragma once
 
 #include <stdexcept>
 
 namespace cvedix_excepts {
-    // not implemented error
+    /**
+     * @brief Not implemented exception
+     */
     class cvedix_not_implemented_error: public std::runtime_error {
+
     private:
         /* data */
     public:

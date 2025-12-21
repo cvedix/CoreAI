@@ -1,5 +1,7 @@
 <map id="nodes/common/cvedix_meta_subscriber.h" name="nodes/common/cvedix_meta_subscriber.h">
-<area shape="rect" id="node1" title=" " alt="" coords="31,5,201,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,102,83,129"/>
-<area shape="rect" id="node3" title=" " alt="" coords="107,95,269,136"/>
+<area shape="rect" id="Node000001" title="Subscriber interface for the publish&#45;subscribe pattern." alt="" coords="31,5,201,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,83,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,47,65,91,61,88,98,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,93,269,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,44,165,81,161,85,130,47"/>
 </map>

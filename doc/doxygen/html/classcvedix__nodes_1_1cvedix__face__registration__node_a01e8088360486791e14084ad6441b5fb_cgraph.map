@@ -1,0 +1,19 @@
+<map id="cvedix_nodes::cvedix_face_registration_node::cvedix_face_registration_node" name="cvedix_nodes::cvedix_face_registration_node::cvedix_face_registration_node">
+<area shape="rect" id="Node000001" title="Constructor." alt="" coords="5,94,235,149"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="291,65,453,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,102,276,96,277,102,235,108"/>
+<area shape="rect" id="Node000008" href="$classcvedix__nodes_1_1cvedix__face__registration__node.html#a6deb588c8156f80189ec03788aea3412" title="Load existing database from file (for appending)" alt="" coords="283,130,461,185"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="235,135,270,140,269,145,234,140"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title="Main dispatch loop for sending meta to next nodes." alt="" coords="534,5,697,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="453,63,520,46,521,51,454,68"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="534,69,697,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="454,84,520,85,520,90,453,89"/>
+<area shape="rect" id="Node000005" href="$classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title="Handle a single control meta object." alt="" coords="769,5,976,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="696,67,778,46,779,51,697,72"/>
+<area shape="rect" id="Node000006" href="$classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title="Handle a single frame meta object." alt="" coords="773,69,973,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="697,87,759,87,759,92,697,92"/>
+<area shape="rect" id="Node000007" href="$classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="791,133,954,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="697,107,779,127,778,133,696,112"/>
+<area shape="rect" id="Node000009" href="$classcvedix__face__utils_1_1EnhancedFaceDatabase.html#a29f88f9d9b9c25ef1f5e336cfc1fd503" title="Load face database from file." alt="" coords="509,137,721,177"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="462,155,496,155,496,160,462,160"/>
+</map>

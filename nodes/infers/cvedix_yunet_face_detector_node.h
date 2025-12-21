@@ -1,3 +1,12 @@
+/**
+ * @file cvedix_yunet_face_detector_node.h
+ * @brief YuNet face detector with 5-point landmarks
+ * 
+ * Fast, lightweight face detection using libfacedetection/YuNet.
+ * Provides face bounding boxes and 5-point facial landmarks.
+ * 
+ * @see cvedix_face_recognition_node For face recognition
+ */
 
 #pragma once
 
@@ -5,11 +14,15 @@
 #include "cvedix/objects/cvedix_frame_face_target.h"
 
 namespace cvedix_nodes {
-    // face detector based on YunNet
-    // https://github.com/opencv/opencv/blob/4.x/modules/objdetect/src/face_detect.cpp
-    // https://github.com/ShiqiYu/libfacedetection
+    /**
+     * @brief YuNet face detector
+     * 
+     * Lightweight face detection with 5-point landmarks.
+     * @see https://github.com/ShiqiYu/libfacedetection
+     */
     class cvedix_yunet_face_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         // names of output layers in yunet
         const std::vector<std::string> out_names = {"loc", "conf", "iou"};

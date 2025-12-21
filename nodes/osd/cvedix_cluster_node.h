@@ -1,15 +1,24 @@
+/**
+ * @file cvedix_cluster_node.h
+ * @brief Clustering visualization using t-SNE or categories
+ * 
+ * Displays targets based on embeddings (t-SNE) or category labels.
+ * Useful for visualizing feature space distribution.
+ * 
+ * @note This is a MID node, not OSD or DES
+ */
+
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // cluster node for cvedix_frame_targets which has ability to display targets on screen according to its embeddings contained in cvedix_frame_target::embbedings variable or labels contained in cvedix_frame_target::secondary_labels vector。
-    // note!!!
-    // it is not an osd node which would operates on cvedix_frame_meta::osd_frame data member.
-    // it is not a DES node either which can be the last node in pipeline.
-    // it is just a normal MID node.
+    /**
+     * @brief Target clustering visualization node
+     */
     class cvedix_cluster_node: public cvedix_node
     {
+
     private:
         // call tSNE algorithm to reduce high dims of feature and display target on 2D screen
         bool use_tSNE;

@@ -1,13 +1,9 @@
 var searchData=
 [
-  ['1_20cài_20đặt_20sdk_0',['1. Cài đặt SDK',['../index.html#autotoc_md15',1,'']]],
-  ['1_20phụ_20thuộc_1',['5.1 Phụ thuộc',['../index.html#autotoc_md13',1,'']]],
-  ['1_20quy_20trình_20đóng_20gói_2',['1. Quy trình đóng gói',['../index.html#autotoc_md21',1,'']]],
-  ['1_20temporal_20voting_20default_3a_20on_3',['1. Temporal Voting (Default: ON)',['../cvedix__face__recognition__node_8cpp.html#autotoc_md0',1,'']]],
-  ['1_2d1_2d1_5fsample_2ecpp_4',['1-1-1_sample.cpp',['../1-1-1__sample_8cpp.html',1,'']]],
-  ['1_2d1_2dn_5fsample_2ecpp_5',['1-1-N_sample.cpp',['../1-1-N__sample_8cpp.html',1,'']]],
-  ['1_2dn_2d1_5fsample_2ecpp_6',['1-N-1_sample.cpp',['../1-N-1__sample_8cpp.html',1,'']]],
-  ['1_2dn_2d1_5fsample2_2ecpp_7',['1-N-1_sample2.cpp',['../1-N-1__sample2_8cpp.html',1,'']]],
-  ['1_2dn_2d1_5fsample3_2ecpp_8',['1-N-1_sample3.cpp',['../1-N-1__sample3_8cpp.html',1,'']]],
-  ['1_2dn_2dn_5fsample_2ecpp_9',['1-N-N_sample.cpp',['../1-N-N__sample_8cpp.html',1,'']]]
+  ['0_201_202_0',['0 1 2',['../md_doc_2RELEASE__NOTES__2025_80_81_82.html',1,'CVEDIX AI Runtime SDK - Release Notes v2025.0.1.2'],['../md_doc_2RELEASE__NOTES__2025_80_81_83.html#autotoc_md1434',1,'Từ version 2025.0.1.2']]],
+  ['0_201_202_20november_2024_202025_1',['v2025.0.1.2 (November 24, 2025)',['../release_notes.html#rn_2025_0_1_2',1,'']]],
+  ['0_201_203_2',['CVEDIX AI Runtime SDK - Release Notes v2025.0.1.3',['../md_doc_2RELEASE__NOTES__2025_80_81_83.html',1,'']]],
+  ['0_201_203_20december_207_202025_3',['v2025.0.1.3 (December 7, 2025)',['../release_notes.html#rn_2025_0_1_3',1,'']]],
+  ['0_203_4',['Ví dụ với margin = 0.3',['../md_doc_2FACENET__MARGIN__CONFIDENCE.html#autotoc_md586',1,'']]],
+  ['0_20not_20found_20during_20build_5',['Error: &quot;OpenSSL &gt;= 3.0 not found&quot; during build',['../md_doc_2LICENSE__INTEGRATION.html#autotoc_md1019',1,'']]]
 ];

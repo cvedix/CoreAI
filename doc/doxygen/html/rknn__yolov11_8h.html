@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/rknn_yolov11.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/infers/rknn_yolov11.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,22 +69,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">rknn_yolov11.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>RKNN YOLOv11 detector implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;opencv2/opencv.hpp&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;rknn_api.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for rknn_yolov11.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="rknn__yolov11_8h__incl.png" border="0" usemap="#anodes_2infers_2rknn__yolov11_8h" alt=""/></div>
+<map name="anodes_2infers_2rknn__yolov11_8h" id="anodes_2infers_2rknn__yolov11_8h">
+<area shape="rect" title="RKNN YOLOv11 detector implementation." alt="" coords="149,5,356,31"/>
+<area shape="rect" title=" " alt="" coords="5,79,68,104"/>
+<area shape="poly" title=" " alt="" coords="219,33,82,78,80,73,217,28"/>
+<area shape="rect" title=" " alt="" coords="93,79,151,104"/>
+<area shape="poly" title=" " alt="" coords="233,33,156,74,154,70,230,28"/>
+<area shape="rect" title=" " alt="" coords="175,79,330,104"/>
+<area shape="poly" title=" " alt="" coords="255,31,255,65,250,65,250,31"/>
+<area shape="rect" title=" " alt="" coords="354,79,418,104"/>
+<area shape="poly" title=" " alt="" coords="275,28,353,70,351,74,273,33"/>
+<area shape="rect" title=" " alt="" coords="442,79,533,104"/>
+<area shape="poly" title=" " alt="" coords="291,28,437,72,436,77,290,33"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="rknn__yolov11_8h__dep__incl.png" border="0" usemap="#anodes_2infers_2rknn__yolov11_8hdep" alt=""/></div>
+<map name="anodes_2infers_2rknn__yolov11_8hdep" id="anodes_2infers_2rknn__yolov11_8hdep">
+<area shape="rect" title="RKNN YOLOv11 detector implementation." alt="" coords="5,5,212,31"/>
+<area shape="rect" href="cvedix__rknn__yolov11__detector__node_8h.html" title="YOLOv11 detector for Rockchip RKNN NPU." alt="" coords="19,79,198,133"/>
+<area shape="poly" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+</map>
+</div>
 </div>
 <p><a href="rknn__yolov11_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -102,83 +131,28 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11::rknn_yolov11_detector</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacerknn__yolov11" id="r_namespacerknn__yolov11"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerknn__yolov11.html">rknn_yolov11</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a256a3f0328b8b9988d8e767ed51bf977" id="r_a256a3f0328b8b9988d8e767ed51bf977"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rknn__yolov11_8h.html#a256a3f0328b8b9988d8e767ed51bf977">OBJ_NAME_MAX_SIZE</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memitem:a256a3f0328b8b9988d8e767ed51bf977" id="r_a256a3f0328b8b9988d8e767ed51bf977"><td class="memItemLeft" align="right" valign="top"><a id="a256a3f0328b8b9988d8e767ed51bf977" name="a256a3f0328b8b9988d8e767ed51bf977"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>OBJ_NAME_MAX_SIZE</b>&#160;&#160;&#160;64</td></tr>
 <tr class="separator:a256a3f0328b8b9988d8e767ed51bf977"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6921654bfc41cd6bc25edb65aa367271" id="r_a6921654bfc41cd6bc25edb65aa367271"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rknn__yolov11_8h.html#a6921654bfc41cd6bc25edb65aa367271">OBJ_NUMB_MAX_SIZE</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memitem:a6921654bfc41cd6bc25edb65aa367271" id="r_a6921654bfc41cd6bc25edb65aa367271"><td class="memItemLeft" align="right" valign="top"><a id="a6921654bfc41cd6bc25edb65aa367271" name="a6921654bfc41cd6bc25edb65aa367271"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>OBJ_NUMB_MAX_SIZE</b>&#160;&#160;&#160;128</td></tr>
 <tr class="separator:a6921654bfc41cd6bc25edb65aa367271"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42f020b7b056ebd612666ecee51483c4" id="r_a42f020b7b056ebd612666ecee51483c4"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rknn__yolov11_8h.html#a42f020b7b056ebd612666ecee51483c4">NMS_THRESH</a>&#160;&#160;&#160;0.45</td></tr>
+<tr class="memitem:a42f020b7b056ebd612666ecee51483c4" id="r_a42f020b7b056ebd612666ecee51483c4"><td class="memItemLeft" align="right" valign="top"><a id="a42f020b7b056ebd612666ecee51483c4" name="a42f020b7b056ebd612666ecee51483c4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NMS_THRESH</b>&#160;&#160;&#160;0.45</td></tr>
 <tr class="separator:a42f020b7b056ebd612666ecee51483c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28a578f1ae5ebec62f6c46b7ca90a468" id="r_a28a578f1ae5ebec62f6c46b7ca90a468"><td class="memItemLeft" align="right" valign="top">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rknn__yolov11_8h.html#a28a578f1ae5ebec62f6c46b7ca90a468">BOX_THRESH</a>&#160;&#160;&#160;0.25</td></tr>
+<tr class="memitem:a28a578f1ae5ebec62f6c46b7ca90a468" id="r_a28a578f1ae5ebec62f6c46b7ca90a468"><td class="memItemLeft" align="right" valign="top"><a id="a28a578f1ae5ebec62f6c46b7ca90a468" name="a28a578f1ae5ebec62f6c46b7ca90a468"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BOX_THRESH</b>&#160;&#160;&#160;0.25</td></tr>
 <tr class="separator:a28a578f1ae5ebec62f6c46b7ca90a468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a28a578f1ae5ebec62f6c46b7ca90a468" name="a28a578f1ae5ebec62f6c46b7ca90a468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28a578f1ae5ebec62f6c46b7ca90a468">&#9670;&#160;</a></span>BOX_THRESH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a> BOX_THRESH&#160;&#160;&#160;0.25</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a42f020b7b056ebd612666ecee51483c4" name="a42f020b7b056ebd612666ecee51483c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42f020b7b056ebd612666ecee51483c4">&#9670;&#160;</a></span>NMS_THRESH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a> NMS_THRESH&#160;&#160;&#160;0.45</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a256a3f0328b8b9988d8e767ed51bf977" name="a256a3f0328b8b9988d8e767ed51bf977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a256a3f0328b8b9988d8e767ed51bf977">&#9670;&#160;</a></span>OBJ_NAME_MAX_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a> OBJ_NAME_MAX_SIZE&#160;&#160;&#160;64</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6921654bfc41cd6bc25edb65aa367271" name="a6921654bfc41cd6bc25edb65aa367271"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6921654bfc41cd6bc25edb65aa367271">&#9670;&#160;</a></span>OBJ_NUMB_MAX_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#<a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">define</a> OBJ_NUMB_MAX_SIZE&#160;&#160;&#160;128</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>RKNN YOLOv11 detector implementation. </p>
+<p>Low-level RKNN API wrapper for YOLOv11 inference with multi-core support. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

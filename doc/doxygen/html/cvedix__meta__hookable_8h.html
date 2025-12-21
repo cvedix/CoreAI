@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_meta_hookable.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_meta_hookable.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,22 +69,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">cvedix_meta_hookable.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Hookable interface for monitoring metadata flow through nodes.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;cvedix/objects/cvedix_meta.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_meta_hookable.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__meta__hookable_8h__incl.png" border="0" usemap="#anodes_2common_2cvedix__meta__hookable_8h" alt=""/></div>
+<map name="anodes_2common_2cvedix__meta__hookable_8h" id="anodes_2common_2cvedix__meta__hookable_8h">
+<area shape="rect" title="Hookable interface for monitoring metadata flow through nodes." alt="" coords="149,5,319,45"/>
+<area shape="rect" title=" " alt="" coords="5,101,92,126"/>
+<area shape="poly" title=" " alt="" coords="194,48,87,97,85,92,192,43"/>
+<area shape="rect" title=" " alt="" coords="117,101,181,126"/>
+<area shape="poly" title=" " alt="" coords="217,47,172,92,168,89,213,44"/>
+<area shape="rect" title=" " alt="" coords="205,101,263,126"/>
+<area shape="poly" title=" " alt="" coords="237,46,237,87,231,87,231,46"/>
+<area shape="rect" title=" " alt="" coords="287,101,365,126"/>
+<area shape="poly" title=" " alt="" coords="256,44,305,89,302,93,253,48"/>
+<area shape="rect" title=" " alt="" coords="389,93,551,133"/>
+<area shape="poly" title=" " alt="" coords="287,43,406,86,405,91,285,48"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__meta__hookable_8h__dep__incl.png" border="0" usemap="#anodes_2common_2cvedix__meta__hookable_8hdep" alt=""/></div>
+<map name="anodes_2common_2cvedix__meta__hookable_8hdep" id="anodes_2common_2cvedix__meta__hookable_8hdep">
+<area shape="rect" title="Hookable interface for monitoring metadata flow through nodes." alt="" coords="101,5,271,45"/>
+<area shape="rect" href="cvedix__node_8h.html" title="Base class definition for all pipeline nodes in Core AI Runtime." alt="" coords="101,93,271,133"/>
+<area shape="poly" title=" " alt="" coords="189,59,189,93,183,93,183,59"/>
+<area shape="rect" href="cvedix__des__node_8h.html" title="Base class for all destination nodes in Core AI Runtime." alt="" coords="5,181,175,221"/>
+<area shape="poly" title=" " alt="" coords="156,145,113,183,109,179,153,141"/>
+<area shape="rect" href="cvedix__src__node_8h.html" title="Base class for all source nodes in Core AI Runtime." alt="" coords="199,181,368,221"/>
+<area shape="poly" title=" " alt="" coords="219,140,264,179,260,183,216,144"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__meta__hookable_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -94,20 +127,25 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_nodes::cvedix_meta_hookable</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ab4655226edf53e5f9c61e0743de3db96" id="r_ab4655226edf53e5f9c61e0743de3db96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">typedef</a> std::function&lt; <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">void</a>(std::string, <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">int</a>, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_nodes::cvedix_meta_hooker</a></td></tr>
+<tr class="memitem:ab4655226edf53e5f9c61e0743de3db96" id="r_ab4655226edf53e5f9c61e0743de3db96"><td class="memItemLeft" align="right" valign="top"><a id="ab4655226edf53e5f9c61e0743de3db96" name="ab4655226edf53e5f9c61e0743de3db96"></a>
+typedef std::function&lt; void(std::string, int, std::shared_ptr&lt; <a class="el" href="classcvedix__objects_1_1cvedix__meta.html">cvedix_objects::cvedix_meta</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cvedix_nodes::cvedix_meta_hooker</b></td></tr>
 <tr class="separator:ab4655226edf53e5f9c61e0743de3db96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Hookable interface for monitoring metadata flow through nodes. </p>
+<p>This file defines the cvedix_meta_hookable class which allows attaching callbacks (hooks) to monitor metadata at 4 different ports in a node:</p><ul>
+<li>Arriving: When metadata enters the input queue</li>
+<li>Handling: When metadata is being processed</li>
+<li>Handled: When metadata processing is complete</li>
+<li>Leaving: When metadata exits the output queue</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd>cvedix_analysis_board For usage example </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

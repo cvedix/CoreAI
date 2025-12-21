@@ -1,4 +1,5 @@
 <map id="cvedix_nodes::cvedix_ba_jam_node::to_string" name="cvedix_nodes::cvedix_ba_jam_node::to_string">
-<area shape="rect" id="node1" title=" " alt="" coords="220,13,401,54"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html#afdcb4a406f8d91b5131f6e3f9fea41be" title=" " alt="" coords="5,5,172,61"/>
+<area shape="rect" id="Node000001" title="Get node description including region configurations." alt="" coords="220,13,401,53"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html#a2130baf0c8cabea8fc51651ea4a1b62c" title="Constructor." alt="" coords="5,5,172,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,35,172,35,172,30,206,30"/>
 </map>

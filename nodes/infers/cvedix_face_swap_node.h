@@ -1,12 +1,25 @@
+/**
+ * @file cvedix_face_swap_node.h
+ * @brief DeepFake face swapping using InsightFace + YuNet
+ * 
+ * Face swap/deepfake generation using face detection, encoding, and swapping.
+ * 
+ * @see cvedix_face_recognition_node For face recognition
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 
 namespace cvedix_nodes {
-    // face swap node
-    // used to swap faces in videos/images using a specific face
+    /**
+     * @brief Face swap/deepfake node
+     * 
+     * Swaps faces in video using InsightFace models.
+     */
     class cvedix_face_swap_node: public cvedix_primary_infer_node
     {   
+
     private:
         // inner temporary use
         struct face_box {

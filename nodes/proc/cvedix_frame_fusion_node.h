@@ -1,12 +1,21 @@
+/**
+ * @file cvedix_frame_fusion_node.h
+ * @brief Multi-camera frame fusion using calibration
+ * 
+ * Fuses frames from 2 channels using homography transform.
+ */
+
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // fuse video frames from 2 channels based on the given calibration points.
-    // only support to fuse 2 channels at the same time so far, fuse the first to second or vice versa, just fuse directly did not check the timestamp of frame.
+    /**
+     * @brief Frame fusion node (2 channels)
+     */
     class cvedix_frame_fusion_node: public cvedix_node
     {
+
     private:
         std::shared_ptr<cvedix_objects::cvedix_frame_meta> tmp_des = nullptr;
         cv::Mat trans_mat;

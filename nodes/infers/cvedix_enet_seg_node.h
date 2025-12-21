@@ -1,13 +1,24 @@
+/**
+ * @file cvedix_enet_seg_node.h
+ * @brief Semantic segmentation using ENet
+ * 
+ * Real-time semantic segmentation for scene understanding.
+ * 
+ * @see cvedix_primary_infer_node Base class
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 
 
 namespace cvedix_nodes {
-    // semantic segmentation based on ENet
-    // 
+    /**
+     * @brief Semantic segmentation node (ENet)
+     */
     class cvedix_enet_seg_node: public cvedix_primary_infer_node
     {
+
     private:
         /* data */
     protected:

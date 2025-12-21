@@ -1,12 +1,21 @@
+/**
+ * @file cvedix_face_osd_node.h
+ * @brief OSD for face detection/recognition results
+ * 
+ * Draws cvedix_frame_face_target (bounding boxes, keypoints, names).
+ */
+
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // mainly used to display cvedix_frame_face_target on frame.
+    /**
+     * @brief Face OSD visualization
+     */
     class cvedix_face_osd_node: public cvedix_node
     {
+
     private:
         /* data */
     protected:

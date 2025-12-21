@@ -1,13 +1,20 @@
+/**
+ * @file cvedix_gate.h
+ * @brief Synchronization gate for pause/resume control
+ */
+
 #pragma once
 
 #include <condition_variable>
 #include <mutex>
 
 namespace cvedix_utils {
-    // semaphore used to resume/pause loop structure, it blocks thread while received unactive signal and unblock thread while received active signal.
-    // refer to cvedix_semaphore also
+    /**
+     * @brief Thread gate for pause/resume
+     */
     class cvedix_gate
     {
+
     public:
         cvedix_gate() {
             opened_ = false;

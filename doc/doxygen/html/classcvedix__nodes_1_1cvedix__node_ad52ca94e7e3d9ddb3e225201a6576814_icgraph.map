@@ -1,8 +1,9 @@
 <map id="cvedix_nodes::cvedix_node::pendding_meta" name="cvedix_nodes::cvedix_node::pendding_meta">
-<area shape="rect" id="node1" title=" " alt="" coords="291,173,461,214"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a2de760db7abde2e75fb19751cfa7e940" title=" " alt="" coords="23,5,225,61"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html#a97a97b904462e37f95e45caf9579f18a" title=" " alt="" coords="40,85,208,141"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__ba__stop__node.html#a60fb00aa11262621411c6b10b8fc7d64" title=" " alt="" coords="39,165,209,221"/>
-<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__sync__node.html#a46290daaf2e8523dc4c9c8f44cd5ade4" title=" " alt="" coords="5,246,243,287"/>
-<area shape="rect" id="node6" href="$classcvedix__nodes_1_1cvedix__frame__fusion__node.html#ac82c60bd8621bd86dc200c165796e611" title=" " alt="" coords="21,312,227,368"/>
+<area shape="rect" id="Node000001" title="Queue meta for dispatch to next nodes." alt="" coords="255,91,425,131"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a2de760db7abde2e75fb19751cfa7e940" title="Process frame meta for crossline detection." alt="" coords="5,5,207,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,89,187,63,189,58,268,84"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__ba__jam__node.html#a97a97b904462e37f95e45caf9579f18a" title="Process frame for jam detection." alt="" coords="22,84,190,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,114,190,114,190,109,241,109"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__ba__stop__node.html#a60fb00aa11262621411c6b10b8fc7d64" title="Process frame for stop detection." alt="" coords="21,163,191,217"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="268,138,189,165,187,160,266,133"/>
 </map>

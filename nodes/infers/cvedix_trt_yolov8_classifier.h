@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_trt_yolov8_classifier.h
+ * @brief TensorRT YOLOv8 classifier
+ * 
+ * Secondary classification using TensorRT-accelerated YOLOv8.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
@@ -5,9 +12,12 @@
 #include "cvedix/third_party/trt_yolov8/trt_yolov8_classifier.h"
 
 namespace cvedix_nodes {
-    // universal yolov8 classifier based on tensorrt using third_party/trt_yolov8 library
+    /**
+     * @brief TensorRT YOLOv8 classifier
+     */
     class cvedix_trt_yolov8_classifier: public cvedix_secondary_infer_node
     {
+
     private:
         /* data */
         std::shared_ptr<trt_yolov8::trt_yolov8_classifier> yolov8_classifier = nullptr;

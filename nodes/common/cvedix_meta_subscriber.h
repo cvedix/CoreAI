@@ -1,7 +1,18 @@
+/**
+ * @file cvedix_meta_subscriber.h
+ * @brief Subscriber interface for the publish-subscribe pattern
+ * 
+ * This file defines the cvedix_meta_subscriber class which enables nodes
+ * to receive metadata from upstream publishers.
+ * 
+ * @see cvedix_meta_publisher Publisher counterpart
+ */
+
 #pragma once
 
 #include <memory>
 #include "cvedix/objects/cvedix_meta.h"
+
 
 namespace cvedix_nodes {
     class cvedix_meta_subscriber {

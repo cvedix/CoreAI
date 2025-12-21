@@ -1,5 +1,9 @@
 <map id="cvedix_nodes::cvedix_infer_node::infer" name="cvedix_nodes::cvedix_infer_node::infer">
-<area shape="rect" id="node1" title=" " alt="" coords="503,13,665,54"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__infer__node.html#acc0684161d0d093f7d8d83e064d38f83" title=" " alt="" coords="291,5,455,61"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__infer__node.html#a98bbceb7a708af3d932ad80d9ed4b7eb" title=" " alt="" coords="5,13,243,54"/>
+<area shape="rect" id="Node000001" title="Step 3: Run neural network inference." alt="" coords="503,37,665,77"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__infer__node.html#a9cb5ae9e00343f74849ccf88cda63397" title="Execute the complete inference pipeline." alt="" coords="291,30,455,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="489,60,455,60,455,55,489,55"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__infer__node.html#a521be339b8addee2f5b10e8c80e486c1" title="Handle batch of frame metas." alt="" coords="5,5,243,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="277,48,242,43,243,38,277,42"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__infer__node.html#a98bbceb7a708af3d932ad80d9ed4b7eb" title="Handle single frame meta (calls batch version)" alt="" coords="5,69,243,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="277,72,243,77,242,71,277,67"/>
 </map>

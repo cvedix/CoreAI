@@ -1,12 +1,22 @@
+/**
+ * @file cvedix_expr_check_node.h
+ * @brief Math expression checker (OCR validation)
+ * 
+ * Parses and validates math expressions from OCR results.
+ * Example: `1+1=2` → right, `sqrt(4)=4` → wrong
+ */
+
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // math expression checker, give right for `1+1=2` and wrong for `sqrt(4)=4`.
-    // note: this node works based on cvedix_frame_text_target, it will parse expression at the left of `=` and calculate it then compare with the right side of `=` .
+    /**
+     * @brief Math expression validation node
+     */
     class cvedix_expr_check_node: public cvedix_node
     {
+
     private:
     protected:
         virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;

@@ -1,8 +1,13 @@
 <map id="cvedix_nodes::cvedix_ba_stop_osd_node" name="cvedix_nodes::cvedix_ba_stop_osd_node">
-<area shape="rect" id="node1" title=" " alt="" coords="505,104,668,145"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html" title=" " alt="" coords="256,111,457,138"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,5,188,47"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,71,188,112"/>
-<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,136,188,177"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,201,208,243"/>
+<area shape="rect" id="Node000001" title="Vehicle stop BA visualization." alt="" coords="505,101,668,141"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html" title="Base class for all pipeline nodes." alt="" coords="256,109,457,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="471,119,505,119,505,124,471,124"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__meta__publisher.html" title=" " alt="" coords="25,5,188,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,47,209,55,329,106,327,111,207,60,186,52"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__meta__subscriber.html" title=" " alt="" coords="25,69,188,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="202,99,258,106,257,111,202,104"/>
+<area shape="rect" id="Node000005" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html" title=" " alt="" coords="25,133,188,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="202,139,257,131,258,137,202,144"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,197,208,237"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="186,190,207,183,327,132,329,137,209,188,188,195"/>
 </map>

@@ -1,3 +1,22 @@
+/**
+ * @file ff_src.h
+ * @brief Low-level FFmpeg demuxer and decoder wrapper
+ * 
+ * Provides demuxing and decoding for video input with:
+ * - Hardware decoding support (CUVID, VAAPI)
+ * - Multiple input formats and protocols
+ * - Thread-safe frame reading
+ * 
+ * @section ff_src_files Supported Formats
+ * - mp4, mkv, flv, avi, h264
+ * 
+ * @section ff_src_protocols Supported Protocols
+ * - rtsp, rtmp, http, rtp
+ * 
+ * @see cvedix_ff_src_node High-level node wrapper
+ * @see ff_des For output/encoding
+ */
+
 #pragma once
 #ifdef CVEDIX_WITH_FFMPEG
 #include <string>
@@ -16,10 +35,12 @@ namespace cvedix_nodes {
     typedef std::function<void(ff_src_ptr, const std::string&)> ff_src_opened_hooker;
 
     /**
-     * demux and decode using FFmpeg.
-     * used to demux & decode network streams or file streams.
+     * @brief Demux and decode using FFmpeg
+     * 
+     * Used to demux & decode network streams or file streams.
      */
     class ff_src: public std::enable_shared_from_this<ff_src> {
+
     private:
         /* core members */
         const std::vector<std::string> m_supported_files = {"mp4", "mkv", "flv", "avi", "h264"};

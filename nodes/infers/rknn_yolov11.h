@@ -1,3 +1,10 @@
+/**
+ * @file rknn_yolov11.h
+ * @brief RKNN YOLOv11 detector implementation
+ * 
+ * Low-level RKNN API wrapper for YOLOv11 inference with multi-core support.
+ */
+
 #pragma once
 
 #include <vector>
@@ -7,6 +14,7 @@
 #include <rknn_api.h>
 
 namespace rknn_yolov11 {
+
 
     // Constants from the repo
     #define OBJ_NAME_MAX_SIZE 64

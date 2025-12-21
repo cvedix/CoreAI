@@ -1,3 +1,13 @@
+/**
+ * @file cvedix_custom_data_transform_node.h
+ * @brief Custom data transformation node for pipeline data modification
+ * 
+ * Allows custom filtering, transformation, and modification of frame_meta
+ * before forwarding to downstream nodes (especially brokers).
+ * 
+ * @see cvedix_node Base class
+ */
+
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_node.h"
@@ -5,6 +15,7 @@
 #include <functional>
 
 namespace cvedix_nodes {
+
     /**
      * Custom Data Transform Node
      * 

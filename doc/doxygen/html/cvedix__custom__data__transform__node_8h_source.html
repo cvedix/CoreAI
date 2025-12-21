@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/mid/cvedix_custom_data_transform_node.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/mid/cvedix_custom_data_transform_node.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,66 +74,65 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_e28d54a65c4a82930e5e08d5f8063735.html">mid</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_5732e295e8c48568c5905bb3827a1b1c.html">mid</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_custom_data_transform_node.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__custom__data__transform__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;cvedix/nodes/common/cvedix_node.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_frame_meta.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">   39</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_custom_data_transform_node</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// Custom transform function</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// Input: original frame_meta</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// Output: transformed frame_meta (can be same or modified)</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">// Return nullptr to drop this frame (not forward to next nodes)</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; transform_func;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="comment">// Override handle_frame_meta to apply custom transformation</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">virtual</span> std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a11b02ccbaeb517cc5b7a4556dd9f81bd">handle_frame_meta</a>(std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt; <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">meta</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_custom_data_transform_node</a>(</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            std::string <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a>,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; transform_func = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a89d750f59073f8cd084edbd586aee9bc">~cvedix_custom_data_transform_node</a>();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a9d729fcae8150bd90c9fb7bda5e5c7d5">set_transform_func</a>(</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">func</a>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a584796145c38a0c5f6569e24cc93b22c">get_transform_func</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    };</div>
+<a href="cvedix__custom__data__transform__node_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;cvedix/nodes/common/cvedix_node.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_frame_meta.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">   50</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_custom_data_transform_node</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__node.html">cvedix_node</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="comment">// Custom transform function</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="comment">// Input: original frame_meta</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Output: transformed frame_meta (can be same or modified)</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">// Return nullptr to drop this frame (not forward to next nodes)</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; transform_func;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// Override handle_frame_meta to apply custom transformation</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">virtual</span> std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a11b02ccbaeb517cc5b7a4556dd9f81bd">handle_frame_meta</a>(std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt; meta) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_custom_data_transform_node</a>(</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            std::string <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">node_name</a>,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; transform_func = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">~cvedix_custom_data_transform_node</a>();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a9d729fcae8150bd90c9fb7bda5e5c7d5">set_transform_func</a>(</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; func);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        std::function&lt;std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;(</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            std::shared_ptr&lt;cvedix_objects::cvedix_frame_meta&gt;)&gt; <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a584796145c38a0c5f6569e24cc93b22c">get_transform_func</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    };</div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_nodes::cvedix_custom_data_transform_node</a></div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.h:39</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html_a11b02ccbaeb517cc5b7a4556dd9f81bd"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a11b02ccbaeb517cc5b7a4556dd9f81bd">cvedix_nodes::cvedix_custom_data_transform_node::handle_frame_meta</a></div><div class="ttdeci">virtual std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; handle_frame_meta(std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; meta) override</div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.cpp:40</div></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html">cvedix_nodes::cvedix_custom_data_transform_node</a></div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.h:50</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html_a11b02ccbaeb517cc5b7a4556dd9f81bd"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a11b02ccbaeb517cc5b7a4556dd9f81bd">cvedix_nodes::cvedix_custom_data_transform_node::handle_frame_meta</a></div><div class="ttdeci">virtual std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; handle_frame_meta(std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt; meta) override</div><div class="ttdoc">Handle a single frame meta object.</div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.cpp:40</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html_a584796145c38a0c5f6569e24cc93b22c"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a584796145c38a0c5f6569e24cc93b22c">cvedix_nodes::cvedix_custom_data_transform_node::get_transform_func</a></div><div class="ttdeci">std::function&lt; std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;(std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;)&gt; get_transform_func() const</div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.cpp:35</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html_a89d750f59073f8cd084edbd586aee9bc"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a89d750f59073f8cd084edbd586aee9bc">cvedix_nodes::cvedix_custom_data_transform_node::~cvedix_custom_data_transform_node</a></div><div class="ttdeci">~cvedix_custom_data_transform_node()</div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.cpp:22</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__custom__data__transform__node_html_a9d729fcae8150bd90c9fb7bda5e5c7d5"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__custom__data__transform__node.html#a9d729fcae8150bd90c9fb7bda5e5c7d5">cvedix_nodes::cvedix_custom_data_transform_node::set_transform_func</a></div><div class="ttdeci">void set_transform_func(std::function&lt; std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;(std::shared_ptr&lt; cvedix_objects::cvedix_frame_meta &gt;)&gt; func)</div><div class="ttdef"><b>Definition</b> cvedix_custom_data_transform_node.cpp:27</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html">cvedix_nodes::cvedix_node</a></div><div class="ttdef"><b>Definition</b> cvedix_node.h:32</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html_a211aee98734305ca41915ae62dc77e08"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">cvedix_nodes::cvedix_node::node_name</a></div><div class="ttdeci">std::string node_name</div><div class="ttdef"><b>Definition</b> cvedix_node.h:98</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
-<div class="ttc" id="asamples_2CMakeLists_8txt_html_aefe643ad9dfd494136bdcbb82111b74c"><div class="ttname"><a href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">set</a></div><div class="ttdeci">set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime) if(EXISTS $</div><div class="ttdef"><b>Definition</b> CMakeLists.txt:43</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html">cvedix_nodes::cvedix_node</a></div><div class="ttdoc">Base class for all pipeline nodes.</div><div class="ttdef"><b>Definition</b> cvedix_node.h:92</div></div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__node_html_a211aee98734305ca41915ae62dc77e08"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__node.html#a211aee98734305ca41915ae62dc77e08">cvedix_nodes::cvedix_node::node_name</a></div><div class="ttdeci">std::string node_name</div><div class="ttdoc">Unique identifier for this node.</div><div class="ttdef"><b>Definition</b> cvedix_node.h:226</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

@@ -1,13 +1,5 @@
 <map id="cvedix_nodes::cvedix_ba_stop_node::handle_frame_meta" name="cvedix_nodes::cvedix_ba_stop_node::handle_frame_meta">
-<area shape="rect" id="node1" title=" " alt="" coords="5,152,176,208"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814" title=" " alt="" coords="224,49,395,90"/>
-<area shape="rect" id="node5" href="$classcvedix__nodes_1_1cvedix__ba__stop__node.html#a0d7f31e9c0aa2f044940c971cca87df8" title=" " alt="" coords="228,115,391,171"/>
-<area shape="rect" id="node6" href="$namespacecvedix__utils.html#af733f31023d9a14691ee46baafa23d3a" title=" " alt="" coords="237,195,382,237"/>
-<area shape="rect" id="node8" href="$namespacecvedix__utils.html#af4eb2faa32b3dd6b7cd8a4daafc43ca2" title=" " alt="" coords="240,261,379,302"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719" title=" " alt="" coords="443,5,623,61"/>
-<area shape="rect" id="node4" href="$classcvedix__utils_1_1cvedix__semaphore.html#aa0135494f284a38fb0b52837bfcd9093" title=" " alt="" coords="457,86,608,127"/>
-<area shape="rect" id="node7" href="$namespacedate.html#a4c1df8b60171571aab1fd6bd38b9ae6f" title=" " alt="" coords="481,203,584,229"/>
-<area shape="rect" id="node9" href="$namespacecvedix__utils.html#a56b2cb51b0c8717740c5c545835c5e46" title=" " alt="" coords="447,257,618,298"/>
-<area shape="rect" id="node10" href="$namespacecvedix__utils.html#a20f4f25be8a162b735d93cf31aabb52d" title=" " alt="" coords="463,322,602,363"/>
-<area shape="rect" id="node11" href="$namespacedate.html#abd153c5c2320db7706e16076a014a95e" title=" " alt="" coords="671,329,803,356"/>
+<area shape="rect" id="Node000001" title="Process frame for stop detection." alt="" coords="5,5,176,60"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814" title="Queue meta for dispatch to next nodes." alt="" coords="224,13,395,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,30,210,30,210,35,176,35"/>
 </map>

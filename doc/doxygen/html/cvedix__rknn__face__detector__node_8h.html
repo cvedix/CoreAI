@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/cvedix_rknn_face_detector_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/infers/cvedix_rknn_face_detector_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,41 +69,71 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_rknn_face_detector_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>YuNet face detector for Rockchip RKNN NPU.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;deque&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
 <code>#include &quot;<a class="el" href="cvedix__primary__infer__node_8h_source.html">base/cvedix_primary_infer_node.h</a>&quot;</code><br />
 <code>#include &quot;cvedix/objects/cvedix_frame_face_target.h&quot;</code><br />
 <code>#include &quot;cvedix/utils/rknn/cvedix_rknn_helper.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_rknn_face_detector_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__rknn__face__detector__node_8h__incl.png" border="0" usemap="#anodes_2infers_2cvedix__rknn__face__detector__node_8h" alt=""/></div>
+<map name="anodes_2infers_2cvedix__rknn__face__detector__node_8h" id="anodes_2infers_2cvedix__rknn__face__detector__node_8h">
+<area shape="rect" title="YuNet face detector for Rockchip RKNN NPU." alt="" coords="202,5,357,60"/>
+<area shape="rect" title=" " alt="" coords="5,115,68,141"/>
+<area shape="poly" title=" " alt="" coords="208,63,82,110,77,112,75,107,80,106,206,58"/>
+<area shape="rect" title=" " alt="" coords="92,115,155,141"/>
+<area shape="poly" title=" " alt="" coords="237,62,156,111,153,106,234,58"/>
+<area shape="rect" title=" " alt="" coords="179,115,243,141"/>
+<area shape="poly" title=" " alt="" coords="262,62,230,106,226,102,258,59"/>
+<area shape="rect" href="cvedix__primary__infer__node_8h.html" title="Base class for primary inference nodes (full&#45;frame detection)" alt="" coords="268,108,427,148"/>
+<area shape="poly" title=" " alt="" coords="301,59,328,95,323,98,296,62"/>
+<area shape="rect" title=" " alt="" coords="451,108,614,148"/>
+<area shape="poly" title=" " alt="" coords="351,58,470,101,468,106,350,63"/>
+<area shape="rect" title=" " alt="" coords="639,108,816,148"/>
+<area shape="poly" title=" " alt="" coords="357,47,626,103,625,108,356,53"/>
+<area shape="rect" href="cvedix__infer__node_8h.html" title="Base class for all inference nodes in Core AI Runtime." alt="" coords="271,196,424,221"/>
+<area shape="poly" title=" " alt="" coords="350,148,350,182,345,182,345,148"/>
+<area shape="rect" title=" " alt="" coords="102,277,177,302"/>
+<area shape="poly" title=" " alt="" coords="318,224,190,272,183,274,181,269,188,267,316,219"/>
+<area shape="rect" title=" " alt="" coords="201,277,334,302"/>
+<area shape="poly" title=" " alt="" coords="337,223,291,269,287,265,334,220"/>
+<area shape="rect" title=" " alt="" coords="359,277,496,302"/>
+<area shape="poly" title=" " alt="" coords="361,220,407,265,404,269,357,223"/>
+<area shape="rect" title=" " alt="" coords="520,269,689,309"/>
+<area shape="poly" title=" " alt="" coords="386,219,530,263,529,268,384,224"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__rknn__face__detector__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__rknn__face__detector__node.html">cvedix_nodes::cvedix_rknn_face_detector_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__utils" id="r_namespacecvedix__utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__utils.html">cvedix_utils</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RKNN NPU face detector (YuNet)  <a href="classcvedix__nodes_1_1cvedix__rknn__face__detector__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>YuNet face detector for Rockchip RKNN NPU. </p>
+<p>NPU-accelerated face detection with 5-point landmarks. Supports multi-core NPU and optional RGA preprocessing.</p>
+<dl class="section see"><dt>See also</dt><dd>cvedix_yunet_face_detector_node For OpenCV DNN version </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

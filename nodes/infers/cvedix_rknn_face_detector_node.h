@@ -1,3 +1,12 @@
+/**
+ * @file cvedix_rknn_face_detector_node.h
+ * @brief YuNet face detector for Rockchip RKNN NPU
+ * 
+ * NPU-accelerated face detection with 5-point landmarks.
+ * Supports multi-core NPU and optional RGA preprocessing.
+ * 
+ * @see cvedix_yunet_face_detector_node For OpenCV DNN version
+ */
 
 #pragma once
 
@@ -8,22 +17,22 @@
 #include "cvedix/objects/cvedix_frame_face_target.h"
 #include "cvedix/utils/rknn/cvedix_rknn_helper.h"
 #ifdef CVEDIX_WITH_RGA
-#include "cvedix/utils/rga/cvedix_rga_helper.h"  // RGA is optional
+#include "cvedix/utils/rga/cvedix_rga_helper.h"
 #else
-// Forward declaration when RGA is not available
 namespace cvedix_utils {
     class cvedix_rga_helper;
 }
 #endif
 
 namespace cvedix_nodes {
-    // Face detector optimized for Rockchip RKNN NPU
-    // Based on YuNet architecture (libfacedetection)
-    // https://github.com/ShiqiYu/libfacedetection
-    // Supports 3 outputs: loc (location), conf (confidence), iou (intersection over union)
-    // Automatically leverages NPU cores and optionally RGA for pre-processing acceleration
+    /**
+     * @brief RKNN NPU face detector (YuNet)
+     * 
+     * NPU-accelerated with optional RGA preprocessing.
+     */
     class cvedix_rknn_face_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         std::shared_ptr<cvedix_utils::cvedix_rknn_helper> rknn_helper;
         std::shared_ptr<cvedix_utils::cvedix_rga_helper> rga_helper;

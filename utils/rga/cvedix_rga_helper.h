@@ -1,22 +1,25 @@
+/**
+ * @file cvedix_rga_helper.h
+ * @brief Rockchip RGA hardware acceleration helper
+ * 
+ * Provides GPU-accelerated resize, color convert, and crop on RK3588.
+ * Requires CVEDIX_WITH_RGA.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_RGA
 
 #include <opencv2/opencv.hpp>
 #include <string>
-
-// RGA headers - Rockchip Graphics Accelerator API
-// librga provides im2d.h with functions: imresize, imcvtcolor, imcrop, etc.
-// Note: im2d.h already handles C/C++ compatibility internally
-// We don't wrap in extern "C" to avoid conflicts between C and C++ API declarations
 #include "im2d.h"
-// rga.h is optional and may cause conflicts, only include if needed
-// #include "rga.h"  // Commented out to avoid conflicts
 
 namespace cvedix_utils {
-    // RGA helper class for hardware-accelerated image processing on Rockchip
-    // Provides resize, color conversion, and crop-resize operations
+    /**
+     * @brief RGA hardware accelerator helper
+     */
     class cvedix_rga_helper {
+
     private:
         bool initialized;
         bool available;

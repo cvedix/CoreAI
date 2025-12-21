@@ -1,0 +1,5 @@
+<map id="nodes/infers/fr/cvedix_face_recognition_node.h" name="nodes/infers/fr/cvedix_face_recognition_node.h">
+<area shape="rect" id="Node000001" title="Unified face recognition node with multi&#45;backend support." alt="" coords="13,5,201,45"/>
+<area shape="rect" id="Node000002" href="$cvedix__face__recognition__node_8cpp.html" title="Face recognition node with advanced accuracy improvement techniques." alt="" coords="5,93,208,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,59,109,93,104,93,104,59"/>
+</map>

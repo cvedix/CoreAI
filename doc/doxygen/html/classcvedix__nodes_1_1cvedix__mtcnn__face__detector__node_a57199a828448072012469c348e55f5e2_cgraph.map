@@ -1,0 +1,15 @@
+<map id="cvedix_nodes::cvedix_mtcnn_face_detector_node::cvedix_mtcnn_face_detector_node" name="cvedix_nodes::cvedix_mtcnn_face_detector_node::cvedix_mtcnn_face_detector_node">
+<area shape="rect" id="Node000001" title="Constructor." alt="" coords="5,23,200,92"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ac578eef376d00053a52b11cac009e55e" title="Signal that node initialization is complete." alt="" coords="248,37,411,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,55,234,55,234,60,200,60"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__node.html#a131b07d3e33ad85efed427aa490513df" title="Main dispatch loop for sending meta to next nodes." alt="" coords="459,5,621,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,42,445,37,446,42,411,48"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html#a2993426bb93da626f8f92858956aedbf" title="Main processing loop for handling incoming meta." alt="" coords="459,69,621,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="411,67,446,72,445,78,411,72"/>
+<area shape="rect" id="Node000005" href="$classcvedix__nodes_1_1cvedix__node.html#ac35fd6fcf35abd831693a2efdd3b63ca" title="Handle a single control meta object." alt="" coords="669,5,876,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="613,67,686,46,687,52,614,72"/>
+<area shape="rect" id="Node000006" href="$classcvedix__nodes_1_1cvedix__node.html#a3fd53912a3a0a2bf1c87be61072bc6d2" title="Handle a single frame meta object." alt="" coords="673,69,873,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="622,87,659,87,659,92,622,92"/>
+<area shape="rect" id="Node000007" href="$classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="691,133,854,173"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="614,107,687,127,686,132,613,112"/>
+</map>
