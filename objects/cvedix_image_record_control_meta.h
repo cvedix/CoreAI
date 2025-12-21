@@ -1,13 +1,19 @@
+/**
+ * @file cvedix_image_record_control_meta.h
+ * @brief Control meta for image recording trigger
+ */
+
 #pragma once
 
 #include "cvedix_control_meta.h"
 
 namespace cvedix_objects {
-    // control meta for image recording, it is a specific type of cvedix_control_meta.
-    // when cvedix_record_node handle this control meta, the node will save the Latest Next frame in pipeline to disk.
-    // refer to ./nodes/record/README.md for more details
+    /**
+     * @brief Image recording command
+     */
     class cvedix_image_record_control_meta: public cvedix_control_meta
     {
+
     private:
         /* data */
     public:

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/mid/cvedix_sync_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/mid/cvedix_sync_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,42 +69,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_e28d54a65c4a82930e5e08d5f8063735.html">mid</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_5732e295e8c48568c5905bb3827a1b1c.html">mid</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">cvedix_sync_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Synchronization node for merging parallel pipeline branches.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;cvedix/nodes/common/cvedix_node.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_sync_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__sync__node_8h__incl.png" border="0" usemap="#anodes_2mid_2cvedix__sync__node_8h" alt=""/></div>
+<map name="anodes_2mid_2cvedix__sync__node_8h" id="anodes_2mid_2cvedix__sync__node_8h">
+<area shape="rect" title="Synchronization node for merging parallel pipeline branches." alt="" coords="5,5,180,45"/>
+<area shape="rect" title=" " alt="" coords="8,93,177,133"/>
+<area shape="poly" title=" " alt="" coords="95,46,95,79,90,79,90,46"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__sync__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__sync__node.html">cvedix_nodes::cvedix_sync_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronization node for parallel branch merging.  <a href="classcvedix__nodes_1_1cvedix__sync__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aad69254ab4151ed3acc8ffb1e0419e0a" id="r_aad69254ab4151ed3acc8ffb1e0419e0a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#aad69254ab4151ed3acc8ffb1e0419e0a">cvedix_nodes::cvedix_sync_mode</a> { <a class="el" href="namespacecvedix__nodes.html#aad69254ab4151ed3acc8ffb1e0419e0aa97c51054c5ed46d2f88641ac57ff6347">cvedix_nodes::MERGE</a> = 0
-, <a class="el" href="namespacecvedix__nodes.html#aad69254ab4151ed3acc8ffb1e0419e0aa15a8022d0ed9cd9c2a2e756822703eb4">cvedix_nodes::UPDATE</a> = 1
+<tr class="memitem:aad69254ab4151ed3acc8ffb1e0419e0a" id="r_aad69254ab4151ed3acc8ffb1e0419e0a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cvedix__sync__node_8h.html#aad69254ab4151ed3acc8ffb1e0419e0a">cvedix_nodes::cvedix_sync_mode</a> { <a class="el" href="cvedix__sync__node_8h.html#aad69254ab4151ed3acc8ffb1e0419e0aa97c51054c5ed46d2f88641ac57ff6347">MERGE</a> = 0
+, <a class="el" href="cvedix__sync__node_8h.html#aad69254ab4151ed3acc8ffb1e0419e0aa15a8022d0ed9cd9c2a2e756822703eb4">UPDATE</a> = 1
  }</td></tr>
+<tr class="memdesc:aad69254ab4151ed3acc8ffb1e0419e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sync mode for merging parallel branches.  <a href="cvedix__sync__node_8h.html#aad69254ab4151ed3acc8ffb1e0419e0a">More...</a><br /></td></tr>
 <tr class="separator:aad69254ab4151ed3acc8ffb1e0419e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Synchronization node for merging parallel pipeline branches. </p>
+<p>Merges data from parallel branches that were split by cvedix_split_node.</p>
+<h1><a class="anchor" id="sync_modes"></a>
+Sync Modes</h1>
+<ul>
+<li>MERGE: Combines target collections (for primary infer results)</li>
+<li>UPDATE: Updates target properties (for secondary infer results)</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd>cvedix_split_node For splitting pipeline </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="aad69254ab4151ed3acc8ffb1e0419e0a" name="aad69254ab4151ed3acc8ffb1e0419e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad69254ab4151ed3acc8ffb1e0419e0a">&#9670;&#160;</a></span>cvedix_sync_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="cvedix__sync__node_8h.html#aad69254ab4151ed3acc8ffb1e0419e0a">cvedix_nodes::cvedix_sync_mode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sync mode for merging parallel branches. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aad69254ab4151ed3acc8ffb1e0419e0aa97c51054c5ed46d2f88641ac57ff6347" name="aad69254ab4151ed3acc8ffb1e0419e0aa97c51054c5ed46d2f88641ac57ff6347"></a>MERGE&#160;</td><td class="fielddoc"><p>Merge target collections (primary infer) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aad69254ab4151ed3acc8ffb1e0419e0aa15a8022d0ed9cd9c2a2e756822703eb4" name="aad69254ab4151ed3acc8ffb1e0419e0aa15a8022d0ed9cd9c2a2e756822703eb4"></a>UPDATE&#160;</td><td class="fielddoc"><p>Update target properties (secondary infer) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

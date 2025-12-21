@@ -1,10 +1,19 @@
+/**
+ * @file cvedix_invalid_pipeline_error.h
+ * @brief Exception for invalid pipeline configuration
+ */
+
 #pragma once
 
 #include <stdexcept>
 
 namespace cvedix_excepts {
 
+    /**
+     * @brief Invalid pipeline exception
+     */
     class cvedix_invalid_pipeline_error: public std::runtime_error {
+
     private:
         /* data */
     public:

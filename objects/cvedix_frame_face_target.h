@@ -1,3 +1,9 @@
+/**
+ * @file cvedix_frame_face_target.h
+ * @brief Face detection/recognition target
+ * 
+ * Face bounding box, keypoints, embeddings, and recognition results.
+ */
 
 #pragma once
 #include <vector>
@@ -5,12 +11,13 @@
 #include <string>
 #include "shapes/cvedix_rect.h"
 
-
 namespace cvedix_objects {
-    // target in frame detected by face detectors such as yunet.
-    // note: we can define new target type like cvedix_frame_xxx_target... if need (see cvedix_frame_pose_target also)
+    /**
+     * @brief Face detection target with recognition
+     */
     class cvedix_frame_face_target
     {
+
     private:
         /* data */
     public:

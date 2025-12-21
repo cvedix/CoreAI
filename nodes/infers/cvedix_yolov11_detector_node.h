@@ -1,9 +1,29 @@
+/**
+ * @file cvedix_yolov11_detector_node.h
+ * @brief YOLOv11 object detector using OpenCV DNN (ONNX)
+ * 
+ * Anchor-free detection with DFL (Distribution Focal Loss) processing.
+ * 
+ * @section yolov11_usage Usage
+ * @code
+ * auto detector = std::make_shared<cvedix_yolov11_detector_node>(
+ *     "yolov11", "yolov11s.onnx", "coco.names",
+ *     640, 640, 80
+ * );
+ * detector->attach_to({src_node});
+ * @endcode
+ * 
+ * @see cvedix_yolo_detector_node For YOLOv3/v4/v5
+ * @see cvedix_primary_infer_node Base class
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 #include "cvedix/objects/cvedix_frame_target.h"
 
 namespace cvedix_nodes {
+
     /**
      * YOLOv11 detector using OpenCV DNN (ONNX model).
      * Supports anchor-free detection with DFL (Distribution Focal Loss) processing.

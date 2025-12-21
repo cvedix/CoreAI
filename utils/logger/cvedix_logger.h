@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_logger.h
+ * @brief Lightweight async logger for SDK
+ * 
+ * Features: multi-device output (console/file/Kafka), thread-safe, macros.
+ */
+
 #pragma once
 
 #include <string>
@@ -16,7 +23,7 @@
 #endif
 
 namespace cvedix_utils {
-    // log levels
+    /** @brief Log level enumeration */
     enum cvedix_log_level {
         ERROR = 1,
         WARN = 2,
@@ -24,12 +31,12 @@ namespace cvedix_utils {
         DEBUG = 4
     };
 
-    // a lightweight logger for SDK, architecture: N producer * 1 consumer.
-    // 1. support 3 types of devices (console, file, kafka)
-    // 2. multithread safe
-    // 3. use Macros directly
+    /**
+     * @brief Async N-producer 1-consumer logger
+     */
     class cvedix_logger
     {
+
     private:
         std::queue<std::string> log_cache;
         cvedix_utils::cvedix_semaphore log_cache_semaphore;

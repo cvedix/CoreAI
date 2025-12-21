@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_mqtt_json_receiver.h
+ * @brief MQTT JSON message receiver and handler
+ * 
+ * Subscribes to topics and parses JSON messages.
+ */
+
 #pragma once
 
 #include "cvedix/utils/mqtt_client/cvedix_mqtt_client.h"
@@ -9,16 +16,10 @@
 
 namespace cvedix_utils {
     /**
-     * MQTT JSON Receiver - Utility class để nhận và xử lý JSON từ MQTT
-     * 
-     * Features:
-     * - Subscribe đến MQTT topics
-     * - Nhận JSON messages và parse
-     * - Callback để xử lý JSON đã parse
-     * - Auto-reconnect
-     * - Thread-safe
+     * @brief MQTT JSON receiver with auto-reconnect
      */
     class cvedix_mqtt_json_receiver {
+
     public:
         /**
          * Callback function type cho JSON messages

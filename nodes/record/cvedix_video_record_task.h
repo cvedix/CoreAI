@@ -1,11 +1,20 @@
+/**
+ * @file cvedix_video_record_task.h
+ * @brief Video recording task with pre-record buffer
+ * 
+ * Async task for recording video with H.264 encoding.
+ */
+
 #pragma once
 
 #include "cvedix_record_task.h"
 
 namespace cvedix_nodes {
-    // video record task, each task instance responsible for recording only 1 video file.
-    // create multi instances if multi videos need to be record at the same time, and maintain these tasks in a list.
+    /**
+     * @brief Async video recording task
+     */
     class cvedix_video_record_task: public cvedix_record_task {
+
     private:
         // video writer
         cv::VideoWriter video_writer;

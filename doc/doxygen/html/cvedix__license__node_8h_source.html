@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_license_node.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_license_node.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,7 +74,7 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,38 +89,38 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>cvedix_nodes {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html">   35</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcvedix__nodes_1_1LicenseInfo.html">LicenseInfo</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a368f78ff97659faf11e21ad42c9c3d06">   36</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a368f78ff97659faf11e21ad42c9c3d06">valid</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#ac3343a4c8669e539b6d9d8bac1d71396">   37</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#ac3343a4c8669e539b6d9d8bac1d71396">expiration</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a4890740bc1eacec9a9bf739ad9fa9121">   38</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a4890740bc1eacec9a9bf739ad9fa9121">features</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a7b9d9880707242b16415f5fef6b61c1a">   39</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a7b9d9880707242b16415f5fef6b61c1a">version</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a3b288243e5ce88e05e34b916fd6c63bf">   40</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a3b288243e5ce88e05e34b916fd6c63bf">application</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a26060f4c2007c64b3ef7d10e6264d6fd">   41</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a26060f4c2007c64b3ef7d10e6264d6fd">hardware_id</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a4ea0734c8053f25f0e535b34ef5b7631">   42</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a4ea0734c8053f25f0e535b34ef5b7631">hardware_bound</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseInfo.html#a81ffa43df640d294851b5238605e885c">   43</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseInfo.html#a81ffa43df640d294851b5238605e885c">error_message</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">bool</span> valid = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    std::string expiration;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::string features;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    std::string version;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    std::string application;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::string hardware_id;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">bool</span> hardware_bound = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::string error_message;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
 </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html">   49</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcvedix__nodes_1_1HardwareInfo.html">HardwareInfo</a> {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html#a43e3498d57da86ddaf6747529fc28e16">   50</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1HardwareInfo.html#a43e3498d57da86ddaf6747529fc28e16">hash</a>;           <span class="comment">// Hardware hash (for license binding)</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html#a9ddbbd607be31bab616f25acde136227">   51</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1HardwareInfo.html#a9ddbbd607be31bab616f25acde136227">source_text</a>;    <span class="comment">// Detailed hardware info</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html#a08accffcbffd4cc3ad3df5132691c769">   52</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1HardwareInfo.html#a08accffcbffd4cc3ad3df5132691c769">cpu_info</a>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html#ab48120cf7cbe3cc613642cbe887812f4">   53</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1HardwareInfo.html#ab48120cf7cbe3cc613642cbe887812f4">disk_info</a>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1HardwareInfo.html#a4a63e38921ca4f1aa29c2518c4318f09">   54</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1HardwareInfo.html#a4a63e38921ca4f1aa29c2518c4318f09">mac_address</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::string hash;           <span class="comment">// Hardware hash (for license binding)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::string source_text;    <span class="comment">// Detailed hardware info</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::string cpu_info;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    std::string disk_info;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    std::string mac_address;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
 </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="foldopen" id="foldopen00060" data-start="{" data-end="};">
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html">   60</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcvedix__nodes_1_1LicenseRequest.html">LicenseRequest</a> {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html#a2a879f190370a016bf644b29ed191954">   61</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseRequest.html#a2a879f190370a016bf644b29ed191954">hardware_id</a>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html#a763a269089cdef113b5212cdd0115266">   62</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseRequest.html#a763a269089cdef113b5212cdd0115266">requested_features</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html#a34475731f2bde998dbe78bfb6cce9087">   63</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseRequest.html#a34475731f2bde998dbe78bfb6cce9087">requested_expiration</a>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html#a1dc8e263805f15c0500ddb07c0377481">   64</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseRequest.html#a1dc8e263805f15c0500ddb07c0377481">contact_email</a>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structcvedix__nodes_1_1LicenseRequest.html#a3d14b1bdbd8a8644fe50c9ee3914be82">   65</a></span>    std::string <a class="code hl_variable" href="structcvedix__nodes_1_1LicenseRequest.html#a3d14b1bdbd8a8644fe50c9ee3914be82">company_name</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::string hardware_id;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    std::string requested_features;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::string requested_expiration;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::string contact_email;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    std::string company_name;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
@@ -145,7 +144,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">const</span> std::string&amp; license_path = <span class="stringliteral">&quot;&quot;</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    );</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__license__node.html#aa918691a7a1e62b518f18938b6db47b4">   95</a></span>    <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__license__node.html#aa918691a7a1e62b518f18938b6db47b4">~cvedix_license_node</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__license__node.html">~cvedix_license_node</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    </div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment">// ========================================</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">// Hardware ID Functions</span></div>
@@ -204,7 +203,6 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_a79a7e0f49f9fe10e3af26cf0e3f46418"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#a79a7e0f49f9fe10e3af26cf0e3f46418">cvedix_nodes::cvedix_license_node::create_simple_request</a></div><div class="ttdeci">std::string create_simple_request()</div><div class="ttdoc">Tạo license request đơn giản (chỉ cần hardware ID)</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:358</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_a8a3becd6888fe25ff8f413b7021f4911"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#a8a3becd6888fe25ff8f413b7021f4911">cvedix_nodes::cvedix_license_node::print_license_info</a></div><div class="ttdeci">void print_license_info()</div><div class="ttdoc">In thông tin license.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:306</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_aa101a2529214bad93a7553eb6b46352e"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#aa101a2529214bad93a7553eb6b46352e">cvedix_nodes::cvedix_license_node::is_licensed</a></div><div class="ttdeci">bool is_licensed()</div><div class="ttdoc">Kiểm tra license có hợp lệ không.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:251</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_aa918691a7a1e62b518f18938b6db47b4"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#aa918691a7a1e62b518f18938b6db47b4">cvedix_nodes::cvedix_license_node::~cvedix_license_node</a></div><div class="ttdeci">~cvedix_license_node()=default</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_aa92ca7135cd239e4dafb99c2decf1883"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#aa92ca7135cd239e4dafb99c2decf1883">cvedix_nodes::cvedix_license_node::get_node_name</a></div><div class="ttdeci">std::string get_node_name() const</div><div class="ttdoc">Lấy node name.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:201</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_abf014e913c9dba135e92064ea8ed10f0"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#abf014e913c9dba135e92064ea8ed10f0">cvedix_nodes::cvedix_license_node::print_all_info</a></div><div class="ttdeci">void print_all_info()</div><div class="ttdoc">In tất cả thông tin (hardware + license)</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:392</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_ac1bb6e3ab029f25225bf3d6ed41a8174"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#ac1bb6e3ab029f25225bf3d6ed41a8174">cvedix_nodes::cvedix_license_node::get_hardware_id</a></div><div class="ttdeci">std::string get_hardware_id()</div><div class="ttdoc">Lấy Hardware ID của máy hiện tại.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:228</div></div>
@@ -213,32 +211,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_ae54088754edd24e211f317bc98431862"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#ae54088754edd24e211f317bc98431862">cvedix_nodes::cvedix_license_node::print_hardware_info</a></div><div class="ttdeci">void print_hardware_info()</div><div class="ttdoc">In thông tin hardware (verbose mode)</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:236</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_af327b10b36cb3c10f75c0a8727da2a13"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#af327b10b36cb3c10f75c0a8727da2a13">cvedix_nodes::cvedix_license_node::has_feature</a></div><div class="ttdeci">bool has_feature(const std::string &amp;feature_name)</div><div class="ttdoc">Kiểm tra feature có được license không.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:268</div></div>
 <div class="ttc" id="aclasscvedix__nodes_1_1cvedix__license__node_html_af8b12b186d40edb6413e2f012e7cfe64"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__license__node.html#af8b12b186d40edb6413e2f012e7cfe64">cvedix_nodes::cvedix_license_node::save_license_request</a></div><div class="ttdeci">bool save_license_request(const std::string &amp;filepath, const LicenseRequest &amp;request)</div><div class="ttdoc">Lưu license request ra file.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.cpp:367</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
 <div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html">cvedix_nodes::HardwareInfo</a></div><div class="ttdoc">Hardware information structure.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:49</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html_a08accffcbffd4cc3ad3df5132691c769"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html#a08accffcbffd4cc3ad3df5132691c769">cvedix_nodes::HardwareInfo::cpu_info</a></div><div class="ttdeci">std::string cpu_info</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:52</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html_a43e3498d57da86ddaf6747529fc28e16"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html#a43e3498d57da86ddaf6747529fc28e16">cvedix_nodes::HardwareInfo::hash</a></div><div class="ttdeci">std::string hash</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:50</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html_a4a63e38921ca4f1aa29c2518c4318f09"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html#a4a63e38921ca4f1aa29c2518c4318f09">cvedix_nodes::HardwareInfo::mac_address</a></div><div class="ttdeci">std::string mac_address</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:54</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html_a9ddbbd607be31bab616f25acde136227"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html#a9ddbbd607be31bab616f25acde136227">cvedix_nodes::HardwareInfo::source_text</a></div><div class="ttdeci">std::string source_text</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:51</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1HardwareInfo_html_ab48120cf7cbe3cc613642cbe887812f4"><div class="ttname"><a href="structcvedix__nodes_1_1HardwareInfo.html#ab48120cf7cbe3cc613642cbe887812f4">cvedix_nodes::HardwareInfo::disk_info</a></div><div class="ttdeci">std::string disk_info</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:53</div></div>
 <div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html">cvedix_nodes::LicenseInfo</a></div><div class="ttdoc">License information structure.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:35</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a26060f4c2007c64b3ef7d10e6264d6fd"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a26060f4c2007c64b3ef7d10e6264d6fd">cvedix_nodes::LicenseInfo::hardware_id</a></div><div class="ttdeci">std::string hardware_id</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:41</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a368f78ff97659faf11e21ad42c9c3d06"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a368f78ff97659faf11e21ad42c9c3d06">cvedix_nodes::LicenseInfo::valid</a></div><div class="ttdeci">bool valid</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:36</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a3b288243e5ce88e05e34b916fd6c63bf"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a3b288243e5ce88e05e34b916fd6c63bf">cvedix_nodes::LicenseInfo::application</a></div><div class="ttdeci">std::string application</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:40</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a4890740bc1eacec9a9bf739ad9fa9121"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a4890740bc1eacec9a9bf739ad9fa9121">cvedix_nodes::LicenseInfo::features</a></div><div class="ttdeci">std::string features</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:38</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a4ea0734c8053f25f0e535b34ef5b7631"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a4ea0734c8053f25f0e535b34ef5b7631">cvedix_nodes::LicenseInfo::hardware_bound</a></div><div class="ttdeci">bool hardware_bound</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:42</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a7b9d9880707242b16415f5fef6b61c1a"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a7b9d9880707242b16415f5fef6b61c1a">cvedix_nodes::LicenseInfo::version</a></div><div class="ttdeci">std::string version</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:39</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_a81ffa43df640d294851b5238605e885c"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#a81ffa43df640d294851b5238605e885c">cvedix_nodes::LicenseInfo::error_message</a></div><div class="ttdeci">std::string error_message</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:43</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseInfo_html_ac3343a4c8669e539b6d9d8bac1d71396"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseInfo.html#ac3343a4c8669e539b6d9d8bac1d71396">cvedix_nodes::LicenseInfo::expiration</a></div><div class="ttdeci">std::string expiration</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:37</div></div>
 <div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html">cvedix_nodes::LicenseRequest</a></div><div class="ttdoc">License request structure for generating new license.</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:60</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html_a1dc8e263805f15c0500ddb07c0377481"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html#a1dc8e263805f15c0500ddb07c0377481">cvedix_nodes::LicenseRequest::contact_email</a></div><div class="ttdeci">std::string contact_email</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:64</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html_a2a879f190370a016bf644b29ed191954"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html#a2a879f190370a016bf644b29ed191954">cvedix_nodes::LicenseRequest::hardware_id</a></div><div class="ttdeci">std::string hardware_id</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:61</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html_a34475731f2bde998dbe78bfb6cce9087"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html#a34475731f2bde998dbe78bfb6cce9087">cvedix_nodes::LicenseRequest::requested_expiration</a></div><div class="ttdeci">std::string requested_expiration</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:63</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html_a3d14b1bdbd8a8644fe50c9ee3914be82"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html#a3d14b1bdbd8a8644fe50c9ee3914be82">cvedix_nodes::LicenseRequest::company_name</a></div><div class="ttdeci">std::string company_name</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:65</div></div>
-<div class="ttc" id="astructcvedix__nodes_1_1LicenseRequest_html_a763a269089cdef113b5212cdd0115266"><div class="ttname"><a href="structcvedix__nodes_1_1LicenseRequest.html#a763a269089cdef113b5212cdd0115266">cvedix_nodes::LicenseRequest::requested_features</a></div><div class="ttdeci">std::string requested_features</div><div class="ttdef"><b>Definition</b> cvedix_license_node.h:62</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

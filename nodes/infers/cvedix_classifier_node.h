@@ -1,14 +1,38 @@
-
+/**
+ * @file cvedix_classifier_node.h
+ * @brief Generic image classification node
+ * 
+ * Secondary inference node for classifying detected objects.
+ * Updates secondary_class_ids/secondary_labels/secondary_scores.
+ * 
+ * @section classifier_usage Usage
+ * @code
+ * auto classifier = std::make_shared<cvedix_classifier_node>(
+ *     "classifier", "resnet50.onnx", "", "imagenet_labels.txt",
+ *     224, 224  // input size
+ * );
+ * classifier->attach_to({detector_node});
+ * @endcode
+ * 
+ * @see cvedix_secondary_infer_node Base class
+ */
 
 #pragma once
 
 #include "base/cvedix_secondary_infer_node.h"
 
 namespace cvedix_nodes {
-    // common classifier for image classification task.
-    // used for image classification, update secondary_class_ids/secondary_labels/secondary_scores of cvedix_frame_target.
+
+    /**
+     * @brief Generic image classification node
+     * 
+     * Classifies detected objects using ImageNet-style models.
+     * 
+     * @see cvedix_secondary_infer_node Base class
+     */
     class cvedix_classifier_node: public cvedix_secondary_infer_node
     {
+
     private:
         // softmax logic applied on output or not
         bool need_softmax;

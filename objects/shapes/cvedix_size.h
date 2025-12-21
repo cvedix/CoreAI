@@ -1,11 +1,18 @@
+/**
+ * @file cvedix_size.h
+ * @brief 2D size (width/height) geometry primitive
+ */
 
 #pragma once
 
 #include <utility>
 
 namespace cvedix_objects {
-    // size(width and height) in 2-dims coordinate system
+    /**
+     * @brief 2D size (width, height)
+     */
     class cvedix_size {
+
     private:
         /* data */
     public:

@@ -1,13 +1,24 @@
+/**
+ * @file cvedix_lane_detector_node.h
+ * @brief Lane detection using CenterNet
+ * 
+ * Detects lane lines for ADAS/autonomous driving applications.
+ * 
+ * @see cvedix_primary_infer_node Base class
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 
 
 namespace cvedix_nodes {
-    // lane detect based on CenterNet
-    // 
+    /**
+     * @brief Lane line detector (CenterNet-based)
+     */
     class cvedix_lane_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         /* data */
     protected:

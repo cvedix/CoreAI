@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_trt_yolov8_seg_detector.h
+ * @brief TensorRT YOLOv8 instance segmentation
+ * 
+ * Instance segmentation using TensorRT-accelerated YOLOv8-seg.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
@@ -5,9 +12,12 @@
 #include "cvedix/third_party/trt_yolov8/trt_yolov8_seg_detector.h"
 
 namespace cvedix_nodes {
-    // universal yolov8 segmentation detector based on tensorrt using third_party/trt_yolov8 library
+    /**
+     * @brief TensorRT YOLOv8 segmentation detector
+     */
     class cvedix_trt_yolov8_seg_detector: public cvedix_primary_infer_node
     {
+
     private:
         std::shared_ptr<trt_yolov8::trt_yolov8_seg_detector> yolov8_seg_detector = nullptr;
     protected:

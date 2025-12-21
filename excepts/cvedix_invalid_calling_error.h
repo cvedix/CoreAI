@@ -1,10 +1,19 @@
+/**
+ * @file cvedix_invalid_calling_error.h
+ * @brief Exception for invalid method call sequences
+ */
+
 #pragma once
 
 #include <stdexcept>
 
 namespace cvedix_excepts {
 
+    /**
+     * @brief Invalid calling sequence exception
+     */
     class cvedix_invalid_calling_error: public std::runtime_error {
+
     private:
         /* data */
     public:

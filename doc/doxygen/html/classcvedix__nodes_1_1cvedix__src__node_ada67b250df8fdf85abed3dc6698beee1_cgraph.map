@@ -1,6 +1,5 @@
 <map id="cvedix_nodes::cvedix_src_node::deinitialized" name="cvedix_nodes::cvedix_src_node::deinitialized">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,180,80"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__node.html#a0ad2d2b770f0cb20ce6032dba9193259" title=" " alt="" coords="228,5,391,47"/>
-<area shape="rect" id="node4" href="$classcvedix__utils_1_1cvedix__gate.html#a72dc7c52254166f6466738a9d9aae7c9" title=" " alt="" coords="234,71,385,112"/>
-<area shape="rect" id="node3" href="$classcvedix__utils_1_1cvedix__semaphore.html#aa0135494f284a38fb0b52837bfcd9093" title=" " alt="" coords="439,5,589,47"/>
+<area shape="rect" id="Node000001" title="Cleanup on destruction." alt="" coords="5,5,180,45"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#a0ad2d2b770f0cb20ce6032dba9193259" title="Signal that node is being destroyed." alt="" coords="228,5,391,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,23,214,23,214,28,180,28"/>
 </map>

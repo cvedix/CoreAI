@@ -1,13 +1,21 @@
+/**
+ * @file cvedix_log_kafka_writer.h
+ * @brief Log writer for Apache Kafka
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_KAFKA
 #include <memory>
-// to-do: refactor for file structure
 #include "cvedix/nodes/broker/kafka_utils/KafkaProducer.h"
 
 namespace cvedix_utils {
+    /**
+     * @brief Kafka log writer
+     */
     class cvedix_log_kafka_writer
     {
+
     private:
         // ready to go
         bool inited = false;

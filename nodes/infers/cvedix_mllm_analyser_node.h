@@ -1,3 +1,13 @@
+/**
+ * @file cvedix_mllm_analyser_node.h
+ * @brief Multimodal LLM image analysis
+ * 
+ * Frame analysis using vision-language models (Ollama, OpenAI).
+ * 
+ * @section prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_LLM`
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_LLM
@@ -5,9 +15,12 @@
 #include "cvedix/third_party/cpp_llmlib/llmlib.hpp"
 
 namespace cvedix_nodes {
-    // image(frame) analyser based on Multimodal Large Language Model
+    /**
+     * @brief Multimodal LLM image analyzer
+     */
     class cvedix_mllm_analyser_node: public cvedix_primary_infer_node 
     {
+
     private:
         /* data */
         llmlib::LLMClient cli;

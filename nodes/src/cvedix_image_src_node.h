@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_image_src_node.h
+ * @brief Image source node (file or UDP)
+ * 
+ * Reads images from files or receives via UDP (JPEG only).
+ * Requires CVEDIX_WITH_GSTREAMER.
+ */
 
 #pragma once
 
@@ -6,9 +13,12 @@
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // image src node, read image from local files or receive image from remote via udp.
+    /**
+     * @brief Image source node (file/UDP)
+     */
     class cvedix_image_src_node: public cvedix_src_node
     {
+
     private:
         // gstreamer template for reading image from file (jpeg encoding only, filename MUST end with 'jpg/jpeg')
         std::string gst_template_file = "multifilesrc location=%s loop=%s ! jpegparse ! %s ! videorate ! video/x-raw,framerate=1/%d ! videoconvert ! appsink";

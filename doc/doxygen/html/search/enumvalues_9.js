@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['secondary_0',['SECONDARY',['../namespacecvedix__nodes.html#a6be371626b1abd9b4a8204933124f116ada0b487af384a9252f311ccf5d272ab9',1,'cvedix_nodes']]],
-  ['src_1',['SRC',['../namespacecvedix__nodes.html#abc9768735e0c9c6b7901cc0e008757dba4734c637de9d98ec236e506f7ca4daca',1,'cvedix_nodes']]],
-  ['started_2',['STARTED',['../namespacecvedix__nodes.html#a0d5ca45f68486d2bb1f09ef5cf411ba4ad52d3268d1b29fea551bca4cada499f6',1,'cvedix_nodes']]]
+  ['tensorrt_0',['TENSORRT',['../face__recognition__backend_8h.html#a59f9165da346e6d16f9da402cb738b59aa068bc4c46ed0030f5dfa3a4d4c92179',1,'cvedix_nodes']]],
+  ['text_1',['TEXT',['../cvedix__msg__broker__node_8h.html#a3843c16f9f18022940568c0d23d37b46a61a96ffcb251bb9bf0abf8fec19d0ea8',1,'cvedix_nodes']]]
 ];

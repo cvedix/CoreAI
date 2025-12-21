@@ -1,15 +1,22 @@
+/**
+ * @file cvedix_plate_osd_node.h
+ * @brief OSD for license plate recognition (LPR)
+ * 
+ * Draws plate boxes with color-coded borders and plate history panel.
+ */
+
 #pragma once
 
 #include <opencv2/freetype.hpp>
-
 #include "cvedix/nodes/common/cvedix_node.h"
 
-
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // used for displaying vehicle plate on frame, draw rectangle according to plate color
+    /**
+     * @brief LPR OSD visualization with plate history
+     */
     class cvedix_plate_osd_node: public cvedix_node
     {
+
     private:
         // support chinese font
         cv::Ptr<cv::freetype::FreeType2> ft2;

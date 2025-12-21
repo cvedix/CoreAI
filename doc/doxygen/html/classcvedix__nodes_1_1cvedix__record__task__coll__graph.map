@@ -1,5 +1,5 @@
 <map id="cvedix_nodes::cvedix_record_task" name="cvedix_nodes::cvedix_record_task">
-<area shape="rect" id="node1" title=" " alt="" coords="125,109,288,151"/>
-<area shape="rect" id="node2" href="$classcvedix__objects_1_1cvedix__size.html" title=" " alt="" coords="5,13,208,39"/>
-<area shape="rect" id="node3" href="$classcvedix__utils_1_1cvedix__semaphore.html" title=" " alt="" coords="233,5,383,47"/>
+<area shape="rect" id="Node000001" title="Base class for recording tasks." alt="" coords="5,108,168,148"/>
+<area shape="rect" id="Node000002" href="$classcvedix__utils_1_1cvedix__semaphore.html" title="Semaphore for queue synchronization." alt="" coords="11,5,162,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,59,89,108,84,108,84,59"/>
 </map>

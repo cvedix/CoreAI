@@ -1,13 +1,5 @@
 <map id="cvedix_nodes::cvedix_ba_crossline_node::handle_frame_meta" name="cvedix_nodes::cvedix_ba_crossline_node::handle_frame_meta">
-<area shape="rect" id="node1" title=" " alt="" coords="5,112,207,168"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__ba__crossline__node.html#abc98763ef4f222762427bf38797ee324" title=" " alt="" coords="255,5,425,61"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814" title=" " alt="" coords="255,86,425,127"/>
-<area shape="rect" id="node6" href="$namespacecvedix__utils.html#af733f31023d9a14691ee46baafa23d3a" title=" " alt="" coords="267,151,413,193"/>
-<area shape="rect" id="node8" href="$namespacecvedix__utils.html#af4eb2faa32b3dd6b7cd8a4daafc43ca2" title=" " alt="" coords="271,217,409,258"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719" title=" " alt="" coords="473,8,653,64"/>
-<area shape="rect" id="node5" href="$classcvedix__utils_1_1cvedix__semaphore.html#aa0135494f284a38fb0b52837bfcd9093" title=" " alt="" coords="488,89,639,130"/>
-<area shape="rect" id="node7" href="$namespacedate.html#a4c1df8b60171571aab1fd6bd38b9ae6f" title=" " alt="" coords="512,159,615,185"/>
-<area shape="rect" id="node9" href="$namespacecvedix__utils.html#a56b2cb51b0c8717740c5c545835c5e46" title=" " alt="" coords="478,213,649,254"/>
-<area shape="rect" id="node10" href="$namespacecvedix__utils.html#a20f4f25be8a162b735d93cf31aabb52d" title=" " alt="" coords="494,278,633,319"/>
-<area shape="rect" id="node11" href="$namespacedate.html#abd153c5c2320db7706e16076a014a95e" title=" " alt="" coords="701,285,833,312"/>
+<area shape="rect" id="Node000001" title="Process frame meta for crossline detection." alt="" coords="5,5,207,60"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814" title="Queue meta for dispatch to next nodes." alt="" coords="255,13,425,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,30,241,30,241,35,207,35"/>
 </map>

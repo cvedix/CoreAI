@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_trt_yolov8_detector.h
+ * @brief TensorRT YOLOv8 object detector
+ * 
+ * GPU-accelerated YOLOv8 using TensorRT engine.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
@@ -5,9 +12,12 @@
 #include "third_party/trt_yolov8/trt_yolov8_detector.h"
 
 namespace cvedix_nodes {
-    // universal yolov8 detector based on tensorrt using third_party/trt_yolov8 library
+    /**
+     * @brief TensorRT YOLOv8 detector
+     */
     class cvedix_trt_yolov8_detector: public cvedix_primary_infer_node
     {
+
     private:
         std::shared_ptr<trt_yolov8::trt_yolov8_detector> yolov8_detector = nullptr;
     protected:

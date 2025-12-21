@@ -1,9 +1,48 @@
-#pragma once
+/**
+ * @file cvedix_objects_cereal_archive.h
+ * @brief Cereal serialization functions for Core AI Runtime objects
+ * 
+ * This file defines EXTERNAL archive functions for serializing pipeline objects
+ * using the Cereal C++ serialization library. These functions enable objects
+ * to be converted to/from JSON, XML, and binary formats.
+ * 
+ * @section cereal_overview Overview
+ * Cereal is a header-only C++11 serialization library. This file provides
+ * `serialize()` template functions that define how each object type is
+ * converted to structured data formats.
+ * 
+ * @section cereal_supported Supported Object Types
+ * - **cvedix_frame_target**: Generic detected objects
+ * - **cvedix_sub_target**: Sub-regions within targets
+ * - **cvedix_frame_face_target**: Face detection/recognition results
+ * - **cvedix_frame_text_target**: OCR/text detection results
+ * - **cvedix_frame_pose_target**: Body pose estimation results
+ * 
+ * @section cereal_formats Supported Formats
+ * - **JSON**: Human-readable, for APIs and debugging
+ * - **XML**: Legacy system integration
+ * - **Binary**: Fast serialization for internal use
+ * 
+ * @section cereal_usage Usage Example
+ * @code
+ * #include "cvedix_objects_cereal_archive.h"
+ * #include <sstream>
+ * 
+ * // Serialize target to JSON
+ * cvedix_objects::cvedix_frame_target target;
+ * std::stringstream ss;
+ * {
+ *     cereal::JSONOutputArchive archive(ss);
+ *     archive(target);
+ * }
+ * std::string json = ss.str();
+ * @endcode
+ * 
+ * @see https://uscilab.github.io/cereal/serialization_functions.html
+ * @see cvedix_msg_broker_node Uses these functions for message formatting
+ */
 
-/*
-* define EXTERNAL archive functions for objects which need to be serialized by cereal library in SDK.
-* refer to `https://uscilab.github.io/cereal/serialization_functions.html` for more details.
-*/
+#pragma once
 
 // object types
 #include "cvedix/objects/cvedix_frame_target.h"
@@ -24,10 +63,19 @@
 
 /* same namespace as object types */
 namespace cvedix_objects {
-    /* cvedix_frame_target */
+
+    /**
+     * @brief Serialize cvedix_frame_target to/from archive
+     * 
+     * Serializes all detection result fields including bounding box,
+     * classification, tracking, and embeddings.
+     * 
+     * @tparam Archive Cereal archive type (JSONOutputArchive, etc.)
+     * @param archive The archive to read from or write to
+     * @param target The target object to serialize
+     */
     template<typename Archive>
     void serialize(Archive& archive, cvedix_frame_target& target) {
-        // define the form of structured data for cvedix_frame_target
         archive(cereal::make_nvp("x", target.x),
                 cereal::make_nvp("y", target.y),
                 cereal::make_nvp("width", target.width),
@@ -45,9 +93,17 @@ namespace cvedix_objects {
                 cereal::make_nvp("embeddings", target.embeddings));
     }
 
+    /**
+     * @brief Serialize cvedix_sub_target to/from archive
+     * 
+     * Serializes sub-region detection results within a parent target.
+     * 
+     * @tparam Archive Cereal archive type
+     * @param archive The archive to read from or write to
+     * @param target The sub-target object to serialize
+     */
     template<typename Archive>
     void serialize(Archive& archive, cvedix_sub_target& target) {
-        // define the form of structured data for cvedix_sub_target
         archive(cereal::make_nvp("x", target.x),
                 cereal::make_nvp("y", target.y),
                 cereal::make_nvp("width", target.width),
@@ -59,13 +115,19 @@ namespace cvedix_objects {
                 cereal::make_nvp("channel_index", target.channel_index),
                 cereal::make_nvp("attachments", target.attachments));
     }
-    /* END OF cvedix_frame_target */
 
-
-    /* cvedix_frame_face_target */
+    /**
+     * @brief Serialize cvedix_frame_face_target to/from archive
+     * 
+     * Serializes face detection results including bounding box,
+     * facial keypoints, and recognition embeddings.
+     * 
+     * @tparam Archive Cereal archive type
+     * @param archive The archive to read from or write to
+     * @param target The face target object to serialize
+     */
     template<typename Archive>
     void serialize(Archive& archive, cvedix_frame_face_target& target) {
-        // define the form of structured data for cvedix_frame_face_target
         archive(cereal::make_nvp("x", target.x),
                 cereal::make_nvp("y", target.y),
                 cereal::make_nvp("width", target.width),
@@ -75,26 +137,39 @@ namespace cvedix_objects {
                 cereal::make_nvp("key_points", target.key_points),
                 cereal::make_nvp("track_id", target.track_id));
     }
-    /* END OF cvedix_frame_face_target */
 
-
-    /* cvedix_frame_text_target */
+    /**
+     * @brief Serialize cvedix_frame_text_target to/from archive
+     * 
+     * Serializes OCR/text detection results including recognized text,
+     * confidence score, and bounding polygon.
+     * 
+     * @tparam Archive Cereal archive type
+     * @param archive The archive to read from or write to
+     * @param target The text target object to serialize
+     */
     template<typename Archive>
     void serialize(Archive& archive, cvedix_frame_text_target& target) {
-        // define the form of structured data for cvedix_frame_text_target
         archive(cereal::make_nvp("text", target.text),
                 cereal::make_nvp("score", target.score),
                 cereal::make_nvp("region", target.region_vertexes),
                 cereal::make_nvp("flags", target.flags));
     }
-    /* END OF cvedix_frame_text_target */
 
-
-    /* cvedix_frame_pose_target */
+    /**
+     * @brief Serialize cvedix_frame_pose_target to/from archive
+     * 
+     * Serializes body pose estimation results.
+     * 
+     * @tparam Archive Cereal archive type
+     * @param archive The archive to read from or write to
+     * @param target The pose target object to serialize
+     * 
+     * @todo Implementation pending - add pose keypoints serialization
+     */
     template<typename Archive>
     void serialize(Archive& archive, cvedix_frame_pose_target& target) {
-        // define the form of structured data for cvedix_frame_pose_target
-
+        // TODO: Add pose keypoints serialization
     }
-    /* END OF cvedix_frame_pose_target */
+
 }

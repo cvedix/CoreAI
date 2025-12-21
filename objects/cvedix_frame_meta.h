@@ -1,3 +1,14 @@
+/**
+ * @file cvedix_frame_meta.h
+ * @brief Frame metadata containing targets and analysis results
+ * 
+ * Core data structure holding all frame-related information:
+ * frame data, detected targets, tracking info, BA results.
+ * 
+ * @see cvedix_meta Base class
+ * @see cvedix_frame_target Detection results
+ */
+
 #pragma once
 
 #include <vector>
@@ -11,26 +22,13 @@
 #include "cvedix_frame_face_target.h"
 #include "cvedix_frame_text_target.h"
 #include "ba/cvedix_ba_result.h"
-/*
-* ##########################################
-* how does frame meta work?
-* ##########################################
-* frame meta, holding all data(targets/elements/...) of current frame in the video scene. frame meta are independent and don't know about each other, neither its previous frames nor next frames.
-* the data in frame meta is just telling us what **current frame** is so we can not get something like 'state-switch' from a single frame meta. 
-* if you need know when the 'state-switch' happen, for example, you want to notify to cloud via restful api if state changed(ignore if it's keeping), 
-* you need cache previous frame meta(maybe partial data) in your custom node first and then compare with each other to figure out if it has changed.
-* 
-* frame meta works like our eyes, by taking a glance at the frame in video we can see what the picture is and how many targets are there.
-* but if you want to  know something like state-switch, for example, a person was walking and then stop or it stop for a while and then start to walk, you have to see(cache) more frames.
-* 
-* see more implementation of 'cvedix_track_node' and 'cvedix_message_broker_node' which saved history frame meta data and then work based on them.
-* 1. cvedix_track_node          : save previous locations of targets and then do tracking based on them, we need see more frames to track targets in video.
-* 2. cvedix_message_broker_node : save previous ba_flags and then do notifying based on them, we need see more frames to check if state-switch has happened.
-* ##########################################
-*/ 
+
 namespace cvedix_objects {
-    // frame meta, which contains frame-related data. it is kind of important meta in pipeline.
+    /**
+     * @brief Frame metadata with targets and analysis results
+     */
     class cvedix_frame_meta: public cvedix_meta {
+
     private:
         /* data */
     public:

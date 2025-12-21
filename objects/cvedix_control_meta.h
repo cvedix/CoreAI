@@ -1,19 +1,28 @@
+/**
+ * @file cvedix_control_meta.h
+ * @brief Control metadata for pipeline commands
+ * 
+ * Triggers actions like recording, configuration changes.
+ */
+
 #pragma once
 
 #include <chrono>
 #include "cvedix_meta.h"
 
-
 namespace cvedix_objects {
-    // type of control meta
+    /** @brief Control command types */
     enum cvedix_control_type {
         SPEAK,
         VIDEO_RECORD,
         IMAGE_RECORD
     };
 
-    // control meta, which contains control data.
+    /**
+     * @brief Control metadata for commands
+     */
     class cvedix_control_meta: public cvedix_meta {
+
     private:
         // help to generate control uid if need
         void generate_uid();

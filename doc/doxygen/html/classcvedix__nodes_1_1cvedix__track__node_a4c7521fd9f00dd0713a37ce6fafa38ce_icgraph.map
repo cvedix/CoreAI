@@ -1,0 +1,5 @@
+<map id="cvedix_nodes::cvedix_track_node::track" name="cvedix_nodes::cvedix_track_node::track">
+<area shape="rect" id="Node000001" title="Execute tracking algorithm." alt="" coords="293,5,456,45"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__track__node.html#a54e03d6617012614d500385ace240235" title="Handle incoming frame meta." alt="" coords="5,5,245,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,28,246,28,246,23,280,23"/>
+</map>

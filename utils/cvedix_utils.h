@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_utils.h
+ * @brief Common utility functions for SDK
+ * 
+ * String formatting, time utilities, drawing helpers.
+ */
+
 #pragma once
 
 #include <iostream>
@@ -7,13 +14,13 @@
 #include <regex>
 #include <opencv2/imgproc.hpp>
 
-// https://github.com/HowardHinnant/date/blob/master/include/date/date.h
 #include "date.h"
 
 using namespace std;
 using namespace std::chrono;
 
 namespace cvedix_utils {
+
     // string format in C++17
     template<typename ... Args>
     inline string string_format(const string& format, Args ... args){

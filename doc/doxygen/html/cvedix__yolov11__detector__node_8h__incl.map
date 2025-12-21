@@ -1,0 +1,17 @@
+<map id="nodes/infers/cvedix_yolov11_detector_node.h" name="nodes/infers/cvedix_yolov11_detector_node.h">
+<area shape="rect" id="Node000001" title="YOLOv11 object detector using OpenCV DNN (ONNX)" alt="" coords="246,5,439,45"/>
+<area shape="rect" id="Node000002" href="$cvedix__primary__infer__node_8h.html" title="Base class for primary inference nodes (full&#45;frame detection)" alt="" coords="171,93,330,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="324,48,283,86,279,82,320,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="355,93,517,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="365,44,407,82,404,86,362,48"/>
+<area shape="rect" id="Node000003" href="$cvedix__infer__node_8h.html" title="Base class for all inference nodes in Core AI Runtime." alt="" coords="174,181,327,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="253,134,253,167,248,167,248,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,262,80,287"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="221,209,93,257,86,260,85,255,91,252,219,204"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="104,262,237,287"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="241,209,194,254,191,250,237,205"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="262,262,399,287"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="264,205,311,250,307,254,261,209"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="423,255,593,295"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="289,204,434,248,432,253,287,209"/>
+</map>

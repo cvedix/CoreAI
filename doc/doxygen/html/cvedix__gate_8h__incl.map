@@ -1,5 +1,7 @@
 <map id="utils/cvedix_gate.h" name="utils/cvedix_gate.h">
-<area shape="rect" id="node1" title=" " alt="" coords="68,5,213,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,148,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="173,80,237,107"/>
+<area shape="rect" id="Node000001" title="Synchronization gate for pause/resume control." alt="" coords="68,5,213,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,148,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,33,98,70,94,67,128,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="173,79,237,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,29,187,67,183,70,149,33"/>
 </map>

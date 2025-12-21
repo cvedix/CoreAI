@@ -1,3 +1,19 @@
+/**
+ * @file cvedix_face_recognition_trt_node.h
+ * @brief TensorRT-accelerated face recognition node
+ * 
+ * Uses TensorRT for fastest possible face recognition on NVIDIA GPUs.
+ * Typically ~5x faster than OpenCV DNN.
+ * 
+ * @section trt_fr_prereq Prerequisites
+ * - Compile with `-DCVEDIX_WITH_TRT`
+ * - NVIDIA GPU with TensorRT support
+ * - Pre-built TensorRT engine file (.engine)
+ * 
+ * @see cvedix_face_recognition_node For auto-backend selection
+ * @see cvedix_face_recognition_ort_node For ONNX Runtime
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
@@ -5,6 +21,7 @@
 #include "cvedix/third_party/trt_insightface/models/insight_face_recognition.h"
 
 namespace cvedix_nodes {
+
     /**
      * @brief TensorRT-based InsightFace face recognition node
      * 

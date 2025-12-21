@@ -1,11 +1,19 @@
+/**
+ * @file cvedix_record_task.h
+ * @brief Base class for async recording tasks
+ * 
+ * Provides infrastructure for video/image recording with:
+ * - Async thread execution
+ * - Progress tracking
+ * - Callback on completion
+ */
+
 #pragma once
 
 #include <deque>
 #include <thread>
 #include <memory>
 #include <functional>
-// compile tips:
-// remove experimental/ if gcc >= 8.0
 #include <experimental/filesystem>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
@@ -18,40 +26,38 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 
 namespace cvedix_nodes {
-    // record type
+    /** @brief Record type enumeration */
     enum cvedix_record_type {
         IMAGE,
         VIDEO
     };
 
-    // record information, used to notify others.
+    /** @brief Record information for callbacks */
     struct cvedix_record_info {
         int channel_index;
         cvedix_record_type record_type = cvedix_record_type::IMAGE;
         std::string file_name_without_ext;
         std::string full_record_path;
         bool osd;
-
-        int pre_record_video_duration = 0;   // ignore for image
-        int record_video_duration = 0;       // ignore for image
+        int pre_record_video_duration = 0;
+        int record_video_duration = 0;
     };
 
-    // hooker for recording complete
+    /** @brief Callback when recording completes */
     typedef std::function<void(int, cvedix_record_info)> cvedix_record_task_complete_hooker;
 
-    // status of record task
+    /** @brief Task status enumeration */
     enum cvedix_record_task_status {
-        NOSTRAT,   // task initialized but have not called start()
-        STARTED,   // called start() and task is working (writing/saving data to file)
-        COMPLETE   // record task is complete. task instance is un-reusable
+        NOSTRAT,   ///< Not started
+        STARTED,   ///< Recording in progress
+        COMPLETE   ///< Recording finished
     };
 
-    // base class for record task (video & image), works asynchronously and mainly responsible for:
-    // 1. preprocess frame before recording
-    // 2. generate valid full record path, including path, name with extension
-    // 3. run working thread
-    // 4. notify caller when recording complete
+    /**
+     * @brief Base class for recording tasks
+     */
     class cvedix_record_task {
+
     private:
         int channel_index;
         std::string file_name_without_ext;

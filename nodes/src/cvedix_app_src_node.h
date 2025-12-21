@@ -1,12 +1,21 @@
+/**
+ * @file cvedix_app_src_node.h
+ * @brief Application source node for external frame injection
+ * 
+ * Receives frames from host application code via push_frames().
+ */
 
 #pragma once
 
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // app src node, receive image data from external host code.
+    /**
+     * @brief App source node (external push)
+     */
     class cvedix_app_src_node: public cvedix_src_node
     {
+
     private:
     protected:
         // just call cvedix_node::handle_run to ignore cvedix_src_node::handle_run

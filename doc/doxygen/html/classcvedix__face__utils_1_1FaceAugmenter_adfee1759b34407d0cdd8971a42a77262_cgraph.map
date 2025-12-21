@@ -1,0 +1,9 @@
+<map id="cvedix_face_utils::FaceAugmenter::generate_all_variants" name="cvedix_face_utils::FaceAugmenter::generate_all_variants">
+<area shape="rect" id="Node000001" title="Generate all augmented variants of a face." alt="" coords="5,77,195,132"/>
+<area shape="rect" id="Node000002" href="$classcvedix__face__utils_1_1FaceAugmenter.html#a425cf317f77ecf07a2f7ea8b6f7a8720" title="Apply glasses overlay to aligned face." alt="" coords="265,5,431,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,75,250,58,252,63,196,80"/>
+<area shape="rect" id="Node000003" href="$classcvedix__face__utils_1_1FaceAugmenter.html#adce713dd04edfeb5b7bb639f4b444ed6" title="Apply hat overlay to aligned face (on top of head)" alt="" coords="251,85,445,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,102,237,102,237,107,195,107"/>
+<area shape="rect" id="Node000004" href="$classcvedix__face__utils_1_1FaceAugmenter.html#a41e9e62c383af8acf6ca53f576a469b2" title="Apply mask overlay to aligned face (covers nose and mouth)" alt="" coords="243,149,453,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="195,126,257,143,256,148,194,132"/>
+</map>

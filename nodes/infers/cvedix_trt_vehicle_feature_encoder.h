@@ -1,21 +1,24 @@
+/**
+ * @file cvedix_trt_vehicle_feature_encoder.h
+ * @brief TensorRT vehicle feature encoder for ReID
+ * 
+ * @warning Currently disabled due to TensorRT 10.x API incompatibility
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_secondary_infer_node.h"
-// trt_vehicle is currently disabled due to TensorRT 10.x API incompatibility
-// #include "third_party/trt_vehicle/models/vehicle_feature_encoder.h"
 
-// Forward declaration (trt_vehicle library is disabled)
-namespace trt_vehicle {
-    class VehicleFeatureEncoder;
-}
+namespace trt_vehicle { class VehicleFeatureEncoder; }
 
 namespace cvedix_nodes {
-    // vehicle feature encoder based on tensorrt using trt_vehicle library
-    // update embeddings of cvedix_frame_target
-    // NOTE: trt_vehicle library is currently disabled - this class will not work until trt_vehicle is re-enabled
+    /**
+     * @brief TensorRT vehicle feature encoder (currently disabled)
+     */
     class cvedix_trt_vehicle_feature_encoder: public cvedix_secondary_infer_node
     {
+
     private:
         /* data */
         std::shared_ptr<trt_vehicle::VehicleFeatureEncoder> vehicle_feature_encoder = nullptr;

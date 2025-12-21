@@ -1,4 +1,5 @@
 <map id="cvedix_nodes::cvedix_video_record_task" name="cvedix_nodes::cvedix_video_record_task">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,168,136"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__record__task.html" title=" " alt="" coords="5,5,168,47"/>
+<area shape="rect" id="Node000001" title="Async video recording task." alt="" coords="5,93,168,133"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__record__task.html" title="Base class for recording tasks." alt="" coords="5,5,168,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,59,89,93,84,93,84,59"/>
 </map>

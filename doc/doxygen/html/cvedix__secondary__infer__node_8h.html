@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/base/cvedix_secondary_infer_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/infers/base/cvedix_secondary_infer_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,34 +69,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li><li class="navelem"><a class="el" href="dir_8421b63095b7d84e9845e5ecbbbfc58b.html">base</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li><li class="navelem"><a class="el" href="dir_e8926ace51950204405ddd097135bf4f.html">base</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_secondary_infer_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for secondary inference nodes (ROI-based inference)  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="cvedix__infer__node_8h_source.html">cvedix_infer_node.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_secondary_infer_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__secondary__infer__node_8h__incl.png" border="0" usemap="#anodes_2infers_2base_2cvedix__secondary__infer__node_8h" alt=""/></div>
+<map name="anodes_2infers_2base_2cvedix__secondary__infer__node_8h" id="anodes_2infers_2base_2cvedix__secondary__infer__node_8h">
+<area shape="rect" title="Base class for secondary inference nodes (ROI&#45;based inference)" alt="" coords="159,5,343,45"/>
+<area shape="rect" href="cvedix__infer__node_8h.html" title="Base class for all inference nodes in Core AI Runtime." alt="" coords="174,93,327,119"/>
+<area shape="poly" title=" " alt="" coords="253,46,253,79,248,79,248,46"/>
+<area shape="rect" title=" " alt="" coords="5,174,80,199"/>
+<area shape="poly" title=" " alt="" coords="221,121,93,169,86,172,85,167,91,164,219,116"/>
+<area shape="rect" title=" " alt="" coords="104,174,237,199"/>
+<area shape="poly" title=" " alt="" coords="241,121,194,166,191,162,237,117"/>
+<area shape="rect" title=" " alt="" coords="262,174,399,199"/>
+<area shape="poly" title=" " alt="" coords="264,117,311,162,307,166,261,121"/>
+<area shape="rect" title=" " alt="" coords="423,167,593,207"/>
+<area shape="poly" title=" " alt="" coords="289,116,434,160,432,165,287,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__secondary__infer__node_8h__dep__incl.png" border="0" usemap="#anodes_2infers_2base_2cvedix__secondary__infer__node_8hdep" alt=""/></div>
+<map name="anodes_2infers_2base_2cvedix__secondary__infer__node_8hdep" id="anodes_2infers_2base_2cvedix__secondary__infer__node_8hdep">
+<area shape="rect" title="Base class for secondary inference nodes (ROI&#45;based inference)" alt="" coords="456,5,640,45"/>
+<area shape="rect" href="cvedix__classifier__node_8h.html" title="Generic image classification node." alt="" coords="5,101,155,141"/>
+<area shape="poly" title=" " alt="" coords="443,44,311,66,167,96,140,103,138,98,166,91,310,61,442,39"/>
+<area shape="rect" href="cvedix__facenet__node_8h.html" title="FaceNet face recognition and MTCNN face detection nodes." alt="" coords="179,101,328,141"/>
+<area shape="poly" title=" " alt="" coords="476,52,314,103,312,98,475,47"/>
+<area shape="rect" href="cvedix__feature__encoder__node_8h.html" title="Generic feature encoder for embedding extraction." alt="" coords="352,101,539,141"/>
+<area shape="poly" title=" " alt="" coords="519,57,468,103,464,99,515,53"/>
+<area shape="rect" href="cvedix__sface__feature__encoder__node_8h_source.html" title=" " alt="" coords="563,93,741,148"/>
+<area shape="poly" title=" " alt="" coords="581,52,624,91,621,95,577,56"/>
+<area shape="rect" href="cvedix__face__recognition__node_8h.html" title="Unified face recognition node with multi&#45;backend support." alt="" coords="765,101,953,141"/>
+<area shape="poly" title=" " alt="" coords="625,47,797,98,795,103,623,52"/>
+<area shape="rect" href="cvedix__face__registration__node_8h.html" title="Face registration node with augmentation support." alt="" coords="977,101,1167,141"/>
+<area shape="poly" title=" " alt="" coords="654,39,802,61,966,91,999,98,998,103,965,96,801,66,653,44"/>
+<area shape="rect" href="cvedix__face__recognition__node_8cpp.html" title="Face recognition node with advanced accuracy improvement techniques." alt="" coords="757,196,960,236"/>
+<area shape="poly" title=" " alt="" coords="861,154,861,196,856,196,856,154"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__secondary__infer__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__secondary__infer__node.html">cvedix_nodes::cvedix_secondary_infer_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for secondary (ROI-based) inference nodes.  <a href="classcvedix__nodes_1_1cvedix__secondary__infer__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for secondary inference nodes (ROI-based inference) </p>
+<p>Secondary infer nodes perform inference on cropped regions (ROIs) from primary detection results. This enables multi-stage pipelines.</p>
+<h1><a class="anchor" id="secondary_flow"></a>
+Pipeline Flow</h1>
+<div class="fragment"><div class="line">Frame → Primary Infer → Detections → Secondary Infer (on each ROI) → Attributes</div>
+</div><!-- fragment --><h1><a class="anchor" id="secondary_filtering"></a>
+Target Filtering</h1>
+<p>Secondary inference can be filtered by:</p><ul>
+<li>Primary class ID (p_class_ids_applied_to)</li>
+<li>Minimum target size (min_width_applied_to, min_height_applied_to)</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd>cvedix_primary_infer_node Full-frame detection </dd>
+<dd>
+cvedix_infer_node Base class </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

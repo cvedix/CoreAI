@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_analysis_board.h
+ * @brief Pipeline visualization and debug board
+ * 
+ * Renders pipeline structure to screen, file, or RTMP stream.
+ */
+
 #pragma once
 
 #include <vector>
@@ -17,8 +24,12 @@
 #include "cvedix_node_on_screen.h"
 
 namespace cvedix_utils {
+    /**
+     * @brief Pipeline analysis and visualization board
+     */
     class cvedix_analysis_board final
     {
+
     private:
         // configure for render
         const int node_width = 140;

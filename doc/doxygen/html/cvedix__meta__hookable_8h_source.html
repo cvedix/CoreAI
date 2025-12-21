@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_meta_hookable.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_meta_hookable.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,138 +74,104 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">cvedix_meta_hookable.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="cvedix__meta__hookable_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_meta.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecvedix__nodes.html">cvedix_nodes</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">// callback when meta flowing through the whole pipe, MUST NOT be blocked.</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// we can do more work based on this callback, such as calculating fps/latency at each port of node, please refer to cvedix_analysis_board for details.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">   12</a></span>    <span class="keyword">typedef</span> std::function&lt;void(std::string, <span class="keywordtype">int</span>, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt;)&gt; <a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="comment">// allow hookers attached to the pipe (nodes), get notified when meta flow through each port of node (total 4 ports in node).</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">// this class is inherited by cvedix_node only.</span></div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_meta_hookable</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">   18</a></span>        std::mutex <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">meta_arriving_hooker_lock</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">   19</a></span>        std::mutex <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">meta_handling_hooker_lock</a>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">   20</a></span>        std::mutex <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">meta_handled_hooker_lock</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">   21</a></span>        std::mutex <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">meta_leaving_hooker_lock</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// hooker activated when meta is arriving at node (pushed to in_queue of cvedix_node, the 1st port in node).</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">   23</a></span>        <a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="comment">// hooker activated when meta is to be handled inside node (poped from in_queue of cvedix_node, the 2nd port in node).</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">   25</a></span>        <a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// hooker activated when meta is handled inside node (pushed to out_queue of cvedix_node, the 3rd port in node). </span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">   27</a></span>        <a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="comment">// hooker activated when meta is leaving from node (poped from out_queue of cvedix_node, the 4th port in node).</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">   29</a></span>        <a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a2f0819a144a7bccfb2865da487e9c734">   31</a></span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a2f0819a144a7bccfb2865da487e9c734">cvedix_meta_hookable</a>(<span class="comment">/* args */</span>) {}</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a31c6add9aa49861cd49fa7be17e94f1a">   32</a></span>        <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a31c6add9aa49861cd49fa7be17e94f1a">~cvedix_meta_hookable</a>() {}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aa60ed1543dbeac9d5459ded58a4d92ff">   34</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aa60ed1543dbeac9d5459ded58a4d92ff">set_meta_arriving_hooker</a>(<a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a>) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">meta_arriving_hooker_lock</a>);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            this-&gt;meta_arriving_hooker = <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a6ee8c45e53a208fa9f9620c47e8c6a45">   39</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a6ee8c45e53a208fa9f9620c47e8c6a45">set_meta_handling_hooker</a>(<a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a>) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">meta_handling_hooker_lock</a>);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            this-&gt;meta_handling_hooker = <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        }</div>
-</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a96c23d883f7ffb84ca4bb138319ccdae">   44</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a96c23d883f7ffb84ca4bb138319ccdae">set_meta_handled_hooker</a>(<a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a>) {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">meta_handled_hooker_lock</a>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            this-&gt;meta_handled_hooker = <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
-</div>
+<a href="cvedix__meta__hookable_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;cvedix/objects/cvedix_meta.h&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>cvedix_nodes {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// callback when meta flowing through the whole pipe, MUST NOT be blocked.</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// we can do more work based on this callback, such as calculating fps/latency at each port of node, please refer to cvedix_analysis_board for details.</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">typedef</span> std::function&lt;void(std::string, <span class="keywordtype">int</span>, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt;)&gt; cvedix_meta_hooker;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// allow hookers attached to the pipe (nodes), get notified when meta flow through each port of node (total 4 ports in node).</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// this class is inherited by cvedix_node only.</span></div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">   31</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_meta_hookable</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        std::mutex meta_arriving_hooker_lock;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        std::mutex meta_handling_hooker_lock;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        std::mutex meta_handled_hooker_lock;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::mutex meta_leaving_hooker_lock;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="comment">// hooker activated when meta is arriving at node (pushed to in_queue of cvedix_node, the 1st port in node).</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        cvedix_meta_hooker meta_arriving_hooker;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="comment">// hooker activated when meta is to be handled inside node (poped from in_queue of cvedix_node, the 2nd port in node).</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        cvedix_meta_hooker meta_handling_hooker;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// hooker activated when meta is handled inside node (pushed to out_queue of cvedix_node, the 3rd port in node). </span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        cvedix_meta_hooker meta_handled_hooker;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// hooker activated when meta is leaving from node (poped from out_queue of cvedix_node, the 4th port in node).</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        cvedix_meta_hooker meta_leaving_hooker;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_meta_hookable</a>(<span class="comment">/* args */</span>) {}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_class" href="classcvedix__nodes_1_1cvedix__meta__hookable.html">~cvedix_meta_hookable</a>() {}</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a68e46ec78e8e503f7775cced833246c8">   49</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a68e46ec78e8e503f7775cced833246c8">set_meta_leaving_hooker</a>(<a class="code hl_typedef" href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_meta_hooker</a> <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a>) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">meta_leaving_hooker_lock</a>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            this-&gt;meta_leaving_hooker = <a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> set_meta_arriving_hooker(cvedix_meta_hooker meta_arriving_hooker) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_arriving_hooker_lock);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            this-&gt;meta_arriving_hooker = meta_arriving_hooker;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
-</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a79fecc127e69faafad8927485c7ff77a">   54</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a79fecc127e69faafad8927485c7ff77a">invoke_meta_arriving_hooker</a>(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">meta_arriving_hooker_lock</a>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">if</span> (this-&gt;meta_arriving_hooker) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                this-&gt;<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">meta_arriving_hooker</a>(node_name, queue_size, meta);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> set_meta_handling_hooker(cvedix_meta_hooker meta_handling_hooker) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_handling_hooker_lock);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            this-&gt;meta_handling_hooker = meta_handling_hooker;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> set_meta_handled_hooker(cvedix_meta_hooker meta_handled_hooker) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_handled_hooker_lock);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            this-&gt;meta_handled_hooker = meta_handled_hooker;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> set_meta_leaving_hooker(cvedix_meta_hooker meta_leaving_hooker) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_leaving_hooker_lock);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            this-&gt;meta_leaving_hooker = meta_leaving_hooker;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">void</span> invoke_meta_arriving_hooker(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_arriving_hooker_lock);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">if</span> (this-&gt;meta_arriving_hooker) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                this-&gt;meta_arriving_hooker(node_name, queue_size, meta);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordtype">void</span> invoke_meta_handling_hooker(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_handling_hooker_lock);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> (this-&gt;meta_handling_hooker) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                this-&gt;meta_handling_hooker(node_name, queue_size, meta);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">void</span> invoke_meta_handled_hooker(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_handled_hooker_lock);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keywordflow">if</span> (this-&gt;meta_handled_hooker) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                this-&gt;meta_handled_hooker(node_name, queue_size, meta);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">void</span> invoke_meta_leaving_hooker(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            std::lock_guard&lt;std::mutex&gt; guard(meta_leaving_hooker_lock);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">if</span> (this-&gt;meta_leaving_hooker) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                this-&gt;meta_leaving_hooker(node_name, queue_size, meta);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    };</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a3086b0383847b66a454934d3d6324555">   61</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a3086b0383847b66a454934d3d6324555">invoke_meta_handling_hooker</a>(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">meta_handling_hooker_lock</a>);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">if</span> (this-&gt;meta_handling_hooker) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                this-&gt;<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">meta_handling_hooker</a>(node_name, queue_size, meta);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
-</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719">   68</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719">invoke_meta_handled_hooker</a>(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">meta_handled_hooker_lock</a>);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">if</span> (this-&gt;meta_handled_hooker) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                this-&gt;<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">meta_handled_hooker</a>(node_name, queue_size, meta);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
-</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a21b633156569bf221c55f9a715431d05">   75</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a21b633156569bf221c55f9a715431d05">invoke_meta_leaving_hooker</a>(std::string node_name, <span class="keywordtype">int</span> queue_size, std::shared_ptr&lt;cvedix_objects::cvedix_meta&gt; meta) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            std::lock_guard&lt;std::mutex&gt; guard(<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">meta_leaving_hooker_lock</a>);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">if</span> (this-&gt;meta_leaving_hooker) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                this-&gt;<a class="code hl_variable" href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">meta_leaving_hooker</a>(node_name, queue_size, meta);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
-</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    };</div>
-</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_nodes::cvedix_meta_hookable</a></div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:16</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a21b633156569bf221c55f9a715431d05"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a21b633156569bf221c55f9a715431d05">cvedix_nodes::cvedix_meta_hookable::invoke_meta_leaving_hooker</a></div><div class="ttdeci">void invoke_meta_leaving_hooker(std::string node_name, int queue_size, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; meta)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:75</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a2f0819a144a7bccfb2865da487e9c734"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a2f0819a144a7bccfb2865da487e9c734">cvedix_nodes::cvedix_meta_hookable::cvedix_meta_hookable</a></div><div class="ttdeci">cvedix_meta_hookable()</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:31</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a3086b0383847b66a454934d3d6324555"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a3086b0383847b66a454934d3d6324555">cvedix_nodes::cvedix_meta_hookable::invoke_meta_handling_hooker</a></div><div class="ttdeci">void invoke_meta_handling_hooker(std::string node_name, int queue_size, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; meta)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:61</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a31c6add9aa49861cd49fa7be17e94f1a"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a31c6add9aa49861cd49fa7be17e94f1a">cvedix_nodes::cvedix_meta_hookable::~cvedix_meta_hookable</a></div><div class="ttdeci">~cvedix_meta_hookable()</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:32</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a59543c847fc0fe76e1efb0c6dfaa3882"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a59543c847fc0fe76e1efb0c6dfaa3882">cvedix_nodes::cvedix_meta_hookable::meta_leaving_hooker_lock</a></div><div class="ttdeci">std::mutex meta_leaving_hooker_lock</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:21</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a68e46ec78e8e503f7775cced833246c8"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a68e46ec78e8e503f7775cced833246c8">cvedix_nodes::cvedix_meta_hookable::set_meta_leaving_hooker</a></div><div class="ttdeci">void set_meta_leaving_hooker(cvedix_meta_hooker meta_leaving_hooker)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:49</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a6ee8c45e53a208fa9f9620c47e8c6a45"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a6ee8c45e53a208fa9f9620c47e8c6a45">cvedix_nodes::cvedix_meta_hookable::set_meta_handling_hooker</a></div><div class="ttdeci">void set_meta_handling_hooker(cvedix_meta_hooker meta_handling_hooker)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:39</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a76e02089cec8063e58ba6fcc20e1531e"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a76e02089cec8063e58ba6fcc20e1531e">cvedix_nodes::cvedix_meta_hookable::meta_arriving_hooker_lock</a></div><div class="ttdeci">std::mutex meta_arriving_hooker_lock</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:18</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a776f8838ef87f7fef44bf807c1b5240d"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a776f8838ef87f7fef44bf807c1b5240d">cvedix_nodes::cvedix_meta_hookable::meta_handled_hooker_lock</a></div><div class="ttdeci">std::mutex meta_handled_hooker_lock</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:20</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a79fecc127e69faafad8927485c7ff77a"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a79fecc127e69faafad8927485c7ff77a">cvedix_nodes::cvedix_meta_hookable::invoke_meta_arriving_hooker</a></div><div class="ttdeci">void invoke_meta_arriving_hooker(std::string node_name, int queue_size, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; meta)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:54</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a7cc4ec0264635f2250fd11730fcae968"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a7cc4ec0264635f2250fd11730fcae968">cvedix_nodes::cvedix_meta_hookable::meta_arriving_hooker</a></div><div class="ttdeci">cvedix_meta_hooker meta_arriving_hooker</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:23</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a92b1d47c247775f7132aad10702e759e"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a92b1d47c247775f7132aad10702e759e">cvedix_nodes::cvedix_meta_hookable::meta_leaving_hooker</a></div><div class="ttdeci">cvedix_meta_hooker meta_leaving_hooker</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:29</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_a96c23d883f7ffb84ca4bb138319ccdae"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#a96c23d883f7ffb84ca4bb138319ccdae">cvedix_nodes::cvedix_meta_hookable::set_meta_handled_hooker</a></div><div class="ttdeci">void set_meta_handled_hooker(cvedix_meta_hooker meta_handled_hooker)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:44</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_aa60ed1543dbeac9d5459ded58a4d92ff"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aa60ed1543dbeac9d5459ded58a4d92ff">cvedix_nodes::cvedix_meta_hookable::set_meta_arriving_hooker</a></div><div class="ttdeci">void set_meta_arriving_hooker(cvedix_meta_hooker meta_arriving_hooker)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:34</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_aafcd7d7ae22dbc64a518ca7a7f0f8a50"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aafcd7d7ae22dbc64a518ca7a7f0f8a50">cvedix_nodes::cvedix_meta_hookable::meta_handling_hooker_lock</a></div><div class="ttdeci">std::mutex meta_handling_hooker_lock</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:19</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_ab4347c8386d2c4e357e5e7090411b60e"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ab4347c8386d2c4e357e5e7090411b60e">cvedix_nodes::cvedix_meta_hookable::meta_handling_hooker</a></div><div class="ttdeci">cvedix_meta_hooker meta_handling_hooker</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:25</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_aca8314ca4ccce070cd36dde705d9d7fb"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#aca8314ca4ccce070cd36dde705d9d7fb">cvedix_nodes::cvedix_meta_hookable::meta_handled_hooker</a></div><div class="ttdeci">cvedix_meta_hooker meta_handled_hooker</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:27</div></div>
-<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html_ad9bd7ed3d9cd443bb905be287b828719"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html#ad9bd7ed3d9cd443bb905be287b828719">cvedix_nodes::cvedix_meta_hookable::invoke_meta_handled_hooker</a></div><div class="ttdeci">void invoke_meta_handled_hooker(std::string node_name, int queue_size, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt; meta)</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:68</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html"><div class="ttname"><a href="namespacecvedix__nodes.html">cvedix_nodes</a></div><div class="ttdef"><b>Definition</b> cvedix_ba_crossline_node.cpp:5</div></div>
-<div class="ttc" id="anamespacecvedix__nodes_html_ab4655226edf53e5f9c61e0743de3db96"><div class="ttname"><a href="namespacecvedix__nodes.html#ab4655226edf53e5f9c61e0743de3db96">cvedix_nodes::cvedix_meta_hooker</a></div><div class="ttdeci">std::function&lt; void(std::string, int, std::shared_ptr&lt; cvedix_objects::cvedix_meta &gt;)&gt; cvedix_meta_hooker</div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:12</div></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+<div class="ttc" id="aclasscvedix__nodes_1_1cvedix__meta__hookable_html"><div class="ttname"><a href="classcvedix__nodes_1_1cvedix__meta__hookable.html">cvedix_nodes::cvedix_meta_hookable</a></div><div class="ttdef"><b>Definition</b> cvedix_meta_hookable.h:31</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

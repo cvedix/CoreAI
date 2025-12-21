@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_pipe_checker.h
+ * @brief Pipeline structure validator
+ * 
+ * Validates pipeline topology and prints summary.
+ */
+
 #pragma once
 
 #include <sstream>
@@ -6,8 +13,12 @@
 #include "cvedix/excepts/cvedix_invalid_pipeline_error.h"
 
 namespace cvedix_utils {
+    /**
+     * @brief Pipeline topology validator
+     */
     class cvedix_pipe_checker
     {
+
     private:
         // we can only handle the pipeline structure like below, totally symmetrical vertically for each layer.
         /*

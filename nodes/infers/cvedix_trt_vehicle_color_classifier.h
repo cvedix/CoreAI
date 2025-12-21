@@ -1,21 +1,24 @@
+/**
+ * @file cvedix_trt_vehicle_color_classifier.h
+ * @brief TensorRT vehicle color classifier
+ * 
+ * @warning Currently disabled due to TensorRT 10.x API incompatibility
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_secondary_infer_node.h"
-// trt_vehicle is currently disabled due to TensorRT 10.x API incompatibility
-// #include "third_party/trt_vehicle/models/vehicle_color_classifier.h"
 
-// Forward declaration (trt_vehicle library is disabled)
-namespace trt_vehicle {
-    class VehicleColorClassifier;
-}
+namespace trt_vehicle { class VehicleColorClassifier; }
 
 namespace cvedix_nodes {
-    // vehicle color classifier based on tensorrt using trt_vehicle library
-    // update secondary_class_ids/secondary_labels/secondary_scores of cvedix_frame_target.
-    // NOTE: trt_vehicle library is currently disabled - this class will not work until trt_vehicle is re-enabled
+    /**
+     * @brief TensorRT vehicle color classifier (currently disabled)
+     */
     class cvedix_trt_vehicle_color_classifier: public cvedix_secondary_infer_node
     {
+
     private:
         /* data */
         std::shared_ptr<trt_vehicle::VehicleColorClassifier> vehicle_color_classifier = nullptr;

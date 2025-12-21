@@ -1,13 +1,20 @@
+/**
+ * @file cvedix_rect.h
+ * @brief 2D rectangle geometry primitive
+ */
+
 #pragma once
 
 #include <tuple>
-
 #include "cvedix_point.h"
 #include "cvedix_size.h"
 
 namespace cvedix_objects {
-    // rect in 2-dims coordinate system
+    /**
+     * @brief 2D rectangle
+     */
     class cvedix_rect {
+
     private:
         /* data */
     public:

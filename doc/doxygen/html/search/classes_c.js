@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['simplefacedatabase_0',['SimpleFaceDatabase',['../classSimpleFaceDatabase.html',1,'']]]
+  ['parse_5fmanip_0',['parse_manip',['../structdate_1_1parse__manip.html',1,'date']]]
 ];

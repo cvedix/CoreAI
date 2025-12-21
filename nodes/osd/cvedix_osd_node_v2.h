@@ -1,14 +1,22 @@
+/**
+ * @file cvedix_osd_node_v2.h
+ * @brief OSD v2 - displays sub-targets at screen bottom
+ * 
+ * Shows cvedix_sub_target thumbnails in a bottom panel.
+ */
+
 #pragma once
 
 #include <opencv2/freetype.hpp>
-
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // another version for cvedix_frame_target display, display cvedix_sub_target at the bottom of screen.
+    /**
+     * @brief OSD v2 with bottom panel for sub-targets
+     */
     class cvedix_osd_node_v2: public cvedix_node
     {
+
     private:
         // support chinese font
         cv::Ptr<cv::freetype::FreeType2> ft2;

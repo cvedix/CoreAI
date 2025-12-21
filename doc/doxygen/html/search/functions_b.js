@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['list_0',['list',['../classSimpleFaceDatabase.html#a463eec6a525c634228fe9b0dcca3f4ce',1,'SimpleFaceDatabase']]],
-  ['list_5fall_1',['list_all',['../classFaceDatabase.html#a2fa4839426e1c180aaeec4009cad28eb',1,'FaceDatabase::list_all()'],['../classFaceDatabase.html#a2fa4839426e1c180aaeec4009cad28eb',1,'FaceDatabase::list_all()'],['../classFaceDatabase.html#a2fa4839426e1c180aaeec4009cad28eb',1,'FaceDatabase::list_all()']]],
-  ['load_2',['load',['../classSimpleFaceDatabase.html#afe83a0f00bafd690c2506a07322a2bfc',1,'SimpleFaceDatabase::load()'],['../classFaceDatabase.html#aa620bb94c425d6a1715ca766b12a3aae',1,'FaceDatabase::load()'],['../classSimpleFaceDatabase.html#afe83a0f00bafd690c2506a07322a2bfc',1,'SimpleFaceDatabase::load()']]],
-  ['load_5fdatabase_3',['load_database',['../classcvedix__nodes_1_1cvedix__face__recognition__node.html#ae691c74b2f323fbdfe39652aad00a45b',1,'cvedix_nodes::cvedix_face_recognition_node::load_database()'],['../classcvedix__nodes_1_1cvedix__face__registration__node.html#a6deb588c8156f80189ec03788aea3412',1,'cvedix_nodes::cvedix_face_registration_node::load_database()']]]
+  ['need_5fapply_0',['need_apply',['../classcvedix__nodes_1_1cvedix__secondary__infer__node.html#a8e360bb6318fb34433ac8bec681b059f',1,'cvedix_nodes::cvedix_secondary_infer_node']]],
+  ['next_5fnodes_1',['next_nodes',['../classcvedix__nodes_1_1cvedix__node.html#a1a2175349d77fbab3124341ace8aad01',1,'cvedix_nodes::cvedix_node']]],
+  ['node_5ftype_2',['node_type',['../classcvedix__nodes_1_1cvedix__des__node.html#a9b01587b1b773d53d7b09783d23cbeec',1,'cvedix_nodes::cvedix_des_node::node_type()'],['../classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8',1,'cvedix_nodes::cvedix_node::node_type()'],['../classcvedix__nodes_1_1cvedix__src__node.html#adc971b5cc518ac493bae68b1ad7aa321',1,'cvedix_nodes::cvedix_src_node::node_type()']]]
 ];

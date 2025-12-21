@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_file_src_node.h
+ * @brief Video file source node
+ * 
+ * Reads video from local file using GStreamer pipeline.
+ */
+
 #pragma once
 
 #include <string>
@@ -8,10 +15,11 @@
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // file source node, read video from local file.
-    // example:
-    // ../video/test.mp4
+    /**
+     * @brief File source node (local video)
+     */
     class cvedix_file_src_node: public cvedix_src_node {
+
     private:
         /* data */
         std::string gst_template = "filesrc location=%s ! qtdemux ! h264parse ! %s ! videoconvert ! appsink";

@@ -1,3 +1,9 @@
+/**
+ * @file cvedix_face_osd_node_v2.h
+ * @brief Face OSD v2 with similarity comparison
+ * 
+ * Shows face thumbnails and similarity scores in bottom panel.
+ */
 
 #pragma once
 
@@ -6,10 +12,12 @@
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // another version for cvedix_frame_face_target display, including displaying similarity between faces.
+    /**
+     * @brief Face OSD v2 with similarity display
+     */
     class cvedix_face_osd_node_v2: public cvedix_node
     {
+
     private:
         // leave a gap at the bottom of osd frame
         int gap_height = 112;

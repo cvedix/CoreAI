@@ -1,0 +1,5 @@
+<map id="cvedix_nodes::cvedix_node::attach_to" name="cvedix_nodes::cvedix_node::attach_to">
+<area shape="rect" id="Node000001" title="Attach this node to previous nodes in the pipeline." alt="" coords="5,5,168,45"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ae58c2580b075d729394e4ee9660b50f8" title="Get the type of this node." alt="" coords="216,5,379,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,202,23,202,28,168,28"/>
+</map>

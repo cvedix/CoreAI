@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: 一、Giới thiệu</title>
+<title>CVEDIX AI Runtime: CVEDIX Instance Pipeline SDK - Hướng dẫn sử dụng</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,153 +69,232 @@ $(function() {
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">一、Giới thiệu </div></div>
+  <div class="headertitle"><div class="title">CVEDIX Instance Pipeline SDK - Hướng dẫn sử dụng </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_core__ai__runtime_2README"></a> <code>AI Core Runtime</code> là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, <code>AI Core Runtime</code> có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
-二、Ưu điểm và đặc điểm</h1>
-<p><code>AI Core Runtime</code> tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.</p>
-<p><code>AI Core Runtime</code> sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu <code>Node</code> trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
-四、Tính năng</h1>
-<p>AI Core Runtime là một framework giúp tích hợp mô hình thuật toán thị giác máy tính trở nên đơn giản hơn, lưu ý rằng nó không phải là framework học sâu như TensorFlow, TensorRT. Các tính năng chính của AI Core Runtime như sau:</p>
-<ul>
-<li>Đọc luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đọc hình ảnh.</li>
-<li>Giải mã video: Hỗ trợ giải mã video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).</li>
-<li>Suy luận thuật toán: Hỗ trợ suy luận đa cấp dựa trên thuật toán học sâu, chẳng hạn như phát hiện đối tượng, phân loại hình ảnh, trích xuất đặc trưng, tạo hình ảnh và các mạng liên quan khác. Đồng thời hỗ trợ tích hợp thuật toán hình ảnh truyền thống. <b>Hỗ trợ tích hợp mô hình đa phương thức lớn (mLLM) (cập nhật 2025/8/12)</b></li>
-<li>Theo dõi đối tượng: Hỗ trợ theo dõi đối tượng, chẳng hạn như thuật toán theo dõi IOU, SORT, v.v.</li>
-<li>Phân tích hành vi (BA): Hỗ trợ phân tích hành vi dựa trên theo dõi, chẳng hạn như vượt đường, đỗ xe, vi phạm giao thông và các hành vi giao thông khác.</li>
-<li>Logic nghiệp vụ: Hỗ trợ tích hợp logic nghiệp vụ tùy chỉnh bất kỳ, có thể liên quan chặt chẽ đến nghiệp vụ.</li>
-<li>Proxy dữ liệu: Hỗ trợ đẩy dữ liệu có cấu trúc (json/xml/định dạng tùy chỉnh) lên đám mây, tệp hoặc nền tảng bên thứ ba khác thông qua kafka/Socket, v.v.</li>
-<li>Ghi lại: Hỗ trợ ghi video trong khoảng thời gian cụ thể, chụp ảnh khung cụ thể và lưu vào tệp.</li>
-<li>Hiển thị màn hình (OSD): Hỗ trợ vẽ dữ liệu có cấu trúc và kết quả xử lý logic nghiệp vụ lên khung hình.</li>
-<li>Mã hóa video: Hỗ trợ mã hóa video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).</li>
-<li>Đẩy luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đẩy hình ảnh.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
-五、Bắt đầu nhanh</h1>
-<h2><a class="anchor" id="autotoc_md13"></a>
-5.1 Phụ thuộc</h2>
-<p>Nền tảng</p><ul>
-<li>Ubuntu 18.04 x86_64 NVIDIA rtx/tesla GPUs</li>
-<li>Ubuntu 18.04 aarch64 NVIDIA jetson serials device，tx2 tested</li>
-<li>Ubuntu 22.04 x86_64 by VMware virtual machine on Windows 10, pure CPUs</li>
-<li>Ubuntu 18.04 x86_64 Cambrian MLU serials device, MLU 370 tested</li>
-<li>Ubuntu 18.04 aarch64 Rockchip RK35** serials device, RK3588 tested</li>
-<li>Ubuntu 22.04 aarch64 Ascend 310/910 serials device, Atlas 300I-Pro tested</li>
-<li>Chờ bạn kiểm tra</li>
-</ul>
-<p>Cơ bản</p><ul>
-<li>C++ 17</li>
-<li>OpenCV &gt;= 4.6</li>
-<li>GStreamer 1.14.5 (Required by OpenCV)</li>
-<li>GCC &gt;= 7.5</li>
-</ul>
-<p>Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mình hoặc sử dụng backend suy luận khác ngoài <code>opencv::dnn</code>.</p><ul>
-<li>CUDA</li>
-<li>TensorRT</li>
-<li>Paddle Inference</li>
-<li>ONNX Runtime</li>
-<li>mLLM（Ollama/vLLM/OpenAI-compatible API Services）</li>
-<li>Bất kỳ thứ gì bạn thích</li>
-</ul>
-<p>Cách cài đặt CUDA và TensorRT</p>
-<p>Cách cài đặt Paddle_Inference</p>
-<h2><a class="anchor" id="autotoc_md14"></a>
-5.2 Cài đặt &amp; Tích hợp SDK</h2>
-<p>Thay vì biên dịch toàn bộ mã nguồn framework, chúng tôi khuyến nghị sử dụng SDK đã đóng gói để phát triển ứng dụng.</p>
-<h3><a class="anchor" id="autotoc_md15"></a>
-1. Cài đặt SDK</h3>
-<p>Nếu bạn đã có gói <code>.deb</code>: </p><div class="fragment"><div class="line">sudo dpkg -i libcvedix-dev_*.deb</div>
-</div><!-- fragment --><p>Hoặc build và cài đặt SDK từ source (nếu chưa có gói pre-built): </p><div class="fragment"><div class="line">./build_sdk.sh --prefix=/usr/local</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md16"></a>
-2. Tích hợp vào dự án CMake</h3>
-<p>Trong file <code>CMakeLists.txt</code> của dự án bạn:</p>
-<div class="fragment"><div class="line"># Tìm gói cvedix</div>
+<div class="textblock"><p><a class="anchor" id="md_doc_2README__SDK"></a> </p>
+<h1><a class="anchor" id="autotoc_md1330"></a>
+Tổng quan</h1>
+<p>CVEDIX Instance Pipeline SDK là một framework C++ để phân tích và xử lý video, được đóng gói dưới dạng SDK để dễ dàng tích hợp vào các dự án của bạn.</p>
+<h1><a class="anchor" id="autotoc_md1331"></a>
+Cài đặt SDK</h1>
+<h2><a class="anchor" id="autotoc_md1332"></a>
+Cách 1: Sử dụng build script (Khuyến nghị)</h2>
+<div class="fragment"><div class="line"># Build và cài đặt SDK với cấu hình mặc định</div>
+<div class="line">./build_sdk.sh</div>
+<div class="line"> </div>
+<div class="line"># Hoặc chỉ định thư mục cài đặt</div>
+<div class="line">./build_sdk.sh --prefix=/usr/local</div>
+<div class="line"> </div>
+<div class="line"># Build với các tính năng tùy chọn</div>
+<div class="line">./build_sdk.sh --with-cuda --with-trt --build-type=Release</div>
+<div class="line"> </div>
+<div class="line"># Xem tất cả các tùy chọn</div>
+<div class="line">./build_sdk.sh --help</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1333"></a>
+Cách 2: Sử dụng CMake trực tiếp</h2>
+<div class="fragment"><div class="line">mkdir -p build_sdk</div>
+<div class="line">cd build_sdk</div>
+<div class="line">cmake .. \</div>
+<div class="line">    -DCMAKE_INSTALL_PREFIX=/path/to/install \</div>
+<div class="line">    -DCMAKE_BUILD_TYPE=Release \</div>
+<div class="line">    -DCVEDIX_WITH_CUDA=OFF \</div>
+<div class="line">    -DCVEDIX_WITH_TRT=OFF</div>
+<div class="line">make -j$(nproc)</div>
+<div class="line">make install</div>
+</div><!-- fragment --><p>Sau khi cài đặt, SDK sẽ được đặt tại thư mục bạn chỉ định (mặc định là <code>./output</code>).</p>
+<h1><a class="anchor" id="autotoc_md1334"></a>
+Cấu trúc SDK</h1>
+<p>Sau khi cài đặt, SDK có cấu trúc như sau:</p>
+<div class="fragment"><div class="line">output/</div>
+<div class="line">├── include/</div>
+<div class="line">│   └── cvedix/              # Header files</div>
+<div class="line">│       ├── nodes/          # Node headers</div>
+<div class="line">│       ├── objects/        # Object definitions</div>
+<div class="line">│       ├── utils/          # Utility headers</div>
+<div class="line">│       └── cvedix_version.h</div>
+<div class="line">├── lib/</div>
+<div class="line">│   ├── libcvedix_instance_sdk.so    # Shared library</div>
+<div class="line">│   ├── cmake/</div>
+<div class="line">│   │   └── cvedix/         # CMake config files</div>
+<div class="line">│   │       ├── cvedix-config.cmake</div>
+<div class="line">│   │       ├── cvedix-config-version.cmake</div>
+<div class="line">│   │       └── cvedix-targets.cmake</div>
+<div class="line">│   └── pkgconfig/</div>
+<div class="line">│       └── cvedix.pc      # pkg-config file</div>
+<div class="line">└── share/</div>
+<div class="line">    └── cvedix/</div>
+<div class="line">        └── sdk_info.txt   # SDK information</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1335"></a>
+Sử dụng SDK trong dự án của bạn</h1>
+<h2><a class="anchor" id="autotoc_md1336"></a>
+Cách 1: Sử dụng CMake (Khuyến nghị)</h2>
+<p>Tạo file <code>CMakeLists.txt</code> trong dự án của bạn:</p>
+<div class="fragment"><div class="line">cmake_minimum_required(VERSION 3.10)</div>
+<div class="line">project(my_project)</div>
+<div class="line"> </div>
+<div class="line">set(CMAKE_CXX_STANDARD 17)</div>
+<div class="line"> </div>
+<div class="line"># Tìm SDK (có thể chỉ định đường dẫn nếu không cài đặt hệ thống)</div>
+<div class="line">set(CMAKE_PREFIX_PATH &quot;/path/to/sdk/install&quot; ${CMAKE_PREFIX_PATH})</div>
 <div class="line">find_package(cvedix REQUIRED)</div>
 <div class="line"> </div>
-<div class="line"># Link thư viện (Tự động bao gồm cả đường dẫn include)</div>
-<div class="line">target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)</div>
+<div class="line"># Tạo executable</div>
+<div class="line">add_executable(my_app main.cpp)</div>
 <div class="line"> </div>
-<div class="line"># Lưu ý: Không cần thêm include_directories() vì target đã chứa sẵn thông tin này.</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md17"></a>
-3. Ví dụ đơn giản (Minimal Example)</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cvedix/nodes/src/cvedix_file_src_node.h&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;cvedix/nodes/infers/cvedix_yunet_face_detector_node.h&gt;</span></div>
+<div class="line"># Liên kết với SDK</div>
+<div class="line">target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)</div>
+</div><!-- fragment --><p>Ví dụ code <code>main.cpp</code>:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cvedix/cvedix_version.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;cvedix/nodes/src/cvedix_file_src_node.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;cvedix/nodes/infers/cvedix_yolo_detector_node.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;cvedix/utils/analysis_board/cvedix_analysis_board.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="1-1-1__sample_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">CVEDIX_LOGGER_INIT</a>();</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// 1. Tạo Source Node</span></div>
-<div class="line">    <span class="keyword">auto</span> <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">source</a> = std::make_shared&lt;cvedix_nodes::cvedix_file_src_node&gt;(<span class="stringliteral">&quot;src&quot;</span>, 0, <span class="stringliteral">&quot;video.mp4&quot;</span>, 1.0);</div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);</div>
+<div class="line">    CVEDIX_LOGGER_INIT();</div>
 <div class="line">    </div>
-<div class="line">    <span class="comment">// 2. Tạo Inference Node</span></div>
-<div class="line">    <span class="keyword">auto</span> detector = std::make_shared&lt;cvedix_nodes::cvedix_yunet_face_detector_node&gt;(<span class="stringliteral">&quot;detector&quot;</span>, <span class="stringliteral">&quot;face_detection_yunet.onnx&quot;</span>);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// 3. Link Pipeline</span></div>
-<div class="line">    detector-&gt;attach_to({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">source</a>});</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// 4. Chạy</span></div>
-<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">source</a>-&gt;start();</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// 5. Debug Visualizer</span></div>
-<div class="line">    cvedix_utils::cvedix_analysis_board <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">board</a>({<a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">source</a>});</div>
-<div class="line">    <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">board</a>.display();</div>
+<div class="line">    <span class="comment">// Tạo nodes</span></div>
+<div class="line">    <span class="keyword">auto</span> file_src = std::make_shared&lt;cvedix_nodes::cvedix_file_src_node&gt;(</div>
+<div class="line">        <span class="stringliteral">&quot;file_src_0&quot;</span>, 0, <span class="stringliteral">&quot;./test_video.mp4&quot;</span>, 0.6);</div>
+<div class="line">    </div>
+<div class="line">    <span class="keyword">auto</span> yolo_detector = std::make_shared&lt;cvedix_nodes::cvedix_yolo_detector_node&gt;(</div>
+<div class="line">        <span class="stringliteral">&quot;yolo_detector&quot;</span>, </div>
+<div class="line">        <span class="stringliteral">&quot;./models/yolov3.weights&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;./models/yolov3.cfg&quot;</span>,</div>
+<div class="line">        <span class="stringliteral">&quot;./models/classes.txt&quot;</span>);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Kết nối pipeline</span></div>
+<div class="line">    yolo_detector-&gt;attach_to({file_src});</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Khởi động</span></div>
+<div class="line">    file_src-&gt;start();</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Debug</span></div>
+<div class="line">    <a class="code hl_class" href="classcvedix__utils_1_1cvedix__analysis__board.html">cvedix_utils::cvedix_analysis_board</a> board({file_src});</div>
+<div class="line">    board.display(1, <span class="keyword">false</span>);</div>
+<div class="line">    </div>
+<div class="line">    std::string wait;</div>
+<div class="line">    std::getline(std::cin, wait);</div>
+<div class="line">    file_src-&gt;detach_recursively();</div>
 <div class="line">    </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="a1-1-1__sample_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="1-1-1__sample_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> 1-1-1_sample.cpp:15</div></div>
-<div class="ttc" id="asamples_2CMakeLists_8txt_html_aefe643ad9dfd494136bdcbb82111b74c"><div class="ttname"><a href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">set</a></div><div class="ttdeci">set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime) if(EXISTS $</div><div class="ttdef"><b>Definition</b> CMakeLists.txt:43</div></div>
-</div><!-- fragment --><p>Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục <a class="el" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">Các mẫu nguyên mẫu</a>.</p>
-<h2><a class="anchor" id="autotoc_md18"></a>
-5.4 Các mẫu nguyên mẫu</h2>
-<p>Tổng cộng hơn 40 mẫu nguyên mẫu, Nhấp vào để xem thêm.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
-六、Tài liệu thêm</h1>
-<ul>
-<li>How AI Core Runtime Works</li>
-<li>Development Environment For Reference</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
-七、Triển khai Thực tế &amp; Đóng gói</h1>
-<p>Để triển khai dự án vào môi trường sản xuất (Production), chúng tôi cung cấp các công cụ đóng gói SDK và ứng dụng thành các gói cài đặt chuẩn (như <code>.deb</code> cho Debian/Ubuntu) để dễ dàng phân phối và cài đặt.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
-1. Quy trình đóng gói</h2>
-<p>Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và aarch64 (như NVIDIA Jetson, Rockchip).</p>
-<ul>
-<li><b>Đóng gói SDK</b>: Tạo gói <code>.deb</code> chứa thư viện (<code>.so</code>), header files, và các công cụ hỗ trợ phát triển.<ul>
-<li>Script: <code>build_cpu_deb_package.sh</code> (chỉ CPU) hoặc các script tương ứng cho GPU/NPU.</li>
-<li>Gói đầu ra: <code>libcvedix-dev_&lt;version&gt;_&lt;arch&gt;.deb</code></li>
-</ul>
-</li>
-<li><b>Đóng gói Ứng dụng/Runtime</b>: Tạo gói chứa runtime (thư viện động) và các ứng dụng mẫu/thực thi, cùng với mô hình AI cần thiết.<ul>
-<li>Script: <code>build_package_with_models.sh</code></li>
-<li>Tự động bao gồm các mô hình từ <code>cvedix_data</code>.</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md22"></a>
-2. Cài đặt và Sử dụng</h2>
-<p>Sau khi đóng gói, việc cài đặt trên máy đích rất đơn giản:</p>
-<div class="fragment"><div class="line"># Cài đặt gói .deb</div>
-<div class="line">sudo dpkg -i libcvedix-dev_*.deb</div>
+<div class="ttc" id="aclasscvedix__utils_1_1cvedix__analysis__board_html"><div class="ttname"><a href="classcvedix__utils_1_1cvedix__analysis__board.html">cvedix_utils::cvedix_analysis_board</a></div><div class="ttdoc">Pipeline analysis and visualization board.</div><div class="ttdef"><b>Definition</b> cvedix_analysis_board.h:31</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1337"></a>
+Cách 2: Sử dụng pkg-config</h2>
+<div class="fragment"><div class="line"># Compile với pkg-config</div>
+<div class="line">g++ -std=c++17 main.cpp \</div>
+<div class="line">    $(pkg-config --cflags --libs cvedix) \</div>
+<div class="line">    -o my_app</div>
+</div><!-- fragment --><p>Nếu SDK không được cài đặt hệ thống, chỉ định đường dẫn:</p>
+<div class="fragment"><div class="line">export PKG_CONFIG_PATH=/path/to/sdk/install/lib/pkgconfig:$PKG_CONFIG_PATH</div>
+<div class="line">pkg-config --cflags --libs cvedix</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1338"></a>
+Cách 3: Sử dụng trực tiếp (Manual)</h2>
+<div class="fragment"><div class="line">cmake_minimum_required(VERSION 3.10)</div>
+<div class="line">project(my_project)</div>
 <div class="line"> </div>
-<div class="line"># Kiểm tra cài đặt</div>
-<div class="line">pkg-config --modversion cvedix</div>
-</div><!-- fragment --><p>Sau khi cài đặt, SDK sẽ nằm trong hệ thống (thường là <code>/usr/lib</code> và <code>/usr/include</code>), cho phép bạn phát triển ứng dụng mới hoặc chạy ứng dụng đã biên dịch mà không cần thiết lập lại môi trường build phức tạp.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
-3. Tùy chọn triển khai</h2>
+<div class="line">set(CMAKE_CXX_STANDARD 17)</div>
+<div class="line"> </div>
+<div class="line"># Đường dẫn đến SDK</div>
+<div class="line">set(CVEDIX_SDK_ROOT &quot;/path/to/sdk/install&quot;)</div>
+<div class="line"> </div>
+<div class="line"># Include directories</div>
+<div class="line">include_directories(${CVEDIX_SDK_ROOT}/include)</div>
+<div class="line"> </div>
+<div class="line"># Link directories</div>
+<div class="line">link_directories(${CVEDIX_SDK_ROOT}/lib)</div>
+<div class="line"> </div>
+<div class="line"># Tạo executable</div>
+<div class="line">add_executable(my_app main.cpp)</div>
+<div class="line"> </div>
+<div class="line"># Liên kết</div>
+<div class="line">target_link_libraries(my_app PRIVATE cvedix_instance_sdk)</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1339"></a>
+Yêu cầu hệ thống</h1>
+<h2><a class="anchor" id="autotoc_md1340"></a>
+Phụ thuộc bắt buộc</h2>
 <ul>
-<li><b>Docker</b>: Bạn có thể sử dụng các gói <code>.deb</code> này để xây dựng Docker image nhỏ gọn cho ứng dụng của mình.</li>
-<li><b>Service</b>: Tích hợp với <code>systemd</code> để chạy ứng dụng như một dịch vụ nền (background service), tự động khởi động cùng hệ thống. </li>
+<li><b>C++17</b> compiler (GCC &gt;= 7.5)</li>
+<li><b>OpenCV &gt;= 4.6</b></li>
+<li><b>GStreamer &gt;= 1.14.5</b></li>
 </ul>
+<h2><a class="anchor" id="autotoc_md1341"></a>
+Phụ thuộc tùy chọn</h2>
+<ul>
+<li><b>CUDA</b> (nếu build với <code>--with-cuda</code>)</li>
+<li><b>TensorRT</b> (nếu build với <code>--with-trt</code>)</li>
+<li><b>PaddlePaddle</b> (nếu build với <code>--with-paddle</code>)</li>
+<li><b>Kafka</b> (nếu build với <code>--with-kafka</code>)</li>
+<li><b>OpenSSL</b> (nếu build với <code>--with-llm</code>)</li>
+<li><b>FFmpeg</b> (nếu build với <code>--with-ffmpeg</code>)</li>
+<li><b>RKNN</b> (nếu build với <code>--with-rknn</code>)</li>
+<li><b>RGA</b> (nếu build với <code>--with-rga</code>)</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1342"></a>
+Kiểm tra cài đặt</h1>
+<p>Sau khi cài đặt SDK, bạn có thể kiểm tra bằng cách:</p>
+<div class="fragment"><div class="line"># Kiểm tra CMake config</div>
+<div class="line">cmake --find-package -DNAME=cvedix -DCOMPILER_ID=GNU -DLANGUAGE=CXX -DMODE=EXIST</div>
+<div class="line"> </div>
+<div class="line"># Kiểm tra pkg-config</div>
+<div class="line">pkg-config --modversion cvedix</div>
+<div class="line">pkg-config --cflags cvedix</div>
+<div class="line">pkg-config --libs cvedix</div>
+<div class="line"> </div>
+<div class="line"># Kiểm tra thư viện</div>
+<div class="line">ldconfig -p | grep cvedix</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md1343"></a>
+Ví dụ sử dụng</h1>
+<p>Xem thư mục <code>samples/</code> để biết các ví dụ chi tiết về cách sử dụng SDK.</p>
+<p>Một số ví dụ phổ biến:</p><ul>
+<li><code>rtsp_ba_crossline_sample.cpp</code> - Phân tích hành vi với RTSP input</li>
+<li><code>file_src_sample.cpp</code> - Đọc video từ file</li>
+<li><code>yolo_detector_sample.cpp</code> - Phát hiện đối tượng với YOLO</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1344"></a>
+Troubleshooting</h1>
+<h2><a class="anchor" id="autotoc_md1345"></a>
+Lỗi: "Could not find cvedix"</h2>
+<ul>
+<li>Đảm bảo SDK đã được cài đặt đúng cách</li>
+<li>Kiểm tra <code>CMAKE_PREFIX_PATH</code> hoặc <code>PKG_CONFIG_PATH</code></li>
+<li>Xác nhận đường dẫn trong <code>CMakeLists.txt</code> của bạn</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md1346"></a>
+Lỗi: "undefined reference"</h2>
+<ul>
+<li>Đảm bảo đã link với <code>cvedix::cvedix_instance_sdk</code></li>
+<li>Kiểm tra thứ tự link libraries</li>
+<li>Đảm bảo tất cả dependencies đã được cài đặt</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md1347"></a>
+Lỗi runtime: "cannot open shared object file"</h2>
+<ul>
+<li>Kiểm tra <code>LD_LIBRARY_PATH</code> có chứa đường dẫn đến thư viện</li>
+<li>Chạy <code>ldconfig</code> nếu cài đặt hệ thống</li>
+<li>Hoặc copy thư viện vào thư mục system library</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1348"></a>
+Tài liệu thêm</h1>
+<ul>
+<li>README.md - Tài liệu chính của dự án</li>
+<li><a class="el" href="md_doc_2SAMPLES.html">SAMPLES.md</a> - Danh sách các ví dụ</li>
+<li><a class="el" href="md_nodes_2README.html">nodes/README.md</a> - Tài liệu về các nodes</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1349"></a>
+Hỗ trợ</h1>
+<p>Nếu gặp vấn đề, vui lòng:</p><ol type="1">
+<li>Kiểm tra tài liệu và examples</li>
+<li>Xem các issues trên GitHub</li>
+<li>Tạo issue mới với thông tin chi tiết về lỗi </li>
+</ol>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:49:00 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

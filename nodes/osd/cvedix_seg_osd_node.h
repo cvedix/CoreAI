@@ -1,11 +1,22 @@
+/**
+ * @file cvedix_seg_osd_node.h
+ * @brief OSD for semantic segmentation
+ * 
+ * Colorizes segmentation masks with class legend.
+ */
+
 #pragma once
 
 #include <string>
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
+    /**
+     * @brief Semantic segmentation OSD visualization
+     */
     class cvedix_seg_osd_node: public cvedix_node
     {
+
     private:
         /* data */
         int gap = 60;

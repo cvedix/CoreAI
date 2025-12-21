@@ -1,4 +1,31 @@
 var searchData=
 [
-  ['án_20cmake_0',['2. Tích hợp vào dự án CMake',['../index.html#autotoc_md16',1,'']]]
+  ['webcam_0',['Option B: Từ webcam',['../md_doc_2FACENET__QUICKSTART.html#autotoc_md621',1,'']]],
+  ['webface_20model_1',['CASIA-Webface Model',['../md_nodes_2infers_2README__FACENET.html#autotoc_md76',1,'']]],
+  ['weekday_2',['weekday',['../classdate_1_1weekday.html',1,'date']]],
+  ['weekday_5findexed_3',['weekday_indexed',['../classdate_1_1weekday__indexed.html',1,'date']]],
+  ['weekday_5flast_4',['weekday_last',['../classdate_1_1weekday__last.html',1,'date']]],
+  ['what_20makes_20this_20special_5',['What Makes This Special',['../md_doc_2INSIGHTFACE__INDEX.html#autotoc_md875',1,'']]],
+  ['what_20s_20not_20working_20⚠️_6',['What&apos;s NOT Working ⚠️',['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md230',1,'']]],
+  ['what_20s_20working_20✅_7',['What&apos;s Working ✅',['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md229',1,'']]],
+  ['width_8',['width',['../structdate_1_1detail_1_1width.html',1,'date::detail::width&lt; n, d, w, should_continue &gt;'],['../structcvedix__nodes_1_1cvedix__stream__status.html#a5fba2ece224705a22c67f63b22634c38',1,'cvedix_nodes::cvedix_stream_status::width']]],
+  ['width_3c_20n_2c_20d_2c_20w_2c_20false_20_3e_9',['width&lt; n, d, w, false &gt;',['../structdate_1_1detail_1_1width_3_01n_00_01d_00_01w_00_01false_01_4.html',1,'date::detail']]],
+  ['with_20insightface_10',['Comparison with InsightFace',['../md_nodes_2infers_2README__FACENET.html#autotoc_md80',1,'']]],
+  ['with_20license_20support_11',['Building with License Support',['../md_doc_2LICENSE__INTEGRATION.html#autotoc_md994',1,'']]],
+  ['with_20margin_12',['3. Query with Margin',['../md_doc_2MARGIN__CONFIDENCE__README.html#autotoc_md1044',1,'']]],
+  ['with_20margin_20based_20confidence_13',['With Margin-based Confidence',['../md_doc_2PROJECT__COMPLETION__SUMMARY.html#autotoc_md1166',1,'']]],
+  ['with_20margin_20check_14',['with margin check',['../md_doc_2MARGIN__VISUALIZATION.html#autotoc_md1081',1,'With Margin Check'],['../md_doc_2MARGIN__VISUALIZATION.html#autotoc_md1067',1,'With Margin Check']]],
+  ['without_20license_15',['Protected Features Work Without License',['../md_doc_2LICENSE__INTEGRATION.html#autotoc_md1021',1,'']]],
+  ['without_20margin_20check_16',['without margin check',['../md_doc_2MARGIN__VISUALIZATION.html#autotoc_md1080',1,'Without Margin Check'],['../md_doc_2MARGIN__VISUALIZATION.html#autotoc_md1066',1,'Without Margin Check']]],
+  ['work_17',['work',['../md_doc_2INSIGHTFACE__INDEX.html#autotoc_md852',1,'⏳ Future Work'],['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md241',1,'🔮 Future Work'],['../md_doc_2FACENET__SUMMARY.html#autotoc_md658',1,'Limitations &amp; Future Work'],['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md211',1,'Permanent Solutions (Future Work)']]],
+  ['work_20without_20license_18',['Protected Features Work Without License',['../md_doc_2LICENSE__INTEGRATION.html#autotoc_md1021',1,'']]],
+  ['workarounds_19',['workarounds',['../md_doc_2INSIGHTFACE__README.html#autotoc_md944',1,'Workarounds'],['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md231',1,'Workarounds']]],
+  ['workflow_20đề_20xuất_20',['Workflow đề xuất',['../md_doc_2GUIDE__CREATE__LICENSE.html#autotoc_md749',1,'']]],
+  ['workflow_20hoàn_20chỉnh_21',['Workflow hoàn chỉnh',['../md_doc_2IMAGE__RECOGNITION__USAGE.html#autotoc_md812',1,'']]],
+  ['working_20⚠️_22',['What&apos;s NOT Working ⚠️',['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md230',1,'']]],
+  ['working_20✅_23',['What&apos;s Working ✅',['../md_doc_2BUILD__ERRORS__ANALYSIS.html#autotoc_md229',1,'']]],
+  ['works_24',['How It Works',['../cvedix__ba__crossline__node_8h.html#crossline_overview',1,'']]],
+  ['write_20log_25',['write log',['../md_utils_2logger_2README.html#autotoc_md138',1,'']]],
+  ['wrong_20tensor_20names_26',['Issue 2: &quot;Wrong tensor names&quot;',['../md_doc_2BUILD__GUIDE__INSIGHTFACE.html#autotoc_md280',1,'']]],
+  ['wrong_20tensor_20names_20tt_27',['Error: &lt;tt&gt;Wrong tensor names&lt;/tt&gt;',['../md_doc_2FACE__RECOGNITION__INSIGHTFACE.html#autotoc_md458',1,'']]]
 ];

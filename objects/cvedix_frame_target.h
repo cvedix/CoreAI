@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_frame_target.h
+ * @brief Detected object target in a frame
+ * 
+ * Core detection result: bounding box, class, tracking, embeddings.
+ * Created by primary infer, updated by secondary infer.
+ */
+
 #pragma once
 
 #include <string>
@@ -8,23 +16,12 @@
 #include "shapes/cvedix_rect.h"
 #include "cvedix_sub_target.h"
 
-/*
-* ##################################################
-* what is frame target? 
-* ##################################################
-* frame target are those detected by deep learning models(detectors) and then updated by other classifiers.
-* we can detect vehicles, pedestrain, traffic lights, firesmoke and so on using cvedix_primary_infer_node, and then figure out what color the vehicles are, if the pedstrain wear a hat or not using cvedix_secondary_infer_node.
-* vehicles, pedstrain are frame targets detected in current frame.
-* 
-* note:
-* frame target is an important concept and it contains a lot of data which would be updated/filled by cvedix_node when flowing through the piepline.
-* see cvedix_frame_meta also.
-* ##################################################
-*/
-
 namespace cvedix_objects {
-    // target in frame, detected by detectors(such as yolo/ssd).
+    /**
+     * @brief Detected target in frame
+     */
     class cvedix_frame_target {
+
     private:
         /* data */
     public:

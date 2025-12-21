@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/des/cvedix_image_des_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/des/cvedix_image_des_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,34 +69,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_60f1eec9686f7c5d9f7c52f2f778e3fb.html">des</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_8eebab1d2f6d148db978aea4c8e477a8.html">des</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_image_des_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Image capture destination node (file or UDP)  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;cvedix/nodes/common/cvedix_des_node.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_image_des_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__image__des__node_8h__incl.png" border="0" usemap="#anodes_2des_2cvedix__image__des__node_8h" alt=""/></div>
+<map name="anodes_2des_2cvedix__image__des__node_8h" id="anodes_2des_2cvedix__image__des__node_8h">
+<area shape="rect" title="Image capture destination node (file or UDP)" alt="" coords="5,5,188,45"/>
+<area shape="rect" title=" " alt="" coords="12,93,181,133"/>
+<area shape="poly" title=" " alt="" coords="99,46,99,79,94,79,94,46"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__image__des__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__image__des__node.html">cvedix_nodes::cvedix_image_des_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image capture destination node.  <a href="classcvedix__nodes_1_1cvedix__image__des__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Image capture destination node (file or UDP) </p>
+<p>Captures periodic images to local files or streams via UDP.</p>
+<h1><a class="anchor" id="image_des_modes"></a>
+Modes</h1>
+<ul>
+<li><b>File mode</b>: Location ends with <code>.jpg/.jpeg</code> (e.g., <code>/data/d.jpg</code>)</li>
+<li><b>UDP mode</b>: Location is <code>ip:port</code> (e.g., <code>192.168.1.50:8000</code>)</li>
+</ul>
+<h1><a class="anchor" id="image_des_usage"></a>
+Usage</h1>
+<div class="fragment"><div class="line"><span class="comment">// File mode - save image every 5 seconds</span></div>
+<div class="line"><span class="keyword">auto</span> image_des = std::make_shared&lt;cvedix_image_des_node&gt;(</div>
+<div class="line">    <span class="stringliteral">&quot;image_saver&quot;</span>, 0,</div>
+<div class="line">    <span class="stringliteral">&quot;/captures/%d.jpg&quot;</span>,  <span class="comment">// %d = sequence number</span></div>
+<div class="line">    5                    <span class="comment">// 5 second interval</span></div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// UDP mode - stream images</span></div>
+<div class="line"><span class="keyword">auto</span> udp_des = std::make_shared&lt;cvedix_image_des_node&gt;(</div>
+<div class="line">    <span class="stringliteral">&quot;udp_streamer&quot;</span>, 0,</div>
+<div class="line">    <span class="stringliteral">&quot;192.168.1.50:8000&quot;</span>, 1  <span class="comment">// 1 fps</span></div>
+<div class="line">);</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd>cvedix_des_node Base class </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

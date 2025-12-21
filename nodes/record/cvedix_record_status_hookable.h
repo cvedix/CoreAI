@@ -1,11 +1,19 @@
+/**
+ * @file cvedix_record_status_hookable.h
+ * @brief Interface for record completion callbacks
+ */
+
 #pragma once
 
 #include "cvedix_record_task.h"
 
 namespace cvedix_nodes {
-    // callback when record task complete.
+    /**
+     * @brief Mixin for record completion callbacks
+     */
     class cvedix_record_status_hookable
     {
+
     protected:
         cvedix_record_task_complete_hooker image_record_complete_hooker;
         cvedix_record_task_complete_hooker video_record_complete_hooker;

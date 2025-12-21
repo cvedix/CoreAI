@@ -1,5 +1,7 @@
 <map id="cvedix_nodes::cvedix_des_node::handle_frame_meta" name="cvedix_nodes::cvedix_des_node::handle_frame_meta">
-<area shape="rect" id="node1" title=" " alt="" coords="5,50,236,91"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__stream__status__hookable.html#a1876f795782ede7dade6b43584665348" title=" " alt="" coords="284,5,508,61"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78" title=" " alt="" coords="315,86,477,127"/>
+<area shape="rect" id="Node000001" title="Process incoming frame meta." alt="" coords="5,49,236,89"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__stream__status__hookable.html#a1876f795782ede7dade6b43584665348" title="Invoke the registered stream status callback." alt="" coords="284,5,508,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,51,270,46,271,52,236,56"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78" title="Get a human&#45;readable description of this node." alt="" coords="315,85,477,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="236,81,301,90,301,95,236,86"/>
 </map>

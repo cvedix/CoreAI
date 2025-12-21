@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/infers/rknn_yolov11.h Source File</title>
+<title>CVEDIX AI Runtime: nodes/infers/rknn_yolov11.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -75,139 +74,121 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_1d39d56f85419f658dfd4c42342cf9cb.html">infers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_ed7eac5be4bd1518c29c0a595875394c.html">infers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">rknn_yolov11.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="rknn__yolov11_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;opencv2/opencv.hpp&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;rknn_api.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacerknn__yolov11.html">rknn_yolov11</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// Constants from the repo</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="rknn__yolov11_8h.html#a256a3f0328b8b9988d8e767ed51bf977">   12</a></span><span class="preprocessor">    #define OBJ_NAME_MAX_SIZE 64</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="rknn__yolov11_8h.html#a6921654bfc41cd6bc25edb65aa367271">   13</a></span><span class="preprocessor">    #define OBJ_NUMB_MAX_SIZE 128</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="rknn__yolov11_8h.html#a42f020b7b056ebd612666ecee51483c4">   14</a></span><span class="preprocessor">    #define NMS_THRESH 0.45</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="rknn__yolov11_8h.html#a28a578f1ae5ebec62f6c46b7ca90a468">   15</a></span><span class="preprocessor">    #define BOX_THRESH 0.25</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1letterbox__t.html">   17</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1letterbox__t.html">letterbox_t</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1letterbox__t.html#a7cd2c26b60f746d3c9df63511551315d">   18</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1letterbox__t.html#a7cd2c26b60f746d3c9df63511551315d">x_pad</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1letterbox__t.html#a835a4437a99a8fa44f5060509f7fca86">   19</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1letterbox__t.html#a835a4437a99a8fa44f5060509f7fca86">y_pad</a>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1letterbox__t.html#a44f3014b6ecbc47b48a30ecc3acbf121">   20</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="structrknn__yolov11_1_1letterbox__t.html#a44f3014b6ecbc47b48a30ecc3acbf121">scale</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    };</div>
+<a href="rknn__yolov11_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;opencv2/opencv.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;rknn_api.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rknn_yolov11 {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="comment">// Constants from the repo</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">    #define OBJ_NAME_MAX_SIZE 64</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    #define OBJ_NUMB_MAX_SIZE 128</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">    #define NMS_THRESH 0.45</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">    #define BOX_THRESH 0.25</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1letterbox__t.html">   25</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1letterbox__t.html">letterbox_t</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">int</span> x_pad;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">int</span> y_pad;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">float</span> scale;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html">   23</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1image__rect__t.html">image_rect_t</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html#a168c5acc1ee4134b599b32a4f4966077">   24</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1image__rect__t.html#a168c5acc1ee4134b599b32a4f4966077">left</a>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html#ab3081b01818129f060b5647d02bc8e08">   25</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1image__rect__t.html#ab3081b01818129f060b5647d02bc8e08">top</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html#a7f87b12ad0fd3aad90181e472cad8f71">   26</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1image__rect__t.html#a7f87b12ad0fd3aad90181e472cad8f71">right</a>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html#a2d6c345aca50d5ee26defa7b44fb99e8">   27</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1image__rect__t.html#a2d6c345aca50d5ee26defa7b44fb99e8">bottom</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    };</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1image__rect__t.html">   31</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1image__rect__t.html">image_rect_t</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">int</span> left;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">int</span> top;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">int</span> right;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">int</span> bottom;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result.html">   30</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result.html">object_detect_result</a> {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result.html#a702319d87c743226c9597117a61258f5">   31</a></span>        <a class="code hl_struct" href="structrknn__yolov11_1_1image__rect__t.html">image_rect_t</a> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result.html#a702319d87c743226c9597117a61258f5">box</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result.html#ae6aeba286637d8a6d6d0ab4e00b59a52">   32</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result.html#ae6aeba286637d8a6d6d0ab4e00b59a52">prop</a>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result.html#a2a915aa1edc82c1b663841c547eec9d4">   33</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result.html#a2a915aa1edc82c1b663841c547eec9d4">cls_id</a>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    };</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result.html">   38</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result.html">object_detect_result</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_struct" href="structrknn__yolov11_1_1image__rect__t.html">image_rect_t</a> box;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">float</span> prop;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">int</span> cls_id;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    };</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result__list.html">   36</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a> {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result__list.html#ab60cf02f5c37712cb495eb4b342f3e27">   37</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result__list.html#ab60cf02f5c37712cb495eb4b342f3e27">id</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result__list.html#adda270d947f5f11b2c5038b10d898a4f">   38</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result__list.html#adda270d947f5f11b2c5038b10d898a4f">count</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result__list.html#a738176f605adc95702d7f6e3361726b1">   39</a></span>        <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result.html">object_detect_result</a> <a class="code hl_variable" href="structrknn__yolov11_1_1object__detect__result__list.html#a738176f605adc95702d7f6e3361726b1">results</a>[<a class="code hl_define" href="rknn__yolov11_8h.html#a6921654bfc41cd6bc25edb65aa367271">OBJ_NUMB_MAX_SIZE</a>];</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    };</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structrknn__yolov11_1_1object__detect__result__list.html">   44</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">int</span> id;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">int</span> count;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result.html">object_detect_result</a> results[OBJ_NUMB_MAX_SIZE];</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    };</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">   42</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11_detector</a> {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11_detector</a>(<span class="keyword">const</span> std::string&amp; model_path, <span class="keywordtype">int</span> num_classes = 80);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_function" href="classrknn__yolov11_1_1rknn__yolov11__detector.html#ad4168322790f1bb37aeba085d587d01d">~rknn_yolov11_detector</a>();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a9de6a9fd829502ebad057c3a8eaf5a7a">init</a>();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a0d71d50f37cda4ea0cf2f8094e3c3acb">run_inference</a>(cv::Mat&amp; <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">input_image</a>, <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a>* <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">od_results</a>, <span class="keywordtype">float</span> conf_threshold, <span class="keywordtype">float</span> nms_threshold);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="comment">// Helper to query model info (debug mostly)</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a851d2ce41aec2ba9ef0a41526a1d306c">query_model_info</a>();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::string model_path;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">rknn_context</a> ctxs[3]; <span class="comment">// Support up to 3 NPU cores as in the repo</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">bool</span> is_initialized = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        std::vector&lt;rknn_tensor_attr&gt; input_attrs;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        std::vector&lt;rknn_tensor_attr&gt; input_native_attrs;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::vector&lt;rknn_tensor_attr&gt; output_attrs;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        std::vector&lt;rknn_tensor_attr&gt; output_native_attrs;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">rknn_input_output_num</a> io_num;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">int</span> model_height;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">int</span> model_width;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">int</span> model_channel;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">int</span> num_classes;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">// Memory buffers for zero-copy</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        std::vector&lt;std::vector&lt;rknn_tensor_mem*&gt;&gt; input_mems;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        std::vector&lt;std::vector&lt;rknn_tensor_mem*&gt;&gt; output_mems;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">int</span> num_outputs;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="comment">// Internal helpers</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">int</span> init_model(<span class="keyword">const</span> std::string&amp; model_path);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordtype">void</span> release_model();</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordtype">void</span> initialize_mems();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> release_mems();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">int</span> post_process(cv::Mat&amp; <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">input_image</a>, <span class="keywordtype">void</span>* <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">outputs</a>, <a class="code hl_struct" href="structrknn__yolov11_1_1letterbox__t.html">letterbox_t</a>* <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">letter_box</a>, <span class="keywordtype">float</span> conf_threshold, <span class="keywordtype">float</span> nms_threshold, <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a>* <a class="code hl_function" href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">od_results</a>);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Index for round-robin context usage</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">int</span> current_ctx_index = 0;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    };</div>
-</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace rknn_yolov11</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">   50</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11_detector</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_class" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11_detector</a>(<span class="keyword">const</span> std::string&amp; model_path, <span class="keywordtype">int</span> num_classes = 80);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="classrknn__yolov11_1_1rknn__yolov11__detector.html">~rknn_yolov11_detector</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">int</span> init();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">int</span> run_inference(cv::Mat&amp; input_image, <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a>* od_results, <span class="keywordtype">float</span> conf_threshold, <span class="keywordtype">float</span> nms_threshold);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="comment">// Helper to query model info (debug mostly)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> query_model_info();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        std::string model_path;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        rknn_context ctxs[3]; <span class="comment">// Support up to 3 NPU cores as in the repo</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">bool</span> is_initialized = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        std::vector&lt;rknn_tensor_attr&gt; input_attrs;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::vector&lt;rknn_tensor_attr&gt; input_native_attrs;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        std::vector&lt;rknn_tensor_attr&gt; output_attrs;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        std::vector&lt;rknn_tensor_attr&gt; output_native_attrs;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        rknn_input_output_num io_num;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordtype">int</span> model_height;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">int</span> model_width;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">int</span> model_channel;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">int</span> num_classes;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="comment">// Memory buffers for zero-copy</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        std::vector&lt;std::vector&lt;rknn_tensor_mem*&gt;&gt; input_mems;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        std::vector&lt;std::vector&lt;rknn_tensor_mem*&gt;&gt; output_mems;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">int</span> num_outputs;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Internal helpers</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">int</span> init_model(<span class="keyword">const</span> std::string&amp; model_path);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordtype">void</span> release_model();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> initialize_mems();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">void</span> release_mems();</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11::rknn_yolov11_detector</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:42</div></div>
-<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html_a0d71d50f37cda4ea0cf2f8094e3c3acb"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a0d71d50f37cda4ea0cf2f8094e3c3acb">rknn_yolov11::rknn_yolov11_detector::run_inference</a></div><div class="ttdeci">int run_inference(cv::Mat &amp;input_image, object_detect_result_list *od_results, float conf_threshold, float nms_threshold)</div><div class="ttdef"><b>Definition</b> rknn_yolov11.cpp:392</div></div>
-<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html_a851d2ce41aec2ba9ef0a41526a1d306c"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a851d2ce41aec2ba9ef0a41526a1d306c">rknn_yolov11::rknn_yolov11_detector::query_model_info</a></div><div class="ttdeci">void query_model_info()</div><div class="ttdef"><b>Definition</b> rknn_yolov11.cpp:505</div></div>
-<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html_a9de6a9fd829502ebad057c3a8eaf5a7a"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html#a9de6a9fd829502ebad057c3a8eaf5a7a">rknn_yolov11::rknn_yolov11_detector::init</a></div><div class="ttdeci">int init()</div><div class="ttdef"><b>Definition</b> rknn_yolov11.cpp:292</div></div>
-<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html_ad4168322790f1bb37aeba085d587d01d"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html#ad4168322790f1bb37aeba085d587d01d">rknn_yolov11::rknn_yolov11_detector::~rknn_yolov11_detector</a></div><div class="ttdeci">~rknn_yolov11_detector()</div><div class="ttdef"><b>Definition</b> rknn_yolov11.cpp:285</div></div>
-<div class="ttc" id="anamespacerknn__yolov11_html"><div class="ttname"><a href="namespacerknn__yolov11.html">rknn_yolov11</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.cpp:17</div></div>
-<div class="ttc" id="arknn__yolov11_8h_html_a6921654bfc41cd6bc25edb65aa367271"><div class="ttname"><a href="rknn__yolov11_8h.html#a6921654bfc41cd6bc25edb65aa367271">OBJ_NUMB_MAX_SIZE</a></div><div class="ttdeci">#define OBJ_NUMB_MAX_SIZE</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:13</div></div>
-<div class="ttc" id="asamples_2CMakeLists_8txt_html_aefe643ad9dfd494136bdcbb82111b74c"><div class="ttname"><a href="samples_2CMakeLists_8txt.html#aefe643ad9dfd494136bdcbb82111b74c">set</a></div><div class="ttdeci">set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime) if(EXISTS $</div><div class="ttdef"><b>Definition</b> CMakeLists.txt:43</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html">rknn_yolov11::image_rect_t</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:23</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html_a168c5acc1ee4134b599b32a4f4966077"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html#a168c5acc1ee4134b599b32a4f4966077">rknn_yolov11::image_rect_t::left</a></div><div class="ttdeci">int left</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:24</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html_a2d6c345aca50d5ee26defa7b44fb99e8"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html#a2d6c345aca50d5ee26defa7b44fb99e8">rknn_yolov11::image_rect_t::bottom</a></div><div class="ttdeci">int bottom</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:27</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html_a7f87b12ad0fd3aad90181e472cad8f71"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html#a7f87b12ad0fd3aad90181e472cad8f71">rknn_yolov11::image_rect_t::right</a></div><div class="ttdeci">int right</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:26</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html_ab3081b01818129f060b5647d02bc8e08"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html#ab3081b01818129f060b5647d02bc8e08">rknn_yolov11::image_rect_t::top</a></div><div class="ttdeci">int top</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:25</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1letterbox__t_html"><div class="ttname"><a href="structrknn__yolov11_1_1letterbox__t.html">rknn_yolov11::letterbox_t</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:17</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1letterbox__t_html_a44f3014b6ecbc47b48a30ecc3acbf121"><div class="ttname"><a href="structrknn__yolov11_1_1letterbox__t.html#a44f3014b6ecbc47b48a30ecc3acbf121">rknn_yolov11::letterbox_t::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:20</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1letterbox__t_html_a7cd2c26b60f746d3c9df63511551315d"><div class="ttname"><a href="structrknn__yolov11_1_1letterbox__t.html#a7cd2c26b60f746d3c9df63511551315d">rknn_yolov11::letterbox_t::x_pad</a></div><div class="ttdeci">int x_pad</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:18</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1letterbox__t_html_a835a4437a99a8fa44f5060509f7fca86"><div class="ttname"><a href="structrknn__yolov11_1_1letterbox__t.html#a835a4437a99a8fa44f5060509f7fca86">rknn_yolov11::letterbox_t::y_pad</a></div><div class="ttdeci">int y_pad</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:19</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result__list_html"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result__list.html">rknn_yolov11::object_detect_result_list</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:36</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result__list_html_a738176f605adc95702d7f6e3361726b1"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result__list.html#a738176f605adc95702d7f6e3361726b1">rknn_yolov11::object_detect_result_list::results</a></div><div class="ttdeci">object_detect_result results[OBJ_NUMB_MAX_SIZE]</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:39</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result__list_html_ab60cf02f5c37712cb495eb4b342f3e27"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result__list.html#ab60cf02f5c37712cb495eb4b342f3e27">rknn_yolov11::object_detect_result_list::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:37</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result__list_html_adda270d947f5f11b2c5038b10d898a4f"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result__list.html#adda270d947f5f11b2c5038b10d898a4f">rknn_yolov11::object_detect_result_list::count</a></div><div class="ttdeci">int count</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:38</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result_html"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result.html">rknn_yolov11::object_detect_result</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:30</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result_html_a2a915aa1edc82c1b663841c547eec9d4"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result.html#a2a915aa1edc82c1b663841c547eec9d4">rknn_yolov11::object_detect_result::cls_id</a></div><div class="ttdeci">int cls_id</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:33</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result_html_a702319d87c743226c9597117a61258f5"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result.html#a702319d87c743226c9597117a61258f5">rknn_yolov11::object_detect_result::box</a></div><div class="ttdeci">image_rect_t box</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:31</div></div>
-<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result_html_ae6aeba286637d8a6d6d0ab4e00b59a52"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result.html#ae6aeba286637d8a6d6d0ab4e00b59a52">rknn_yolov11::object_detect_result::prop</a></div><div class="ttdeci">float prop</div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:32</div></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">int</span> post_process(cv::Mat&amp; input_image, <span class="keywordtype">void</span>* outputs, <a class="code hl_struct" href="structrknn__yolov11_1_1letterbox__t.html">letterbox_t</a>* letter_box, <span class="keywordtype">float</span> conf_threshold, <span class="keywordtype">float</span> nms_threshold, <a class="code hl_struct" href="structrknn__yolov11_1_1object__detect__result__list.html">object_detect_result_list</a>* od_results);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="comment">// Index for round-robin context usage</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">int</span> current_ctx_index = 0;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    };</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>} <span class="comment">// namespace rknn_yolov11</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="ttc" id="aclassrknn__yolov11_1_1rknn__yolov11__detector_html"><div class="ttname"><a href="classrknn__yolov11_1_1rknn__yolov11__detector.html">rknn_yolov11::rknn_yolov11_detector</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:50</div></div>
+<div class="ttc" id="astructrknn__yolov11_1_1image__rect__t_html"><div class="ttname"><a href="structrknn__yolov11_1_1image__rect__t.html">rknn_yolov11::image_rect_t</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:31</div></div>
+<div class="ttc" id="astructrknn__yolov11_1_1letterbox__t_html"><div class="ttname"><a href="structrknn__yolov11_1_1letterbox__t.html">rknn_yolov11::letterbox_t</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:25</div></div>
+<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result__list_html"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result__list.html">rknn_yolov11::object_detect_result_list</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:44</div></div>
+<div class="ttc" id="astructrknn__yolov11_1_1object__detect__result_html"><div class="ttname"><a href="structrknn__yolov11_1_1object__detect__result.html">rknn_yolov11::object_detect_result</a></div><div class="ttdef"><b>Definition</b> rknn_yolov11.h:38</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

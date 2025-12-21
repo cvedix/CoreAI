@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['hardware_5fbound_0',['hardware_bound',['../structcvedix__nodes_1_1LicenseInfo.html#a4ea0734c8053f25f0e535b34ef5b7631',1,'cvedix_nodes::LicenseInfo']]],
-  ['hardware_5fid_1',['hardware_id',['../structcvedix__nodes_1_1LicenseInfo.html#a26060f4c2007c64b3ef7d10e6264d6fd',1,'cvedix_nodes::LicenseInfo::hardware_id'],['../structcvedix__nodes_1_1LicenseRequest.html#a2a879f190370a016bf644b29ed191954',1,'cvedix_nodes::LicenseRequest::hardware_id']]],
-  ['hash_2',['hash',['../structcvedix__nodes_1_1HardwareInfo.html#a43e3498d57da86ddaf6747529fc28e16',1,'cvedix_nodes::HardwareInfo']]],
-  ['height_3',['height',['../structcvedix__objects_1_1enhanced__target__info.html#a342e2a9d73dbac8e55f31e93d0364790',1,'cvedix_objects::enhanced_target_info::height'],['../structcvedix__objects_1_1enhanced__face__target__info.html#a9b9fb07fd10fc2c5980bfa0dbb71319a',1,'cvedix_objects::enhanced_face_target_info::height'],['../structcvedix__nodes_1_1cvedix__stream__status.html#ae415e3e6ff6614679f34935d6ac3dce5',1,'cvedix_nodes::cvedix_stream_status::height'],['../structevent__format_1_1normalized__bbox.html#a193edd7283832756aa5b67b410938d7e',1,'event_format::normalized_bbox::height']]],
-  ['host_5fnode_5fname_4',['host_node_name',['../classcvedix__nodes_1_1cvedix__record__task.html#a9cc55a842c92cbc25524fee4313169dd',1,'cvedix_nodes::cvedix_record_task']]]
+  ['in_5fqueue_0',['in_queue',['../classcvedix__nodes_1_1cvedix__node.html#a3db745fb2179330c274ec323b0d5a692',1,'cvedix_nodes::cvedix_node']]],
+  ['in_5fqueue_5flock_1',['in_queue_lock',['../classcvedix__nodes_1_1cvedix__node.html#a008d04130903bcc75b0c253919666af3',1,'cvedix_nodes::cvedix_node']]],
+  ['in_5fqueue_5fsemaphore_2',['in_queue_semaphore',['../classcvedix__nodes_1_1cvedix__node.html#a79a2a142bec72e17c7e99165444281c4',1,'cvedix_nodes::cvedix_node']]],
+  ['infer_5ftype_3',['infer_type',['../classcvedix__nodes_1_1cvedix__infer__node.html#a3fbfff485e1d373ef2a0b339e2d70ae6',1,'cvedix_nodes::cvedix_infer_node']]],
+  ['input_5fheight_4',['input_height',['../classcvedix__nodes_1_1cvedix__infer__node.html#adddf919fbe1d6540b8a2248e0f6b4c42',1,'cvedix_nodes::cvedix_infer_node']]],
+  ['input_5fwidth_5',['input_width',['../classcvedix__nodes_1_1cvedix__infer__node.html#a6082a5919fd5275f8cfb90a4ba85cfef',1,'cvedix_nodes::cvedix_infer_node']]]
 ];

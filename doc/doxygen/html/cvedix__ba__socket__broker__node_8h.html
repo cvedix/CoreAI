@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/broker/cvedix_ba_socket_broker_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/broker/cvedix_ba_socket_broker_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,37 +69,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_a62cd8d84082acf74d61cbcd00b71a67.html">broker</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_24b6c6a7d7ce5e273f361ce3fcbf9991.html">broker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_ba_socket_broker_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>UDP socket broker node for behavior analysis results.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="cvedix__msg__broker__node_8h_source.html">cvedix_msg_broker_node.h</a>&quot;</code><br />
 <code>#include &quot;cvedix/objects/ba/cvedix_ba_result.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="cvedix__objects__cereal__archive_8h_source.html">cereal_archive/cvedix_objects_cereal_archive.h</a>&quot;</code><br />
 <code>#include &quot;cvedix/third_party/kissnet/kissnet.hpp&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_ba_socket_broker_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__ba__socket__broker__node_8h__incl.png" border="0" usemap="#anodes_2broker_2cvedix__ba__socket__broker__node_8h" alt=""/></div>
+<map name="anodes_2broker_2cvedix__ba__socket__broker__node_8h" id="anodes_2broker_2cvedix__ba__socket__broker__node_8h">
+<area shape="rect" title="UDP socket broker node for behavior analysis results." alt="" coords="1004,5,1197,45"/>
+<area shape="rect" href="cvedix__msg__broker__node_8h.html" title="Base class for message broker nodes in Core AI Runtime." alt="" coords="336,101,535,126"/>
+<area shape="poly" title=" " alt="" coords="1004,42,538,102,537,96,1004,36"/>
+<area shape="rect" title=" " alt="" coords="904,93,1087,133"/>
+<area shape="poly" title=" " alt="" coords="1079,48,1031,87,1027,83,1076,44"/>
+<area shape="rect" href="cvedix__objects__cereal__archive_8h.html" title="Cereal serialization functions for Core AI Runtime objects." alt="" coords="1111,93,1301,133"/>
+<area shape="poly" title=" " alt="" coords="1126,44,1174,83,1171,87,1122,48"/>
+<area shape="rect" title=" " alt="" coords="1326,93,1478,133"/>
+<area shape="poly" title=" " alt="" coords="1168,43,1323,87,1322,92,1166,48"/>
+<area shape="rect" title=" " alt="" coords="5,181,175,221"/>
+<area shape="poly" title=" " alt="" coords="390,129,179,181,178,175,388,123"/>
+<area shape="rect" title=" " alt="" coords="199,181,362,221"/>
+<area shape="poly" title=" " alt="" coords="1110,134,1098,136,897,154,739,159,579,164,376,184,375,179,579,159,738,153,897,148,1098,131,1110,129"/>
+<area shape="rect" title=" " alt="" coords="386,181,549,221"/>
+<area shape="poly" title=" " alt="" coords="1111,134,1098,136,949,152,832,159,714,167,562,184,562,179,713,161,832,154,949,146,1098,131,1110,129"/>
+<area shape="rect" title=" " alt="" coords="573,181,735,221"/>
+<area shape="poly" title=" " alt="" coords="1111,134,1098,136,926,159,749,184,748,179,925,154,1098,131,1110,129"/>
+<area shape="rect" title=" " alt="" coords="760,181,924,221"/>
+<area shape="poly" title=" " alt="" coords="1127,136,935,181,934,176,1126,131"/>
+<area shape="rect" title=" " alt="" coords="949,181,1111,221"/>
+<area shape="poly" title=" " alt="" coords="1169,136,1082,178,1080,173,1166,131"/>
+<area shape="rect" title=" " alt="" coords="1136,181,1276,221"/>
+<area shape="poly" title=" " alt="" coords="1209,134,1209,167,1203,167,1203,134"/>
+<area shape="rect" title=" " alt="" coords="1301,181,1479,221"/>
+<area shape="poly" title=" " alt="" coords="1248,131,1338,173,1336,178,1245,136"/>
+<area shape="rect" title=" " alt="" coords="1504,181,1695,221"/>
+<area shape="poly" title=" " alt="" coords="1293,131,1500,176,1499,181,1292,136"/>
+<area shape="rect" title=" " alt="" coords="1719,181,1893,221"/>
+<area shape="poly" title=" " alt="" coords="1302,129,1314,131,1508,154,1705,178,1705,184,1508,159,1314,136,1301,134"/>
+<area shape="rect" title=" " alt="" coords="1917,181,2092,221"/>
+<area shape="poly" title=" " alt="" coords="1302,129,1314,131,1478,147,1607,154,1738,161,1904,178,1903,184,1737,166,1607,159,1478,152,1314,136,1301,134"/>
+<area shape="rect" title=" " alt="" coords="2117,181,2301,221"/>
+<area shape="poly" title=" " alt="" coords="1302,129,1314,131,1433,143,1534,149,1707,154,1881,159,1983,166,2103,179,2102,184,1982,172,1880,165,1707,160,1534,155,1432,148,1314,136,1302,134"/>
+<area shape="rect" title=" " alt="" coords="2325,181,2508,221"/>
+<area shape="poly" title=" " alt="" coords="1302,129,1314,131,1464,145,1592,152,1811,154,2030,157,2159,165,2311,179,2311,184,2159,170,2030,163,1811,160,1592,157,1464,150,1314,136,1302,135"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__ba__socket__broker__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html">cvedix_nodes::cvedix_ba_socket_broker_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDP socket broker for behavior analysis results.  <a href="classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>UDP socket broker node for behavior analysis results. </p>
+<p>This node publishes behavior analysis (BA) results via UDP socket. Useful for real-time integration with external monitoring systems.</p>
+<h1><a class="anchor" id="ba_socket_overview"></a>
+Overview</h1>
+<p>Serializes BA results (crossline, stop, jam events) to JSON format and sends them to a specified UDP endpoint for external consumption.</p>
+<h1><a class="anchor" id="ba_socket_protocol"></a>
+Protocol</h1>
+<ul>
+<li><b>Transport</b>: UDP (fire-and-forget, no acknowledgment)</li>
+<li><b>Format</b>: JSON (via Cereal serialization)</li>
+<li><b>Use case</b>: Real-time monitoring dashboards, alerting systems</li>
+</ul>
+<h1><a class="anchor" id="ba_socket_usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> broker = std::make_shared&lt;cvedix_ba_socket_broker_node&gt;(</div>
+<div class="line">    <span class="stringliteral">&quot;ba_socket&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;192.168.1.100&quot;</span>,    <span class="comment">// destination IP</span></div>
+<div class="line">    5000,               <span class="comment">// destination port</span></div>
+<div class="line">    cvedix_broke_for::NORMAL</div>
+<div class="line">);</div>
+<div class="line">broker-&gt;attach_to({crossline_node});</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd>cvedix_msg_broker_node Base class </dd>
+<dd>
+cvedix_ba_crossline_node, cvedix_ba_jam_node, cvedix_ba_stop_node BA nodes </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

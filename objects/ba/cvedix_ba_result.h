@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_ba_result.h
+ * @brief Behavior analysis result
+ * 
+ * Result from BA nodes: crossline, stop, jam detection.
+ */
+
 #pragma once
 
 #include <vector>
@@ -5,23 +12,23 @@
 #include <memory>
 #include "cvedix/objects/shapes/cvedix_point.h"
 
-
 namespace cvedix_objects {
-    // type of behaviour analysis
+    /** @brief BA event types */
     enum class cvedix_ba_type {
-        NONE = 0b00000000,       // none
-        CROSSLINE = 0b00000001,  // cross line
-        STOP = 0b00000010,       // enter stop status
-        UNSTOP = 0b00000100,     // leave stop status
-        JAM = 0b00001000,        // enter jam status
-        UNJAM = 0b00010000       // leave jam status
-        /* more */
+        NONE = 0b00000000,
+        CROSSLINE = 0b00000001,
+        STOP = 0b00000010,
+        UNSTOP = 0b00000100,
+        JAM = 0b00001000,
+        UNJAM = 0b00010000
     };
 
-    // result of behaviour analysis
-    // BA logic can ONLY works on cvedix_frame_target
+    /**
+     * @brief Behavior analysis result
+     */
     class cvedix_ba_result
     {
+
     private:
         /* data */
     public:

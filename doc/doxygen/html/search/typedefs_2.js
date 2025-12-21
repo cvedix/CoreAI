@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['local_5fdays_2804',['local_days',['../namespacedate.html#a396e62efd18a8a3544e9f09d91ef7eb3',1,'date']]],
-  ['local_5fseconds_2805',['local_seconds',['../namespacedate.html#a19108953dec934a2d04cdd8b8102bfba',1,'date']]],
-  ['local_5ftime_2806',['local_time',['../namespacedate.html#adc9dd2e86274818079be9919f3ff0efd',1,'date']]]
+  ['raw_5fcallback_0',['raw_callback',['../classcvedix__utils_1_1cvedix__mqtt__json__receiver.html#aa6ad2659c7539b82c238b89bc64c9794',1,'cvedix_utils::cvedix_mqtt_json_receiver']]]
 ];

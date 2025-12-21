@@ -1,13 +1,18 @@
+/**
+ * @file cvedix_video_record_control_meta.h
+ * @brief Control meta for video recording trigger
+ */
 
 #pragma once
 
 #include "cvedix_control_meta.h"
 
 namespace cvedix_objects {
-    // control meta for video recording, it is a specific type of cvedix_control_meta.
-    // when cvedix_record_node handle this control meta, the node will start recording video asynchronously, begin with the Latest Next frame in pipeline (pre-record frames excluded).
-    // refer to ./nodes/record/README.md for more details
+    /**
+     * @brief Video recording command
+     */
     class cvedix_video_record_control_meta: public cvedix_control_meta {
+
     private:
         /* data */
     public:

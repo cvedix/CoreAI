@@ -1,10 +1,23 @@
+/**
+ * @file cvedix_dsort_track_node.h
+ * @brief DeepSORT tracking with appearance features
+ * 
+ * SORT with deep appearance feature matching for re-identification.
+ * 
+ * @see cvedix_track_node Base class
+ * @see cvedix_sort_track_node SORT implementation
+ */
+
 #pragma once
 #include "cvedix_track_node.h"
 
 namespace cvedix_nodes {
-    // track node using deep sort
+    /**
+     * @brief DeepSORT tracker node
+     */
     class cvedix_dsort_track_node: public cvedix_track_node
     {
+
     private:
         /* config data for deep sort algo*/
     protected:

@@ -1,0 +1,5 @@
+<map id="nodes/common/cvedix_license_node.h" name="nodes/common/cvedix_license_node.h">
+<area shape="rect" id="Node000001" title="Node hỗ trợ lấy thông tin hardware và quản lý license." alt="" coords="5,5,175,45"/>
+<area shape="rect" id="Node000002" href="$cvedix__license__node_8cpp.html" title="Implementation of license management node." alt="" coords="5,93,175,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,59,93,93,87,93,87,59"/>
+</map>

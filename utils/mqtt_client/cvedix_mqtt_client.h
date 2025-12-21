@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_mqtt_client.h
+ * @brief MQTT client wrapper using libmosquitto
+ * 
+ * Features: auto-reconnect, thread-safe pub, connection monitoring.
+ */
+
 #pragma once
 
 #include <string>
@@ -8,21 +15,15 @@
 #include <functional>
 #include <ctime>
 
-// Forward declarations
 struct mosquitto;
 struct mosquitto_message;
 
 namespace cvedix_utils {
     /**
-     * MQTT Client wrapper using libmosquitto
-     * 
-     * Features:
-     * - Automatic connection and reconnection
-     * - Thread-safe publishing
-     * - Connection status monitoring
-     * - Configurable keepalive and QoS
+     * @brief MQTT client with auto-reconnect
      */
     class cvedix_mqtt_client {
+
     public:
         // Callback function types
         using on_connect_callback = std::function<void(bool)>;

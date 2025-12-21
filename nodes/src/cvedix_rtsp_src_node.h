@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_rtsp_src_node.h
+ * @brief RTSP source node for IP camera streaming
+ * 
+ * Receives video via RTSP protocol (H.264/H.265).
+ * Requires CVEDIX_WITH_GSTREAMER.
+ */
+
 #pragma once
 
 #ifdef CVEDIX_WITH_GSTREAMER
@@ -6,10 +14,11 @@
 #include "cvedix/nodes/common/cvedix_src_node.h"
 
 namespace cvedix_nodes {
-    // rtsp source node, receive video stream via rtsp protocal.
-    // example:
-    // rtsp://admin:admin12345@192.168.77.110:554/
+    /**
+     * @brief RTSP source node
+     */
     class cvedix_rtsp_src_node: public cvedix_src_node {
+
     private:
         /* data */
         std::string gst_template = "rtspsrc location=%s ! application/x-rtp,media=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";

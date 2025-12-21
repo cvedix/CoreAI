@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/track/cvedix_track_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/track/cvedix_track_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,44 +69,130 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_18333a051fe903c19b4937b57b7066a6.html">track</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_c6eb0f9ccaac04339e416ca9604adabc.html">track</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">cvedix_track_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for object tracking nodes in Core AI Runtime.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;map&gt;</code><br />
 <code>#include &lt;assert.h&gt;</code><br />
 <code>#include &quot;cvedix/nodes/common/cvedix_node.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_track_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__track__node_8h__incl.png" border="0" usemap="#anodes_2track_2cvedix__track__node_8h" alt=""/></div>
+<map name="anodes_2track_2cvedix__track__node_8h" id="anodes_2track_2cvedix__track__node_8h">
+<area shape="rect" title="Base class for object tracking nodes in Core AI Runtime." alt="" coords="45,5,190,45"/>
+<area shape="rect" title=" " alt="" coords="5,101,56,126"/>
+<area shape="poly" title=" " alt="" coords="100,48,54,92,51,89,96,44"/>
+<area shape="rect" title=" " alt="" coords="80,101,155,126"/>
+<area shape="poly" title=" " alt="" coords="120,46,120,87,115,87,115,46"/>
+<area shape="rect" title=" " alt="" coords="179,93,349,133"/>
+<area shape="poly" title=" " alt="" coords="151,43,221,84,218,89,148,48"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__track__node_8h__dep__incl.png" border="0" usemap="#anodes_2track_2cvedix__track__node_8hdep" alt=""/></div>
+<map name="anodes_2track_2cvedix__track__node_8hdep" id="anodes_2track_2cvedix__track__node_8hdep">
+<area shape="rect" title="Base class for object tracking nodes in Core AI Runtime." alt="" coords="96,5,241,45"/>
+<area shape="rect" href="cvedix__dsort__track__node_8h.html" title="DeepSORT tracking with appearance features." alt="" coords="5,93,159,133"/>
+<area shape="poly" title=" " alt="" coords="142,57,103,95,99,91,138,53"/>
+<area shape="rect" href="cvedix__sort__track__node_8h.html" title="SORT tracking algorithm implementation." alt="" coords="183,93,328,133"/>
+<area shape="poly" title=" " alt="" coords="199,53,238,91,234,95,196,57"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__track__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__track__node.html">cvedix_nodes::cvedix_track_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for multi-object tracking nodes.  <a href="classcvedix__nodes_1_1cvedix__track__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a315c07a185fa6b8dba2e9a59f605c35f" id="r_a315c07a185fa6b8dba2e9a59f605c35f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html#a315c07a185fa6b8dba2e9a59f605c35f">cvedix_nodes::cvedix_track_for</a> { <a class="el" href="namespacecvedix__nodes.html#a315c07a185fa6b8dba2e9a59f605c35fa1e23852820b9154316c7c06e2b7ba051">cvedix_nodes::NORMAL</a> = 1
-, <a class="el" href="namespacecvedix__nodes.html#a315c07a185fa6b8dba2e9a59f605c35fa345094d9e282b0f2b2b49fab9b8ad89f">cvedix_nodes::FACE</a> = 2
+<tr class="memitem:a315c07a185fa6b8dba2e9a59f605c35f" id="r_a315c07a185fa6b8dba2e9a59f605c35f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cvedix__track__node_8h.html#a315c07a185fa6b8dba2e9a59f605c35f">cvedix_nodes::cvedix_track_for</a> { <a class="el" href="cvedix__track__node_8h.html#a315c07a185fa6b8dba2e9a59f605c35fa1e23852820b9154316c7c06e2b7ba051">NORMAL</a> = 1
+, <a class="el" href="cvedix__track__node_8h.html#a315c07a185fa6b8dba2e9a59f605c35fa345094d9e282b0f2b2b49fab9b8ad89f">FACE</a> = 2
  }</td></tr>
+<tr class="memdesc:a315c07a185fa6b8dba2e9a59f605c35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies which target type the tracker should process.  <a href="cvedix__track__node_8h.html#a315c07a185fa6b8dba2e9a59f605c35f">More...</a><br /></td></tr>
 <tr class="separator:a315c07a185fa6b8dba2e9a59f605c35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for object tracking nodes in Core AI Runtime. </p>
+<p>This file defines the cvedix_track_node base class for multi-object tracking (MOT). Tracking nodes assign persistent IDs to detected objects across video frames.</p>
+<h1><a class="anchor" id="track_overview"></a>
+Overview</h1>
+<p>Tracking nodes process detection results and:</p><ul>
+<li>Assign unique track IDs to each detected object</li>
+<li>Maintain track history across frames</li>
+<li>Handle object appearance/disappearance</li>
+</ul>
+<h1><a class="anchor" id="track_algorithms"></a>
+Supported Algorithms</h1>
+<ul>
+<li><b>SORT</b>: Simple Online Realtime Tracking (cvedix_sort_track_node)</li>
+<li><b>DeepSORT</b>: SORT with appearance features (cvedix_dsort_track_node)</li>
+</ul>
+<h1><a class="anchor" id="track_multichannel"></a>
+Multi-Channel Support</h1>
+<p>Track nodes support multiple video channels simultaneously. Each channel maintains its own independent set of tracks.</p>
+<h1><a class="anchor" id="track_usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> tracker = std::make_shared&lt;cvedix_sort_track_node&gt;(</div>
+<div class="line">    <span class="stringliteral">&quot;tracker&quot;</span>,</div>
+<div class="line">    cvedix_track_for::NORMAL  <span class="comment">// Track detected objects</span></div>
+<div class="line">);</div>
+<div class="line">tracker-&gt;attach_to({detector_node});</div>
+<div class="line">osd_node-&gt;attach_to({tracker});</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd>cvedix_sort_track_node SORT implementation </dd>
+<dd>
+cvedix_dsort_track_node DeepSORT implementation </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a315c07a185fa6b8dba2e9a59f605c35f" name="a315c07a185fa6b8dba2e9a59f605c35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315c07a185fa6b8dba2e9a59f605c35f">&#9670;&#160;</a></span>cvedix_track_for</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="cvedix__track__node_8h.html#a315c07a185fa6b8dba2e9a59f605c35f">cvedix_nodes::cvedix_track_for</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Specifies which target type the tracker should process. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a315c07a185fa6b8dba2e9a59f605c35fa1e23852820b9154316c7c06e2b7ba051" name="a315c07a185fa6b8dba2e9a59f605c35fa1e23852820b9154316c7c06e2b7ba051"></a>NORMAL&#160;</td><td class="fielddoc"><p>cvedix_frame_target - general object tracking </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a315c07a185fa6b8dba2e9a59f605c35fa345094d9e282b0f2b2b49fab9b8ad89f" name="a315c07a185fa6b8dba2e9a59f605c35fa345094d9e282b0f2b2b49fab9b8ad89f"></a>FACE&#160;</td><td class="fielddoc"><p>cvedix_frame_face_target - face tracking </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

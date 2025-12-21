@@ -1,3 +1,17 @@
+/**
+ * @file cvedix_meta_hookable.h
+ * @brief Hookable interface for monitoring metadata flow through nodes
+ * 
+ * This file defines the cvedix_meta_hookable class which allows attaching
+ * callbacks (hooks) to monitor metadata at 4 different ports in a node:
+ * - Arriving: When metadata enters the input queue
+ * - Handling: When metadata is being processed
+ * - Handled: When metadata processing is complete
+ * - Leaving: When metadata exits the output queue
+ * 
+ * @see cvedix_analysis_board For usage example
+ */
+
 #pragma once
 #include <functional>
 #include <mutex>
@@ -5,6 +19,7 @@
 #include <memory>
 
 #include "cvedix/objects/cvedix_meta.h"
+
 
 namespace cvedix_nodes {
     // callback when meta flowing through the whole pipe, MUST NOT be blocked.

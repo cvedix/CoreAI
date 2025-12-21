@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_frame_pose_target.h
+ * @brief Human pose estimation target
+ * 
+ * Skeleton keypoints from OpenPose, YOLOv8-pose, etc.
+ */
+
 #pragma once
 
 #include <vector>
@@ -5,7 +12,7 @@
 
 namespace cvedix_objects {
 
-    // different types of datasets used to train openpose model.
+    /** @brief Pose dataset types */
     enum cvedix_pose_type {
         body_25,
         coco,
@@ -15,17 +22,20 @@ namespace cvedix_objects {
         yolov8_pose_17
     };
     
+    /** @brief Skeleton keypoint */
     struct cvedix_pose_keypoint {
-        int point_type;       // point type (index), nose, neck or left_eye 
-        int x;                // x in 2D image
-        int y;                // y in 2D image
-        float score;          // probability
+        int point_type;
+        int x;
+        int y;
+        float score;
     };
     
-    // target in frame detected by openpose(or other similar models), which mainly contains point collections.
-    // note: we can define new target type like cvedix_frame_xxx_target... if need (see cvedix_frame_face_target also)
+    /**
+     * @brief Pose estimation target
+     */
     class cvedix_frame_pose_target
     {
+
     private:
         /* data */
     public:

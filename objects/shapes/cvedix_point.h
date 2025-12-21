@@ -1,3 +1,7 @@
+/**
+ * @file cvedix_point.h
+ * @brief 2D point geometry primitive
+ */
 
 #pragma once
 
@@ -5,9 +9,12 @@
 #include <cmath>
 
 namespace cvedix_objects {
-    // point in 2-dims coordinate system
+    /**
+     * @brief 2D point
+     */
     class cvedix_point
     {
+
     private:
         /* data */
     public:

@@ -1,10 +1,9 @@
 <map id="cvedix_nodes::cvedix_screen_des_node::handle_frame_meta" name="cvedix_nodes::cvedix_screen_des_node::handle_frame_meta">
-<area shape="rect" id="node1" title=" " alt="" coords="5,144,199,200"/>
-<area shape="rect" id="node2" href="$classcvedix__nodes_1_1cvedix__des__node.html#a84400a99e1ff9e04307efd84884dfced" title=" " alt="" coords="247,86,477,127"/>
-<area shape="rect" id="node5" href="$namespacecvedix__nodes_1_1utils.html#a7876101c0395d65b296b0540bf139b77" title=" " alt="" coords="275,151,449,193"/>
-<area shape="rect" id="node7" href="$namespacecvedix__utils.html#af733f31023d9a14691ee46baafa23d3a" title=" " alt="" coords="289,217,435,258"/>
-<area shape="rect" id="node3" href="$classcvedix__nodes_1_1cvedix__stream__status__hookable.html#a1876f795782ede7dade6b43584665348" title=" " alt="" coords="525,5,749,61"/>
-<area shape="rect" id="node4" href="$classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78" title=" " alt="" coords="556,86,719,127"/>
-<area shape="rect" id="node6" href="$namespacecvedix__nodes_1_1utils.html#ae1bb979d95ecbc2c03d729d822ea5db8" title=" " alt="" coords="555,151,720,193"/>
-<area shape="rect" id="node8" href="$namespacedate.html#a4c1df8b60171571aab1fd6bd38b9ae6f" title=" " alt="" coords="586,224,689,251"/>
+<area shape="rect" id="Node000001" title="Display frame in window." alt="" coords="5,41,199,96"/>
+<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__des__node.html#a84400a99e1ff9e04307efd84884dfced" title="Process incoming frame meta." alt="" coords="247,49,477,89"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,66,233,66,233,71,199,71"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__stream__status__hookable.html#a1876f795782ede7dade6b43584665348" title="Invoke the registered stream status callback." alt="" coords="525,5,749,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="477,51,511,46,512,52,478,56"/>
+<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78" title="Get a human&#45;readable description of this node." alt="" coords="556,85,719,125"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="478,81,543,90,542,95,477,86"/>
 </map>

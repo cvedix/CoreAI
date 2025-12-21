@@ -1,3 +1,11 @@
+/**
+ * @file cvedix_record_node.h
+ * @brief Video/image recording node
+ * 
+ * Asynchronous recording to local disk with pre-record buffer.
+ * Supports multi-channel and control meta triggers.
+ */
+
 #pragma once
 
 #include <list>
@@ -13,11 +21,12 @@
 #include "cvedix_record_status_hookable.h"
 
 namespace cvedix_nodes {
-    // video/image recording node, save it to local disk.
-    // it is a middle node but works asynchronously, so recording would not block the pipeline.
-    // note record node could work on multi channels at the same time.
+    /**
+     * @brief Async video/image recording node
+     */
     class cvedix_record_node: public cvedix_node, public cvedix_record_status_hookable
     {
+
     private:
         /* config data */
         // video save directory

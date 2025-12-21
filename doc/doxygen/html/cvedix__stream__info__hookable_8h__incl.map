@@ -1,7 +1,11 @@
 <map id="nodes/common/cvedix_stream_info_hookable.h" name="nodes/common/cvedix_stream_info_hookable.h">
-<area shape="rect" id="node1" title=" " alt="" coords="99,5,284,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,92,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="117,95,181,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="205,95,263,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="287,95,365,121"/>
+<area shape="rect" id="Node000001" title="Interface for stream information callbacks from source nodes." alt="" coords="99,5,284,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,92,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,48,83,89,80,84,156,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="117,93,181,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,47,164,83,159,80,179,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="205,93,263,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="204,44,224,80,219,83,199,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="287,93,365,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="225,43,296,84,293,89,222,48"/>
 </map>

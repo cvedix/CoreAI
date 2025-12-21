@@ -1,0 +1,5 @@
+<map id="cvedix_face_utils::RecognitionConfig" name="cvedix_face_utils::RecognitionConfig">
+<area shape="rect" id="Node000001" title="Recognition configuration options." alt="" coords="5,108,148,148"/>
+<area shape="rect" id="Node000002" href="$structcvedix__face__utils_1_1TTAConfig.html" title="TTA (Test Time Augmentation) configuration." alt="" coords="5,5,148,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,59,79,108,74,108,74,59"/>
+</map>

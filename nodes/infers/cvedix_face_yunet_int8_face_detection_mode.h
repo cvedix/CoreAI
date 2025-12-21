@@ -1,8 +1,16 @@
+/**
+ * @file cvedix_face_yunet_int8_face_detection_mode.h
+ * @brief YuNet INT8 quantized face detector using OpenCV FaceDetectorYN
+ * 
+ * Optimized INT8 quantized face detection for faster inference.
+ */
+
 #pragma once
 
 #include "base/cvedix_primary_infer_node.h"
 #include "cvedix/objects/cvedix_frame_face_target.h"
 #include <opencv2/objdetect.hpp>
+
 
 namespace cvedix_nodes {
 

@@ -1,3 +1,10 @@
+/**
+ * @file cvedix_rknn_yolov8_detector_node.h
+ * @brief YOLOv8 detector for Rockchip RKNN NPU
+ * 
+ * NPU-accelerated YOLOv8 with multi-core support and optional RGA.
+ */
+
 #pragma once
 
 #include <vector>
@@ -7,19 +14,20 @@
 #include "cvedix/objects/cvedix_frame_target.h"
 #include "cvedix/utils/rknn/cvedix_rknn_helper.h"
 #ifdef CVEDIX_WITH_RGA
-#include "cvedix/utils/rga/cvedix_rga_helper.h"  // RGA is optional
+#include "cvedix/utils/rga/cvedix_rga_helper.h"
 #else
-// Forward declaration when RGA is not available
 namespace cvedix_utils {
     class cvedix_rga_helper;
 }
 #endif
 
 namespace cvedix_nodes {
-    // YOLOv8 detector optimized for Rockchip RKNN. Automatically leverages NPU cores and
-    // optionally RGA for pre-processing acceleration when built with CVEDIX_WITH_RGA.
+    /**
+     * @brief RKNN NPU YOLOv8 detector
+     */
     class cvedix_rknn_yolov8_detector_node: public cvedix_primary_infer_node
     {
+
     private:
         std::shared_ptr<cvedix_utils::cvedix_rknn_helper> rknn_helper;
         std::shared_ptr<cvedix_utils::cvedix_rga_helper> rga_helper;

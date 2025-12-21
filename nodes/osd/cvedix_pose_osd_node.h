@@ -1,16 +1,24 @@
+/**
+ * @file cvedix_pose_osd_node.h
+ * @brief OSD for human pose estimation
+ * 
+ * Draws skeleton keypoints and limb connections (BODY25, COCO, MPI, YOLOv8).
+ */
+
 #pragma once
 
 #include <random>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-
 #include "cvedix/nodes/common/cvedix_node.h"
 
 namespace cvedix_nodes {
-    // on screen display(short as osd) node.
-    // mainly used to display cvedix_frame_pose_target on frame.
+    /**
+     * @brief Pose estimation OSD visualization
+     */
     class cvedix_pose_osd_node: public cvedix_node
     {
+
     private:
         // pose pairs for PAFs
         const std::map<cvedix_objects::cvedix_pose_type, std::vector<std::pair<int,int>>> posePairs_map = {

@@ -1,3 +1,7 @@
+/**
+ * @file cvedix_semaphore.h
+ * @brief Counting semaphore for producer-consumer patterns
+ */
 
 #pragma once
 
@@ -5,10 +9,12 @@
 #include <mutex>
 
 namespace cvedix_utils {
-    // semaphore for queue/deque data structures in SDK, used for producer-consumer pattern.
-    // it blocks the consumer thread until data has come.
+    /**
+     * @brief Semaphore for queue synchronization
+     */
     class cvedix_semaphore
     {
+
     public:
         cvedix_semaphore() {
             count_ = 0;

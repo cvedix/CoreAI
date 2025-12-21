@@ -1,3 +1,24 @@
+/**
+ * @file cvedix_face_registration_node.h
+ * @brief Face registration node with augmentation support
+ * 
+ * Registers faces to database with automatic data augmentation 
+ * (glasses, mask, hat overlays) for improved recognition robustness.
+ * 
+ * @section reg_usage Usage
+ * @code
+ * auto reg = std::make_shared<cvedix_face_registration_node>(
+ *     "face_reg", "model.onnx", "database.db",
+ *     true,  // enable augmentation
+ *     "glasses.png", "mask.png", "hat.png"
+ * );
+ * reg->set_registration_name("John Doe");
+ * reg->attach_to({face_detector});
+ * @endcode
+ * 
+ * @see cvedix_face_recognition_node For recognition
+ */
+
 #pragma once
 
 #include "../base/cvedix_secondary_infer_node.h"
@@ -7,6 +28,7 @@
 #include <memory>
 
 namespace cvedix_nodes {
+
 
 /**
  * @brief Face registration node with augmentation support

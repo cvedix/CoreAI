@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Core AI Runtime: core_ai_runtime/nodes/common/cvedix_src_node.h File Reference</title>
+<title>CVEDIX AI Runtime: nodes/common/cvedix_src_node.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Core AI Runtime
+   <div id="projectname">CVEDIX AI Runtime
    </div>
-   <div id="projectbrief">Runtime environment for Core AI applications</div>
   </td>
  </tr>
  </tbody>
@@ -70,38 +69,141 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_1d1354855b100e955727c4842f0cb69d.html">core_ai_runtime</a></li><li class="navelem"><a class="el" href="dir_bd2bd8b33856a4315cec6cc5794bc92d.html">nodes</a></li><li class="navelem"><a class="el" href="dir_0e4ae20e391f621f702ffbe8ff10032c.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_8637afc38b758fdb535647a385c49b5e.html">nodes</a></li><li class="navelem"><a class="el" href="dir_2db2cf5366b6c227eb28aa6718dc3aec.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">cvedix_src_node.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for all source nodes in Core AI Runtime.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="cvedix__node_8h_source.html">cvedix_node.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cvedix__stream__info__hookable_8h_source.html">cvedix_stream_info_hookable.h</a>&quot;</code><br />
 <code>#include &quot;cvedix/excepts/cvedix_not_implemented_error.h&quot;</code><br />
 <code>#include &quot;cvedix/excepts/cvedix_invalid_calling_error.h&quot;</code><br />
 <code>#include &quot;cvedix/utils/cvedix_gate.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for cvedix_src_node.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="cvedix__src__node_8h__incl.png" border="0" usemap="#anodes_2common_2cvedix__src__node_8h" alt=""/></div>
+<map name="anodes_2common_2cvedix__src__node_8h" id="anodes_2common_2cvedix__src__node_8h">
+<area shape="rect" title="Base class for all source nodes in Core AI Runtime." alt="" coords="1283,5,1452,45"/>
+<area shape="rect" href="cvedix__node_8h.html" title="Base class definition for all pipeline nodes in Core AI Runtime." alt="" coords="1214,101,1330,126"/>
+<area shape="poly" title=" " alt="" coords="1348,48,1297,93,1294,89,1345,44"/>
+<area shape="rect" title=" " alt="" coords="2252,181,2424,221"/>
+<area shape="poly" title=" " alt="" coords="1369,45,1373,90,1381,113,1396,131,1415,141,1446,149,1536,161,1656,169,1790,173,2058,175,2239,179,2238,184,2058,181,1790,178,1655,174,1536,167,1445,154,1413,146,1393,135,1377,115,1368,91,1364,46"/>
+<area shape="rect" href="cvedix__stream__info__hookable_8h.html" title="Interface for stream information callbacks from source nodes." alt="" coords="507,181,658,221"/>
+<area shape="poly" title=" " alt="" coords="1284,48,672,183,671,178,1282,43"/>
+<area shape="rect" title=" " alt="" coords="1406,93,1599,133"/>
+<area shape="poly" title=" " alt="" coords="1399,43,1462,84,1460,88,1396,48"/>
+<area shape="rect" title=" " alt="" coords="1624,93,1768,133"/>
+<area shape="poly" title=" " alt="" coords="1440,43,1611,87,1610,92,1439,48"/>
+<area shape="rect" title=" " alt="" coords="2077,189,2141,214"/>
+<area shape="poly" title=" " alt="" coords="1314,123,1349,131,1458,144,1550,148,1709,145,1785,144,1867,147,1959,157,2066,179,2075,181,2073,186,2064,184,1958,163,1866,152,1785,149,1709,150,1550,153,1457,149,1349,136,1313,129"/>
+<area shape="rect" title=" " alt="" coords="2166,189,2228,214"/>
+<area shape="poly" title=" " alt="" coords="1313,123,1349,131,1471,145,1575,149,1753,144,1839,141,1930,144,2033,155,2154,179,2163,181,2161,186,2152,184,2033,161,1930,149,1839,147,1753,149,1575,154,1471,150,1349,136,1312,129"/>
+<area shape="rect" title=" " alt="" coords="481,269,545,295"/>
+<area shape="poly" title=" " alt="" coords="1213,118,1035,122,807,132,698,141,603,152,533,166,510,174,496,183,488,199,488,218,501,257,496,258,483,219,483,198,492,180,507,170,531,161,602,146,697,135,807,127,1035,116,1213,113"/>
+<area shape="rect" title=" " alt="" coords="942,189,1084,214"/>
+<area shape="poly" title=" " alt="" coords="1238,129,1062,187,1060,182,1236,124"/>
+<area shape="rect" title=" " alt="" coords="732,269,790,295"/>
+<area shape="poly" title=" " alt="" coords="1214,120,1084,128,929,141,793,160,747,171,723,183,716,200,719,219,729,239,742,257,738,260,724,242,714,221,710,199,719,180,745,166,792,154,928,136,1084,123,1213,115"/>
+<area shape="rect" title=" " alt="" coords="322,350,400,375"/>
+<area shape="poly" title=" " alt="" coords="1214,118,997,121,697,131,397,151,273,166,180,184,126,197,82,209,63,218,46,230,29,247,13,271,8,282,13,293,32,308,61,321,141,339,230,351,309,357,308,362,230,356,140,345,59,326,29,312,8,296,3,282,8,268,25,244,42,226,60,213,80,204,124,192,179,179,272,160,397,146,697,126,997,116,1213,112"/>
+<area shape="rect" title=" " alt="" coords="1109,189,1176,214"/>
+<area shape="poly" title=" " alt="" coords="1256,128,1173,183,1170,179,1253,124"/>
+<area shape="rect" title=" " alt="" coords="1200,181,1344,221"/>
+<area shape="poly" title=" " alt="" coords="1274,126,1274,167,1269,167,1269,126"/>
+<area shape="rect" title=" " alt="" coords="1368,181,1512,221"/>
+<area shape="poly" title=" " alt="" coords="1296,124,1392,173,1389,177,1293,129"/>
+<area shape="rect" title=" " alt="" coords="1536,181,1679,221"/>
+<area shape="poly" title=" " alt="" coords="1317,124,1523,176,1522,181,1316,129"/>
+<area shape="rect" href="cvedix__meta__publisher_8h.html" title="Publisher interface for the publish&#45;subscribe pattern." alt="" coords="192,189,376,214"/>
+<area shape="poly" title=" " alt="" coords="1214,121,889,146,451,184,390,190,389,185,450,179,888,141,1213,116"/>
+<area shape="rect" href="cvedix__meta__hookable_8h.html" title="Hookable interface for monitoring metadata flow through nodes." alt="" coords="733,189,917,214"/>
+<area shape="poly" title=" " alt="" coords="1214,128,899,189,898,183,1213,123"/>
+<area shape="rect" title=" " alt="" coords="1704,181,1866,221"/>
+<area shape="poly" title=" " alt="" coords="1316,123,1350,131,1443,146,1518,156,1690,179,1690,184,1517,161,1442,152,1349,136,1315,129"/>
+<area shape="rect" title=" " alt="" coords="1890,181,2053,221"/>
+<area shape="poly" title=" " alt="" coords="1315,123,1349,131,1495,149,1611,156,1728,163,1877,179,1877,184,1727,168,1611,162,1495,155,1349,136,1313,129"/>
+<area shape="poly" title=" " alt="" coords="1313,123,1349,131,1483,147,1597,156,1792,158,1988,159,2103,165,2239,179,2238,184,2103,171,1988,165,1792,164,1596,161,1482,152,1349,136,1312,129"/>
+<area shape="poly" title=" " alt="" coords="318,211,469,263,467,268,316,217"/>
+<area shape="poly" title=" " alt="" coords="276,216,255,252,251,273,255,294,267,309,281,322,314,342,311,347,278,326,263,312,251,296,245,273,250,250,271,213"/>
+<area shape="rect" title=" " alt="" coords="23,269,86,295"/>
+<area shape="poly" title=" " alt="" coords="251,217,100,268,98,263,250,211"/>
+<area shape="rect" title=" " alt="" coords="110,269,190,295"/>
+<area shape="poly" title=" " alt="" coords="265,216,183,265,180,260,263,212"/>
+<area shape="rect" href="cvedix__meta__subscriber_8h.html" title="Subscriber interface for the publish&#45;subscribe pattern." alt="" coords="266,269,456,295"/>
+<area shape="poly" title=" " alt="" coords="297,212,342,258,338,261,293,216"/>
+<area shape="poly" title=" " alt="" coords="364,295,364,336,358,336,358,295"/>
+<area shape="rect" title=" " alt="" coords="610,343,773,383"/>
+<area shape="poly" title=" " alt="" coords="410,292,600,337,598,342,409,297"/>
+<area shape="poly" title=" " alt="" coords="780,217,559,272,557,267,779,211"/>
+<area shape="poly" title=" " alt="" coords="818,216,781,260,777,257,814,212"/>
+<area shape="poly" title=" " alt="" coords="829,214,826,255,818,277,804,297,783,307,746,316,639,334,413,359,413,354,638,329,745,311,781,302,801,293,813,275,820,254,823,214"/>
+<area shape="poly" title=" " alt="" coords="836,213,853,251,856,274,849,296,821,324,787,343,784,338,818,320,844,293,850,274,848,253,831,216"/>
+<area shape="rect" title=" " alt="" coords="620,269,707,295"/>
+<area shape="poly" title=" " alt="" coords="803,216,700,266,698,261,800,212"/>
+<area shape="poly" title=" " alt="" coords="568,223,535,260,531,257,564,220"/>
+<area shape="poly" title=" " alt="" coords="626,219,723,261,721,266,624,224"/>
+<area shape="poly" title=" " alt="" coords="585,222,579,259,571,279,559,296,527,322,489,341,450,353,414,360,413,354,449,347,487,336,524,318,555,293,566,276,574,258,580,221"/>
+<area shape="poly" title=" " alt="" coords="604,220,643,258,640,261,600,223"/>
+</map>
+</div>
 </div>
 <p><a href="cvedix__src__node_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcvedix__nodes_1_1cvedix__src__node.html">cvedix_nodes::cvedix_src_node</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacecvedix__nodes" id="r_namespacecvedix__nodes"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecvedix__nodes.html">cvedix_nodes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all source nodes.  <a href="classcvedix__nodes_1_1cvedix__src__node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for all source nodes in Core AI Runtime. </p>
+<p>This file defines the cvedix_src_node base class which serves as the entry point for all video analytics pipelines. Source nodes are responsible for:</p><ul>
+<li>Reading video/image data from various sources (files, cameras, network streams)</li>
+<li>Creating cvedix_frame_meta objects containing frame data</li>
+<li>Controlling pipeline lifecycle (start/stop)</li>
+</ul>
+<h1><a class="anchor" id="src_implementations"></a>
+Available Implementations</h1>
+<ul>
+<li><b>cvedix_file_src_node</b>: Read from video files</li>
+<li><b>cvedix_rtsp_src_node</b>: Read from RTSP network streams</li>
+<li><b>cvedix_udp_src_node</b>: Read from UDP streams</li>
+<li><b>cvedix_app_src_node</b>: Receive frames from application code</li>
+<li><b>cvedix_image_src_node</b>: Read from image files</li>
+</ul>
+<h1><a class="anchor" id="src_channel"></a>
+Channel Assignment</h1>
+<p>Each source node is bound to a specific channel index at construction. Multiple source nodes can feed into the same pipeline using different channels.</p>
+<h1><a class="anchor" id="src_usage"></a>
+Usage Example</h1>
+<div class="fragment"><div class="line"><span class="comment">// Create a file source on channel 0</span></div>
+<div class="line"><span class="keyword">auto</span> src = std::make_shared&lt;cvedix_file_src_node&gt;(<span class="stringliteral">&quot;src&quot;</span>, 0, <span class="stringliteral">&quot;video.mp4&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Build pipeline</span></div>
+<div class="line">detector-&gt;attach_to({src});</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Start the pipeline</span></div>
+<div class="line">src-&gt;start();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// ... processing ...</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Stop the pipeline</span></div>
+<div class="line">src-&gt;stop();</div>
+</div><!-- fragment --><dl class="section see"><dt>See also</dt><dd>cvedix_node Base class </dd>
+<dd>
+cvedix_des_node Destination node counterpart </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 20 2025 12:48:59 for Core AI Runtime by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

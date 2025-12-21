@@ -1,29 +1,33 @@
+/**
+ * @file cvedix_osd_node.h
+ * @brief On-Screen Display node for drawing detection results
+ * 
+ * Base OSD node for displaying cvedix_frame_target on frames.
+ * Supports Chinese/Unicode fonts via FreeType.
+ * 
+ * @section osd_purpose Purpose
+ * - Debug: Visual verification of inference results
+ * - Demo: Screen casting to showcase product capabilities
+ */
 
 #pragma once
 
 #include <opencv2/freetype.hpp>
-#include "cvedix/nodes/common/cvedix_node.h" 
-/*
-* ################################
-* why need osd in our pipeline?
-* ################################
-* there are several reasons why we need osd,
-* 1. we need debug, for the outputs of infer, tracker and ba, displaying is more straightforward than printing.
-* 2. in some situations like cast screen, it is a functional requirement that we need display what we have done on screen to show what we can do to others who do not know about our product.
-* 
-* drawing the targets on current frame is the most common operation for osd.
-*/
+#include "cvedix/nodes/common/cvedix_node.h"
+
 namespace cvedix_nodes {
-    // config for cvedix_osd_node, define how to draw
+
+    /** @brief OSD configuration options */
     typedef struct cvedix_osd_node_option
     {
         int aaa = 0;
     } cvedix_osd_option;
     
-
-    // on screen display(short as osd) node.
-    // mainly used to display cvedix_frame_target on frame.
+    /**
+     * @brief Base OSD node for target visualization
+     */
     class cvedix_osd_node: public cvedix_node {
+
     private:
         // support chinese font
         cv::Ptr<cv::freetype::FreeType2> ft2;

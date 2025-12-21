@@ -1,8 +1,17 @@
+/**
+ * @file frame_utils.h
+ * @brief Utility functions for frame processing
+ * 
+ * This file provides helper functions for selecting and preparing
+ * frames for output, handling OSD overlay selection and resizing.
+ */
+
 #pragma once
 
 #include <opencv2/imgproc.hpp>
 
 #include "cvedix/objects/cvedix_frame_meta.h"
+
 
 namespace cvedix_nodes {
     namespace utils {

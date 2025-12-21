@@ -1,3 +1,13 @@
+/**
+ * @file cvedix_facenet_node.h
+ * @brief FaceNet face recognition and MTCNN face detection nodes
+ * 
+ * Implements InceptionResnetV1-based face recognition (512-dim embeddings)
+ * and MTCNN three-stage face detection with 5-point landmarks.
+ * 
+ * @see cvedix_face_recognition_node For InsightFace-based recognition
+ */
+
 #pragma once
 
 #include "base/cvedix_secondary_infer_node.h"
@@ -5,6 +15,7 @@
 #include <atomic>
 
 namespace cvedix_nodes {
+
     /**
      * @brief FaceNet face recognition node (ONNX-based)
      * 

@@ -1,4 +1,31 @@
 var searchData=
 [
-  ['七、triển_20khai_20thực_20tế_20đóng_20gói_0',['七、Triển khai Thực tế &amp; Đóng gói',['../index.html#autotoc_md20',1,'']]]
+  ['_7ecvedix_5fapp_5fdes_5fnode_0',['~cvedix_app_des_node',['../classcvedix__nodes_1_1cvedix__app__des__node.html#a7d67974b8447662a9420988dcbec868a',1,'cvedix_nodes::cvedix_app_des_node']]],
+  ['_7ecvedix_5fba_5fcrossline_5fnode_1',['~cvedix_ba_crossline_node',['../classcvedix__nodes_1_1cvedix__ba__crossline__node.html#a074a99eb481d4ead935cdae803613cc7',1,'cvedix_nodes::cvedix_ba_crossline_node']]],
+  ['_7ecvedix_5fba_5fjam_5fnode_2',['~cvedix_ba_jam_node',['../classcvedix__nodes_1_1cvedix__ba__jam__node.html#ab2e5ee23df798997954a85733300c240',1,'cvedix_nodes::cvedix_ba_jam_node']]],
+  ['_7ecvedix_5fba_5fsocket_5fbroker_5fnode_3',['~cvedix_ba_socket_broker_node',['../classcvedix__nodes_1_1cvedix__ba__socket__broker__node.html#a536c570c0c7d1029f2c9ef50cfc6c051',1,'cvedix_nodes::cvedix_ba_socket_broker_node']]],
+  ['_7ecvedix_5fba_5fstop_5fnode_4',['~cvedix_ba_stop_node',['../classcvedix__nodes_1_1cvedix__ba__stop__node.html#aca9568655730dfc79db716aa70b649a3',1,'cvedix_nodes::cvedix_ba_stop_node']]],
+  ['_7ecvedix_5fdes_5fnode_5',['~cvedix_des_node',['../classcvedix__nodes_1_1cvedix__des__node.html#a2b5d63b89bb3f88014536708e93d2b2d',1,'cvedix_nodes::cvedix_des_node']]],
+  ['_7ecvedix_5fembeddings_5fproperties_5fsocket_5fbroker_5fnode_6',['~cvedix_embeddings_properties_socket_broker_node',['../classcvedix__nodes_1_1cvedix__embeddings__properties__socket__broker__node.html#ab2fededa88d00342fdb27a248231dc25',1,'cvedix_nodes::cvedix_embeddings_properties_socket_broker_node']]],
+  ['_7ecvedix_5fembeddings_5fsocket_5fbroker_5fnode_7',['~cvedix_embeddings_socket_broker_node',['../classcvedix__nodes_1_1cvedix__embeddings__socket__broker__node.html#af8691f4ae71e0fc2f62cda97c996eca8',1,'cvedix_nodes::cvedix_embeddings_socket_broker_node']]],
+  ['_7ecvedix_5fexpr_5fsocket_5fbroker_5fnode_8',['~cvedix_expr_socket_broker_node',['../classcvedix__nodes_1_1cvedix__expr__socket__broker__node.html#aa4ca00070fa7fca6767077a359c3fb89',1,'cvedix_nodes::cvedix_expr_socket_broker_node']]],
+  ['_7ecvedix_5ffake_5fdes_5fnode_9',['~cvedix_fake_des_node',['../classcvedix__nodes_1_1cvedix__fake__des__node.html#a89031eae25dc3119e0bab07ad8d7979f',1,'cvedix_nodes::cvedix_fake_des_node']]],
+  ['_7ecvedix_5ffile_5fdes_5fnode_10',['~cvedix_file_des_node',['../classcvedix__nodes_1_1cvedix__file__des__node.html#a985c5f49bfa6f1f0fb038c6c56ce5d09',1,'cvedix_nodes::cvedix_file_des_node']]],
+  ['_7ecvedix_5fimage_5fdes_5fnode_11',['~cvedix_image_des_node',['../classcvedix__nodes_1_1cvedix__image__des__node.html#aa7487c328156ea9c0bea23096378aa5c',1,'cvedix_nodes::cvedix_image_des_node']]],
+  ['_7ecvedix_5finfer_5fnode_12',['~cvedix_infer_node',['../classcvedix__nodes_1_1cvedix__infer__node.html#add95a026d2471d809c9fe27aff2dc055',1,'cvedix_nodes::cvedix_infer_node']]],
+  ['_7ecvedix_5fjson_5fconsole_5fbroker_5fnode_13',['~cvedix_json_console_broker_node',['../classcvedix__nodes_1_1cvedix__json__console__broker__node.html#a6857e2ee1d69965b2ed88ed7e11b85a9',1,'cvedix_nodes::cvedix_json_console_broker_node']]],
+  ['_7ecvedix_5fjson_5fenhanced_5fconsole_5fbroker_5fnode_14',['~cvedix_json_enhanced_console_broker_node',['../classcvedix__nodes_1_1cvedix__json__enhanced__console__broker__node.html#a405fa3879a08722642b8782172b5593d',1,'cvedix_nodes::cvedix_json_enhanced_console_broker_node']]],
+  ['_7ecvedix_5fjson_5fmqtt_5fbroker_5fnode_15',['~cvedix_json_mqtt_broker_node',['../classcvedix__nodes_1_1cvedix__json__mqtt__broker__node.html#a1f2c33cf7b71b9f112b4df50ab44555b',1,'cvedix_nodes::cvedix_json_mqtt_broker_node']]],
+  ['_7ecvedix_5fmqtt_5fclient_16',['~cvedix_mqtt_client',['../classcvedix__utils_1_1cvedix__mqtt__client.html#a290d360572be71b5e806443615032b1e',1,'cvedix_utils::cvedix_mqtt_client']]],
+  ['_7ecvedix_5fmqtt_5fjson_5freceiver_17',['~cvedix_mqtt_json_receiver',['../classcvedix__utils_1_1cvedix__mqtt__json__receiver.html#a4d93721755f16a2fc4f68176f8b48931',1,'cvedix_utils::cvedix_mqtt_json_receiver']]],
+  ['_7ecvedix_5fmsg_5fbroker_5fnode_18',['~cvedix_msg_broker_node',['../classcvedix__nodes_1_1cvedix__msg__broker__node.html#ac367353a6522166db4a7418d0977a858',1,'cvedix_nodes::cvedix_msg_broker_node']]],
+  ['_7ecvedix_5fnode_19',['~cvedix_node',['../classcvedix__nodes_1_1cvedix__node.html#a538975ae6de8f6ed2b3833c4a6b06d5c',1,'cvedix_nodes::cvedix_node']]],
+  ['_7ecvedix_5fplate_5fsocket_5fbroker_5fnode_20',['~cvedix_plate_socket_broker_node',['../classcvedix__nodes_1_1cvedix__plate__socket__broker__node.html#ac6772a65f42ccd40d7bc35ef0a0e1190',1,'cvedix_nodes::cvedix_plate_socket_broker_node']]],
+  ['_7ecvedix_5fscreen_5fdes_5fnode_21',['~cvedix_screen_des_node',['../classcvedix__nodes_1_1cvedix__screen__des__node.html#ad01d0c183384b006564c50e3719df22c',1,'cvedix_nodes::cvedix_screen_des_node']]],
+  ['_7ecvedix_5fsrc_5fnode_22',['~cvedix_src_node',['../classcvedix__nodes_1_1cvedix__src__node.html#a1da01211971f9e7f4980ae6fc8078448',1,'cvedix_nodes::cvedix_src_node']]],
+  ['_7ecvedix_5fstream_5finfo_5fhookable_23',['~cvedix_stream_info_hookable',['../classcvedix__nodes_1_1cvedix__stream__info__hookable.html#a8c03905007dbcad5510ab44cdbf7e3cc',1,'cvedix_nodes::cvedix_stream_info_hookable']]],
+  ['_7ecvedix_5fstream_5fstatus_5fhookable_24',['~cvedix_stream_status_hookable',['../classcvedix__nodes_1_1cvedix__stream__status__hookable.html#ab40b68421063c766ab97c66c73ae1ae8',1,'cvedix_nodes::cvedix_stream_status_hookable']]],
+  ['_7ecvedix_5ftrack_5fnode_25',['~cvedix_track_node',['../classcvedix__nodes_1_1cvedix__track__node.html#a13b28a1fdd694659252dad18ddf25dbb',1,'cvedix_nodes::cvedix_track_node']]],
+  ['_7ecvedix_5fxml_5ffile_5fbroker_5fnode_26',['~cvedix_xml_file_broker_node',['../classcvedix__nodes_1_1cvedix__xml__file__broker__node.html#acd5602517eec4ee348b8e64e6872cf58',1,'cvedix_nodes::cvedix_xml_file_broker_node']]],
+  ['_7ecvedix_5fxml_5fsocket_5fbroker_5fnode_27',['~cvedix_xml_socket_broker_node',['../classcvedix__nodes_1_1cvedix__xml__socket__broker__node.html#a49f77a086cf63734bed55e8dc8313c6e',1,'cvedix_nodes::cvedix_xml_socket_broker_node']]]
 ];

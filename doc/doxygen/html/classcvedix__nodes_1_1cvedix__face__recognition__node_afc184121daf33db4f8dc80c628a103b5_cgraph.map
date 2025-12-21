@@ -1,0 +1,7 @@
+<map id="cvedix_nodes::cvedix_face_recognition_node::postprocess" name="cvedix_nodes::cvedix_face_recognition_node::postprocess">
+<area shape="rect" id="Node000001" title="Postprocess: Extract embeddings, match against database, apply voting." alt="" coords="5,45,181,100"/>
+<area shape="rect" id="Node000002" href="$classcvedix__face__utils_1_1EnhancedFaceDatabase.html#aca5a4f44eeddc64060361a947520eaec" title="Find best match with margin checking." alt="" coords="233,5,409,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,55,218,48,219,53,182,60"/>
+<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__face__recognition__node.html#a26400daa3e5aeec5ba70452a52322d0d" title="Get personal threshold for a person." alt="" coords="229,84,412,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,85,216,91,215,96,181,90"/>
+</map>
