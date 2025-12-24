@@ -25,15 +25,15 @@ add_executable(face_tracking_sample "face_tracking_sample.cpp")
 target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
 # InsightFace ONNX samples (no TensorRT required)
-add_executable(insightface_sample "insightface_sample.cpp")
-target_link_libraries(insightface_sample ${PROJECT_NAME})
+# add_executable(insightface_sample "insightface_sample.cpp")
+# target_link_libraries(insightface_sample ${PROJECT_NAME})
 
-add_executable(insightface_register_recognize_face_sample "insightface_register_recognize_face_sample.cpp")
-target_link_libraries(insightface_register_recognize_face_sample ${PROJECT_NAME})
+# add_executable(insightface_register_recognize_face_sample "insightface_register_recognize_face_sample.cpp")
+# target_link_libraries(insightface_register_recognize_face_sample ${PROJECT_NAME})
 
 # Face registration sample with augmentation support
-add_executable(face_registration_sample "face_registration_sample.cpp")
-target_link_libraries(face_registration_sample ${PROJECT_NAME})
+# add_executable(face_registration_sample "face_registration_sample.cpp")
+# target_link_libraries(face_registration_sample ${PROJECT_NAME})
 
 # Face recognition sample (uses database from registration)
 add_executable(face_recognition_sample "face_recognition_sample.cpp")
@@ -93,8 +93,11 @@ target_link_libraries(mask_rcnn_sample ${PROJECT_NAME})
 add_executable(message_broker_sample "message_broker_sample.cpp")
 target_link_libraries(message_broker_sample ${PROJECT_NAME})
 
-add_executable(face_recognition_mqtt_sample "face_recognition_mqtt_sample.cpp")
-target_link_libraries(face_recognition_mqtt_sample ${PROJECT_NAME})
+add_executable(sse_broker_sample "sse_broker_sample.cpp")
+target_link_libraries(sse_broker_sample ${PROJECT_NAME})
+
+# add_executable(face_recognition_mqtt_sample "face_recognition_mqtt_sample.cpp")
+# target_link_libraries(face_recognition_mqtt_sample ${PROJECT_NAME})
 
 
 add_executable(multi_detectors_and_classifiers_sample "multi_detectors_and_classifiers_sample.cpp")
@@ -193,7 +196,7 @@ install(TARGETS
     face_yunet_int8_sample yolov11_onnx_detector_sample
     video_restoration_sample app_des_sample app_src_des_sample
     lane_detect_sample frame_fusion_sample cvedix_test
-    insightface_sample insightface_register_recognize_face_sample
+    # insightface_sample insightface_register_recognize_face_sample
     DESTINATION bin
     OPTIONAL
 )
