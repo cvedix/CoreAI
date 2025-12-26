@@ -642,7 +642,9 @@ install(TARGETS tinyexpr EXPORT cvedix-targets
 )
 message("--------------end build tinyexpr---------------")
 
-# add_subdirectory(third_party/asio)
+message("-----------------include asio------------------")
+add_subdirectory(third_party/asio)
+list(APPEND CVEDIX_DEPEND_LIBS asio) 
 
 message("-------------collect version info--------------")
 string(TIMESTAMP BUILD_TIME "%Y%m%d-%H%M%S")
@@ -753,7 +755,6 @@ list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
 add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${CVEDIX_DEPEND_LIBS})
 target_link_libraries(${PROJECT_NAME} PRIVATE tinyexpr)
-# target_link_libraries(${PROJECT_NAME} PRIVATE asio)
 
 # Link licensecxx if license checking is enabled
 if(CVEDIX_WITH_LICENSE)

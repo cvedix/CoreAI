@@ -29,6 +29,11 @@ int main() {
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd_0");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
+    // Customize output message (optional)
+    sse_broker_0->set_json_transformer([](const std::string& msg) {
+        return "{\"type\":\"detection\",\"payload\":" + msg + "}";
+    });
+
     // construct pipeline
     yunet_face_detector_0->attach_to({file_src_0});
     sface_face_encoder_0->attach_to({yunet_face_detector_0});
