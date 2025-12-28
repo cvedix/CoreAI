@@ -43,7 +43,9 @@ find_path(OPENCV_FREETYPE_INCLUDE_DIR
     NAMES opencv2/freetype.hpp
     PATHS /home/ubuntu/opencv_contrib/modules/freetype/include
           /usr/local/include
+          /usr/local/include/opencv4
           /usr/include
+          /usr/include/opencv4
     NO_DEFAULT_PATH
 )
 if(OPENCV_FREETYPE_INCLUDE_DIR)
@@ -640,6 +642,10 @@ install(TARGETS tinyexpr EXPORT cvedix-targets
 )
 message("--------------end build tinyexpr---------------")
 
+message("-----------------include asio------------------")
+add_subdirectory(third_party/asio)
+list(APPEND CVEDIX_DEPEND_LIBS asio) 
+
 message("-------------collect version info--------------")
 string(TIMESTAMP BUILD_TIME "%Y%m%d-%H%M%S")
 find_package(Git QUIET)
@@ -806,6 +812,7 @@ add_custom_target(cvedix_symlinks
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+    # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include>
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
