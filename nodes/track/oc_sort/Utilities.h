@@ -1,5 +1,5 @@
-#ifndef OC_SORT_CPP_UTILITIES_HPP
-#define OC_SORT_CPP_UTILITIES_HPP
+#ifndef OC_SORT_CPP_UTILITIES_H
+#define OC_SORT_CPP_UTILITIES_H
 #include "Eigen/Dense"
 namespace ocsort {
     /**
@@ -14,4 +14,4 @@ namespace ocsort {
     Eigen::VectorXf convert_x_to_bbox(Eigen::VectorXf x);
     Eigen::VectorXf k_previous_obs(std::unordered_map<int, Eigen::VectorXf> observations_, int cur_age, int k);
 }// namespace ocsort
-#endif//OC_SORT_CPP_UTILITIES_HPP
+#endif//OC_SORT_CPP_UTILITIES_H

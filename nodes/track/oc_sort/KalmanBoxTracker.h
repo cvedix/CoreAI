@@ -1,8 +1,8 @@
-#ifndef OC_SORT_CPP_KALMANBOXTRACKER_HPP
-#define OC_SORT_CPP_KALMANBOXTRACKER_HPP
+#ifndef OC_SORT_CPP_KALMANBOXTRACKER_H
+#define OC_SORT_CPP_KALMANBOXTRACKER_H
 ////////////// KalmanBoxTracker /////////////
-#include "KalmanFilter.hpp"
-#include "Utilities.hpp"
+#include "KalmanFilter.h"
+#include "Utilities.h"
 #include "iostream"
 /*
 This class represents the internal state of individual
@@ -40,4 +40,4 @@ namespace ocsort {
     };
 }// namespace ocsort
 
-#endif//OC_SORT_CPP_KALMANBOXTRACKER_HPP
+#endif//OC_SORT_CPP_KALMANBOXTRACKER_H

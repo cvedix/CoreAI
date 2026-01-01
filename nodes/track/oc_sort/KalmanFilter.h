@@ -1,5 +1,5 @@
-﻿#ifndef OC_SORT_CPP_KALMANFILTER_HPP
-#define OC_SORT_CPP_KALMANFILTER_HPP
+﻿#ifndef OC_SORT_CPP_KALMANFILTER_H
+#define OC_SORT_CPP_KALMANFILTER_H
 #include <Eigen/Dense>
 #include <any>
 #include <map>
@@ -97,4 +97,4 @@ namespace ocsort {
 
 }// namespace ocsort
 
-#endif//OC_SORT_CPP_KALMANFILTER_HPP
+#endif//OC_SORT_CPP_KALMANFILTER_H

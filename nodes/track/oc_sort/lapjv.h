@@ -1,5 +1,5 @@
-#ifndef OC_SORT_CPP_LAPJV_HPP
-#define OC_SORT_CPP_LAPJV_HPP
+#ifndef OC_SORT_CPP_LAPJV_H
+#define OC_SORT_CPP_LAPJV_H
 #include "vector"
 #define LARGE 1000000
 
@@ -79,4 +79,4 @@ extern int_t lapmod_internal(
     int_t* x, int_t* y, fp_t fp_version);
 float execLapjv(const std::vector<std::vector<float>>& cost, std::vector<int>& rowsol,
     std::vector<int>& colsol, bool extend_cost, float cost_limit, bool return_cost);
-#endif//OC_SORT_CPP_LAPJV_HPP
+#endif//OC_SORT_CPP_LAPJV_H

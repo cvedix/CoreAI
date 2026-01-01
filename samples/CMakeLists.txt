@@ -27,6 +27,9 @@ target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 add_executable(face_tracking_bytetrack_sample "face_tracking_bytetrack_sample.cpp")
 target_link_libraries(face_tracking_bytetrack_sample ${PROJECT_NAME})
 
+add_executable(face_tracking_ocsort_sample "face_tracking_ocsort_sample.cpp")
+target_link_libraries(face_tracking_ocsort_sample ${PROJECT_NAME})
+
 # InsightFace ONNX samples (no TensorRT required)
 # add_executable(insightface_sample "insightface_sample.cpp")
 # target_link_libraries(insightface_sample ${PROJECT_NAME})
