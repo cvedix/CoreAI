@@ -645,6 +645,7 @@ message("--------------end build tinyexpr---------------")
 message("-----------------include asio------------------")
 add_subdirectory(third_party/asio)
 list(APPEND CVEDIX_DEPEND_LIBS asio) 
+install(TARGETS asio EXPORT cvedix-targets)
 
 message("-------------collect version info--------------")
 string(TIMESTAMP BUILD_TIME "%Y%m%d-%H%M%S")
