@@ -43,6 +43,13 @@ namespace cvedix_nodes {
         deinitialized();
     }
 
+    static size_t hash_vector_float(const std::vector<float>& v) noexcept {
+        size_t h = v.size();
+        for (float x : v)
+            h = h * 131 + static_cast<int>(x * 1000);
+        return h;
+    }
+
     void cvedix_ocsort_track_node::track(int channel_index, const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
         const std::vector<std::vector<float>>& target_embeddings, 
         std::vector<int>& track_ids)
@@ -67,6 +74,7 @@ namespace cvedix_nodes {
         }
 
         std::vector<std::vector<float>> data;
+        std::unordered_map<size_t, int> target_map;
 
         for (int i = 0; i < target_rects.size(); i++)
         {
@@ -79,6 +87,12 @@ namespace cvedix_nodes {
             row.push_back(0); // classid or label (current unused)
 
             data.push_back(row);
+
+            target_map.emplace(
+                hash_vector_float({row[0], row[1], row[2], row[3]}),
+                i
+            );
+
         }
 
         auto it = channel_trackers.find(channel_index);
@@ -87,18 +101,16 @@ namespace cvedix_nodes {
             auto& tracker = it->second;
             std::vector<Eigen::RowVectorXf> res = tracker.update(Vector2Matrix(data));
 
-            if (res.size() != track_ids.size())
-            {
-                CVEDIX_WARN(cvedix_utils::string_format("[%s] Inconsistency size", node_name.c_str()));
-                return;
-            }
-
             for (size_t i = 0; i < res.size(); i++) {
                 const auto& j = res[i];
                 int ID = static_cast<int>(j[4]);
+                auto it = target_map.find(hash_vector_float({j[0], j[1], j[2], j[3]}));
+                if (it != target_map.end())
+                    track_ids[it->second] = ID;
                 // int Class = int(j[5]);
                 // float conf = j[6];
-                track_ids[i] = ID;
+
+
             }
                 
             data.clear();
