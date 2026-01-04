@@ -23,6 +23,14 @@ namespace cvedix_objects {
         UNJAM = 0b00010000
     };
 
+    /** @brief BA object move direction types */
+    enum class cvedix_ba_direct_type {
+        UP = 1,
+        DOWN = 2,
+        LEFT = 3,
+        RIGHT = 4
+    };
+
     /**
      * @brief Behavior analysis result
      */
