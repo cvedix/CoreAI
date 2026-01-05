@@ -24,6 +24,9 @@ target_link_libraries(enet_seg_sample ${PROJECT_NAME})
 add_executable(face_tracking_sample "face_tracking_sample.cpp")
 target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
+add_executable(face_tracking_bytetrack_sample "face_tracking_bytetrack_sample.cpp")
+target_link_libraries(face_tracking_bytetrack_sample ${PROJECT_NAME})
+
 # InsightFace ONNX samples (no TensorRT required)
 # add_executable(insightface_sample "insightface_sample.cpp")
 # target_link_libraries(insightface_sample ${PROJECT_NAME})
@@ -476,9 +479,9 @@ if(CVEDIX_WITH_TRT)
         # trt_yolov8_sample                                # DISABLED - needs trt_yolov8
         # trt_yolov8_sample2                               # DISABLED - needs trt_yolov8
         # rtmp_src_sample                                  # DISABLED - needs trt_vehicle
-        insightface_trt_sample
+        # insightface_trt_sample
         # insightface_trt_simple_sample                    # DISABLED - file does not exist
-        insightface_register_recognize_face_trt_sample
+        # insightface_register_recognize_face_trt_sample
         DESTINATION bin
         OPTIONAL
     )

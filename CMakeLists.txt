@@ -751,11 +751,29 @@ endif()
 
 #...#
 list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
+set(EIGEN_VERSION 3.3)
+find_package(Eigen3 ${EIGEN_VERSION} QUIET)
+message("FIND Eigen3")
+list(APPEND CVEDIX_DEPEND_LIBS Eigen3::Eigen)
+if(NOT EIGEN3_FOUND)
+    message("NOT FOUND EIGEN3")
+    set(BUILD_TESTING OFF CACHE INTERNAL "")
+    FetchContent_Declare(eigen
+        GIT_REPOSITORY  https://gitlab.com/libeigen/eigen.git
+        GIT_TAG         ${EIGEN_VERSION}
+        GIT_SHALLOW     ON)
+    FetchContent_MakeAvailable(eigen)
+    unset(BUILD_TESTING CACHE)
+endif()
 
 # build for SDK
 add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
-target_link_libraries(${PROJECT_NAME} PUBLIC ${CVEDIX_DEPEND_LIBS})
-target_link_libraries(${PROJECT_NAME} PRIVATE tinyexpr)
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        ${CVEDIX_DEPEND_LIBS}
+    PRIVATE
+        tinyexpr
+)
 
 # Link licensecxx if license checking is enabled
 if(CVEDIX_WITH_LICENSE)
