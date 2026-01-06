@@ -25,10 +25,9 @@ namespace cvedix_objects {
 
     /** @brief BA object move direction types */
     enum class cvedix_ba_direct_type {
-        UP = 1,
-        DOWN = 2,
-        LEFT = 3,
-        RIGHT = 4
+        IN = 1,
+        OUT = 2,
+        BOTH = 3
     };
 
     /**

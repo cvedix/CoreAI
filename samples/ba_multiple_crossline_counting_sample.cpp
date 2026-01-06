@@ -29,25 +29,23 @@ int main() {
     // define a line in frame for every channel (value MUST in the scope of frame'size)
     cvedix_objects::cvedix_point start1(250, 250);  // change to proper value
     cvedix_objects::cvedix_point end1(450, 250);  // change to proper value
+    cvedix_nodes::cvedix_ba_line_couting_setting line_setting1;
+    line_setting1.setting_name = "line_1";
+    line_setting1.line = cvedix_objects::cvedix_line(start1, end1);
+    line_setting1.direction = cvedix_objects::cvedix_ba_direct_type::IN;
 
     cvedix_objects::cvedix_point start2(500, 250);  // change to proper value
     cvedix_objects::cvedix_point end2(700, 250);
+    cvedix_nodes::cvedix_ba_line_couting_setting line_setting2;
+    line_setting2.setting_name = "line_2";
+    line_setting2.line = cvedix_objects::cvedix_line(start2, end2);
+    line_setting2.direction = cvedix_objects::cvedix_ba_direct_type::OUT;
 
-    std::map<int, std::vector<cvedix_objects::cvedix_line>> lines = {
-        {0, {
-            cvedix_objects::cvedix_line(start1, end1),
-            cvedix_objects::cvedix_line(start2, end2)
-        }},
+    std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> line_settings = {
+        {0, {line_setting1, line_setting2}},
     };
 
-    std::map<int, std::vector<cvedix_objects::cvedix_ba_direct_type>> directions = {
-        {0, {
-            cvedix_objects::cvedix_ba_direct_type::DOWN,
-            cvedix_objects::cvedix_ba_direct_type::UP
-        }},
-    };
-
-    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_counting>("ba_crossline", lines, directions);
+    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_counting>("ba_crossline", line_settings);
     auto osd = std::make_shared<cvedix_nodes::cvedix_ba_crossline_osd_node>("osd");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
     // auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://192.168.77.60/live/9000");

@@ -3,25 +3,15 @@
 namespace cvedix_nodes
 {
     cvedix_ba_line_counting::cvedix_ba_line_counting(std::string node_name,
-                                        std::map<int, std::vector<cvedix_objects::cvedix_line>> all_line_settings,
-                                        std::map<int, std::vector<cvedix_objects::cvedix_ba_direct_type>> all_line_detect_directions,
+                                        std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> all_line_settings,
                                         bool need_record_image,
                                         bool need_record_video):
-                                        cvedix_node(node_name), all_line_settings(all_line_settings), all_line_detect_directions(all_line_detect_directions), need_record_image(need_record_image), need_record_video(need_record_video) 
+                                        cvedix_node(node_name), all_line_settings(all_line_settings), need_record_image(need_record_image), need_record_video(need_record_video) 
     {
         CVEDIX_INFO(cvedix_utils::string_format("[%s] %s", node_name.c_str(), to_string().c_str()));    
-        
-        if (all_line_settings.size() != all_line_detect_directions.size()) {
-            CVEDIX_ERROR(cvedix_utils::string_format("[%s] Line settings size and line directions size do not match!", node_name.c_str()));
-            throw std::invalid_argument("Line settings size and line directions size do not match!");
-        }
 
         for (auto it = all_line_settings.begin(); it != all_line_settings.end(); ++it) {
             int channel_id = it->first;
-            if (all_line_settings[channel_id].size() != all_line_detect_directions[channel_id].size()) {
-                CVEDIX_ERROR(cvedix_utils::string_format("[%s] Line settings and line directions size do not match for channel %d!", node_name.c_str(), channel_id));
-                throw std::invalid_argument("Line settings and line directions size do not match for a channel!");
-            }
             all_line_cross_counting[channel_id] = std::vector<int>(all_line_settings[channel_id].size(), 0);
         }
 
@@ -37,8 +27,7 @@ namespace cvedix_nodes
                      const cvedix_objects::cvedix_point& b,
                      const cvedix_objects::cvedix_point& c)
     {
-        return (b.x - a.x) * (c.y - a.y)
-            - (b.y - a.y) * (c.x - a.x);
+        return (b.y - a.y) * (c.x - a.x) - (b.x - a.x) * (c.y - a.y);
     }
 
     static bool segments_intersect(
@@ -58,6 +47,30 @@ namespace cvedix_nodes
         return false;
     }
 
+    static bool check_direction(
+        const cvedix_objects::cvedix_point& p1,
+        const cvedix_objects::cvedix_point& p2,
+        const cvedix_objects::cvedix_point& q1,
+        const cvedix_objects::cvedix_point& q2,
+        const cvedix_objects::cvedix_ba_direct_type& direction)
+    {
+        float d3 = cross2d(q1, q2, p1);
+        float d4 = cross2d(q1, q2, p2);
+
+        switch (direction)
+        {
+            case cvedix_objects::cvedix_ba_direct_type::IN:
+                return d3 > 0 && d4 < 0;
+            case cvedix_objects::cvedix_ba_direct_type::OUT:
+                return d3 < 0 && d4 > 0;
+            case cvedix_objects::cvedix_ba_direct_type::BOTH:
+                return d3 * d4 < 0;
+            default:
+                return false;
+        }
+
+    }
+
     static bool is_point_crossing_line(
         const cvedix_objects::cvedix_point& prev_point,
         const cvedix_objects::cvedix_point& curr_point,
@@ -72,26 +85,7 @@ namespace cvedix_nodes
             return false;
 
         // 2. Check moving direction
-        float dx = curr_point.x - prev_point.x;
-        float dy = curr_point.y - prev_point.y;
-
-        switch (direction)
-        {
-            case cvedix_objects::cvedix_ba_direct_type::UP:
-                return dy < 0;
-
-            case cvedix_objects::cvedix_ba_direct_type::DOWN:
-                return dy > 0;
-
-            case cvedix_objects::cvedix_ba_direct_type::LEFT:
-                return dx < 0;
-
-            case cvedix_objects::cvedix_ba_direct_type::RIGHT:
-                return dx > 0;
-
-            default:
-                return false;
-        }
+        return check_direction(prev_point, curr_point, A, B, direction);
     }
     
     std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_line_counting::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta)
@@ -101,7 +95,6 @@ namespace cvedix_nodes
         }
 
         const auto& line_setting_list = all_line_settings.at(meta->channel_index);
-        const auto& line_direction_list = all_line_detect_directions.at(meta->channel_index);
         auto& line_cross_counting_list = all_line_cross_counting.at(meta->channel_index);
 
         for (auto& target : meta->targets)
@@ -116,8 +109,9 @@ namespace cvedix_nodes
 
                 for (size_t i = 0; i < line_setting_list.size(); i++)
                 {
-                    const auto& line = line_setting_list[i];
-                    const auto& direction = line_direction_list[i];
+                    const auto& line = line_setting_list[i].line;
+                    const auto& direction = line_setting_list[i].direction;
+                    const auto& setting_name = line_setting_list[i].setting_name;
 
                     if (is_point_crossing_line(prev_point, curr_point, line, direction))
                     {
@@ -147,12 +141,12 @@ namespace cvedix_nodes
                                                                                     meta->frame_index, 
                                                                                     involve_targets,
                                                                                     involve_region,
-                                                                                    "crossline counting",
+                                                                                    setting_name,
                                                                                     image_file_name_without_ext,
                                                                                     video_file_name_without_ext);
                         meta->ba_results.push_back(ba_result);
 
-                        CVEDIX_INFO(cvedix_utils::string_format("[%s] [channel %d] target ID [%d] crossed line, total count for this line index [%d]: [%d]", node_name.c_str(), meta->channel_index, target->track_id, i, total_count));
+                        CVEDIX_INFO(cvedix_utils::string_format("[%s] [channel %d] target ID [%d] crossed line, total count for this line [%s]: [%d]", node_name.c_str(), meta->channel_index, target->track_id, setting_name.c_str(), total_count));
                         if (need_record_image || need_record_video) {
                             CVEDIX_INFO(cvedix_utils::string_format("[%s] [channel %d] Recording triggered - Image: [%s], Video: [%s]", node_name.c_str(), meta->channel_index, image_file_name_without_ext.c_str(), video_file_name_without_ext.c_str()));
                         }

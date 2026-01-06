@@ -10,6 +10,12 @@
 
 namespace cvedix_nodes {
 
+    struct cvedix_ba_line_couting_setting {
+        std::string setting_name;
+        cvedix_objects::cvedix_line line;
+        cvedix_objects::cvedix_ba_direct_type direction;
+    };
+
     class cvedix_ba_line_counting : public cvedix_node
     {
         
@@ -17,9 +23,7 @@ namespace cvedix_nodes {
 
             std::map<int, std::vector<int>> all_line_cross_counting;
 
-            std::map<int, std::vector<cvedix_objects::cvedix_ba_direct_type>> all_line_detect_directions;
-
-            std::map<int, std::vector<cvedix_objects::cvedix_line>> all_line_settings;
+            std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> all_line_settings;
 
             /// @brief Whether to trigger image recording on crossline event
             bool need_record_image;
@@ -37,8 +41,7 @@ namespace cvedix_nodes {
              * @brief Constructor
              */
             cvedix_ba_line_counting(std::string node_name,
-                                std::map<int, std::vector<cvedix_objects::cvedix_line>> all_line_settings,
-                                std::map<int, std::vector<cvedix_objects::cvedix_ba_direct_type>> all_line_detect_directions,
+                                std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> all_line_settings,
                                 bool need_record_image = false,
                                 bool need_record_video = false);
     
