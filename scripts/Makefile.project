@@ -1,7 +1,14 @@
 # AI Core Runtime - Makefile
 # Provides convenient targets for setup and building
-# Usage: make -f scripts/Makefile.project <target>
-# Or: ln -s scripts/Makefile.project Makefile
+# 
+# Usage from project root:
+#   make setup
+#   make build
+#
+# Or: make -f scripts/Makefile.project <target>
+
+# Get the directory where this Makefile is located (remove trailing slash)
+SCRIPTS_DIR := $(patsubst %/,%,$(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 
 .PHONY: setup setup-auto build build-cpu build-rockchip clean package help
 
@@ -9,28 +16,31 @@
 help:
 	@echo "AI Core Runtime - Available targets:"
 	@echo ""
+	@echo "  Usage:"
+	@echo "    make -f scripts/Makefile.project <target>"
+	@echo ""
 	@echo "  Setup:"
-	@echo "    make setup        - Install dependencies (interactive, asks about optional deps)"
-	@echo "    make setup-auto   - Install dependencies (non-interactive, base deps only)"
+	@echo "    setup        - Install dependencies (interactive, asks about optional deps)"
+	@echo "    setup-auto   - Install dependencies (non-interactive, base deps only)"
 	@echo ""
 	@echo "  Build:"
-	@echo "    make build        - Build with auto-detected hardware"
-	@echo "    make build-cpu    - Build for CPU only"
-	@echo "    make build-rockchip - Build for Rockchip RK35xx"
+	@echo "    build        - Build with auto-detected hardware"
+	@echo "    build-cpu    - Build for CPU only"
+	@echo "    build-rockchip - Build for Rockchip RK35xx"
 	@echo ""
 	@echo "  Package:"
-	@echo "    make package-cpu      - Create .deb package for CPU"
-	@echo "    make package-rockchip - Create .deb package for Rockchip"
+	@echo "    package-cpu      - Create .deb package for CPU"
+	@echo "    package-rockchip - Create .deb package for Rockchip"
 	@echo ""
 	@echo "  Other:"
-	@echo "    make clean        - Clean build directory"
-	@echo "    make info         - Show detected hardware info"
+	@echo "    clean        - Clean build directory"
+	@echo "    info         - Show detected hardware info"
 
 # Install dependencies (interactive)
 setup:
 	@echo "Installing dependencies for AI Core Runtime..."
-	@chmod +x ./setup_dependencies.sh
-	@./setup_dependencies.sh
+	@chmod +x $(SCRIPTS_DIR)/setup_dependencies.sh
+	@$(SCRIPTS_DIR)/setup_dependencies.sh
 
 # Install dependencies (non-interactive, base only)
 setup-auto:
@@ -69,8 +79,8 @@ build:
 
 # Build for CPU only
 build-cpu:
-	@chmod +x ./build_with_cpu.sh
-	@./build_with_cpu.sh
+	@chmod +x $(SCRIPTS_DIR)/build_with_cpu.sh
+	@$(SCRIPTS_DIR)/build_with_cpu.sh
 
 # Build for Rockchip
 build-rockchip:
@@ -80,13 +90,13 @@ build-rockchip:
 
 # Create .deb package for CPU
 package-cpu:
-	@chmod +x ./build_cpu_deb_package.sh
-	@./build_cpu_deb_package.sh
+	@chmod +x $(SCRIPTS_DIR)/build_cpu_deb_package.sh
+	@$(SCRIPTS_DIR)/build_cpu_deb_package.sh
 
 # Create .deb package for Rockchip
 package-rockchip:
-	@chmod +x ./build_rockchip_package.sh
-	@./build_rockchip_package.sh
+	@chmod +x $(SCRIPTS_DIR)/build_rockchip_package.sh
+	@$(SCRIPTS_DIR)/build_rockchip_package.sh
 
 # Clean build artifacts
 clean:

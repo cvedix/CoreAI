@@ -8,10 +8,38 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 
 # PaddlePaddle required  (please refer to 'env/install_paddle_inference.sh')
-set(PADDLE_LIB_PATH "/usr/local/lib")      # change this line if possible
-set(PADDLE_INC_PATH "/usr/local/include")  # change this line if possible
+# Check if local paddle_inference exists in third_party
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/lib")
+    set(PADDLE_LIB_PATH "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/lib")
+    set(PADDLE_INC_PATH "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/include")
+else()
+    set(PADDLE_LIB_PATH "/usr/local/lib")      # change this line if possible
+    set(PADDLE_INC_PATH "/usr/local/include")  # change this line if possible
+endif()
+
+message(STATUS "PaddlePaddle library status:")
+message(STATUS "    include path: ${PADDLE_INC_PATH}")
+message(STATUS "    library path: ${PADDLE_LIB_PATH}")
+
 link_directories(${PADDLE_LIB_PATH})     
 include_directories(${PADDLE_INC_PATH})
+
+# Add dependencies include paths (glog, gflags, etc.)
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/include")
+    include_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/include")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/include")
+    include_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/include")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/include")
+    include_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/include")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/include")
+    include_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/include")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/include")
+    include_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/include")
+endif()
 if(DEFINED VP_BUILD_FROM) # tell sdk where is paddle
     set(VP_PADDLE_LIB_PATH ${PADDLE_LIB_PATH} PARENT_SCOPE)     
     set(VP_PADDLE_INC_PATH ${PADDLE_INC_PATH} PARENT_SCOPE) 
@@ -24,6 +52,33 @@ message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 include_directories(${OpenCV_INCLUDE_DIRS})
+
+# Add dependencies library paths
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
+endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
+endif()
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+    link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+endif()
 
 # collect dependent libs for paddle_ocr
 set(PADDLE_LIBS paddle_inference gflags glog paddle2onnx onnxruntime dnnl iomp5)
@@ -44,3 +99,10 @@ if(NOT DEFINED VP_BUILD_FROM)
     add_executable(pd_ocr "samples/pd_ocr.cpp")
     target_link_libraries(pd_ocr ${PROJECT_NAME})
 endif()
+
+# Install paddle_ocr with export
+install(TARGETS ${PROJECT_NAME} EXPORT cvedix-targets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)

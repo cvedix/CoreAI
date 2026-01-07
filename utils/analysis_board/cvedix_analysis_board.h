@@ -38,6 +38,7 @@ namespace cvedix_utils {
         const int canvas_gap_vertical = 60;
         const int node_gap_horizontal = 40;
         const int node_gap_vertical = 10;
+        const int debug_panel_height = 200;
 
         std::string board_title = "cvedix_analysis_board";
         bool alive = true;
@@ -62,6 +63,7 @@ namespace cvedix_utils {
         // cache for easy access purpose
         std::vector<std::shared_ptr<cvedix_node_on_screen>> src_nodes_on_screen;
         std::vector<std::shared_ptr<cvedix_node_on_screen>> des_nodes_on_screen;
+        std::vector<std::shared_ptr<cvedix_node_on_screen>> all_nodes_on_screen;
 
         // canvas to draw
         cv::Mat bg_canvas;
@@ -74,6 +76,9 @@ namespace cvedix_utils {
 
         // render nodes in a layer
         void render_layer(std::vector<std::shared_ptr<cvedix_node_on_screen>> nodes_in_layer, cv::Mat& canvas, bool static_parts = true);
+
+        // render debug crops
+        void render_debug_crops(cv::Mat& canvas);
 
         // map nodes in memory to screen, one layer by layer.
         void map_nodes(std::vector<std::shared_ptr<cvedix_node_on_screen>> nodes_on_screen, int layer);

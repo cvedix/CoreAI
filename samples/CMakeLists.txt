@@ -63,18 +63,18 @@ endif()
 
 # InsightFace TensorRT samples (requires CVEDIX_WITH_TRT=ON)
 if(CVEDIX_WITH_TRT)
-    add_executable(insightface_trt_sample "insightface_trt_sample.cpp")
-    target_include_directories(insightface_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(insightface_trt_sample ${PROJECT_NAME})
+    # add_executable(insightface_trt_sample "insightface_trt_sample.cpp")
+    # target_include_directories(insightface_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    # target_link_libraries(insightface_trt_sample ${PROJECT_NAME})
     
     # Note: insightface_trt_simple_sample.cpp does not exist, commented out
     # add_executable(insightface_trt_simple_sample "insightface_trt_simple_sample.cpp")
     # target_link_libraries(insightface_trt_simple_sample ${PROJECT_NAME})
     
     # Use correct filename: insightface_register_recognize_face_trt_sample.cpp
-    add_executable(insightface_register_recognize_face_trt_sample "insightface_register_recognize_face_trt_sample.cpp")
-    target_include_directories(insightface_register_recognize_face_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(insightface_register_recognize_face_trt_sample ${PROJECT_NAME})
+    # add_executable(insightface_register_recognize_face_trt_sample "insightface_register_recognize_face_trt_sample.cpp")
+    # target_include_directories(insightface_register_recognize_face_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    # target_link_libraries(insightface_register_recognize_face_trt_sample ${PROJECT_NAME})
 endif()
 
 add_executable(face_tracking_rtsp_sample "face_tracking_rtsp_sample.cpp")
@@ -402,6 +402,11 @@ endif()
 
 # samples depend on TensorRT
 if(CVEDIX_WITH_TRT)
+    # TensorRT YOLOv11 Plate Detector sample
+    add_executable(yolov11_plate_detector_trt_sample "yolov11_plate_detector_trt_sample.cpp")
+    target_include_directories(yolov11_plate_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(yolov11_plate_detector_trt_sample ${PROJECT_NAME})
+    
     # NOTE: Following samples require trt_vehicle which is temporarily disabled
     # Uncomment when trt_vehicle is updated to TensorRT 10.x
     
@@ -488,6 +493,14 @@ if(CVEDIX_WITH_TRT)
         DESTINATION bin
         OPTIONAL
     )
+endif()
+
+if(CVEDIX_WITH_TRT AND CVEDIX_WITH_PADDLE)
+    add_executable(plate_recognition_pipeline_sample "plate_recognition_pipeline_sample.cpp")
+    target_include_directories(plate_recognition_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(plate_recognition_pipeline_sample ${PROJECT_NAME})
+    
+    install(TARGETS plate_recognition_pipeline_sample DESTINATION bin OPTIONAL)
 endif()
 
 if(CVEDIX_BUILD_COMPLEX_SAMPLES)

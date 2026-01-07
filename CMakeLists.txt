@@ -126,31 +126,78 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     # )
     # message("--------------end build trt_yolov8---------------")
     # trt_insightface
+    # trt_insightface
     message("-------------start build trt_insightface--------------")
-    add_subdirectory(third_party/trt_insightface)
-    list(APPEND CVEDIX_DEPEND_LIBS trt_insightface)
+    # add_subdirectory(third_party/trt_insightface)
+    # list(APPEND CVEDIX_DEPEND_LIBS trt_insightface)
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     include_directories(/usr/local/cuda/include)
     # Install trt_insightface with export
-    install(TARGETS trt_insightface EXPORT cvedix-targets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+    # install(TARGETS trt_insightface EXPORT cvedix-targets
+    #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    # )
     message("--------------end build trt_insightface---------------")
+    
+    # trt_yolov11
+    message("-------------start build trt_yolov11--------------")
+    add_subdirectory(third_party/trt_yolov11)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11)
+    include_directories(${CMAKE_SOURCE_DIR}/third_party)
+    message("--------------end build trt_yolov11---------------")
 endif()
 
 # optional for PaddlePaddle
 if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     add_definitions(-DCVEDIX_WITH_PADDLE)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
+    set(VP_BUILD_FROM ON)      # set flag for paddle_ocr sub project
     set(CVEDIX_PADDLE_LIB_PATH "")
     set(CVEDIX_PADDLE_INC_PATH "")
     message("-------------start build paddle_ocr--------------")
     add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
     list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
+    
+    # Use variables set by sub-project
+    if(DEFINED VP_PADDLE_LIB_PATH)
+        set(CVEDIX_PADDLE_LIB_PATH ${VP_PADDLE_LIB_PATH})
+    endif()
+    if(DEFINED VP_PADDLE_INC_PATH)
+        set(CVEDIX_PADDLE_INC_PATH ${VP_PADDLE_INC_PATH})
+    endif()
+
     link_directories(${CVEDIX_PADDLE_LIB_PATH})
+    include_directories(${CVEDIX_PADDLE_INC_PATH})
+
+    # Add dependencies library paths (propagate from paddle_inference path)
+    # Assuming standard paddle_inference structure in third_party
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
+    endif()
+    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+    endif()
+    
     message(STATUS "PaddlePaddle library status:")
     message(STATUS "    include path: ${CVEDIX_PADDLE_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_PADDLE_LIB_PATH}")
@@ -742,6 +789,7 @@ else()
     # Exclude trt_vehicle and trt_yolov8 nodes (temporarily disabled due to TensorRT 10.x incompatibility)
     list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_vehicle.*")
     list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_yolov8.*")
+    list(FILTER NODES EXCLUDE REGEX ".*cvedix_face_recognition.*")
 endif()
 
 # Exclude ONNX Runtime-based nodes if ORT is not available

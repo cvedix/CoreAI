@@ -90,8 +90,12 @@ void CRNNRecognizer::Run(std::vector<cv::Mat> img_list,
     // ctc decode
     auto postprocess_start = std::chrono::steady_clock::now();
     for (int m = 0; m < predict_shape[0]; m++) {
+      if (beg_img_no + m >= img_num) {
+        break;
+      }
       std::string str_res;
       int argmax_idx;
+      // ...
       int last_index = 0;
       float score = 0.f;
       int count = 0;
@@ -100,12 +104,12 @@ void CRNNRecognizer::Run(std::vector<cv::Mat> img_list,
       for (int n = 0; n < predict_shape[1]; n++) {
         // get idx
         argmax_idx = int(Utility::argmax(
-            &predict_batch[(m * predict_shape[1] + n) * predict_shape[2]],
-            &predict_batch[(m * predict_shape[1] + n + 1) * predict_shape[2]]));
+            predict_batch.data() + (m * predict_shape[1] + n) * predict_shape[2],
+            predict_batch.data() + (m * predict_shape[1] + n + 1) * predict_shape[2]));
         // get score
         max_value = float(*std::max_element(
-            &predict_batch[(m * predict_shape[1] + n) * predict_shape[2]],
-            &predict_batch[(m * predict_shape[1] + n + 1) * predict_shape[2]]));
+            predict_batch.data() + (m * predict_shape[1] + n) * predict_shape[2],
+            predict_batch.data() + (m * predict_shape[1] + n + 1) * predict_shape[2]));
 
         if (argmax_idx > 0 && (!(n > 0 && argmax_idx == last_index))) {
           score += max_value;
