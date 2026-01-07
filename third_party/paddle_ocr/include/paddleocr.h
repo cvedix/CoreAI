@@ -44,7 +44,9 @@ public:
   explicit PPOCR(std::string det_model_dir = "", 
                 std::string cls_model_dir = "", 
                 std::string rec_model_dir = "",
-                std::string rec_char_dict_path = "");
+                std::string rec_char_dict_path = "",
+                bool use_tensorrt = false,
+                std::string precision = "fp32");
   ~PPOCR();
   std::vector<std::vector<OCRPredictResult>>
   ocr(std::vector<cv::Mat>& cv_all_imgs, bool det = true,

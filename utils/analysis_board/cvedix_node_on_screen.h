@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <opencv2/core.hpp>
+#include <mutex>
 
 #include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/nodes/common/cvedix_src_node.h"
@@ -66,6 +67,9 @@ namespace cvedix_utils {
         // container to store data from stream status hooker's callback
         cvedix_nodes::cvedix_stream_status stream_status_hooker_storage;
 
+        // mutex for hooker storage access
+        mutable std::mutex hooker_mutex;
+
         // render configure
         const int node_title_h = 24;
         const int node_queue_width = 30;
@@ -86,6 +90,8 @@ namespace cvedix_utils {
         void render_static_parts(cv::Mat& canvas);
         // render dynamic parts for node, which change frequently.
         void render_dynamic_parts(cv::Mat& canvas);
+
+        std::shared_ptr<cvedix_objects::cvedix_meta> get_latest_handled_meta();
 
         std::shared_ptr<cvedix_nodes::cvedix_node>& get_orginal_node();
 

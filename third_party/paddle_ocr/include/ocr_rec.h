@@ -39,7 +39,23 @@ namespace PaddleOCR {
 
 class CRNNRecognizer {
 public:
-  explicit CRNNRecognizer(const std::string &model_dir, const string &label_path) {
+  explicit CRNNRecognizer(const std::string &model_dir, const string &label_path,
+                          const bool &use_gpu = true,
+                          const int &gpu_id = 0, const int &gpu_mem = 4000,
+                          const int &cpu_threads = 4, 
+                          const bool &use_mkldnn = false,
+                          const bool &use_tensorrt = false,
+                          const std::string &precision = "fp32",
+                          const int &rec_batch_num = 6) {
+    this->use_gpu_ = use_gpu;
+    this->gpu_id_ = gpu_id;
+    this->gpu_mem_ = gpu_mem;
+    this->cpu_math_library_num_threads_ = cpu_threads;
+    this->use_mkldnn_ = use_mkldnn;
+    this->use_tensorrt_ = use_tensorrt;
+    this->precision_ = precision;
+    this->rec_batch_num_ = rec_batch_num;
+
     this->label_list_ = Utility::ReadDict(label_path);
     this->label_list_.insert(this->label_list_.begin(),
                              "#"); // blank char for ctc

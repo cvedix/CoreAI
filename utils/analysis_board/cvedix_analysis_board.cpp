@@ -1,5 +1,4 @@
 
-
 #include "cvedix_analysis_board.h"
 #include "cvedix_version.h"
 #include "../cvedix_pipe_checker.h"
@@ -24,6 +23,7 @@ namespace cvedix_utils {
     void cvedix_analysis_board::init() {
         src_nodes_on_screen.clear();
         des_nodes_on_screen.clear();
+        all_nodes_on_screen.clear();
 
         // check pipe
         cvedix_pipe_checker pipe_checker;
@@ -190,6 +190,7 @@ namespace cvedix_utils {
 
                 auto node_on_screen = std::make_shared<cvedix_node_on_screen>(src_nodes_in_pipe[i], cvedix_objects::cvedix_rect(node_left, node_top, node_width, node_height), layer);
                 src_nodes_on_screen.push_back(node_on_screen);
+                all_nodes_on_screen.push_back(node_on_screen);
             }
 
             map_nodes(src_nodes_on_screen, layer + 1);
@@ -228,6 +229,7 @@ namespace cvedix_utils {
                         auto node_top = base_top +  index * (node_height + node_gap_vertical);
                         if (!all_the_same || node_on_screen == nullptr) {               
                             node_on_screen = std::make_shared<cvedix_node_on_screen>(next_nodes_in_pipe[j], cvedix_objects::cvedix_rect(node_left, node_top, node_width, node_height), layer);
+                            all_nodes_on_screen.push_back(node_on_screen);
                         }
                         nodes_in_layer[i]->get_next_nodes_on_screen().push_back(node_on_screen);
 

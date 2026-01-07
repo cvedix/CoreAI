@@ -38,7 +38,33 @@ namespace PaddleOCR {
 
 class DBDetector {
 public:
-  explicit DBDetector(const std::string &model_dir) {
+  explicit DBDetector(const std::string &model_dir, const bool &use_gpu = true,
+                      const int &gpu_id = 0, const int &gpu_mem = 4000,
+                      const int &cpu_threads = 4, 
+                      const bool &use_mkldnn = false, 
+                      const std::string &limit_type = "max",
+                      const int &limit_side_len = 960,
+                      const double &det_db_thresh = 0.3,
+                      const double &det_db_box_thresh = 0.5,
+                      const double &det_db_unclip_ratio = 1.6,
+                      const std::string &det_db_score_mode = "slow",
+                      const bool &use_dilation = false,
+                      const bool &use_tensorrt = false,
+                      const std::string &precision = "fp32") {
+    this->use_gpu_ = use_gpu;
+    this->gpu_id_ = gpu_id;
+    this->gpu_mem_ = gpu_mem;
+    this->cpu_math_library_num_threads_ = cpu_threads;
+    this->use_mkldnn_ = use_mkldnn;
+    this->limit_type_ = limit_type;
+    this->limit_side_len_ = limit_side_len;
+    this->det_db_thresh_ = det_db_thresh;
+    this->det_db_box_thresh_ = det_db_box_thresh;
+    this->det_db_unclip_ratio_ = det_db_unclip_ratio;
+    this->det_db_score_mode_ = det_db_score_mode;
+    this->use_dilation_ = use_dilation;
+    this->use_tensorrt_ = use_tensorrt;
+    this->precision_ = precision;
     LoadModel(model_dir);
   }
 

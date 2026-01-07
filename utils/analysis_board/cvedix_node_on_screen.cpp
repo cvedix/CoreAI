@@ -13,24 +13,28 @@ namespace cvedix_utils {
         assert(original_node != nullptr);
         // register meta hookers for all nodes
         original_node->set_meta_arriving_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->meta_arriving_hooker_storage.meta = meta;
                 this->meta_arriving_hooker_storage.queue_size = queue_size;
                 this->meta_arriving_hooker_storage.called_count_since_epoch_start++;
                 this->meta_arriving_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_handling_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->meta_handling_hooker_storage.meta = meta;
                 this->meta_handling_hooker_storage.queue_size = queue_size;
                 this->meta_handling_hooker_storage.called_count_since_epoch_start++;
                 this->meta_handling_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_handled_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->meta_handled_hooker_storage.meta = meta;
                 this->meta_handled_hooker_storage.queue_size = queue_size;
                 this->meta_handled_hooker_storage.called_count_since_epoch_start++;
                 this->meta_handled_hooker_storage.last_active_time = std::chrono::system_clock::now();
             });
         original_node->set_meta_leaving_hooker([this](std::string node_name, int queue_size, std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->meta_leaving_hooker_storage.meta = meta;
                 this->meta_leaving_hooker_storage.queue_size = queue_size;
                 this->meta_leaving_hooker_storage.called_count_since_epoch_start++;
@@ -293,6 +297,7 @@ namespace cvedix_utils {
     }
 
     void cvedix_node_on_screen::render_dynamic_parts(cv::Mat & canvas) {
+        std::lock_guard<std::mutex> guard(hooker_mutex);
         /*
         * draw data from hookers' callbacks
         */
@@ -442,6 +447,11 @@ namespace cvedix_utils {
                 draw_connect_block(next_nodes_on_screen[j]->node_rect.y);
             }   
         }
+    }
+
+    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_node_on_screen::get_latest_handled_meta() {
+        std::lock_guard<std::mutex> guard(hooker_mutex);
+        return meta_handled_hooker_storage.meta;
     }
 
     std::shared_ptr<cvedix_nodes::cvedix_node>& cvedix_node_on_screen::get_orginal_node() {
