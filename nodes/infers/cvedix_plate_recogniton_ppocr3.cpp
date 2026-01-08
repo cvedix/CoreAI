@@ -116,37 +116,18 @@ namespace cvedix_nodes {
         auto prepare_time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - start_time);
         start_time = std::chrono::system_clock::now();
         
-        CVEDIX_INFO(cvedix_utils::string_format("Preparing to infer %d crops...", (int)mats_to_infer.size()));
-        
         // Call PaddleOCR
         auto ocr_results = ocr->ocr(mats_to_infer);
-        
-        CVEDIX_INFO(cvedix_utils::string_format("OCR finished. Results size: %d", (int)ocr_results.size()));
         
         auto infer_time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - start_time);
         
         // Process results
         for (size_t k = 0; k < ocr_results.size(); ++k) {
-            if (k >= map_crop_to_target.size()) {
-                 CVEDIX_ERROR(cvedix_utils::string_format("CRITICAL ERROR: k=%d exceeds map size=%d", k, map_crop_to_target.size()));
-                 break;
-            }
-
             auto& res = ocr_results[k];
             
             // Get corresponding target
             int frame_idx = map_crop_to_target[k].first;
             int target_idx = map_crop_to_target[k].second;
-            
-            if (frame_idx >= frame_meta_with_batch.size()) {
-                 CVEDIX_ERROR(cvedix_utils::string_format("CRITICAL ERROR: frame_idx=%d", frame_idx));
-                 continue;
-            }
-            if (target_idx >= frame_meta_with_batch[frame_idx]->targets.size()) {
-                 CVEDIX_ERROR(cvedix_utils::string_format("CRITICAL ERROR: target_idx=%d", target_idx));
-                 continue;
-            }
-
             auto& target = frame_meta_with_batch[frame_idx]->targets[target_idx];
             // ...
             
