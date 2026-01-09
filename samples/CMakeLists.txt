@@ -18,6 +18,9 @@ target_link_libraries(1-N-N_sample ${PROJECT_NAME})
 add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
 target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 
+add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
+target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
+
 add_executable(enet_seg_sample "enet_seg_sample.cpp")
 target_link_libraries(enet_seg_sample ${PROJECT_NAME})
 
