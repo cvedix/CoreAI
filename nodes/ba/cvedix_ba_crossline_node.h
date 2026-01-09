@@ -39,6 +39,7 @@
 #pragma once
 
 #include <map>
+#include <mutex>
 #include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/objects/shapes/cvedix_point.h"
 #include "cvedix/objects/shapes/cvedix_line.h"
@@ -78,6 +79,8 @@ namespace cvedix_nodes {
          * @return true if point is on positive side of line
          */
         bool at_1_side_of_line(cvedix_objects::cvedix_point p, cvedix_objects::cvedix_line line);
+        private:
+        std::mutex lines_mutex;
 
     protected:
         /**
@@ -109,5 +112,28 @@ namespace cvedix_nodes {
          * @return Human-readable description string
          */
         std::string to_string() override;
+         /**
+         * @brief Replace all crosslines at runtime
+         * @param lines New detection lines per channel
+         * @return true if updated successfully
+         */
+        bool set_lines(const std::map<int, cvedix_objects::cvedix_line>& lines);
+
+        /**
+         * @brief Update or insert specific lines at runtime
+         * @param lines List of lines to update (by channel_id)
+         * @return true if updated successfully
+         */
+        bool update_lines(const std::vector<std::pair<int, cvedix_objects::cvedix_line>>& lines);
+
+        /**
+         * @brief Remove all configured lines
+         */
+        void clear_lines();
+
+        /**
+         * @brief Remove line for a specific channel
+         */
+        bool remove_line(int channel_id);
     };
 }

@@ -31,6 +31,8 @@ namespace cvedix_nodes {
 
     std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_crossline_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
         // if need applied on current channel or not
+        std::lock_guard<std::mutex> lock(lines_mutex);
+        
         if (all_lines.count(meta->channel_index) == 0) {
             return meta;
         }
@@ -121,4 +123,69 @@ namespace cvedix_nodes {
         int ret = (p2.y - p.y) * (p2.x - p1.x) - (p2.y - p1.y) * (p2.x - p.x);
         return ret < 0;
     }
+
+    bool cvedix_ba_crossline_node::set_lines(const std::map<int, cvedix_objects::cvedix_line>& lines) {
+        std::lock_guard<std::mutex> lock(lines_mutex);
+
+        all_lines = lines;
+        all_total_crossline.clear();
+
+        CVEDIX_INFO(cvedix_utils::string_format(
+            "[%s] Crossline config replaced at runtime: %s",
+            node_name.c_str(),
+            to_string().c_str()
+        ));
+
+        return true;
+    }
+    bool cvedix_ba_crossline_node::update_lines(const std::vector<std::pair<int, cvedix_objects::cvedix_line>>& lines) {
+        std::lock_guard<std::mutex> lock(lines_mutex);
+
+        for (const auto& item : lines) {
+            all_lines[item.first] = item.second;
+            // keep existing counter if already exists
+            if (all_total_crossline.count(item.first) == 0) {
+                all_total_crossline[item.first] = 0;
+            }
+        }
+
+        CVEDIX_INFO(cvedix_utils::string_format(
+            "[%s] Crossline config updated at runtime: %s",
+            node_name.c_str(),
+            to_string().c_str()
+        ));
+
+        return true;
+    }
+
+    void cvedix_ba_crossline_node::clear_lines() {
+        std::lock_guard<std::mutex> lock(lines_mutex);
+
+        all_lines.clear();
+        all_total_crossline.clear();
+
+        CVEDIX_INFO(cvedix_utils::string_format(
+            "[%s] All crosslines cleared at runtime",
+            node_name.c_str()
+        ));
+    }
+
+
+    bool cvedix_ba_crossline_node::remove_line(int channel_id) {
+        std::lock_guard<std::mutex> lock(lines_mutex);
+
+        bool existed = all_lines.erase(channel_id) > 0;
+        all_total_crossline.erase(channel_id);
+
+        if (existed) {
+            CVEDIX_INFO(cvedix_utils::string_format(
+                "[%s] Crossline removed for channel %d",
+                node_name.c_str(),
+                channel_id
+            ));
+        }
+
+        return existed;
+    }
+
 }
