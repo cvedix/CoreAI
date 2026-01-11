@@ -30,7 +30,7 @@ namespace cvedix_nodes {
         preprocess(meta, rects, embeddings);
 
         // step 2, track by channel
-        track(channel_index, rects, embeddings, track_ids);
+        track(channel_index, meta, rects, embeddings, track_ids);
 
         // step 3, postprocess
         postprocess(meta, rects, embeddings, track_ids);

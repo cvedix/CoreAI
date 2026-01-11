@@ -54,11 +54,11 @@ float cvedix_bytetrack_node::iou_tlwh(
 // ============================
 // track() — CORE ByteTrack logic
 // ============================
-void cvedix_bytetrack_node::track(
-    int channel_index,
-    const std::vector<cvedix_objects::cvedix_rect>& target_rects,
-    const std::vector<std::vector<float>>& /*target_embeddings*/,
-    std::vector<int>& track_ids)
+void cvedix_bytetrack_node::track(int channel_index, 
+					const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
+					const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                    const std::vector<std::vector<float>>& target_embeddings, 
+                    std::vector<int>& track_ids)
 {
     // Base class expects same order & size
     track_ids.assign(target_rects.size(), -1);
