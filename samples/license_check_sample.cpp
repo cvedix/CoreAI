@@ -14,7 +14,9 @@
 #include "cvedix/nodes/infers/cvedix_rknn_yolov8_detector_node.h"
 #endif
 
+#ifdef CVEDIX_WITH_TRT
 #include "cvedix/nodes/infers/cvedix_insight_face_recognition_node.h"
+#endif
 
 #include <iostream>
 #include <memory>
@@ -85,6 +87,7 @@ int main() {
     std::cout << "[2.2] RKNN not enabled (CVEDIX_WITH_RKNN=OFF)" << std::endl;
     #endif
     
+    #ifdef CVEDIX_WITH_TRT
     std::cout << "\n[2.3] Testing InsightFace node..." << std::endl;
     try {
         auto insightface_node = std::make_shared<cvedix_nodes::cvedix_insight_face_recognition_node>(
@@ -96,6 +99,9 @@ int main() {
     } catch (const std::runtime_error& e) {
         std::cout << "✗ Failed to create InsightFace node: " << e.what() << std::endl;
     }
+    #else
+    std::cout << "[2.3] InsightFace not enabled (CVEDIX_WITH_TRT=OFF)" << std::endl;
+    #endif
     
     #else
     std::cout << "\n[1] License checking is disabled (CVEDIX_WITH_LICENSE=OFF)" << std::endl;
