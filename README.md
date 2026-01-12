@@ -55,7 +55,38 @@ Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mìn
 
 [Cách cài đặt Paddle_Inference](./third_party/paddle_ocr/README.md)
 
-### 5.2 Cài đặt & Tích hợp SDK
+### 5.2 Cài đặt nhanh Dependencies
+
+Khi clone repository sang máy mới, sử dụng các lệnh sau để cài đặt dependencies tự động theo phần cứng:
+
+```bash
+# Cài đặt dependencies (interactive - hỏi về optional deps)
+make setup
+
+# Hoặc cài đặt tự động (chỉ base deps, không hỏi)
+make setup-auto
+```
+
+**Các lệnh Make có sẵn:**
+
+| Lệnh | Mô tả |
+|------|-------|
+| `make setup` | Cài đặt dependencies (tự động detect hardware) |
+| `make setup-auto` | Cài đặt base dependencies (non-interactive) |
+| `make build` | Build với auto-detect hardware |
+| `make build-cpu` | Build cho CPU only |
+| `make build-rockchip` | Build cho Rockchip RK35xx |
+| `make package-cpu` | Tạo .deb package cho CPU |
+| `make package-rockchip` | Tạo .deb package cho Rockchip |
+| `make info` | Hiển thị thông tin hardware đã detect |
+| `make clean` | Xóa build directories |
+
+Script `setup_dependencies.sh` sẽ tự động:
+- Phát hiện kiến trúc (x86_64, aarch64)
+- Phát hiện platform (Rockchip, Jetson, NVIDIA GPU, CPU-only)
+- Cài đặt dependencies phù hợp với phần cứng
+
+### 5.3 Cài đặt & Tích hợp SDK
 
 Thay vì biên dịch toàn bộ mã nguồn framework, chúng tôi khuyến nghị sử dụng SDK đã đóng gói để phát triển ứng dụng.
 
@@ -115,9 +146,9 @@ int main() {
 }
 ```
 
-Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#54-các-mẫu-nguyên-mẫu).
+Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#55-các-mẫu-nguyên-mẫu).
 
-### 5.4 Các mẫu nguyên mẫu
+### 5.5 Các mẫu nguyên mẫu
 
 Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem thêm.
 
