@@ -133,6 +133,7 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     include_directories(/usr/local/cuda/include)
+    link_directories(/usr/local/cuda/lib64)
     # Install trt_insightface with export
     # install(TARGETS trt_insightface EXPORT cvedix-targets
     #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -147,6 +148,12 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11)
     include_directories(${CMAKE_SOURCE_DIR}/third_party)
     message("--------------end build trt_yolov11---------------")
+    
+    # trt_yolov11_face
+    message("-------------start build trt_yolov11_face--------------")
+    add_subdirectory(third_party/trt_yolov11_face)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11_face)
+    message("--------------end build trt_yolov11_face---------------")
 endif()
 
 # optional for PaddlePaddle
@@ -172,30 +179,45 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     include_directories(${CVEDIX_PADDLE_INC_PATH})
 
     # Add dependencies library paths (propagate from paddle_inference path)
-    # Assuming standard paddle_inference structure in third_party
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+    # Support both old CPU structure and new GPU v3.0 structure
+    set(PADDLE_INF_DIR "${CMAKE_SOURCE_DIR}/third_party/paddle_inference")
+    set(GPU_DEPS_DIR "${PADDLE_INF_DIR}/third_party/install")
+    
+    # Check for GPU v3.0 structure first, then fallback to CPU structure
+    if(EXISTS "${GPU_DEPS_DIR}/glog/lib")
+        link_directories("${GPU_DEPS_DIR}/glog/lib")
+        link_directories("${GPU_DEPS_DIR}/gflags/lib")
+        link_directories("${GPU_DEPS_DIR}/protobuf/lib")
+        link_directories("${GPU_DEPS_DIR}/xxhash/lib")
+        link_directories("${GPU_DEPS_DIR}/mklml/lib")
+        link_directories("${GPU_DEPS_DIR}/onednn/lib")
+        message(STATUS "Using Paddle GPU v3.0 dependencies from third_party/install/")
+    else()
+        # Old CPU structure
+        if(EXISTS "${PADDLE_INF_DIR}/glog/lib")
+            link_directories("${PADDLE_INF_DIR}/glog/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/gflags/lib")
+            link_directories("${PADDLE_INF_DIR}/gflags/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/mkldnn/lib")
+            link_directories("${PADDLE_INF_DIR}/mkldnn/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/protobuf/lib")
+            link_directories("${PADDLE_INF_DIR}/protobuf/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/xxhash/lib")
+            link_directories("${PADDLE_INF_DIR}/xxhash/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/paddle2onnx/lib")
+            link_directories("${PADDLE_INF_DIR}/paddle2onnx/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/onnxruntime/lib")
+            link_directories("${PADDLE_INF_DIR}/onnxruntime/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/mklml/lib")
+            link_directories("${PADDLE_INF_DIR}/mklml/lib")
+        endif()
     endif()
     
     message(STATUS "PaddlePaddle library status:")
@@ -742,7 +764,16 @@ set(CORE_UTILS ${UTILS})
 
 # Always exclude Hardware implementation from Core
 list(FILTER CORE_NODES EXCLUDE REGEX ".*rknn.*")
-list(FILTER CORE_NODES EXCLUDE REGEX ".*trt.*")
+# Exclude legacy trt_vehicle nodes (disabled) but keep trt_yolov11 when TRT is enabled
+if(NOT CVEDIX_WITH_TRT)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt.*")
+else()
+    # When TRT is enabled, only exclude legacy trt_vehicle nodes that depend on missing libs
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_insight.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_yolov8.*")  # Legacy disabled trt_yolov8 lib
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognition_trt.*")  # Depends on missing insightface
+endif()
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rknn.*")
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rga.*")
 

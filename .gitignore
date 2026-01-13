@@ -233,3 +233,8 @@ cvedix_data/
 # Allow trt_vehicle models
 !third_party/trt_vehicle/models/
 !third_party/trt_vehicle/models/**
+
+*.deb 
+*.tar.gz
+*.tgz
+video_output/

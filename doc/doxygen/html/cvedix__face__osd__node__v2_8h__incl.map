@@ -1,9 +1,0 @@
-<map id="nodes/osd/cvedix_face_osd_node_v2.h" name="nodes/osd/cvedix_face_osd_node_v2.h">
-<area shape="rect" id="Node000001" title="Face OSD v2 with similarity comparison." alt="" coords="163,5,334,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,143,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,48,111,97,108,92,209,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="167,101,330,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="251,46,251,87,246,87,246,46"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="355,93,524,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="292,43,386,85,384,90,289,48"/>
-</map>

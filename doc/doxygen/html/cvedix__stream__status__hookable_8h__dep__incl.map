@@ -1,5 +1,0 @@
-<map id="nodes/common/cvedix_stream_status_hookable.h" name="nodes/common/cvedix_stream_status_hookable.h">
-<area shape="rect" id="Node000001" title="Interface for stream status callbacks from destination nodes." alt="" coords="5,5,205,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__des__node_8h.html" title="Base class for all destination nodes in Core AI Runtime." alt="" coords="21,93,190,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,59,108,93,103,93,103,59"/>
-</map>

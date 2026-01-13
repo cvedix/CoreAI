@@ -1,5 +1,0 @@
-<map id="cvedix_face_utils::EnhancedFaceDatabase::find_match" name="cvedix_face_utils::EnhancedFaceDatabase::find_match">
-<area shape="rect" id="Node000001" title="Find best match with margin checking." alt="" coords="229,5,405,60"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__face__recognition__node.html#afc184121daf33db4f8dc80c628a103b5" title="Postprocess: Extract embeddings, match against database, apply voting." alt="" coords="5,5,181,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,35,182,35,182,30,215,30"/>
-</map>

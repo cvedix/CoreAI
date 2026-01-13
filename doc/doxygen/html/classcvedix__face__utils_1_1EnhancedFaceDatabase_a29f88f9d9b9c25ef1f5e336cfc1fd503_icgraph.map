@@ -1,7 +1,0 @@
-<map id="cvedix_face_utils::EnhancedFaceDatabase::load" name="cvedix_face_utils::EnhancedFaceDatabase::load">
-<area shape="rect" id="Node000001" title="Load face database from file." alt="" coords="509,13,721,53"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__face__registration__node.html#a6deb588c8156f80189ec03788aea3412" title="Load existing database from file (for appending)" alt="" coords="283,5,461,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="496,35,462,35,462,30,496,30"/>
-<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__face__registration__node.html#a01e8088360486791e14084ad6441b5fb" title="Constructor." alt="" coords="5,5,235,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="269,35,235,35,235,30,269,30"/>
-</map>

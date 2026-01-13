@@ -1,5 +1,0 @@
-<map id="utils/analysis_board/cvedix_node_on_screen.h" name="utils/analysis_board/cvedix_node_on_screen.h">
-<area shape="rect" id="Node000001" title="Node visualization for analysis board." alt="" coords="5,5,199,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__analysis__board_8h.html" title="Pipeline visualization and debug board." alt="" coords="9,93,195,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,105,93,99,93,99,59"/>
-</map>

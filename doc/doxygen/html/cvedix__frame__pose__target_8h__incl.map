@@ -1,7 +1,0 @@
-<map id="objects/cvedix_frame_pose_target.h" name="objects/cvedix_frame_pose_target.h">
-<area shape="rect" id="Node000001" title="Human pose estimation target." alt="" coords="5,5,168,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="9,93,71,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,47,56,83,52,80,73,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="96,93,173,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,44,123,80,118,83,96,47"/>
-</map>

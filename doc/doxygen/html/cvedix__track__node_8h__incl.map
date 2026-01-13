@@ -1,9 +1,0 @@
-<map id="nodes/track/cvedix_track_node.h" name="nodes/track/cvedix_track_node.h">
-<area shape="rect" id="Node000001" title="Base class for object tracking nodes in Core AI Runtime." alt="" coords="45,5,190,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,56,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,48,54,92,51,89,96,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="80,101,155,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,46,120,87,115,87,115,46"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="179,93,349,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,43,221,84,218,89,148,48"/>
-</map>

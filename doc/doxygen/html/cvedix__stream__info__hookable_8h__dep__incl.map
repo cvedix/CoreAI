@@ -1,5 +1,0 @@
-<map id="nodes/common/cvedix_stream_info_hookable.h" name="nodes/common/cvedix_stream_info_hookable.h">
-<area shape="rect" id="Node000001" title="Interface for stream information callbacks from source nodes." alt="" coords="5,5,191,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__src__node_8h.html" title="Base class for all source nodes in Core AI Runtime." alt="" coords="13,93,183,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,59,101,93,95,93,95,59"/>
-</map>

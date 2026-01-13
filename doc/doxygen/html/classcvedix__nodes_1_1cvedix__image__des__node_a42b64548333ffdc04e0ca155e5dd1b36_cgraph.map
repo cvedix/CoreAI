@@ -1,9 +1,0 @@
-<map id="cvedix_nodes::cvedix_image_des_node::handle_frame_meta" name="cvedix_nodes::cvedix_image_des_node::handle_frame_meta">
-<area shape="rect" id="Node000001" title="Capture and output image." alt="" coords="5,41,196,96"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__des__node.html#a84400a99e1ff9e04307efd84884dfced" title="Process incoming frame meta." alt="" coords="244,49,475,89"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,66,230,66,230,71,196,71"/>
-<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__stream__status__hookable.html#a1876f795782ede7dade6b43584665348" title="Invoke the registered stream status callback." alt="" coords="523,5,747,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="474,51,509,46,509,52,475,56"/>
-<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__node.html#a75b8568816c2ae311db9f33586240a78" title="Get a human&#45;readable description of this node." alt="" coords="553,85,716,125"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="475,81,540,90,539,95,474,86"/>
-</map>

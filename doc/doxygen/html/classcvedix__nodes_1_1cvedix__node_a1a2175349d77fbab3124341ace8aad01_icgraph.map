@@ -1,6 +1,0 @@
-<map id="cvedix_nodes::cvedix_node::next_nodes" name="cvedix_nodes::cvedix_node::next_nodes">
-<area shape="rect" id="Node000001" title="Get all nodes that this node dispatches to." alt="" coords="245,29,408,69"/>
-<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="365,18,351,11,327,8,305,10,292,15,287,21,290,28,285,30,282,20,289,10,304,5,327,3,353,6,367,13"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#a177f858627283fc9cc1a3a722993dc3a" title="Recursively detach this node and all downstream nodes." alt="" coords="5,29,197,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,52,197,52,197,47,231,47"/>
-</map>

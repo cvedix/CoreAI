@@ -1,7 +1,0 @@
-<map id="nodes/track/cvedix_track_node.h" name="nodes/track/cvedix_track_node.h">
-<area shape="rect" id="Node000001" title="Base class for object tracking nodes in Core AI Runtime." alt="" coords="96,5,241,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__dsort__track__node_8h.html" title="DeepSORT tracking with appearance features." alt="" coords="5,93,159,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,57,103,95,99,91,138,53"/>
-<area shape="rect" id="Node000003" href="$cvedix__sort__track__node_8h.html" title="SORT tracking algorithm implementation." alt="" coords="183,93,328,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,53,238,91,234,95,196,57"/>
-</map>

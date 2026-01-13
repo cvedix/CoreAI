@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['record_5fimage_5fmanually_0',['record_image_manually',['../classcvedix__nodes_1_1cvedix__src__node.html#a03ded91fcf25faa766116f6025fcbe54',1,'cvedix_nodes::cvedix_src_node']]],
-  ['record_5fvideo_5fmanually_1',['record_video_manually',['../classcvedix__nodes_1_1cvedix__src__node.html#a39207a74e9ce31448f82838a74c18a51',1,'cvedix_nodes::cvedix_src_node']]],
-  ['run_5finfer_5fcombinations_2',['run_infer_combinations',['../classcvedix__nodes_1_1cvedix__infer__node.html#a9cb5ae9e00343f74849ccf88cda63397',1,'cvedix_nodes::cvedix_infer_node::run_infer_combinations()'],['../classcvedix__nodes_1_1cvedix__face__swap__node.html#aa7697d967ac24d54aedce6b1f16cb55d',1,'cvedix_nodes::cvedix_face_swap_node::run_infer_combinations()'],['../classcvedix__nodes_1_1cvedix__face__yunet__int8__face__detection__mode.html#a5ff0362d17c97f0b898b9ec0dcbec817',1,'cvedix_nodes::cvedix_face_yunet_int8_face_detection_mode::run_infer_combinations()'],['../classcvedix__nodes_1_1cvedix__mtcnn__face__detector__node.html#a941ba2f6f687c6d13e4e12455ffd6e0b',1,'cvedix_nodes::cvedix_mtcnn_face_detector_node::run_infer_combinations()'],['../classcvedix__nodes_1_1cvedix__restoration__node.html#a96ef9cbbb4a0c11f2a20c3d8f40d9038',1,'cvedix_nodes::cvedix_restoration_node::run_infer_combinations()']]]
-];

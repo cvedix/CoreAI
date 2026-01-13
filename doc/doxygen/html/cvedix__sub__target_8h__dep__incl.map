@@ -1,7 +1,0 @@
-<map id="objects/cvedix_sub_target.h" name="objects/cvedix_sub_target.h">
-<area shape="rect" id="Node000001" title="Sub&#45;target within a parent target." alt="" coords="13,5,160,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__frame__target_8h.html" title="Detected object target in a frame." alt="" coords="5,93,168,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,59,89,93,84,93,84,59"/>
-<area shape="rect" id="Node000003" href="$cvedix__frame__meta_8h.html" title="Frame metadata containing targets and analysis results." alt="" coords="5,181,168,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,147,89,181,84,181,84,147"/>
-</map>
