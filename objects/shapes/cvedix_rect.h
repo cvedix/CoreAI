@@ -10,6 +10,22 @@
 #include "cvedix_size.h"
 
 namespace cvedix_objects {
+
+    /**
+    * @brief Anchor point of rectangle enum
+    */
+    enum class cvedix_rect_anchor_point {
+        CENTER,
+        MID_TOP,
+        MID_BOTTOM,
+        MID_LEFT,
+        MID_RIGHT,
+        LEFT_TOP,
+        RIGHT_TOP,
+        LEFT_BOTTOM,
+        RIGHT_BOTTOM
+    };
+
     /**
      * @brief 2D rectangle
      */
@@ -33,7 +49,7 @@ namespace cvedix_objects {
 
         // get track point of the rect
         // track point is used to locate the target(represented by the rect)
-        cvedix_point track_point();
+        cvedix_point track_point( const cvedix_rect_anchor_point anchor = cvedix_rect_anchor_point::CENTER);
 
         // calculate the iou with another rect
         float iou_with(const cvedix_rect & rect);
