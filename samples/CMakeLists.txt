@@ -443,53 +443,53 @@ if(CVEDIX_WITH_TRT)
     # NOTE: Following samples require trt_vehicle which is temporarily disabled
     # Uncomment when trt_vehicle is updated to TensorRT 10.x
     
-    # add_executable(ba_jam_sample "ba_jam_sample.cpp")
-    # target_link_libraries(ba_jam_sample ${PROJECT_NAME})
+    add_executable(ba_jam_sample "ba_jam_sample.cpp")
+    target_link_libraries(ba_jam_sample ${PROJECT_NAME})
 
-    # add_executable(ba_stop_sample "ba_stop_sample.cpp")
-    # target_link_libraries(ba_stop_sample ${PROJECT_NAME})
+    add_executable(ba_stop_sample "ba_stop_sample.cpp")
+    target_link_libraries(ba_stop_sample ${PROJECT_NAME})
 
-    # add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
-    # target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
+    add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
+    target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
 
-    # add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")      # DISABLED - needs trt_vehicle
-    # target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
+    add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")      # DISABLED - needs trt_vehicle
+    target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
 
-    # add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")    # DISABLED - needs trt_vehicle
-    # target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
+    add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")    # DISABLED - needs trt_vehicle
+    target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
 
-    # add_executable(message_broker_sample2 "message_broker_sample2.cpp")       # DISABLED - needs trt_vehicle
-    # target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
+    add_executable(message_broker_sample2 "message_broker_sample2.cpp")       # DISABLED - needs trt_vehicle
+    target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
 
-    # add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")  # DISABLED - needs trt_vehicle/trt_yolov8
-    # target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
+    add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")  # DISABLED - needs trt_vehicle/trt_yolov8
+    target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
 
-    # add_executable(plate_recognize_sample "plate_recognize_sample.cpp")       # DISABLED - needs trt_vehicle
-    # target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
+    add_executable(plate_recognize_sample "plate_recognize_sample.cpp")       # DISABLED - needs trt_vehicle
+    target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
 
-    # add_executable(src_des_sample "src_des_sample.cpp")
-    # target_link_libraries(src_des_sample ${PROJECT_NAME})
+    add_executable(src_des_sample "src_des_sample.cpp")
+    target_link_libraries(src_des_sample ${PROJECT_NAME})
 
-    # add_executable(trt_infer_sample "trt_infer_sample.cpp")
-    # target_link_libraries(trt_infer_sample ${PROJECT_NAME})
+    add_executable(trt_infer_sample "trt_infer_sample.cpp")
+    target_link_libraries(trt_infer_sample ${PROJECT_NAME})
 
-    # add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
-    # target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
+    add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
+    target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
 
-    # add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
-    # target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
+    add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
+    target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
 
-    # add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
-    # target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
+    add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
+    target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
 
-    # add_executable(1-N-1_sample "1-N-1_sample.cpp")                            # DISABLED - needs trt_vehicle
-    # target_link_libraries(1-N-1_sample ${PROJECT_NAME})
+    add_executable(1-N-1_sample "1-N-1_sample.cpp")                            # DISABLED - needs trt_vehicle
+    target_link_libraries(1-N-1_sample ${PROJECT_NAME})
 
-    # add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")                          # DISABLED - needs trt_vehicle
-    # target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
+    add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")                          # DISABLED - needs trt_vehicle
+    target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
 
-    # add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")                          # DISABLED - needs trt_vehicle
-    # target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
+    add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")                          # DISABLED - needs trt_vehicle
+    target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
 
     # add_executable(trt_yolov8_sample "trt_yolov8_sample.cpp")                  # DISABLED - needs trt_yolov8
     # target_link_libraries(trt_yolov8_sample ${PROJECT_NAME})
