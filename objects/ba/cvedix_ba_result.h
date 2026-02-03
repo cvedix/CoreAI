@@ -20,7 +20,9 @@ namespace cvedix_objects {
         STOP = 0b00000010,
         UNSTOP = 0b00000100,
         JAM = 0b00001000,
-        UNJAM = 0b00010000
+        UNJAM = 0b00010000,
+        AREA_ENTER = 0b00100000,
+        AREA_EXIT = 0b01000000
     };
 
     /** @brief BA object move direction types */
