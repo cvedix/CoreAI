@@ -1,5 +1,0 @@
-<map id="nodes/record/cvedix_record_status_hookable.h" name="nodes/record/cvedix_record_status_hookable.h">
-<area shape="rect" id="Node000001" title="Interface for record completion callbacks." alt="" coords="5,5,200,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__record__node_8h.html" title="Video/image recording node." alt="" coords="26,93,179,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,105,93,100,93,100,59"/>
-</map>

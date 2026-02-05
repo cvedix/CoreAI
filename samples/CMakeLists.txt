@@ -19,7 +19,16 @@ add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
 target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 
 add_executable(ba_loitering_sample "ba_loitering_sample.cpp")
-    target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
+target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
+
+add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
+target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
+
+add_executable(wrong_way_detection_sample "wrong_way_detection_sample.cpp")
+target_link_libraries(wrong_way_detection_sample ${PROJECT_NAME})
+
+add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
+target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 
 add_executable(enet_seg_sample "enet_seg_sample.cpp")
 target_link_libraries(enet_seg_sample ${PROJECT_NAME})
@@ -29,6 +38,9 @@ target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
 add_executable(face_tracking_bytetrack_sample "face_tracking_bytetrack_sample.cpp")
 target_link_libraries(face_tracking_bytetrack_sample ${PROJECT_NAME})
+
+add_executable(face_tracking_ocsort_sample "face_tracking_ocsort_sample.cpp")
+target_link_libraries(face_tracking_ocsort_sample ${PROJECT_NAME})
 
 # InsightFace ONNX samples (no TensorRT required)
 # add_executable(insightface_sample "insightface_sample.cpp")
@@ -410,6 +422,27 @@ if(CVEDIX_WITH_TRT)
     target_include_directories(yolov11_plate_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
     target_link_libraries(yolov11_plate_detector_trt_sample ${PROJECT_NAME})
     
+    # TensorRT YOLOv11 Face Detector sample
+    add_executable(yolov11_face_detector_trt_sample "yolov11_face_detector_trt_sample.cpp")
+    target_include_directories(yolov11_face_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(yolov11_face_detector_trt_sample ${PROJECT_NAME})
+
+    # TensorRT YOLOv11 Face Detector with Video Output
+    add_executable(yolov11_face_detector_video_output_sample "yolov11_face_detector_video_output_sample.cpp")
+    target_include_directories(yolov11_face_detector_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(yolov11_face_detector_video_output_sample ${PROJECT_NAME})
+
+    # YOLOv11 Face Detection + ByteTrack Tracking sample
+    add_executable(yolov11_face_bytetrack_sample "yolov11_face_bytetrack_sample.cpp")
+    target_include_directories(yolov11_face_bytetrack_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(yolov11_face_bytetrack_sample ${PROJECT_NAME})
+
+    # YOLOv11 Plate Detection + ByteTrack Tracking sample with Analysis Board
+    add_executable(yolov11_plate_bytetrack_sample "yolov11_plate_bytetrack_sample.cpp")
+    target_include_directories(yolov11_plate_bytetrack_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(yolov11_plate_bytetrack_sample ${PROJECT_NAME})
+
+    
     # NOTE: Following samples require trt_vehicle which is temporarily disabled
     # Uncomment when trt_vehicle is updated to TensorRT 10.x
     
@@ -503,7 +536,16 @@ if(CVEDIX_WITH_TRT AND CVEDIX_WITH_PADDLE)
     target_include_directories(plate_recognition_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
     target_link_libraries(plate_recognition_pipeline_sample ${PROJECT_NAME})
     
-    install(TARGETS plate_recognition_pipeline_sample DESTINATION bin OPTIONAL)
+    add_executable(plate_recognition_video_output_sample "plate_recognition_video_output_sample.cpp")
+    target_include_directories(plate_recognition_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(plate_recognition_video_output_sample ${PROJECT_NAME})
+    
+    # Plate Detection + ByteTrack + PaddleOCR with Best Plate Selection
+    add_executable(plate_bytetrack_ocr_sample "plate_bytetrack_ocr_sample.cpp")
+    target_include_directories(plate_bytetrack_ocr_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(plate_bytetrack_ocr_sample ${PROJECT_NAME})
+    
+    install(TARGETS plate_recognition_pipeline_sample plate_recognition_video_output_sample plate_bytetrack_ocr_sample DESTINATION bin OPTIONAL)
 endif()
 
 if(CVEDIX_BUILD_COMPLEX_SAMPLES)

@@ -1,5 +1,0 @@
-<map id="nodes/infers/rknn_yolov11.h" name="nodes/infers/rknn_yolov11.h">
-<area shape="rect" id="Node000001" title="RKNN YOLOv11 detector implementation." alt="" coords="5,5,212,31"/>
-<area shape="rect" id="Node000002" href="$cvedix__rknn__yolov11__detector__node_8h.html" title="YOLOv11 detector for Rockchip RKNN NPU." alt="" coords="19,79,198,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="cvedix_nodes::cvedix_ba_stop_node::handle_frame_meta" name="cvedix_nodes::cvedix_ba_stop_node::handle_frame_meta">
-<area shape="rect" id="Node000001" title="Process frame for stop detection." alt="" coords="5,5,176,60"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__node.html#ad52ca94e7e3d9ddb3e225201a6576814" title="Queue meta for dispatch to next nodes." alt="" coords="224,13,395,53"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,30,210,30,210,35,176,35"/>
-</map>

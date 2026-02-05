@@ -97,13 +97,18 @@ endif()
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
-    set(CVEDIX_TRT_LIB_PATH "")
-    set(CVEDIX_TRT_INC_PATH "")
+    set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")         # need set the path here
+    set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")     # need set the path here
+    # Add TensorRT and CUDA include directories for main project
+    include_directories(${CVEDIX_TRT_INC_PATH})
+    link_directories(${CVEDIX_TRT_LIB_PATH})
+    include_directories(/usr/local/cuda/include)
+    link_directories(/usr/local/cuda/lib64)
+
     # trt_vehicle - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
     # message("-------------start build trt_vehicle--------------")
     # add_subdirectory(third_party/trt_vehicle)
     # list(APPEND CVEDIX_DEPEND_LIBS trt_vehicle)
-    # link_directories(${CVEDIX_TRT_LIB_PATH})
     # message(STATUS "TensorRT library status:")
     # message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
     # message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
@@ -114,6 +119,7 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     # )
     # message("--------------end build trt_vehicle---------------")
+
     # trt_yolov8 - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
     # message("-------------start build trt_yolov8--------------")
     # add_subdirectory(third_party/trt_yolov8)
@@ -125,14 +131,11 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     # )
     # message("--------------end build trt_yolov8---------------")
-    # trt_insightface
+
     # trt_insightface
     message("-------------start build trt_insightface--------------")
     # add_subdirectory(third_party/trt_insightface)
     # list(APPEND CVEDIX_DEPEND_LIBS trt_insightface)
-    # Add TensorRT and CUDA include directories for main project
-    include_directories(${CVEDIX_TRT_INC_PATH})
-    include_directories(/usr/local/cuda/include)
     # Install trt_insightface with export
     # install(TARGETS trt_insightface EXPORT cvedix-targets
     #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -147,6 +150,12 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11)
     include_directories(${CMAKE_SOURCE_DIR}/third_party)
     message("--------------end build trt_yolov11---------------")
+    
+    # trt_yolov11_face
+    message("-------------start build trt_yolov11_face--------------")
+    add_subdirectory(third_party/trt_yolov11_face)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11_face)
+    message("--------------end build trt_yolov11_face---------------")
 endif()
 
 # optional for PaddlePaddle
@@ -172,30 +181,45 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     include_directories(${CVEDIX_PADDLE_INC_PATH})
 
     # Add dependencies library paths (propagate from paddle_inference path)
-    # Assuming standard paddle_inference structure in third_party
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/glog/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/gflags/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mkldnn/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/protobuf/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/xxhash/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/paddle2onnx/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/onnxruntime/lib")
-    endif()
-    if(EXISTS "${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
-        link_directories("${CMAKE_SOURCE_DIR}/third_party/paddle_inference/mklml/lib")
+    # Support both old CPU structure and new GPU v3.0 structure
+    set(PADDLE_INF_DIR "${CMAKE_SOURCE_DIR}/third_party/paddle_inference")
+    set(GPU_DEPS_DIR "${PADDLE_INF_DIR}/third_party/install")
+    
+    # Check for GPU v3.0 structure first, then fallback to CPU structure
+    if(EXISTS "${GPU_DEPS_DIR}/glog/lib")
+        link_directories("${GPU_DEPS_DIR}/glog/lib")
+        link_directories("${GPU_DEPS_DIR}/gflags/lib")
+        link_directories("${GPU_DEPS_DIR}/protobuf/lib")
+        link_directories("${GPU_DEPS_DIR}/xxhash/lib")
+        link_directories("${GPU_DEPS_DIR}/mklml/lib")
+        link_directories("${GPU_DEPS_DIR}/onednn/lib")
+        message(STATUS "Using Paddle GPU v3.0 dependencies from third_party/install/")
+    else()
+        # Old CPU structure
+        if(EXISTS "${PADDLE_INF_DIR}/glog/lib")
+            link_directories("${PADDLE_INF_DIR}/glog/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/gflags/lib")
+            link_directories("${PADDLE_INF_DIR}/gflags/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/mkldnn/lib")
+            link_directories("${PADDLE_INF_DIR}/mkldnn/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/protobuf/lib")
+            link_directories("${PADDLE_INF_DIR}/protobuf/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/xxhash/lib")
+            link_directories("${PADDLE_INF_DIR}/xxhash/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/paddle2onnx/lib")
+            link_directories("${PADDLE_INF_DIR}/paddle2onnx/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/onnxruntime/lib")
+            link_directories("${PADDLE_INF_DIR}/onnxruntime/lib")
+        endif()
+        if(EXISTS "${PADDLE_INF_DIR}/mklml/lib")
+            link_directories("${PADDLE_INF_DIR}/mklml/lib")
+        endif()
     endif()
     
     message(STATUS "PaddlePaddle library status:")
@@ -736,69 +760,67 @@ file(GLOB_RECURSE NODES "nodes/*.cpp")
 file(GLOB_RECURSE OBJECTS "objects/*.cpp")
 file(GLOB_RECURSE UTILS "utils/*.cpp")
 
+# --- FILTER SOURCES FOR CORE LIBRARY ---
+set(CORE_NODES ${NODES})
+set(CORE_UTILS ${UTILS})
+
+# Always exclude Hardware implementation from Core
+list(FILTER CORE_NODES EXCLUDE REGEX ".*rknn.*")
+# Exclude legacy trt_vehicle nodes (disabled) but keep trt_yolov11 when TRT is enabled
+if(NOT CVEDIX_WITH_TRT)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt.*")
+else()
+    # When TRT is enabled, only exclude legacy trt_vehicle nodes that depend on missing libs
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_insight.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_yolov8.*")  # Legacy disabled trt_yolov8 lib
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognition_trt.*")  # Depends on missing insightface
+endif()
+list(FILTER CORE_UTILS EXCLUDE REGEX ".*rknn.*")
+list(FILTER CORE_UTILS EXCLUDE REGEX ".*rga.*")
+
 # Exclude MQTT client and receiver if MQTT is not enabled
 if(NOT CVEDIX_WITH_MQTT)
-    list(FILTER UTILS EXCLUDE REGEX ".*mqtt_client.*")
-    list(FILTER UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
+    list(FILTER CORE_UTILS EXCLUDE REGEX ".*mqtt_client.*")
+    list(FILTER CORE_UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
 endif()
 
 # Exclude Kafka-related files if Kafka is not enabled
 if(NOT CVEDIX_WITH_KAFKA)
-    list(FILTER NODES EXCLUDE REGEX ".*kafka.*")
-    list(FILTER UTILS EXCLUDE REGEX ".*kafka.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*kafka.*")
+    list(FILTER CORE_UTILS EXCLUDE REGEX ".*kafka.*")
 endif()
 
-# Exclude RKNN-related files if RKNN is not enabled
-if(NOT CVEDIX_WITH_RKNN)
-    list(FILTER NODES EXCLUDE REGEX ".*rknn.*")
-    list(FILTER UTILS EXCLUDE REGEX ".*rknn.*")
-endif()
-
-# Exclude RGA-related files if RGA is not enabled
-if(NOT CVEDIX_WITH_RGA)
-    list(FILTER UTILS EXCLUDE REGEX ".*rga.*")
-endif()
+# (RKNN/TRT exclusions handled by default above for Core)
 
 # Exclude GStreamer-related files if GStreamer is not enabled
 if(NOT CVEDIX_WITH_GSTREAMER)
-    list(FILTER NODES EXCLUDE REGEX ".*rtsp.*")
-    list(FILTER NODES EXCLUDE REGEX ".*rtmp.*")
-    list(FILTER NODES EXCLUDE REGEX ".*image.*")
-    list(FILTER NODES EXCLUDE REGEX ".*file.*")
-    list(FILTER NODES EXCLUDE REGEX ".*screen.*")
-    list(FILTER NODES EXCLUDE REGEX ".*udp.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*rtsp.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*rtmp.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*image.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*file.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*screen.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*udp.*")
 endif()
 
 # Exclude FFmpeg-related files if FFmpeg is not enabled
 if(NOT CVEDIX_WITH_FFMPEG)
-    list(FILTER NODES EXCLUDE REGEX ".*ffio.*")
-    list(FILTER NODES EXCLUDE REGEX ".*ff_.*")
-    list(FILTER NODES EXCLUDE REGEX ".*cvedix_ff.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*ffio.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*ff_.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*cvedix_ff.*")
 endif()
 
 # Exclude license-related files if license is not enabled
 if(NOT CVEDIX_WITH_LICENSE)
-    list(FILTER UTILS EXCLUDE REGEX ".*license.*")
-endif()
-
-# Exclude TensorRT-related inference nodes if TensorRT is not enabled
-# Note: This only excludes nodes, not the library itself (handled by CVEDIX_WITH_TRT guard)
-if(NOT CVEDIX_WITH_TRT)
-    list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt.*")
-else()
-    # Exclude trt_vehicle and trt_yolov8 nodes (temporarily disabled due to TensorRT 10.x incompatibility)
-    list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_vehicle.*")
-    list(FILTER NODES EXCLUDE REGEX ".*cvedix_trt_yolov8.*")
-    list(FILTER NODES EXCLUDE REGEX ".*cvedix_face_recognition.*")
+    list(FILTER CORE_UTILS EXCLUDE REGEX ".*license.*")
 endif()
 
 # Exclude ONNX Runtime-based nodes if ORT is not available
 if(NOT CVEDIX_WITH_ORT)
-    list(FILTER NODES EXCLUDE REGEX ".*_ort_node.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*_ort_node.*")
 endif()
 
-#...#
-list(APPEND CVEDIX_CPPS_SOURCES ${NODES} ${OBJECTS} ${UTILS})
+# Add EIGEN
 set(EIGEN_VERSION 3.3)
 find_package(Eigen3 ${EIGEN_VERSION} QUIET)
 message("FIND Eigen3")
@@ -814,14 +836,62 @@ if(NOT EIGEN3_FOUND)
     unset(BUILD_TESTING CACHE)
 endif()
 
-# build for SDK
-add_library(${PROJECT_NAME} SHARED ${CVEDIX_CPPS_SOURCES})
-target_link_libraries(${PROJECT_NAME}
+# build for CORE SDK
+add_library(cvedix_core SHARED ${CORE_NODES} ${CORE_UTILS} ${OBJECTS})
+target_link_libraries(cvedix_core
     PUBLIC
         ${CVEDIX_DEPEND_LIBS}
+        dl
     PRIVATE
         tinyexpr
 )
+
+# Alias
+add_library(${PROJECT_NAME} ALIAS cvedix_core)
+
+# --- PLUGINS ---
+
+# RKNN Plugin
+if(CVEDIX_WITH_RKNN)
+    file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
+    file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
+    
+    # Only build if we have sources
+    if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
+        add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
+        target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
+        target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
+        
+        # Output to plugins dir
+        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
+        set_target_properties(cvedix_backend_rknn PROPERTIES 
+            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
+            PREFIX "lib"
+        )
+        install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
+    endif()
+endif()
+
+# TensorRT Plugin
+if(CVEDIX_WITH_TRT)
+    file(GLOB_RECURSE TRT_PLUGIN_NODES "nodes/*trt*.cpp")
+    # Utils for TRT often inside nodes or headers, but check
+    
+    if(TRT_PLUGIN_NODES)
+        add_library(cvedix_backend_trt MODULE ${TRT_PLUGIN_NODES})
+        target_link_libraries(cvedix_backend_trt cvedix_core ${CVEDIX_DEPEND_LIBS} nvinfer cudart)
+        # Note: CUDA_LIBRARIES might be needed?
+        
+        target_compile_definitions(cvedix_backend_trt PRIVATE CVEDIX_WITH_TRT CVEDIX_WITH_CUDA)
+        
+        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
+        set_target_properties(cvedix_backend_trt PROPERTIES 
+            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
+            PREFIX "lib"
+        )
+        install(TARGETS cvedix_backend_trt DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
+    endif()
+endif()
 
 # Link licensecxx if license checking is enabled
 if(CVEDIX_WITH_LICENSE)
@@ -829,13 +899,13 @@ if(CVEDIX_WITH_LICENSE)
         # Use PRIVATE to avoid export issues (licensecxx won't be exported)
         # This prevents CMake errors about absolute paths and missing nlohmann_json export
         # PRIVATE linking still provides include directories for compilation, just not for export
-        target_link_libraries(${PROJECT_NAME} PRIVATE lcxx::lcxx)
-        message(STATUS "Linked ${PROJECT_NAME} with licensecxx (lcxx::lcxx)")
+        target_link_libraries(cvedix_core PRIVATE lcxx::lcxx)
+        message(STATUS "Linked cvedix_core with licensecxx (lcxx::lcxx)")
         
         # Link with identifiers for hardware binding support
         if(TARGET lcxx::identifiers)
-            target_link_libraries(${PROJECT_NAME} PRIVATE lcxx::identifiers)
-            message(STATUS "Linked ${PROJECT_NAME} with licensecxx identifiers (hardware binding support)")
+            target_link_libraries(cvedix_core PRIVATE lcxx::identifiers)
+            message(STATUS "Linked cvedix_core with licensecxx identifiers (hardware binding support)")
         endif()
     endif()
 endif()
@@ -878,7 +948,7 @@ add_custom_target(cvedix_symlinks
             ${CMAKE_BINARY_DIR}/cvedix/third_party
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(cvedix_core PUBLIC
     # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include>
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
@@ -887,22 +957,22 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 # Ensure symlinks are created before building the library
-add_dependencies(${PROJECT_NAME} cvedix_symlinks)
+add_dependencies(cvedix_core cvedix_symlinks)
 
 # Ensure RKNN and RGA files are copied before building (if enabled)
 if(CVEDIX_WITH_RKNN)
     if(TARGET copy_rknn_files)
-        add_dependencies(${PROJECT_NAME} copy_rknn_files)
+        add_dependencies(cvedix_core copy_rknn_files)
     endif()
 endif()
 if(CVEDIX_WITH_RGA)
     if(TARGET copy_rga_files)
-        add_dependencies(${PROJECT_NAME} copy_rga_files)
+        add_dependencies(cvedix_core copy_rga_files)
     endif()
 endif()
 
 # Installation
-install(TARGETS ${PROJECT_NAME} EXPORT cvedix-targets
+install(TARGETS cvedix_core EXPORT cvedix-targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

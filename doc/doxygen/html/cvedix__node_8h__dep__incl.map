@@ -1,7 +1,0 @@
-<map id="nodes/common/cvedix_node.h" name="nodes/common/cvedix_node.h">
-<area shape="rect" id="Node000001" title="Base class definition for all pipeline nodes in Core AI Runtime." alt="" coords="101,5,271,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__des__node_8h.html" title="Base class for all destination nodes in Core AI Runtime." alt="" coords="5,93,175,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,57,113,95,109,91,153,53"/>
-<area shape="rect" id="Node000003" href="$cvedix__src__node_8h.html" title="Base class for all source nodes in Core AI Runtime." alt="" coords="199,93,368,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,52,264,91,260,95,216,56"/>
-</map>

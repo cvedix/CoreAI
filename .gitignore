@@ -193,6 +193,9 @@ debian/sdk-build/
 
 # Files and directories to exclude when packaging SDK
 build/
+bundle*/
+deb_pkg/
+release/
 build_sdk/
 build_pkg/
 output/
@@ -233,3 +236,8 @@ cvedix_data/
 # Allow trt_vehicle models
 !third_party/trt_vehicle/models/
 !third_party/trt_vehicle/models/**
+
+*.deb 
+*.tar.gz
+*.tgz
+video_output/

@@ -81,18 +81,18 @@ namespace cvedix_nodes {
         //   - timeout=5000000000: 5 seconds timeout for connection
         //   - retry=1: enable retry on connection failure
         //   - protocols=tcp+udp: try both TCP and UDP
-        std::string rtspsrc_options = "latency=0 timeout=5000000000 retry=1 protocols=tcp+udp";
+        std::string rtspsrc_options = "latency=0 timeout=5000000000 retry=1 protocols=tcp+udp tls-validation-flags=0";
         
         if (this->codec_type == "h265" || this->codec_type == "hevc") {
-            this->gst_template = "rtspsrc " + rtspsrc_options + " location=%s ! application/x-rtp,media=video ! rtph265depay ! h265parse ! %s ! videoconvert ! appsink";
+            this->gst_template = "rtspsrc " + rtspsrc_options + " location=\"%s\" " "! application/x-rtp,media=video ! rtph265depay ! h265parse ! %s ! videoconvert ! appsink";
             this->gst_template = cvedix_utils::string_format(this->gst_template, rtsp_url.c_str(), gst_decoder_name.c_str());
         } else if (this->codec_type == "auto") {
             // Fallback if detection failed or returned unknown
-            this->gst_template = "rtspsrc " + rtspsrc_options + " location=%s ! decodebin ! videoconvert ! appsink";
+            this->gst_template = "rtspsrc " + rtspsrc_options + " location=\"%s\" " "! decodebin ! videoconvert ! appsink";
             this->gst_template = cvedix_utils::string_format(this->gst_template, rtsp_url.c_str());
         } else {
             // Default h264
-            this->gst_template = "rtspsrc " + rtspsrc_options + " location=%s ! application/x-rtp,media=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";
+            this->gst_template = "rtspsrc " + rtspsrc_options + " location=\"%s\" " "! application/x-rtp,media=video ! rtph264depay ! h264parse ! %s ! videoconvert ! appsink";
             this->gst_template = cvedix_utils::string_format(this->gst_template, rtsp_url.c_str(), gst_decoder_name.c_str());
         }
         
