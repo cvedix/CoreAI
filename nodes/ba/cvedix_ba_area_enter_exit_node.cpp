@@ -1,3 +1,5 @@
+
+
 #include "cvedix_ba_area_enter_exit_node.h"
 
 namespace cvedix_nodes {
@@ -278,6 +280,39 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
 
       // Update previous status for this target
       channel_previous_status[target->track_id] = current_areas;
+      // Update last seen frame for this track
+      all_previous_last_seen_frame[meta->channel_index][target->track_id] = meta->frame_index;
+    }
+  }
+
+  // Update last-seen for tracks present in this frame (ensure they are fresh)
+  for (auto &t : meta->targets) {
+    if (t->track_id >= 0)
+      all_previous_last_seen_frame[meta->channel_index][t->track_id] = meta->frame_index;
+  }
+
+  // Prune previous status entries for track ids that have been inactive
+  // longer than the configured timeout (in seconds). Convert timeout to
+  // frames using meta->fps when available; fallback to 25 FPS.
+  int fps = (meta->fps > 0) ? meta->fps : 25;
+  int frames_to_keep = fps * inactive_timeout_seconds;
+
+  for (auto it = channel_previous_status.begin(); it != channel_previous_status.end();) {
+    int track_id = it->first;
+    int last_seen = 0;
+    if (all_previous_last_seen_frame[meta->channel_index].count(track_id) > 0) {
+      last_seen = all_previous_last_seen_frame[meta->channel_index][track_id];
+    }
+
+    if (meta->frame_index - last_seen > frames_to_keep) {
+      // remove both previous area status and last-seen entry
+      all_previous_last_seen_frame[meta->channel_index].erase(track_id);
+      // CVEDIX_INFO(cvedix_utils::string_format(
+      //     "[%s] [channel %d] Pruning inactive track %d from area status",
+      //     node_name.c_str(), meta->channel_index, track_id));
+      it = channel_previous_status.erase(it);
+    } else {
+      ++it;
     }
   }
 

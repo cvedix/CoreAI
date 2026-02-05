@@ -117,6 +117,14 @@ private:
   /// channel → track_id → set of area indices
   std::map<int, std::map<int, std::set<int>>> all_previous_area_status;
 
+  /// @brief Last seen frame index per track to allow delayed pruning
+  /// channel → track_id → last_seen_frame_index
+  std::map<int, std::map<int, int>> all_previous_last_seen_frame;
+
+  /// @brief How many seconds to keep inactive track ids before pruning
+  /// (default: 30 seconds)
+  int inactive_timeout_seconds = 15;
+
   /// @brief Whether to trigger image recording on enter/exit event
   bool need_record_image;
   
