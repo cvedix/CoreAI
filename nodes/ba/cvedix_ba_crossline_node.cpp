@@ -1,5 +1,3 @@
-
-
 #include "cvedix_ba_crossline_node.h"
 
 namespace cvedix_nodes {
