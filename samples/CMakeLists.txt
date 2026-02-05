@@ -18,6 +18,9 @@ target_link_libraries(1-N-N_sample ${PROJECT_NAME})
 add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
 target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 
+add_executable(ba_loitering_sample "ba_loitering_sample.cpp")
+target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
+
 add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
 target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
 
