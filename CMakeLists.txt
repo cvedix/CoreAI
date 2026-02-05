@@ -124,7 +124,7 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     # message("-------------start build trt_yolov8--------------")
     # add_subdirectory(third_party/trt_yolov8)
     # list(APPEND CVEDIX_DEPEND_LIBS trt_yolov8)
-    # # Install trt_yolov8 with export
+    # # # Install trt_yolov8 with export
     # install(TARGETS trt_yolov8 EXPORT cvedix-targets
     #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     #     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -771,7 +771,7 @@ if(NOT CVEDIX_WITH_TRT)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt.*")
 else()
     # When TRT is enabled, only exclude legacy trt_vehicle nodes that depend on missing libs
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
+    # list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_insight.*")
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_yolov8.*")  # Legacy disabled trt_yolov8 lib
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognition_trt.*")  # Depends on missing insightface

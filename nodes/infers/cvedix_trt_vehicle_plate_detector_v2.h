@@ -9,6 +9,7 @@
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_primary_infer_node.h"
+#include "third_party/trt_vehicle/models/vehicle_plate_detector.h"
 
 namespace trt_vehicle { class VehiclePlateDetector; }
 

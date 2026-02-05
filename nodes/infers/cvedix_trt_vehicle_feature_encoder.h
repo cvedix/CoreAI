@@ -9,6 +9,7 @@
 
 #ifdef CVEDIX_WITH_TRT
 #include "base/cvedix_secondary_infer_node.h"
+#include "third_party/trt_vehicle/models/vehicle_feature_encoder.h"
 
 namespace trt_vehicle { class VehicleFeatureEncoder; }
 

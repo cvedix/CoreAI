@@ -6,9 +6,9 @@ namespace trt_vehicle{
     CudaPredictor::~CudaPredictor(){
         if (m_stream) cudaStreamDestroy(m_stream);
         mtx.lock();
-        if (m_context) m_context->destroy();
-        if (m_engine) m_engine->destroy();
-		if (m_runtime) m_runtime->destroy();
+        if (m_context) { delete m_context; m_context = nullptr; }
+        if (m_engine) { delete m_engine; m_engine = nullptr; }
+		if (m_runtime) { delete m_runtime; m_runtime = nullptr; }
         mtx.unlock();
     }
 
@@ -30,7 +30,7 @@ namespace trt_vehicle{
             file.close();
         }
         try {
-            m_engine = m_runtime->deserializeCudaEngine(trtModelStream.data(), size, nullptr);
+            m_engine = m_runtime->deserializeCudaEngine(trtModelStream.data(), size);
             if(m_engine == nullptr){
                 return -5;
             }
@@ -79,13 +79,13 @@ namespace trt_vehicle{
     }
 
     int CudaPredictor::getSizeYolo(int& batch,int& inputSizeC,int& inputSizeH,int& inputSizeW,int& outputNum,int& classNum,int& boxNum){
-        auto dims0 = m_engine->getBindingDimensions(0);
+        auto dims0 = m_engine->getTensorShape(m_engine->getIOTensorName(0));
         batch = dims0.d[0];
         inputSizeH = dims0.d[1];
         inputSizeW = dims0.d[2];
         inputSizeC = dims0.d[3];
-        auto dims1 = m_engine->getBindingDimensions(1);
-        auto dims2 = m_engine->getBindingDimensions(2);
+        auto dims1 = m_engine->getTensorShape(m_engine->getIOTensorName(1));
+        auto dims2 = m_engine->getTensorShape(m_engine->getIOTensorName(2));
         outputNum = dims1.d[1];
         classNum = dims1.d[2];
         boxNum = dims2.d[3];
@@ -93,7 +93,7 @@ namespace trt_vehicle{
     }
 
     int CudaPredictor::getSize(int& batch,int& inputSizeC,int& inputSizeH,int& inputSizeW,int& outputDim1,int& outputDim2,int& outputDim3, NetworkInputType networkInputType){
-        auto dims0 = m_engine->getBindingDimensions(0);
+        auto dims0 = m_engine->getTensorShape(m_engine->getIOTensorName(0));
         batch = dims0.d[0];
         if (networkInputType == NetworkInputType::CHW)
         {
@@ -107,7 +107,7 @@ namespace trt_vehicle{
             inputSizeW = dims0.d[2];
             inputSizeC = dims0.d[3];
         }
-        auto dims1 = m_engine->getBindingDimensions(1);
+        auto dims1 = m_engine->getTensorShape(m_engine->getIOTensorName(1));
         outputDim1 = dims1.d[1];
         outputDim2 = dims1.d[2];
         outputDim3 = dims1.d[3];
@@ -121,12 +121,12 @@ namespace trt_vehicle{
     }
 
 	int CudaPredictor::getSizeVehicle(int& batch, int& inputSizeC, int& inputSizeH, int& inputSizeW, int& outputDim1, int& outputDim2, int& outputDim3) {
-		auto dims0 = m_engine->getBindingDimensions(0);
+		auto dims0 = m_engine->getTensorShape(m_engine->getIOTensorName(0));
 		batch = 1; // dims0.d[0];	//TODO 
 		inputSizeH = dims0.d[1];
 		inputSizeW = dims0.d[2];
-		inputSizeC = dims0.d[0];
-		auto dims1 = m_engine->getBindingDimensions(1);
+		inputSizeC = dims0.d[3];
+		auto dims1 = m_engine->getTensorShape(m_engine->getIOTensorName(1));
 		outputDim1 = dims1.d[0];
 		outputDim2 = dims1.d[1];
 		outputDim3 = dims1.d[2];
@@ -140,7 +140,11 @@ namespace trt_vehicle{
 	}
 
     int CudaPredictor::infer(vector<void *> &buffers, int batch){
-        bool ok = m_context->execute(batch, buffers.data());
+        for (int i = 0; i < m_engine->getNbIOTensors(); ++i) {
+            const char* name = m_engine->getIOTensorName(i);
+            m_context->setTensorAddress(name, buffers[i]);
+        }
+        bool ok = m_context->executeV2(buffers.data());
         if(ok == false){
             return -1;
         }
