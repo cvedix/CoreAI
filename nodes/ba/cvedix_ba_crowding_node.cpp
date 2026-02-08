@@ -1,17 +1,18 @@
 #include "cvedix_ba_crowding_node.h"
+#include "cvedix/objects/shapes/cvedix_point.h"
  
 namespace cvedix_nodes {
  
 cvedix_ba_crowding_node::cvedix_ba_crowding_node(
-        std::string node_name,
-        std::map<int, cvedix_objects::cvedix_rect> rois,
+                std::string node_name,
+                std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
         std::map<int, int> obj_count_thresholds,
         std::map<int, double> alarm_seconds,
         int fps,
         bool need_record_image,
         bool need_record_video)
     : cvedix_node(node_name),
-      all_rois(rois),
+            all_rois(rois),
       all_obj_count_thresholds(obj_count_thresholds),
       all_alarm_seconds(alarm_seconds),
       fps(fps),
@@ -29,27 +30,38 @@ cvedix_ba_crowding_node::~cvedix_ba_crowding_node() {
 std::string cvedix_ba_crowding_node::to_string() {
     std::stringstream ss;
     for (auto& p : all_rois) {
-        auto& r = p.second;
-        ss << "[channel" << p.first << ": "
-        << r.x << "," << r.y << " "
-            << r.width << "x" << r.height << "]";
+        auto& poly = p.second;
+        ss << "[channel" << p.first << ": polygon(" << poly.size() << ") ";
+        for (size_t i = 0; i < poly.size(); ++i) {
+            ss << "(" << poly[i].x << "," << poly[i].y << ")";
+            if (i + 1 < poly.size()) ss << ",";
+        }
+        ss << "]";
     }
     return ss.str();
 }
  
 bool cvedix_ba_crowding_node::is_inside_roi(
         int channel_id,
-        const cvedix_objects::cvedix_rect& r) const
+        const cvedix_objects::cvedix_point& pt) const
 {
     if (all_rois.count(channel_id) == 0) {
         return false;
     }
- 
-    // ❗ cvedix_rect is NOT const-correct → copy
-    auto roi  = all_rois.at(channel_id);
-    auto rect = r;
- 
-    return roi.contains(rect.track_point());
+
+    // Ray-casting point-in-polygon
+    const auto& poly = all_rois.at(channel_id);
+    bool inside = false;
+    size_t n = poly.size();
+    if (n < 3) return false;
+    for (size_t i = 0, j = n - 1; i < n; j = i++) {
+        double xi = poly[i].x, yi = poly[i].y;
+        double xj = poly[j].x, yj = poly[j].y;
+        bool intersect = ((yi > pt.y) != (yj > pt.y)) &&
+            (pt.x < (xj - xi) * (pt.y - yi) / (yj - yi + 1e-12) + xi);
+        if (intersect) inside = !inside;
+    }
+    return inside;
 }
  
 std::shared_ptr<cvedix_objects::cvedix_meta>
@@ -81,7 +93,7 @@ cvedix_ba_crowding_node::handle_frame_meta(
         if (!target || target->track_id < 0) continue;
  
         auto rect = target->get_rect();
-        bool inside = is_inside_roi(channel_id, rect);
+            bool inside = is_inside_roi(channel_id, rect.track_point());
 
         if (inside) {
             // add track id to ctx if not exist
@@ -95,15 +107,27 @@ cvedix_ba_crowding_node::handle_frame_meta(
             ctx.by_track_id[target->track_id].inside = true;
             ctx.by_track_id[target->track_id].last_seen_ts = ctx.now_sec;
             involve_targets.push_back(target->track_id);
+            // Log
+            // CVEDIX_INFO(cvedix_utils::string_format(
+            //     "[%s] [channel %d] target track_id=%d is inside ROI",
+            //     node_name.c_str(),
+            //     meta->channel_index,
+            //     target->track_id));
         } else if (ctx.by_track_id.count(target->track_id) != 0) {
             ctx.by_track_id.erase(target->track_id);
         } 
+    }
     
-    // Clear track_id if not seen for a while
+    // Clear track_id if not seen for a while (collect keys then erase to avoid
+    // invalidating the iterator while iterating)
+    std::vector<int> stale_ids;
     for (auto& p : ctx.by_track_id) {
         if (ctx.now_sec - p.second.last_seen_ts > expire_seconds) {
-            ctx.by_track_id.erase(p.first);
+            stale_ids.push_back(p.first);
         }
+    }
+    for (auto id : stale_ids) {
+        ctx.by_track_id.erase(id);
     }
 
     // Check if crowding condition met
@@ -155,13 +179,8 @@ cvedix_ba_crowding_node::handle_frame_meta(
             pendding_meta(video_record_control_meta);
         }
  
-        // ROI → region points
-        std::vector<cvedix_objects::cvedix_point> involve_region;
-        auto& roi = all_rois[channel_id];
-        involve_region.emplace_back(roi.x, roi.y);
-        involve_region.emplace_back(roi.x + roi.width, roi.y);
-        involve_region.emplace_back(roi.x + roi.width, roi.y + roi.height);
-        involve_region.emplace_back(roi.x, roi.y + roi.height);
+        // ROI → region points (copy polygon)
+        std::vector<cvedix_objects::cvedix_point> involve_region = all_rois[channel_id];
  
         auto ba_result =
             std::make_shared<cvedix_objects::cvedix_ba_result>(
