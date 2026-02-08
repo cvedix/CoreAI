@@ -21,6 +21,9 @@ target_link_libraries(ba_area_enter_exit_sample ${PROJECT_NAME})
 add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
 target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 
+add_executable(ba_crowding_sample "ba_crowding_sample.cpp")
+target_link_libraries(ba_crowding_sample ${PROJECT_NAME})
+
 add_executable(ba_loitering_sample "ba_loitering_sample.cpp")
 target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
 
