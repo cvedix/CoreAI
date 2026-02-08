@@ -106,19 +106,19 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     link_directories(/usr/local/cuda/lib64)
 
     # trt_vehicle - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
-    # message("-------------start build trt_vehicle--------------")
-    # add_subdirectory(third_party/trt_vehicle)
-    # list(APPEND CVEDIX_DEPEND_LIBS trt_vehicle)
-    # message(STATUS "TensorRT library status:")
-    # message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
-    # message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
-    # # Install trt_vehicle with export
-    # install(TARGETS trt_vehicle EXPORT cvedix-targets
-    #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    # )
-    # message("--------------end build trt_vehicle---------------")
+    message("-------------start build trt_vehicle--------------")
+    add_subdirectory(third_party/trt_vehicle)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_vehicle)
+    message(STATUS "TensorRT library status:")
+    message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
+    message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
+    # Install trt_vehicle with export
+    install(TARGETS trt_vehicle EXPORT cvedix-targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+    message("--------------end build trt_vehicle---------------")
 
     # trt_yolov8 - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
     # message("-------------start build trt_yolov8--------------")

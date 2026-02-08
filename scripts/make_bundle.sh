@@ -93,6 +93,7 @@ copy_headers() {
     --include='*/' \
     --include='*.h' \
     --include='*.hpp' \
+    --include='*.ipp' \
     --exclude='*' \
     "${SRC}/" "${DST}/"
 }
