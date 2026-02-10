@@ -16,6 +16,7 @@ namespace cvedix_nodes
         port(port),
         endpoint(endpoint)
     {
+        this->initialized();
         // Start server
         start();
     }
@@ -24,8 +25,8 @@ namespace cvedix_nodes
     {
         // Stop listening server
         stop();
-        // Note: deinitialized() and stop_broking() are already called by base class
-        // Do not call them again here
+        deinitialized();
+        stop_broking();
     }
 
     void cvedix_sse_broker_node::start()
