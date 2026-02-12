@@ -27,20 +27,23 @@ int main() {
     auto tracker = std::make_shared<cvedix_nodes::cvedix_sort_track_node>("sort_tracker");
     
     // define a region in frame for every channel (value MUST in the scope of frame'size)
-    // std::map<int, std::vector<cvedix_objects::cvedix_point>> regions = {
-    //     {0, std::vector<cvedix_objects::cvedix_point>{cvedix_objects::cvedix_point(20, 30), cvedix_objects::cvedix_point(600, 40), cvedix_objects::cvedix_point(600, 300), cvedix_objects::cvedix_point(10, 300)}},  // channel0 -> region
-    //     {1, std::vector<cvedix_objects::cvedix_point>{cvedix_objects::cvedix_point(20, 30), cvedix_objects::cvedix_point(1000, 40), cvedix_objects::cvedix_point(1000, 600), cvedix_objects::cvedix_point(10, 600)}}   // channel1 -> region
-    // };
-    // auto ba_stop = std::make_shared<cvedix_nodes::cvedix_ba_stop_node>("ba_stop", regions);
-
-    std::map<int, cvedix_objects::cvedix_rect> regions = {
-        {0, cvedix_objects::cvedix_rect(20,30,580,270)}
+    // Polygon ROI per channel
+    std::map<int, std::vector<cvedix_objects::cvedix_point>> regions = {
+        {0, std::vector<cvedix_objects::cvedix_point>{
+            cvedix_objects::cvedix_point(20, 50),
+            cvedix_objects::cvedix_point(600, 30),
+            cvedix_objects::cvedix_point(700, 200),
+            cvedix_objects::cvedix_point(600, 300),
+            cvedix_objects::cvedix_point(20, 300)
+        }}
     };
 
-    std::map<int, double> alarm_seconds = {
-        {0,5}
+    // Loitering configuration per channel
+    std::map<int, cvedix_nodes::loitering_config> configs = {
+        {0, cvedix_nodes::loitering_config(5.0, "Parking Lot")} // alarm after 5s
     };
-    auto ba_stop = std::make_shared<cvedix_nodes::cvedix_ba_loitering_node>("ba_stop",regions,alarm_seconds,30);
+
+    auto ba_stop = std::make_shared<cvedix_nodes::cvedix_ba_loitering_node>("ba_stop", regions, configs, 30);
 
     auto osd = std::make_shared<cvedix_nodes::cvedix_ba_stop_osd_node>("osd");
     // auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", true);

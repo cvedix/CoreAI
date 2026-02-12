@@ -6,7 +6,7 @@ namespace cvedix_nodes {
 
 cvedix_ba_area_enter_exit_node::cvedix_ba_area_enter_exit_node(
     std::string node_name,
-    std::map<int, std::vector<cvedix_objects::cvedix_rect>> areas,
+    std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> areas,
     bool need_record_image, bool need_record_video)
     : cvedix_node(node_name), all_areas(areas),
       need_record_image(need_record_image),
@@ -31,7 +31,7 @@ cvedix_ba_area_enter_exit_node::cvedix_ba_area_enter_exit_node(
 
 cvedix_ba_area_enter_exit_node::cvedix_ba_area_enter_exit_node(
     std::string node_name,
-    std::map<int, std::vector<cvedix_objects::cvedix_rect>> areas,
+    std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> areas,
     std::map<int, std::vector<area_alert_config>> configs,
     bool need_record_image, bool need_record_video)
     : cvedix_node(node_name), all_areas(areas),
@@ -74,15 +74,14 @@ std::string cvedix_ba_area_enter_exit_node::to_string() {
   std::lock_guard<std::mutex> lock(areas_mutex);
   /*
    * return all areas for all channels
-   * [channel 0: area0(x,y,w,h) area1(x,y,w,h)][channel 1: ...]
+   * [channel 0: area0(polygon points) area1(polygon points)][channel 1: ...]
    */
   std::stringstream ss;
   for (const auto &channel_pair : all_areas) {
     ss << "[channel" << channel_pair.first << ": ";
     int area_idx = 0;
-    for (const auto &rect : channel_pair.second) {
-      ss << "area" << area_idx << "(" << rect.x << "," << rect.y << ","
-         << rect.width << "," << rect.height << ") ";
+    for (const auto &polygon : channel_pair.second) {
+      ss << "area" << area_idx << "(polygon:" << polygon.size() << " pts) ";
       area_idx++;
     }
     ss << "]";
@@ -90,19 +89,30 @@ std::string cvedix_ba_area_enter_exit_node::to_string() {
   return ss.str();
 }
 
-bool cvedix_ba_area_enter_exit_node::point_in_rect(
+bool cvedix_ba_area_enter_exit_node::is_inside_polygon(
     const cvedix_objects::cvedix_point &p,
-    const cvedix_objects::cvedix_rect &rect) {
-  return p.x >= rect.x && p.x < (rect.x + rect.width) &&
-         p.y >= rect.y && p.y < (rect.y + rect.height);
+    const std::vector<cvedix_objects::cvedix_point> &polygon) {
+  // Ray-casting algorithm for point-in-polygon test
+  bool inside = false;
+  size_t n = polygon.size();
+  if (n < 3) return false;
+  
+  for (size_t i = 0, j = n - 1; i < n; j = i++) {
+    double xi = polygon[i].x, yi = polygon[i].y;
+    double xj = polygon[j].x, yj = polygon[j].y;
+    bool intersect = ((yi > p.y) != (yj > p.y)) &&
+        (p.x < (xj - xi) * (p.y - yi) / (yj - yi + 1e-12) + xi);
+    if (intersect) inside = !inside;
+  }
+  return inside;
 }
 
 std::set<int> cvedix_ba_area_enter_exit_node::get_areas_containing_point(
     const cvedix_objects::cvedix_point &p,
-    const std::vector<cvedix_objects::cvedix_rect> &areas) {
+    const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas) {
   std::set<int> result;
   for (size_t i = 0; i < areas.size(); i++) {
-    if (point_in_rect(p, areas[i])) {
+    if (is_inside_polygon(p, areas[i])) {
       result.insert(i);
     }
   }
@@ -178,14 +188,9 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
               pendding_meta(video_record_control_meta);
             }
 
-            // Create BA result with area rectangle as region
+            // Create BA result with area polygon as region
             const auto &area = channel_areas[area_index];
-            std::vector<cvedix_objects::cvedix_point> involve_region = {
-                cvedix_objects::cvedix_point(area.x, area.y),
-                cvedix_objects::cvedix_point(area.x + area.width, area.y),
-                cvedix_objects::cvedix_point(area.x + area.width,
-                                             area.y + area.height),
-                cvedix_objects::cvedix_point(area.x, area.y + area.height)};
+            std::vector<cvedix_objects::cvedix_point> involve_region = area;
 
             std::string label = "enter area " + std::to_string(area_index);
             if (!config.name.empty()) {
@@ -249,14 +254,9 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
               pendding_meta(video_record_control_meta);
             }
 
-            // Create BA result with area rectangle as region
+            // Create BA result with area polygon as region
             const auto &area = channel_areas[area_index];
-            std::vector<cvedix_objects::cvedix_point> involve_region = {
-                cvedix_objects::cvedix_point(area.x, area.y),
-                cvedix_objects::cvedix_point(area.x + area.width, area.y),
-                cvedix_objects::cvedix_point(area.x + area.width,
-                                             area.y + area.height),
-                cvedix_objects::cvedix_point(area.x, area.y + area.height)};
+            std::vector<cvedix_objects::cvedix_point> involve_region = area;
 
             std::string label = "exit area " + std::to_string(area_index);
             if (!config.name.empty()) {
@@ -320,7 +320,7 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
 }
 
 bool cvedix_ba_area_enter_exit_node::set_areas(
-    const std::map<int, std::vector<cvedix_objects::cvedix_rect>> &areas) {
+    const std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> &areas) {
   std::lock_guard<std::mutex> lock(areas_mutex);
 
   all_areas = areas;
@@ -345,7 +345,7 @@ bool cvedix_ba_area_enter_exit_node::set_areas(
 }
 
 int cvedix_ba_area_enter_exit_node::add_area(
-    int channel_id, const cvedix_objects::cvedix_rect &area) {
+    int channel_id, const std::vector<cvedix_objects::cvedix_point> &area) {
   std::lock_guard<std::mutex> lock(areas_mutex);
 
   all_areas[channel_id].push_back(area);
@@ -355,14 +355,14 @@ int cvedix_ba_area_enter_exit_node::add_area(
   all_area_configs[channel_id].push_back(area_alert_config(true, true));
 
   CVEDIX_INFO(cvedix_utils::string_format(
-      "[%s] Added area %d to channel %d: (%d,%d,%d,%d)", node_name.c_str(),
-      area_index, channel_id, area.x, area.y, area.width, area.height));
+      "[%s] Added area %d to channel %d: polygon with %zu points", node_name.c_str(),
+      area_index, channel_id, area.size()));
 
   return area_index;
 }
 
 int cvedix_ba_area_enter_exit_node::add_area(
-    int channel_id, const cvedix_objects::cvedix_rect &area,
+    int channel_id, const std::vector<cvedix_objects::cvedix_point> &area,
     const area_alert_config &config) {
   std::lock_guard<std::mutex> lock(areas_mutex);
 
@@ -373,10 +373,10 @@ int cvedix_ba_area_enter_exit_node::add_area(
   all_area_configs[channel_id].push_back(config);
 
   CVEDIX_INFO(cvedix_utils::string_format(
-      "[%s] Added area %d to channel %d: (%d,%d,%d,%d) with config [enter:%d, "
+      "[%s] Added area %d to channel %d: polygon with %zu points, config [enter:%d, "
       "exit:%d]",
-      node_name.c_str(), area_index, channel_id, area.x, area.y, area.width,
-      area.height, config.alert_on_enter, config.alert_on_exit));
+      node_name.c_str(), area_index, channel_id, area.size(),
+      config.alert_on_enter, config.alert_on_exit));
 
   return area_index;
 }

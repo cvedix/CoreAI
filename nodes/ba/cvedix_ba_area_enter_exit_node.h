@@ -2,7 +2,7 @@
  * @file cvedix_ba_area_enter_exit_node.h
  * @brief Area enter/exit detection behavior analysis node
  *
- * This node detects when tracked objects enter or exit defined rectangular
+ * This node detects when tracked objects enter or exit defined polygonal
  * regions in the video frame. Commonly used for:
  * - Zone intrusion detection
  * - Restricted area monitoring
@@ -12,7 +12,7 @@
  * @section area_overview How It Works
  * 1. Receives tracked targets from upstream tracker node
  * 2. Compares each object's current and previous positions
- * 3. Detects enter/exit events for configured rectangular regions
+ * 3. Detects enter/exit events for configured polygonal regions
  * 4. Matches events with alert configurations
  * 5. Optionally triggers image/video recording
  *
@@ -23,11 +23,11 @@
  *
  * @section area_usage Usage Example
  * @code
- * // Define multiple rectangular areas per channel
- * std::map<int, std::vector<cvedix_rect>> areas = {
+ * // Define multiple polygonal areas per channel
+ * std::map<int, std::vector<std::vector<cvedix_point>>> areas = {
  *     {0, {
- *         cvedix_rect(100, 100, 200, 150),  // area 0: entrance zone
- *         cvedix_rect(400, 200, 300, 200)   // area 1: restricted zone
+ *         {{100, 100}, {300, 100}, {300, 250}, {100, 250}},  // area 0: entrance zone
+ *         {{400, 200}, {700, 200}, {700, 400}, {400, 400}}   // area 1: restricted zone
  *     }}
  * };
  * 
@@ -49,7 +49,6 @@
 #include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/objects/cvedix_image_record_control_meta.h"
 #include "cvedix/objects/cvedix_video_record_control_meta.h"
-#include "cvedix/objects/shapes/cvedix_rect.h"
 #include "cvedix/objects/shapes/cvedix_point.h"
 #include <map>
 #include <mutex>
@@ -97,7 +96,7 @@ struct area_alert_config {
 /**
  * @brief Area enter/exit detection behavior analysis node
  *
- * Detects when tracked objects enter or exit user-defined rectangular areas.
+ * Detects when tracked objects enter or exit user-defined polygonal areas.
  * Supports multiple channels with multiple detection areas per channel.
  * Each area can have customized alert configurations.
  *
@@ -107,8 +106,8 @@ struct area_alert_config {
  */
 class cvedix_ba_area_enter_exit_node : public cvedix_node {
 private:
-  /// @brief Detection areas per channel: channel_id → vector of rectangles
-  std::map<int, std::vector<cvedix_objects::cvedix_rect>> all_areas;
+  /// @brief Detection areas per channel: channel_id → vector of polygons
+  std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> all_areas;
 
   /// @brief Alert configurations per channel per area
   std::map<int, std::vector<area_alert_config>> all_area_configs;
@@ -135,23 +134,23 @@ private:
   std::mutex areas_mutex;
 
   /**
-   * @brief Check if a point is inside a rectangle
+   * @brief Check if a point is inside a polygon using ray-casting algorithm
    * @param p Point to check
-   * @param rect Rectangle to check against
-   * @return true if point is inside rectangle
+   * @param polygon Polygon to check against
+   * @return true if point is inside polygon
    */
-  bool point_in_rect(const cvedix_objects::cvedix_point &p,
-                     const cvedix_objects::cvedix_rect &rect);
+  bool is_inside_polygon(const cvedix_objects::cvedix_point &p,
+                         const std::vector<cvedix_objects::cvedix_point> &polygon);
 
   /**
    * @brief Get area indices that contain a given point
    * @param p Point to check
-   * @param areas Vector of rectangles
+   * @param areas Vector of polygons
    * @return Set of area indices containing the point
    */
   std::set<int> get_areas_containing_point(
       const cvedix_objects::cvedix_point &p,
-      const std::vector<cvedix_objects::cvedix_rect> &areas);
+      const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas);
 
 protected:
   /**
@@ -167,27 +166,27 @@ public:
    * @brief Constructor with multiple areas per channel
    *
    * @param node_name Unique node identifier
-   * @param areas Detection areas per channel (channel_id → vector of rectangles)
+   * @param areas Detection areas per channel (channel_id → vector of polygons)
    * @param need_record_image Trigger image recording on enter/exit (default: true)
    * @param need_record_video Trigger video recording on enter/exit (default: false)
    */
   cvedix_ba_area_enter_exit_node(
       std::string node_name,
-      std::map<int, std::vector<cvedix_objects::cvedix_rect>> areas,
+      std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> areas,
       bool need_record_image = true, bool need_record_video = false);
 
     /**
      * @brief Constructor with areas and per-area alert configurations
      *
      * @param node_name Unique node identifier
-     * @param areas Detection areas per channel (channel_id → vector of rectangles)
+     * @param areas Detection areas per channel (channel_id → vector of polygons)
      * @param configs Alert configurations per channel per area
      * @param need_record_image Trigger image recording on enter/exit (default: true)
      * @param need_record_video Trigger video recording on enter/exit (default: false)
      */
     cvedix_ba_area_enter_exit_node(
       std::string node_name,
-      std::map<int, std::vector<cvedix_objects::cvedix_rect>> areas,
+      std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> areas,
       std::map<int, std::vector<area_alert_config>> configs,
       bool need_record_image = true, bool need_record_video = false);
 
@@ -206,24 +205,24 @@ public:
    * @return true if updated successfully
    */
   bool set_areas(
-      const std::map<int, std::vector<cvedix_objects::cvedix_rect>> &areas);
+      const std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> &areas);
 
   /**
    * @brief Add a single area to a channel
    * @param channel_id Target channel
-   * @param area Rectangle area to add
+   * @param area Polygon area to add
    * @return Index of the added area
    */
-  int add_area(int channel_id, const cvedix_objects::cvedix_rect &area);
+  int add_area(int channel_id, const std::vector<cvedix_objects::cvedix_point> &area);
 
   /**
    * @brief Add a single area with configuration
    * @param channel_id Target channel
-   * @param area Rectangle area to add
+   * @param area Polygon area to add
    * @param config Alert configuration for the area
    * @return Index of the added area
    */
-  int add_area(int channel_id, const cvedix_objects::cvedix_rect &area,
+  int add_area(int channel_id, const std::vector<cvedix_objects::cvedix_point> &area,
                const area_alert_config &config);
 
   /**

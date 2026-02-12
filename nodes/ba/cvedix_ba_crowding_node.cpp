@@ -6,19 +6,39 @@ namespace cvedix_nodes {
 cvedix_ba_crowding_node::cvedix_ba_crowding_node(
                 std::string node_name,
                 std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
-        std::map<int, int> obj_count_thresholds,
-        std::map<int, double> alarm_seconds,
+        std::map<int, crowding_config> configs,
         int fps,
         bool need_record_image,
         bool need_record_video)
     : cvedix_node(node_name),
             all_rois(rois),
-      all_obj_count_thresholds(obj_count_thresholds),
-      all_alarm_seconds(alarm_seconds),
+      all_configs(configs),
       fps(fps),
       need_record_image(need_record_image),
       need_record_video(need_record_video)
 {
+    CVEDIX_INFO(cvedix_utils::string_format("[%s] %s", node_name.c_str(), to_string().c_str()));
+    this->initialized();
+}
+
+cvedix_ba_crowding_node::cvedix_ba_crowding_node(
+                std::string node_name,
+                std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
+        int fps,
+        bool need_record_image,
+        bool need_record_video)
+    : cvedix_node(node_name),
+            all_rois(rois),
+      fps(fps),
+      need_record_image(need_record_image),
+      need_record_video(need_record_video)
+{
+    // Initialize default configs for all channels
+    for (const auto &channel_pair : all_rois) {
+        int channel_id = channel_pair.first;
+        all_configs[channel_id] = crowding_config(); // default config
+    }
+    
     CVEDIX_INFO(cvedix_utils::string_format("[%s] %s", node_name.c_str(), to_string().c_str()));
     this->initialized();
 }
@@ -28,6 +48,7 @@ cvedix_ba_crowding_node::~cvedix_ba_crowding_node() {
 }
 
 std::string cvedix_ba_crowding_node::to_string() {
+    std::lock_guard<std::mutex> lock(config_mutex);
     std::stringstream ss;
     for (auto& p : all_rois) {
         auto& poly = p.second;
@@ -45,6 +66,7 @@ bool cvedix_ba_crowding_node::is_inside_roi(
         int channel_id,
         const cvedix_objects::cvedix_point& pt) const
 {
+    std::lock_guard<std::mutex> lock(config_mutex);
     if (all_rois.count(channel_id) == 0) {
         return false;
     }
@@ -68,19 +90,27 @@ std::shared_ptr<cvedix_objects::cvedix_meta>
 cvedix_ba_crowding_node::handle_frame_meta(
         std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta)
 {
-    // if need applied on current channel or not
-    if (all_rois.count(meta->channel_index) == 0) {
-        return meta;
-    }
- 
     auto channel_id = meta->channel_index;
-    auto& ctx = all_channels[channel_id];
- 
-    // alarm threshold (default = 10s)
-    double alarm_s = 10.0;
-    if (all_alarm_seconds.count(channel_id) > 0) {
-        alarm_s = all_alarm_seconds[channel_id];
+    
+    // Snapshot configuration with mutex protection
+    crowding_config config;
+    std::vector<cvedix_objects::cvedix_point> roi_copy;
+    {
+        std::lock_guard<std::mutex> lock(config_mutex);
+        
+        // if need applied on current channel or not
+        if (all_rois.count(channel_id) == 0) {
+            return meta;
+        }
+        
+        // Copy configuration for this channel
+        roi_copy = all_rois[channel_id];
+        config = (all_configs.count(channel_id) > 0) 
+                 ? all_configs[channel_id] 
+                 : crowding_config(); // default: threshold=10, alarm=10s
     }
+ 
+    auto& ctx = all_channels[channel_id];
  
     // time update (fallback by fps)
     const double dt = (fps > 0) ? (1.0 / fps) : 0.033;
@@ -131,13 +161,12 @@ cvedix_ba_crowding_node::handle_frame_meta(
     }
 
     // Check if crowding condition met
-    if (ctx.by_track_id.size() >=
-        all_obj_count_thresholds[channel_id]) {
+    if (ctx.by_track_id.size() >= static_cast<size_t>(config.obj_count_threshold)) {
         if (!ctx.alarmed) {
             // Check if loitering time exceeded
             bool all_exceeded = true;
             for (auto& p : ctx.by_track_id) {
-                if (ctx.now_sec - p.second.enter_ts < alarm_s) {
+                if (ctx.now_sec - p.second.enter_ts < config.alarm_seconds) {
                     all_exceeded = false;
                     break;
                 }
@@ -180,7 +209,7 @@ cvedix_ba_crowding_node::handle_frame_meta(
         }
  
         // ROI → region points (copy polygon)
-        std::vector<cvedix_objects::cvedix_point> involve_region = all_rois[channel_id];
+        std::vector<cvedix_objects::cvedix_point> involve_region = roi_copy;
  
         auto ba_result =
             std::make_shared<cvedix_objects::cvedix_ba_result>(
@@ -212,6 +241,104 @@ cvedix_ba_crowding_node::handle_frame_meta(
     }
  
     return meta;
+}
+
+bool cvedix_ba_crowding_node::set_rois(
+    const std::map<int, std::vector<cvedix_objects::cvedix_point>> &rois) {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  all_rois = rois;
+  // Clear runtime states for all channels
+  all_channels.clear();
+  
+  CVEDIX_INFO(cvedix_utils::string_format(
+      "[%s] ROIs replaced at runtime: %s", node_name.c_str(),
+      to_string().c_str()));
+  
+  return true;
+}
+
+bool cvedix_ba_crowding_node::set_channel_roi(
+    int channel_id, const std::vector<cvedix_objects::cvedix_point> &roi) {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  all_rois[channel_id] = roi;
+  // Clear runtime state for this channel
+  all_channels[channel_id] = channel_ctx();
+  
+  CVEDIX_INFO(cvedix_utils::string_format(
+      "[%s] Set ROI for channel %d: polygon with %zu points",
+      node_name.c_str(), channel_id, roi.size()));
+  
+  return true;
+}
+
+bool cvedix_ba_crowding_node::remove_channel_roi(int channel_id) {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  if (all_rois.count(channel_id) == 0) {
+    return false;
+  }
+  
+  all_rois.erase(channel_id);
+  all_configs.erase(channel_id);
+  all_channels.erase(channel_id);
+  
+  CVEDIX_INFO(cvedix_utils::string_format(
+      "[%s] Removed ROI and config for channel %d", node_name.c_str(), channel_id));
+  
+  return true;
+}
+
+void cvedix_ba_crowding_node::clear_rois() {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  all_rois.clear();
+  all_configs.clear();
+  all_channels.clear();
+  
+  CVEDIX_INFO(cvedix_utils::string_format("[%s] Cleared all ROIs and config",
+                                          node_name.c_str()));
+}
+
+std::vector<cvedix_objects::cvedix_point> 
+cvedix_ba_crowding_node::get_channel_roi(int channel_id) const {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  if (all_rois.count(channel_id) == 0) {
+    return std::vector<cvedix_objects::cvedix_point>();
+  }
+  
+  return all_rois.at(channel_id);
+}
+
+bool cvedix_ba_crowding_node::set_config(int channel_id, const crowding_config &config) {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  all_configs[channel_id] = config;
+  
+  CVEDIX_INFO(cvedix_utils::string_format(
+      "[%s] Set config for channel %d: threshold=%d, alarm=%.2fs, name=%s",
+      node_name.c_str(), channel_id, config.obj_count_threshold, 
+      config.alarm_seconds, config.name.c_str()));
+  
+  return true;
+}
+
+crowding_config cvedix_ba_crowding_node::get_config(int channel_id) const {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  if (all_configs.count(channel_id) == 0) {
+    return crowding_config(); // Return default config
+  }
+  
+  return all_configs.at(channel_id);
+}
+
+size_t cvedix_ba_crowding_node::get_channel_count() const {
+  std::lock_guard<std::mutex> lock(config_mutex);
+  
+  return all_rois.size();
 }
  
 } // namespace cvedix_nodes

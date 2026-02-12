@@ -35,13 +35,17 @@ int main() {
   auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>(
       "tracker", cvedix_nodes::cvedix_track_for::NORMAL, 0.5, 0.9, 0.6, 20, 15);
 
-  // Define 2 rectangular areas for channel 0
-  // Area 0: entrance-ish
-  cvedix_objects::cvedix_rect area0(50, 150, 200, 200);
-  // Area 1: restricted-ish
-  cvedix_objects::cvedix_rect area1(350, 160, 200, 200);
+  // Define 2 polygonal areas for channel 0
+  // Area 0: entrance zone (rectangular polygon)
+  std::vector<cvedix_objects::cvedix_point> area0 = {
+      {50, 150}, {250, 100}, {250, 350}, {50, 350}
+  };
+  // Area 1: restricted zone (rectangular polygon)
+  std::vector<cvedix_objects::cvedix_point> area1 = {
+      {350, 160}, {520, 100}, {550, 360}, {350, 360}
+  };
 
-  std::map<int, std::vector<cvedix_objects::cvedix_rect>> areas = {
+  std::map<int, std::vector<std::vector<cvedix_objects::cvedix_point>>> areas = {
       {0, {area0, area1}}};
 
   // Optional per-area configs (names/colors)

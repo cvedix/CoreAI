@@ -1,6 +1,7 @@
 #pragma once
  
 #include <map>
+#include <mutex>
 #include <unordered_map>
  
 #include "cvedix/nodes/common/cvedix_node.h"
@@ -32,11 +33,45 @@ namespace cvedix_nodes {
      *   the implementation.
      *
      * Configuration:
-     * - ROIs: `all_rois` (map channel_id -> rect)
-     * - Thresholds: `all_obj_count_thresholds` (map channel_id -> int)
-     * - Alarm durations: `all_alarm_seconds` (map channel_id -> seconds)
+     * - ROIs: `all_rois` (map channel_id -> polygon)
+     * - Configs: `all_configs` (map channel_id -> crowding_config)
      * - Recording control: `need_record_image`, `need_record_video`
      */
+    
+    /**
+     * @brief Configuration for crowding detection on a single channel
+     */
+    struct crowding_config {
+        /// @brief Minimum object count to trigger alarm
+        int obj_count_threshold = 10;
+        
+        /// @brief Duration (seconds) objects must remain in ROI before alarm
+        double alarm_seconds = 10.0;
+        
+        /// @brief Optional name/label for this ROI (e.g., "lobby", "entrance")
+        std::string name = "";
+        
+        /// @brief ROI color in BGR format (default: yellow) for visualization
+        cv::Scalar color = cv::Scalar(0, 255, 255);
+        
+        /// @brief Default constructor
+        crowding_config() = default;
+        
+        /// @brief Constructor with threshold and alarm seconds
+        crowding_config(int threshold, double seconds)
+            : obj_count_threshold(threshold), alarm_seconds(seconds), name(""),
+              color(cv::Scalar(0, 255, 255)) {}
+        
+        /// @brief Constructor with name
+        crowding_config(int threshold, double seconds, const std::string &n)
+            : obj_count_threshold(threshold), alarm_seconds(seconds), name(n),
+              color(cv::Scalar(0, 255, 255)) {}
+        
+        /// @brief Full constructor
+        crowding_config(int threshold, double seconds, const std::string &n,
+                       const cv::Scalar &c)
+            : obj_count_threshold(threshold), alarm_seconds(seconds), name(n), color(c) {}
+    };
     
     class cvedix_ba_crowding_node : public cvedix_node {
     private:
@@ -55,11 +90,8 @@ namespace cvedix_nodes {
         /// ROI polygon per channel (list of points in frame coords)
         std::map<int, std::vector<cvedix_objects::cvedix_point>> all_rois;
     
-        /// Object count thresholds per channel
-        std::map<int, int> all_obj_count_thresholds;
-
-        /// Alarm seconds per channel
-        std::map<int, double> all_alarm_seconds;
+        /// Crowding configurations per channel
+        std::map<int, crowding_config> all_configs;
     
         /// Runtime states per channel
         std::unordered_map<int, channel_ctx> all_channels;
@@ -70,6 +102,9 @@ namespace cvedix_nodes {
     
         bool need_record_image;
         bool need_record_video;
+        
+        /// @brief Mutex for thread-safe runtime configuration updates
+        mutable std::mutex config_mutex;
     
     private:
         bool is_inside_roi(int channel_id, const cvedix_objects::cvedix_point& pt) const;
@@ -81,8 +116,13 @@ namespace cvedix_nodes {
     public:
         cvedix_ba_crowding_node(std::string node_name,
                     std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
-                                std::map<int, int> obj_count_thresholds,
-                                std::map<int, double> alarm_seconds,
+                                std::map<int, crowding_config> configs,
+                                int fps = 30,
+                                bool need_record_image = true,
+                                bool need_record_video = false);
+        
+        cvedix_ba_crowding_node(std::string node_name,
+                    std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                                 int fps = 30,
                                 bool need_record_image = true,
                                 bool need_record_video = false);
@@ -90,6 +130,61 @@ namespace cvedix_nodes {
         ~cvedix_ba_crowding_node();
     
         std::string to_string() override;
+        
+        /**
+         * @brief Replace all ROIs at runtime
+         * @param rois New ROI polygons per channel
+         * @return true if updated successfully
+         */
+        bool set_rois(const std::map<int, std::vector<cvedix_objects::cvedix_point>> &rois);
+        
+        /**
+         * @brief Add or update ROI for a specific channel
+         * @param channel_id Target channel
+         * @param roi Polygon ROI to set
+         * @return true if updated successfully
+         */
+        bool set_channel_roi(int channel_id, const std::vector<cvedix_objects::cvedix_point> &roi);
+        
+        /**
+         * @brief Remove ROI for a specific channel
+         * @param channel_id Target channel
+         * @return true if channel existed and was removed
+         */
+        bool remove_channel_roi(int channel_id);
+        
+        /**
+         * @brief Clear all ROIs
+         */
+        void clear_rois();
+        
+        /**
+         * @brief Get ROI for a specific channel
+         * @param channel_id Target channel
+         * @return ROI polygon (empty if not found)
+         */
+        std::vector<cvedix_objects::cvedix_point> get_channel_roi(int channel_id) const;
+        
+        /**
+         * @brief Set crowding configuration for a channel
+         * @param channel_id Target channel
+         * @param config Crowding configuration
+         * @return true if updated successfully
+         */
+        bool set_config(int channel_id, const crowding_config &config);
+        
+        /**
+         * @brief Get crowding configuration for a channel
+         * @param channel_id Target channel
+         * @return Configuration (default if not found)
+         */
+        crowding_config get_config(int channel_id) const;
+        
+        /**
+         * @brief Get number of configured channels
+         * @return Number of channels with ROI configuration
+         */
+        size_t get_channel_count() const;
     };
         
 }  // namespace cvedix_nodes

@@ -36,17 +36,12 @@ int main() {
         }
     };
 
-    // thresholds per channel
-    std::map<int, int> thresholds = {
-        {0, 3} // alarm when >=4 people inside ROI
+    // crowding configuration per channel
+    std::map<int, cvedix_nodes::crowding_config> configs = {
+        {0, cvedix_nodes::crowding_config(3, 2.0, "Lobby Area")} // threshold=3, alarm=2s
     };
 
-    // alarm seconds per channel
-    std::map<int, double> alarm_seconds = {
-        {0, 2.0} // require objects to be inside for 3s
-    };
-
-    auto ba_crowding = std::make_shared<cvedix_nodes::cvedix_ba_crowding_node>("ba_crowding", rois, thresholds, alarm_seconds, 30, false, false);
+    auto ba_crowding = std::make_shared<cvedix_nodes::cvedix_ba_crowding_node>("ba_crowding", rois, configs, 30, false, false);
     auto osd = std::make_shared<cvedix_nodes::cvedix_ba_crowding_osd_node>("crowding_osd");
     // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);\
 
