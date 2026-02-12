@@ -22,7 +22,7 @@ namespace cvedix_objects {
 
     }
     
-    cvedix_point cvedix_rect::center() {
+    cvedix_point cvedix_rect::center() const {
         return cvedix_point(x + width / 2, y + height / 2);
     }
 
@@ -34,7 +34,7 @@ namespace cvedix_objects {
         return true;
     }
 
-    cvedix_point cvedix_rect::track_point( const cvedix_rect_anchor_point anchor) {
+    cvedix_point cvedix_rect::track_point( const cvedix_rect_anchor_point anchor) const {
         switch(anchor) {
             case cvedix_rect_anchor_point::CENTER:
                 return center();

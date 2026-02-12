@@ -53,6 +53,9 @@ namespace cvedix_nodes {
         
         /// @brief ROI color in BGR format (default: yellow) for visualization
         cv::Scalar color = cv::Scalar(0, 255, 255);
+
+        /// @brief Anchor point for tracking (default: CENTER)
+        cvedix_objects::cvedix_rect_anchor_point anchor_point = cvedix_objects::cvedix_rect_anchor_point::CENTER;
         
         /// @brief Default constructor
         crowding_config() = default;
@@ -60,17 +63,22 @@ namespace cvedix_nodes {
         /// @brief Constructor with threshold and alarm seconds
         crowding_config(int threshold, double seconds)
             : obj_count_threshold(threshold), alarm_seconds(seconds), name(""),
-              color(cv::Scalar(0, 255, 255)) {}
+              color(cv::Scalar(0, 255, 255)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
         
         /// @brief Constructor with name
         crowding_config(int threshold, double seconds, const std::string &n)
             : obj_count_threshold(threshold), alarm_seconds(seconds), name(n),
-              color(cv::Scalar(0, 255, 255)) {}
+              color(cv::Scalar(0, 255, 255)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
         
-        /// @brief Full constructor
+        /// @brief Constructor with name and color
         crowding_config(int threshold, double seconds, const std::string &n,
                        const cv::Scalar &c)
-            : obj_count_threshold(threshold), alarm_seconds(seconds), name(n), color(c) {}
+            : obj_count_threshold(threshold), alarm_seconds(seconds), name(n), color(c), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
+
+        /// @brief Full constructor with all parameters
+        crowding_config(int threshold, double seconds, const std::string &n,
+                       const cv::Scalar &c, cvedix_objects::cvedix_rect_anchor_point anchor)
+            : obj_count_threshold(threshold), alarm_seconds(seconds), name(n), color(c), anchor_point(anchor) {}
     };
     
     class cvedix_ba_crowding_node : public cvedix_node {

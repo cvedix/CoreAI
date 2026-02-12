@@ -122,7 +122,7 @@ cvedix_ba_loitering_node::handle_frame_meta(
         if (!target || target->track_id < 0) continue;
  
         auto rect = target->get_rect();
-        bool inside = is_inside_roi(channel_id, rect.track_point());
+        bool inside = is_inside_roi(channel_id, rect.track_point(config.anchor_point));
  
         auto& st = ctx.by_track_id[target->track_id];
         st.last_seen_ts = ctx.now_sec;

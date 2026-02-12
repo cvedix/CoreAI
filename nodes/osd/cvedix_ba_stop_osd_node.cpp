@@ -40,8 +40,8 @@ namespace cvedix_nodes {
             // draw tracks if size>=2
             if (i->tracks.size() >= 2) {
                 for (int n = 0; n < (i->tracks.size() - 1); n++) {
-                    auto p1 = i->tracks[n].track_point(cvedix_objects::cvedix_rect_anchor_point::CENTER);
-                    auto p2 = i->tracks[n + 1].track_point(cvedix_objects::cvedix_rect_anchor_point::CENTER);
+                    auto p1 = i->tracks[n].track_point();
+                    auto p2 = i->tracks[n + 1].track_point();
                     cv::line(canvas, cv::Point(p1.x, p1.y), cv::Point(p2.x, p2.y), cv::Scalar(0, 255, 255), 1, cv::LINE_AA);
                 }
             }

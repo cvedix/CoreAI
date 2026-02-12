@@ -45,11 +45,11 @@ namespace cvedix_objects {
         int height;
 
         // get center point of the rect
-        cvedix_point center();
+        cvedix_point center() const;
 
         // get track point of the rect
         // track point is used to locate the target(represented by the rect)
-        cvedix_point track_point( const cvedix_rect_anchor_point anchor = cvedix_rect_anchor_point::CENTER);
+        cvedix_point track_point( const cvedix_rect_anchor_point anchor = cvedix_rect_anchor_point::CENTER) const;
 
         // calculate the iou with another rect
         float iou_with(const cvedix_rect & rect);

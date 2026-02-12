@@ -23,6 +23,9 @@ namespace cvedix_nodes {
         
         /// @brief ROI color in BGR format (default: orange) for visualization
         cv::Scalar color = cv::Scalar(0, 165, 255);
+
+        /// @brief Anchor point for tracking (default: CENTER)
+        cvedix_objects::cvedix_rect_anchor_point anchor_point = cvedix_objects::cvedix_rect_anchor_point::CENTER;
         
         /// @brief Default constructor
         loitering_config() = default;
@@ -30,17 +33,22 @@ namespace cvedix_nodes {
         /// @brief Constructor with alarm seconds
         loitering_config(double seconds)
             : alarm_seconds(seconds), name(""),
-              color(cv::Scalar(0, 165, 255)) {}
+              color(cv::Scalar(0, 165, 255)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
         
         /// @brief Constructor with name
         loitering_config(double seconds, const std::string &n)
             : alarm_seconds(seconds), name(n),
-              color(cv::Scalar(0, 165, 255)) {}
+              color(cv::Scalar(0, 165, 255)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
         
-        /// @brief Full constructor
+        /// @brief Constructor with name and color
         loitering_config(double seconds, const std::string &n,
                         const cv::Scalar &c)
-            : alarm_seconds(seconds), name(n), color(c) {}
+            : alarm_seconds(seconds), name(n), color(c), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
+        
+        /// @brief Full constructor with all parameters
+        loitering_config(double seconds, const std::string &n,
+                        const cv::Scalar &c, cvedix_objects::cvedix_rect_anchor_point anchor)
+            : alarm_seconds(seconds), name(n), color(c), anchor_point(anchor) {}
     };
  
 class cvedix_ba_loitering_node : public cvedix_node {

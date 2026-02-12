@@ -74,23 +74,33 @@ struct area_alert_config {
   /// @brief Area color in BGR format (default: green) for visualization
   cv::Scalar color = cv::Scalar(0, 255, 0);
 
+  /// @brief Optional anchor point for bbox (default: center)
+  cvedix_objects::cvedix_rect_anchor_point anchor_point = cvedix_objects::cvedix_rect_anchor_point::CENTER;
+
   /// @brief Default constructor
   area_alert_config() = default;
 
   /// @brief Constructor with defaults (both enter and exit enabled)
   area_alert_config(bool enter, bool exit)
       : alert_on_enter(enter), alert_on_exit(exit), name(""),
-        color(cv::Scalar(0, 255, 0)) {}
+        color(cv::Scalar(0, 255, 0)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
 
   /// @brief Constructor with name
   area_alert_config(bool enter, bool exit, const std::string &n)
       : alert_on_enter(enter), alert_on_exit(exit), name(n),
-        color(cv::Scalar(0, 255, 0)) {}
+        color(cv::Scalar(0, 255, 0)), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
+
+  /// @brief Constructor with name and color
+  area_alert_config(bool enter, bool exit, const std::string &n,
+                    const cv::Scalar &c)
+      : alert_on_enter(enter), alert_on_exit(exit), name(n), color(c), anchor_point(cvedix_objects::cvedix_rect_anchor_point::CENTER) {}
 
   /// @brief Full constructor
   area_alert_config(bool enter, bool exit, const std::string &n,
-                    const cv::Scalar &c)
-      : alert_on_enter(enter), alert_on_exit(exit), name(n), color(c) {}
+                    const cv::Scalar &c,
+                    cvedix_objects::cvedix_rect_anchor_point anchor)
+      : alert_on_enter(enter), alert_on_exit(exit), name(n), color(c), anchor_point(anchor) {}
+      
 };
 
 /**
@@ -143,14 +153,16 @@ private:
                          const std::vector<cvedix_objects::cvedix_point> &polygon);
 
   /**
-   * @brief Get area indices that contain a given point
-   * @param p Point to check
+   * @brief Get area indices that contain a given point in bbox
+   * @param bbox Bounding box of the target
    * @param areas Vector of polygons
+   * @param configs Alert configurations for each area
    * @return Set of area indices containing the point
    */
   std::set<int> get_areas_containing_point(
-      const cvedix_objects::cvedix_point &p,
-      const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas);
+      const cvedix_objects::cvedix_rect &bbox,
+      const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas,
+      const std::vector<area_alert_config> &configs);
 
 protected:
   /**
