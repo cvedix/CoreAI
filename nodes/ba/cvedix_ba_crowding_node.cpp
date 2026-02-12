@@ -123,7 +123,7 @@ cvedix_ba_crowding_node::handle_frame_meta(
         if (!target || target->track_id < 0) continue;
  
         auto rect = target->get_rect();
-            bool inside = is_inside_roi(channel_id, rect.track_point());
+            bool inside = is_inside_roi(channel_id, rect.track_point(config.anchor_point));
 
         if (inside) {
             // add track id to ctx if not exist

@@ -104,8 +104,8 @@ namespace cvedix_nodes
 
             if (len > 1 && target->track_id >=0)
             {
-                auto curr_point = target->tracks[len - 1].track_point();
-                auto prev_point = target->tracks[len - 2].track_point();
+                auto curr_point = target->tracks[len - 1].track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
+                auto prev_point = target->tracks[len - 2].track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
 
                 for (size_t i = 0; i < line_setting_list.size(); i++)
                 {

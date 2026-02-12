@@ -72,8 +72,8 @@ cvedix_ba_crossline_node::handle_frame_meta(
     auto len = target->tracks.size();
     if (len > 1 && target->track_id >= 0) {
       // Check the last 2 points in tracks
-      auto p1 = target->tracks[len - 1].track_point();
-      auto p2 = target->tracks[len - 2].track_point();
+      auto p1 = target->tracks[len - 1].track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
+      auto p2 = target->tracks[len - 2].track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
 
       // Check crossing for EACH line
       for (size_t line_index = 0; line_index < channel_lines.size();

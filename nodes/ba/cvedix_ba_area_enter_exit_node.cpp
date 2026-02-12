@@ -108,11 +108,13 @@ bool cvedix_ba_area_enter_exit_node::is_inside_polygon(
 }
 
 std::set<int> cvedix_ba_area_enter_exit_node::get_areas_containing_point(
-    const cvedix_objects::cvedix_point &p,
-    const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas) {
+    const cvedix_objects::cvedix_rect &bbox,
+    const std::vector<std::vector<cvedix_objects::cvedix_point>> &areas,
+    const std::vector<area_alert_config> &configs) {
   std::set<int> result;
   for (size_t i = 0; i < areas.size(); i++) {
-    if (is_inside_polygon(p, areas[i])) {
+    auto track_point = (i < configs.size()) ? bbox.track_point(configs[i].anchor_point) : bbox.track_point();
+    if (is_inside_polygon(track_point, areas[i])) {
       result.insert(i);
     }
   }
@@ -139,12 +141,12 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
   for (auto &target : meta->targets) {
     auto len = target->tracks.size();
     if (len > 1 && target->track_id >= 0) {
-      // Get current and previous track positions
-      auto current_point = target->tracks[len - 1].track_point();
-      auto previous_point = target->tracks[len - 2].track_point();
+      // Get current bbox
+      auto current_bbox = target->tracks[len - 1];
+      // auto previous_point = target->tracks[len - 2].track_point();
 
       // Get which areas contain current and previous positions
-      auto current_areas = get_areas_containing_point(current_point, channel_areas);
+      auto current_areas = get_areas_containing_point(current_bbox, channel_areas, channel_configs);
       auto previous_areas = channel_previous_status[target->track_id];
 
       // Detect ENTER events: areas in current but not in previous
