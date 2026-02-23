@@ -1,7 +1,10 @@
+
 #pragma once
 
+#ifdef CVEDIX_WITH_TRT
+
 #include "cvedix_track_node.h"
-#include "bot_sort/BoTSORT.h"
+#include "third_party/trt_botsort/BoTSORT.h"
 
 namespace cvedix_nodes {
 
@@ -31,3 +34,5 @@ namespace cvedix_nodes {
             virtual ~cvedix_botsort_track_node();
     };
 }
+
+#endif  // CVEDIX_WITH_TRT

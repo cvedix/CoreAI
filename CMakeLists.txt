@@ -156,6 +156,13 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_subdirectory(third_party/trt_yolov11_face)
     list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11_face)
     message("--------------end build trt_yolov11_face---------------")
+
+    # trt_botsort
+    message("-------------start build trt_botsort--------------")
+    add_subdirectory(third_party/trt_botsort)
+    list(APPEND CVEDIX_DEPEND_LIBS trt_botsort)
+    message("--------------end build trt_botsort---------------")
+
 endif()
 
 # optional for PaddlePaddle

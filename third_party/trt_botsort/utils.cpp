@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../bytetrack/lapjv.h"
+#include "lapjv.h"
 
 double lapjv(CostMatrix &cost, std::vector<int> &rowsol,
              std::vector<int> &colsol, bool extend_cost, float cost_limit,

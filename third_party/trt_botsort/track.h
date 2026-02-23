@@ -6,7 +6,7 @@
 #include "KalmanFilter.h"
 #include "KalmanFilterAccBased.h"
 
-// using KalmanFilter = bot_kalman::KalmanFilter;
+using KalmanFilter = bot_kalman::KalmanFilter;
 
 enum BOT_TrackState
 {

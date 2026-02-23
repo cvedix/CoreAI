@@ -1,6 +1,8 @@
-#include "cvedix_botsort_track_node.h"
-#include "bot_sort/DataType.h"
-#include "bot_sort/track.h"
+#ifdef CVEDIX_WITH_TRT
+
+#include "cvedix_trt_botsort_track_node.h"
+#include "third_party/trt_botsort/DataType.h"
+#include "third_party/trt_botsort/track.h"
 #include <opencv2/core.hpp>
 
 namespace cvedix_nodes {
@@ -103,3 +105,5 @@ namespace cvedix_nodes {
         
     }
 }
+
+#endif  // CVEDIX_WITH_TRT
