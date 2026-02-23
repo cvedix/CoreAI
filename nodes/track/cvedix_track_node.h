@@ -112,11 +112,14 @@ namespace cvedix_nodes {
          * Associates current detections with existing tracks.
          * 
          * @param channel_index Video channel index
+         * @param frame_meta Current frame meta
          * @param target_rects Bounding boxes to track
          * @param target_embeddings Feature embeddings (optional)
          * @param[out] track_ids Assigned track IDs (same order as input rects)
          */
-        virtual void track(int channel_index, const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+        virtual void track(int channel_index, 
+                        const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
+                        const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
                         const std::vector<std::vector<float>>& target_embeddings, 
                         std::vector<int>& track_ids) = 0;
 

@@ -32,12 +32,10 @@ protected:
      *
      * @note Only responsible for assigning track IDs
      */
-    void track(
-        int channel_index,
-        const std::vector<cvedix_objects::cvedix_rect>& target_rects,
-        const std::vector<std::vector<float>>& target_embeddings,
-        std::vector<int>& track_ids
-    ) override;
+    virtual void track(int channel_index, const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
+                        const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        const std::vector<std::vector<float>>& target_embeddings, 
+                        std::vector<int>& track_ids) override;
  
 private:
     struct ChannelTracker {
