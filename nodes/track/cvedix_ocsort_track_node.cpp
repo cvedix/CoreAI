@@ -53,6 +53,7 @@ namespace cvedix_nodes {
     void cvedix_ocsort_track_node::track(int channel_index, 
 					const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
 					const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                    const std::vector<float>& target_scores,
                     const std::vector<std::vector<float>>& target_embeddings, 
                     std::vector<int>& track_ids)
     {
@@ -85,7 +86,7 @@ namespace cvedix_nodes {
             row.push_back(target_rects[i].y);
             row.push_back(target_rects[i].x + target_rects[i].width);
             row.push_back(target_rects[i].y + target_rects[i].height);
-            row.push_back(1); // confidence (current unused)
+            row.push_back(target_scores.size() > i ? target_scores[i] : 1.0f); // confidence (current unused)
             row.push_back(0); // classid or label (current unused)
 
             data.push_back(row);

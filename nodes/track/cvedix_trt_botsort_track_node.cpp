@@ -44,6 +44,7 @@ namespace cvedix_nodes {
     void cvedix_botsort_track_node::track(int channel_index, 
 					const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
 					const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                    const std::vector<float>& target_scores,
                     const std::vector<std::vector<float>>& target_embeddings, 
                     std::vector<int>& track_ids)
     {
@@ -68,7 +69,7 @@ namespace cvedix_nodes {
         for (int i = 0; i < target_rects.size(); i++) {
             cv::Rect_<float> bbox_tlwh(target_rects[i].x, target_rects[i].y, target_rects[i].width, target_rects[i].height);
             Detection det;
-            det.confidence= 0.99f; // dummy confidence
+            det.confidence= target_scores.size() > i ? target_scores[i] : 1.0f; // use provided score or default to 1.0f
             det.class_id = 0; // dummy class id
             det.bbox_tlwh = bbox_tlwh;
             detections.push_back(det);

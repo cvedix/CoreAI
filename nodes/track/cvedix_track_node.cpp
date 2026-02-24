@@ -23,27 +23,30 @@ namespace cvedix_nodes {
 
         // data used for tracking
         std::vector<cvedix_objects::cvedix_rect> rects;      // rects of targets
+        std::vector<float> scores;                           // scores of targets (optional, for some tracking algorithms)
         std::vector<std::vector<float>> embeddings;  // embeddings of targets
         std::vector<int> track_ids;                  // track ids of targets
 
         // step 1, collect data
-        preprocess(meta, rects, embeddings);
+        preprocess(meta, rects, scores, embeddings);
 
         // step 2, track by channel
-        track(channel_index, meta, rects, embeddings, track_ids);
+        track(channel_index, meta, rects, scores, embeddings, track_ids);
 
         // step 3, postprocess
-        postprocess(meta, rects, embeddings, track_ids);
+        postprocess(meta, rects, scores, embeddings, track_ids);
 
         return meta;
     }
 
     void cvedix_track_node::preprocess(std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
                                 std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                                std::vector<float>& target_scores,
                                 std::vector<std::vector<float>>& target_embeddings) {
         if (track_for == cvedix_track_for::NORMAL) {
             for(auto& i: frame_meta->targets) {
                 target_rects.push_back(i->get_rect());      // rect fo target (via i variable)
+                target_scores.push_back(i->primary_score);  // score of target (via i variable)
                 target_embeddings.push_back(i->embeddings); // embeddings of target (via i variable)
             }
         }
@@ -51,6 +54,7 @@ namespace cvedix_nodes {
         if (track_for == cvedix_track_for::FACE) {
             for(auto& i: frame_meta->face_targets) {
                 target_rects.push_back(i->get_rect());       // rect of face target (via i variable)
+                target_scores.push_back(i->score);           // score of face target (via i variable)
                 target_embeddings.push_back(i->embeddings);  // embeddings of face target (via i variable)
             }
         }
@@ -61,6 +65,7 @@ namespace cvedix_nodes {
     // we can also cache history rects for each target, and then push them back to tracks field (such as cvedix_frame_target::tracks)
     void cvedix_track_node::postprocess(std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
                     const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                    const std::vector<float>& target_scores,
                     const std::vector<std::vector<float>>& target_embeddings, 
                     const std::vector<int>& track_ids) {
 

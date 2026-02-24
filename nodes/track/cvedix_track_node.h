@@ -99,10 +99,12 @@ namespace cvedix_nodes {
          * 
          * @param frame_meta Input frame meta with targets
          * @param[out] target_rects Bounding boxes of detected objects
+         * @param[out] target_scores Detection scores (optional, for some tracking algorithms)
          * @param[out] target_embeddings Feature embeddings (optional, for DeepSORT)
          */
         void preprocess(std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
                         std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        std::vector<float>& target_scores,
                         std::vector<std::vector<float>>& target_embeddings);
         
         /**
@@ -114,12 +116,14 @@ namespace cvedix_nodes {
          * @param channel_index Video channel index
          * @param frame_meta Current frame meta
          * @param target_rects Bounding boxes to track
+         * @param target_scores Detection scores (optional)
          * @param target_embeddings Feature embeddings (optional)
          * @param[out] track_ids Assigned track IDs (same order as input rects)
          */
         virtual void track(int channel_index, 
                         const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
                         const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        const std::vector<float>& target_scores,
                         const std::vector<std::vector<float>>& target_embeddings, 
                         std::vector<int>& track_ids) = 0;
 
@@ -130,11 +134,13 @@ namespace cvedix_nodes {
          * 
          * @param frame_meta Frame meta to update
          * @param target_rects Original bounding boxes
+         * @param target_scores Detection scores (optional)
          * @param target_embeddings Feature embeddings
          * @param track_ids Assigned track IDs
          */
         void postprocess(std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta, 
                         const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        const std::vector<float>& target_scores,
                         const std::vector<std::vector<float>>& target_embeddings, 
                         const std::vector<int>& track_ids);
 
