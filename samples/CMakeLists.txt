@@ -18,6 +18,9 @@ target_link_libraries(1-N-N_sample ${PROJECT_NAME})
 add_executable(ba_area_enter_exit_sample "ba_area_enter_exit_sample.cpp")
 target_link_libraries(ba_area_enter_exit_sample ${PROJECT_NAME})
 
+add_executable(ba_movement_sample "ba_movement_sample.cpp")
+target_link_libraries(ba_movement_sample ${PROJECT_NAME})
+
 add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
 target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 
