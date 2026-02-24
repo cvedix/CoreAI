@@ -51,7 +51,7 @@ namespace cvedix_nodes {
             : alarm_seconds(seconds), name(n), color(c), anchor_point(anchor) {}
     };
  
-class cvedix_ba_loitering_node : public cvedix_node {
+class cvedix_ba_area_loitering_node : public cvedix_node {
 private:
     struct loiter_state {
         bool inside = false;
@@ -92,20 +92,20 @@ protected:
     handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
  
 public:
-    cvedix_ba_loitering_node(std::string node_name,
+    cvedix_ba_area_loitering_node(std::string node_name,
                             std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                             std::map<int, loitering_config> configs,
                             int fps = 30,
                             bool need_record_image = true,
                             bool need_record_video = false);
     
-    cvedix_ba_loitering_node(std::string node_name,
+    cvedix_ba_area_loitering_node(std::string node_name,
                             std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                             int fps = 30,
                             bool need_record_image = true,
                             bool need_record_video = false);
  
-    ~cvedix_ba_loitering_node();
+    ~cvedix_ba_area_loitering_node();
  
     std::string to_string() override;
     

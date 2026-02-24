@@ -1,8 +1,8 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
-#include "cvedix/nodes/ba/cvedix_ba_crossline_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_crossline_osd_node.h"
+#include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
+#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
@@ -360,7 +360,7 @@ int main(int argc, char** argv) {
     cvedix_objects::cvedix_point end(700, 220);  // change to proper value
     std::map<int, cvedix_objects::cvedix_line> lines = {{0, cvedix_objects::cvedix_line(start, end)}};  // channel0 -> line
     
-    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_crossline_node>("ba_crossline", lines);
+    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_node>("ba_crossline", lines);
     
     auto mqtt_broker_node = std::make_shared<cvedix_json_crossline_mqtt_broker_node>(
         "mqtt_broker_node", mqtt_publish_crossline_data);

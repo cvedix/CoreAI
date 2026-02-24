@@ -22,7 +22,16 @@ namespace cvedix_objects {
         JAM = 0b00001000,
         UNJAM = 0b00010000,
         AREA_ENTER = 0b00100000,
-        AREA_EXIT = 0b01000000
+        AREA_EXIT = 0b01000000,
+        SPEED = 0b10000000,
+        DIRECTION = 0b100000000,
+        DWELL = 0b1000000000,
+        QUEUE = 0b10000000000,
+        FALL = 0b100000000000,
+        CROWDING = 0b1000000000000,
+        LOITERING = 0b10000000000000,
+        FIGHT = 0b100000000000000,
+        PARKING = 0b1000000000000000
     };
 
     /** @brief BA object move direction types */

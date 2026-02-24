@@ -3,8 +3,8 @@
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/track/cvedix_ocsort_track_node.h"
-#include "cvedix/nodes/ba/cvedix_ba_crossline_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_crossline_osd_node.h"
+#include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
+#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
@@ -30,8 +30,8 @@ int main() {
     cvedix_objects::cvedix_point start(0, 250);  // change to proper value
     cvedix_objects::cvedix_point end(700, 220);  // change to proper value
     std::map<int, cvedix_objects::cvedix_line> lines = {{0, cvedix_objects::cvedix_line(start, end)}};  // channel0 -> line
-    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_crossline_node>("ba_crossline", lines);
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_crossline_osd_node>("osd");
+    auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_node>("ba_crossline", lines);
+    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
     // auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://192.168.77.60/live/9000");
     

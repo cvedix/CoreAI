@@ -11,7 +11,7 @@
  
 namespace cvedix_nodes {
     /*
-     * cvedix_ba_crowding_node
+     * cvedix_ba_area_crowding_node
      *
      * Description:
      * - Monitors configured rectangular ROIs per channel and maintains a set
@@ -81,7 +81,7 @@ namespace cvedix_nodes {
             : obj_count_threshold(threshold), alarm_seconds(seconds), name(n), color(c), anchor_point(anchor) {}
     };
     
-    class cvedix_ba_crowding_node : public cvedix_node {
+    class cvedix_ba_area_crowding_node : public cvedix_node {
     private:
         struct loiter_state {
             bool inside = false;
@@ -122,20 +122,20 @@ namespace cvedix_nodes {
         handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
     
     public:
-        cvedix_ba_crowding_node(std::string node_name,
+        cvedix_ba_area_crowding_node(std::string node_name,
                     std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                                 std::map<int, crowding_config> configs,
                                 int fps = 30,
                                 bool need_record_image = true,
                                 bool need_record_video = false);
         
-        cvedix_ba_crowding_node(std::string node_name,
+        cvedix_ba_area_crowding_node(std::string node_name,
                     std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                                 int fps = 30,
                                 bool need_record_image = true,
                                 bool need_record_video = false);
     
-        ~cvedix_ba_crowding_node();
+        ~cvedix_ba_area_crowding_node();
     
         std::string to_string() override;
         

@@ -1,8 +1,8 @@
-#include "cvedix_ba_crowding_osd_node.h"
+#include "cvedix_ba_area_crowding_osd_node.h"
 
 namespace cvedix_nodes {
 
-    cvedix_ba_crowding_osd_node::cvedix_ba_crowding_osd_node(std::string node_name, std::string font): cvedix_node(node_name) {
+    cvedix_ba_area_crowding_osd_node::cvedix_ba_area_crowding_osd_node(std::string node_name, std::string font): cvedix_node(node_name) {
         if (!font.empty()) {
             ft2 = cv::freetype::createFreeType2();
             ft2->loadFontData(font, 0);
@@ -10,11 +10,11 @@ namespace cvedix_nodes {
         this->initialized();
     }
 
-    cvedix_ba_crowding_osd_node::~cvedix_ba_crowding_osd_node() {
+    cvedix_ba_area_crowding_osd_node::~cvedix_ba_area_crowding_osd_node() {
         deinitialized();
     }
 
-    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_crowding_osd_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
+    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_area_crowding_osd_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
         if (meta->osd_frame.empty()) {
             meta->osd_frame = meta->frame.clone();
         }

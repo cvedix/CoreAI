@@ -33,6 +33,9 @@ target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
 add_executable(wrong_way_detection_sample "wrong_way_detection_sample.cpp")
 target_link_libraries(wrong_way_detection_sample ${PROJECT_NAME})
 
+add_executable(ba_speed_estimation_sample "ba_speed_estimation_sample.cpp")
+target_link_libraries(ba_speed_estimation_sample ${PROJECT_NAME})
+
 add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
 target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 

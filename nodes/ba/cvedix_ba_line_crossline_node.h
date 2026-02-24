@@ -1,5 +1,5 @@
 /**
- * @file cvedix_ba_crossline_node.h
+ * @file cvedix_ba_line_crossline_node.h
  * @brief Crossline detection behavior analysis node
  *
  * This node detects when tracked objects cross defined lines in the video
@@ -29,7 +29,7 @@
  * line 1: exit
  *     }}
  * };
- * auto crossline = std::make_shared<cvedix_ba_crossline_node>(
+ * auto crossline = std::make_shared<cvedix_ba_line_crossline_node>(
  *     "crossline",
  *     lines,
  *     true,   // record image on crossing
@@ -38,7 +38,7 @@
  * crossline->attach_to({tracker_node});
  * @endcode
  *
- * @see cvedix_ba_jam_node Traffic jam detection
+ * @see cvedix_ba_area_jam_node Traffic jam detection
  * @see cvedix_ba_stop_node Stop detection
  */
 
@@ -110,7 +110,7 @@ struct crossline_config {
  *
  * @see cvedix_node Base class
  */
-class cvedix_ba_crossline_node : public cvedix_node {
+class cvedix_ba_line_crossline_node : public cvedix_node {
 private:
   /// @brief Crossline counters per channel per line: channel_id → line_index →
   /// count
@@ -156,7 +156,7 @@ public:
    * @param need_record_video Trigger video recording on crossing (default:
    * false)
    */
-  cvedix_ba_crossline_node(
+  cvedix_ba_line_crossline_node(
       std::string node_name,
       std::map<int, std::vector<cvedix_objects::cvedix_line>> lines,
       bool need_record_image = true, bool need_record_video = false);
@@ -171,13 +171,13 @@ public:
    * @param need_record_video Trigger video recording on crossing (default:
    * false)
    */
-  cvedix_ba_crossline_node(std::string node_name,
+  cvedix_ba_line_crossline_node(std::string node_name,
                            std::map<int, cvedix_objects::cvedix_line> lines,
                            bool need_record_image = true,
                            bool need_record_video = false);
 
   /// @brief Destructor
-  ~cvedix_ba_crossline_node();
+  ~cvedix_ba_line_crossline_node();
 
   /**
    * @brief Get node description including line configurations
