@@ -1,8 +1,8 @@
-#include "cvedix_ba_line_counting.h"
+#include "cvedix_ba_line_counting_node.h"
 
 namespace cvedix_nodes
 {
-    cvedix_ba_line_counting::cvedix_ba_line_counting(std::string node_name,
+    cvedix_ba_line_counting_node::cvedix_ba_line_counting_node(std::string node_name,
                                         std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> all_line_settings,
                                         bool need_record_image,
                                         bool need_record_video):
@@ -18,7 +18,7 @@ namespace cvedix_nodes
         this->initialized();
     }
     
-    cvedix_ba_line_counting::~cvedix_ba_line_counting() 
+    cvedix_ba_line_counting_node::~cvedix_ba_line_counting_node() 
     {
         deinitialized();
     }
@@ -88,7 +88,7 @@ namespace cvedix_nodes
         return check_direction(prev_point, curr_point, A, B, direction);
     }
     
-    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_line_counting::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta)
+    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_line_counting_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta)
     {
         if (all_line_settings.count(meta->channel_index) == 0) {
             return meta;

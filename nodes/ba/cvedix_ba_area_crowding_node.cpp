@@ -1,9 +1,9 @@
-#include "cvedix_ba_crowding_node.h"
+#include "cvedix_ba_area_crowding_node.h"
 #include "cvedix/objects/shapes/cvedix_point.h"
  
 namespace cvedix_nodes {
  
-cvedix_ba_crowding_node::cvedix_ba_crowding_node(
+cvedix_ba_area_crowding_node::cvedix_ba_area_crowding_node(
                 std::string node_name,
                 std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
         std::map<int, crowding_config> configs,
@@ -21,7 +21,7 @@ cvedix_ba_crowding_node::cvedix_ba_crowding_node(
     this->initialized();
 }
 
-cvedix_ba_crowding_node::cvedix_ba_crowding_node(
+cvedix_ba_area_crowding_node::cvedix_ba_area_crowding_node(
                 std::string node_name,
                 std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
         int fps,
@@ -43,11 +43,11 @@ cvedix_ba_crowding_node::cvedix_ba_crowding_node(
     this->initialized();
 }
 
-cvedix_ba_crowding_node::~cvedix_ba_crowding_node() {
+cvedix_ba_area_crowding_node::~cvedix_ba_area_crowding_node() {
     deinitialized();
 }
 
-std::string cvedix_ba_crowding_node::to_string() {
+std::string cvedix_ba_area_crowding_node::to_string() {
     std::lock_guard<std::mutex> lock(config_mutex);
     std::stringstream ss;
     for (auto& p : all_rois) {
@@ -62,7 +62,7 @@ std::string cvedix_ba_crowding_node::to_string() {
     return ss.str();
 }
  
-bool cvedix_ba_crowding_node::is_inside_roi(
+bool cvedix_ba_area_crowding_node::is_inside_roi(
         int channel_id,
         const cvedix_objects::cvedix_point& pt) const
 {
@@ -87,7 +87,7 @@ bool cvedix_ba_crowding_node::is_inside_roi(
 }
  
 std::shared_ptr<cvedix_objects::cvedix_meta>
-cvedix_ba_crowding_node::handle_frame_meta(
+cvedix_ba_area_crowding_node::handle_frame_meta(
         std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta)
 {
     auto channel_id = meta->channel_index;
@@ -243,7 +243,7 @@ cvedix_ba_crowding_node::handle_frame_meta(
     return meta;
 }
 
-bool cvedix_ba_crowding_node::set_rois(
+bool cvedix_ba_area_crowding_node::set_rois(
     const std::map<int, std::vector<cvedix_objects::cvedix_point>> &rois) {
   std::lock_guard<std::mutex> lock(config_mutex);
   
@@ -258,7 +258,7 @@ bool cvedix_ba_crowding_node::set_rois(
   return true;
 }
 
-bool cvedix_ba_crowding_node::set_channel_roi(
+bool cvedix_ba_area_crowding_node::set_channel_roi(
     int channel_id, const std::vector<cvedix_objects::cvedix_point> &roi) {
   std::lock_guard<std::mutex> lock(config_mutex);
   
@@ -273,7 +273,7 @@ bool cvedix_ba_crowding_node::set_channel_roi(
   return true;
 }
 
-bool cvedix_ba_crowding_node::remove_channel_roi(int channel_id) {
+bool cvedix_ba_area_crowding_node::remove_channel_roi(int channel_id) {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   if (all_rois.count(channel_id) == 0) {
@@ -290,7 +290,7 @@ bool cvedix_ba_crowding_node::remove_channel_roi(int channel_id) {
   return true;
 }
 
-void cvedix_ba_crowding_node::clear_rois() {
+void cvedix_ba_area_crowding_node::clear_rois() {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   all_rois.clear();
@@ -302,7 +302,7 @@ void cvedix_ba_crowding_node::clear_rois() {
 }
 
 std::vector<cvedix_objects::cvedix_point> 
-cvedix_ba_crowding_node::get_channel_roi(int channel_id) const {
+cvedix_ba_area_crowding_node::get_channel_roi(int channel_id) const {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   if (all_rois.count(channel_id) == 0) {
@@ -312,7 +312,7 @@ cvedix_ba_crowding_node::get_channel_roi(int channel_id) const {
   return all_rois.at(channel_id);
 }
 
-bool cvedix_ba_crowding_node::set_config(int channel_id, const crowding_config &config) {
+bool cvedix_ba_area_crowding_node::set_config(int channel_id, const crowding_config &config) {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   all_configs[channel_id] = config;
@@ -325,7 +325,7 @@ bool cvedix_ba_crowding_node::set_config(int channel_id, const crowding_config &
   return true;
 }
 
-crowding_config cvedix_ba_crowding_node::get_config(int channel_id) const {
+crowding_config cvedix_ba_area_crowding_node::get_config(int channel_id) const {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   if (all_configs.count(channel_id) == 0) {
@@ -335,7 +335,7 @@ crowding_config cvedix_ba_crowding_node::get_config(int channel_id) const {
   return all_configs.at(channel_id);
 }
 
-size_t cvedix_ba_crowding_node::get_channel_count() const {
+size_t cvedix_ba_area_crowding_node::get_channel_count() const {
   std::lock_guard<std::mutex> lock(config_mutex);
   
   return all_rois.size();

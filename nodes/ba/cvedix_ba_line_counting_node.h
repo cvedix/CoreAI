@@ -16,7 +16,7 @@ namespace cvedix_nodes {
         cvedix_objects::cvedix_ba_direct_type direction;
     };
 
-    class cvedix_ba_line_counting : public cvedix_node
+    class cvedix_ba_line_counting_node : public cvedix_node
     {
         
         private:
@@ -40,7 +40,7 @@ namespace cvedix_nodes {
             /**
              * @brief Constructor
              */
-            cvedix_ba_line_counting(std::string node_name,
+            cvedix_ba_line_counting_node(std::string node_name,
                                 std::map<int, std::vector<cvedix_nodes::cvedix_ba_line_couting_setting>> all_line_settings,
                                 bool need_record_image = false,
                                 bool need_record_video = false);
@@ -49,7 +49,7 @@ namespace cvedix_nodes {
              * @brief Destructor
              * 
              */
-            ~cvedix_ba_line_counting();
+            ~cvedix_ba_line_counting_node();
 
     };
 

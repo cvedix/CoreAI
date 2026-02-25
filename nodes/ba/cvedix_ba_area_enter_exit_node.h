@@ -40,7 +40,7 @@
  * area_node->attach_to({tracker_node});
  * @endcode
  *
- * @see cvedix_ba_crossline_node Crossline detection
+ * @see cvedix_ba_line_crossline_node Crossline detection
  * @see cvedix_ba_stop_node Stop detection
  */
 

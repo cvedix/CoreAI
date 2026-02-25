@@ -1,5 +1,5 @@
 /**
- * @file cvedix_ba_crossline_osd_node.h
+ * @file cvedix_ba_line_crossline_osd_node.h
  * @brief OSD for crossline detection behavior analysis
  *
  * Draws crosslines with customizable colors and displays crossing statistics.
@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "cvedix/nodes/ba/cvedix_ba_crossline_node.h" // For crossline_config
+#include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h" // For crossline_config
 #include "cvedix/nodes/common/cvedix_node.h"
 #include "cvedix/objects/shapes/cvedix_line.h"
 #include "cvedix/objects/shapes/cvedix_point.h"
@@ -41,7 +41,7 @@ struct line_display_config {
 /**
  * @brief Crossline BA visualization with multi-line color support
  */
-class cvedix_ba_crossline_osd_node : public cvedix_node {
+class cvedix_ba_line_crossline_osd_node : public cvedix_node {
 private:
   // support chinese font
   cv::Ptr<cv::freetype::FreeType2> ft2;
@@ -69,8 +69,8 @@ protected:
       std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
 
 public:
-  cvedix_ba_crossline_osd_node(std::string node_name, std::string font = "");
-  ~cvedix_ba_crossline_osd_node();
+  cvedix_ba_line_crossline_osd_node(std::string node_name, std::string font = "");
+  ~cvedix_ba_line_crossline_osd_node();
 
   /**
    * @brief Set line configurations with colors for a channel

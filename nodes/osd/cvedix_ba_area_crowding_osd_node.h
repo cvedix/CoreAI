@@ -1,5 +1,5 @@
 /**
- * @file cvedix_ba_crowding_osd_node.h
+ * @file cvedix_ba_area_crowding_osd_node.h
  * @brief OSD for crowding behavior analysis
  *
  * Draws ROI rectangle and highlights targets when crowding is detected.
@@ -23,7 +23,7 @@ namespace cvedix_nodes {
      *   results whose `ba_label` == "crowding" and renders the provided
      *   `involve_region_in_frame` and `involve_target_ids_in_frame`.
      */
-    class cvedix_ba_crowding_osd_node: public cvedix_node
+    class cvedix_ba_area_crowding_osd_node: public cvedix_node
     {
 
     private:
@@ -38,7 +38,7 @@ namespace cvedix_nodes {
     protected:
         virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
     public:
-        cvedix_ba_crowding_osd_node(std::string node_name,  std::string font = "");
-        ~cvedix_ba_crowding_osd_node();
+        cvedix_ba_area_crowding_osd_node(std::string node_name,  std::string font = "");
+        ~cvedix_ba_area_crowding_osd_node();
     };
 }

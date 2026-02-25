@@ -1,5 +1,5 @@
 /**
- * @file cvedix_ba_jam_node.h
+ * @file cvedix_ba_area_jam_node.h
  * @brief Traffic jam detection behavior analysis node
  * 
  * This node detects traffic jam conditions by monitoring stopped/slow-moving
@@ -27,7 +27,7 @@
  *     {0, {{100, 200}, {400, 200}, {400, 400}, {100, 400}}}
  * };
  * 
- * auto jam_node = std::make_shared<cvedix_ba_jam_node>(
+ * auto jam_node = std::make_shared<cvedix_ba_area_jam_node>(
  *     "jam_detector",
  *     regions,
  *     true,   // record image on jam
@@ -36,7 +36,7 @@
  * jam_node->attach_to({tracker_node});
  * @endcode
  * 
- * @see cvedix_ba_crossline_node Crossline detection
+ * @see cvedix_ba_line_crossline_node Crossline detection
  * @see cvedix_ba_stop_node Individual stop detection
  */
 
@@ -61,7 +61,7 @@ namespace cvedix_nodes {
      * 
      * @see cvedix_node Base class
      */
-    class cvedix_ba_jam_node: public cvedix_node 
+    class cvedix_ba_area_jam_node: public cvedix_node 
     {
     private:
         /// @brief Detection regions per channel: channel_id → polygon vertices
@@ -117,13 +117,13 @@ namespace cvedix_nodes {
          * @param need_record_image Trigger image recording on jam (default: true)
          * @param need_record_video Trigger video recording on jam (default: true)
          */
-        cvedix_ba_jam_node(std::string node_name, 
+        cvedix_ba_area_jam_node(std::string node_name, 
                             std::map<int, std::vector<cvedix_objects::cvedix_point>> jam_regions,
                             bool need_record_image = true,
                             bool need_record_video = true);
 
         /// @brief Destructor
-        ~cvedix_ba_jam_node();
+        ~cvedix_ba_area_jam_node();
 
         /**
          * @brief Get node description including region configurations

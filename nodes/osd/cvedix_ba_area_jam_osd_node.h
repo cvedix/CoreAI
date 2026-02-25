@@ -1,5 +1,5 @@
 /**
- * @file cvedix_ba_jam_osd_node.h
+ * @file cvedix_ba_area_jam_osd_node.h
  * @brief OSD for traffic jam detection behavior analysis
  * 
  * Draws jam region and displays congestion status.
@@ -17,7 +17,7 @@ namespace cvedix_nodes {
     /**
      * @brief Traffic jam BA visualization
      */
-    class cvedix_ba_jam_osd_node: public cvedix_node
+    class cvedix_ba_area_jam_osd_node: public cvedix_node
     {
 
     private:
@@ -31,7 +31,7 @@ namespace cvedix_nodes {
     protected:
         virtual std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override;
     public:
-        cvedix_ba_jam_osd_node(std::string node_name,  std::string font = "");
-        ~cvedix_ba_jam_osd_node();
+        cvedix_ba_area_jam_osd_node(std::string node_name,  std::string font = "");
+        ~cvedix_ba_area_jam_osd_node();
     };
 }

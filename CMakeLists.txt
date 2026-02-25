@@ -782,6 +782,12 @@ else()
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_insight.*")
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_yolov8.*")  # Legacy disabled trt_yolov8 lib
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognition_trt.*")  # Depends on missing insightface
+    # Exclude face_recognition_node if trt_insightface headers are missing
+    # (tensorrt_backend.h includes trt_insightface which may not be built)
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/third_party/trt_insightface/models/insight_face_recognition.h")
+        list(FILTER CORE_NODES EXCLUDE REGEX ".*fr/cvedix_face_recognition_node.*")
+        message(STATUS "trt_insightface headers not found - face_recognition_node excluded from TRT build")
+    endif()
 endif()
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rknn.*")
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rga.*")
@@ -882,7 +888,9 @@ endif()
 # TensorRT Plugin
 if(CVEDIX_WITH_TRT)
     file(GLOB_RECURSE TRT_PLUGIN_NODES "nodes/*trt*.cpp")
-    # Utils for TRT often inside nodes or headers, but check
+    # Exclude nodes that depend on disabled sub-projects
+    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*face_recognition_trt.*")
+    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*trt_insight.*")
     
     if(TRT_PLUGIN_NODES)
         add_library(cvedix_backend_trt MODULE ${TRT_PLUGIN_NODES})

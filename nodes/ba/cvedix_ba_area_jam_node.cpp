@@ -1,10 +1,10 @@
 
 
-#include "cvedix_ba_jam_node.h"
+#include "cvedix_ba_area_jam_node.h"
 
 namespace cvedix_nodes {
     
-    cvedix_ba_jam_node::cvedix_ba_jam_node(std::string node_name, 
+    cvedix_ba_area_jam_node::cvedix_ba_area_jam_node(std::string node_name, 
                                     std::map<int, std::vector<cvedix_objects::cvedix_point>> jam_regions,
                                     bool need_record_image,
                                     bool need_record_video):
@@ -13,11 +13,11 @@ namespace cvedix_nodes {
         this->initialized();
     }
     
-    cvedix_ba_jam_node::~cvedix_ba_jam_node() {
+    cvedix_ba_area_jam_node::~cvedix_ba_area_jam_node() {
         deinitialized();
     }
 
-    std::string cvedix_ba_jam_node::to_string() {
+    std::string cvedix_ba_area_jam_node::to_string() {
         /*
         * return vertexs of all jam regions
         * [channel0: x1,y1 x2,y2 ...][channel1: x1,y1 x2,y2 ...]...
@@ -33,7 +33,7 @@ namespace cvedix_nodes {
         return ss.str();
     }
 
-    bool cvedix_ba_jam_node::point_in_poly(cvedix_objects::cvedix_point p, std::vector<cvedix_objects::cvedix_point> region) {
+    bool cvedix_ba_area_jam_node::point_in_poly(cvedix_objects::cvedix_point p, std::vector<cvedix_objects::cvedix_point> region) {
         int i, j, c = 0;
         int nvert = region.size();
 
@@ -46,7 +46,7 @@ namespace cvedix_nodes {
         return c;
     }
 
-    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_jam_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
+    std::shared_ptr<cvedix_objects::cvedix_meta> cvedix_ba_area_jam_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
         // if need applied on current channel or not
         if (all_jam_regions.count(meta->channel_index) == 0) {
             return meta;

@@ -1,8 +1,8 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_trt_vehicle_detector.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
-#include "cvedix/nodes/ba/cvedix_ba_jam_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_jam_osd_node.h"
+#include "cvedix/nodes/ba/cvedix_ba_area_jam_node.h"
+#include "cvedix/nodes/osd/cvedix_ba_area_jam_osd_node.h"
 #include "cvedix/nodes/record/cvedix_record_node.h"
 #include "cvedix/nodes/mid/cvedix_split_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
@@ -36,8 +36,8 @@ int main() {
                                             cvedix_objects::cvedix_point(968*0.6, 166*0.6), 
                                             cvedix_objects::cvedix_point(1220*0.6, 665*0.6)}} // channel1 -> region
                                             };
-    auto ba_jam = std::make_shared<cvedix_nodes::cvedix_ba_jam_node>("ba_jam", regions);
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_jam_osd_node>("jam_osd");
+    auto ba_jam = std::make_shared<cvedix_nodes::cvedix_ba_area_jam_node>("ba_jam", regions);
+    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_area_jam_osd_node>("jam_osd");
     auto recorder = std::make_shared<cvedix_nodes::cvedix_record_node>("recorder", "./record", "./record");
     auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", true);
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);

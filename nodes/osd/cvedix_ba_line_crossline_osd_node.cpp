@@ -1,5 +1,5 @@
 
-#include "cvedix_ba_crossline_osd_node.h"
+#include "cvedix_ba_line_crossline_osd_node.h"
 #include <cmath>
 
 namespace cvedix_nodes {
@@ -53,7 +53,7 @@ draw_direction_arrow(cv::Mat &canvas, const cvedix_objects::cvedix_line &line,
   }
 }
 
-cvedix_ba_crossline_osd_node::cvedix_ba_crossline_osd_node(
+cvedix_ba_line_crossline_osd_node::cvedix_ba_line_crossline_osd_node(
     std::string node_name, std::string font)
     : cvedix_node(node_name) {
   if (!font.empty()) {
@@ -63,12 +63,12 @@ cvedix_ba_crossline_osd_node::cvedix_ba_crossline_osd_node(
   this->initialized();
 }
 
-cvedix_ba_crossline_osd_node::~cvedix_ba_crossline_osd_node() {
+cvedix_ba_line_crossline_osd_node::~cvedix_ba_line_crossline_osd_node() {
   deinitialized();
 }
 
 std::shared_ptr<cvedix_objects::cvedix_meta>
-cvedix_ba_crossline_osd_node::handle_frame_meta(
+cvedix_ba_line_crossline_osd_node::handle_frame_meta(
     std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
   // operations on osd_frame
   if (meta->osd_frame.empty()) {
@@ -88,9 +88,23 @@ cvedix_ba_crossline_osd_node::handle_frame_meta(
       labels_to_display = "#" + id + " " + labels_to_display;
     }
 
+    // Collect speed label separately (don't add to main label)
+    std::string speed_label = "";
+    bool is_violation = false;
     for (auto &label : i->secondary_labels) {
-      labels_to_display += "|" + label;
+      if (label.find("km/h") != std::string::npos) {
+        speed_label = label;
+        if (label.find("[!]") != std::string::npos) {
+          is_violation = true;
+        }
+      } else {
+        labels_to_display += "|" + label;
+      }
     }
+
+    cv::Scalar bbox_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(255, 255, 0);
+    cv::Scalar text_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(179, 52, 255);
+    int bbox_thickness = is_violation ? 3 : 2;
 
     // draw tracks if size>=2
     if (i->tracks.size() >= 2) {
@@ -103,17 +117,37 @@ cvedix_ba_crossline_osd_node::handle_frame_meta(
     }
 
     cv::rectangle(canvas, cv::Rect(i->x, i->y, i->width, i->height),
-                  cv::Scalar(255, 255, 0), 2);
+                  bbox_color, bbox_thickness);
+
+    // Draw primary label above bbox
     if (ft2 != nullptr) {
       ft2->putText(canvas, labels_to_display, cv::Point(i->x, i->y), 20,
-                   cv::Scalar(255, 0, 255), cv::FILLED, cv::LINE_AA, true);
+                   text_color, cv::FILLED, cv::LINE_AA, true);
     } else {
       int baseline = 0;
       auto size = cv::getTextSize(labels_to_display, 1, 1, 1, &baseline);
       cvedix_utils::put_text_at_center_of_rect(
           canvas, labels_to_display,
           cv::Rect(i->x, i->y - size.height, size.width, size.height), true, 1,
-          1, cv::Scalar(), cv::Scalar(179, 52, 255), cv::Scalar(179, 52, 255));
+          1, cv::Scalar(), text_color, text_color);
+    }
+
+    // Draw speed label below bbox with background
+    if (!speed_label.empty()) {
+      cv::Scalar speed_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(0, 200, 0);
+      int baseline = 0;
+      auto text_size = cv::getTextSize(speed_label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 2, &baseline);
+      int text_x = i->x;
+      int text_y = i->y + i->height + text_size.height + 4;
+
+      // Background rectangle
+      cv::rectangle(canvas,
+                    cv::Point(text_x - 1, i->y + i->height + 1),
+                    cv::Point(text_x + text_size.width + 4, text_y + 3),
+                    cv::Scalar(0, 0, 0), cv::FILLED);
+
+      cv::putText(canvas, speed_label, cv::Point(text_x + 2, text_y),
+                  cv::FONT_HERSHEY_SIMPLEX, 0.5, speed_color, 2);
     }
 
     // scan sub targets
@@ -218,7 +252,7 @@ cvedix_ba_crossline_osd_node::handle_frame_meta(
   return meta;
 }
 
-void cvedix_ba_crossline_osd_node::set_line_configs(
+void cvedix_ba_line_crossline_osd_node::set_line_configs(
     int channel_id, const std::vector<line_display_config> &configs) {
   all_line_configs[channel_id] = configs;
   CVEDIX_INFO(cvedix_utils::string_format(
@@ -226,7 +260,7 @@ void cvedix_ba_crossline_osd_node::set_line_configs(
       configs.size(), channel_id));
 }
 
-void cvedix_ba_crossline_osd_node::set_line_color(int channel_id,
+void cvedix_ba_line_crossline_osd_node::set_line_color(int channel_id,
                                                   int line_index,
                                                   const cv::Scalar &color) {
   if (all_line_configs.count(channel_id) == 0) {

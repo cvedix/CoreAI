@@ -1,9 +1,9 @@
-#include "cvedix_ba_crossline_node.h"
+#include "cvedix_ba_line_crossline_node.h"
 
 namespace cvedix_nodes {
 
 // Multi-line constructor (new)
-cvedix_ba_crossline_node::cvedix_ba_crossline_node(
+cvedix_ba_line_crossline_node::cvedix_ba_line_crossline_node(
     std::string node_name,
     std::map<int, std::vector<cvedix_objects::cvedix_line>> lines,
     bool need_record_image, bool need_record_video)
@@ -16,7 +16,7 @@ cvedix_ba_crossline_node::cvedix_ba_crossline_node(
 }
 
 // Single-line constructor (backward compatible)
-cvedix_ba_crossline_node::cvedix_ba_crossline_node(
+cvedix_ba_line_crossline_node::cvedix_ba_line_crossline_node(
     std::string node_name, std::map<int, cvedix_objects::cvedix_line> lines,
     bool need_record_image, bool need_record_video)
     : cvedix_node(node_name), need_record_image(need_record_image),
@@ -30,9 +30,9 @@ cvedix_ba_crossline_node::cvedix_ba_crossline_node(
   this->initialized();
 }
 
-cvedix_ba_crossline_node::~cvedix_ba_crossline_node() { deinitialized(); }
+cvedix_ba_line_crossline_node::~cvedix_ba_line_crossline_node() { deinitialized(); }
 
-std::string cvedix_ba_crossline_node::to_string() {
+std::string cvedix_ba_line_crossline_node::to_string() {
   std::lock_guard<std::mutex> lock(lines_mutex);
   /*
    * return all lines for all channels
@@ -53,7 +53,7 @@ std::string cvedix_ba_crossline_node::to_string() {
 }
 
 std::shared_ptr<cvedix_objects::cvedix_meta>
-cvedix_ba_crossline_node::handle_frame_meta(
+cvedix_ba_line_crossline_node::handle_frame_meta(
     std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -175,7 +175,7 @@ cvedix_ba_crossline_node::handle_frame_meta(
   return meta;
 }
 
-bool cvedix_ba_crossline_node::at_1_side_of_line(
+bool cvedix_ba_line_crossline_node::at_1_side_of_line(
     cvedix_objects::cvedix_point p, cvedix_objects::cvedix_line line) {
   auto p1 = line.start;
   auto p2 = line.end;
@@ -199,7 +199,7 @@ bool cvedix_ba_crossline_node::at_1_side_of_line(
 }
 
 // Multi-line set_lines
-bool cvedix_ba_crossline_node::set_lines(
+bool cvedix_ba_line_crossline_node::set_lines(
     const std::map<int, std::vector<cvedix_objects::cvedix_line>> &lines) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -214,7 +214,7 @@ bool cvedix_ba_crossline_node::set_lines(
 }
 
 // Single-line set_lines (backward compatible)
-bool cvedix_ba_crossline_node::set_lines(
+bool cvedix_ba_line_crossline_node::set_lines(
     const std::map<int, cvedix_objects::cvedix_line> &lines) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -231,7 +231,7 @@ bool cvedix_ba_crossline_node::set_lines(
   return true;
 }
 
-int cvedix_ba_crossline_node::add_line(
+int cvedix_ba_line_crossline_node::add_line(
     int channel_id, const cvedix_objects::cvedix_line &line) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -247,7 +247,7 @@ int cvedix_ba_crossline_node::add_line(
   return line_index;
 }
 
-void cvedix_ba_crossline_node::clear_lines() {
+void cvedix_ba_line_crossline_node::clear_lines() {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   all_lines.clear();
@@ -257,7 +257,7 @@ void cvedix_ba_crossline_node::clear_lines() {
       "[%s] All crosslines cleared at runtime", node_name.c_str()));
 }
 
-bool cvedix_ba_crossline_node::remove_channel_lines(int channel_id) {
+bool cvedix_ba_line_crossline_node::remove_channel_lines(int channel_id) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   bool existed = all_lines.erase(channel_id) > 0;
@@ -272,7 +272,7 @@ bool cvedix_ba_crossline_node::remove_channel_lines(int channel_id) {
   return existed;
 }
 
-bool cvedix_ba_crossline_node::remove_line(int channel_id, int line_index) {
+bool cvedix_ba_line_crossline_node::remove_line(int channel_id, int line_index) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   if (all_lines.count(channel_id) == 0) {
@@ -296,14 +296,14 @@ bool cvedix_ba_crossline_node::remove_line(int channel_id, int line_index) {
   return true;
 }
 
-size_t cvedix_ba_crossline_node::get_line_count(int channel_id) const {
+size_t cvedix_ba_line_crossline_node::get_line_count(int channel_id) const {
   if (all_lines.count(channel_id) == 0) {
     return 0;
   }
   return all_lines.at(channel_id).size();
 }
 
-int cvedix_ba_crossline_node::get_crossline_count(int channel_id,
+int cvedix_ba_line_crossline_node::get_crossline_count(int channel_id,
                                                   int line_index) const {
   if (all_total_crossline.count(channel_id) == 0) {
     return 0;
@@ -317,7 +317,7 @@ int cvedix_ba_crossline_node::get_crossline_count(int channel_id,
 
 // ========== New Color Configuration APIs ==========
 
-int cvedix_ba_crossline_node::add_line(int channel_id,
+int cvedix_ba_line_crossline_node::add_line(int channel_id,
                                        const crossline_config &config) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -337,7 +337,7 @@ int cvedix_ba_crossline_node::add_line(int channel_id,
   return line_index;
 }
 
-bool cvedix_ba_crossline_node::set_line_color(int channel_id, int line_index,
+bool cvedix_ba_line_crossline_node::set_line_color(int channel_id, int line_index,
                                               const cv::Scalar &color) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
@@ -360,7 +360,7 @@ bool cvedix_ba_crossline_node::set_line_color(int channel_id, int line_index,
 }
 
 crossline_config
-cvedix_ba_crossline_node::get_line_config(int channel_id,
+cvedix_ba_line_crossline_node::get_line_config(int channel_id,
                                           int line_index) const {
   if (all_configs.count(channel_id) == 0) {
     return crossline_config();
@@ -373,7 +373,7 @@ cvedix_ba_crossline_node::get_line_config(int channel_id,
 }
 
 std::vector<crossline_config>
-cvedix_ba_crossline_node::get_all_configs(int channel_id) const {
+cvedix_ba_line_crossline_node::get_all_configs(int channel_id) const {
   if (all_configs.count(channel_id) == 0) {
     return {};
   }

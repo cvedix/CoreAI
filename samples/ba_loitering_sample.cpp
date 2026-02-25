@@ -2,7 +2,7 @@
 // #include "cvedix/nodes/infers/cvedix_trt_vehicle_detector.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_stop_node.h"
-#include "cvedix/nodes/ba/cvedix_ba_loitering_node.h"
+#include "cvedix/nodes/ba/cvedix_ba_area_loitering_node.h"
 #include "cvedix/nodes/osd/cvedix_ba_stop_osd_node.h"
 #include "cvedix/nodes/mid/cvedix_split_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
@@ -43,7 +43,7 @@ int main() {
         {0, cvedix_nodes::loitering_config(5.0, "Parking Lot")} // alarm after 5s
     };
 
-    auto ba_stop = std::make_shared<cvedix_nodes::cvedix_ba_loitering_node>("ba_stop", regions, configs, 30);
+    auto ba_stop = std::make_shared<cvedix_nodes::cvedix_ba_area_loitering_node>("ba_stop", regions, configs, 30);
 
     auto osd = std::make_shared<cvedix_nodes::cvedix_ba_stop_osd_node>("osd");
     // auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", true);

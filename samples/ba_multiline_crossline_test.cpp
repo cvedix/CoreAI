@@ -1,12 +1,12 @@
 /**
  * @file ba_multiline_crossline_test.cpp
- * @brief Test multi-line per channel feature for cvedix_ba_crossline_node
+ * @brief Test multi-line per channel feature for cvedix_ba_line_crossline_node
  */
 
-#include "cvedix/nodes/ba/cvedix_ba_crossline_node.h"
+#include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 
@@ -60,7 +60,7 @@ int main() {
   std::map<int, std::vector<cvedix_objects::cvedix_line>> lines = {
       {0, {line0, line1}}};
 
-  auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_crossline_node>(
+  auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_node>(
       "ba_crossline", lines,
       false, // no image recording
       false  // no video recording
@@ -89,7 +89,7 @@ int main() {
 
   // Create OSD and screen
   auto osd =
-      std::make_shared<cvedix_nodes::cvedix_ba_crossline_osd_node>("osd");
+      std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
   auto screen =
       std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen", 0);
 
