@@ -47,6 +47,25 @@ file_src_1                                                                --> tr
   - cvedix_ba_crossline_node：Phát hiện vượt đường
   - cvedix_ba_jam_node：Phát hiện tắc đường
   - cvedix_ba_stop_node：Phát hiện dừng lại
+  - cvedix_ba_area_crowding_node：Phát hiện đám đông trong vùng
+  - cvedix_ba_area_dwell_time_node：Đo thời gian lưu lại trong vùng
+  - cvedix_ba_area_enter_exit_node：Phát hiện vào/ra vùng
+  - cvedix_ba_area_loitering_node：Phát hiện lảng vảng
+  - cvedix_ba_area_parking_violation_node：Phát hiện đỗ xe sai quy định
+  - cvedix_ba_area_queue_length_node：Đo chiều dài hàng đợi
+  - cvedix_ba_fall_detection_node：Phát hiện ngã
+  - cvedix_ba_fight_detection_node：Phát hiện đánh nhau
+  - cvedix_ba_line_counting_node：Đếm qua đường kẻ
+  - cvedix_ba_line_direction_violation_node：Phát hiện đi sai chiều
+  - cvedix_ba_line_speed_estimation_node：Ước tính tốc độ
+  - cvedix_ba_movement_node：Phát hiện chuyển động
+  - **cvedix_ba_line_wrong_way_node**：Phát hiện đi ngược chiều (xác nhận đa đường kẻ)
+  - **cvedix_ba_area_lane_violation_node**：Phát hiện vi phạm làn đường theo loại xe
+  - **cvedix_ba_line_red_light_violation_node**：Phát hiện vượt đèn đỏ + vượt vạch dừng
+  - **cvedix_ba_area_no_entry_zone_node**：Phát hiện vi phạm vùng cấm theo loại xe/giờ
+  - **cvedix_ba_area_illegal_turn_node**：Phát hiện rẽ không đúng quy định tại ngã tư
+  - **cvedix_ba_area_helmet_violation_node**：Phát hiện không đội mũ bảo hiểm
+  - **cvedix_ba_line_illegal_uturn_node**：Phát hiện quay đầu xe sai quy định
 </details>
 
 <details open>

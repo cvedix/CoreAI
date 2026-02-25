@@ -47,12 +47,12 @@ Cơ bản
 
 Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mình hoặc sử dụng backend suy luận khác ngoài `opencv::dnn`.
 
-- CUDA
-- TensorRT
-- Paddle Inference
-- ONNX Runtime
-- mLLM（Ollama/vLLM/OpenAI-compatible API Services）
-- Bất kỳ thứ gì bạn thích
+- CUDA.
+- TensorRT.
+- Paddle Inference.
+- ONNX Runtime.
+- mLLM（Ollama/vLLM/OpenAI-compatible API Services）.
+- Bất kỳ thứ gì bạn thích.
 
 [Cách cài đặt CUDA và TensorRT](./third_party/trt_vehicle/README.md)
 
