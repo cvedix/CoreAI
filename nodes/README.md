@@ -108,13 +108,13 @@ file_src_1                                                                --> tr
   - cvedix_restoration_node：Node nâng cấp và khôi phục hình ảnh dựa trên real-esrgan（opencv::dnn）
   - cvedix_sface_feature_encoder_node：Node trích xuất đặc trưng khuôn mặt dựa trên mạng sface（opencv::dnn）
   - cvedix_trt_insight_face_recognition_node：Node trích xuất đặc trưng khuôn mặt dựa trên InsightFace ArcFace（tensorrt）
-  - cvedix_trt_vehicle_color_classifier：Node phân loại màu xe dựa trên resnet18（tensorrt）
-  - cvedix_trt_vehicle_detector：Node phát hiện xe dựa trên yolov5s（tensorrt）
-  - cvedix_trt_vehicle_feature_encoder：Node trích xuất đặc trưng xe dựa trên fastreid（tensorrt）
-  - cvedix_trt_vehicle_plate_detector_v2：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（một cấp suy luận）（tensorrt）
-  - cvedix_trt_vehicle_plate_detector：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（hai cấp suy luận）（tensorrt）
-  - cvedix_trt_vehicle_scanner：Node quét thân xe dựa trên yolov5s（tensorrt）
-  - cvedix_trt_vehicle_type_classifier：Node phân loại loại xe dựa trên resnet18（tensorrt）
+  - ~~cvedix_trt_vehicle_color_classifier~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_detector~~ (đã xóa - thay bằng cvedix_trt_yolov11_detector_node)
+  - ~~cvedix_trt_vehicle_feature_encoder~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_plate_detector_v2~~ (đã xóa - thay bằng cvedix_trt_yolov11_plate_detector_node)
+  - ~~cvedix_trt_vehicle_plate_detector~~ (đã xóa - thay bằng cvedix_trt_yolov11_plate_detector_node)
+  - ~~cvedix_trt_vehicle_scanner~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_type_classifier~~ (đã xóa - TRT 10.x incompatible)
   - cvedix_yolo_detector_node：Node phát hiện đối tượng dựa trên yolov3（bao gồm tiny）（opencv::dnn）
   - yolo_yunet_face_detector_node：Node phát hiện khuôn mặt dựa trên mạng yunet（opencv::dnn）
 

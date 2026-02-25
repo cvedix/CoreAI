@@ -105,20 +105,9 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     include_directories(/usr/local/cuda/include)
     link_directories(/usr/local/cuda/lib64)
 
-    # trt_vehicle - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
-    message("-------------start build trt_vehicle--------------")
-    add_subdirectory(third_party/trt_vehicle)
-    list(APPEND CVEDIX_DEPEND_LIBS trt_vehicle)
     message(STATUS "TensorRT library status:")
     message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
-    # Install trt_vehicle with export
-    install(TARGETS trt_vehicle EXPORT cvedix-targets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
-    message("--------------end build trt_vehicle---------------")
 
     # trt_yolov8 - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
     # message("-------------start build trt_yolov8--------------")
@@ -773,12 +762,12 @@ set(CORE_UTILS ${UTILS})
 
 # Always exclude Hardware implementation from Core
 list(FILTER CORE_NODES EXCLUDE REGEX ".*rknn.*")
-# Exclude legacy trt_vehicle nodes (disabled) but keep trt_yolov11 when TRT is enabled
+# Exclude removed trt_vehicle nodes and other disabled TRT modules
 if(NOT CVEDIX_WITH_TRT)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt.*")
 else()
-    # When TRT is enabled, only exclude legacy trt_vehicle nodes that depend on missing libs
-    # list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
+    # Exclude removed/legacy TRT nodes
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_vehicle.*")
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_insight.*")
     list(FILTER CORE_NODES EXCLUDE REGEX ".*trt_yolov8.*")  # Legacy disabled trt_yolov8 lib
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognition_trt.*")  # Depends on missing insightface
