@@ -307,6 +307,16 @@ if(CVEDIX_WITH_LLM)
         OPTIONAL)
 endif()
 
+# samples depend on both TRT and LLM
+# if(CVEDIX_WITH_TRT AND CVEDIX_WITH_LLM)
+#     add_executable(speed_violation_mllm_analysis_sample "speed_violation_mllm_analysis_sample.cpp")
+#     target_link_libraries(speed_violation_mllm_analysis_sample ${PROJECT_NAME})
+#     
+#     install(TARGETS speed_violation_mllm_analysis_sample
+#             DESTINATION bin
+#             OPTIONAL)
+# endif()
+
 # samples depend on FFmpeg
 if(CVEDIX_WITH_FFMPEG)
     add_executable(ffmpeg_src_des_sample "ffmpeg_src_des_sample.cpp")

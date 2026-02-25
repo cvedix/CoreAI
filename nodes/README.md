@@ -85,6 +85,17 @@ file_src_1                                                                --> tr
 
 <details open>
   <summary>infers</summary>
+
+  - cvedix_yolo_detector_node：Phát hiện vật thể YOLO (ONNX/DNN)
+  - cvedix_yolov11_detector_node：Phát hiện vật thể YOLOv11 (ONNX)
+  - cvedix_trt_yolov11_detector_node：Phát hiện vật thể YOLOv11 (TensorRT)
+  - cvedix_classifier_node：Phân loại ảnh (secondary)
+  - cvedix_feature_encoder_node：Trích xuất embedding (ReID)
+  - cvedix_facenet_node：Nhận diện khuôn mặt
+  - cvedix_mllm_analyser_node：Phân tích ảnh bằng LLM
+  - **cvedix_clip_node**：CLIP zero-shot classification (full-frame → description)
+  - **cvedix_clip_secondary_node**：CLIP per-target classification (secondary → labels + embeddings)
+</details>
   
   - cvedix_classifier_node：Node phân loại hình ảnh dựa trên resnet series（opencv::dnn）
   - cvedix_enet_seg_node：Node phân đoạn hình ảnh dựa trên mạng ENet（opencv::dnn）

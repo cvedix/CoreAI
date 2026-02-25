@@ -804,6 +804,11 @@ if(NOT CVEDIX_WITH_KAFKA)
     list(FILTER CORE_UTILS EXCLUDE REGEX ".*kafka.*")
 endif()
 
+# Exclude LLM-related files if LLM is not enabled
+if(NOT CVEDIX_WITH_LLM)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*mllm.*")
+endif()
+
 # (RKNN/TRT exclusions handled by default above for Core)
 
 # Exclude GStreamer-related files if GStreamer is not enabled
