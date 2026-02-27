@@ -77,15 +77,35 @@ cvedix_ba_line_crossline_osd_node::handle_frame_meta(
 
   auto &canvas = meta->osd_frame;
 
+  // === Collect crossed track IDs from BA results ===
+  std::set<int> crossed_ids;
+  for (auto &ba_result : meta->ba_results) {
+    if (ba_result->type == cvedix_objects::cvedix_ba_type::CROSSLINE) {
+      for (auto &tid : ba_result->involve_target_ids_in_frame) {
+        crossed_ids.insert(tid);
+      }
+    }
+  }
+  // Also accumulate into persistent set (keep crossed IDs across frames)
+  for (auto &tid : crossed_ids) {
+    all_crossed_track_ids.insert(tid);
+  }
+
   // scan targets
   for (auto &i : meta->targets) {
     // track_id
     auto id = std::to_string(i->track_id);
-    auto labels_to_display = i->primary_label;
+    bool has_crossed = (i->track_id != -1 && all_crossed_track_ids.count(i->track_id) > 0);
 
-    // tracked
-    if (i->track_id != -1) {
-      labels_to_display = "#" + id + " " + labels_to_display;
+    // Build label
+    std::string labels_to_display;
+    if (has_crossed) {
+      // Crossed object: label_tracking_ID format
+      labels_to_display = i->primary_label + "_tracking_" + id;
+    } else if (i->track_id != -1) {
+      labels_to_display = "#" + id + " " + i->primary_label;
+    } else {
+      labels_to_display = i->primary_label;
     }
 
     // Collect speed label separately (don't add to main label)
@@ -102,52 +122,81 @@ cvedix_ba_line_crossline_osd_node::handle_frame_meta(
       }
     }
 
-    cv::Scalar bbox_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(255, 255, 0);
-    cv::Scalar text_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(179, 52, 255);
-    int bbox_thickness = is_violation ? 3 : 2;
+    // Color: RED if crossed, default otherwise
+    cv::Scalar bbox_color, text_color, dot_color;
+    int bbox_thickness;
+    if (has_crossed) {
+      bbox_color = cv::Scalar(0, 0, 255);      // RED bbox
+      text_color = cv::Scalar(0, 0, 255);       // RED text
+      dot_color = cv::Scalar(0, 0, 255);        // RED dot
+      bbox_thickness = 3;
+    } else if (is_violation) {
+      bbox_color = cv::Scalar(0, 0, 255);
+      text_color = cv::Scalar(0, 0, 255);
+      dot_color = cv::Scalar(0, 255, 255);
+      bbox_thickness = 3;
+    } else {
+      bbox_color = cv::Scalar(255, 255, 0);     // Cyan bbox
+      text_color = cv::Scalar(179, 52, 255);     // Purple text
+      dot_color = cv::Scalar(0, 255, 255);       // Yellow dot
+      bbox_thickness = 2;
+    }
 
     // draw tracks if size>=2
     if (i->tracks.size() >= 2) {
+      cv::Scalar trail_color = has_crossed ? cv::Scalar(0, 0, 255) : cv::Scalar(0, 255, 255);
       for (size_t n = 0; n < (i->tracks.size() - 1); n++) {
         auto p1 = i->tracks[n].track_point();
         auto p2 = i->tracks[n + 1].track_point();
         cv::line(canvas, cv::Point(p1.x, p1.y), cv::Point(p2.x, p2.y),
-                 cv::Scalar(0, 255, 255), 1, cv::LINE_AA);
+                 trail_color, 1, cv::LINE_AA);
       }
     }
 
     cv::rectangle(canvas, cv::Rect(i->x, i->y, i->width, i->height),
                   bbox_color, bbox_thickness);
 
-    // Draw primary label above bbox
-    if (ft2 != nullptr) {
-      ft2->putText(canvas, labels_to_display, cv::Point(i->x, i->y), 20,
-                   text_color, cv::FILLED, cv::LINE_AA, true);
-    } else {
-      int baseline = 0;
-      auto size = cv::getTextSize(labels_to_display, 1, 1, 1, &baseline);
-      cvedix_utils::put_text_at_center_of_rect(
-          canvas, labels_to_display,
-          cv::Rect(i->x, i->y - size.height, size.width, size.height), true, 1,
-          1, cv::Scalar(), text_color, text_color);
-    }
+    // Draw center dot on detected object
+    int center_x = i->x + i->width / 2;
+    int center_y = i->y + i->height / 2;
+    cv::circle(canvas, cv::Point(center_x, center_y), 5, dot_color, cv::FILLED, cv::LINE_AA);
+    cv::circle(canvas, cv::Point(center_x, center_y), 5, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
 
-    // Draw speed label below bbox with background
-    if (!speed_label.empty()) {
-      cv::Scalar speed_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(0, 200, 0);
+    // Draw primary label BELOW bbox
+    {
       int baseline = 0;
-      auto text_size = cv::getTextSize(speed_label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 2, &baseline);
+      auto text_size = cv::getTextSize(labels_to_display, cv::FONT_HERSHEY_SIMPLEX, 0.45, 1, &baseline);
       int text_x = i->x;
       int text_y = i->y + i->height + text_size.height + 4;
 
-      // Background rectangle
+      cv::Scalar bg_color = has_crossed ? cv::Scalar(0, 0, 100) : cv::Scalar(0, 0, 0);
       cv::rectangle(canvas,
                     cv::Point(text_x - 1, i->y + i->height + 1),
                     cv::Point(text_x + text_size.width + 4, text_y + 3),
+                    bg_color, cv::FILLED);
+
+      cv::putText(canvas, labels_to_display, cv::Point(text_x + 2, text_y),
+                  cv::FONT_HERSHEY_SIMPLEX, 0.45, text_color, 1, cv::LINE_AA);
+    }
+
+    // Draw speed label below primary label (with offset)
+    if (!speed_label.empty()) {
+      cv::Scalar speed_color = is_violation ? cv::Scalar(0, 0, 255) : cv::Scalar(0, 200, 0);
+      int baseline = 0;
+      auto text_size = cv::getTextSize(speed_label, cv::FONT_HERSHEY_SIMPLEX, 0.6, 2, &baseline);
+      int text_x = i->x;
+      // Offset below primary label (primary label height ~20px + gap)
+      int speed_y_start = i->y + i->height + 22;
+      int text_y = speed_y_start + text_size.height + 2;
+
+      // Background rectangle
+      cv::rectangle(canvas,
+                    cv::Point(text_x - 1, speed_y_start),
+                    cv::Point(text_x + text_size.width + 6, text_y + 3),
                     cv::Scalar(0, 0, 0), cv::FILLED);
 
       cv::putText(canvas, speed_label, cv::Point(text_x + 2, text_y),
-                  cv::FONT_HERSHEY_SIMPLEX, 0.5, speed_color, 2);
+                  cv::FONT_HERSHEY_SIMPLEX, 0.6, speed_color, 2, cv::LINE_AA);
     }
 
     // scan sub targets

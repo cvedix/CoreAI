@@ -1,11 +1,11 @@
 /**
- * @file cvedix_trt_yolov11_detector_node.cpp
+ * @file cvedix_trt_yolov11_det_node.cpp
  * @brief Generic TensorRT YOLOv11 object detector implementation
  */
 
 #ifdef CVEDIX_WITH_TRT
 
-#include "cvedix_trt_yolov11_detector_node.h"
+#include "cvedix_trt_yolov11_det_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 
@@ -15,7 +15,7 @@
 
 namespace cvedix_nodes {
 
-cvedix_trt_yolov11_detector_node::cvedix_trt_yolov11_detector_node(
+cvedix_trt_yolov11_det_node::cvedix_trt_yolov11_det_node(
     const std::string& node_name,
     const std::string& engine_path,
     const std::string& labels_path,
@@ -79,25 +79,25 @@ cvedix_trt_yolov11_detector_node::cvedix_trt_yolov11_detector_node(
     }
 }
 
-cvedix_trt_yolov11_detector_node::~cvedix_trt_yolov11_detector_node() {
+cvedix_trt_yolov11_det_node::~cvedix_trt_yolov11_det_node() {
     deinitialized();
 }
 
-void cvedix_trt_yolov11_detector_node::set_conf_threshold(float thresh) {
+void cvedix_trt_yolov11_det_node::set_conf_threshold(float thresh) {
     conf_threshold = thresh;
     if (detector) {
         detector->set_conf_threshold(thresh);
     }
 }
 
-void cvedix_trt_yolov11_detector_node::set_nms_threshold(float thresh) {
+void cvedix_trt_yolov11_det_node::set_nms_threshold(float thresh) {
     nms_threshold = thresh;
     if (detector) {
         detector->set_nms_threshold(thresh);
     }
 }
 
-std::string cvedix_trt_yolov11_detector_node::get_label(int class_id) const {
+std::string cvedix_trt_yolov11_det_node::get_label(int class_id) const {
     int idx = class_id - class_id_offset;
     if (idx >= 0 && idx < static_cast<int>(labels.size())) {
         return labels[idx];
@@ -105,7 +105,7 @@ std::string cvedix_trt_yolov11_detector_node::get_label(int class_id) const {
     return "class_" + std::to_string(class_id);
 }
 
-void cvedix_trt_yolov11_detector_node::run_infer_combinations(
+void cvedix_trt_yolov11_det_node::run_infer_combinations(
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
 
     if (frame_meta_with_batch.empty()) {
@@ -191,7 +191,7 @@ void cvedix_trt_yolov11_detector_node::run_infer_combinations(
         postprocess_time.count());
 }
 
-void cvedix_trt_yolov11_detector_node::postprocess(
+void cvedix_trt_yolov11_det_node::postprocess(
     const std::vector<cv::Mat>& raw_outputs,
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
     // Not used - postprocessing is done in run_infer_combinations

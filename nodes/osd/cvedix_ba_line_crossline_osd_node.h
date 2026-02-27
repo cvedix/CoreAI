@@ -13,6 +13,7 @@
 #include "cvedix/objects/shapes/cvedix_line.h"
 #include "cvedix/objects/shapes/cvedix_point.h"
 #include <map>
+#include <set>
 #include <opencv2/freetype.hpp>
 #include <vector>
 
@@ -51,6 +52,9 @@ private:
 
   // Total crossings per channel (for backward compatibility display)
   std::map<int, int> all_total_crossline;
+
+  // Track IDs that have crossed the line (persistent across frames)
+  std::set<int> all_crossed_track_ids;
 
   // Default colors to cycle through for lines without explicit color
   std::vector<cv::Scalar> default_colors = {

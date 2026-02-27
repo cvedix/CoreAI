@@ -26,7 +26,7 @@
  * - YOLOv11m-face: ~300+ FPS
  * 
  * @see cvedix_yunet_face_detector_node For CPU-based face detection
- * @see cvedix_trt_yolov11_plate_detector_node For license plate detection
+ * @see cvedix_trt_yolov11_det_node For general object/plate detection
  */
 
 #pragma once

@@ -1,0 +1,15 @@
+[02/26/2026-19:34:08] [I] === Performance summary ===
+[02/26/2026-19:34:08] [I] Throughput: 442.506 qps
+[02/26/2026-19:34:08] [I] Latency: min = 3.90381 ms, max = 9.16748 ms, mean = 4.26791 ms, median = 4.26245 ms, percentile(90%) = 4.39062 ms, percentile(95%) = 4.42285 ms, percentile(99%) = 4.46533 ms
+[02/26/2026-19:34:08] [I] H2D Latency: min = 1.57715 ms, max = 1.75146 ms, mean = 1.64183 ms, median = 1.63916 ms, percentile(90%) = 1.69189 ms, percentile(95%) = 1.70605 ms, percentile(99%) = 1.73486 ms
+[02/26/2026-19:34:08] [I] GPU Compute Time: min = 0.805664 ms, max = 5.65918 ms, mean = 0.973642 ms, median = 0.923828 ms, percentile(90%) = 1.15283 ms, percentile(95%) = 1.17285 ms, percentile(99%) = 1.19727 ms
+[02/26/2026-19:34:08] [I] D2H Latency: min = 1.45898 ms, max = 1.81152 ms, mean = 1.65244 ms, median = 1.66455 ms, percentile(90%) = 1.73486 ms, percentile(95%) = 1.75195 ms, percentile(99%) = 1.77686 ms
+[02/26/2026-19:34:08] [I] Total Host Walltime: 3.00561 s
+[02/26/2026-19:34:08] [I] Total GPU Compute Time: 1.29494 s
+[02/26/2026-19:34:08] [W] * Throughput may be bound by Enqueue Time rather than GPU Compute and the GPU may be under-utilized.
+[02/26/2026-19:34:08] [W] * Throughput may be bound by host-to-device transfers for the inputs rather than GPU Compute and the GPU may be under-utilized.
+[02/26/2026-19:34:08] [W] * Throughput may be bound by device-to-host transfers for the outputs rather than GPU Compute and the GPU may be under-utilized.
+--- System Info ---
+GPU: NVIDIA GeForce RTX 3080 20GB
+TensorRT: v10.9.0
+Date: Thu Feb 26 07:34:08 PM +07 2026

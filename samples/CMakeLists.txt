@@ -27,8 +27,8 @@ target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
 add_executable(ba_crowding_sample "ba_crowding_sample.cpp")
 target_link_libraries(ba_crowding_sample ${PROJECT_NAME})
 
-add_executable(ba_loitering_sample "ba_loitering_sample.cpp")
-target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
+# add_executable(ba_loitering_sample "ba_loitering_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(ba_loitering_sample ${PROJECT_NAME})
 
 add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
 target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
@@ -39,20 +39,26 @@ target_link_libraries(wrong_way_detection_sample ${PROJECT_NAME})
 add_executable(ba_speed_estimation_sample "ba_speed_estimation_sample.cpp")
 target_link_libraries(ba_speed_estimation_sample ${PROJECT_NAME})
 
+add_executable(ba_accident_detection_sample "ba_accident_detection_sample.cpp")
+target_link_libraries(ba_accident_detection_sample ${PROJECT_NAME})
+
+add_executable(ba_traffic_analysis_sample "ba_traffic_analysis_sample.cpp")
+target_link_libraries(ba_traffic_analysis_sample ${PROJECT_NAME})
+
 add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
 target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 
 add_executable(enet_seg_sample "enet_seg_sample.cpp")
 target_link_libraries(enet_seg_sample ${PROJECT_NAME})
 
-add_executable(face_tracking_sample "face_tracking_sample.cpp")
-target_link_libraries(face_tracking_sample ${PROJECT_NAME})
+# add_executable(face_tracking_sample "face_tracking_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_tracking_sample ${PROJECT_NAME})
 
-add_executable(face_tracking_bytetrack_sample "face_tracking_bytetrack_sample.cpp")
-target_link_libraries(face_tracking_bytetrack_sample ${PROJECT_NAME})
+# add_executable(face_tracking_bytetrack_sample "face_tracking_bytetrack_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_tracking_bytetrack_sample ${PROJECT_NAME})
 
-add_executable(face_tracking_ocsort_sample "face_tracking_ocsort_sample.cpp")
-target_link_libraries(face_tracking_ocsort_sample ${PROJECT_NAME})
+# add_executable(face_tracking_ocsort_sample "face_tracking_ocsort_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_tracking_ocsort_sample ${PROJECT_NAME})
 
 # InsightFace ONNX samples (no TensorRT required)
 # add_executable(insightface_sample "insightface_sample.cpp")
@@ -66,8 +72,8 @@ target_link_libraries(face_tracking_ocsort_sample ${PROJECT_NAME})
 # target_link_libraries(face_registration_sample ${PROJECT_NAME})
 
 # Face recognition sample (uses database from registration)
-add_executable(face_recognition_sample "face_recognition_sample.cpp")
-target_link_libraries(face_recognition_sample ${PROJECT_NAME})
+# add_executable(face_recognition_sample "face_recognition_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_recognition_sample ${PROJECT_NAME})
 
 # Face recognition with ONNX Runtime (supports glintr100 and other InsightFace models)
 set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime)
@@ -104,9 +110,9 @@ if(CVEDIX_WITH_TRT)
     # target_link_libraries(insightface_register_recognize_face_trt_sample ${PROJECT_NAME})
 endif()
 
-add_executable(face_tracking_rtsp_sample "face_tracking_rtsp_sample.cpp")
-target_include_directories(face_tracking_rtsp_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-target_link_libraries(face_tracking_rtsp_sample ${PROJECT_NAME})
+# add_executable(face_tracking_rtsp_sample "face_tracking_rtsp_sample.cpp")  # DISABLED - file deleted
+# target_include_directories(face_tracking_rtsp_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+# target_link_libraries(face_tracking_rtsp_sample ${PROJECT_NAME})
 
 add_executable(image_des_sample "image_des_sample.cpp")
 target_link_libraries(image_des_sample ${PROJECT_NAME})
@@ -193,11 +199,11 @@ target_link_libraries(yolov11_onnx_detector_sample ${PROJECT_NAME})
 add_executable(yolov11_plate_detector_sample "yolov11_plate_detector_sample.cpp")
 target_link_libraries(yolov11_plate_detector_sample ${PROJECT_NAME})
 
-add_executable(face_swap_sample "face_swap_sample.cpp")
-target_link_libraries(face_swap_sample ${PROJECT_NAME})
+# add_executable(face_swap_sample "face_swap_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_swap_sample ${PROJECT_NAME})
 
-add_executable(face_yunet_int8_sample "face_yunet_int8_sample.cpp")
-target_link_libraries(face_yunet_int8_sample ${PROJECT_NAME})
+# add_executable(face_yunet_int8_sample "face_yunet_int8_sample.cpp")  # DISABLED - file deleted
+# target_link_libraries(face_yunet_int8_sample ${PROJECT_NAME})
 
 add_executable(video_restoration_sample "video_restoration_sample.cpp")
 target_link_libraries(video_restoration_sample ${PROJECT_NAME})
@@ -220,16 +226,15 @@ target_link_libraries(cvedix_test ${PROJECT_NAME})
 # Install all basic samples
 install(TARGETS 
     1-1-1_sample 1-1-N_sample 1-N-N_sample
-    ba_crossline_sample enet_seg_sample face_tracking_sample
+    ba_crossline_sample enet_seg_sample
     image_des_sample image_src_sample interaction_with_pipe_sample
     mask_rcnn_sample message_broker_sample multi_detectors_and_classifiers_sample
     N-1-N_sample N-N_sample openpose_sample record_sample
     cvedix_logger_sample skip_sample obstacle_detect_sample
-    multi_detectors_sample firesmoke_detect_sample face_swap_sample
-    face_yunet_int8_sample yolov11_onnx_detector_sample yolov11_plate_detector_sample
+    multi_detectors_sample firesmoke_detect_sample
+    yolov11_onnx_detector_sample yolov11_plate_detector_sample
     video_restoration_sample app_des_sample app_src_des_sample
     lane_detect_sample frame_fusion_sample cvedix_test
-    # insightface_sample insightface_register_recognize_face_sample
     DESTINATION bin
     OPTIONAL
 )
@@ -464,57 +469,63 @@ if(CVEDIX_WITH_TRT)
     target_include_directories(yolov11_plate_bytetrack_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
     target_link_libraries(yolov11_plate_bytetrack_sample ${PROJECT_NAME})
 
+    # Pipeline Benchmark: det → track → ba_crossline (no OSD/display for pure throughput)
+    add_executable(benchmark_pipeline_sample "benchmark_pipeline_sample.cpp")
+    target_include_directories(benchmark_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(benchmark_pipeline_sample ${PROJECT_NAME})
+
     
     # NOTE: Following samples require trt_vehicle which is temporarily disabled
     # Uncomment when trt_vehicle is updated to TensorRT 10.x
     
-    add_executable(ba_jam_sample "ba_jam_sample.cpp")
-    target_link_libraries(ba_jam_sample ${PROJECT_NAME})
+    # NOTE: Following samples were deleted in previous cleanup sessions
+    # add_executable(ba_jam_sample "ba_jam_sample.cpp")
+    # target_link_libraries(ba_jam_sample ${PROJECT_NAME})
 
-    add_executable(ba_stop_sample "ba_stop_sample.cpp")
-    target_link_libraries(ba_stop_sample ${PROJECT_NAME})
+    # add_executable(ba_stop_sample "ba_stop_sample.cpp")
+    # target_link_libraries(ba_stop_sample ${PROJECT_NAME})
 
-    add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
-    target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
+    # add_executable(body_scan_and_plate_detect_sample "body_scan_and_plate_detect_sample.cpp")
+    # target_link_libraries(body_scan_and_plate_detect_sample ${PROJECT_NAME})
 
-    add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")      # DISABLED - needs trt_vehicle
-    target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
+    # add_executable(dynamic_pipeline_sample "dynamic_pipeline_sample.cpp")
+    # target_link_libraries(dynamic_pipeline_sample ${PROJECT_NAME})
 
-    add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")    # DISABLED - needs trt_vehicle
-    target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
+    # add_executable(dynamic_pipeline_sample2 "dynamic_pipeline_sample2.cpp")
+    # target_link_libraries(dynamic_pipeline_sample2 ${PROJECT_NAME})    
 
-    add_executable(message_broker_sample2 "message_broker_sample2.cpp")       # DISABLED - needs trt_vehicle
-    target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
+    # add_executable(message_broker_sample2 "message_broker_sample2.cpp")
+    # target_link_libraries(message_broker_sample2 ${PROJECT_NAME})
 
-    add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")  # DISABLED - needs trt_vehicle/trt_yolov8
-    target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
+    # add_executable(multi_trt_infer_nodes_sample "multi_trt_infer_nodes_sample.cpp")
+    # target_link_libraries(multi_trt_infer_nodes_sample ${PROJECT_NAME})
 
-    add_executable(plate_recognize_sample "plate_recognize_sample.cpp")       # DISABLED - needs trt_vehicle
-    target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
+    # add_executable(plate_recognize_sample "plate_recognize_sample.cpp")
+    # target_link_libraries(plate_recognize_sample ${PROJECT_NAME})
 
-    add_executable(src_des_sample "src_des_sample.cpp")
-    target_link_libraries(src_des_sample ${PROJECT_NAME})
+    # add_executable(src_des_sample "src_des_sample.cpp")
+    # target_link_libraries(src_des_sample ${PROJECT_NAME})
 
-    add_executable(trt_infer_sample "trt_infer_sample.cpp")
-    target_link_libraries(trt_infer_sample ${PROJECT_NAME})
+    # add_executable(trt_infer_sample "trt_infer_sample.cpp")
+    # target_link_libraries(trt_infer_sample ${PROJECT_NAME})
 
-    add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
-    target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
+    # add_executable(vehicle_body_scan_sample "vehicle_body_scan_sample.cpp")
+    # target_link_libraries(vehicle_body_scan_sample ${PROJECT_NAME})
 
-    add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
-    target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
+    # add_executable(vehicle_cluster_based_on_classify_encoding_sample "vehicle_cluster_based_on_classify_encoding_sample.cpp")
+    # target_link_libraries(vehicle_cluster_based_on_classify_encoding_sample ${PROJECT_NAME})
 
-    add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
-    target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
+    # add_executable(vehicle_tracking_sample "vehicle_tracking_sample.cpp")
+    # target_link_libraries(vehicle_tracking_sample ${PROJECT_NAME})
 
-    add_executable(1-N-1_sample "1-N-1_sample.cpp")                            # DISABLED - needs trt_vehicle
-    target_link_libraries(1-N-1_sample ${PROJECT_NAME})
+    # add_executable(1-N-1_sample "1-N-1_sample.cpp")
+    # target_link_libraries(1-N-1_sample ${PROJECT_NAME})
 
-    add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")                          # DISABLED - needs trt_vehicle
-    target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
+    # add_executable(1-N-1_sample2 "1-N-1_sample2.cpp")
+    # target_link_libraries(1-N-1_sample2 ${PROJECT_NAME})
 
-    add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")                          # DISABLED - needs trt_vehicle
-    target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
+    # add_executable(1-N-1_sample3 "1-N-1_sample3.cpp")                          # DISABLED - file deleted
+    # target_link_libraries(1-N-1_sample3 ${PROJECT_NAME})
 
     # add_executable(trt_yolov8_sample "trt_yolov8_sample.cpp")                  # DISABLED - needs trt_yolov8
     # target_link_libraries(trt_yolov8_sample ${PROJECT_NAME})

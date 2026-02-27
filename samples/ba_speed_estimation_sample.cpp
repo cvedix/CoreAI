@@ -11,36 +11,43 @@
 #ifdef CVEDIX_WITH_TRT
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
 #include "cvedix/nodes/track/cvedix_ocsort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_speed_estimation_node.h"
 #include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
-int main() {
+#include <thread>
+
+int main(int argc, char** argv) {
     CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
     CVEDIX_LOGGER_INIT();
+
+    // Parse args
+    std::string video_path = "./cvedix_data/test_video/0206.mp4";
+    std::string engine_path = "./cvedix_data/models/yolov11n.engine";
+    if (argc > 1) video_path = argv[1];
+    if (argc > 2) engine_path = argv[2];
 
     // === 1. Source: video file ===
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
         "file_src", 0,
-        "./cvedix_data/test_video/vehicle_count.mp4",
-        0.6,  // scale factor
-        false // no loop, process video once
+        video_path,
+        1.0,  // full resolution for 1080p
+        false // no loop
     );
 
     // === 2. Detector: TensorRT YOLOv11 (vehicles only) ===
-    auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_detector_node>(
+    auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
         "detector",
-        "./cvedix_data/models/yolov11n.engine",          // TensorRT engine
-        "./cvedix_data/models/coco_80_labels_list.txt",   // labels file
-        0.15f,  // confidence threshold (lower for better recall)
+        engine_path,
+        "./cvedix_data/models/coco_80_labels_list.txt",
+        0.15f,  // confidence threshold
         0.45f   // NMS threshold
     );
 
-    // Filter to vehicle classes only (COCO 80 labels, 0-indexed):
-    //   2=car, 3=motorbike, 5=bus, 7=truck
+    // motorcycle(3), car(2), bus(5), truck(7)
     detector->set_allowed_classes({2, 3, 5, 7});
 
     // === 3. Tracker: OC-SORT ===
@@ -59,36 +66,30 @@ int main() {
 
     // === 4. Speed Estimation BA Node ===
     //
-    // Video: highway camera (1920x1080 @ 25fps, scale=0.6 → 1152x648)
-    // Vehicles move from far (top) to near (bottom) on left lanes.
-    //
-    // Line 1 (entry): at upper red road marking, y≈290
-    // Line 2 (exit):  at lower red road marking, y≈460
-    // X range: left lanes only (x=200 to x=530)
-    //
-    // Real-world calibration (highway):
-    //   Distance between red markings ≈ 50 meters
-    //   Pixel distance ≈ 170px
-    //   pixel_to_meter = 50.0 / 170.0 ≈ 0.294
+    // For 1920x1080 video:
+    // Line 1 (entry): upper detection line
+    // Line 2 (exit):  lower detection line
+    // Calibration depends on actual camera setup
 
     cvedix_objects::cvedix_line line1(
-        cvedix_objects::cvedix_point(120, 290),
-        cvedix_objects::cvedix_point(570, 290)
+        cvedix_objects::cvedix_point(0, 400),
+        cvedix_objects::cvedix_point(1920, 400)
     );
     cvedix_objects::cvedix_line line2(
-        cvedix_objects::cvedix_point(50, 460),
-        cvedix_objects::cvedix_point(640, 460)
+        cvedix_objects::cvedix_point(0, 550),
+        cvedix_objects::cvedix_point(1920, 550)
     );
 
     std::map<int, std::pair<cvedix_objects::cvedix_line, cvedix_objects::cvedix_line>> line_pairs = {
-        {0, {line1, line2}}  // channel 0: entry line, exit line
+        {0, {line1, line2}}
     };
 
+    // Pixel-to-meter calibration (estimate: 150px ≈ 15m for typical road camera)
     std::map<int, double> pixel_to_meter = {
-        {0, 50.0 / 170.0}  // channel 0: 50 meters / 170 pixels (highway)
+        {0, 15.0 / 150.0}  // 15 meters / 150 pixels
     };
 
-    double speed_limit_kmh = 120.0;  // Highway speed limit: 120 km/h
+    double speed_limit_kmh = 80.0;  // City road speed limit
 
     auto speed_est = std::make_shared<cvedix_nodes::cvedix_ba_line_speed_estimation_node>(
         "speed_estimation",
@@ -126,22 +127,21 @@ int main() {
     file_des->attach_to({osd});
 
     // === Start ===
-    CVEDIX_INFO("=== Speed Estimation Sample ===");
-    CVEDIX_INFO("  Vehicle classes: car, motorbike, bus, truck");
-    CVEDIX_INFO("  Line 1 (entry): y=290, x=[200, 530] (green)");
-    CVEDIX_INFO("  Line 2 (exit):  y=460, x=[170, 570] (red)");
-    CVEDIX_INFO("  Distance: 50 meters (highway)");
-    CVEDIX_INFO("  Speed limit: 120 km/h");
+    CVEDIX_INFO("=== Speed Estimation ===");
+    CVEDIX_INFO("  Video: " + video_path);
+    CVEDIX_INFO("  Classes: motorcycle, car, bus, truck");
+    CVEDIX_INFO("  Line 1 (entry): y=400");
+    CVEDIX_INFO("  Line 2 (exit):  y=550");
+    CVEDIX_INFO("  Speed limit: 80 km/h");
     CVEDIX_INFO("  Output: ./output/speed_*.mp4");
-    CVEDIX_INFO("  Press ENTER to stop...");
-    CVEDIX_INFO("===============================");
+    CVEDIX_INFO("=========================");
 
     file_src->start();
 
-    // Wait for user input to stop
-    std::string wait;
-    std::getline(std::cin, wait);
+    // Auto-stop after video duration + 5s buffer
+    std::this_thread::sleep_for(std::chrono::seconds(20));
     file_src->detach_recursively();
+    CVEDIX_INFO("=== DONE ===");
 }
 
 #else
