@@ -22,7 +22,7 @@ if [ -z "${BUILD_DIR}" ]; then
   usage
 fi
 
-BUNDLE_NAME="cvedix-ai-runtime-complete"
+BUNDLE_NAME="edgeos-sdk"
 VERSION="$(date +%Y.%m.%d)"
 
 # ===== Config =====
@@ -207,7 +207,7 @@ echo "✓ VERSION file created"
 
 
 # ===== Create .deb package =====
-PKG_NAME="cvedix-ai-runtime"
+PKG_NAME="edgeos-sdk"
 PKG_VERSION="${VERSION}"
 ARCH="amd64"   # hoặc arm64
 DEB_DIR="deb_pkg"
@@ -230,7 +230,7 @@ Priority: optional
 Architecture: ${ARCH}
 Maintainer: CVEDIX Team <dev@cvedix.ai>
 Depends: build-essential, make, cmake, pkg-config, mosquitto, mosquitto-clients, unzip, libmosquitto-dev, libturbojpeg, libturbojpeg-dev, libgstreamer1.0-0, gstreamer1.0-plugins-base, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-plugins-ugly, gstreamer1.0-libav, gstreamer1.0-tools, gstreamer1.0-x, gstreamer1.0-alsa, gstreamer1.0-gl, gstreamer1.0-gtk3, gstreamer1.0-qt5, gstreamer1.0-pulseaudio, libgstreamer1.0-dev, libgstreamer-plugins-base1.0-dev, python3-gst-1.0, libgstrtspserver-1.0-dev, gstreamer1.0-rtsp, libgtk-3-dev, libavcodec-dev, libavformat-dev, libavdevice-dev, libavutil-dev, libswscale-dev, libswresample-dev, libv4l-dev, libxvidcore-dev, libx264-dev, libjpeg-dev, libpng-dev, libtiff-dev, gfortran, openexr, libatlas-base-dev, python3-dev, python3-numpy, libeigen3-dev, librdkafka-dev, libssl-dev, libcurl4-openssl-dev, libjson-c-dev
-Description: CVEDIX AI Runtime Bundle
+Description: CVEDIX EdgeOS SDK Bundle
  Runtime libraries, headers and sample binaries for CVEDIX AI stack.
 EOF
 
@@ -239,14 +239,14 @@ cat > "${DEB_DIR}/DEBIAN/postinst" <<'EOF'
 #!/bin/sh
 set -e
 
-CONF_FILE="/etc/ld.so.conf.d/cvedix-ai-runtime.conf"
+CONF_FILE="/etc/ld.so.conf.d/edgeos-sdk.conf"
 
 cat > "$CONF_FILE" <<EOL
-/opt/cvedix-ai-runtime/lib/cvedix
-/opt/cvedix-ai-runtime/lib/cuda
-/opt/cvedix-ai-runtime/lib/cudnn
-/opt/cvedix-ai-runtime/lib/tensorrt
-/opt/cvedix-ai-runtime/lib/opencv
+/opt/edgeos-sdk/lib/cvedix
+/opt/edgeos-sdk/lib/cuda
+/opt/edgeos-sdk/lib/cudnn
+/opt/edgeos-sdk/lib/tensorrt
+/opt/edgeos-sdk/lib/opencv
 EOL
 
 ldconfig
@@ -260,7 +260,7 @@ cat > "${DEB_DIR}/DEBIAN/postrm" <<'EOF'
 #!/bin/sh
 set -e
 
-rm -f /etc/ld.so.conf.d/cvedix-ai-runtime.conf
+rm -f /etc/ld.so.conf.d/edgeos-sdk.conf
 ldconfig
 
 exit 0

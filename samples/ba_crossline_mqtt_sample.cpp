@@ -365,7 +365,7 @@ int main(int argc, char** argv) {
     auto mqtt_broker_node = std::make_shared<cvedix_json_crossline_mqtt_broker_node>(
         "mqtt_broker_node", mqtt_publish_crossline_data);
 
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_crossline_osd_node>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
     
     // construct pipeline
