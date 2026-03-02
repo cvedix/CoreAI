@@ -474,6 +474,11 @@ if(CVEDIX_WITH_TRT)
     target_include_directories(benchmark_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
     target_link_libraries(benchmark_pipeline_sample ${PROJECT_NAME})
 
+    # People Analytics Benchmark: counting + crowd + loitering + wrong-way
+    add_executable(benchmark_people_analytics_sample "benchmark_people_analytics_sample.cpp")
+    target_include_directories(benchmark_people_analytics_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_link_libraries(benchmark_people_analytics_sample ${PROJECT_NAME})
+
     
     # NOTE: Following samples require trt_vehicle which is temporarily disabled
     # Uncomment when trt_vehicle is updated to TensorRT 10.x
