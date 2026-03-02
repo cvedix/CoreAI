@@ -79,12 +79,15 @@ void Classifier::Run(std::vector<cv::Mat> img_list,
     // postprocess
     auto postprocess_start = std::chrono::steady_clock::now();
     for (int batch_idx = 0; batch_idx < predict_shape[0]; batch_idx++) {
+      if (beg_img_no + batch_idx >= img_num) {
+         break;
+      }
       int label = int(
-          Utility::argmax(&predict_batch[batch_idx * predict_shape[1]],
-                          &predict_batch[(batch_idx + 1) * predict_shape[1]]));
+          Utility::argmax(predict_batch.data() + batch_idx * predict_shape[1],
+                          predict_batch.data() + (batch_idx + 1) * predict_shape[1]));
       float score = float(*std::max_element(
-          &predict_batch[batch_idx * predict_shape[1]],
-          &predict_batch[(batch_idx + 1) * predict_shape[1]]));
+          predict_batch.data() + batch_idx * predict_shape[1],
+          predict_batch.data() + (batch_idx + 1) * predict_shape[1]));
       cls_labels[beg_img_no + batch_idx] = label;
       cls_scores[beg_img_no + batch_idx] = score;
     }

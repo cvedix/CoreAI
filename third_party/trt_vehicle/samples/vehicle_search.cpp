@@ -6,7 +6,7 @@
 #include <experimental/filesystem>
 
 #include "../models/vehicle_feature_encoder.h"
-#include "../../../utils/vp_utils.h"
+#include "../../../utils/cvedix_utils.h"
 using namespace std;
 
 /*
@@ -35,7 +35,7 @@ double match(std::vector<float>& feature1, std::vector<float>& feature2, int dis
 
 // extract feature for vehicle
 void extract_feature(std::string vehicle_img_path, std::vector<float>& feature) {
-    static std::string feature_model_path = "./vp_data/models/trt/vehicle/vehicle_embedding_v8.5.trt";
+    static std::string feature_model_path = "./cvedix_data/models/trt/vehicle/vehicle_embedding_v8.5.trt";
     static std::shared_ptr<trt_vehicle::VehicleFeatureEncoder> vehicleEncoder = nullptr;
     if (!vehicleEncoder) {
         vehicleEncoder = std::make_shared<trt_vehicle::VehicleFeatureEncoder>(feature_model_path);
@@ -57,7 +57,7 @@ void load_vehicle_dataset(std::string dataset_dir,
     // iterate directory
     using recursive_directory_iterator = std::experimental::filesystem::recursive_directory_iterator;
     for (const auto& dir_entry : recursive_directory_iterator(dataset_dir))
-        if (vp_utils::ends_with(dir_entry.path(), ".jpg")) {    
+        if (cvedix_utils::ends_with(dir_entry.path(), ".jpg")) {    
             std::cout << "load vehicle image: " << dir_entry << std::endl;
 
             // extract single feature
@@ -93,10 +93,10 @@ void search(std::vector<float>& query_feature,
 }
 
 int main() {
-    auto vehicle_dataset_dir = "./vp_data/test_images/vehicle_feature";
-    auto query_vehicle_path = "./vp_data/test_images/vehicle_feature/7_002.jpg";
+    auto vehicle_dataset_dir = "./cvedix_data/test_images/vehicle_feature";
+    auto query_vehicle_path = "./cvedix_data/test_images/vehicle_feature/7_002.jpg";
     auto ft2 = cv::freetype::createFreeType2();
-    ft2->loadFontData("./vp_data/font/NotoSansCJKsc-Medium.otf", 0);
+    ft2->loadFontData("./cvedix_data/font/NotoSansCJKsc-Medium.otf", 0);
 
     // load vehicle dataset 
     std::vector<std::pair<std::string, std::vector<float>>> features_set;

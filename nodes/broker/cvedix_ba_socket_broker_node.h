@@ -26,7 +26,7 @@
  * @endcode
  * 
  * @see cvedix_msg_broker_node Base class
- * @see cvedix_ba_crossline_node, cvedix_ba_jam_node, cvedix_ba_stop_node BA nodes
+ * @see cvedix_ba_line_crossline_node, cvedix_ba_area_jam_node, cvedix_ba_stop_node BA nodes
  */
 
 #pragma once

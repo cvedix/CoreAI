@@ -1,9 +1,0 @@
-<map id="nodes/common/cvedix_meta_hookable.h" name="nodes/common/cvedix_meta_hookable.h">
-<area shape="rect" id="Node000001" title="Hookable interface for monitoring metadata flow through nodes." alt="" coords="101,5,271,45"/>
-<area shape="rect" id="Node000002" href="$cvedix__node_8h.html" title="Base class definition for all pipeline nodes in Core AI Runtime." alt="" coords="101,93,271,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,59,189,93,183,93,183,59"/>
-<area shape="rect" id="Node000003" href="$cvedix__des__node_8h.html" title="Base class for all destination nodes in Core AI Runtime." alt="" coords="5,181,175,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,145,113,183,109,179,153,141"/>
-<area shape="rect" id="Node000004" href="$cvedix__src__node_8h.html" title="Base class for all source nodes in Core AI Runtime." alt="" coords="199,181,368,221"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="219,140,264,179,260,183,216,144"/>
-</map>

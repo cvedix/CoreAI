@@ -1,7 +1,0 @@
-<map id="cvedix_nodes::cvedix_des_node::handle_control_meta" name="cvedix_nodes::cvedix_des_node::handle_control_meta">
-<area shape="rect" id="Node000001" title="Process incoming control meta." alt="" coords="247,53,483,93"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__app__des__node.html#aa79e7bfe2797275bde69970415a958fb" title="Process control meta and invoke callback." alt="" coords="15,5,189,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,55,189,49,190,43,234,50"/>
-<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__screen__des__node.html#af03477b0f820aa3bc4e79962eb8fbfc2" title="Handle control meta." alt="" coords="5,84,199,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,95,199,100,199,94,233,89"/>
-</map>

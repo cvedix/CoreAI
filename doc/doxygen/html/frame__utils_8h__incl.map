@@ -1,7 +1,0 @@
-<map id="nodes/common/frame_utils.h" name="nodes/common/frame_utils.h">
-<area shape="rect" id="Node000001" title="Utility functions for frame processing." alt="" coords="97,5,263,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,168,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,48,111,93,108,89,157,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="192,93,355,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,44,244,82,241,86,199,48"/>
-</map>

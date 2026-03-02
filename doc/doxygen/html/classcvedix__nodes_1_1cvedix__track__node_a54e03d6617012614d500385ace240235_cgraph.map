@@ -1,9 +1,0 @@
-<map id="cvedix_nodes::cvedix_track_node::handle_frame_meta" name="cvedix_nodes::cvedix_track_node::handle_frame_meta">
-<area shape="rect" id="Node000001" title="Handle incoming frame meta." alt="" coords="5,69,245,109"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__track__node.html#aa3f04369539bce3bf1ee94c08ebbce67" title="Write track results back to frame meta." alt="" coords="293,5,480,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,67,291,46,292,51,208,72"/>
-<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__track__node.html#acbe6608d57cce7db931f77d938faa121" title="Extract tracking data from frame meta." alt="" coords="297,69,477,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,87,283,87,283,92,245,92"/>
-<area shape="rect" id="Node000004" href="$classcvedix__nodes_1_1cvedix__track__node.html#a4c7521fd9f00dd0713a37ce6fafa38ce" title="Execute tracking algorithm." alt="" coords="305,133,468,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,107,292,128,291,133,207,112"/>
-</map>

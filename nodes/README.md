@@ -47,6 +47,25 @@ file_src_1                                                                --> tr
   - cvedix_ba_crossline_node：Phát hiện vượt đường
   - cvedix_ba_jam_node：Phát hiện tắc đường
   - cvedix_ba_stop_node：Phát hiện dừng lại
+  - cvedix_ba_area_crowding_node：Phát hiện đám đông trong vùng
+  - cvedix_ba_area_dwell_time_node：Đo thời gian lưu lại trong vùng
+  - cvedix_ba_area_enter_exit_node：Phát hiện vào/ra vùng
+  - cvedix_ba_area_loitering_node：Phát hiện lảng vảng
+  - cvedix_ba_area_parking_violation_node：Phát hiện đỗ xe sai quy định
+  - cvedix_ba_area_queue_length_node：Đo chiều dài hàng đợi
+  - cvedix_ba_fall_detection_node：Phát hiện ngã
+  - cvedix_ba_fight_detection_node：Phát hiện đánh nhau
+  - cvedix_ba_line_counting_node：Đếm qua đường kẻ
+  - cvedix_ba_line_direction_violation_node：Phát hiện đi sai chiều
+  - cvedix_ba_line_speed_estimation_node：Ước tính tốc độ
+  - cvedix_ba_movement_node：Phát hiện chuyển động
+  - **cvedix_ba_line_wrong_way_node**：Phát hiện đi ngược chiều (xác nhận đa đường kẻ)
+  - **cvedix_ba_area_lane_violation_node**：Phát hiện vi phạm làn đường theo loại xe
+  - **cvedix_ba_line_red_light_violation_node**：Phát hiện vượt đèn đỏ + vượt vạch dừng
+  - **cvedix_ba_area_no_entry_zone_node**：Phát hiện vi phạm vùng cấm theo loại xe/giờ
+  - **cvedix_ba_area_illegal_turn_node**：Phát hiện rẽ không đúng quy định tại ngã tư
+  - **cvedix_ba_area_helmet_violation_node**：Phát hiện không đội mũ bảo hiểm
+  - **cvedix_ba_line_illegal_uturn_node**：Phát hiện quay đầu xe sai quy định
 </details>
 
 <details open>
@@ -66,6 +85,17 @@ file_src_1                                                                --> tr
 
 <details open>
   <summary>infers</summary>
+
+  - cvedix_yolo_detector_node：Phát hiện vật thể YOLO (ONNX/DNN)
+  - cvedix_yolov11_detector_node：Phát hiện vật thể YOLOv11 (ONNX)
+  - cvedix_trt_yolov11_detector_node：Phát hiện vật thể YOLOv11 (TensorRT)
+  - cvedix_classifier_node：Phân loại ảnh (secondary)
+  - cvedix_feature_encoder_node：Trích xuất embedding (ReID)
+  - cvedix_facenet_node：Nhận diện khuôn mặt
+  - cvedix_mllm_analyser_node：Phân tích ảnh bằng LLM
+  - **cvedix_clip_node**：CLIP zero-shot classification (full-frame → description)
+  - **cvedix_clip_secondary_node**：CLIP per-target classification (secondary → labels + embeddings)
+</details>
   
   - cvedix_classifier_node：Node phân loại hình ảnh dựa trên resnet series（opencv::dnn）
   - cvedix_enet_seg_node：Node phân đoạn hình ảnh dựa trên mạng ENet（opencv::dnn）
@@ -78,13 +108,13 @@ file_src_1                                                                --> tr
   - cvedix_restoration_node：Node nâng cấp và khôi phục hình ảnh dựa trên real-esrgan（opencv::dnn）
   - cvedix_sface_feature_encoder_node：Node trích xuất đặc trưng khuôn mặt dựa trên mạng sface（opencv::dnn）
   - cvedix_trt_insight_face_recognition_node：Node trích xuất đặc trưng khuôn mặt dựa trên InsightFace ArcFace（tensorrt）
-  - cvedix_trt_vehicle_color_classifier：Node phân loại màu xe dựa trên resnet18（tensorrt）
-  - cvedix_trt_vehicle_detector：Node phát hiện xe dựa trên yolov5s（tensorrt）
-  - cvedix_trt_vehicle_feature_encoder：Node trích xuất đặc trưng xe dựa trên fastreid（tensorrt）
-  - cvedix_trt_vehicle_plate_detector_v2：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（một cấp suy luận）（tensorrt）
-  - cvedix_trt_vehicle_plate_detector：Node phát hiện và nhận dạng biển số xe dựa trên yolov5s（hai cấp suy luận）（tensorrt）
-  - cvedix_trt_vehicle_scanner：Node quét thân xe dựa trên yolov5s（tensorrt）
-  - cvedix_trt_vehicle_type_classifier：Node phân loại loại xe dựa trên resnet18（tensorrt）
+  - ~~cvedix_trt_vehicle_color_classifier~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_detector~~ (đã xóa - thay bằng cvedix_trt_yolov11_detector_node)
+  - ~~cvedix_trt_vehicle_feature_encoder~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_plate_detector_v2~~ (đã xóa - thay bằng cvedix_trt_yolov11_plate_detector_node)
+  - ~~cvedix_trt_vehicle_plate_detector~~ (đã xóa - thay bằng cvedix_trt_yolov11_plate_detector_node)
+  - ~~cvedix_trt_vehicle_scanner~~ (đã xóa - TRT 10.x incompatible)
+  - ~~cvedix_trt_vehicle_type_classifier~~ (đã xóa - TRT 10.x incompatible)
   - cvedix_yolo_detector_node：Node phát hiện đối tượng dựa trên yolov3（bao gồm tiny）（opencv::dnn）
   - yolo_yunet_face_detector_node：Node phát hiện khuôn mặt dựa trên mạng yunet（opencv::dnn）
 

@@ -201,9 +201,13 @@ namespace cvedix_nodes {
     }
 
     void cvedix_node::initialized() {
-        // start threads since all resources have been initialized
-        this->handle_thread = std::thread(&cvedix_node::handle_run, this);
-        this->dispatch_thread = std::thread(&cvedix_node::dispatch_run, this);
+
+        if (handle_thread.joinable() || dispatch_thread.joinable()) {
+            throw std::runtime_error("Node already initialized");
+        }
+
+        handle_thread = std::thread(&cvedix_node::handle_run, this);
+        dispatch_thread = std::thread(&cvedix_node::dispatch_run, this);
     }
 
     void cvedix_node::deinitialized() {

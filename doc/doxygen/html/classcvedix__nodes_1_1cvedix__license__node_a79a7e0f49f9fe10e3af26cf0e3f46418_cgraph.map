@@ -1,7 +1,0 @@
-<map id="cvedix_nodes::cvedix_license_node::create_simple_request" name="cvedix_nodes::cvedix_license_node::create_simple_request">
-<area shape="rect" id="Node000001" title="Tạo license request đơn giản (chỉ cần hardware ID)" alt="" coords="5,41,168,96"/>
-<area shape="rect" id="Node000002" href="$classcvedix__nodes_1_1cvedix__license__node.html#a5a7129aea8935704030cd0928bf588be" title="Tạo license request để gửi cho nhà cung cấp." alt="" coords="250,5,413,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,54,236,44,237,49,169,59"/>
-<area shape="rect" id="Node000003" href="$classcvedix__nodes_1_1cvedix__license__node.html#ac1bb6e3ab029f25225bf3d6ed41a8174" title="Lấy Hardware ID của máy hiện tại." alt="" coords="216,85,447,125"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,78,203,83,202,88,168,83"/>
-</map>

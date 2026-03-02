@@ -12,7 +12,6 @@ namespace cvedix_nodes {
                                         broke_for(broke_for),
                                         broking_cache_warn_threshold(broking_cache_warn_threshold),
                                         broking_cache_ignore_threshold(broking_cache_ignore_threshold) {
-        this->initialized();
         broking_th = std::thread(&cvedix_msg_broker_node::broking_run, this);
     }
     

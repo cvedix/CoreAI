@@ -1,0 +1,105 @@
+# AI Core Runtime - Makefile
+# Provides convenient targets for setup and building
+# 
+# Usage from project root:
+#   make setup
+#   make build
+#
+# Or: make -f scripts/Makefile.project <target>
+
+# Get the directory where this Makefile is located (remove trailing slash)
+SCRIPTS_DIR := $(patsubst %/,%,$(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
+
+.PHONY: setup setup-auto build build-cpu build-rockchip clean package help
+
+# Default target
+help:
+	@echo "AI Core Runtime - Available targets:"
+	@echo ""
+	@echo "  Usage:"
+	@echo "    make -f scripts/Makefile.project <target>"
+	@echo ""
+	@echo "  Setup:"
+	@echo "    setup        - Install dependencies (interactive, asks about optional deps)"
+	@echo "    setup-auto   - Install dependencies (non-interactive, base deps only)"
+	@echo ""
+	@echo "  Build:"
+	@echo "    build        - Build with auto-detected hardware"
+	@echo "    build-cpu    - Build for CPU only"
+	@echo "    build-rockchip - Build for Rockchip RK35xx"
+	@echo ""
+	@echo "  Package:"
+	@echo "    package-cpu      - Create .deb package for CPU"
+	@echo "    package-rockchip - Create .deb package for Rockchip"
+	@echo ""
+	@echo "  Other:"
+	@echo "    clean        - Clean build directory"
+	@echo "    info         - Show detected hardware info"
+
+# Install dependencies (interactive)
+setup:
+	@echo "Installing dependencies for AI Core Runtime..."
+	@chmod +x $(SCRIPTS_DIR)/setup_dependencies.sh
+	@$(SCRIPTS_DIR)/setup_dependencies.sh
+
+# Install dependencies (non-interactive, base only)
+setup-auto:
+	@echo "Installing base dependencies (non-interactive)..."
+	@sudo apt-get update
+	@sudo apt-get install -y \
+		build-essential cmake git pkg-config \
+		libopencv-dev libeigen3-dev libssl-dev \
+		libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+		libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev \
+		gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+		gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+		gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-rtsp \
+		libgstrtspserver-1.0-dev
+	@echo "Base dependencies installed successfully!"
+
+# Show hardware info
+info:
+	@echo "Hardware Information:"
+	@echo "  Architecture: $$(uname -m)"
+	@echo -n "  Platform: "
+	@if [ -f /proc/device-tree/compatible ]; then \
+		COMPAT=$$(cat /proc/device-tree/compatible 2>/dev/null | tr '\0' '\n' | head -1); \
+		if echo "$$COMPAT" | grep -qi "rockchip"; then echo "Rockchip"; \
+		elif echo "$$COMPAT" | grep -qi "nvidia"; then echo "NVIDIA Jetson"; \
+		else echo "Unknown embedded"; fi; \
+	elif command -v nvidia-smi &> /dev/null; then \
+		echo "NVIDIA GPU (x86_64)"; \
+	else \
+		echo "CPU only"; \
+	fi
+
+# Build with auto-detected settings
+build:
+	@mkdir -p build && cd build && cmake .. && make -j$$(nproc)
+
+# Build for CPU only
+build-cpu:
+	@chmod +x $(SCRIPTS_DIR)/build_with_cpu.sh
+	@$(SCRIPTS_DIR)/build_with_cpu.sh
+
+# Build for Rockchip
+build-rockchip:
+	@mkdir -p build && cd build && \
+		cmake -DCVEDIX_WITH_RKNN=ON -DCVEDIX_WITH_RGA=ON .. && \
+		make -j$$(nproc)
+
+# Create .deb package for CPU
+package-cpu:
+	@chmod +x $(SCRIPTS_DIR)/build_cpu_deb_package.sh
+	@$(SCRIPTS_DIR)/build_cpu_deb_package.sh
+
+# Create .deb package for Rockchip
+package-rockchip:
+	@chmod +x $(SCRIPTS_DIR)/build_rockchip_package.sh
+	@$(SCRIPTS_DIR)/build_rockchip_package.sh
+
+# Clean build artifacts
+clean:
+	@echo "Cleaning build directories..."
+	@rm -rf build build_pkg_cpu build_pkg_rockchip
+	@echo "Clean complete!"

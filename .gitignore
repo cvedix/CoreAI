@@ -193,6 +193,9 @@ debian/sdk-build/
 
 # Files and directories to exclude when packaging SDK
 build/
+bundle*/
+deb_pkg/
+release/
 build_sdk/
 build_pkg/
 output/
@@ -211,3 +214,30 @@ output/
 *.tmp
 cmake-build-*/
 output/
+
+# Video and media files
+*.avi
+*.mp4
+*.mkv
+*.mov
+*.wmv
+*.webm
+
+# Model files (large binaries)
+*.engine
+*.onnx
+*.pt
+*.pth
+*.rknn
+
+# Data folder
+cvedix_data/
+
+# Allow trt_vehicle models
+!third_party/trt_vehicle/models/
+!third_party/trt_vehicle/models/**
+
+*.deb 
+*.tar.gz
+*.tgz
+video_output/

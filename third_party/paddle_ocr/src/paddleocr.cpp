@@ -21,15 +21,19 @@ namespace PaddleOCR {
 PPOCR::PPOCR(std::string det_model_dir, 
                 std::string cls_model_dir, 
                 std::string rec_model_dir,
-                std::string rec_char_dict_path) {
+                std::string rec_char_dict_path,
+                bool use_tensorrt,
+                std::string precision) {
   if (!det_model_dir.empty()) {
-    this->detector_ = new DBDetector(det_model_dir);
+    // Pass config to detector
+    this->detector_ = new DBDetector(det_model_dir, true, 0, 4000, 4, false, "max", 960, 0.3, 0.5, 1.6, "slow", false, use_tensorrt, precision);
   }
   if (!cls_model_dir.empty()) {
     this->classifier_ = new Classifier(cls_model_dir);
   }
   if (!rec_model_dir.empty() && !rec_char_dict_path.empty()) {
-    this->recognizer_ = new CRNNRecognizer(rec_model_dir, rec_char_dict_path);
+    // Pass config to recognizer
+    this->recognizer_ = new CRNNRecognizer(rec_model_dir, rec_char_dict_path, true, 0, 4000, 4, false, use_tensorrt, precision);
   }
 };
 

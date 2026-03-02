@@ -1,7 +1,0 @@
-<map id="nodes/osd/cvedix_plate_osd_node.h" name="nodes/osd/cvedix_plate_osd_node.h">
-<area shape="rect" id="Node000001" title="OSD for license plate recognition (LPR)" alt="" coords="95,5,269,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,169,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,48,112,93,109,89,159,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="193,93,363,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,44,248,82,245,86,202,48"/>
-</map>

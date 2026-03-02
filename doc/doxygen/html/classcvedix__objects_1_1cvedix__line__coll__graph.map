@@ -1,5 +1,0 @@
-<map id="cvedix_objects::cvedix_line" name="cvedix_objects::cvedix_line">
-<area shape="rect" id="Node000001" title="2D line segment" alt="" coords="5,123,207,148"/>
-<area shape="rect" id="Node000002" href="$classcvedix__objects_1_1cvedix__point.html" title="2D point" alt="" coords="21,5,191,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,59,109,122,103,122,103,59"/>
-</map>

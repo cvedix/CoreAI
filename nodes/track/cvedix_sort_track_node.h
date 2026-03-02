@@ -51,7 +51,9 @@ namespace cvedix_nodes {
         double GetIOU(cv::Rect_<float> bb_test, cv::Rect_<float> bb_gt);
     protected:
         // fill track_ids using sort algo
-        virtual void track(int channel_index, const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+        virtual void track(int channel_index, const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
+                        const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        const std::vector<float>& target_scores,
                         const std::vector<std::vector<float>>& target_embeddings, 
                         std::vector<int>& track_ids) override;
     public:

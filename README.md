@@ -29,6 +29,7 @@ AI Core Runtime là một framework giúp tích hợp mô hình thuật toán th
 ### 5.1 Phụ thuộc
 
 Nền tảng
+
 - Ubuntu 18.04 x86_64 NVIDIA rtx/tesla GPUs
 - Ubuntu 18.04 aarch64 NVIDIA jetson serials device，tx2 tested
 - Ubuntu 22.04 x86_64 by VMware virtual machine on Windows 10, pure CPUs
@@ -38,35 +39,71 @@ Nền tảng
 - Chờ bạn kiểm tra
 
 Cơ bản
+
 - C++ 17
 - OpenCV >= 4.6
 - GStreamer 1.14.5 (Required by OpenCV)
 - GCC >= 7.5
 
 Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mình hoặc sử dụng backend suy luận khác ngoài `opencv::dnn`.
-- CUDA
-- TensorRT
-- Paddle Inference
-- ONNX Runtime
-- mLLM（Ollama/vLLM/OpenAI-compatible API Services）
-- Bất kỳ thứ gì bạn thích
+
+- CUDA.
+- TensorRT.
+- Paddle Inference.
+- ONNX Runtime.
+- mLLM（Ollama/vLLM/OpenAI-compatible API Services）.
+- Bất kỳ thứ gì bạn thích.
 
 [Cách cài đặt CUDA và TensorRT](./third_party/trt_vehicle/README.md)
 
 [Cách cài đặt Paddle_Inference](./third_party/paddle_ocr/README.md)
 
-### 5.2 Cài đặt & Tích hợp SDK
+### 5.2 Cài đặt nhanh Dependencies
+
+Khi clone repository sang máy mới, sử dụng các lệnh sau để cài đặt dependencies tự động theo phần cứng:
+
+```bash
+# Cài đặt dependencies (interactive - hỏi về optional deps)
+make setup
+
+# Hoặc cài đặt tự động (chỉ base deps, không hỏi)
+make setup-auto
+```
+
+**Các lệnh Make có sẵn:**
+
+| Lệnh | Mô tả |
+|------|-------|
+| `make setup` | Cài đặt dependencies (tự động detect hardware) |
+| `make setup-auto` | Cài đặt base dependencies (non-interactive) |
+| `make build` | Build với auto-detect hardware |
+| `make build-cpu` | Build cho CPU only |
+| `make build-rockchip` | Build cho Rockchip RK35xx |
+| `make package-cpu` | Tạo .deb package cho CPU |
+| `make package-rockchip` | Tạo .deb package cho Rockchip |
+| `make info` | Hiển thị thông tin hardware đã detect |
+| `make clean` | Xóa build directories |
+
+Script `setup_dependencies.sh` sẽ tự động:
+
+- Phát hiện kiến trúc (x86_64, aarch64)
+- Phát hiện platform (Rockchip, Jetson, NVIDIA GPU, CPU-only)
+- Cài đặt dependencies phù hợp với phần cứng
+
+### 5.3 Cài đặt & Tích hợp SDK
 
 Thay vì biên dịch toàn bộ mã nguồn framework, chúng tôi khuyến nghị sử dụng SDK đã đóng gói để phát triển ứng dụng.
 
 #### 1. Cài đặt SDK
 
 Nếu bạn đã có gói `.deb`:
+
 ```bash
 sudo dpkg -i libcvedix-dev_*.deb
 ```
 
 Hoặc build và cài đặt SDK từ source (nếu chưa có gói pre-built):
+
 ```bash
 ./build_sdk.sh --prefix=/usr/local
 ```
@@ -115,9 +152,9 @@ int main() {
 }
 ```
 
-Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#54-các-mẫu-nguyên-mẫu).
+Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#55-các-mẫu-nguyên-mẫu).
 
-### 5.4 Các mẫu nguyên mẫu
+### 5.5 Các mẫu nguyên mẫu
 
 Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem thêm.
 
@@ -131,6 +168,7 @@ Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem
 Để triển khai dự án vào môi trường sản xuất (Production), chúng tôi cung cấp các công cụ đóng gói SDK và ứng dụng thành các gói cài đặt chuẩn (như `.deb` cho Debian/Ubuntu) để dễ dàng phân phối và cài đặt.
 
 ### 1. Quy trình đóng gói
+
 Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và aarch64 (như NVIDIA Jetson, Rockchip).
 
 - **Đóng gói SDK**: Tạo gói `.deb` chứa thư viện (`.so`), header files, và các công cụ hỗ trợ phát triển.
@@ -142,6 +180,7 @@ Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và 
   - Tự động bao gồm các mô hình từ `cvedix_data`.
 
 ### 2. Cài đặt và Sử dụng
+
 Sau khi đóng gói, việc cài đặt trên máy đích rất đơn giản:
 
 ```bash
@@ -155,5 +194,6 @@ pkg-config --modversion cvedix
 Sau khi cài đặt, SDK sẽ nằm trong hệ thống (thường là `/usr/lib` và `/usr/include`), cho phép bạn phát triển ứng dụng mới hoặc chạy ứng dụng đã biên dịch mà không cần thiết lập lại môi trường build phức tạp.
 
 ### 3. Tùy chọn triển khai
+
 - **Docker**: Bạn có thể sử dụng các gói `.deb` này để xây dựng Docker image nhỏ gọn cho ứng dụng của mình.
 - **Service**: Tích hợp với `systemd` để chạy ứng dụng như một dịch vụ nền (background service), tự động khởi động cùng hệ thống.

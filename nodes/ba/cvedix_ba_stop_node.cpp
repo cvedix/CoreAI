@@ -60,7 +60,7 @@ namespace cvedix_nodes {
         std::vector<int> hit_traget_ids;
         for (auto& target : meta->targets) {
             auto len = target->tracks.size();
-            auto loc = target->get_rect().track_point();
+            auto loc = target->get_rect().track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
 
             // target has been tracked AND tracked enough frames
             if (len < check_interval_frames || target->track_id < 0) {
@@ -71,7 +71,7 @@ namespace cvedix_nodes {
                 continue;
             }
 
-            auto pre_loc = target->tracks[len - check_interval_frames].track_point();
+            auto pre_loc = target->tracks[len - check_interval_frames].track_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM);
             if (pre_loc.distance_with(loc) <= check_max_distance) {
                 stop_checking_status[target->track_id]++;
                 hit_traget_ids.push_back(target->track_id);

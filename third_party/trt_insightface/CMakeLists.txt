@@ -24,6 +24,7 @@ message(STATUS "    version: ${CUDA_VERSION}")
 message(STATUS "    libraries: ${CUDA_LIBRARIES}")
 message(STATUS "    include path: ${CUDA_INCLUDE_DIRS}")
 include_directories(${CUDA_INCLUDE_DIRS})
+link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
 
 # Note: License checking is handled by cvedix_trt_insight_face_recognition_node
 # No need to add license checking here as the node will perform the check

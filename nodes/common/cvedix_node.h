@@ -103,8 +103,8 @@ namespace cvedix_nodes {
         /// @brief Flag indicating if node is alive and processing
         bool alive = true;
 
-        /// @brief Maximum size for input queue (default: 50)
-        int max_in_queue_size = 50;
+        /// @brief Maximum size for input queue (default: 200)
+        int max_in_queue_size = 200;
 
         /**
          * @brief Batch size for frame meta handling

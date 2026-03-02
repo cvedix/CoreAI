@@ -13,7 +13,10 @@ namespace cvedix_nodes {
         deinitialized();
     }
 
-    void cvedix_sort_track_node::track(int channel_index, const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+    void cvedix_sort_track_node::track(int channel_index, 
+					const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
+					const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+					const std::vector<float>& target_scores,
                     const std::vector<std::vector<float>>& target_embeddings, 
                     std::vector<int>& track_ids) {
         // fill track_ids according to target_rects (target_embeddings ignored)

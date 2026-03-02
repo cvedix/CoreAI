@@ -1,7 +1,0 @@
-<map id="cvedix_objects::cvedix_image_record_control_meta" name="cvedix_objects::cvedix_image_record_control_meta">
-<area shape="rect" id="Node000001" title="Image recording command." alt="" coords="5,167,216,207"/>
-<area shape="rect" id="Node000002" href="$classcvedix__objects_1_1cvedix__control__meta.html" title="Control metadata for commands." alt="" coords="25,79,196,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,133,113,166,108,166,108,133"/>
-<area shape="rect" id="Node000003" href="$classcvedix__objects_1_1cvedix__meta.html" title="Base class for all pipeline metadata." alt="" coords="5,5,216,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,44,113,79,108,79,108,44"/>
-</map>

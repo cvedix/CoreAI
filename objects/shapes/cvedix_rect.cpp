@@ -22,7 +22,7 @@ namespace cvedix_objects {
 
     }
     
-    cvedix_point cvedix_rect::center() {
+    cvedix_point cvedix_rect::center() const {
         return cvedix_point(x + width / 2, y + height / 2);
     }
 
@@ -34,8 +34,28 @@ namespace cvedix_objects {
         return true;
     }
 
-    cvedix_point cvedix_rect::track_point() {
-        // by default the center point of bottom is tracking point.
-        return {x + width / 2, y + height};
+    cvedix_point cvedix_rect::track_point( const cvedix_rect_anchor_point anchor) const {
+        switch(anchor) {
+            case cvedix_rect_anchor_point::CENTER:
+                return center();
+            case cvedix_rect_anchor_point::MID_TOP:
+                return cvedix_point(x + width / 2, y);
+            case cvedix_rect_anchor_point::MID_BOTTOM:
+                return cvedix_point(x + width / 2, y + height);
+            case cvedix_rect_anchor_point::MID_LEFT:
+                return cvedix_point(x, y + height / 2);
+            case cvedix_rect_anchor_point::MID_RIGHT:
+                return cvedix_point(x + width, y + height / 2);
+            case cvedix_rect_anchor_point::LEFT_TOP:
+                return cvedix_point(x, y);
+            case cvedix_rect_anchor_point::RIGHT_TOP:
+                return cvedix_point(x + width, y);
+            case cvedix_rect_anchor_point::LEFT_BOTTOM:
+                return cvedix_point(x, y + height);
+            case cvedix_rect_anchor_point::RIGHT_BOTTOM:
+                return cvedix_point(x + width, y + height);
+        }
+        // default to center point
+        return center();
     }
 }

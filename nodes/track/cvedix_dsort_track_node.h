@@ -22,7 +22,9 @@ namespace cvedix_nodes {
         /* config data for deep sort algo*/
     protected:
         // fill track_ids using deep sort algo
-        virtual void track(int channel_index, const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+        virtual void track(int channel_index, const std::shared_ptr<cvedix_objects::cvedix_frame_meta> frame_meta,
+                        const std::vector<cvedix_objects::cvedix_rect>& target_rects, 
+                        const std::vector<float>& target_scores,
                         const std::vector<std::vector<float>>& target_embeddings, 
                         std::vector<int>& track_ids) override;
     public:

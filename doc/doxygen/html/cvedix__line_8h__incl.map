@@ -1,9 +1,0 @@
-<map id="objects/ba/cvedix_line.h" name="objects/ba/cvedix_line.h">
-<area shape="rect" id="Node000001" title="2D line segment geometry primitive" alt="" coords="5,5,184,31"/>
-<area shape="rect" id="Node000002" href="$cvedix__point_8h.html" title="2D point geometry primitive" alt="" coords="36,79,153,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,97,65,92,65,92,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="22,152,82,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,106,68,142,64,139,85,103"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="106,152,169,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="104,103,126,139,121,142,99,106"/>
-</map>

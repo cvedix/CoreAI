@@ -12,7 +12,7 @@
 #include <mutex>
 #include "base/cvedix_primary_infer_node.h"
 #include "cvedix/objects/cvedix_frame_target.h"
-#include "rknn_yolov11.h"
+#include "third_party/rknn_yolov11/rknn_yolov11.h"
 
 namespace cvedix_nodes {
     /**
