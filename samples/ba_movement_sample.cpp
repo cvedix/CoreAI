@@ -5,7 +5,7 @@
 
 #include "cvedix/nodes/ba/cvedix_ba_movement_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
-#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_ov_yolov11_det_node.h"
 #include "cvedix/nodes/osd/cvedix_ba_area_enter_exit_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
@@ -25,12 +25,21 @@ int main() {
   auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
       "file_src", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.6);
 
+
   // Create detector
-  auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
-      "detector",
-      "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights",
-      "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg",
-      "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
+  auto detector = std::make_shared<cvedix_nodes::cvedix_ov_yolov11_det_node>(
+    "detector",
+    "./cvedix_data/models/ov/yolov11/yolo11n_openvino_model/yolo11n.xml",
+    "CPU",
+    0.25f,
+    0.45f
+  );
+//   // Create detector
+//   auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+//       "detector",
+//       "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights",
+//       "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg",
+//       "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
 
   // Create tracker
   auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>(
