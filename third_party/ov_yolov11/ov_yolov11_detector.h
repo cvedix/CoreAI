@@ -23,6 +23,7 @@ struct Detection {
     float bbox[4];    // center_x, center_y, width, height (relative to input size)
     float conf;       // confidence score
     int class_id;     // class ID
+    std::string class_name;  // class name/label
 };
 
 /**
@@ -50,8 +51,13 @@ private:
     float conf_threshold = 0.25f;
     float nms_threshold = 0.45f;
     
+    // Class labels
+    std::vector<std::string> labels;
+    
     // Internal methods
     bool load_model(const std::string& model_path, const std::string& device);
+    bool load_labels(const std::string& labels_path);
+    bool load_metadata_yaml(const std::string& yaml_path);
     void preprocess(const cv::Mat& image, float* input_buffer);
     void postprocess(float* output, std::vector<Detection>& detections, const cv::Size& original_size);
     void apply_nms(std::vector<Detection>& detections);
@@ -63,11 +69,13 @@ public:
      * @param device Device to run on ("CPU", "GPU", "AUTO", etc.)
      * @param conf_threshold Confidence threshold (default: 0.25)
      * @param nms_threshold NMS threshold (default: 0.45)
+     * @param labels_path Path to labels file (optional, one label per line)
      */
     ov_yolov11_detector(const std::string& model_path,
                         const std::string& device = "CPU",
                         float conf_threshold = 0.25f,
-                        float nms_threshold = 0.45f);
+                        float nms_threshold = 0.45f,
+                        const std::string& labels_path = "");
     
     ~ov_yolov11_detector();
     
@@ -92,10 +100,12 @@ public:
     int get_num_classes() const { return num_classes; }
     float get_conf_threshold() const { return conf_threshold; }
     float get_nms_threshold() const { return nms_threshold; }
+    const std::vector<std::string>& get_labels() const { return labels; }
     
     // Setters
     void set_conf_threshold(float thresh) { conf_threshold = thresh; }
     void set_nms_threshold(float thresh) { nms_threshold = thresh; }
+    void set_labels(const std::vector<std::string>& new_labels) { labels = new_labels; }
 };
 
 /**

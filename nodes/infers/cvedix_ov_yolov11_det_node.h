@@ -13,6 +13,8 @@
  *     "CPU",  // or "GPU", "AUTO"
  *     0.25f,  // confidence threshold
  *     0.45f   // NMS threshold
+ *     "labels.txt"  // optional labels file path
+ * 
  * );
  * detector->attach_to({src_node});
  * @endcode
@@ -74,13 +76,16 @@ public:
      * @param device          Device to run on ("CPU", "GPU", "AUTO", etc.)
      * @param conf_threshold  Confidence threshold for detections (default: 0.25)
      * @param nms_threshold   NMS IoU threshold (default: 0.45)
+     * @param labels_path     Optional path to class labels file (one label per line)
      */
     cvedix_ov_yolov11_det_node(
         const std::string& node_name,
         const std::string& model_path,
         const std::string& device = "CPU",
         float conf_threshold = 0.25f,
-        float nms_threshold = 0.45f);
+        float nms_threshold = 0.45f, 
+        const std::string& labels_path = ""
+    );
     
     ~cvedix_ov_yolov11_det_node();
     

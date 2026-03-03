@@ -16,7 +16,8 @@ cvedix_ov_yolov11_det_node::cvedix_ov_yolov11_det_node(
     const std::string& model_path,
     const std::string& device,
     float conf_threshold,
-    float nms_threshold)
+    float nms_threshold,
+    const std::string& labels_path)
     : cvedix_primary_infer_node(node_name, "", "", ""),
       conf_threshold(conf_threshold),
       nms_threshold(nms_threshold),
@@ -25,7 +26,7 @@ cvedix_ov_yolov11_det_node::cvedix_ov_yolov11_det_node(
     try {
         // Create OpenVINO detector
         detector = std::make_shared<ov_yolov11::ov_yolov11_detector>(
-            model_path, device, conf_threshold, nms_threshold);
+            model_path, device, conf_threshold, nms_threshold, labels_path);
         
         CVEDIX_INFO(cvedix_utils::string_format(
             "[%s] OpenVINO YOLOv11 Object Detector initialized: %dx%d, device=%s, conf=%.2f, nms=%.2f",
@@ -117,7 +118,7 @@ void cvedix_ov_yolov11_det_node::run_infer_combinations(
                 det.conf,
                 frame_meta->frame_index,
                 frame_meta->channel_index,
-                std::to_string(det.class_id)
+                det.class_name
             );
             
             frame_meta->targets.push_back(target);
