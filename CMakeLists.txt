@@ -20,6 +20,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 option(CVEDIX_WITH_GSTREAMER "prepared GStreamer or not?" ON)
 option(CVEDIX_WITH_CUDA "prepared CUDA or not?" OFF)
 option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
+option(CVEDIX_WITH_OPENVINO "prepared OpenVINO or not?" OFF)
 option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
 option(CVEDIX_WITH_KAFKA "prepared Kafka or not?" OFF)
 option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
@@ -152,6 +153,15 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     list(APPEND CVEDIX_DEPEND_LIBS trt_botsort)
     message("--------------end build trt_botsort---------------")
 
+endif()
+
+# OpenVINO
+if(CVEDIX_WITH_OPENVINO)
+    add_definitions(-DCVEDIX_WITH_OPENVINO)
+    message("--------------start build ov_yolov11--------------")
+    add_subdirectory(third_party/ov_yolov11)
+    list(APPEND CVEDIX_DEPEND_LIBS ov_yolov11)
+    message("--------------end build ov_yolov11---------------")
 endif()
 
 # optional for PaddlePaddle
