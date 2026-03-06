@@ -22,6 +22,10 @@ namespace cvedix_utils {
     }
 
     void cvedix_logger::init() {
+        std::lock_guard<std::mutex> guard(init_mutex);
+        if (inited) {
+            return;
+        }
         inited = true;
 
         // initialize file writer

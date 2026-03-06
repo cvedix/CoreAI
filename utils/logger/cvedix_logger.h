@@ -41,6 +41,7 @@ namespace cvedix_utils {
         std::queue<std::string> log_cache;
         cvedix_utils::cvedix_semaphore log_cache_semaphore;
         std::mutex log_cache_mutex;
+        std::mutex init_mutex;
         std::thread log_writer_th;
 
         // initialized or not
@@ -124,7 +125,7 @@ namespace cvedix_utils {
     #define CVEDIX_SET_LOG_DIR(_log_dir) cvedix_utils::cvedix_logger::get_logger().log_dir = _log_dir
     #define CVEDIX_SET_LOG_KAFKA_SERVERS_AND_TOPIC(_kafka_servers_and_topic) cvedix_utils::cvedix_logger::get_logger().kafka_servers_and_topic = _kafka_servers_and_topic
     #define CVEDIX_SET_LOG_TO_CONSOLE(_log_to_console) cvedix_utils::cvedix_logger::get_logger().log_to_console = _log_to_console
-    #define CVEDIX_SET_LOG_TO_FILE(_log_to_file) cvedix_utils::cvedix_logger::get_logger().log_to_console = _log_to_file
+    #define CVEDIX_SET_LOG_TO_FILE(_log_to_file) cvedix_utils::cvedix_logger::get_logger().log_to_file = _log_to_file
     #define CVEDIX_SET_LOG_TO_KAFKA(_log_to_kafka) cvedix_utils::cvedix_logger::get_logger().log_to_kafka = _log_to_kafka
     #define CVEDIX_SET_LOG_INCLUDE_LEVEL(_include_level) cvedix_utils::cvedix_logger::get_logger().include_level = _include_level
     #define CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(_include_code_location) cvedix_utils::cvedix_logger::get_logger().include_code_location = _include_code_location

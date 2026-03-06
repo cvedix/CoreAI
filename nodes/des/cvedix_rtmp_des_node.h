@@ -30,6 +30,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
+#include <chrono>
 #include "cvedix/nodes/common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
@@ -46,8 +47,8 @@ namespace cvedix_nodes {
     class cvedix_rtmp_des_node: public cvedix_des_node
     {
     private:
-        /// @brief GStreamer pipeline template
-        std::string gst_template = "appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! flvmux ! rtmpsink location=%s";
+        /// @brief GStreamer pipeline (built dynamically per encoder)
+        std::string gst_pipeline;
         /// @brief OpenCV video writer
         cv::VideoWriter rtmp_writer;
 
@@ -83,7 +84,8 @@ namespace cvedix_nodes {
                         cvedix_objects::cvedix_size resolution_w_h = {}, 
                         int bitrate = 1024,
                         bool osd = true,
-                        std::string gst_encoder_name = "x264enc");
+                        std::string gst_encoder_name = "x264enc",
+                        bool append_channel_suffix = true);
 
         /// @brief Destructor
         ~cvedix_rtmp_des_node();
@@ -101,6 +103,16 @@ namespace cvedix_nodes {
         bool osd;
         /// @brief GStreamer encoder name
         std::string gst_encoder_name = "x264enc";
+        /// @brief Whether to suffix stream key with _<channel_index>
+        bool append_channel_suffix = true;
+
+    private:
+        /// @brief Reconnect cooldown timestamp
+        std::chrono::steady_clock::time_point reconnect_cooldown_until;
+        /// @brief Number of reconnect attempts
+        int reconnect_attempts = 0;
+        /// @brief Consecutive write failure count
+        int write_fail_count = 0;
     };
 }
 
