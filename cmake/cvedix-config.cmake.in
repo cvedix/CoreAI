@@ -4,8 +4,17 @@ include(CMakeFindDependencyMacro)
 
 # Find dependencies
 find_dependency(OpenCV)
-# Add other dependencies if they are public (headers included in public headers)
-# find_dependency(GStreamer) # etc.
+
+if(@CVEDIX_WITH_GSTREAMER@)
+    find_dependency(PkgConfig)
+endif()
+
+if(@CVEDIX_WITH_LLM@)
+    find_dependency(OpenSSL)
+endif()
+
+find_dependency(Eigen3)
+
 
 include("${CMAKE_CURRENT_LIST_DIR}/cvedix-targets.cmake")
 

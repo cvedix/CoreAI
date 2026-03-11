@@ -23,7 +23,8 @@ message(STATUS "CUDA library status:")
 message(STATUS "    version: ${CUDA_VERSION}")
 message(STATUS "    libraries: ${CUDA_LIBRARIES}")
 message(STATUS "    include path: ${CUDA_INCLUDE_DIRS}")
-include_directories(${CUDA_INCLUDE_DIRS})
+include_directories(${CUDA_TOOLKIT_ROOT_DIR}/include)
+link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
 
 # OpenCV required
 find_package(OpenCV REQUIRED)
