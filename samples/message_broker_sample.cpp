@@ -1,6 +1,6 @@
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_face_detector_node.h"
 #include "cvedix/nodes/infers/cvedix_sface_feature_encoder_node.h"
 #include "cvedix/nodes/broker/cvedix_json_console_broker_node.h"
 #include "cvedix/nodes/broker/cvedix_xml_file_broker_node.h"
