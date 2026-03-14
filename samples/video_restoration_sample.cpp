@@ -1,6 +1,6 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/src/cvedix_image_src_node.h"
-#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_face_detector_node.h"
 #include "cvedix/nodes/infers/cvedix_restoration_node.h"
 #include "cvedix/nodes/osd/cvedix_face_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
