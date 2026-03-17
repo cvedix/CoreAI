@@ -3,8 +3,6 @@
  * @brief TensorRT YOLOv11 detector – multi-head DFL + fused fallback
  */
 
-#ifdef CVEDIX_WITH_TRT
-
 #include "trt_yolov11_detector.h"
 #include <fstream>
 #include <iostream>
@@ -539,5 +537,3 @@ cv::Rect get_rect(const cv::Mat& img, const float bbox[4], int input_w, int inpu
 }
 
 } // namespace trt_yolov11
-
-#endif // CVEDIX_WITH_TRT

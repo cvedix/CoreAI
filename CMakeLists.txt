@@ -94,6 +94,9 @@ if(CVEDIX_WITH_CUDA) # CUDA enabled
     add_definitions(-DCVEDIX_WITH_CUDA)
 endif()
 
+# onnx by opencv this is default CPU
+add_subdirectory(third_party/onnx_yolov11)
+
 # optional for TensorRT
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
@@ -137,8 +140,6 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     # trt_yolov11
     message("-------------start build trt_yolov11--------------")
     add_subdirectory(third_party/trt_yolov11)
-    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11)
-    include_directories(${CMAKE_SOURCE_DIR}/third_party)
     message("--------------end build trt_yolov11---------------")
     
     # trt_yolov11_face
@@ -155,12 +156,11 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
 
 endif()
 
-# OpenVINO
+# OpenVINO - must be linked to core since cvedix_ov_yolov11_det_node uses it
 if(CVEDIX_WITH_OPENVINO)
     add_definitions(-DCVEDIX_WITH_OPENVINO)
     message("--------------start build ov_yolov11--------------")
     add_subdirectory(third_party/ov_yolov11)
-    list(APPEND CVEDIX_DEPEND_LIBS ov_yolov11)
     message("--------------end build ov_yolov11---------------")
 endif()
 
@@ -889,28 +889,6 @@ if(CVEDIX_WITH_RKNN)
     endif()
 endif()
 
-# TensorRT Plugin
-if(CVEDIX_WITH_TRT)
-    file(GLOB_RECURSE TRT_PLUGIN_NODES "nodes/*trt*.cpp")
-    # Exclude nodes that depend on disabled sub-projects
-    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*face_recognition_trt.*")
-    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*trt_insight.*")
-    
-    if(TRT_PLUGIN_NODES)
-        add_library(cvedix_backend_trt MODULE ${TRT_PLUGIN_NODES})
-        target_link_libraries(cvedix_backend_trt cvedix_core ${CVEDIX_DEPEND_LIBS} nvinfer cudart)
-        # Note: CUDA_LIBRARIES might be needed?
-        
-        target_compile_definitions(cvedix_backend_trt PRIVATE CVEDIX_WITH_TRT CVEDIX_WITH_CUDA)
-        
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
-        set_target_properties(cvedix_backend_trt PROPERTIES 
-            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
-            PREFIX "lib"
-        )
-        install(TARGETS cvedix_backend_trt DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
-    endif()
-endif()
 
 # Link licensecxx if license checking is enabled
 if(CVEDIX_WITH_LICENSE)
