@@ -112,6 +112,7 @@ Inference node thực hiện **suy luận AI** theo pipeline 4 bước: `prepare
 
 | Node | Backend | Mô tả |
 |------|---------|--------|
+| `cvedix_face_recognizer_node` | SeetaFace6 | **All-in-one**: detect + landmark + recognize + database. Dual-model mask support. [Hướng dẫn chi tiết](FACE_RECOGNIZER_SEETAFACE6.md) |
 | `cvedix_face_recognition_node` | OpenCV DNN | Nhận dạng khuôn mặt (InsightFace/ArcFace) |
 | `cvedix_face_recognition_ort_node` | ONNX Runtime | Nhận dạng khuôn mặt (ONNX) |
 | `cvedix_face_recognition_trt_node` | TensorRT | Nhận dạng khuôn mặt GPU |

@@ -708,6 +708,28 @@ else()
     set(CVEDIX_WITH_ORT OFF)
 endif()
 
+# optional for SeetaFace6 (face detection, recognition, landmarks, etc.)
+set(SEETAFACE6_DIR ${CMAKE_SOURCE_DIR}/third_party/seetaface6)
+set(SEETAFACE6_BUILD_DIR ${SEETAFACE6_DIR}/build)
+if(EXISTS ${SEETAFACE6_BUILD_DIR}/lib AND EXISTS ${SEETAFACE6_BUILD_DIR}/include)
+    add_definitions(-DCVEDIX_WITH_SEETAFACE)
+    include_directories(${SEETAFACE6_BUILD_DIR}/include)
+    link_directories(${SEETAFACE6_BUILD_DIR}/lib)
+    list(APPEND CVEDIX_DEPEND_LIBS
+        SeetaFaceDetector600
+        SeetaFaceLandmarker600
+        SeetaFaceRecognizer610
+        SeetaMaskDetector200
+        tennis
+    )
+    set(CVEDIX_WITH_SEETAFACE ON)
+    message(STATUS "SeetaFace6 found at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes will be available")
+else()
+    message(STATUS "SeetaFace6 not built at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes disabled")
+    message(STATUS "  To build: cd ${SEETAFACE6_DIR} && bash build_seetaface6.sh")
+    set(CVEDIX_WITH_SEETAFACE OFF)
+endif()
+
 # tinyexpr
 message("-------------start build tinyexpr--------------")
 add_subdirectory(third_party/tinyexpr)
@@ -835,6 +857,11 @@ endif()
 # Exclude ONNX Runtime-based nodes if ORT is not available
 if(NOT CVEDIX_WITH_ORT)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*_ort_node.*")
+endif()
+
+# Exclude SeetaFace-based nodes if SeetaFace6 is not built
+if(NOT CVEDIX_WITH_SEETAFACE)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
 endif()
 
 # Add EIGEN
@@ -1099,6 +1126,9 @@ endif()
 if(CVEDIX_WITH_LICENSE)
     add_subdirectory(tools)
 endif()
+
+# build for benchmarks
+add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---

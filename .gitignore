@@ -241,3 +241,4 @@ cvedix_data/
 *.tar.gz
 *.tgz
 video_output/
+datasets/

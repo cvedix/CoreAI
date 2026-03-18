@@ -4,8 +4,10 @@
 
 #include "utils/ctxmgr_lite.h"
 #include "utils/platform.h"
+#include <cstdlib>
 
 #include <sstream>
+#include <cstdlib>
 
 namespace ts {
     static inline std::string no_lite_build_message(const std::thread::id &id) {
