@@ -1,14 +1,19 @@
 #include "kernels/cpu/memory_cpu.h"
+#include <cstdlib>
 
 #include "utils/static.h"
+#include <cstdlib>
 
 #include "global/hard_allocator.h"
 #include "global/hard_converter.h"
 #include "global/memory_device.h"
+#include <cstdlib>
 
 #include "utils/assert.h"
+#include <cstdlib>
 
 #include <cstring>
+#include <cstdlib>
 
 namespace ts {
     void *cpu_allocator(int id, size_t new_size, void *mem, size_t mem_size) {
