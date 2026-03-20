@@ -76,16 +76,16 @@ void onnx_yolov11_detector::preprocess(const cv::Mat& image, cv::Mat& blob) {
     cv::Mat resized;
     cv::resize(image, resized, cv::Size(input_width, input_height));
 
-    // Convert to RGB if needed
-    cv::Mat rgb;
-    if (image.channels() == 3) {
-        cv::cvtColor(resized, rgb, cv::COLOR_BGR2RGB);
-    } else {
-        rgb = resized;
-    }
+    // // Convert to RGB if needed
+    // cv::Mat rgb;
+    // if (image.channels() == 3) {
+    //     cv::cvtColor(resized, rgb, cv::COLOR_BGR2RGB);
+    // } else {
+    //     rgb = resized;
+    // }
 
     // Create blob with normalization (0-1 range)
-    blob = cv::dnn::blobFromImage(rgb, 1.0 / 255.0, cv::Size(input_width, input_height),
+    blob = cv::dnn::blobFromImage(resized, 1.0 / 255.0, cv::Size(input_width, input_height),
                                   cv::Scalar(0, 0, 0), true, false, CV_32F);
 }
 
@@ -223,10 +223,16 @@ void onnx_yolov11_detector::detect(const std::vector<cv::Mat>& images,
         cv::Mat output = net.forward(output_layer_name);
 
         // Handle different output shapes
-        // Reshape if needed: some models output [1, num_detections, 84]
+        // Reshape if needed: some models output [1, num_detections, 84] or [1, 84, num_detections]
         if (output.dims == 3) {
-            // Shape: [1, num_detections, 84]
-            output = output.reshape(1, output.size[1]);  // [num_detections, 84]
+            if (output.size[1] == 84 && output.size[2] == 8400) {
+                // Shape: [1, 84, 8400] - transpose to [8400, 84]
+                cv::Mat temp = output.reshape(0, 84);  // Reshape to [84, 8400]
+                output = temp.t();  // Transpose to [8400, 84]
+            } else {
+                // Shape: [1, num_detections, 84]
+                output = output.reshape(1, output.size[1]);  // [num_detections, 84]
+            }
         } else if (output.dims == 2 && output.rows == 1) {
             // Shape: [1, num_detections * 84]
             int num_detections = output.cols / (4 + num_classes);

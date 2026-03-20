@@ -1,6 +1,6 @@
 #include "cvedix/nodes/src/cvedix_app_src_node.h"
-#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/infers/cvedix_face_detector_node.h"
+#include "cvedix/nodes/osd/cvedix_face_osd_node.h"
 #include "cvedix/nodes/des/cvedix_app_des_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
@@ -19,8 +19,8 @@ int main() {
 
     // create nodes
     auto app_src_0 = std::make_shared<cvedix_nodes::cvedix_app_src_node>("app_src_0", 0);
-    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
-    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
+    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
+    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_face_osd_node>("osd_0");
     auto app_des_0 = std::make_shared<cvedix_nodes::cvedix_app_des_node>("app_des_0", 0);
 
     // register callback to display result

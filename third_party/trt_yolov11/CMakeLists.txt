@@ -27,5 +27,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE nvinfer cudart ${OpenCV_LIBS})
 
 # Install rules
 install(TARGETS ${PROJECT_NAME}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
 )
