@@ -802,6 +802,11 @@ if(NOT CVEDIX_WITH_ORT)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*_ort_node.*")
 endif()
 
+# Exclude SeetaFace-based nodes if SeetaFace6 is not built
+if(NOT CVEDIX_WITH_SEETAFACE)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
+endif()
+
 # Add EIGEN
 set(EIGEN_VERSION 3.3)
 find_package(Eigen3 ${EIGEN_VERSION} QUIET)
@@ -1042,6 +1047,9 @@ endif()
 if(CVEDIX_WITH_LICENSE)
     add_subdirectory(tools)
 endif()
+
+# build for benchmarks
+add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
