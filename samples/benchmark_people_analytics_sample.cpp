@@ -22,7 +22,7 @@
 #ifdef CVEDIX_WITH_TRT
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_hybrid_track_node.h"
 
 // BA nodes
@@ -225,11 +225,12 @@ int main(int argc, char** argv) {
             "src", 0, video_path, 1.0f, false
         );
 
-        auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
-            "detector", engine_path,
-            "./cvedix_data/models/coco_80_labels_list.txt",
-            0.25f, 0.45f
-        );
+        auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+                        "yolo_detector",
+                        "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+                        "./cvedix_data/models/yolov11/onnx/labels.txt",
+                        0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
+
         detector->set_allowed_classes({0}); // person only
 
         auto tracker = std::make_shared<cvedix_nodes::cvedix_hybrid_track_node>(

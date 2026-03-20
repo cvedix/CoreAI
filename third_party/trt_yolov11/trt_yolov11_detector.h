@@ -12,8 +12,6 @@
  * Also supports fused single-output engines [1, 84, 8400].
  */
 
-#ifdef CVEDIX_WITH_TRT
-
 #include <string>
 #include <vector>
 #include <memory>
@@ -143,5 +141,3 @@ public:
 cv::Rect get_rect(const cv::Mat& img, const float bbox[4], int input_w, int input_h);
 
 } // namespace trt_yolov11
-
-#endif // CVEDIX_WITH_TRT
