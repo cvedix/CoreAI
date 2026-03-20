@@ -98,6 +98,17 @@ public:
     }
 
     /**
+     * @brief Set allowed class IDs from initializer list
+     * @param class_ids Initializer list of class IDs to allow
+     */
+    void set_allowed_classes(const std::initializer_list<int>& class_ids) {
+        allowed_class_ids.clear();
+        for (int id : class_ids) {
+            allowed_class_ids.insert(id);
+        }
+    }
+
+    /**
      * @brief Get label for a class ID
      */
     std::string get_label(int class_id) const;

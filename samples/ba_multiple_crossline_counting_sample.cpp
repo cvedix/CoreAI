@@ -23,7 +23,12 @@ int main() {
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.4);
-    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
+    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+      "yolo_detector",
+      "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+      "./cvedix_data/models/yolov11/onnx/labels.txt",
+      0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
+      
     auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>("track_0", cvedix_nodes::cvedix_track_for::NORMAL, 0.5, 0.9, 0.6, 20, 15); 
 
     // define a line in frame for every channel (value MUST in the scope of frame'size)

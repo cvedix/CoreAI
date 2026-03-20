@@ -16,7 +16,7 @@
 #ifdef CVEDIX_WITH_TRT
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_accident_detection_node.h"
 #include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
@@ -42,11 +42,16 @@ int main(int argc, char** argv) {
     );
 
     // === 2. Detector: YOLOv11 (vehicles + motorcycle) ===
-    auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
-        "detector", engine_path,
-        "./cvedix_data/models/coco_80_labels_list.txt",
-        0.15f, 0.45f
+    auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+        "yolo_detector",                              // node name
+        "./cvedix_data/models/yolov11/tensorrt/yolo11n.engine", // TensorRT engine file
+        "./cvedix_data/models/yolov11/tensorrt/labels.txt",  // labels file
+        0.45,   // confidence threshold
+        0.5,     // NMS threshold
+        0,
+        cvedix_nodes::BackendType::TENSORRT
     );
+    
     // COCO: 0=person, 1=bicycle, 2=car, 3=motorcycle, 5=bus, 7=truck
     detector->set_allowed_classes({0, 1, 2, 3, 5, 7});
 

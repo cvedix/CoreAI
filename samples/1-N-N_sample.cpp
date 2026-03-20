@@ -21,12 +21,12 @@ int main() {
     auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", false, true);  // split by deep-copy not by channel!
 
     // branch a
-    auto yunet_face_detector_a = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_a", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
+    auto yunet_face_detector_a = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_a", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
     auto osd_a = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd_a");
     auto screen_des_a = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_a", 0);
 
     // branch b
-    auto yunet_face_detector_b = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_b", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
+    auto yunet_face_detector_b = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_b", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
     auto osd_b = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd_b");
     auto screen_des_b = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_b", 0);
 

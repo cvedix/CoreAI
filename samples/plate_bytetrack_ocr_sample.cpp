@@ -23,7 +23,7 @@
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_plate_recogniton_ppocr3.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
@@ -153,8 +153,11 @@ int main(int argc, char **argv) {
     // 2. DETECTOR - YOLOv11 TensorRT
     // ============================================
     auto detector =
-        std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
-            "plate_detector", engine_path, "", 0.35f, 0.45f);
+        std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+          "yolo_detector",
+          "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+          "./cvedix_data/models/yolov11/onnx/labels.txt",
+          0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
 
     // ============================================
     // 3. TRACKER - ByteTrack
