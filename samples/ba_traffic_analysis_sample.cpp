@@ -15,7 +15,7 @@
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_speed_estimation_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_accident_detection_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 
 #include <thread>
@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
     );
 
     // === 6. OSD ===
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 
     // === 7. File output ===
     std::experimental::filesystem::create_directories("./output");

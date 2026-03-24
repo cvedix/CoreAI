@@ -18,8 +18,8 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.5);
-    auto rtsp_src_1 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_1", 1, "rtsp://admin:admin12345@192.168.3.157", 0.4, "avdec_h264", 2);  // skip 2 frames every 3 frames
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 1.0);
+    auto rtsp_src_1 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_1", 1, "rtsp://admin:admin12345@192.168.3.157", 1.0, "avdec_h264", 2);  // skip 2 frames every 3 frames
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
     auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", true);
     auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");

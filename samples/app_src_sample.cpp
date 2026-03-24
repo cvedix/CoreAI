@@ -1,6 +1,6 @@
 #include "cvedix/nodes/src/cvedix_app_src_node.h"
 #include "cvedix/nodes/infers/cvedix_ppocr_text_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_text_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
@@ -20,7 +20,7 @@ int main() {
                                 "./cvedix_data/models/text/ppocr/ch_ppocr_mobile_v2.0_cls_infer",
                                 "./cvedix_data/models/text/ppocr/ch_PP-OCRv3_rec_infer",
                                 "./cvedix_data/models/text/ppocr/ppocr_keys_v1.txt");
-    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_text_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
     // construct pipeline

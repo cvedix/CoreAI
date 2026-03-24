@@ -2,7 +2,7 @@
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
@@ -349,7 +349,7 @@ int main(int argc, char** argv) {
 
     // create nodes
     // Using file source for consistency with original sample
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.4);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 1.0);
     
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
     
@@ -365,7 +365,7 @@ int main(int argc, char** argv) {
     auto mqtt_broker_node = std::make_shared<cvedix_json_crossline_mqtt_broker_node>(
         "mqtt_broker_node", mqtt_publish_crossline_data);
 
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
     
     // construct pipeline

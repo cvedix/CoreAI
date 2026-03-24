@@ -1,6 +1,6 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_lane_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_lane_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
@@ -15,9 +15,9 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.6, true, "avdec_h264", 4);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 1.0, true, "avdec_h264", 4);
     auto lane_detector = std::make_shared<cvedix_nodes::cvedix_lane_detector_node>("lane_detector", "./cvedix_data/models/lane/lane_det.onnx");
-    auto lane_osd = std::make_shared<cvedix_nodes::cvedix_lane_osd_node>("lane_osd");
+    auto lane_osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("lane_osd");
     auto screen_des_0_osd = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0_osd", 0);    
     auto srceen_des_0_ori = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("srceen_des_0_ori", 0, false);
 

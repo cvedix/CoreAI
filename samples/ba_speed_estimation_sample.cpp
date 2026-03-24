@@ -14,7 +14,7 @@
 #include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
 #include "cvedix/nodes/track/cvedix_ocsort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_speed_estimation_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
     );
 
     // === 5. OSD: draw detection lines and speed on frame ===
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
     // Lines hidden from display (no set_line_configs call)
 
     // === 6. File output (MP4) ===

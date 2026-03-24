@@ -1,7 +1,7 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_area_crowding_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_area_crowding_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
@@ -42,7 +42,7 @@ int main() {
     };
 
     auto ba_crowding = std::make_shared<cvedix_nodes::cvedix_ba_area_crowding_node>("ba_crowding", rois, configs, 30, false, false);
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_area_crowding_osd_node>("crowding_osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("crowding_osd");
     // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);\
 
     // Optional use rtmp

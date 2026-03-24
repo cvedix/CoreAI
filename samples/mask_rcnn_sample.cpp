@@ -1,7 +1,7 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_mask_rcnn_detector_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
-#include "cvedix/nodes/osd/cvedix_osd_node_v3.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
@@ -16,10 +16,10 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/mask_rcnn.mp4", 0.6);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/mask_rcnn.mp4", 1.0);
     auto mask_rcnn_detector = std::make_shared<cvedix_nodes::cvedix_mask_rcnn_detector_node>("mask_rcnn_detector", "./cvedix_data/models/mask_rcnn/frozen_inference_graph.pb", "./cvedix_data/models/mask_rcnn/mask_rcnn_inception_v2_coco_2018_01_28.pbtxt", "./cvedix_data/models/coco_80classes.txt");
     auto track_0 = std::make_shared<cvedix_nodes::cvedix_sort_track_node>("sort_track_0");
-    auto osd_v3_0 = std::make_shared<cvedix_nodes::cvedix_osd_node_v3>("osd_v3_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto osd_v3_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_v3_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
     // construct pipeline

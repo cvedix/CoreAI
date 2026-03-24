@@ -6,7 +6,7 @@
 #include "cvedix/nodes/ba/cvedix_ba_movement_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_ov_yolov11_det_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_area_enter_exit_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
@@ -69,7 +69,7 @@ int main() {
       "ba_movement", areas, configs, false, false);
       
   // Create OSD and screen
-  auto osd = std::make_shared<cvedix_nodes::cvedix_ba_area_enter_exit_osd_node>("osd");
+  auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 //   auto screen = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen", 0);
 
   // Optional use rtmp

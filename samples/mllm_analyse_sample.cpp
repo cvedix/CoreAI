@@ -1,6 +1,6 @@
 #include "cvedix/nodes/src/cvedix_image_src_node.h"
 #include "cvedix/nodes/infers/cvedix_mllm_analyser_node.h"
-#include "cvedix/nodes/osd/cvedix_mllm_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
@@ -18,7 +18,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto image_src_0 = std::make_shared<cvedix_nodes::cvedix_image_src_node>("image_file_src_0", 0, "./cvedix_data/test_images/llm/writing/%d.jpg", 2, 0.5);
+    auto image_src_0 = std::make_shared<cvedix_nodes::cvedix_image_src_node>("image_file_src_0", 0, "./cvedix_data/test_images/llm/writing/%d.jpg", 2, 1.0);
     auto understanding_prompt = "一句话描述图片内容，要求包含：\n"
                                 "1. 对天气的描述\n"
                                 "2. 对环境的描述\n"
@@ -36,7 +36,7 @@ int main() {
                                                                              "http://192.168.77.219:11434",          // api base url
                                                                              "",                                     // api key (not required by Ollama)
                                                                              llmlib::LLMBackendType::Ollama);        // backend type, make sure Ollama is installed at 192.168.77.219
-    auto mllm_osd_0 = std::make_shared<cvedix_nodes::cvedix_mllm_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
+    auto mllm_osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
 
     // construct pipeline
