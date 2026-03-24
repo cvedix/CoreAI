@@ -26,12 +26,12 @@ int main() {
     // For TensorRT backend:
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",                              // node name
-        "./cvedix_data/models/yolov11/tensorrt/yolo11n.engine", // TensorRT engine file
-        "./cvedix_data/models/yolov11/tensorrt/labels.txt",  // labels file
+        "./cvedix_data/models/yolov11/onnx/yolo11n.onnx", // ONNX model file
+        "./cvedix_data/models/yolov11/onnx/labels.txt",  // labels file
         0.45,   // confidence threshold
         0.5,     // NMS threshold
         0,
-        cvedix_nodes::BackendType::TENSORRT
+        cvedix_nodes::BackendType::ONNX
     );
     
     // Optional: Configure detector

@@ -73,68 +73,105 @@ bool onnx_yolov11_detector::load_model(const std::string& onnx_path) {
 
 // ──────────────────────── preprocess ──────────────────
 void onnx_yolov11_detector::preprocess(const cv::Mat& image, cv::Mat& blob) {
+    int orig_w = image.cols;
+    int orig_h = image.rows;
+
+    float scale = std::min(
+        static_cast<float>(input_width) / orig_w,
+        static_cast<float>(input_height) / orig_h
+    );
+
+    int new_w = static_cast<int>(round(orig_w * scale));
+    int new_h = static_cast<int>(round(orig_h * scale));
+
+    int pad_w = (input_width - new_w) / 2;
+    int pad_h = (input_height - new_h) / 2;
+
+    // Store letterbox parameters for postprocessing
+    letterbox_scale = scale;
+    letterbox_pad_x = pad_w;
+    letterbox_pad_y = pad_h;
+
+    // Resize maintaining aspect ratio
     cv::Mat resized;
-    cv::resize(image, resized, cv::Size(input_width, input_height));
+    cv::resize(image, resized, cv::Size(new_w, new_h));
 
-    // // Convert to RGB if needed
-    // cv::Mat rgb;
-    // if (image.channels() == 3) {
-    //     cv::cvtColor(resized, rgb, cv::COLOR_BGR2RGB);
-    // } else {
-    //     rgb = resized;
-    // }
+    // Apply padding (114 is standard YOLO padding color)
+    cv::Mat padded(input_height, input_width, CV_8UC3, cv::Scalar(114, 114, 114));
+    resized.copyTo(padded(cv::Rect(pad_w, pad_h, new_w, new_h)));
 
-    // Create blob with normalization (0-1 range)
-    blob = cv::dnn::blobFromImage(resized, 1.0 / 255.0, cv::Size(input_width, input_height),
-                                  cv::Scalar(0, 0, 0), true, false, CV_32F);
+    // Create blob
+    blob = cv::dnn::blobFromImage(
+        padded,
+        1.0 / 255.0,
+        cv::Size(input_width, input_height),
+        cv::Scalar(0, 0, 0),
+        true,   // BGR -> RGB
+        false,
+        CV_32F
+    );
 }
 
 // ──────────────────────── postprocess ──────────────────
-void onnx_yolov11_detector::postprocess(cv::Mat& output, const cv::Size& original_size,
-                                         std::vector<Detection>& detections) {
+void onnx_yolov11_detector::postprocess(
+    cv::Mat& output,
+    const cv::Size& original_size,
+    std::vector<Detection>& detections) {
+
     detections.clear();
 
-    float x_factor = static_cast<float>(original_size.width) / input_width;
-    float y_factor = static_cast<float>(original_size.height) / input_height;
-
-    // Output format: [1, num_detections, 84]
-    // Each detection: [x, y, w, h, obj_conf, class_scores...]
-
-    // output is typically [1, 8400, 84] after forward pass
     int num_detections = output.rows;
-    int data_size = output.cols;
 
     for (int i = 0; i < num_detections; i++) {
         float* row = output.ptr<float>(i);
 
-        // Extract bbox and objectness
         float cx = row[0];
         float cy = row[1];
-        float w = row[2];
-        float h = row[3];
+        float w  = row[2];
+        float h  = row[3];
+
         float max_class_conf = 0.0f;
         int best_class = 0;
 
         for (int c = 0; c < num_classes; c++) {
-            float class_conf = row[4 + c];   // 🔥 bắt đầu từ 4
-            if (class_conf > max_class_conf) {
-                max_class_conf = class_conf;
+            float conf = row[4 + c];
+            if (conf > max_class_conf) {
+                max_class_conf = conf;
                 best_class = c;
             }
         }
 
-        float conf = max_class_conf;
+        if (max_class_conf < conf_threshold) continue;
 
-        if (conf < conf_threshold) {
-            continue;
-        }
+        // ── Convert to xyxy (letterbox space) ──
+        float x1 = cx - w * 0.5f;
+        float y1 = cy - h * 0.5f;
+        float x2 = cx + w * 0.5f;
+        float y2 = cy + h * 0.5f;
+
+        // ── Remove letterbox padding and scale back to original image ──
+        x1 = (x1 - letterbox_pad_x) / letterbox_scale;
+        y1 = (y1 - letterbox_pad_y) / letterbox_scale;
+        x2 = (x2 - letterbox_pad_x) / letterbox_scale;
+        y2 = (y2 - letterbox_pad_y) / letterbox_scale;
+
+        // Clamp to image bounds
+        x1 = std::max(0.0f, std::min(x1, (float)original_size.width));
+        y1 = std::max(0.0f, std::min(y1, (float)original_size.height));
+        x2 = std::max(0.0f, std::min(x2, (float)original_size.width));
+        y2 = std::max(0.0f, std::min(y2, (float)original_size.height));
+
+        float final_cx = (x1 + x2) * 0.5f;
+        float final_cy = (y1 + y2) * 0.5f;
+        float final_w  = (x2 - x1);
+        float final_h  = (y2 - y1);
 
         Detection det;
-        det.bbox[0] = cx * x_factor;
-        det.bbox[1] = cy * y_factor;
-        det.bbox[2] = w * x_factor;
-        det.bbox[3] = h * y_factor;
-        det.conf = conf;
+        det.bbox[0] = final_cx;
+        det.bbox[1] = final_cy;
+        det.bbox[2] = final_w;
+        det.bbox[3] = final_h;
+        det.conf = max_class_conf;
         det.class_id = best_class;
 
         detections.push_back(det);

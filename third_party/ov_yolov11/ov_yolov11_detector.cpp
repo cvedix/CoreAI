@@ -133,12 +133,11 @@ bool ov_yolov11_detector::load_model(const std::string& model_path, const std::s
         // 2) Add preprocessing steps:
         //    - Convert BGR to RGB (OpenCV uses BGR, YOLO expects RGB)
         //    - Convert u8 to f32 and normalize to [0, 1] range
-        //    - Resize from input tensor size to model input size
+        //    - NO auto-resize: we handle letterbox manually
         ppp.input().preprocess()
             .convert_color(ov::preprocess::ColorFormat::RGB)
             .convert_element_type(ov::element::f32)
-            .scale(255.0f)
-            .resize(ov::preprocess::ResizeAlgorithm::RESIZE_LINEAR);
+            .scale(255.0f);
         
         // 2.5) Tell PrePostProcessor that input color format is BGR
         ppp.input().tensor().set_color_format(ov::preprocess::ColorFormat::BGR);
@@ -152,7 +151,7 @@ bool ov_yolov11_detector::load_model(const std::string& model_path, const std::s
         // 5) Build preprocessed model
         model = ppp.build();
         
-        std::cout << "[ov_yolov11] PrePostProcessor configured: BGR u8 NHWC -> RGB f32 NCHW, normalized [0,1], with auto-resize" << std::endl;
+        std::cout << "[ov_yolov11] PrePostProcessor configured: BGR u8 NHWC -> RGB f32 NCHW, normalized [0,1], manual letterbox" << std::endl;
         
         // Compile model for target device
         compiled_model = core.compile_model(model, device);
@@ -168,31 +167,41 @@ bool ov_yolov11_detector::load_model(const std::string& model_path, const std::s
     }
 }
 
-// NOTE: This function is DEPRECATED - kept for reference only.
-// PrePostProcessor now handles all preprocessing automatically.
-// The new approach sends raw u8 BGR images directly to the model.
+// NOTE: This function implements manual letterbox preprocessing to maintain aspect ratio
 void ov_yolov11_detector::preprocess(const cv::Mat& image, float* input_buffer) {
-    (void)image;        // Suppress unused parameter warning
-    (void)input_buffer; // Suppress unused parameter warning
+    // ---- Letterbox: maintain aspect ratio with padding ----
+    float scale = std::min(static_cast<float>(input_width) / image.cols,
+                           static_cast<float>(input_height) / image.rows);
     
-    // Old manual preprocessing - no longer used
-    // PrePostProcessor handles: resize, layout conversion (NHWC->NCHW), 
-    // and element type conversion automatically.
+    int scaled_w = static_cast<int>(image.cols * scale);
+    int scaled_h = static_cast<int>(image.rows * scale);
     
-    /*
-    // Resize to input size
+    // Center the scaled image in the input canvas
+    int pad_left = (input_width - scaled_w) / 2;
+    int pad_top = (input_height - scaled_h) / 2;
+    
+    // Store letterbox parameters for postprocessing
+    letterbox_scale = scale;
+    letterbox_pad_x = pad_left;
+    letterbox_pad_y = pad_top;
+    
+    // Create a gray canvas (114 is standard YOLO padding color)
+    cv::Mat canvas(input_height, input_width, CV_8UC3, cv::Scalar(114, 114, 114));
+    
+    // Resize image and place it on the canvas
     cv::Mat resized;
-    cv::resize(image, resized, cv::Size(input_width, input_height));
+    cv::resize(image, resized, cv::Size(scaled_w, scaled_h));
+    resized.copyTo(canvas(cv::Rect(pad_left, pad_top, scaled_w, scaled_h)));
     
-    // Convert BGR to RGB
+    // Convert to RGB
     cv::Mat rgb;
-    cv::cvtColor(resized, rgb, cv::COLOR_BGR2RGB);
+    cv::cvtColor(canvas, rgb, cv::COLOR_BGR2RGB);
     
-    // Convert to float and normalize to [0, 1]
+    // Convert to float [0, 1]
     cv::Mat float_img;
     rgb.convertTo(float_img, CV_32FC3, 1.0 / 255.0);
     
-    // Convert HWC to CHW format
+    // Split channels and copy to input buffer
     std::vector<cv::Mat> channels(3);
     cv::split(float_img, channels);
     
@@ -200,7 +209,6 @@ void ov_yolov11_detector::preprocess(const cv::Mat& image, float* input_buffer) 
     for (int c = 0; c < 3; c++) {
         memcpy(input_buffer + c * channel_size, channels[c].data, channel_size * sizeof(float));
     }
-    */
 }
 
 void ov_yolov11_detector::postprocess(float* output, std::vector<Detection>& detections, 
@@ -208,15 +216,11 @@ void ov_yolov11_detector::postprocess(float* output, std::vector<Detection>& det
     detections.clear();
     
     // YOLOv11 output format: [1, 4+num_classes, num_boxes]
-    // Row 0-3: x, y, w, h (pixel coordinates relative to input_width x input_height)
+    // Row 0-3: x, y, w, h (pixel coordinates relative to letterbox input)
     // Row 4+: class scores
     
     int detected_count = 0;
     int threshold_filtered = 0;
-    
-    // Calculate scale factors (input size -> original image size)
-    float scale_x = static_cast<float>(original_size.width) / static_cast<float>(input_width);
-    float scale_y = static_cast<float>(original_size.height) / static_cast<float>(input_height);
     
     // Collect all scores for statistics
     std::vector<float> all_max_scores;
@@ -242,35 +246,51 @@ void ov_yolov11_detector::postprocess(float* output, std::vector<Detection>& det
             continue;
         }
         
-        // Get bbox (pixel coordinates relative to input size 640x640)
+        // Get bbox (pixel coordinates relative to letterbox input)
         float cx = output[0 * num_boxes + i];
         float cy = output[1 * num_boxes + i];
         float w = output[2 * num_boxes + i];
         float h = output[3 * num_boxes + i];
         
-        // Validate bbox - filter out invalid boxes
-        if (cx < 0 || cx > input_width || cy < 0 || cy > input_height) {
-            continue;  // Box center outside image
-        }
-        if (w <= 0 || h <= 0 || w > input_width * 1.5f || h > input_height * 1.5f) {
-            continue;  // Box size invalid or too large
-        }
+        // ── Remove letterbox padding and scale back to original image ──
+        // Convert from center coordinates to xyxy in letterbox space
+        float x1 = cx - w * 0.5f;
+        float y1 = cy - h * 0.5f;
+        float x2 = cx + w * 0.5f;
+        float y2 = cy + h * 0.5f;
+        
+        // Remove padding and scale back to original image space
+        x1 = (x1 - letterbox_pad_x) / letterbox_scale;
+        y1 = (y1 - letterbox_pad_y) / letterbox_scale;
+        x2 = (x2 - letterbox_pad_x) / letterbox_scale;
+        y2 = (y2 - letterbox_pad_y) / letterbox_scale;
+        
+        // Clamp to valid image bounds
+        x1 = std::max(0.0f, std::min(x1, (float)original_size.width));
+        y1 = std::max(0.0f, std::min(y1, (float)original_size.height));
+        x2 = std::max(0.0f, std::min(x2, (float)original_size.width));
+        y2 = std::max(0.0f, std::min(y2, (float)original_size.height));
+        
+        // Convert back to center coordinates
+        float final_cx = (x1 + x2) * 0.5f;
+        float final_cy = (y1 + y2) * 0.5f;
+        float final_w = (x2 - x1);
+        float final_h = (y2 - y1);
         
         // Debug: print first 3 detections
         if (detected_count < 3) {
             std::cout << "[DEBUG] Detection " << detected_count 
-                      << ": cx=" << cx << ", cy=" << cy 
-                      << ", w=" << w << ", h=" << h 
+                      << ": cx=" << final_cx << ", cy=" << final_cy 
+                      << ", w=" << final_w << ", h=" << final_h 
                       << ", conf=" << max_score 
                       << ", class=" << best_class << std::endl;
         }
         
-        // Scale bbox from input size to original image size
         Detection det;
-        det.bbox[0] = cx * scale_x;
-        det.bbox[1] = cy * scale_y;
-        det.bbox[2] = w * scale_x;
-        det.bbox[3] = h * scale_y;
+        det.bbox[0] = final_cx;
+        det.bbox[1] = final_cy;
+        det.bbox[2] = final_w;
+        det.bbox[3] = final_h;
         det.conf = max_score;
         det.class_id = best_class;
         
@@ -372,32 +392,36 @@ void ov_yolov11_detector::detect(const std::vector<cv::Mat>& images,
     
     if (images.empty()) return;
     
-    // Process each image (batch size 1 for now)
+    // Process each image
     for (size_t b = 0; b < images.size(); b++) {
         const cv::Mat& image = images[b];
         cv::Size original_size = image.size();
         
-        // Resize image to model input size (compiled model has fixed input shape)
-        cv::Mat resized_image;
-        if (image.cols != input_width || image.rows != input_height) {
-            cv::resize(image, resized_image, cv::Size(input_width, input_height));
-        } else {
-            resized_image = image;
+        // Apply letterbox preprocessing to maintain aspect ratio
+        std::vector<float> input_data(3 * input_height * input_width);
+        preprocess(image, input_data.data());
+        
+        // Create letterbox image (u8 for PrePostProcessor)
+        cv::Mat letterbox_img(input_height, input_width, CV_8UC3);
+        for (int c = 0; c < 3; c++) {
+            for (int h = 0; h < input_height; h++) {
+                for (int w = 0; w < input_width; w++) {
+                    int idx = h * input_width + w;
+                    letterbox_img.at<cv::Vec3b>(h, w)[c] = 
+                        static_cast<uint8_t>(input_data[c * input_height * input_width + idx] * 255.0f);
+                }
+            }
         }
         
         // Ensure image is continuous and BGR u8 format
         cv::Mat input_image;
-        if (!resized_image.isContinuous() || resized_image.type() != CV_8UC3) {
-            resized_image.convertTo(input_image, CV_8UC3);
-            if (!input_image.isContinuous()) {
-                input_image = input_image.clone();
-            }
+        if (!letterbox_img.isContinuous()) {
+            input_image = letterbox_img.clone();
         } else {
-            input_image = resized_image;
+            input_image = letterbox_img;
         }
         
         // Create input tensor with shape [1, H, W, C] (NHWC format)
-        // Must match model's expected input size after preprocessing
         ov::Shape input_shape = {1, static_cast<size_t>(input_height), 
                                   static_cast<size_t>(input_width), 3};
         
