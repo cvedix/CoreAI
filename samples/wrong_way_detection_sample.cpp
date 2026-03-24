@@ -13,7 +13,7 @@
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
   CVEDIX_INFO("  Label: WRONG_WAY");
 
   // 5. OSD for drawing crosslines
-  auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+  auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 
   // 6. Screen output
   auto screen =

@@ -32,8 +32,7 @@
 #include "cvedix/nodes/ba/cvedix_ba_line_wrong_way_node.h"
 
 // OSD nodes
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_area_crowding_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 
 // Output
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
@@ -263,7 +262,7 @@ int main(int argc, char** argv) {
             "ba_counting", count_settings, false, false
         );
 
-        auto osd_counting = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd_counting");
+        auto osd_counting = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_counting");
 
         // ==========================================================
         // 3. BA SUB-PIPELINE 2: Crowd Detection
@@ -285,7 +284,7 @@ int main(int argc, char** argv) {
             "ba_crowding", crowd_rois, crowd_configs, 25, false, false
         );
 
-        auto osd_crowding = std::make_shared<cvedix_nodes::cvedix_ba_area_crowding_osd_node>("osd_crowding");
+        auto osd_crowding = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_crowding");
 
         // ==========================================================
         // 4. BA SUB-PIPELINE 3: Loitering Detection

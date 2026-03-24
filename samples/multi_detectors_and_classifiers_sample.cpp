@@ -16,7 +16,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_stop.mp4", 0.6);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_stop.mp4", 1.0);
     /* primary detector */
     // labels for detector model
     // 0 - person

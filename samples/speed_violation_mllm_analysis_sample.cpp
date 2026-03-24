@@ -26,7 +26,7 @@
 #include "cvedix/nodes/infers/cvedix_speed_violation_mllm_trigger_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_speed_estimation_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 
 int main() {
@@ -95,7 +95,7 @@ int main() {
     );
 
     // === 6. OSD + File output ===
-    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
     auto file_des = std::make_shared<cvedix_nodes::cvedix_file_des_node>(
         "file_out", 0, "./output", "speed_mllm_", 10,
         cvedix_objects::cvedix_size(), 2048, true);

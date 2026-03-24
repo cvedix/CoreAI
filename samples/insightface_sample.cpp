@@ -1,7 +1,7 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
 #include "cvedix/nodes/infers/cvedix_insight_face_recognition_node.h"
-#include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
     );
 
     // OSD (visualization)
-    auto osd = std::make_shared<cvedix_nodes::cvedix_face_osd_node_v2>("osd");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 
     // Screen Display
     auto screen = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen", 0);

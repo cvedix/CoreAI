@@ -13,7 +13,7 @@
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_trt_yolov11_face_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_face_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
         );
         
         // 3. OSD - draw face boxes (use cvedix_face_osd_node for face_targets)
-        auto osd = std::make_shared<cvedix_nodes::cvedix_face_osd_node>("osd");
+        auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
         
         // 4. File Output - save to video file
         auto file_out = std::make_shared<cvedix_nodes::cvedix_file_des_node>(

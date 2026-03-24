@@ -1,7 +1,7 @@
 #include "cvedix/nodes/ffio/cvedix_ff_src_node.h"
 #include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
 #include "cvedix/nodes/infers/cvedix_sface_feature_encoder_node.h"
-#include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/ffio/cvedix_ff_des_node.h"
 
@@ -19,16 +19,16 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto ff_src_0 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_0", 0, "rtmp://192.168.77.196/live/1000", "h264", 0.5);
+    auto ff_src_0 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_0", 0, "rtmp://192.168.77.196/live/1000", "h264", 1.0);
     auto ff_des_0 = std::make_shared<cvedix_nodes::cvedix_ff_des_node>("ff_des_0", 0, "rtmp://192.168.77.196/live/0");
 
-    auto ff_src_1 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_1", 0, "rtmp://192.168.77.196/live/1000", "h264", 0.5);
+    auto ff_src_1 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_1", 0, "rtmp://192.168.77.196/live/1000", "h264", 1.0);
     auto ff_des_1 = std::make_shared<cvedix_nodes::cvedix_ff_des_node>("ff_des_1", 0, "rtmp://192.168.77.196/live/1");
 
-    auto ff_src_2 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_2", 0, "rtsp://192.168.77.213/live/mainstream", "h264", 0.5);
+    auto ff_src_2 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_2", 0, "rtsp://192.168.77.213/live/mainstream", "h264", 1.0);
     auto ff_des_2 = std::make_shared<cvedix_nodes::cvedix_ff_des_node>("ff_des_2", 0, "rtmp://192.168.77.196/live/2");
 
-    auto ff_src_3 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_3", 0, "rtsp://192.168.77.213/live/mainstream", "h264", 0.5);
+    auto ff_src_3 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_3", 0, "rtsp://192.168.77.213/live/mainstream", "h264", 1.0);
     auto ff_des_3 = std::make_shared<cvedix_nodes::cvedix_ff_des_node>("ff_des_3", 0, "rtmp://192.168.77.196/live/3");
 
     // construct pipeline

@@ -34,7 +34,7 @@
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_trt_yolov11_face_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_face_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 #include <cstdlib>
@@ -123,7 +123,7 @@ int main(int argc, char** argv) {
         );
         
         // 3. Create Face OSD Node to draw bounding boxes and landmarks
-        auto osd = std::make_shared<cvedix_nodes::cvedix_face_osd_node>("osd");
+        auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
         
         // 4. Create Screen Output Node
         auto screen_des = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des", 0);
