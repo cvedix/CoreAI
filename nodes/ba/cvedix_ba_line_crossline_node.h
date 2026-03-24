@@ -70,6 +70,9 @@ struct crossline_config {
   /// @brief Optional name/label for this line (e.g., "entrance", "exit")
   std::string name = "";
 
+  /// @brief UUID identifier for this line (maps to region_id/area_id in events)
+  std::string id = "";
+
   /// @brief Detection direction: IN, OUT, or BOTH (default: BOTH)
   cvedix_objects::cvedix_ba_direct_type direction =
       cvedix_objects::cvedix_ba_direct_type::BOTH;
@@ -93,11 +96,12 @@ struct crossline_config {
       : line(l), color(c), name(n),
         direction(cvedix_objects::cvedix_ba_direct_type::BOTH) {}
 
-  /// @brief Full constructor with line, color, name, and direction
+  /// @brief Full constructor with line, color, name, direction, and id
   crossline_config(const cvedix_objects::cvedix_line &l, const cv::Scalar &c,
                    const std::string &n,
-                   cvedix_objects::cvedix_ba_direct_type dir)
-      : line(l), color(c), name(n), direction(dir) {}
+                   cvedix_objects::cvedix_ba_direct_type dir,
+                   const std::string &area_id = "")
+      : line(l), color(c), name(n), direction(dir), id(area_id) {}
 };
 
 /**

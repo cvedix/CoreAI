@@ -171,7 +171,7 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
 
         // Bounding box — corner-bracket style (4 corners, green)
         if (_config.show_bbox) {
-            cv::Scalar box_color = has_crossed ? _config.alert_color : cv::Scalar(0, 255, 0);
+            cv::Scalar box_color = cv::Scalar(0, 255, 0); // Always green
             int th = _config.bbox_thickness;
             int x1 = i->x, y1 = i->y;
             int x2 = i->x + i->width, y2 = i->y + i->height;

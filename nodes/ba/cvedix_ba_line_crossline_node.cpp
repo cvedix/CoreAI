@@ -166,10 +166,11 @@ cvedix_ba_line_crossline_node::handle_frame_meta(
           ba_result->stamp_now();
           ba_result->region_type = "line";
           ba_result->region_index = static_cast<int>(line_index);
-          // Use config name if available
+          // Use config name/id if available
           if (all_configs.count(meta->channel_index) > 0 &&
               line_index < all_configs.at(meta->channel_index).size()) {
             ba_result->region_name = all_configs.at(meta->channel_index)[line_index].name;
+            ba_result->region_id = all_configs.at(meta->channel_index)[line_index].id;
           }
           ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
 
