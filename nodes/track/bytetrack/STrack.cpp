@@ -1,4 +1,7 @@
 #include "STrack.h"
+#include <random>
+#include <chrono>
+#include <limits>
 
 STrack::STrack(vector<float> tlwh_, float score)
 {
@@ -169,9 +172,10 @@ void STrack::mark_removed()
 
 int STrack::next_id()
 {
-	static int _count = 0;
-	_count++;
-	return _count;
+	static std::mt19937 rng(static_cast<unsigned>(
+		std::chrono::steady_clock::now().time_since_epoch().count()));
+	static std::uniform_int_distribution<int> dist(1, std::numeric_limits<int>::max());
+	return dist(rng);
 }
 
 int STrack::end_frame()

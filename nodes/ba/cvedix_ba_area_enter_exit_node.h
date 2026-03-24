@@ -71,6 +71,9 @@ struct area_alert_config {
   /// @brief Optional name/label for this area (e.g., "entrance", "restricted zone")
   std::string name = "";
 
+  /// @brief UUID identifier for this area (used as region_id/area_id in events)
+  std::string id = "";
+
   /// @brief Area color in BGR format (default: green) for visualization
   cv::Scalar color = cv::Scalar(0, 255, 0);
 
@@ -142,6 +145,12 @@ private:
 
   /// @brief Mutex for thread-safe area updates
   std::mutex areas_mutex;
+
+  /// @brief Whether to include cropped images of targets in ba_result
+  bool include_target_crops = false;
+
+  /// @brief Track enter timestamps: channel → track_id → area_index → enter_epoch_ms
+  std::map<int, std::map<int, std::map<int, double>>> enter_timestamps;
 
   /**
    * @brief Check if a point is inside a polygon using ray-casting algorithm

@@ -9,7 +9,8 @@ cvedix_ba_line_crossline_node::cvedix_ba_line_crossline_node(
     bool need_record_image, bool need_record_video)
     : cvedix_node(node_name), all_lines(lines),
       need_record_image(need_record_image),
-      need_record_video(need_record_video) {
+      need_record_video(need_record_video),
+      include_target_crops(false) {
   CVEDIX_INFO(cvedix_utils::string_format("[%s] %s", node_name.c_str(),
                                           to_string().c_str()));
   this->initialized();
@@ -20,7 +21,8 @@ cvedix_ba_line_crossline_node::cvedix_ba_line_crossline_node(
     std::string node_name, std::map<int, cvedix_objects::cvedix_line> lines,
     bool need_record_image, bool need_record_video)
     : cvedix_node(node_name), need_record_image(need_record_image),
-      need_record_video(need_record_video) {
+      need_record_video(need_record_video),
+      include_target_crops(false) {
   // Convert single-line map to multi-line map
   for (const auto &p : lines) {
     all_lines[p.first] = {p.second};
@@ -159,6 +161,17 @@ cvedix_ba_line_crossline_node::handle_frame_meta(
               cvedix_objects::cvedix_ba_type::CROSSLINE, meta->channel_index,
               meta->frame_index, involve_targets, involve_region, label,
               image_file_name_without_ext, video_file_name_without_ext);
+
+          // Populate enhanced fields
+          ba_result->stamp_now();
+          ba_result->region_type = "line";
+          ba_result->region_index = static_cast<int>(line_index);
+          // Use config name if available
+          if (all_configs.count(meta->channel_index) > 0 &&
+              line_index < all_configs.at(meta->channel_index).size()) {
+            ba_result->region_name = all_configs.at(meta->channel_index)[line_index].name;
+          }
+          ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
 
           meta->ba_results.push_back(ba_result);
 

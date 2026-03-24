@@ -50,6 +50,9 @@ namespace cvedix_nodes {
         
         /// @brief Optional name/label for this ROI (e.g., "lobby", "entrance")
         std::string name = "";
+
+        /// @brief UUID identifier for this area (used as region_id in events)
+        std::string id = "";
         
         /// @brief ROI color in BGR format (default: yellow) for visualization
         cv::Scalar color = cv::Scalar(0, 255, 255);
@@ -110,6 +113,9 @@ namespace cvedix_nodes {
     
         bool need_record_image;
         bool need_record_video;
+
+        /// @brief Whether to include cropped images of targets in ba_result
+        bool include_target_crops;
         
         /// @brief Mutex for thread-safe runtime configuration updates
         mutable std::mutex config_mutex;
@@ -127,13 +133,15 @@ namespace cvedix_nodes {
                                 std::map<int, crowding_config> configs,
                                 int fps = 30,
                                 bool need_record_image = true,
-                                bool need_record_video = false);
+                                bool need_record_video = false,
+                                bool include_target_crops = false);
         
         cvedix_ba_area_crowding_node(std::string node_name,
                     std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
                                 int fps = 30,
                                 bool need_record_image = true,
-                                bool need_record_video = false);
+                                bool need_record_video = false,
+                                bool include_target_crops = false);
     
         ~cvedix_ba_area_crowding_node();
     

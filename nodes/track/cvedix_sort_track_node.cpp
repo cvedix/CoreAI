@@ -6,7 +6,6 @@ namespace cvedix_nodes {
                                             cvedix_track_for track_for):
                                             cvedix_track_node(node_name, track_for) {
         this->initialized();
-        KalmanTracker::kf_count = 0;
     }
     
     cvedix_sort_track_node::~cvedix_sort_track_node() {

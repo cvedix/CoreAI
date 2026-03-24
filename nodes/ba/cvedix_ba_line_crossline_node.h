@@ -124,6 +124,9 @@ private:
   /// @brief Whether to trigger video recording on crossline event
   bool need_record_video;
 
+  /// @brief Whether to include cropped images of targets in ba_result
+  bool include_target_crops;
+
   /// @brief Mutex for thread-safe line updates
   std::mutex lines_mutex;
 

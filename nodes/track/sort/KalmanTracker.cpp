@@ -4,7 +4,7 @@
 #include "KalmanTracker.h"
 
 
-int KalmanTracker::kf_count = 0;
+// kf_count removed — now using next_random_id() for unique track IDs
 
 
 // initialize Kalman filter

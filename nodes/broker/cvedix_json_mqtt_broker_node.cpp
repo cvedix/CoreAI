@@ -15,8 +15,8 @@ namespace cvedix_nodes {
         json_transformer(json_transformer),
         mqtt_publisher(mqtt_publisher) {
         
-        // Note: initialized() is already called by base class cvedix_msg_broker_node
-        // Do not call it again here
+        // Start the node's handle/dispatch threads (same as all other broker implementations)
+        this->initialized();
         
         if (mqtt_publisher == nullptr) {
             CVEDIX_WARN(cvedix_utils::string_format("[%s] MQTT publisher function not set. Messages will be logged but not sent.", 
@@ -25,8 +25,9 @@ namespace cvedix_nodes {
     }
     
     cvedix_json_mqtt_broker_node::~cvedix_json_mqtt_broker_node() {
-        // Note: deinitialized() and stop_broking() are already called by base class
-        // Do not call them again here
+        // Stop processing threads and broking thread (same pattern as all other broker implementations)
+        deinitialized();
+        stop_broking();
     }
     
     void cvedix_json_mqtt_broker_node::set_json_transformer(std::function<std::string(const std::string&)> transformer) {
