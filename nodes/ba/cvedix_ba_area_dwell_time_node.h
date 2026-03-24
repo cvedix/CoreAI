@@ -25,11 +25,12 @@ namespace cvedix_nodes {
 struct dwell_time_config {
     double threshold_seconds;
     std::string name;
+    std::string id;
     cv::Scalar color;
     cvedix_objects::cvedix_rect_anchor_point anchor_point;
 
     dwell_time_config()
-        : threshold_seconds(30.0), name(""), color(cv::Scalar(0, 200, 255)),
+        : threshold_seconds(30.0), name(""), id(""), color(cv::Scalar(0, 200, 255)),
           anchor_point(cvedix_objects::cvedix_rect_anchor_point::MID_BOTTOM) {}
 
     dwell_time_config(double sec, const std::string& n = "",
@@ -59,6 +60,7 @@ private:
     int fps;
     bool need_record_image;
     bool need_record_video;
+    bool include_target_crops = false;
 
     mutable std::mutex config_mutex;
 

@@ -97,16 +97,14 @@ cvedix_ba_area_loitering_node::handle_frame_meta(
     {
         std::lock_guard<std::mutex> lock(config_mutex);
         
-        // if need applied on current channel or not
         if (all_rois.count(channel_id) == 0) {
             return meta;
         }
         
-        // Copy configuration for this channel
         roi_copy = all_rois[channel_id];
         config = (all_configs.count(channel_id) > 0) 
                  ? all_configs[channel_id] 
-                 : loitering_config(); // default: alarm=10s
+                 : loitering_config();
     }
  
     auto& ctx = all_channels[channel_id];
@@ -115,9 +113,6 @@ cvedix_ba_area_loitering_node::handle_frame_meta(
     const double dt = (fps > 0) ? (1.0 / fps) : 0.033;
     ctx.now_sec += dt;
  
-    std::vector<int> involve_targets;
- 
-    // only cvedix_frame_target
     for (auto& target : meta->targets) {
         if (!target || target->track_id < 0) continue;
  
@@ -129,17 +124,99 @@ cvedix_ba_area_loitering_node::handle_frame_meta(
  
         if (inside) {
             if (!st.inside) {
+                // Just entered the area
                 st.inside = true;
                 st.enter_ts = ctx.now_sec;
                 st.alarmed = false;
             } else {
+                // Still inside — check if dwell time exceeded
                 double dwell = ctx.now_sec - st.enter_ts;
                 if (dwell >= config.alarm_seconds && !st.alarmed) {
-                    involve_targets.push_back(target->track_id);
                     st.alarmed = true;
+
+                    // ── Emit LOITERING (start) event ──
+                    std::vector<int> involve_targets = {target->track_id};
+                    std::vector<cvedix_objects::cvedix_point> involve_region = roi_copy;
+
+                    std::string img_name = "", vid_name = "";
+                    if (need_record_image) {
+                        img_name = cvedix_utils::time_format(
+                            NOW, "loitering_ch" + std::to_string(channel_id) +
+                            "__<year><mon><day><hour><min><sec><mili>");
+                        pendding_meta(std::make_shared<cvedix_objects::cvedix_image_record_control_meta>(
+                            channel_id, img_name, true));
+                    }
+                    if (need_record_video) {
+                        vid_name = cvedix_utils::time_format(
+                            NOW, "loitering_ch" + std::to_string(channel_id) +
+                            "__<year><mon><day><hour><min><sec><mili>");
+                        pendding_meta(std::make_shared<cvedix_objects::cvedix_video_record_control_meta>(
+                            channel_id, vid_name));
+                    }
+
+                    std::string label = "loitering";
+                    if (!config.name.empty()) label += " (" + config.name + ")";
+
+                    auto ba_result = std::make_shared<cvedix_objects::cvedix_ba_result>(
+                        cvedix_objects::cvedix_ba_type::LOITERING,
+                        channel_id, meta->frame_index, involve_targets,
+                        involve_region, label, img_name, vid_name);
+
+                    ba_result->stamp_now();
+                    ba_result->region_type = "area";
+                    ba_result->region_name = config.name;
+                    ba_result->region_id = config.id;
+                    ba_result->region_index = channel_id;
+                    ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
+                    meta->ba_results.push_back(ba_result);
+
+                    CVEDIX_INFO(cvedix_utils::string_format(
+                        "[%s] [channel %d] target %d LOITERING (dwell: %.1fs)",
+                        node_name.c_str(), channel_id, target->track_id, dwell));
                 }
             }
         } else {
+            // Exited the area
+            if (st.inside && st.alarmed) {
+                // ── Emit LOITERING_END event ──
+                double dwell_sec = ctx.now_sec - st.enter_ts;
+                std::vector<int> involve_targets = {target->track_id};
+                std::vector<cvedix_objects::cvedix_point> involve_region = roi_copy;
+
+                std::string img_name = "", vid_name = "";
+                if (need_record_image) {
+                    img_name = cvedix_utils::time_format(
+                        NOW, "loitering_end_ch" + std::to_string(channel_id) +
+                        "__<year><mon><day><hour><min><sec><mili>");
+                    pendding_meta(std::make_shared<cvedix_objects::cvedix_image_record_control_meta>(
+                        channel_id, img_name, true));
+                }
+
+                std::string label = "loitering end";
+                if (!config.name.empty()) label += " (" + config.name + ")";
+
+                auto ba_result = std::make_shared<cvedix_objects::cvedix_ba_result>(
+                    cvedix_objects::cvedix_ba_type::LOITERING_END,
+                    channel_id, meta->frame_index, involve_targets,
+                    involve_region, label, img_name, vid_name);
+
+                ba_result->stamp_now();
+                ba_result->region_type = "area";
+                ba_result->region_name = config.name;
+                ba_result->region_id = config.id;
+                ba_result->region_index = channel_id;
+                ba_result->event_duration_ms = dwell_sec * 1000.0;
+                ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
+                meta->ba_results.push_back(ba_result);
+
+                CVEDIX_INFO(cvedix_utils::string_format(
+                    "[%s] [channel %d] target %d LOITERING_END (duration: %.0f ms)",
+                    node_name.c_str(), channel_id, target->track_id,
+                    ba_result->event_duration_ms));
+            }
+
             st.inside = false;
             st.enter_ts = 0.0;
             st.alarmed = false;
@@ -152,69 +229,6 @@ cvedix_ba_area_loitering_node::handle_frame_meta(
             it = ctx.by_track_id.erase(it);
         else
             ++it;
-    }
- 
-    // ===============================
-    // found loitering
-    // ===============================
-    if (!involve_targets.empty()) {
- 
-        std::string image_file_name_without_ext = "";
-        std::string video_file_name_without_ext = "";
- 
-        // send image record control meta
-        if (need_record_image) {
-            image_file_name_without_ext =
-                cvedix_utils::time_format(NOW, "loitering_image__<year><mon><day><hour><min><sec><mili>");
-            auto image_record_control_meta =
-                std::make_shared<cvedix_objects::cvedix_image_record_control_meta>(
-                    meta->channel_index,
-                    image_file_name_without_ext,
-                    true);
-            pendding_meta(image_record_control_meta);
-        }
- 
-        // send video record control meta
-        if (need_record_video) {
-            video_file_name_without_ext =
-                cvedix_utils::time_format(NOW, "loitering_video__<year><mon><day><hour><min><sec><mili>");
-            auto video_record_control_meta =
-                std::make_shared<cvedix_objects::cvedix_video_record_control_meta>(
-                    meta->channel_index,
-                    video_file_name_without_ext);
-            pendding_meta(video_record_control_meta);
-        }
- 
-        // ROI → region points (copy polygon)
-        std::vector<cvedix_objects::cvedix_point> involve_region = roi_copy;
- 
-        auto ba_result =
-            std::make_shared<cvedix_objects::cvedix_ba_result>(
-                cvedix_objects::cvedix_ba_type::STOP,
-                meta->channel_index,
-                meta->frame_index,
-                involve_targets,
-                involve_region,
-                "loitering",
-                image_file_name_without_ext,
-                video_file_name_without_ext);
- 
-        meta->ba_results.push_back(ba_result);
- 
-        CVEDIX_INFO(cvedix_utils::string_format(
-            "[%s] [channel %d] has found loitering targets: [%zu]",
-            node_name.c_str(),
-            meta->channel_index,
-            involve_targets.size()));
- 
-        if (need_record_image || need_record_video) {
-            CVEDIX_INFO(cvedix_utils::string_format(
-                "[%s] [channel %d] image & video record file names are: [%s & %s]",
-                node_name.c_str(),
-                meta->channel_index,
-                image_file_name_without_ext.c_str(),
-                video_file_name_without_ext.c_str()));
-        }
     }
  
     return meta;

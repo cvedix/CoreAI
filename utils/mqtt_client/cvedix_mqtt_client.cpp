@@ -6,9 +6,15 @@
 #include <chrono>
 #include <thread>
 #include <ctime>
+#include <atomic>
+#include <mutex>
 
 namespace cvedix_utils {
     
+    // Global reference count for mosquitto library init/cleanup
+    static std::atomic<int> g_mosquitto_ref_count{0};
+    static std::mutex g_mosquitto_init_mutex;
+
     cvedix_mqtt_client::cvedix_mqtt_client(
         const std::string& broker_url,
         int port,
@@ -25,8 +31,13 @@ namespace cvedix_utils {
         , should_stop_reconnect_(false)
         , mosq_(nullptr)
     {
-        // Initialize mosquitto library (thread-safe)
-        mosquitto_lib_init();
+        // Initialize mosquitto library (reference-counted, thread-safe)
+        {
+            std::lock_guard<std::mutex> lock(g_mosquitto_init_mutex);
+            if (g_mosquitto_ref_count.fetch_add(1) == 0) {
+                mosquitto_lib_init();
+            }
+        }
         
         // Create mosquitto instance
         mosq_ = mosquitto_new(client_id_.c_str(), true, this);
@@ -63,8 +74,13 @@ namespace cvedix_utils {
             mosq_ = nullptr;
         }
         
-        // Cleanup mosquitto library
-        mosquitto_lib_cleanup();
+        // Cleanup mosquitto library (reference-counted, only when last instance)
+        {
+            std::lock_guard<std::mutex> lock(g_mosquitto_init_mutex);
+            if (g_mosquitto_ref_count.fetch_sub(1) == 1) {
+                mosquitto_lib_cleanup();
+            }
+        }
     }
     
     bool cvedix_mqtt_client::connect(const std::string& username, const std::string& password) {

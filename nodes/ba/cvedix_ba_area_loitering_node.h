@@ -20,6 +20,9 @@ namespace cvedix_nodes {
         
         /// @brief Optional name/label for this ROI (e.g., "parking lot", "entrance")
         std::string name = "";
+
+        /// @brief UUID identifier for this area (maps to region_id/area_id in events)
+        std::string id = "";
         
         /// @brief ROI color in BGR format (default: orange) for visualization
         cv::Scalar color = cv::Scalar(0, 165, 255);
@@ -80,6 +83,7 @@ private:
  
     bool need_record_image;
     bool need_record_video;
+    bool include_target_crops = false;
     
     /// @brief Mutex for thread-safe runtime configuration updates
     mutable std::mutex config_mutex;

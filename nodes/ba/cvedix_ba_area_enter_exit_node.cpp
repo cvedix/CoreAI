@@ -205,6 +205,17 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
                 involve_region, label, image_file_name_without_ext,
                 video_file_name_without_ext);
 
+            // Populate enhanced fields
+            ba_result->stamp_now();
+            ba_result->region_type = "area";
+            ba_result->region_name = config.name;
+            ba_result->region_id = config.id;
+            ba_result->region_index = area_index;
+            ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
+            // Record enter timestamp for duration calculation on exit
+            enter_timestamps[meta->channel_index][target->track_id][area_index] = ba_result->system_timestamp;
+
             meta->ba_results.push_back(ba_result);
 
             CVEDIX_INFO(cvedix_utils::string_format(
@@ -270,12 +281,29 @@ cvedix_ba_area_enter_exit_node::handle_frame_meta(
                 meta->frame_index, involve_targets, involve_region, label,
                 image_file_name_without_ext, video_file_name_without_ext);
 
+            // Populate enhanced fields
+            ba_result->stamp_now();
+            ba_result->region_type = "area";
+            ba_result->region_name = config.name;
+            ba_result->region_id = config.id;
+            ba_result->region_index = area_index;
+            ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
+            // Calculate event duration from stored enter timestamp
+            auto& ch_enter_ts = enter_timestamps[meta->channel_index];
+            if (ch_enter_ts.count(target->track_id) > 0 &&
+                ch_enter_ts[target->track_id].count(area_index) > 0) {
+              double enter_ts = ch_enter_ts[target->track_id][area_index];
+              ba_result->event_duration_ms = ba_result->system_timestamp - enter_ts;
+              ch_enter_ts[target->track_id].erase(area_index);
+            }
+
             meta->ba_results.push_back(ba_result);
 
             CVEDIX_INFO(cvedix_utils::string_format(
-                "[%s] [channel %d] [area %d] target %d exited", 
+                "[%s] [channel %d] [area %d] target %d exited (duration: %.0f ms)", 
                 node_name.c_str(), meta->channel_index, area_index,
-                target->track_id));
+                target->track_id, ba_result->event_duration_ms));
           }
         }
       }

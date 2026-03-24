@@ -9,13 +9,15 @@ cvedix_ba_area_crowding_node::cvedix_ba_area_crowding_node(
         std::map<int, crowding_config> configs,
         int fps,
         bool need_record_image,
-        bool need_record_video)
+        bool need_record_video,
+        bool include_target_crops)
     : cvedix_node(node_name),
             all_rois(rois),
       all_configs(configs),
       fps(fps),
       need_record_image(need_record_image),
-      need_record_video(need_record_video)
+      need_record_video(need_record_video),
+      include_target_crops(include_target_crops)
 {
     CVEDIX_INFO(cvedix_utils::string_format("[%s] %s", node_name.c_str(), to_string().c_str()));
     this->initialized();
@@ -26,12 +28,14 @@ cvedix_ba_area_crowding_node::cvedix_ba_area_crowding_node(
                 std::map<int, std::vector<cvedix_objects::cvedix_point>> rois,
         int fps,
         bool need_record_image,
-        bool need_record_video)
+        bool need_record_video,
+        bool include_target_crops)
     : cvedix_node(node_name),
             all_rois(rois),
       fps(fps),
       need_record_image(need_record_image),
-      need_record_video(need_record_video)
+      need_record_video(need_record_video),
+      include_target_crops(include_target_crops)
 {
     // Initialize default configs for all channels
     for (const auto &channel_pair : all_rois) {
@@ -222,6 +226,14 @@ cvedix_ba_area_crowding_node::handle_frame_meta(
                 image_file_name_without_ext,
                 video_file_name_without_ext);
  
+        // Populate enhanced fields
+        ba_result->stamp_now();
+        ba_result->region_type = "area";
+        ba_result->region_name = config.name;
+        ba_result->region_id = config.id;
+        ba_result->region_index = channel_id;
+        ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
         meta->ba_results.push_back(ba_result);
  
         CVEDIX_INFO(cvedix_utils::string_format(

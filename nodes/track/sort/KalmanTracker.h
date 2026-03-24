@@ -6,6 +6,9 @@
 
 #include "opencv2/video/tracking.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include <random>
+#include <chrono>
+#include <limits>
 
 using namespace std;
 using namespace cv;
@@ -24,8 +27,7 @@ public:
 		m_hits = 0;
 		m_hit_streak = 0;
 		m_age = 0;
-		m_id = kf_count;
-		//kf_count++;
+		m_id = next_random_id();
 	}
 	KalmanTracker(StateType initRect)
 	{
@@ -34,8 +36,7 @@ public:
 		m_hits = 0;
 		m_hit_streak = 0;
 		m_age = 0;
-		m_id = kf_count;
-		kf_count++;
+		m_id = next_random_id();
 	}
 
 	~KalmanTracker()
@@ -49,7 +50,12 @@ public:
 	StateType get_state();
 	StateType get_rect_xysr(float cx, float cy, float s, float r);
 
-	static int kf_count;
+	static int next_random_id() {
+		static std::mt19937 rng(static_cast<unsigned>(
+			std::chrono::steady_clock::now().time_since_epoch().count()));
+		static std::uniform_int_distribution<int> dist(1, std::numeric_limits<int>::max());
+		return dist(rng);
+	}
 
 	int m_time_since_update;
 	int m_hits;

@@ -153,11 +153,22 @@ cvedix_ba_area_dwell_time_node::handle_frame_meta(
                     cvedix_objects::cvedix_ba_type::DWELL, ch,
                     meta->frame_index, involve_targets, involve_region, label,
                     image_file, video_file);
+
+                // Populate enhanced fields
+                ba_result->stamp_now();
+                ba_result->region_type = "area";
+                ba_result->region_name = all_configs.count(ch) ? all_configs[ch].name : "";
+                ba_result->region_id = all_configs.count(ch) ? all_configs[ch].id : "";
+                ba_result->region_index = ch;
+                ba_result->event_duration_ms = dwell_seconds * 1000.0;
+                ba_result->populate_target_details(meta->targets, meta->frame, include_target_crops);
+
                 meta->ba_results.push_back(ba_result);
 
                 CVEDIX_INFO(cvedix_utils::string_format(
-                    "[%s] [ch%d] track %d: %s",
-                    node_name.c_str(), ch, tid, label.c_str()));
+                    "[%s] [ch%d] track %d: %s (duration: %.0f ms)",
+                    node_name.c_str(), ch, tid, label.c_str(),
+                    ba_result->event_duration_ms));
             }
         }
     }
