@@ -24,7 +24,7 @@ int main() {
     // 2 - bus
     // 3 - truck
     // 4 - 2wheel
-    auto primary_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("primary_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt", 416, 416, 1);
+    auto primary_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("primary_detector", "./cvedix_data/models/det_cls/yolov11.engine", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt", 0.45, 0.5);
     /* secondary classifier 1, applied to car(1)/bus(2)/truck(3) only */
     auto _1st_classifier = std::make_shared<cvedix_nodes::cvedix_classifier_node>("1st_classifier", "./cvedix_data/models/det_cls/vehicle/resnet18-batch=N-type_view_0322_nhwc.onnx", "", "./cvedix_data/models/det_cls/vehicle/vehicle_types.txt", 224, 224, 1, std::vector<int>{1, 2, 3}, 20, 20, 10, false, 1, cv::Scalar(), cv::Scalar(), true, true);
     /* secondary classifier 2, applied to car(1)/bus(2)/truck(3) only */

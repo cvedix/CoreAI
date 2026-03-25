@@ -20,8 +20,24 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 1.0);
-    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 0.4);
+    
+    // Create generic YOLO detector with backend plugin (TensorRT or OpenVINO)
+    // For TensorRT backend:
+    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+        "yolo_detector",                              // node name
+        "./cvedix_data/models/yolov11/onnx/yolo11n.onnx", // ONNX model file
+        "./cvedix_data/models/yolov11/onnx/labels.txt",  // labels file
+        0.45,   // confidence threshold
+        0.5,     // NMS threshold
+        0,
+        cvedix_nodes::BackendType::ONNX
+    );
+    
+    // Optional: Configure detector
+    // yolo_detector->set_conf_threshold(0.5);
+    // yolo_detector->set_nms_threshold(0.45);
+    
     // auto tracker = std::make_shared<cvedix_nodes::cvedix_sort_track_node>("sort_tracker");
     // auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>("track_0", cvedix_nodes::cvedix_track_for::NORMAL, 0.5, 0.9, 0.6, 20, 15); 
     auto tracker = std::make_shared<cvedix_nodes::cvedix_ocsort_track_node>("track_0", cvedix_nodes::cvedix_track_for::NORMAL, 0.5, 15, 3, 0.3, 3, "iou", 0.2, true); 
@@ -31,17 +47,17 @@ int main() {
     cvedix_objects::cvedix_point end(700, 220);  // change to proper value
     std::map<int, cvedix_objects::cvedix_line> lines = {{0, cvedix_objects::cvedix_line(start, end)}};  // channel0 -> line
     auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_node>("ba_crossline", lines);
-    auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
-    auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
-    // auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://192.168.77.60/live/9000");
+    auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+    // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
+    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");
     
     // construct pipeline
     yolo_detector->attach_to({file_src_0});
     tracker->attach_to({yolo_detector});
     ba_crossline->attach_to({tracker});
     osd->attach_to({ba_crossline});
-    screen_des_0->attach_to({osd});
-    // rtmp_des_0->attach_to({osd});
+    // screen_des_0->attach_to({osd});
+    rtmp_des_0->attach_to({osd});
 
     file_src_0->start();
 

@@ -1,7 +1,5 @@
 #include "cvedix/nodes/ffio/cvedix_ff_src_node.h"
-#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
-#include "cvedix/nodes/infers/cvedix_sface_feature_encoder_node.h"
-#include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/ffio/cvedix_ff_des_node.h"
 
