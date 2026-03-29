@@ -307,78 +307,78 @@ if(CVEDIX_WITH_RKNN)
     add_executable(rknn_yolov11_detector_sample "rknn_yolov11_detector_sample.cpp")
     target_link_libraries(rknn_yolov11_detector_sample ${PROJECT_NAME})
 
-    add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
-    target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
+#     add_executable(rknn_face_detector_sample "rknn_face_detector_sample.cpp")
+#     target_link_libraries(rknn_face_detector_sample ${PROJECT_NAME})
 
-    add_executable(rknn_yolov8_face_detection_simple_sample "rknn_yolov8_face_detection_simple_sample.cpp")
-    target_link_libraries(rknn_yolov8_face_detection_simple_sample ${PROJECT_NAME})
+#     add_executable(rknn_yolov8_face_detection_simple_sample "rknn_yolov8_face_detection_simple_sample.cpp")
+#     target_link_libraries(rknn_yolov8_face_detection_simple_sample ${PROJECT_NAME})
 
-    add_executable(rknn_yolov8_face_rtsp_sample "rknn_yolov8_face_rtsp_sample.cpp")
-    target_link_libraries(rknn_yolov8_face_rtsp_sample ${PROJECT_NAME})
+#     add_executable(rknn_yolov8_face_rtsp_sample "rknn_yolov8_face_rtsp_sample.cpp")
+#     target_link_libraries(rknn_yolov8_face_rtsp_sample ${PROJECT_NAME})
 
-    add_executable(rknn_face_detection_sample "rknn_face_detection_sample.cpp")
-    target_link_libraries(rknn_face_detection_sample ${PROJECT_NAME})
+#     add_executable(rknn_face_detection_sample "rknn_face_detection_sample.cpp")
+#     target_link_libraries(rknn_face_detection_sample ${PROJECT_NAME})
 
-    add_executable(rknn_face_detection_file_sample "rknn_face_detection_file_sample.cpp")
-    target_link_libraries(rknn_face_detection_file_sample ${PROJECT_NAME})
+#     add_executable(rknn_face_detection_file_sample "rknn_face_detection_file_sample.cpp")
+#     target_link_libraries(rknn_face_detection_file_sample ${PROJECT_NAME})
 
-    add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
-    target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
+#     add_executable(rknn_rtsp_tracking_sample "rknn_rtsp_tracking_sample.cpp")
+#     target_link_libraries(rknn_rtsp_tracking_sample ${PROJECT_NAME})
 
-    add_executable(rknn_rtsp_tracking_mqtt_sample "rknn_rtsp_tracking_mqtt_sample.cpp")
-    target_include_directories(rknn_rtsp_tracking_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${PROJECT_NAME})
+#     add_executable(rknn_rtsp_tracking_mqtt_sample "rknn_rtsp_tracking_mqtt_sample.cpp")
+#     target_include_directories(rknn_rtsp_tracking_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+#     target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${PROJECT_NAME})
     
-    # Link with mosquitto if MQTT is enabled
-    if(CVEDIX_WITH_MQTT)
-        if(MOSQUITTO_FOUND)
-            target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
-        else()
-            find_library(MOSQUITTO_LIB NAMES mosquitto)
-            if(MOSQUITTO_LIB)
-                target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
-            endif()
-        endif()
-    endif()
+#     # Link with mosquitto if MQTT is enabled
+#     if(CVEDIX_WITH_MQTT)
+#         if(MOSQUITTO_FOUND)
+#             target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
+#         else()
+#             find_library(MOSQUITTO_LIB NAMES mosquitto)
+#             if(MOSQUITTO_LIB)
+#                 target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
+#             endif()
+#         endif()
+#     endif()
 
-    # RKNN face tracking sample - build by default when RKNN is enabled and MQTT is enabled
-    if(CVEDIX_WITH_MQTT)
-        add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
-        target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-        target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
+#     # RKNN face tracking sample - build by default when RKNN is enabled and MQTT is enabled
+#     if(CVEDIX_WITH_MQTT)
+#         add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
+#         target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+#         target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
         
-        # Link with mosquitto for MQTT
-        if(MOSQUITTO_FOUND)
-            target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
-        else()
-            find_library(MOSQUITTO_LIB NAMES mosquitto)
-            if(MOSQUITTO_LIB)
-                target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
-            endif()
-        endif()
+#         # Link with mosquitto for MQTT
+#         if(MOSQUITTO_FOUND)
+#             target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
+#         else()
+#             find_library(MOSQUITTO_LIB NAMES mosquitto)
+#             if(MOSQUITTO_LIB)
+#                 target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
+#             endif()
+#         endif()
         
-        # Install RKNN face tracking sample
-        install(TARGETS rknn_face_tracking_sample DESTINATION bin)
-    endif()
+#         # Install RKNN face tracking sample
+#         install(TARGETS rknn_face_tracking_sample DESTINATION bin)
+#     endif()
 
-    # Install RKNN samples
-    install(TARGETS 
-        rknn_yolov11_detector_sample
-        rknn_face_detector_sample
-        rknn_yolov8_face_detection_simple_sample
-        rknn_yolov8_face_rtsp_sample
-        rknn_face_detection_sample
-        rknn_face_detection_file_sample
-        rknn_rtsp_tracking_sample
-        DESTINATION bin
-    )
+#     # Install RKNN samples
+#     install(TARGETS 
+#         rknn_yolov11_detector_sample
+#         rknn_face_detector_sample
+#         rknn_yolov8_face_detection_simple_sample
+#         rknn_yolov8_face_rtsp_sample
+#         rknn_face_detection_sample
+#         rknn_face_detection_file_sample
+#         rknn_rtsp_tracking_sample
+#         DESTINATION bin
+#     )
     
-    # Install RKNN MQTT sample
-    install(TARGETS 
-        rknn_rtsp_tracking_mqtt_sample
-        DESTINATION bin
-        OPTIONAL
-    )
+#     # Install RKNN MQTT sample
+#     install(TARGETS 
+#         rknn_rtsp_tracking_mqtt_sample
+#         DESTINATION bin
+#         OPTIONAL
+#     )
 endif()
 
 # samples depend on PaddlePaddle

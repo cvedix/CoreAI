@@ -6,7 +6,7 @@
 #include "cvedix/nodes/ba/cvedix_ba_movement_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolov_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_area_enter_exit_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"

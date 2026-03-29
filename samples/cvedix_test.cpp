@@ -1,7 +1,7 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/src/cvedix_rtsp_src_node.h"
 #include "cvedix/nodes/infers/cvedix_face_detector_node.h"
-#include "cvedix/nodes/osd/cvedix_face_osd_node_v2.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 #include "cvedix/nodes/des/cvedix_fake_des_node.h"
