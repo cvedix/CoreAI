@@ -114,11 +114,12 @@ namespace cvedix_nodes {
         bool need_record_image;
         bool need_record_video;
 
-        /// @brief Whether to include cropped images of targets in ba_result
-        bool include_target_crops;
-        
         /// @brief Mutex for thread-safe runtime configuration updates
         mutable std::mutex config_mutex;
+    
+    public:
+        /// @brief Whether to include cropped images of targets in ba_result
+        bool include_target_crops;
     
     private:
         bool is_inside_roi(int channel_id, const cvedix_objects::cvedix_point& pt) const;

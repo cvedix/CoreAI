@@ -132,6 +132,9 @@ target_link_libraries(message_broker_sample ${PROJECT_NAME})
 add_executable(sse_broker_sample "sse_broker_sample.cpp")
 target_link_libraries(sse_broker_sample ${PROJECT_NAME})
 
+add_executable(webhook_broker_sample "webhook_broker_sample.cpp")
+target_link_libraries(webhook_broker_sample ${PROJECT_NAME})
+
 # add_executable(face_recognition_mqtt_sample "face_recognition_mqtt_sample.cpp")
 # target_link_libraries(face_recognition_mqtt_sample ${PROJECT_NAME})
 
