@@ -25,7 +25,13 @@ public:
     );
  
     virtual ~cvedix_bytetrack_node();
- 
+
+    // Hot-update setters — effective on next frame
+    void set_track_thresh(float val);
+    void set_high_thresh(float val);
+    void set_match_thresh(float val);
+    void set_track_buffer(int val);
+
 protected:
     /**
      * @brief Implement ByteTrack association

@@ -158,5 +158,44 @@ void cvedix_bytetrack_node::track(int channel_index,
         }
     }
 }
+
+// ============================
+// Hot-update setters
+// ============================
+void cvedix_bytetrack_node::set_track_thresh(float val) {
+    m_track_thresh = val;
+    for (auto &ctx : m_channel_trackers) {
+        if (ctx.initialized && ctx.tracker) {
+            ctx.tracker->set_track_thresh(val);
+        }
+    }
+}
+
+void cvedix_bytetrack_node::set_high_thresh(float val) {
+    m_high_thresh = val;
+    for (auto &ctx : m_channel_trackers) {
+        if (ctx.initialized && ctx.tracker) {
+            ctx.tracker->set_high_thresh(val);
+        }
+    }
+}
+
+void cvedix_bytetrack_node::set_match_thresh(float val) {
+    m_match_thresh = val;
+    for (auto &ctx : m_channel_trackers) {
+        if (ctx.initialized && ctx.tracker) {
+            ctx.tracker->set_match_thresh(val);
+        }
+    }
+}
+
+void cvedix_bytetrack_node::set_track_buffer(int val) {
+    m_track_buffer = val;
+    for (auto &ctx : m_channel_trackers) {
+        if (ctx.initialized && ctx.tracker) {
+            ctx.tracker->set_track_buffer(val, m_fps);
+        }
+    }
+}
  
 } // namespace cvedix_nodes
