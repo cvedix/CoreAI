@@ -46,11 +46,11 @@ void print_usage(const char* program_name) {
 int main(int argc, char** argv) {
     CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
     CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
-    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
+    CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);  // INFO = status logs, DEBUG = detection details
     CVEDIX_LOGGER_INIT();
 
     // Parse command line arguments
-    std::string model_path = "./cvedix_data/models/yolov11/rknn/yolo11n-rk3588.rknn";
+    std::string model_path = "./cvedix_data/models/yolov11/rknn/yolo11s.rknn";
     std::string video_path = "./cvedix_data/test_video/vehicle_count.mp4";
     std::string labels_path = "./cvedix_data/models/yolov11/rknn/labels.txt";  // Optional labels file
     
@@ -104,15 +104,19 @@ int main(int argc, char** argv) {
         "rknn_detector_0",
         model_path,        // model_path: File .rknn sẽ tự động chọn RKNN backend
         labels_path,       // labels_path: File chứa tên các lớp (mỗi dòng một lớp)
-        0.5f,              // conf_threshold: Chỉ giữ lại detections có confidence >= 0.5
-        0.45f,             // nms_threshold: Ngưỡng NMS để loại bỏ overlapping boxes
-        0,                  // class_id_offset: Offset cho class ID (dùng khi có nhiều detector),
+        0.40f,             // conf_threshold: Ngưỡng confidence (0.35-0.5)
+        0.30f,             // nms_threshold: Ngưỡng NMS thấp hơn để loại duplicates tốt hơn (0.25-0.35)
+        0,                 // class_id_offset: Offset cho class ID (dùng khi có nhiều detector),
         cvedix_nodes::BackendType::RKNN
     );
     
     // Tạo node OSD: Vẽ kết quả phát hiện lên frame
     // Node này sẽ vẽ bounding boxes, labels và scores lên frame
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
+    cvedix_nodes::unified_osd_config cfg;
+    cfg.show_bbox = true;
+    cfg.show_label = true;
+    osd_0->update_config(cfg);
     
     // Tạo node output: Hiển thị kết quả lên màn hình
     // Tham số: node_name, channel_index

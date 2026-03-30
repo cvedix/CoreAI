@@ -78,6 +78,10 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
             throw std::runtime_error("Failed to load backend plugin: returned null");
         }
 
+        // Set thresholds to backend (IMPORTANT: backend has its own default values)
+        backend->set_conf_threshold(conf_threshold);
+        backend->set_nms_threshold(nms_threshold);
+
         int input_w = backend->get_input_width();
         int input_h = backend->get_input_height();
 
@@ -91,6 +95,9 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
                 break;
             case BackendType::ONNX:
                 backend_name = "ONNX";
+                break;
+            case BackendType::RKNN:
+                backend_name = "RKNN";
                 break;
         }
 
@@ -124,6 +131,12 @@ cvedix_yolo_detector_node::~cvedix_yolo_detector_node() {
 }
 
 BackendType cvedix_yolo_detector_node::detect_hw_info() const {
+    // Check for RKNN (Rockchip NPU) availability
+    if (std::system("ldconfig -p | grep -q librknnrt") == 0) {
+        CVEDIX_INFO("[hw_info] RKNN detected, using RKNN backend");
+        return BackendType::RKNN;
+    }
+
     // Check for TensorRT availability
     // This can check for CUDA libraries, TensorRT installation, GPU driver, etc.
     if (std::system("ldconfig -p | grep -q libnvinfer") == 0) {
@@ -138,7 +151,7 @@ BackendType cvedix_yolo_detector_node::detect_hw_info() const {
     }
 
     // Fallback to ONNX runtime
-    CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO found, using ONNX backend");
+    CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO/RKNN found, using ONNX backend");
     return BackendType::ONNX;
 }
 
@@ -186,6 +199,15 @@ bool cvedix_yolo_detector_node::validate_model_path(BackendType backend_type,
             }
             return true;
 
+        case BackendType::RKNN:
+            if (ext != ".rknn") {
+                CVEDIX_WARN(cvedix_utils::string_format(
+                    "[validate_model] RKNN backend expects .rknn file, got %s",
+                    ext.c_str()));
+                return false;
+            }
+            return true;
+
         default:
             CVEDIX_ERROR("[validate_model] Unknown backend type");
             return false;
@@ -215,6 +237,12 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::
             plugin_path = "libonnx_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading ONNX backend: %s", plugin_path.c_str()));
+            break;
+        }
+        case BackendType::RKNN: {
+            plugin_path = "librknn_yolov11.so";
+            CVEDIX_INFO(cvedix_utils::string_format(
+                "[load_backend] Loading RKNN backend: %s", plugin_path.c_str()));
             break;
         }
         default:
@@ -333,7 +361,7 @@ void cvedix_yolo_detector_node::run_infer_combinations(
             // Use provided label or generate
             std::string label = detection.label.empty() ? get_label(cid) : detection.label;
             
-            CVEDIX_INFO(cvedix_utils::string_format(
+            CVEDIX_DEBUG(cvedix_utils::string_format(
                 "[%s] Detection: class_id=%d, label=%s, conf=%.2f, bbox=[%d,%d,%d,%d]",
                 node_name.c_str(), cid, label.c_str(), detection.confidence, rect_x, rect_y, rect_w, rect_h));
 
@@ -350,7 +378,7 @@ void cvedix_yolo_detector_node::run_infer_combinations(
             frame_meta->targets.push_back(target);
         }
 
-        CVEDIX_INFO(cvedix_utils::string_format(
+        CVEDIX_DEBUG(cvedix_utils::string_format(
             "[%s] Detected %zu objects in frame %d",
             node_name.c_str(), detections.size(), frame_meta->frame_index));
     }

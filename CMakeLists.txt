@@ -442,7 +442,7 @@ if(CVEDIX_WITH_RKNN)
         # Fallback: Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
         find_library(RKNN_LIB 
             NAMES rknnrt
-            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/libs /usr/local/lib /usr/lib /opt/rockchip/lib
+            PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
             NO_DEFAULT_PATH
         )
         if(RKNN_LIB)
@@ -462,7 +462,7 @@ if(CVEDIX_WITH_RKNN)
         # Find rknn_api.h - typically in /usr/local/include or /usr/include
         find_path(RKNN_INCLUDE_DIR
             NAMES rknn_api.h
-            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/include /usr/local/include /usr/include /opt/rockchip/include
+            PATHS /usr/local/include /usr/include /opt/rockchip/include
             NO_DEFAULT_PATH
         )
         if(RKNN_INCLUDE_DIR)
@@ -478,6 +478,16 @@ if(CVEDIX_WITH_RKNN)
             endif()
         endif()
     endif()
+    message(STATUS "RKNN support: enabled")
+     # Pass RGA option to rknn_yolov11 subdirectory
+    if(CVEDIX_WITH_RGA)
+        set(CVEDIX_WITH_RGA ON CACHE INTERNAL "Pass RGA option to subdirectories")
+    endif()
+    
+    message("--------------start build rknn_yolov11--------------")
+    add_subdirectory(third_party/rknn_yolov11)
+    message("--------------end build rknn_yolov11---------------")
+    
     message(STATUS "RKNN support: enabled")
 endif()
 
@@ -875,25 +885,25 @@ add_library(${PROJECT_NAME} ALIAS cvedix_core)
 # --- PLUGINS ---
 
 # RKNN Plugin
-if(CVEDIX_WITH_RKNN)
-    file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
-    file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
+# if(CVEDIX_WITH_RKNN)
+#     file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
+#     file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
     
-    # Only build if we have sources
-    if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
-        add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
-        target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
-        target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
+#     # Only build if we have sources
+#     if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
+#         add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
+#         target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
+#         target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
         
-        # Output to plugins dir
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
-        set_target_properties(cvedix_backend_rknn PROPERTIES 
-            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
-            PREFIX "lib"
-        )
-        install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
-    endif()
-endif()
+#         # Output to plugins dir
+#         file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
+#         set_target_properties(cvedix_backend_rknn PROPERTIES 
+#             LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
+#             PREFIX "lib"
+#         )
+#         install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
+#     endif()
+# endif()
 
 
 # Link licensecxx if license checking is enabled

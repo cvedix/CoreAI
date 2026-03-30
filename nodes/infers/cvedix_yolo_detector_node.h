@@ -27,21 +27,22 @@ enum class BackendType {
     AUTO,       ///< Auto-detect best available backend (default)
     TENSORRT,   ///< NVIDIA TensorRT backend (.engine models)
     OPENVINO,   ///< Intel OpenVINO backend (.xml models)
-    ONNX        ///< ONNX Runtime backend (.onnx models)
+    ONNX,       ///< ONNX Runtime backend (.onnx models)
+    RKNN        ///< Rockchip RKNN NPU backend (.rknn models)
 };
 
 /**
  * @class cvedix_yolo_detector_node
  * @brief Generic YOLOv11 object detector using plugin-based backends
  * 
- * This node auto-detects hardware (TensorRT, OpenVINO, or ONNX) and loads
+ * This node auto-detects hardware (RKNN, TensorRT, OpenVINO, or ONNX) and loads
  * the appropriate backend dynamically via plugins. No need to specify plugin path.
  * 
  * Example usage:
  * @code
  * auto node = std::make_shared<cvedix_yolo_detector_node>(
  *     "detector",
- *     "model.engine",   // or model.xml for OpenVINO, model.onnx for ONNX
+ *     "model.engine",   // or model.xml for OpenVINO, model.onnx for ONNX, model.rknn for RKNN
  *     "labels.txt",
  *     0.45,   // confidence threshold
  *     0.5     // NMS threshold
@@ -52,9 +53,9 @@ class cvedix_yolo_detector_node : public cvedix_primary_infer_node {
 public:
     /**
      * @brief Constructor with automatic backend detection
-     * Auto-detects hardware and loads appropriate backend (TensorRT/OpenVINO/ONNX)
+     * Auto-detects hardware and loads appropriate backend (RKNN/TensorRT/OpenVINO/ONNX)
      * @param node_name Name of this node
-     * @param model_path Path to model file (.engine, .xml, or .onnx)
+     * @param model_path Path to model file (.rknn, .engine, .xml, or .onnx)
      * @param labels_path Path to labels file (optional)
      * @param conf_threshold Confidence threshold for detections
      * @param nms_threshold NMS threshold
