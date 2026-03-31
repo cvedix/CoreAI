@@ -18,6 +18,14 @@ public:
 	vector<STrack> update(const vector<Object>& objects);
 	Scalar get_color(int idx);
 
+	// Hot-update setters (effective on next update() call)
+	void set_track_thresh(float val) { track_thresh = val; }
+	void set_high_thresh(float val) { high_thresh = val; }
+	void set_match_thresh(float val) { match_thresh = val; }
+	void set_track_buffer(int track_buffer, int frame_rate) {
+		max_time_lost = (int)(frame_rate / 30.0 * track_buffer);
+	}
+
 private:
 	vector<STrack*> joint_stracks(vector<STrack*> &tlista, vector<STrack> &tlistb);
 	vector<STrack> joint_stracks(vector<STrack> &tlista, vector<STrack> &tlistb);

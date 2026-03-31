@@ -125,15 +125,8 @@ void cvedix_ba_event_extraction_node::format_msg(
     }
 
     try {
-        // Build JSON array of events
-        std::ostringstream oss;
-        oss << "[";
-        bool first_event = true;
-
         for (const auto& ba : meta->ba_results) {
-            if (!first_event) oss << ",";
-            first_event = false;
-
+            std::ostringstream oss;
             std::string schema_id = ba_type_to_schema_id(ba->type);
 
             oss << "{";
@@ -213,10 +206,25 @@ void cvedix_ba_event_extraction_node::format_msg(
                 << ba->system_timestamp;
 
             oss << "}";
+            std::string event_msg = oss.str();
+            
+            // Invoke the callback for each event independently
+            if (event_publisher != nullptr) {
+                try {
+                    event_publisher(event_msg);
+                } catch (const std::exception& e) {
+                    CVEDIX_ERROR(cvedix_utils::string_format(
+                        "[%s] Event publisher failed: %s", node_name.c_str(), e.what()));
+                }
+            } else {
+                CVEDIX_DEBUG(cvedix_utils::string_format(
+                    "[%s] No publisher set, event: %s",
+                    node_name.c_str(), event_msg.substr(0, 200).c_str()));
+            }
         }
 
-        oss << "]";
-        msg = oss.str();
+        // Output nothing to format_msg since we already sent directly
+        msg = "";
 
     } catch (const std::exception& e) {
         CVEDIX_ERROR(cvedix_utils::string_format(
@@ -228,20 +236,10 @@ void cvedix_ba_event_extraction_node::format_msg(
 // ─── Publish ────────────────────────────────────────────────────
 
 void cvedix_ba_event_extraction_node::broke_msg(const std::string& msg) {
-    if (msg.empty()) return;
-
-    if (event_publisher != nullptr) {
-        try {
-            event_publisher(msg);
-        } catch (const std::exception& e) {
-            CVEDIX_ERROR(cvedix_utils::string_format(
-                "[%s] Event publisher failed: %s", node_name.c_str(), e.what()));
-        }
-    } else {
-        CVEDIX_DEBUG(cvedix_utils::string_format(
-            "[%s] No publisher set, event: %s",
-            node_name.c_str(), msg.substr(0, 200).c_str()));
-    }
+    // broke_msg is no longer used for publishing everything combined
+    // because format_msg handles direct publishing per event to support independent 
+    // single object payloads.
+    return;
 }
 
 } // namespace cvedix_nodes
