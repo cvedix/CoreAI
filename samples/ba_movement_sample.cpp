@@ -5,7 +5,7 @@
 
 #include "cvedix/nodes/ba/cvedix_ba_movement_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
-#include "cvedix/nodes/infers/cvedix_ov_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolov_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
@@ -27,12 +27,14 @@ int main() {
 
 
   // Create detector
-  auto detector = std::make_shared<cvedix_nodes::cvedix_ov_yolov11_det_node>(
+  auto detector = std::make_shared<cvedix_nodes::cvedix_yolov_detector_node>(
     "detector",
     "./cvedix_data/models/ov/yolov11/yolo11n_openvino_model/yolo11n.xml",
     "CPU",
     0.25f,
-    0.45f
+    0.45f,
+    0,
+    BackendType::OPENVINO
   );
 //   // Create detector
 //   auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(

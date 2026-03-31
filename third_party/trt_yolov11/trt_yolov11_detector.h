@@ -12,8 +12,6 @@
  * Also supports fused single-output engines [1, 84, 8400].
  */
 
-#ifdef CVEDIX_WITH_TRT
-
 #include <string>
 #include <vector>
 #include <memory>
@@ -83,6 +81,11 @@ private:
     int num_classes = 80;
     int num_boxes = 8400;        // total anchors across all scales
 
+    // Letterbox parameters
+    float letterbox_scale = 1.0f;   // scale factor for letterbox
+    float letterbox_pad_x = 0.0f;   // x offset (padding / 2)
+    float letterbox_pad_y = 0.0f;   // y offset (padding / 2)
+
     // Detection parameters
     float conf_threshold = 0.25f;
     float nms_threshold = 0.45f;
@@ -143,5 +146,3 @@ public:
 cv::Rect get_rect(const cv::Mat& img, const float bbox[4], int input_w, int input_h);
 
 } // namespace trt_yolov11
-
-#endif // CVEDIX_WITH_TRT

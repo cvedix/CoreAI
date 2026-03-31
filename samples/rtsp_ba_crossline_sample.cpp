@@ -22,7 +22,11 @@ int main() {
     auto rtsp_src_0 = std::make_shared<cvedix_nodes::cvedix_rtsp_src_node>("rtsp_src_0", 0, "rtsp://anhoidong.datacenter.cvedix.com:8554/live/camera_demo", 1.0);
     
     // Using YOLO detector and tracker from ba_crossline_sample.cpp
-    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("yolo_detector", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights", "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg", "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
+    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+      "yolo_detector",
+      "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+      "./cvedix_data/models/yolov11/onnx/labels.txt",
+      0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
     auto tracker = std::make_shared<cvedix_nodes::cvedix_sort_track_node>("sort_tracker");
     
     // Create ba

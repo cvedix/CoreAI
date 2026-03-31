@@ -17,9 +17,14 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/unclear.mp4", 1.0);
-    auto file_src_1 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_1", 1, "./cvedix_data/test_video/roadblock.mp4", 1.0);
-    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("obstacle_detector", "./cvedix_data/models/det_cls/obstacles_yolov5s.onnx", "", "./cvedix_data/models/det_cls/obstacles_2classes.txt", 640, 640);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/unclear.mp4", 0.5);
+    auto file_src_1 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_1", 1, "./cvedix_data/test_video/roadblock.mp4", 0.5);
+    auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+      "yolo_detector",
+      "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+      "./cvedix_data/models/yolov11/onnx/labels.txt",
+      0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
+      
     auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
     auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split_by_channel", true);
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);    

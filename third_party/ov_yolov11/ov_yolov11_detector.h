@@ -47,6 +47,11 @@ private:
     int num_boxes = 8400;  // YOLOv11 default
     int output_size = 0;
     
+    // Letterbox parameters
+    float letterbox_scale = 1.0f;   // scale factor for letterbox
+    float letterbox_pad_x = 0.0f;   // x offset (padding / 2)
+    float letterbox_pad_y = 0.0f;   // y offset (padding / 2)
+    
     // Detection parameters
     float conf_threshold = 0.25f;
     float nms_threshold = 0.45f;

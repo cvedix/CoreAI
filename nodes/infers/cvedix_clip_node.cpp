@@ -6,6 +6,7 @@
 #include "cvedix_clip_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
+#include <iomanip>
 
 namespace cvedix_nodes {
 

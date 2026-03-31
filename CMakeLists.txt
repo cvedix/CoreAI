@@ -1,6 +1,6 @@
 #[[
     prepare in advance：
-    1. OpenCV >= 4.6
+    1. OpenCV >= 4.10
     2. Gstreamer >= 1.14.5
     3. CUDA, TensorRT, PADDLE and others for optional
 ]]
@@ -94,7 +94,12 @@ if(CVEDIX_WITH_CUDA) # CUDA enabled
     add_definitions(-DCVEDIX_WITH_CUDA)
 endif()
 
-# optional for TensorRT
+# ---------------- IMPORTANT ---------------- 
+# Build default plugin backend
+# onnx by opencv this is default CPU
+add_subdirectory(third_party/onnx_yolov11)
+
+# Build for TensorRT Backend
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
@@ -110,39 +115,14 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
 
-    # trt_yolov8 - TEMPORARILY DISABLED due to TensorRT 10.x API incompatibility
-    # message("-------------start build trt_yolov8--------------")
-    # add_subdirectory(third_party/trt_yolov8)
-    # list(APPEND CVEDIX_DEPEND_LIBS trt_yolov8)
-    # # # Install trt_yolov8 with export
-    # install(TARGETS trt_yolov8 EXPORT cvedix-targets
-    #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    # )
-    # message("--------------end build trt_yolov8---------------")
-
-    # trt_insightface
-    message("-------------start build trt_insightface--------------")
-    # add_subdirectory(third_party/trt_insightface)
-    # list(APPEND CVEDIX_DEPEND_LIBS trt_insightface)
-    # Install trt_insightface with export
-    # install(TARGETS trt_insightface EXPORT cvedix-targets
-    #     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    #     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    # )
-    message("--------------end build trt_insightface---------------")
-    
-    # trt_yolov11
+    # trt_yolov11 backend plugin
     message("-------------start build trt_yolov11--------------")
     add_subdirectory(third_party/trt_yolov11)
-    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11)
-    include_directories(${CMAKE_SOURCE_DIR}/third_party)
     message("--------------end build trt_yolov11---------------")
     
     # trt_yolov11_face
     message("-------------start build trt_yolov11_face--------------")
+    # Need refactor soon
     add_subdirectory(third_party/trt_yolov11_face)
     list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11_face)
     message("--------------end build trt_yolov11_face---------------")
@@ -155,12 +135,11 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
 
 endif()
 
-# OpenVINO
+# Build for OpenVINO Backend
 if(CVEDIX_WITH_OPENVINO)
     add_definitions(-DCVEDIX_WITH_OPENVINO)
     message("--------------start build ov_yolov11--------------")
     add_subdirectory(third_party/ov_yolov11)
-    list(APPEND CVEDIX_DEPEND_LIBS ov_yolov11)
     message("--------------end build ov_yolov11---------------")
 endif()
 
@@ -463,7 +442,7 @@ if(CVEDIX_WITH_RKNN)
         # Fallback: Find librknnrt.so - typically installed in /usr/local/lib or /usr/lib
         find_library(RKNN_LIB 
             NAMES rknnrt
-            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/libs /usr/local/lib /usr/lib /opt/rockchip/lib
+            PATHS /usr/local/lib /usr/lib /opt/rockchip/lib
             NO_DEFAULT_PATH
         )
         if(RKNN_LIB)
@@ -483,7 +462,7 @@ if(CVEDIX_WITH_RKNN)
         # Find rknn_api.h - typically in /usr/local/include or /usr/include
         find_path(RKNN_INCLUDE_DIR
             NAMES rknn_api.h
-            PATHS ${CMAKE_SOURCE_DIR}/third_party/rknn/include /usr/local/include /usr/include /opt/rockchip/include
+            PATHS /usr/local/include /usr/include /opt/rockchip/include
             NO_DEFAULT_PATH
         )
         if(RKNN_INCLUDE_DIR)
@@ -499,6 +478,16 @@ if(CVEDIX_WITH_RKNN)
             endif()
         endif()
     endif()
+    message(STATUS "RKNN support: enabled")
+     # Pass RGA option to rknn_yolov11 subdirectory
+    if(CVEDIX_WITH_RGA)
+        set(CVEDIX_WITH_RGA ON CACHE INTERNAL "Pass RGA option to subdirectories")
+    endif()
+    
+    message("--------------start build rknn_yolov11--------------")
+    add_subdirectory(third_party/rknn_yolov11)
+    message("--------------end build rknn_yolov11---------------")
+    
     message(STATUS "RKNN support: enabled")
 endif()
 
@@ -708,13 +697,35 @@ else()
     set(CVEDIX_WITH_ORT OFF)
 endif()
 
+# optional for SeetaFace6 (face detection, recognition, landmarks, etc.)
+set(SEETAFACE6_DIR ${CMAKE_SOURCE_DIR}/third_party/seetaface6)
+set(SEETAFACE6_BUILD_DIR ${SEETAFACE6_DIR}/build)
+if(EXISTS ${SEETAFACE6_BUILD_DIR}/lib AND EXISTS ${SEETAFACE6_BUILD_DIR}/include)
+    add_definitions(-DCVEDIX_WITH_SEETAFACE)
+    include_directories(${SEETAFACE6_BUILD_DIR}/include)
+    link_directories(${SEETAFACE6_BUILD_DIR}/lib)
+    list(APPEND CVEDIX_DEPEND_LIBS
+        SeetaFaceDetector600
+        SeetaFaceLandmarker600
+        SeetaFaceRecognizer610
+        SeetaMaskDetector200
+        tennis
+    )
+    set(CVEDIX_WITH_SEETAFACE ON)
+    message(STATUS "SeetaFace6 found at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes will be available")
+else()
+    message(STATUS "SeetaFace6 not built at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes disabled")
+    message(STATUS "  To build: cd ${SEETAFACE6_DIR} && bash build_seetaface6.sh")
+    set(CVEDIX_WITH_SEETAFACE OFF)
+endif()
+
 # tinyexpr
 message("-------------start build tinyexpr--------------")
 add_subdirectory(third_party/tinyexpr)
 # list(APPEND CVEDIX_DEPEND_LIBS tinyexpr) # Linked PRIVATE later
 install(TARGETS tinyexpr EXPORT cvedix-targets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 message("--------------end build tinyexpr---------------")
@@ -837,6 +848,11 @@ if(NOT CVEDIX_WITH_ORT)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*_ort_node.*")
 endif()
 
+# Exclude SeetaFace-based nodes if SeetaFace6 is not built
+if(NOT CVEDIX_WITH_SEETAFACE)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
+endif()
+
 # Add EIGEN
 set(EIGEN_VERSION 3.3)
 find_package(Eigen3 ${EIGEN_VERSION} QUIET)
@@ -869,48 +885,26 @@ add_library(${PROJECT_NAME} ALIAS cvedix_core)
 # --- PLUGINS ---
 
 # RKNN Plugin
-if(CVEDIX_WITH_RKNN)
-    file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
-    file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
+# if(CVEDIX_WITH_RKNN)
+#     file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
+#     file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
     
-    # Only build if we have sources
-    if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
-        add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
-        target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
-        target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
+#     # Only build if we have sources
+#     if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
+#         add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
+#         target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
+#         target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
         
-        # Output to plugins dir
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
-        set_target_properties(cvedix_backend_rknn PROPERTIES 
-            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
-            PREFIX "lib"
-        )
-        install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
-    endif()
-endif()
+#         # Output to plugins dir
+#         file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
+#         set_target_properties(cvedix_backend_rknn PROPERTIES 
+#             LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
+#             PREFIX "lib"
+#         )
+#         install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
+#     endif()
+# endif()
 
-# TensorRT Plugin
-if(CVEDIX_WITH_TRT)
-    file(GLOB_RECURSE TRT_PLUGIN_NODES "nodes/*trt*.cpp")
-    # Exclude nodes that depend on disabled sub-projects
-    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*face_recognition_trt.*")
-    list(FILTER TRT_PLUGIN_NODES EXCLUDE REGEX ".*trt_insight.*")
-    
-    if(TRT_PLUGIN_NODES)
-        add_library(cvedix_backend_trt MODULE ${TRT_PLUGIN_NODES})
-        target_link_libraries(cvedix_backend_trt cvedix_core ${CVEDIX_DEPEND_LIBS} nvinfer cudart)
-        # Note: CUDA_LIBRARIES might be needed?
-        
-        target_compile_definitions(cvedix_backend_trt PRIVATE CVEDIX_WITH_TRT CVEDIX_WITH_CUDA)
-        
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
-        set_target_properties(cvedix_backend_trt PROPERTIES 
-            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
-            PREFIX "lib"
-        )
-        install(TARGETS cvedix_backend_trt DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
-    endif()
-endif()
 
 # Link licensecxx if license checking is enabled
 if(CVEDIX_WITH_LICENSE)
@@ -968,7 +962,6 @@ add_custom_target(cvedix_symlinks
 )
 
 target_include_directories(cvedix_core PUBLIC
-    # $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include>
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
@@ -992,8 +985,8 @@ endif()
 
 # Installation
 install(TARGETS cvedix_core EXPORT cvedix-targets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
 )
@@ -1009,6 +1002,7 @@ install(DIRECTORY third_party
     FILES_MATCHING 
     PATTERN "*.h"
     PATTERN "*.hpp"
+    PATTERN "*.ipp"
     PATTERN ".git" EXCLUDE
     PATTERN "*.md" EXCLUDE
 )
@@ -1023,7 +1017,7 @@ install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h
 install(EXPORT cvedix-targets
     FILE cvedix-targets.cmake
     NAMESPACE cvedix::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/cmake
 )
 
 # Config files
@@ -1064,16 +1058,16 @@ if(CVEDIX_WITH_FFMPEG)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_FFMPEG)\n")
 endif()
 
-configure_file(
+configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cvedix-config.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
-    @ONLY
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/cmake
 )
 
 install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix-config-version.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cvedix
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/cmake
 )
 
 # Install pkg-config file
@@ -1084,7 +1078,7 @@ configure_file(
 )
 install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/cvedix.pc"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/pkgconfig
 )
 
 # build for samples (optional - disabled by default to save build time and resources)
@@ -1099,6 +1093,9 @@ endif()
 if(CVEDIX_WITH_LICENSE)
     add_subdirectory(tools)
 endif()
+
+# build for benchmarks
+add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
@@ -1130,7 +1127,7 @@ endif()
 
 # 2. Cấu hình CPack để tạo file .deb
 set(CPACK_GENERATOR "DEB")
-set(CPACK_PACKAGE_NAME "cvedix-ai-runtime")
+set(CPACK_PACKAGE_NAME "edgeos-sdk")
 set(CPACK_PACKAGE_VENDOR "CVEDIX")
 
 # Generate version from timestamp and git hash
@@ -1171,15 +1168,20 @@ endif()
 # Format: cvedix-ai-runtime-2025.0.1.2-arm64.deb or cvedix-ai-runtime-2025.0.1.2-x86_64.deb
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${PACKAGE_ARCH_SUFFIX}")
 
-# Cài đặt tất cả vào /opt/cvedix để tránh xung đột hệ thống và giữ đường dẫn tương đối
-set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/cvedix")
+# Cài đặt tất cả vào /opt/edgeos-sdk để tránh xung đột hệ thống và giữ đường dẫn tương đối
+set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/edgeos-sdk")
+
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
+    "${CMAKE_SOURCE_DIR}/cmake/debian/postinst"
+    "${CMAKE_SOURCE_DIR}/cmake/debian/postrm"
+)
 
 # Tự động tìm dependencies (libs)
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
 # Dependencies hệ thống bắt buộc
 set(CPACK_DEBIAN_PACKAGE_DEPENDS 
-    "gstreamer1.0-plugins-base (>= 1.14.5), gstreamer1.0-plugins-good (>= 1.14.5), gstreamer1.0-plugins-bad (>= 1.14.5), libgstreamer1.0-0 (>= 1.14.5), libgstreamer-plugins-base1.0-0 (>= 1.14.5)")
+    "build-essential, make, cmake, pkg-config, mosquitto, mosquitto-clients, unzip, libmosquitto-dev, libturbojpeg, libturbojpeg-dev, libgstreamer1.0-0, gstreamer1.0-plugins-base, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-plugins-ugly, gstreamer1.0-libav, gstreamer1.0-tools, gstreamer1.0-x, gstreamer1.0-alsa, gstreamer1.0-gl, gstreamer1.0-gtk3, gstreamer1.0-qt5, gstreamer1.0-pulseaudio, libgstreamer1.0-dev, libgstreamer-plugins-base1.0-dev, python3-gst-1.0, libgstrtspserver-1.0-dev, gstreamer1.0-rtsp, libgtk-3-dev, libavcodec-dev, libavformat-dev, libavdevice-dev, libavutil-dev, libswscale-dev, libswresample-dev, libv4l-dev, libxvidcore-dev, libx264-dev, libjpeg-dev, libpng-dev, libtiff-dev, gfortran, openexr, libatlas-base-dev, python3-dev, python3-numpy, libeigen3-dev, librdkafka-dev, libssl-dev, libcurl4-openssl-dev, libjson-c-dev")
 
 # Recommends (khuyến nghị nhưng không bắt buộc)
 set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "gstreamer1.0-rtsp, gstreamer1.0-plugins-ugly")

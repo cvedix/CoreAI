@@ -3,8 +3,6 @@
  * @brief TensorRT YOLOv11 detector – multi-head DFL + fused fallback
  */
 
-#ifdef CVEDIX_WITH_TRT
-
 #include "trt_yolov11_detector.h"
 #include <fstream>
 #include <iostream>
@@ -255,18 +253,42 @@ void trt_yolov11_detector::allocate_buffers() {
 
 // ──────────────────────── preprocess ──────────────────
 void trt_yolov11_detector::preprocess(const cv::Mat& image, float* input_buffer) {
+    // ---- Letterbox: maintain aspect ratio with padding ----
+    float scale = std::min(static_cast<float>(input_width) / image.cols,
+                           static_cast<float>(input_height) / image.rows);
+    
+    int scaled_w = static_cast<int>(image.cols * scale);
+    int scaled_h = static_cast<int>(image.rows * scale);
+    
+    // Center the scaled image in the input canvas
+    int pad_left = (input_width - scaled_w) / 2;
+    int pad_top = (input_height - scaled_h) / 2;
+    
+    // Store letterbox parameters for postprocessing
+    letterbox_scale = scale;
+    letterbox_pad_x = pad_left;
+    letterbox_pad_y = pad_top;
+    
+    // Create a gray canvas (114 is standard YOLO padding color)
+    cv::Mat canvas(input_height, input_width, CV_8UC3, cv::Scalar(114, 114, 114));
+    
+    // Resize image and place it on the canvas
     cv::Mat resized;
-    cv::resize(image, resized, cv::Size(input_width, input_height));
-
+    cv::resize(image, resized, cv::Size(scaled_w, scaled_h));
+    resized.copyTo(canvas(cv::Rect(pad_left, pad_top, scaled_w, scaled_h)));
+    
+    // Convert to RGB
     cv::Mat rgb;
-    cv::cvtColor(resized, rgb, cv::COLOR_BGR2RGB);
-
+    cv::cvtColor(canvas, rgb, cv::COLOR_BGR2RGB);
+    
+    // Convert to float [0, 1]
     cv::Mat float_img;
     rgb.convertTo(float_img, CV_32FC3, 1.0 / 255.0);
-
+    
+    // Split channels and copy to input buffer
     std::vector<cv::Mat> channels(3);
     cv::split(float_img, channels);
-
+    
     int channel_size = input_height * input_width;
     for (int c = 0; c < 3; c++) {
         memcpy(input_buffer + c * channel_size, channels[c].data, channel_size * sizeof(float));
@@ -279,9 +301,6 @@ void trt_yolov11_detector::postprocess_multihead(
     std::vector<Detection>& detections) {
 
     detections.clear();
-
-    float x_factor = static_cast<float>(original_size.width)  / input_width;
-    float y_factor = static_cast<float>(original_size.height) / input_height;
 
     for (int s = 0; s < NUM_SCALES; ++s) {
         int gh = scales[s].grid_h;
@@ -324,7 +343,7 @@ void trt_yolov11_detector::postprocess_multihead(
                 float offsets[4];
                 dfl_decode(reg_raw, offsets);
 
-                // ── Convert to bbox (in input image coordinates) ──
+                // ── Convert to bbox (in letterbox input image coordinates) ──
                 // Anchor center
                 float anchor_cx = (static_cast<float>(gx) + 0.5f) * stride;
                 float anchor_cy = (static_cast<float>(gy) + 0.5f) * stride;
@@ -335,11 +354,17 @@ void trt_yolov11_detector::postprocess_multihead(
                 float x2 = (anchor_cx + offsets[2] * stride);
                 float y2 = (anchor_cy + offsets[3] * stride);
 
+                // ── Remove letterbox padding and scale back to original image ──
+                x1 = (x1 - letterbox_pad_x) / letterbox_scale;
+                y1 = (y1 - letterbox_pad_y) / letterbox_scale;
+                x2 = (x2 - letterbox_pad_x) / letterbox_scale;
+                y2 = (y2 - letterbox_pad_y) / letterbox_scale;
+
                 // center, width, height (in original image coords)
-                float cx = (x1 + x2) * 0.5f * x_factor;
-                float cy = (y1 + y2) * 0.5f * y_factor;
-                float w  = (x2 - x1) * x_factor;
-                float h  = (y2 - y1) * y_factor;
+                float cx = (x1 + x2) * 0.5f;
+                float cy = (y1 + y2) * 0.5f;
+                float w  = (x2 - x1);
+                float h  = (y2 - y1);
 
                 Detection det;
                 det.bbox[0] = cx;
@@ -364,9 +389,6 @@ void trt_yolov11_detector::postprocess_fused(
 
     detections.clear();
 
-    float x_factor = static_cast<float>(original_size.width)  / input_width;
-    float y_factor = static_cast<float>(original_size.height) / input_height;
-
     for (int i = 0; i < fused_num_boxes; i++) {
         float max_score = 0.0f;
         int best_class = 0;
@@ -381,16 +403,23 @@ void trt_yolov11_detector::postprocess_fused(
 
         if (max_score < conf_threshold) continue;
 
+        // Get bbox in letterbox input image coordinates
         float cx = output[0 * fused_num_boxes + i];
         float cy = output[1 * fused_num_boxes + i];
         float w  = output[2 * fused_num_boxes + i];
         float h  = output[3 * fused_num_boxes + i];
 
+        // Remove letterbox padding and scale back to original image
+        cx = (cx - letterbox_pad_x) / letterbox_scale;
+        cy = (cy - letterbox_pad_y) / letterbox_scale;
+        w  = w / letterbox_scale;
+        h  = h / letterbox_scale;
+
         Detection det;
-        det.bbox[0] = cx * x_factor;
-        det.bbox[1] = cy * y_factor;
-        det.bbox[2] = w  * x_factor;
-        det.bbox[3] = h  * y_factor;
+        det.bbox[0] = cx;
+        det.bbox[1] = cy;
+        det.bbox[2] = w;
+        det.bbox[3] = h;
         det.conf = max_score;
         det.class_id = best_class;
 
@@ -539,5 +568,3 @@ cv::Rect get_rect(const cv::Mat& img, const float bbox[4], int input_w, int inpu
 }
 
 } // namespace trt_yolov11
-
-#endif // CVEDIX_WITH_TRT

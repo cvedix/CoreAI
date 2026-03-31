@@ -12,7 +12,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <string>
-#include "im2d.h"
+#include <rga/im2d.h>
 
 namespace cvedix_utils {
     /**

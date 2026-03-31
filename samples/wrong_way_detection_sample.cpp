@@ -40,10 +40,10 @@ int main(int argc, char **argv) {
 
   // 2. Detector - YOLO for vehicle detection
   auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
-      "detector",
-      "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721_best.weights",
-      "./cvedix_data/models/det_cls/yolov3-tiny-2022-0721.cfg",
-      "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt");
+      "yolo_detector",
+      "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+      "./cvedix_data/models/yolov11/onnx/labels.txt",
+      0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
 
   // 3. Tracker - ByteTrack for persistent tracking
   auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>(

@@ -471,7 +471,7 @@ namespace rknn_yolov11 {
 
         if (validCount <= 0) return 0;
 
-        std::vector<int> indexArray(validCount);
+        std::vector<int> indexArray;  // Empty vector - will be init by quick_sort
         quick_sort_indice_inverse(objProbs, indexArray);
 
         std::set<int> class_set(classId.begin(), classId.end());
@@ -499,6 +499,7 @@ namespace rknn_yolov11 {
             last_count++;
         }
         od_results->count = last_count;
+        
         return 0;
     }
     
