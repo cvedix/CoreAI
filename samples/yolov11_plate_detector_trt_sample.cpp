@@ -28,7 +28,7 @@
 #ifdef CVEDIX_WITH_TRT
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
         );
         
         // 2. Create TensorRT Plate Detector Node
-        auto plate_detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
+        auto plate_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "plate_detector",
             engine_path,
             "",
