@@ -137,11 +137,16 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     add_definitions(-DCVEDIX_WITH_PADDLE)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
     set(VP_BUILD_FROM ON)      # set flag for paddle_ocr sub project
-    set(CVEDIX_PADDLE_LIB_PATH "")
-    set(CVEDIX_PADDLE_INC_PATH "")
-    message("-------------start build paddle_ocr--------------")
-    add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
-    list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
+    set(CVEDIX_PADDLE_ROOT "/opt/paddle_inference" CACHE PATH "Paddle Inference root")
+    if(NOT EXISTS ${CVEDIX_PADDLE_ROOT} AND EXISTS "/workspace/paddle_inference")
+        set(CVEDIX_PADDLE_ROOT "/workspace/paddle_inference")
+    endif()
+    set(CVEDIX_PADDLE_LIB_PATH "${CVEDIX_PADDLE_ROOT}/paddle/lib")
+    set(CVEDIX_PADDLE_INC_PATH "${CVEDIX_PADDLE_ROOT}/paddle/include")
+    set(CVEDIX_PADDLE_THIRD_PARTY_PATH "${CVEDIX_PADDLE_ROOT}/third_party/install")
+    # message("-------------start build paddle_ocr--------------")
+    # add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
+    # list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
     
     # Use variables set by sub-project
     if(DEFINED VP_PADDLE_LIB_PATH)
@@ -153,10 +158,17 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
 
     link_directories(${CVEDIX_PADDLE_LIB_PATH})
     include_directories(${CVEDIX_PADDLE_INC_PATH})
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/glog/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/gflags/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/protobuf/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/xxhash/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/yaml-cpp/include)
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/paddle_detection)
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/paddle_detection/include)
 
     # Add dependencies library paths (propagate from paddle_inference path)
     # Support both old CPU structure and new GPU v3.0 structure
-    set(PADDLE_INF_DIR "${CMAKE_SOURCE_DIR}/third_party/paddle_inference")
+    set(PADDLE_INF_DIR "${CVEDIX_PADDLE_ROOT}")
     set(GPU_DEPS_DIR "${PADDLE_INF_DIR}/third_party/install")
     
     # Check for GPU v3.0 structure first, then fallback to CPU structure
@@ -196,9 +208,25 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
         endif()
     endif()
     
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/glog/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/gflags/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/protobuf/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/xxhash/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/yaml-cpp/lib)
+
+    list(APPEND CVEDIX_DEPEND_LIBS paddle_inference yaml-cpp glog gflags protobuf xxhash)
+
+    set(CVEDIX_PADDLE_DETECTION_SRCS
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/object_detector.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/preprocess_op.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/picodet_postprocess.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/utils.cc
+    )
+
     message(STATUS "PaddlePaddle library status:")
     message(STATUS "    include path: ${CVEDIX_PADDLE_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_PADDLE_LIB_PATH}")
+    message(STATUS "    root path: ${CVEDIX_PADDLE_ROOT}")
     message("--------------end build paddle_ocr---------------")
 endif()
 
@@ -731,6 +759,11 @@ if(NOT CVEDIX_WITH_LLM)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*mllm.*")
 endif()
 
+# Exclude Paddle-related nodes if Paddle is not enabled
+if(NOT CVEDIX_WITH_PADDLE)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*paddle.*")
+endif()
+
 # (RKNN/TRT exclusions handled by default above for Core)
 
 
@@ -746,6 +779,11 @@ endif()
 # Exclude SeetaFace-based nodes if SeetaFace6 is not built
 if(NOT CVEDIX_WITH_SEETAFACE)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
+endif()
+
+# Add PaddleDetection core sources when Paddle is enabled
+if(CVEDIX_WITH_PADDLE)
+    list(APPEND CORE_UTILS ${CVEDIX_PADDLE_DETECTION_SRCS})
 endif()
 
 # Add EIGEN
@@ -944,7 +982,7 @@ endif()
 
 
 # build for benchmarks
-add_subdirectory(benchmarks)
+# add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---

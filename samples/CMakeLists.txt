@@ -335,15 +335,42 @@ endif()
 
 # samples depend on PaddlePaddle
 if(CVEDIX_WITH_PADDLE)
-    add_executable(app_src_sample "app_src_sample.cpp")
-    target_link_libraries(app_src_sample ${PROJECT_NAME})
-    
-    add_executable(paddle_infer_sample "paddle_infer_sample.cpp")
-    target_link_libraries(paddle_infer_sample ${PROJECT_NAME})
-    
-    install(TARGETS 
-        app_src_sample
-        paddle_infer_sample
+    set(PPOCR_NODE_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_ppocr_text_detector_node.h")
+    if(EXISTS ${PPOCR_NODE_HEADER})
+        add_executable(app_src_sample "app_src_sample.cpp")
+        target_link_libraries(app_src_sample ${PROJECT_NAME})
+
+        install(TARGETS 
+            app_src_sample
+            DESTINATION bin
+            OPTIONAL)
+    else()
+        message(STATUS "PPOCR node header not found - app_src_sample disabled")
+    endif()
+
+    if(EXISTS ${PPOCR_NODE_HEADER})
+        add_executable(paddle_infer_sample "paddle_infer_sample.cpp")
+        target_link_libraries(paddle_infer_sample ${PROJECT_NAME})
+
+        install(TARGETS 
+            paddle_infer_sample
+            DESTINATION bin
+            OPTIONAL)
+    endif()
+
+    add_executable(ba_areea_enter_exit_paddle_detection_sample "ba_areea_enter_exit_paddle_detection_sample.cpp")
+    target_link_libraries(ba_areea_enter_exit_paddle_detection_sample ${PROJECT_NAME})
+
+    install(TARGETS
+        ba_areea_enter_exit_paddle_detection_sample
+        DESTINATION bin
+        OPTIONAL)
+
+    add_executable(ba_crossline_paddle_detection_sample "ba_crossline_paddle_detection_sample.cpp")
+    target_link_libraries(ba_crossline_paddle_detection_sample ${PROJECT_NAME})
+
+    install(TARGETS
+        ba_crossline_paddle_detection_sample
         DESTINATION bin
         OPTIONAL)
 endif()
@@ -400,20 +427,31 @@ if(CVEDIX_WITH_TRT_FACE)
 endif()
 
 if(CVEDIX_WITH_TRT AND CVEDIX_WITH_PADDLE)
-    add_executable(plate_recognition_pipeline_sample "plate_recognition_pipeline_sample.cpp")
-    target_include_directories(plate_recognition_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(plate_recognition_pipeline_sample ${PROJECT_NAME})
-    
-    add_executable(plate_recognition_video_output_sample "plate_recognition_video_output_sample.cpp")
-    target_include_directories(plate_recognition_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(plate_recognition_video_output_sample ${PROJECT_NAME})
-    
-    # Plate Detection + ByteTrack + PaddleOCR with Best Plate Selection
-    add_executable(plate_bytetrack_ocr_sample "plate_bytetrack_ocr_sample.cpp")
-    target_include_directories(plate_bytetrack_ocr_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(plate_bytetrack_ocr_sample ${PROJECT_NAME})
-    
-    install(TARGETS plate_recognition_pipeline_sample plate_recognition_video_output_sample plate_bytetrack_ocr_sample DESTINATION bin OPTIONAL)
+    set(TRT_YOLOV11_DET_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_trt_yolov11_det_node.h")
+    set(PLATE_PPOCR_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_plate_recogniton_ppocr3.h")
+
+    if(EXISTS ${TRT_YOLOV11_DET_HEADER} AND EXISTS ${PLATE_PPOCR_HEADER})
+        add_executable(plate_recognition_pipeline_sample "plate_recognition_pipeline_sample.cpp")
+        target_include_directories(plate_recognition_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_link_libraries(plate_recognition_pipeline_sample ${PROJECT_NAME})
+        
+        add_executable(plate_recognition_video_output_sample "plate_recognition_video_output_sample.cpp")
+        target_include_directories(plate_recognition_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_link_libraries(plate_recognition_video_output_sample ${PROJECT_NAME})
+
+        install(TARGETS plate_recognition_pipeline_sample plate_recognition_video_output_sample DESTINATION bin OPTIONAL)
+    else()
+        message(STATUS "Plate recognition TRT samples disabled - headers not found")
+    endif()
+
+    if(EXISTS ${PLATE_PPOCR_HEADER})
+        # Plate Detection + ByteTrack + PaddleOCR with Best Plate Selection
+        add_executable(plate_bytetrack_ocr_sample "plate_bytetrack_ocr_sample.cpp")
+        target_include_directories(plate_bytetrack_ocr_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_link_libraries(plate_bytetrack_ocr_sample ${PROJECT_NAME})
+
+        install(TARGETS plate_bytetrack_ocr_sample DESTINATION bin OPTIONAL)
+    endif()
 endif()
 
 if(CVEDIX_BUILD_COMPLEX_SAMPLES)
