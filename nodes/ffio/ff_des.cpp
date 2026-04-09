@@ -1,4 +1,3 @@
-#ifdef CVEDIX_WITH_FFMPEG
 #include <iostream>
 #include <sstream>
 #include "ff_des.h"
@@ -477,4 +476,3 @@ namespace cvedix_nodes {
         return err;
     }
 }
-#endif

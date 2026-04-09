@@ -5,9 +5,7 @@ include(CMakeFindDependencyMacro)
 # Find dependencies
 find_dependency(OpenCV)
 
-if(@CVEDIX_WITH_GSTREAMER@)
-    find_dependency(PkgConfig)
-endif()
+find_dependency(PkgConfig)
 
 if(@CVEDIX_WITH_LLM@)
     find_dependency(OpenSSL)

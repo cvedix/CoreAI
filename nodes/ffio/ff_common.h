@@ -8,15 +8,13 @@
  * - Thread-safe packet queue (ff_packet_queue)
  * 
  * @section ff_common_prereq Prerequisites
- * - Compile with `-DCVEDIX_WITH_FFMPEG`
- * - FFmpeg development libraries
+ * - FFmpeg development libraries (mandatory dependency)
  * 
  * @see ff_src Source/demux/decode
  * @see ff_des Destination/encode/mux
  */
 
 #pragma once
-#ifdef CVEDIX_WITH_FFMPEG
 #include <memory>
 #include <thread>
 #include <condition_variable>
@@ -94,4 +92,3 @@ namespace cvedix_nodes {
         int m_max_num_ = 25;
     };
 }
-#endif

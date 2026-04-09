@@ -1,5 +1,4 @@
 
-#ifdef CVEDIX_WITH_FFMPEG
 #include "ff_common.h"
 
 namespace cvedix_nodes {
@@ -81,4 +80,3 @@ namespace cvedix_nodes {
         queue_.pop();
     }
 }
-#endif

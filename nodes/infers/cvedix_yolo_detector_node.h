@@ -27,7 +27,8 @@ enum class BackendType {
     AUTO,       ///< Auto-detect best available backend (default)
     TENSORRT,   ///< NVIDIA TensorRT backend (.engine models)
     OPENVINO,   ///< Intel OpenVINO backend (.xml models)
-    ONNX,       ///< ONNX Runtime backend (.onnx models)
+    ONNX,       ///< OpenCV DNN backend (.onnx models, CPU only)
+    ORT,        ///< ONNX Runtime backend (.onnx models, CPU/GPU)
     RKNN        ///< Rockchip RKNN NPU backend (.rknn models)
 };
 

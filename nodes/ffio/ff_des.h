@@ -18,7 +18,6 @@
  */
 
 #pragma once
-#ifdef CVEDIX_WITH_FFMPEG
 #include <string>
 #include <queue>
 #include <vector>
@@ -259,4 +258,3 @@ namespace cvedix_nodes {
         const AVCodecContext* get_encode_ctx() const;
     };
 }
-#endif

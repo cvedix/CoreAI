@@ -75,8 +75,8 @@ file_src_1                                                                --> tr
   - cvedix_embeddings_properties_socket_broker_node：Chuyển tiếp kết quả đặc trưng và thuộc tính đối tượng bằng udp
   - cvedix_embeddings_socket_broker_node：Chuyển tiếp kết quả đặc trưng đối tượng bằng udp
   - cvedix_expr_socket_broker_node：Chuyển tiếp kết quả kiểm tra biểu thức toán học bằng udp
-  - cvedix_json_console_broker_node：Xuất dữ liệu có cấu trúc ra console ở định dạng json
-  - cvedix_json_kafka_broker_node：Gửi dữ liệu có cấu trúc đến bên thứ ba qua kafka ở định dạng json
+  - cvedix_console_broker_node：Xuất dữ liệu có cấu trúc ra console ở định dạng json
+  - cvedix_kafka_broker_node：Gửi dữ liệu có cấu trúc đến bên thứ ba qua kafka ở định dạng json
   - cvedix_msg_broker_node：Node lớp cơ sở cho data broker
   - cvedix_plate_socket_broker_node：Chuyển tiếp kết quả nhận dạng biển số bằng udp
   - cvedix_xml_file_broker_node：Lưu trữ dữ liệu có cấu trúc vào file ở định dạng xml

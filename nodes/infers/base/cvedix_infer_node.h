@@ -74,7 +74,6 @@ namespace cvedix_nodes {
      *       a specific detector/classifier node.
      * 
      * @see cvedix_yolo_detector_node Example primary inference node
-     * @see cvedix_classifier_node Example secondary inference node
      */
     class cvedix_infer_node: public cvedix_node {
     private:

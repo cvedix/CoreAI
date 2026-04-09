@@ -8,7 +8,7 @@
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 
-#include "cvedix/nodes/broker/cvedix_json_enhanced_console_broker_node.h"
+#include "cvedix/nodes/broker/cvedix_enhanced_console_broker_node.h"
 #include "cvedix/utils/mqtt_client/cvedix_mqtt_client.h"
 #include "cvedix/nodes/broker/cereal_archive/cvedix_objects_cereal_archive.h"
 #include "cpp_base64/base64.h"
@@ -137,7 +137,7 @@ namespace event_format {
 }
 
 // Custom Broker Node for Crossline MQTT
-class cvedix_json_crossline_mqtt_broker_node : public cvedix_nodes::cvedix_json_enhanced_console_broker_node {
+class cvedix_json_crossline_mqtt_broker_node : public cvedix_nodes::cvedix_enhanced_console_broker_node {
 private:
     std::function<void(const std::string&)> mqtt_publisher_;
     std::string instance_id_;
@@ -302,7 +302,7 @@ public:
         std::string instance_id = "DEMO",
         std::string zone_id = "default_zone",
         std::string zone_name = "CrosslineZone")
-        : cvedix_nodes::cvedix_json_enhanced_console_broker_node(
+        : cvedix_nodes::cvedix_enhanced_console_broker_node(
             node_name, cvedix_nodes::cvedix_broke_for::NORMAL, 100, 500, false)
         , mqtt_publisher_(mqtt_publisher)
         , instance_id_(instance_id)

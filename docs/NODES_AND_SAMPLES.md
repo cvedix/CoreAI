@@ -207,10 +207,10 @@ Broker node **serialize và gửi** dữ liệu có cấu trúc ra bên ngoài p
 
 | Node | Giao thức | Định dạng | Mô tả |
 |------|-----------|-----------|--------|
-| `cvedix_json_console_broker_node` | Console (stdout) | JSON | In kết quả ra terminal |
-| `cvedix_json_enhanced_console_broker_node` | Console (stdout) | JSON (chi tiết) | In kết quả chi tiết hơn |
-| `cvedix_json_mqtt_broker_node` | MQTT | JSON | Gửi qua MQTT broker |
-| `cvedix_json_kafka_broker_node` | Kafka | JSON | Gửi qua Kafka |
+| `cvedix_console_broker_node` | Console (stdout) | JSON | In kết quả ra terminal |
+| `cvedix_enhanced_console_broker_node` | Console (stdout) | JSON (chi tiết) | In kết quả chi tiết hơn |
+| `cvedix_mqtt_broker_node` | MQTT | JSON | Gửi qua MQTT broker |
+| `cvedix_kafka_broker_node` | Kafka | JSON | Gửi qua Kafka |
 | `cvedix_xml_file_broker_node` | File | XML | Lưu vào file XML |
 | `cvedix_xml_socket_broker_node` | UDP Socket | XML | Gửi qua UDP |
 | `cvedix_ba_socket_broker_node` | UDP Socket | Binary | Gửi kết quả BA |

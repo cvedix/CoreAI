@@ -11,7 +11,6 @@
 ## Yêu cầu
 
 - libmosquitto-dev (cài đặt: `sudo apt-get install libmosquitto-dev`)
-- Build với flag: `-DCVEDIX_WITH_MQTT=ON`
 
 ## Cách sử dụng
 
@@ -102,7 +101,7 @@ mqtt_client.reset();
 ## Ví dụ đầy đủ với MQTT Broker Node
 
 ```cpp
-#include "cvedix/nodes/broker/cvedix_json_mqtt_broker_node.h"
+#include "cvedix/nodes/broker/cvedix_mqtt_broker_node.h"
 #include "cvedix/utils/mqtt_client/cvedix_mqtt_client.h"
 
 // Global MQTT client
@@ -130,7 +129,7 @@ int main() {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     
     // Create MQTT broker node
-    auto mqtt_broker = std::make_shared<cvedix_nodes::cvedix_json_mqtt_broker_node>(
+    auto mqtt_broker = std::make_shared<cvedix_nodes::cvedix_mqtt_broker_node>(
         "mqtt_broker_0",
         cvedix_nodes::cvedix_broke_for::NORMAL,
         50, 200,

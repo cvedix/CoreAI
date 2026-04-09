@@ -1,4 +1,3 @@
-#ifdef CVEDIX_WITH_FFMPEG
 #include "cvedix_ff_src_node.h"
 
 namespace cvedix_nodes {
@@ -146,4 +145,3 @@ namespace cvedix_nodes {
         return m_uri;
     }
 }
-#endif

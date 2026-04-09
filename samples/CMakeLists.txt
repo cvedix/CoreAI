@@ -29,9 +29,6 @@ target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
 add_executable(cvedix_test "cvedix_test.cpp")
 target_link_libraries(cvedix_test ${PROJECT_NAME})
 
-add_executable(enet_seg_sample "enet_seg_sample.cpp")
-target_link_libraries(enet_seg_sample ${PROJECT_NAME})
-
 add_executable(frame_fusion_sample "frame_fusion_sample.cpp")
 target_link_libraries(frame_fusion_sample ${PROJECT_NAME})
 
@@ -44,17 +41,8 @@ target_link_libraries(image_src_sample ${PROJECT_NAME})
 add_executable(interaction_with_pipe_sample "interaction_with_pipe_sample.cpp")
 target_link_libraries(interaction_with_pipe_sample ${PROJECT_NAME})
 
-add_executable(lane_detect_sample "lane_detect_sample.cpp")
-target_link_libraries(lane_detect_sample ${PROJECT_NAME})
-
-add_executable(mask_rcnn_sample "mask_rcnn_sample.cpp")
-target_link_libraries(mask_rcnn_sample ${PROJECT_NAME})
-
 add_executable(message_broker_sample "message_broker_sample.cpp")
 target_link_libraries(message_broker_sample ${PROJECT_NAME})
-
-add_executable(multi_detectors_and_classifiers_sample "multi_detectors_and_classifiers_sample.cpp")
-target_link_libraries(multi_detectors_and_classifiers_sample ${PROJECT_NAME})
 
 add_executable(N-1-N_sample "N-1-N_sample.cpp")
 target_link_libraries(N-1-N_sample ${PROJECT_NAME})
@@ -96,15 +84,11 @@ install(TARGETS
         app_src_des_sample
         cvedix_logger_sample
         cvedix_test
-        enet_seg_sample
         frame_fusion_sample
         image_des_sample
         image_src_sample
         interaction_with_pipe_sample
-        lane_detect_sample
-        mask_rcnn_sample
         message_broker_sample
-        multi_detectors_and_classifiers_sample
         N-1-N_sample
         N-N_sample
         record_sample
@@ -143,15 +127,7 @@ if(CVEDIX_WITH_TRT)
     add_executable(ba_traffic_analysis_sample "ba_traffic_analysis_sample.cpp")
     target_link_libraries(ba_traffic_analysis_sample ${PROJECT_NAME})
 
-    # People Analytics Benchmark: counting + crowd + loitering + wrong-way
-    add_executable(benchmark_people_analytics_sample "benchmark_people_analytics_sample.cpp")
-    target_include_directories(benchmark_people_analytics_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(benchmark_people_analytics_sample ${PROJECT_NAME})
 
-    # Pipeline Benchmark: det → track → ba_crossline (no OSD/display for pure throughput)
-    add_executable(benchmark_pipeline_sample "benchmark_pipeline_sample.cpp")
-    target_include_directories(benchmark_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(benchmark_pipeline_sample ${PROJECT_NAME})
 
     add_executable(firesmoke_detect_sample "firesmoke_detect_sample.cpp")
     target_link_libraries(firesmoke_detect_sample ${PROJECT_NAME})
@@ -174,8 +150,6 @@ if(CVEDIX_WITH_TRT)
         ba_multiple_crossline_counting_sample
         ba_speed_estimation_sample
         ba_traffic_analysis_sample
-        benchmark_people_analytics_sample
-        benchmark_pipeline_sample
         firesmoke_detect_sample
         multi_detectors_sample
         obstacle_detect_sample
@@ -196,22 +170,8 @@ if(CVEDIX_WITH_OPENVINO)
     )
 endif()
 
-# License check sample (only build if license support is enabled)
-if(CVEDIX_WITH_LICENSE)
-    add_executable(license_check_sample "license_check_sample.cpp")
-    target_link_libraries(license_check_sample PUBLIC ${PROJECT_NAME})
-    # Ensure licensecxx include directories are available
-    if(TARGET lcxx::lcxx)
-        target_link_libraries(license_check_sample PUBLIC lcxx::lcxx)
-    endif()
-    
-    # License info sample - demonstrates cvedix_license_node usage
-    add_executable(license_info_sample "license_info_sample.cpp")
-    target_link_libraries(license_info_sample PUBLIC ${PROJECT_NAME})
-    if(TARGET lcxx::lcxx)
-        target_link_libraries(license_info_sample PUBLIC lcxx::lcxx)
-    endif()
-endif()
+
+
 
 # samples depend on Kafka
 if(CVEDIX_WITH_KAFKA)
@@ -223,44 +183,42 @@ if(CVEDIX_WITH_KAFKA)
             OPTIONAL)
 endif()
 
-# samples depend on MQTT
-if(CVEDIX_WITH_MQTT)
-    add_executable(mqtt_json_receiver_sample "mqtt_json_receiver_sample.cpp")
-    target_include_directories(mqtt_json_receiver_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(mqtt_json_receiver_sample ${PROJECT_NAME})
-    
-    # Link with mosquitto
-    if(MOSQUITTO_FOUND)
-        target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIBRARIES})
-    else()
-        find_library(MOSQUITTO_LIB NAMES mosquitto)
-        if(MOSQUITTO_LIB)
-            target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIB})
-        endif()
-    endif()
-    
-    install(TARGETS mqtt_json_receiver_sample
-            DESTINATION bin
-            OPTIONAL)
+# samples depend on MQTT (mandatory)
+add_executable(mqtt_json_receiver_sample "mqtt_json_receiver_sample.cpp")
+target_include_directories(mqtt_json_receiver_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+target_link_libraries(mqtt_json_receiver_sample ${PROJECT_NAME})
 
-    add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
-    target_include_directories(ba_crossline_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
-    
-    # Link with mosquitto
-    if(MOSQUITTO_FOUND)
-        target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIBRARIES})
-    else()
-        find_library(MOSQUITTO_LIB NAMES mosquitto)
-        if(MOSQUITTO_LIB)
-            target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIB})
-        endif()
+# Link with mosquitto
+if(MOSQUITTO_FOUND)
+    target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIBRARIES})
+else()
+    find_library(MOSQUITTO_LIB NAMES mosquitto)
+    if(MOSQUITTO_LIB)
+        target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIB})
     endif()
-    
-    install(TARGETS ba_crossline_mqtt_sample
-            DESTINATION bin
-            OPTIONAL)
 endif()
+
+install(TARGETS mqtt_json_receiver_sample
+        DESTINATION bin
+        OPTIONAL)
+
+add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
+target_include_directories(ba_crossline_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
+
+# Link with mosquitto
+if(MOSQUITTO_FOUND)
+    target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIBRARIES})
+else()
+    find_library(MOSQUITTO_LIB NAMES mosquitto)
+    if(MOSQUITTO_LIB)
+        target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIB})
+    endif()
+endif()
+
+install(TARGETS ba_crossline_mqtt_sample
+        DESTINATION bin
+        OPTIONAL)
 
 # samples depend on LLM
 if(CVEDIX_WITH_LLM)
@@ -287,20 +245,18 @@ endif()
 #             OPTIONAL)
 # endif()
 
-# samples depend on FFmpeg
-if(CVEDIX_WITH_FFMPEG)
-    add_executable(ffmpeg_src_des_sample "ffmpeg_src_des_sample.cpp")
-    target_link_libraries(ffmpeg_src_des_sample ${PROJECT_NAME})
+# samples depend on FFmpeg (mandatory)
+add_executable(ffmpeg_src_des_sample "ffmpeg_src_des_sample.cpp")
+target_link_libraries(ffmpeg_src_des_sample ${PROJECT_NAME})
 
-    add_executable(ffmpeg_transcode_sample "ffmpeg_transcode_sample.cpp")
-    target_link_libraries(ffmpeg_transcode_sample ${PROJECT_NAME})
-    
-    install(TARGETS 
-        ffmpeg_src_des_sample
-        ffmpeg_transcode_sample
-        DESTINATION bin
-        OPTIONAL)
-endif()
+add_executable(ffmpeg_transcode_sample "ffmpeg_transcode_sample.cpp")
+target_link_libraries(ffmpeg_transcode_sample ${PROJECT_NAME})
+
+install(TARGETS 
+    ffmpeg_src_des_sample
+    ffmpeg_transcode_sample
+    DESTINATION bin
+    OPTIONAL)
 
 # samples depend on RKNN
 if(CVEDIX_WITH_RKNN)
@@ -329,37 +285,33 @@ if(CVEDIX_WITH_RKNN)
 #     target_include_directories(rknn_rtsp_tracking_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
 #     target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${PROJECT_NAME})
     
-#     # Link with mosquitto if MQTT is enabled
-#     if(CVEDIX_WITH_MQTT)
-#         if(MOSQUITTO_FOUND)
-#             target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
-#         else()
-#             find_library(MOSQUITTO_LIB NAMES mosquitto)
-#             if(MOSQUITTO_LIB)
-#                 target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
-#             endif()
+#     # Link with mosquitto (MQTT is mandatory)
+#     if(MOSQUITTO_FOUND)
+#         target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIBRARIES})
+#     else()
+#         find_library(MOSQUITTO_LIB NAMES mosquitto)
+#         if(MOSQUITTO_LIB)
+#             target_link_libraries(rknn_rtsp_tracking_mqtt_sample ${MOSQUITTO_LIB})
 #         endif()
 #     endif()
 
-#     # RKNN face tracking sample - build by default when RKNN is enabled and MQTT is enabled
-#     if(CVEDIX_WITH_MQTT)
-#         add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
-#         target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-#         target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
-        
-#         # Link with mosquitto for MQTT
-#         if(MOSQUITTO_FOUND)
-#             target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
-#         else()
-#             find_library(MOSQUITTO_LIB NAMES mosquitto)
-#             if(MOSQUITTO_LIB)
-#                 target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
-#             endif()
+#     # RKNN face tracking sample (MQTT is mandatory)
+#     add_executable(rknn_face_tracking_sample "rknn_face_tracking_sample.cpp")
+#     target_include_directories(rknn_face_tracking_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+#     target_link_libraries(rknn_face_tracking_sample ${PROJECT_NAME})
+#
+#     # Link with mosquitto for MQTT
+#     if(MOSQUITTO_FOUND)
+#         target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIBRARIES})
+#     else()
+#         find_library(MOSQUITTO_LIB NAMES mosquitto)
+#         if(MOSQUITTO_LIB)
+#             target_link_libraries(rknn_face_tracking_sample ${MOSQUITTO_LIB})
 #         endif()
-        
-#         # Install RKNN face tracking sample
-#         install(TARGETS rknn_face_tracking_sample DESTINATION bin)
 #     endif()
+#
+#     # Install RKNN face tracking sample
+#     install(TARGETS rknn_face_tracking_sample DESTINATION bin)
 
 #     # Install RKNN samples
 #     install(TARGETS 
@@ -413,21 +365,6 @@ if(CVEDIX_WITH_TRT_FACE)
     add_executable(yolov11_plate_detector_trt_sample "yolov11_plate_detector_trt_sample.cpp")
     target_include_directories(yolov11_plate_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
     target_link_libraries(yolov11_plate_detector_trt_sample ${PROJECT_NAME})
-    
-    # TensorRT YOLOv11 Face Detector sample
-    add_executable(yolov11_face_detector_trt_sample "yolov11_face_detector_trt_sample.cpp")
-    target_include_directories(yolov11_face_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(yolov11_face_detector_trt_sample ${PROJECT_NAME})
-
-    # TensorRT YOLOv11 Face Detector with Video Output
-    add_executable(yolov11_face_detector_video_output_sample "yolov11_face_detector_video_output_sample.cpp")
-    target_include_directories(yolov11_face_detector_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(yolov11_face_detector_video_output_sample ${PROJECT_NAME})
-
-    # YOLOv11 Face Detection + ByteTrack Tracking sample
-    add_executable(yolov11_face_bytetrack_sample "yolov11_face_bytetrack_sample.cpp")
-    target_include_directories(yolov11_face_bytetrack_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-    target_link_libraries(yolov11_face_bytetrack_sample ${PROJECT_NAME})
 
     # YOLOv11 Plate Detection + ByteTrack Tracking sample with Analysis Board
     add_executable(yolov11_plate_bytetrack_sample "yolov11_plate_bytetrack_sample.cpp")

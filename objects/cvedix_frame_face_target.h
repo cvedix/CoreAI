@@ -42,7 +42,7 @@ namespace cvedix_objects {
         // confidence
         float score;
 
-        // feature vector created by infer nodes such as cvedix_sface_feature_encoder_node.
+        // feature vector created by face feature encoder inference nodes.
         // embeddings can be used for face recognize or other reid works.
         std::vector<float> embeddings;
 
