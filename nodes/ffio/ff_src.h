@@ -18,7 +18,6 @@
  */
 
 #pragma once
-#ifdef CVEDIX_WITH_FFMPEG
 #include <string>
 #include <queue>
 #include <vector>
@@ -264,4 +263,3 @@ namespace cvedix_nodes {
         void set_src_opened_hooker(ff_src_opened_hooker src_opened_hooker);
     };
 }
-#endif

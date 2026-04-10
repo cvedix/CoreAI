@@ -17,17 +17,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 
 # optional for build, modify values when configure the project using 'cmake -DCVEDIX_WITH_CUDA=OFF ..'
-option(CVEDIX_WITH_GSTREAMER "prepared GStreamer or not?" ON)
 option(CVEDIX_WITH_CUDA "prepared CUDA or not?" OFF)
 option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
 option(CVEDIX_WITH_OPENVINO "prepared OpenVINO or not?" OFF)
 option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
-option(CVEDIX_WITH_KAFKA "prepared Kafka or not?" OFF)
 option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
-option(CVEDIX_WITH_FFMPEG "prepared FFMPEG or not?" OFF)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
-option(CVEDIX_WITH_LICENSE "Enable license checking using licensecxx" OFF)
 option(CVEDIX_BUILD_SAMPLES "build samples or not? (saves build time and resources)" OFF)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
@@ -62,32 +58,23 @@ else()
     endif()
 endif()
 
-# Gstreamer optional
-if(CVEDIX_WITH_GSTREAMER)
-    include(FindPkgConfig)
-    pkg_check_modules(GST   REQUIRED gstreamer-1.0)
-    pkg_check_modules(GSTAPP REQUIRED gstreamer-app-1.0)
-    # RTSP server is required
-    pkg_check_modules(GST_RTSP REQUIRED gstreamer-rtsp-server-1.0)
-    message(STATUS "GStreamer RTSP server found - RTSP nodes will be available")
-    message(STATUS "GStreamer library status:")
-    message(STATUS "    version: ${GST_VERSION}")
-    message(STATUS "    libraries: ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES}")
-    message(STATUS "    include path: ${GST_INCLUDE_DIRS}")
-    include_directories(${GST_INCLUDE_DIRS})
-    set (GST_DEPEND_LIBS ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES})
-    add_definitions(-DCVEDIX_WITH_GSTREAMER)
-    set(CVEDIX_WITH_GSTREAMER ON)
-else()
-    message(STATUS "GStreamer disabled - GStreamer nodes will not be available")
-    set(GST_DEPEND_LIBS "")
-endif()
+# GStreamer mandatory
+include(FindPkgConfig)
+pkg_check_modules(GST   REQUIRED gstreamer-1.0)
+pkg_check_modules(GSTAPP REQUIRED gstreamer-app-1.0)
+# RTSP server is required
+pkg_check_modules(GST_RTSP REQUIRED gstreamer-rtsp-server-1.0)
+message(STATUS "GStreamer RTSP server found - RTSP nodes will be available")
+message(STATUS "GStreamer library status:")
+message(STATUS "    version: ${GST_VERSION}")
+message(STATUS "    libraries: ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES}")
+message(STATUS "    include path: ${GST_INCLUDE_DIRS}")
+include_directories(${GST_INCLUDE_DIRS})
+set (GST_DEPEND_LIBS ${GST_LIBRARIES} ${GSTAPP_LIBRARIES} ${GST_RTSP_LIBRARIES})
+add_definitions(-DCVEDIX_WITH_GSTREAMER)
 
 # collect dependent libs for SDK
-list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} stdc++fs)
-if(CVEDIX_WITH_GSTREAMER)
-    list(APPEND CVEDIX_DEPEND_LIBS ${GST_DEPEND_LIBS})
-endif()
+list(APPEND CVEDIX_DEPEND_LIBS ${OpenCV_LIBS} ${GST_DEPEND_LIBS} stdc++fs)
 
 # optional for CUDA
 if(CVEDIX_WITH_CUDA) # CUDA enabled
@@ -103,13 +90,15 @@ add_subdirectory(third_party/onnx_yolov11)
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
-    set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")         # need set the path here
-    set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")     # need set the path here
+    # TensorRT installed via apt packages
+    set(CVEDIX_TRT_LIB_PATH "/usr/lib/x86_64-linux-gnu/")         # apt-installed TRT libs
+    set(CVEDIX_TRT_INC_PATH "/usr/include/x86_64-linux-gnu/")     # apt-installed TRT headers
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     link_directories(${CVEDIX_TRT_LIB_PATH})
-    include_directories(/usr/local/cuda/include)
-    link_directories(/usr/local/cuda/lib64)
+    # CUDA 12.8 installed at /usr/local/cuda-12.8 (symlinked from /usr/local/cuda)
+    include_directories(/usr/local/cuda-12.8/targets/x86_64-linux/include)
+    link_directories(/usr/local/cuda-12.8/targets/x86_64-linux/lib)
 
     message(STATUS "TensorRT library status:")
     message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
@@ -119,13 +108,6 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     message("-------------start build trt_yolov11--------------")
     add_subdirectory(third_party/trt_yolov11)
     message("--------------end build trt_yolov11---------------")
-    
-    # trt_yolov11_face
-    message("-------------start build trt_yolov11_face--------------")
-    # Need refactor soon
-    add_subdirectory(third_party/trt_yolov11_face)
-    list(APPEND CVEDIX_DEPEND_LIBS trt_yolov11_face)
-    message("--------------end build trt_yolov11_face---------------")
 
     # trt_botsort
     message("-------------start build trt_botsort--------------")
@@ -213,45 +195,39 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     message("--------------end build paddle_ocr---------------")
 endif()
 
-# optional for Kafka
-if(CVEDIX_WITH_KAFKA)
-    # Check if librdkafka is available
-    find_library(RDKAFKA_LIB 
-        NAMES rdkafka++
-        PATHS /usr/lib /usr/local/lib /opt/lib
+# Kafka mandatory (librdkafka)
+find_library(RDKAFKA_LIB
+    NAMES rdkafka++
+    PATHS /usr/lib /usr/local/lib /opt/lib
+)
+
+find_path(RDKAFKA_INCLUDE_DIR
+    NAMES librdkafka/rdkafkacpp.h
+    PATHS /usr/include /usr/local/include /opt/include
+)
+
+if(NOT RDKAFKA_LIB OR NOT RDKAFKA_INCLUDE_DIR)
+    message(FATAL_ERROR "\n"
+        "========================================\n"
+        "librdkafka not found!\n"
+        "========================================\n"
+        "librdkafka is a required dependency.\n"
+        "\n"
+        "To install librdkafka development packages:\n"
+        "  Ubuntu/Debian: sudo apt-get install librdkafka-dev\n"
+        "  Fedora/RHEL:   sudo dnf install librdkafka-devel\n"
+        "  Arch Linux:    sudo pacman -S librdkafka\n"
+        "========================================\n"
     )
-    
-    find_path(RDKAFKA_INCLUDE_DIR
-        NAMES librdkafka/rdkafkacpp.h
-        PATHS /usr/include /usr/local/include /opt/include
-    )
-    
-    if(NOT RDKAFKA_LIB OR NOT RDKAFKA_INCLUDE_DIR)
-        message(FATAL_ERROR "\n"
-            "========================================\n"
-            "librdkafka not found!\n"
-            "========================================\n"
-            "librdkafka is required when CVEDIX_WITH_KAFKA=ON\n"
-            "\n"
-            "To install librdkafka development packages:\n"
-            "  Ubuntu/Debian: sudo apt-get install librdkafka-dev\n"
-            "  Fedora/RHEL:   sudo dnf install librdkafka-devel\n"
-            "  Arch Linux:    sudo pacman -S librdkafka\n"
-            "\n"
-            "Or disable Kafka support:\n"
-            "  cmake -DCVEDIX_WITH_KAFKA=OFF ..\n"
-            "========================================\n"
-        )
-    endif()
-    
-    message(STATUS "librdkafka library status:")
-    message(STATUS "    library: ${RDKAFKA_LIB}")
-    message(STATUS "    include path: ${RDKAFKA_INCLUDE_DIR}")
-    include_directories(${RDKAFKA_INCLUDE_DIR})
-    list(APPEND CVEDIX_DEPEND_LIBS ${RDKAFKA_LIB})
-    add_definitions(-DCVEDIX_WITH_KAFKA)
-    message(STATUS "Kafka support: enabled")
 endif()
+
+message(STATUS "librdkafka library status:")
+message(STATUS "    library: ${RDKAFKA_LIB}")
+message(STATUS "    include path: ${RDKAFKA_INCLUDE_DIR}")
+include_directories(${RDKAFKA_INCLUDE_DIR})
+list(APPEND CVEDIX_DEPEND_LIBS ${RDKAFKA_LIB})
+add_definitions(-DCVEDIX_WITH_KAFKA)
+message(STATUS "Kafka support: enabled")
 
 # optional for LLM
 if(CVEDIX_WITH_LLM)
@@ -286,71 +262,57 @@ if(CVEDIX_WITH_LLM)
     add_definitions(-DCVEDIX_WITH_LLM)
 endif()
 
-# optional for FFmpeg
-if(CVEDIX_WITH_FFMPEG)
-    add_definitions(-DCVEDIX_WITH_FFMPEG)
-    list(APPEND CVEDIX_DEPEND_LIBS avcodec avformat avdevice swscale swresample avutil)
-endif()
+# FFmpeg mandatory
+list(APPEND CVEDIX_DEPEND_LIBS avcodec avformat avdevice swscale swresample avutil)
 
-# optional for MQTT (libmosquitto)
-option(CVEDIX_WITH_MQTT "prepared MQTT (libmosquitto) or not?" OFF)
-if(CVEDIX_WITH_MQTT)
-    add_definitions(-DCVEDIX_WITH_MQTT)
-    # Try to find libmosquitto using pkg-config first
-    pkg_check_modules(MOSQUITTO mosquitto)
-    if(MOSQUITTO_FOUND)
-        message(STATUS "MQTT (libmosquitto) found via pkg-config")
-        message(STATUS "    version: ${MOSQUITTO_VERSION}")
-        message(STATUS "    libraries: ${MOSQUITTO_LIBRARIES}")
-        message(STATUS "    include path: ${MOSQUITTO_INCLUDE_DIRS}")
-        include_directories(${MOSQUITTO_INCLUDE_DIRS})
-        list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIBRARIES})
-    else()
-        # Try to find manually
-        find_library(MOSQUITTO_LIB
-            NAMES mosquitto
-            PATHS /usr/local/lib /usr/lib
-            NO_DEFAULT_PATH
-        )
-        if(MOSQUITTO_LIB)
-            message(STATUS "MQTT (libmosquitto) library found: ${MOSQUITTO_LIB}")
-            list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIB})
-        else()
-            find_library(MOSQUITTO_LIB NAMES mosquitto)
-            if(MOSQUITTO_LIB)
-                message(STATUS "MQTT (libmosquitto) library found: ${MOSQUITTO_LIB}")
-                list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIB})
-            else()
-                message(WARNING "MQTT (libmosquitto) library not found. MQTT features will be disabled.")
-                message(WARNING "  Install with: sudo apt-get install libmosquitto-dev")
-                set(CVEDIX_WITH_MQTT OFF)
-            endif()
-        endif()
-        
-        # Find mosquitto.h
-        find_path(MOSQUITTO_INCLUDE_DIR
-            NAMES mosquitto.h
-            PATHS /usr/local/include /usr/include
-            NO_DEFAULT_PATH
-        )
-        if(MOSQUITTO_INCLUDE_DIR)
-            message(STATUS "MQTT (libmosquitto) include path: ${MOSQUITTO_INCLUDE_DIR}")
-            include_directories(${MOSQUITTO_INCLUDE_DIR})
-        else()
-            find_path(MOSQUITTO_INCLUDE_DIR NAMES mosquitto.h)
-            if(MOSQUITTO_INCLUDE_DIR)
-                message(STATUS "MQTT (libmosquitto) include path: ${MOSQUITTO_INCLUDE_DIR}")
-                include_directories(${MOSQUITTO_INCLUDE_DIR})
-            else()
-                message(WARNING "MQTT (libmosquitto) headers not found. MQTT features will be disabled.")
-                set(CVEDIX_WITH_MQTT OFF)
-            endif()
-        endif()
+# MQTT mandatory (libmosquitto)
+pkg_check_modules(MOSQUITTO mosquitto)
+if(MOSQUITTO_FOUND)
+    message(STATUS "MQTT (libmosquitto) found via pkg-config")
+    message(STATUS "    version: ${MOSQUITTO_VERSION}")
+    message(STATUS "    libraries: ${MOSQUITTO_LIBRARIES}")
+    message(STATUS "    include path: ${MOSQUITTO_INCLUDE_DIRS}")
+    include_directories(${MOSQUITTO_INCLUDE_DIRS})
+    list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIBRARIES})
+else()
+    find_library(MOSQUITTO_LIB
+        NAMES mosquitto
+        PATHS /usr/local/lib /usr/lib
+        NO_DEFAULT_PATH
+    )
+    if(NOT MOSQUITTO_LIB)
+        find_library(MOSQUITTO_LIB NAMES mosquitto)
     endif()
-    if(CVEDIX_WITH_MQTT)
-        message(STATUS "MQTT support: enabled")
+    if(NOT MOSQUITTO_LIB)
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "libmosquitto not found!\n"
+            "========================================\n"
+            "libmosquitto is required for MQTT support\n"
+            "\n"
+            "To install:\n"
+            "  Ubuntu/Debian: sudo apt-get install libmosquitto-dev\n"
+            "  Fedora/RHEL:   sudo dnf install libmosquitto-devel\n"
+            "========================================\n"
+        )
+    endif()
+    message(STATUS "MQTT (libmosquitto) library found: ${MOSQUITTO_LIB}")
+    list(APPEND CVEDIX_DEPEND_LIBS ${MOSQUITTO_LIB})
+
+    find_path(MOSQUITTO_INCLUDE_DIR
+        NAMES mosquitto.h
+        PATHS /usr/local/include /usr/include
+        NO_DEFAULT_PATH
+    )
+    if(NOT MOSQUITTO_INCLUDE_DIR)
+        find_path(MOSQUITTO_INCLUDE_DIR NAMES mosquitto.h)
+    endif()
+    if(MOSQUITTO_INCLUDE_DIR)
+        message(STATUS "MQTT (libmosquitto) include path: ${MOSQUITTO_INCLUDE_DIR}")
+        include_directories(${MOSQUITTO_INCLUDE_DIR})
     endif()
 endif()
+message(STATUS "MQTT support: enabled")
 
 # optional for RKNN (Rockchip NPU)
 if(CVEDIX_WITH_RKNN)
@@ -491,64 +453,6 @@ if(CVEDIX_WITH_RKNN)
     message(STATUS "RKNN support: enabled")
 endif()
 
-# optional for License (licensecxx)
-if(CVEDIX_WITH_LICENSE)
-    add_definitions(-DCVEDIX_WITH_LICENSE)
-    
-    # OpenSSL is required by licensecxx (version >= 3.0 recommended)
-    find_package(OpenSSL QUIET)
-    if(NOT OpenSSL_FOUND)
-        message(FATAL_ERROR "\n"
-            "========================================\n"
-            "OpenSSL not found!\n"
-            "========================================\n"
-            "licensecxx requires OpenSSL (>= 3.0 recommended)\n"
-            "\n"
-            "To install OpenSSL development packages:\n"
-            "  Ubuntu/Debian: sudo apt-get install libssl-dev\n"
-            "  Fedora/RHEL:   sudo dnf install openssl-devel\n"
-            "  Arch Linux:    sudo pacman -S openssl\n"
-            "\n"
-            "Or disable license checking:\n"
-            "  cmake -DCVEDIX_WITH_LICENSE=OFF ..\n"
-            "========================================\n"
-        )
-    endif()
-    message(STATUS "OpenSSL found: ${OPENSSL_VERSION}")
-    
-    # Check if licensecxx is available as submodule
-    set(LICENSECXX_SUBMODULE_DIR ${CMAKE_SOURCE_DIR}/third_party/licensecxx)
-    
-    if(EXISTS ${LICENSECXX_SUBMODULE_DIR}/CMakeLists.txt)
-        message(STATUS "licensecxx found in third_party/licensecxx - building as submodule")
-        add_subdirectory(${LICENSECXX_SUBMODULE_DIR})
-        
-        # Link with licensecxx target
-        if(TARGET lcxx::lcxx)
-            message(STATUS "licensecxx target found: lcxx::lcxx")
-            # Note: licensecxx will be linked via target_link_libraries in utils/CMakeLists.txt
-        else()
-            message(WARNING "licensecxx target lcxx::lcxx not found after adding subdirectory")
-        endif()
-    else()
-        message(FATAL_ERROR "\n"
-            "========================================\n"
-            "licensecxx not found!\n"
-            "========================================\n"
-            "licensecxx is required when CVEDIX_WITH_LICENSE=ON\n"
-            "\n"
-            "To add licensecxx as submodule:\n"
-            "  git submodule add https://github.com/felixjulianheitmann/licensecxx.git third_party/licensecxx\n"
-            "  git submodule update --init --recursive\n"
-            "\n"
-            "Or disable license checking:\n"
-            "  cmake -DCVEDIX_WITH_LICENSE=OFF ..\n"
-            "========================================\n"
-        )
-    endif()
-    
-    message(STATUS "License checking support: enabled (licensecxx)")
-endif()
 
 # optional for RGA (Rockchip Graphics Accelerator)
 if(CVEDIX_WITH_RGA)
@@ -697,6 +601,14 @@ else()
     set(CVEDIX_WITH_ORT OFF)
 endif()
 
+# ── CVEDIX YOLO ORT Detector Plugin (ONNX Runtime) ──
+set(CVEDIX_YOLO_ORT_DETECTOR_DIR ${CMAKE_SOURCE_DIR}/third_party/cvedix_yolo_ort_detector)
+if(CVEDIX_WITH_ORT AND EXISTS ${CVEDIX_YOLO_ORT_DETECTOR_DIR}/CMakeLists.txt)
+    add_subdirectory(${CVEDIX_YOLO_ORT_DETECTOR_DIR})
+    list(APPEND CVEDIX_DEPEND_LIBS cvedix_yolo_ort_detector)
+    message(STATUS "CVEDIX YOLO ORT Detector plugin enabled")
+endif()
+
 # optional for SeetaFace6 (face detection, recognition, landmarks, etc.)
 set(SEETAFACE6_DIR ${CMAKE_SOURCE_DIR}/third_party/seetaface6)
 set(SEETAFACE6_BUILD_DIR ${SEETAFACE6_DIR}/build)
@@ -802,17 +714,6 @@ endif()
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rknn.*")
 list(FILTER CORE_UTILS EXCLUDE REGEX ".*rga.*")
 
-# Exclude MQTT client and receiver if MQTT is not enabled
-if(NOT CVEDIX_WITH_MQTT)
-    list(FILTER CORE_UTILS EXCLUDE REGEX ".*mqtt_client.*")
-    list(FILTER CORE_UTILS EXCLUDE REGEX ".*mqtt_json_receiver.*")
-endif()
-
-# Exclude Kafka-related files if Kafka is not enabled
-if(NOT CVEDIX_WITH_KAFKA)
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*kafka.*")
-    list(FILTER CORE_UTILS EXCLUDE REGEX ".*kafka.*")
-endif()
 
 # Exclude LLM-related files if LLM is not enabled
 if(NOT CVEDIX_WITH_LLM)
@@ -821,27 +722,10 @@ endif()
 
 # (RKNN/TRT exclusions handled by default above for Core)
 
-# Exclude GStreamer-related files if GStreamer is not enabled
-if(NOT CVEDIX_WITH_GSTREAMER)
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*rtsp.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*rtmp.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*image.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*file.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*screen.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*udp.*")
-endif()
 
-# Exclude FFmpeg-related files if FFmpeg is not enabled
-if(NOT CVEDIX_WITH_FFMPEG)
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*ffio.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*ff_.*")
-    list(FILTER CORE_NODES EXCLUDE REGEX ".*cvedix_ff.*")
-endif()
 
-# Exclude license-related files if license is not enabled
-if(NOT CVEDIX_WITH_LICENSE)
-    list(FILTER CORE_UTILS EXCLUDE REGEX ".*license.*")
-endif()
+# Exclude license-related files (license feature removed)
+list(FILTER CORE_UTILS EXCLUDE REGEX ".*license.*")
 
 # Exclude ONNX Runtime-based nodes if ORT is not available
 if(NOT CVEDIX_WITH_ORT)
@@ -881,47 +765,6 @@ target_link_libraries(cvedix_core
 
 # Alias
 add_library(${PROJECT_NAME} ALIAS cvedix_core)
-
-# --- PLUGINS ---
-
-# RKNN Plugin
-# if(CVEDIX_WITH_RKNN)
-#     file(GLOB_RECURSE RKNN_PLUGIN_NODES "nodes/*rknn*.cpp")
-#     file(GLOB_RECURSE RKNN_PLUGIN_UTILS "utils/rknn/*.cpp" "utils/rga/*.cpp")
-    
-#     # Only build if we have sources
-#     if(RKNN_PLUGIN_NODES OR RKNN_PLUGIN_UTILS)
-#         add_library(cvedix_backend_rknn MODULE ${RKNN_PLUGIN_NODES} ${RKNN_PLUGIN_UTILS})
-#         target_link_libraries(cvedix_backend_rknn cvedix_core ${CVEDIX_DEPEND_LIBS} rknnrt rga)
-#         target_compile_definitions(cvedix_backend_rknn PRIVATE CVEDIX_WITH_RKNN CVEDIX_WITH_RGA)
-        
-#         # Output to plugins dir
-#         file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/plugins)
-#         set_target_properties(cvedix_backend_rknn PROPERTIES 
-#             LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/plugins
-#             PREFIX "lib"
-#         )
-#         install(TARGETS cvedix_backend_rknn DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix/plugins)
-#     endif()
-# endif()
-
-
-# Link licensecxx if license checking is enabled
-if(CVEDIX_WITH_LICENSE)
-    if(TARGET lcxx::lcxx)
-        # Use PRIVATE to avoid export issues (licensecxx won't be exported)
-        # This prevents CMake errors about absolute paths and missing nlohmann_json export
-        # PRIVATE linking still provides include directories for compilation, just not for export
-        target_link_libraries(cvedix_core PRIVATE lcxx::lcxx)
-        message(STATUS "Linked cvedix_core with licensecxx (lcxx::lcxx)")
-        
-        # Link with identifiers for hardware binding support
-        if(TARGET lcxx::identifiers)
-            target_link_libraries(cvedix_core PRIVATE lcxx::identifiers)
-            message(STATUS "Linked cvedix_core with licensecxx identifiers (hardware binding support)")
-        endif()
-    endif()
-endif()
 
 # Create a cvedix directory structure in build directory for build-time includes
 # This allows headers to use "cvedix/..." paths both when building from source and when installed
@@ -983,6 +826,14 @@ if(CVEDIX_WITH_RGA)
     endif()
 endif()
 
+# Install CVEDIX YOLO ORT Detector plugin (required by cvedix_core EXPORT)
+if(CVEDIX_WITH_ORT AND TARGET cvedix_yolo_ort_detector)
+    install(TARGETS cvedix_yolo_ort_detector EXPORT cvedix-targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
+    )
+endif()
+
 # Installation
 install(TARGETS cvedix_core EXPORT cvedix-targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/cvedix
@@ -1012,8 +863,6 @@ install(FILES ${CMAKE_BINARY_DIR}/cvedix_version.h
 )
 
 # Export targets
-# Note: licensecxx is linked PRIVATE so it doesn't need to be exported
-# This avoids issues with absolute paths in INTERFACE_INCLUDE_DIRECTORIES and nlohmann_json dependency
 install(EXPORT cvedix-targets
     FILE cvedix-targets.cmake
     NAMESPACE cvedix::
@@ -1029,15 +878,14 @@ write_basic_package_version_file(
 )
 
 # Collect compile definitions that were used when building the SDK
+# Note: GStreamer, FFmpeg, MQTT, Kafka are mandatory and always defined via add_definitions()
+# Only optional features need to be propagated to consumer projects
 set(CVEDIX_CONFIG_DEFINES "")
 if(CVEDIX_WITH_RKNN)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RKNN)\n")
 endif()
 if(CVEDIX_WITH_RGA)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_RGA)\n")
-endif()
-if(CVEDIX_WITH_GSTREAMER)
-    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_GSTREAMER)\n")
 endif()
 if(CVEDIX_WITH_CUDA)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_CUDA)\n")
@@ -1048,14 +896,8 @@ endif()
 if(CVEDIX_WITH_PADDLE)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_PADDLE)\n")
 endif()
-if(CVEDIX_WITH_KAFKA)
-    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_KAFKA)\n")
-endif()
 if(CVEDIX_WITH_LLM)
     set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_LLM)\n")
-endif()
-if(CVEDIX_WITH_FFMPEG)
-    set(CVEDIX_CONFIG_DEFINES "${CVEDIX_CONFIG_DEFINES}add_definitions(-DCVEDIX_WITH_FFMPEG)\n")
 endif()
 
 configure_package_config_file(
@@ -1089,10 +931,6 @@ else()
     message(STATUS "Skipping samples build (enable with -DCVEDIX_BUILD_SAMPLES=ON)")
 endif()
 
-# build for tools (license generator, etc.)
-if(CVEDIX_WITH_LICENSE)
-    add_subdirectory(tools)
-endif()
 
 # build for benchmarks
 add_subdirectory(benchmarks)

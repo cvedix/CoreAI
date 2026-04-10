@@ -72,6 +72,94 @@ static std::string mat_to_base64_jpeg(const cv::Mat& img) {
     return base64_encode(buf);
 }
 
+// ─── Serialize a single BA result to JSON ──────────────────────
+
+std::string cvedix_ba_event_extraction_node::serialize_event(
+    const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba) const {
+
+    std::ostringstream oss;
+    std::string schema_id = ba_type_to_schema_id(ba->type);
+
+    oss << "{";
+    oss << "\"$id\":\"" << json_escape(schema_id) << "\",";
+    oss << "\"$version\":1,";
+
+    // Area / region info
+    oss << "\"area_id\":\"" << json_escape(ba->region_id) << "\",";
+    oss << "\"area_name\":\"" << json_escape(ba->region_name) << "\",";
+
+    // Event identifiers
+    oss << "\"event_id\":\"" << json_escape(ba->event_id) << "\",";
+    oss << "\"event_timestamp_ms\":" << ba->event_timestamp_ms << ",";
+
+    // Duration (only for end events)
+    if (ba->event_duration_ms > 0) {
+        oss << "\"event_duration_ms\":" << std::fixed << std::setprecision(0)
+            << ba->event_duration_ms << ",";
+    }
+
+    // Instance ID
+    if (!instance_id.empty()) {
+        oss << "\"instance_id\":\"" << json_escape(instance_id) << "\",";
+    }
+
+    // Check if this is a group event (crowding) or single-target event
+    bool is_group_event = (ba->type == cvedix_objects::cvedix_ba_type::CROWDING);
+
+    if (is_group_event && !ba->involve_target_details.empty()) {
+        // Group event: targets array
+        oss << "\"targets\":[";
+        bool first_target = true;
+        for (const auto& t : ba->involve_target_details) {
+            if (!first_target) oss << ",";
+            first_target = false;
+            oss << "{";
+            oss << "\"location\":{";
+            oss << "\"height\":" << t.location_h << ",";
+            oss << "\"width\":" << t.location_w << ",";
+            oss << "\"x\":" << t.location_x << ",";
+            oss << "\"y\":" << t.location_y;
+            oss << "},";
+            oss << "\"object_class\":\"" << json_escape(t.object_class) << "\",";
+            oss << "\"ref_tracking_id\":\"" << json_escape(t.ref_tracking_id) << "\"";
+            if (include_crop_images && !t.crop.empty()) {
+                std::string crop_b64 = mat_to_base64_jpeg(t.crop);
+                if (!crop_b64.empty()) {
+                    oss << ",\"crop_image\":\"" << crop_b64 << "\"";
+                }
+            }
+            oss << "}";
+        }
+        oss << "],";
+    } else if (!ba->involve_target_details.empty()) {
+        // Single-target event: flat location at top level
+        const auto& t = ba->involve_target_details[0];
+        oss << "\"location\":{";
+        oss << "\"height\":" << t.location_h << ",";
+        oss << "\"width\":" << t.location_w << ",";
+        oss << "\"x\":" << t.location_x << ",";
+        oss << "\"y\":" << t.location_y;
+        oss << "},";
+        oss << "\"object_class\":\"" << json_escape(t.object_class) << "\",";
+        oss << "\"ref_tracking_id\":\"" << json_escape(t.ref_tracking_id) << "\"";
+        if (include_crop_images && !t.crop.empty()) {
+            std::string crop_b64 = mat_to_base64_jpeg(t.crop);
+            if (!crop_b64.empty()) {
+                oss << ",\"crop_image\":\"" << crop_b64 << "\"";
+            }
+        }
+        oss << ",";
+    }
+
+    // Timestamps
+    oss << "\"system_datetime\":\"" << json_escape(ba->system_datetime) << "\",";
+    oss << "\"system_timestamp\":" << std::fixed << std::setprecision(0)
+        << ba->system_timestamp;
+
+    oss << "}";
+    return oss.str();
+}
+
 // ─── Constructors ───────────────────────────────────────────────
 
 cvedix_ba_event_extraction_node::cvedix_ba_event_extraction_node(
@@ -112,7 +200,27 @@ void cvedix_ba_event_extraction_node::set_instance_id(const std::string& id) {
     instance_id = id;
 }
 
-// ─── Format: serialize ba_results to JSON ───────────────────────
+// ─── Push event directly (bypass queue) ─────────────────────────
+// Suitable for SSE/webhook where immediate sending is preferred.
+
+void cvedix_ba_event_extraction_node::push_event(const std::string& event_json) {
+    if (event_publisher != nullptr) {
+        try {
+            event_publisher(event_json);
+        } catch (const std::exception& e) {
+            CVEDIX_ERROR(cvedix_utils::string_format(
+                "[%s] Event publisher failed: %s", node_name.c_str(), e.what()));
+        }
+    } else {
+        CVEDIX_DEBUG(cvedix_utils::string_format(
+            "[%s] No publisher set, event: %s",
+            node_name.c_str(), event_json.substr(0, 200).c_str()));
+    }
+}
+
+// ─── Format: serialize ba_results to JSON array ───────────────
+// Implements broker pattern: builds JSON, sets msg, returns.
+// The broker thread will call broke_msg(msg) to publish.
 
 void cvedix_ba_event_extraction_node::format_msg(
     const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta,
@@ -125,106 +233,18 @@ void cvedix_ba_event_extraction_node::format_msg(
     }
 
     try {
+        std::ostringstream oss;
+        oss << "[";
+
+        bool first = true;
         for (const auto& ba : meta->ba_results) {
-            std::ostringstream oss;
-            std::string schema_id = ba_type_to_schema_id(ba->type);
-
-            oss << "{";
-            oss << "\"$id\":\"" << json_escape(schema_id) << "\",";
-            oss << "\"$version\":1,";
-
-            // Area / region info
-            oss << "\"area_id\":\"" << json_escape(ba->region_id) << "\",";
-            oss << "\"area_name\":\"" << json_escape(ba->region_name) << "\",";
-
-            // Event identifiers
-            oss << "\"event_id\":\"" << json_escape(ba->event_id) << "\",";
-            oss << "\"event_timestamp_ms\":" << ba->event_timestamp_ms << ",";
-
-            // Duration (only for end events)
-            if (ba->event_duration_ms > 0) {
-                oss << "\"event_duration_ms\":" << std::fixed << std::setprecision(0)
-                    << ba->event_duration_ms << ",";
-            }
-
-            // Instance ID
-            if (!instance_id.empty()) {
-                oss << "\"instance_id\":\"" << json_escape(instance_id) << "\",";
-            }
-
-            // Check if this is a group event (crowding) or single-target event
-            bool is_group_event = (ba->type == cvedix_objects::cvedix_ba_type::CROWDING);
-
-            if (is_group_event && !ba->involve_target_details.empty()) {
-                // Group event: targets array
-                oss << "\"targets\":[";
-                bool first_target = true;
-                for (const auto& t : ba->involve_target_details) {
-                    if (!first_target) oss << ",";
-                    first_target = false;
-                    oss << "{";
-                    oss << "\"location\":{";
-                    oss << "\"height\":" << t.location_h << ",";
-                    oss << "\"width\":" << t.location_w << ",";
-                    oss << "\"x\":" << t.location_x << ",";
-                    oss << "\"y\":" << t.location_y;
-                    oss << "},";
-                    oss << "\"object_class\":\"" << json_escape(t.object_class) << "\",";
-                    oss << "\"ref_tracking_id\":\"" << json_escape(t.ref_tracking_id) << "\"";
-                    if (include_crop_images && !t.crop.empty()) {
-                        std::string crop_b64 = mat_to_base64_jpeg(t.crop);
-                        if (!crop_b64.empty()) {
-                            oss << ",\"crop_image\":\"" << crop_b64 << "\"";
-                        }
-                    }
-                    oss << "}";
-                }
-                oss << "],";
-            } else if (!ba->involve_target_details.empty()) {
-                // Single-target event: flat location at top level
-                // Use the first target that matches involved_target_ids
-                const auto& t = ba->involve_target_details[0];
-                oss << "\"location\":{";
-                oss << "\"height\":" << t.location_h << ",";
-                oss << "\"width\":" << t.location_w << ",";
-                oss << "\"x\":" << t.location_x << ",";
-                oss << "\"y\":" << t.location_y;
-                oss << "},";
-                oss << "\"object_class\":\"" << json_escape(t.object_class) << "\",";
-                oss << "\"ref_tracking_id\":\"" << json_escape(t.ref_tracking_id) << "\",";
-                if (include_crop_images && !t.crop.empty()) {
-                    std::string crop_b64 = mat_to_base64_jpeg(t.crop);
-                    if (!crop_b64.empty()) {
-                        oss << "\"crop_image\":\"" << crop_b64 << "\",";
-                    }
-                }
-            }
-
-            // Timestamps
-            oss << "\"system_datetime\":\"" << json_escape(ba->system_datetime) << "\",";
-            oss << "\"system_timestamp\":" << std::fixed << std::setprecision(0)
-                << ba->system_timestamp;
-
-            oss << "}";
-            std::string event_msg = oss.str();
-            
-            // Invoke the callback for each event independently
-            if (event_publisher != nullptr) {
-                try {
-                    event_publisher(event_msg);
-                } catch (const std::exception& e) {
-                    CVEDIX_ERROR(cvedix_utils::string_format(
-                        "[%s] Event publisher failed: %s", node_name.c_str(), e.what()));
-                }
-            } else {
-                CVEDIX_DEBUG(cvedix_utils::string_format(
-                    "[%s] No publisher set, event: %s",
-                    node_name.c_str(), event_msg.substr(0, 200).c_str()));
-            }
+            if (!first) oss << ",";
+            first = false;
+            oss << serialize_event(ba);
         }
 
-        // Output nothing to format_msg since we already sent directly
-        msg = "";
+        oss << "]";
+        msg = oss.str();
 
     } catch (const std::exception& e) {
         CVEDIX_ERROR(cvedix_utils::string_format(
@@ -233,13 +253,30 @@ void cvedix_ba_event_extraction_node::format_msg(
     }
 }
 
-// ─── Publish ────────────────────────────────────────────────────
+// ─── Publish via broker thread ─────────────────────────────────
+// Called by broker thread (broking_run) after format_msg.
+// Triggers event_publisher callback with the JSON array.
 
 void cvedix_ba_event_extraction_node::broke_msg(const std::string& msg) {
-    // broke_msg is no longer used for publishing everything combined
-    // because format_msg handles direct publishing per event to support independent 
-    // single object payloads.
-    return;
+    if (msg.empty()) return;
+
+    if (event_publisher != nullptr) {
+        try {
+            event_publisher(msg);
+        } catch (const std::exception& e) {
+            CVEDIX_ERROR(cvedix_utils::string_format(
+                "[%s] MQTT publisher function failed: %s",
+                node_name.c_str(), e.what()));
+        } catch (...) {
+            CVEDIX_ERROR(cvedix_utils::string_format(
+                "[%s] MQTT publisher function failed with unknown error",
+                node_name.c_str()));
+        }
+    } else {
+        CVEDIX_DEBUG(cvedix_utils::string_format(
+            "[%s] MQTT publisher not set, message: %s",
+            node_name.c_str(), msg.substr(0, 200).c_str()));
+    }
 }
 
 } // namespace cvedix_nodes

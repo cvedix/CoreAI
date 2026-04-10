@@ -1,4 +1,3 @@
-#ifdef CVEDIX_WITH_MQTT
 
 #include "cvedix/utils/mqtt_json_receiver/cvedix_mqtt_json_receiver.h"
 #include "third_party/nlohmann/json.hpp"
@@ -20,10 +19,6 @@ using json = nlohmann::json;
 *
 * Yêu cầu:
 * - libmosquitto-dev (sudo apt-get install libmosquitto-dev)
-* - Build với flag: -DCVEDIX_WITH_MQTT=ON
-*
-* Biên dịch:
-*   cmake -DCVEDIX_WITH_MQTT=ON ..
 *
 * Sử dụng:
 *   ./mqtt_json_receiver_sample [broker_url] [port] [topic] [username] [password]
@@ -201,12 +196,3 @@ int main(int argc, char** argv) {
     
     return 0;
 }
-
-#else
-#include <iostream>
-int main() {
-    std::cerr << "MQTT support not enabled. Build with -DCVEDIX_WITH_MQTT=ON" << std::endl;
-    return 1;
-}
-#endif // CVEDIX_WITH_MQTT
-

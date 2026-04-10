@@ -22,7 +22,7 @@
 #if defined(CVEDIX_WITH_TRT) && defined(CVEDIX_WITH_LLM)
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/infers/cvedix_speed_violation_mllm_trigger_node.h"
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_speed_estimation_node.h"
@@ -43,7 +43,7 @@ int main() {
     );
 
     // === 2. Detector: TensorRT YOLOv11 ===
-    auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
+    auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "detector",
         "./cvedix_data/models/yolov11n.engine",
         "./cvedix_data/models/coco_80_labels_list.txt",

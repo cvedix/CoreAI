@@ -20,7 +20,7 @@
 
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
     // 2. DETECTOR - YOLOv11 TensorRT Plate Detector
     // ============================================
     auto detector =
-        std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
+        std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "plate_detector", // node name
             engine_path,      // TRT engine
             "",               // no labels file

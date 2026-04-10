@@ -1,4 +1,3 @@
-#ifdef CVEDIX_WITH_FFMPEG
 #include <iostream>
 #include <sstream>
 #include "ff_src.h"
@@ -472,4 +471,3 @@ namespace cvedix_nodes {
         m_src_opened_hooker = src_opened_hooker;
     }
 }
-#endif

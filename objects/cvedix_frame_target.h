@@ -67,8 +67,8 @@ namespace cvedix_objects {
         // in case detectors applied on small cropped image.
         std::vector<std::shared_ptr<cvedix_objects::cvedix_sub_target>> sub_targets;
 
-        // feature vector(for example, 128 or 256-dims array) created by infer nodes such as cvedix_feature_encoder_node.
-        // each target has only one feature vector, the value will be override if multi cvedix_feature_encoder_node exist.
+        // feature vector (for example, 128 or 256-dims array) created by inference nodes.
+        // each target has only one feature vector, the value will be overridden if multiple feature encoder nodes exist.
         // embeddings can be used for reid related works.
         std::vector<float> embeddings;
 

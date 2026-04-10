@@ -19,7 +19,7 @@
  * @section broker_usage Usage Example
  * @code
  * // Create JSON MQTT broker
- * auto broker = std::make_shared<cvedix_json_mqtt_broker_node>(
+ * auto broker = std::make_shared<cvedix_mqtt_broker_node>(
  *     "mqtt_broker",
  *     cvedix_broke_for::FACE,  // For face recognition results
  *     50,   // warn threshold
@@ -32,9 +32,9 @@
  * broker->attach_to({face_recognition_node});
  * @endcode
  * 
- * @see cvedix_json_mqtt_broker_node For MQTT publishing
- * @see cvedix_json_kafka_broker_node For Kafka publishing
- * @see cvedix_json_console_broker_node For console output
+ * @see cvedix_mqtt_broker_node For MQTT publishing
+ * @see cvedix_kafka_broker_node For Kafka publishing
+ * @see cvedix_console_broker_node For console output
  */
 
 #pragma once
@@ -72,7 +72,7 @@ namespace cvedix_nodes {
      * - **Ignore threshold** (default 200): Drop new messages when queue exceeds
      * 
      * @note This is an abstract base class - cannot be instantiated directly.
-     *       Use concrete implementations like cvedix_json_mqtt_broker_node.
+     *       Use concrete implementations like cvedix_mqtt_broker_node.
      * 
      * @see cvedix_node Base class
      */

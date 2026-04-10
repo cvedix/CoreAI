@@ -15,15 +15,13 @@
  * - `h264_vaapi`, `hevc_vaapi` (Intel GPU)
  * 
  * @section ff_des_prereq Prerequisites
- * - Compile with `-DCVEDIX_WITH_FFMPEG`
- * - FFmpeg with required encoder support
+ * - FFmpeg with required encoder support (mandatory dependency)
  * 
  * @see ff_des Low-level FFmpeg wrapper
  * @see cvedix_des_node Base class
  */
 
 #pragma once
-#ifdef CVEDIX_WITH_FFMPEG
 #include "ff_des.h"
 #include "cvedix/nodes/common/cvedix_des_node.h"
 
@@ -92,4 +90,3 @@ namespace cvedix_nodes {
         virtual std::string to_string() override;
     };
 }
-#endif

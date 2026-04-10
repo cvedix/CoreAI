@@ -79,7 +79,6 @@ cmake \
     -DCVEDIX_WITH_TRT=OFF \
     -DCVEDIX_WITH_RKNN=OFF \
     -DCVEDIX_WITH_RGA=OFF \
-    -DCVEDIX_WITH_FFMPEG=OFF \
     -DCVEDIX_WITH_LLM=OFF \
     -DCVEDIX_WITH_KAFKA=OFF \
     -DCVEDIX_BUILD_SAMPLES=${BUILD_SAMPLES} \
@@ -158,5 +157,5 @@ echo ""
 echo -e "${BLUE}Note:${NC}"
 echo -e "  This package uses CPU-only inference with OpenCV DNN backend."
 echo -e "  Supported models: ONNX format (.onnx files)"
-echo -e "  No RKNN, TensorRT, or FFmpeg support included."
+echo -e "  No RKNN or TensorRT support included."
 echo ""

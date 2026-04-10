@@ -7,10 +7,6 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 
-#ifdef CVEDIX_WITH_LICENSE
-#include "cvedix/utils/license/cvedix_license_manager.h"
-#endif
-
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
@@ -29,12 +25,6 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
       conf_threshold(conf_threshold),
       nms_threshold(nms_threshold),
       class_id_offset(class_id_offset) {
-
-    #ifdef CVEDIX_WITH_LICENSE
-    if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-        throw std::runtime_error("Inference features require a valid license. Please contact support.");
-    }
-    #endif
 
     // Load labels file
     if (!labels_path.empty()) {
@@ -99,6 +89,9 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
             case BackendType::RKNN:
                 backend_name = "RKNN";
                 break;
+            case BackendType::ORT:
+                backend_name = "ONNX Runtime";
+                break;
         }
 
         CVEDIX_INFO(cvedix_utils::string_format(
@@ -150,8 +143,14 @@ BackendType cvedix_yolo_detector_node::detect_hw_info() const {
         return BackendType::OPENVINO;
     }
 
-    // Fallback to ONNX runtime
-    CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO/RKNN found, using ONNX backend");
+    // Check for ONNX Runtime availability
+    if (std::system("ldconfig -p | grep -q libonnxruntime") == 0) {
+        CVEDIX_INFO("[hw_info] ONNX Runtime detected, using ORT backend");
+        return BackendType::ORT;
+    }
+
+    // Fallback to ONNX runtime (OpenCV DNN)
+    CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO/RKNN/ORT found, using OpenCV DNN backend");
     return BackendType::ONNX;
 }
 
@@ -208,6 +207,15 @@ bool cvedix_yolo_detector_node::validate_model_path(BackendType backend_type,
             }
             return true;
 
+        case BackendType::ORT:
+            if (ext != ".onnx") {
+                CVEDIX_WARN(cvedix_utils::string_format(
+                    "[validate_model] ORT backend expects .onnx file, got %s",
+                    ext.c_str()));
+                return false;
+            }
+            return true;
+
         default:
             CVEDIX_ERROR("[validate_model] Unknown backend type");
             return false;
@@ -243,6 +251,12 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::
             plugin_path = "librknn_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading RKNN backend: %s", plugin_path.c_str()));
+            break;
+        }
+        case BackendType::ORT: {
+            plugin_path = "libcvedix_yolo_ort_detector.so";
+            CVEDIX_INFO(cvedix_utils::string_format(
+                "[load_backend] Loading ONNX Runtime backend: %s", plugin_path.c_str()));
             break;
         }
         default:

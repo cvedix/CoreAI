@@ -17,10 +17,10 @@
 #ifdef CVEDIX_WITH_TRT
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_trt_yolov11_det_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_hybrid_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
-#include "cvedix/nodes/osd/cvedix_ba_line_crossline_osd_node.h"
+#include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_file_des_node.h"
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
         );
 
         // === 2. Detector ===
-        auto detector = std::make_shared<cvedix_nodes::cvedix_trt_yolov11_det_node>(
+        auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "detector", engine_path,
             "./cvedix_data/models/coco_80_labels_list.txt",
             0.10f, 0.50f  // very low conf (0.10) to never miss detections
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
         );
 
         // === 5. OSD: draw bboxes, tracks, crossline on frame ===
-        auto osd = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_osd_node>("osd");
+        auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 
         // === 6. File output (MP4) ===
         std::experimental::filesystem::create_directories("./output");

@@ -132,11 +132,10 @@ install_optional_deps() {
         echo -e "${GREEN}Kafka support installed${NC}"
     fi
     
-    read -p "Install MQTT support (libmosquitto)? [y/N]: " install_mqtt
-    if [[ "$install_mqtt" =~ ^[Yy]$ ]]; then
-        sudo apt-get install -y libmosquitto-dev
-        echo -e "${GREEN}MQTT support installed${NC}"
-    fi
+    # MQTT is mandatory
+    echo -e "${GREEN}Installing MQTT (libmosquitto) - mandatory dependency...${NC}"
+    sudo apt-get install -y libmosquitto-dev
+    echo -e "${GREEN}MQTT support installed${NC}"
     
     read -p "Install FFmpeg development libraries? [y/N]: " install_ffmpeg
     if [[ "$install_ffmpeg" =~ ^[Yy]$ ]]; then
@@ -193,9 +192,7 @@ print_build_instructions() {
     echo "  -DCVEDIX_WITH_RKNN=ON/OFF       # Rockchip NPU support"
     echo "  -DCVEDIX_WITH_RGA=ON/OFF        # Rockchip RGA support"
     echo "  -DCVEDIX_WITH_KAFKA=ON/OFF      # Kafka support"
-    echo "  -DCVEDIX_WITH_MQTT=ON/OFF       # MQTT support"
     echo "  -DCVEDIX_WITH_LLM=ON/OFF        # LLM support"
-    echo "  -DCVEDIX_WITH_FFMPEG=ON/OFF     # FFmpeg support"
     echo "  -DCVEDIX_BUILD_SAMPLES=ON/OFF   # Build samples"
 }
 

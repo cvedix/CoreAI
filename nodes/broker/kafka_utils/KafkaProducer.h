@@ -19,7 +19,7 @@
  * producer.pushMessage(json);
  * @endcode
  * 
- * @see cvedix_json_kafka_broker_node Uses this class for Kafka message publishing
+ * @see cvedix_kafka_broker_node Uses this class for Kafka message publishing
  */
 
 #pragma once

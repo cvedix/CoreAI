@@ -1,7 +1,7 @@
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
-#include "cvedix/nodes/broker/cvedix_json_webhook_broker_node.h"
+#include "cvedix/nodes/broker/cvedix_webhook_broker_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
 
@@ -9,7 +9,7 @@
 
 /*
  * ## webhook broker sample ##
- * Demonstrates how to use cvedix_json_webhook_broker_node to HTTP POST
+ * Demonstrates how to use cvedix_webhook_broker_node to HTTP POST
  * detection results as JSON to a webhook endpoint.
  *
  * To test, start a simple HTTP server on port 9999:
@@ -43,7 +43,7 @@ int main() {
         "face_detector", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
 
     // 3. Webhook broker: POST face detections as JSON
-    auto webhook_broker = std::make_shared<cvedix_nodes::cvedix_json_webhook_broker_node>(
+    auto webhook_broker = std::make_shared<cvedix_nodes::cvedix_webhook_broker_node>(
         "webhook_broker",
         "http://localhost:9999/detections",     // webhook URL
         cvedix_nodes::cvedix_broke_for::FACE,   // serialize face targets
