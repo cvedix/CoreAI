@@ -157,6 +157,7 @@ int main(int argc, char **argv) {
         std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "plate_detector", // node name
             engine_path,      // TRT engine
+            cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
             "",               // no labels file
             conf_threshold,   // confidence threshold
             nms_threshold     // NMS threshold

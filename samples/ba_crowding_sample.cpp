@@ -21,6 +21,7 @@ int main() {
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",                              // node name
         "./cvedix_data/models/yolov11/onnx/yolo11n.onnx", // ONNX engine file
+        cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
         "./cvedix_data/models/yolov11/onnx/labels.txt",  // labels file
         0.45,   // confidence threshold
         0.5,     // NMS threshold
