@@ -85,21 +85,21 @@ endif()
 # Build default plugin backend
 # onnx by opencv this is default CPU
 add_subdirectory(third_party/onnx_yolov11)
+add_subdirectory(third_party/onnx_yolov26)
 
 # Build for TensorRT Backend
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
     # TensorRT installed via apt packages
-    set(CVEDIX_TRT_LIB_PATH "/usr/lib/x86_64-linux-gnu/")         # apt-installed TRT libs
-    set(CVEDIX_TRT_INC_PATH "/usr/include/x86_64-linux-gnu/")     # apt-installed TRT headers
+    set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")         # need set the path here
+    set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")     # need set the path here
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     link_directories(${CVEDIX_TRT_LIB_PATH})
-    # CUDA 12.8 installed at /usr/local/cuda-12.8 (symlinked from /usr/local/cuda)
-    include_directories(/usr/local/cuda-12.8/targets/x86_64-linux/include)
-    link_directories(/usr/local/cuda-12.8/targets/x86_64-linux/lib)
-
+    include_directories(/usr/local/cuda/include)
+    link_directories(/usr/local/cuda/lib64)
+    
     message(STATUS "TensorRT library status:")
     message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
@@ -108,6 +108,10 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     message("-------------start build trt_yolov11--------------")
     add_subdirectory(third_party/trt_yolov11)
     message("--------------end build trt_yolov11---------------")
+
+    message("-------------start build trt_yolov26--------------")
+    add_subdirectory(third_party/trt_yolov26)
+    message("--------------end build trt_yolov26---------------")
 
     # trt_botsort
     message("-------------start build trt_botsort--------------")
@@ -123,6 +127,9 @@ if(CVEDIX_WITH_OPENVINO)
     message("--------------start build ov_yolov11--------------")
     add_subdirectory(third_party/ov_yolov11)
     message("--------------end build ov_yolov11---------------")
+    message("--------------start build ov_yolov26--------------")
+    add_subdirectory(third_party/ov_yolov26)
+    message("--------------end build ov_yolov26---------------")
 endif()
 
 # optional for PaddlePaddle
@@ -449,6 +456,10 @@ if(CVEDIX_WITH_RKNN)
     message("--------------start build rknn_yolov11--------------")
     add_subdirectory(third_party/rknn_yolov11)
     message("--------------end build rknn_yolov11---------------")
+
+    message("--------------start build rknn_yolov26--------------")
+    add_subdirectory(third_party/rknn_yolov26)
+    message("--------------end build rknn_yolov26---------------")
     
     message(STATUS "RKNN support: enabled")
 endif()

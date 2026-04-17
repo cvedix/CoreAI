@@ -110,6 +110,7 @@ int main(int argc, char** argv) {
         auto plate_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "plate_detector",
             engine_path,
+            cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
             "",
             conf_threshold,
             nms_threshold

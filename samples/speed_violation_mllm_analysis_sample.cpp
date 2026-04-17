@@ -46,6 +46,7 @@ int main() {
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "detector",
         "./cvedix_data/models/yolov11n.engine",
+        cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
         "./cvedix_data/models/coco_80_labels_list.txt",
         0.15f, 0.45f
     );

@@ -13,99 +13,49 @@
 
 namespace cvedix_nodes {
 
+cvedix_yolo_detector_node::cvedix_yolo_detector_node(const std::string& node_name)
+    : cvedix_primary_infer_node(node_name, "", "", ""),
+      conf_threshold(0.45f),
+      nms_threshold(0.5f),
+      class_id_offset(0),
+    yolo_version(YoloVersion::YOLO11) {
+    const auto supported_backends = get_supported_backends();
+    std::string supported_list;
+    for (size_t i = 0; i < supported_backends.size(); ++i) {
+        if (i > 0) {
+            supported_list += ", ";
+        }
+        supported_list += backend_type_to_string(supported_backends[i]);
+    }
+
+    CVEDIX_INFO(cvedix_utils::string_format(
+        "[%s] Supported backends: %s",
+        node_name.c_str(),
+        supported_list.empty() ? "None" : supported_list.c_str()));
+
+    this->initialized();
+}
+
 cvedix_yolo_detector_node::cvedix_yolo_detector_node(
     const std::string& node_name,
     const std::string& model_path,
+    YoloVersion yolo_version,
     const std::string& labels_path,
     float conf_threshold,
     float nms_threshold,
     int class_id_offset,
     BackendType backend_type)
-    : cvedix_primary_infer_node(node_name, "", "", ""),
-      conf_threshold(conf_threshold),
-      nms_threshold(nms_threshold),
-      class_id_offset(class_id_offset) {
-
-    // Load labels file
-    if (!labels_path.empty()) {
-        std::ifstream file(labels_path);
-        if (file.is_open()) {
-            std::string line;
-            while (std::getline(file, line)) {
-                // Trim whitespace
-                line.erase(0, line.find_first_not_of(" \t\r\n"));
-                line.erase(line.find_last_not_of(" \t\r\n") + 1);
-                if (!line.empty()) {
-                    labels.push_back(line);
-                }
-            }
-            CVEDIX_INFO(cvedix_utils::string_format(
-                "[%s] Loaded %zu labels from %s",
-                node_name.c_str(), labels.size(), labels_path.c_str()));
-        } else {
-            CVEDIX_WARN(cvedix_utils::string_format(
-                "[%s] Could not load labels file: %s",
-                node_name.c_str(), labels_path.c_str()));
-        }
-    }
-
+    : cvedix_yolo_detector_node(node_name) {
     try {
-        // Auto-detect hardware and determine backend type
-        if (backend_type == BackendType::AUTO) {
-            backend_type = detect_hw_info();
+        if (!load_model(model_path,
+                        yolo_version,
+                        labels_path,
+                        conf_threshold,
+                        nms_threshold,
+                        class_id_offset,
+                        backend_type)) {
+            throw std::runtime_error("Failed to load model/backend at construction time");
         }
-
-        // Validate model path matches backend type
-        if (!validate_model_path(backend_type, model_path)) {
-            throw std::runtime_error(
-                "Model path extension does not match detected backend type");
-        }
-
-        // Load backend dynamically
-        backend = load_backend(backend_type, model_path);
-
-        if (!backend) {
-            throw std::runtime_error("Failed to load backend plugin: returned null");
-        }
-
-        // Set thresholds to backend (IMPORTANT: backend has its own default values)
-        backend->set_conf_threshold(conf_threshold);
-        backend->set_nms_threshold(nms_threshold);
-
-        int input_w = backend->get_input_width();
-        int input_h = backend->get_input_height();
-
-        const char* backend_name = "Unknown";
-        switch (backend_type) {
-            case BackendType::TENSORRT:
-                backend_name = "TensorRT";
-                break;
-            case BackendType::OPENVINO:
-                backend_name = "OpenVINO";
-                break;
-            case BackendType::ONNX:
-                backend_name = "ONNX";
-                break;
-            case BackendType::RKNN:
-                backend_name = "RKNN";
-                break;
-            case BackendType::ORT:
-                backend_name = "ONNX Runtime";
-                break;
-        }
-
-        CVEDIX_INFO(cvedix_utils::string_format(
-            "[%s] Backend loaded: %s, model: %s",
-            node_name.c_str(), backend_name, model_path.c_str()));
-
-        CVEDIX_INFO(cvedix_utils::string_format(
-            "[%s] YOLOv11 Detector initialized: %dx%d, conf=%.2f, nms=%.2f, classes=%zu, offset=%d",
-            node_name.c_str(),
-            input_w, input_h,
-            conf_threshold, nms_threshold,
-            labels.size(), class_id_offset));
-
-        this->initialized();
     }
     catch (const std::exception& e) {
         CVEDIX_ERROR(cvedix_utils::string_format(
@@ -116,35 +66,133 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
 }
 
 cvedix_yolo_detector_node::~cvedix_yolo_detector_node() {
-    if (backend) {
-        backend->destroy();
-        backend = nullptr;
-    }
+    unload_model();
     deinitialized();
 }
 
+bool cvedix_yolo_detector_node::load_model(
+    const std::string& model_path,
+    YoloVersion yolo_version,
+    const std::string& labels_path,
+    float conf_threshold,
+    float nms_threshold,
+    int class_id_offset,
+    BackendType backend_type) {
+
+    unload_model();
+
+    this->model_path = model_path;
+    this->labels_path = labels_path;
+    this->conf_threshold = conf_threshold;
+    this->nms_threshold = nms_threshold;
+    this->class_id_offset = class_id_offset;
+    this->yolo_version = yolo_version;
+
+    if (model_path.empty()) {
+        CVEDIX_WARN(cvedix_utils::string_format(
+            "[%s] Empty model path, skip loading",
+            node_name.c_str()));
+        return false;
+    }
+
+    if (!labels_path.empty()) {
+        load_labels_file(labels_path);
+    }
+
+    BackendType selected_backend = backend_type;
+    if (selected_backend == BackendType::AUTO) {
+        selected_backend = detect_hw_info();
+    }
+
+    if (!is_backend_supported(selected_backend)) {
+        CVEDIX_WARN(cvedix_utils::string_format(
+            "[%s] Backend %s is not supported on this system",
+            node_name.c_str(), backend_type_to_string(selected_backend)));
+        unload_model();
+        return false;
+    }
+
+    if (!validate_model_path(selected_backend, model_path)) {
+        unload_model();
+        return false;
+    }
+
+    backend = load_backend(selected_backend, model_path);
+    if (!backend) {
+        CVEDIX_ERROR(cvedix_utils::string_format(
+            "[%s] Failed to load backend plugin for model %s",
+            node_name.c_str(), model_path.c_str()));
+        unload_model();
+        return false;
+    }
+
+    backend->set_conf_threshold(conf_threshold);
+    backend->set_nms_threshold(nms_threshold);
+
+    active_backend_type = selected_backend;
+    input_width = backend->get_input_width();
+    input_height = backend->get_input_height();
+
+    const char* model_family_name =
+        yolo_version == YoloVersion::YOLO26 ? "YOLOv26" : "YOLOv11";
+
+    CVEDIX_INFO(cvedix_utils::string_format(
+        "[%s] Backend loaded: %s, model: %s",
+        node_name.c_str(), backend_type_to_string(selected_backend), model_path.c_str()));
+
+    CVEDIX_INFO(cvedix_utils::string_format(
+        "[%s] %s Detector loaded at runtime: %dx%d, conf=%.2f, nms=%.2f, classes=%zu, offset=%d",
+        node_name.c_str(),
+        model_family_name,
+        input_width, input_height,
+        conf_threshold, nms_threshold,
+        labels.size(), class_id_offset));
+
+    return true;
+}
+
+void cvedix_yolo_detector_node::unload_model() {
+    unload_backend();
+    labels.clear();
+    model_path.clear();
+    model_config_path.clear();
+    labels_path.clear();
+    active_backend_type = BackendType::AUTO;
+    input_width = 0;
+    input_height = 0;
+}
+
+std::vector<BackendType> cvedix_yolo_detector_node::get_supported_backends() const {
+    return query_supported_backends();
+}
+
+bool cvedix_yolo_detector_node::is_backend_supported(BackendType backend_type) const {
+    if (backend_type == BackendType::AUTO) {
+        return true;
+    }
+
+    const auto supported_backends = query_supported_backends();
+    return std::find(supported_backends.begin(), supported_backends.end(), backend_type) != supported_backends.end();
+}
+
 BackendType cvedix_yolo_detector_node::detect_hw_info() const {
-    // Check for RKNN (Rockchip NPU) availability
-    if (std::system("ldconfig -p | grep -q librknnrt") == 0) {
+    const auto supported_backends = query_supported_backends();
+    if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::RKNN) != supported_backends.end()) {
         CVEDIX_INFO("[hw_info] RKNN detected, using RKNN backend");
         return BackendType::RKNN;
     }
 
-    // Check for TensorRT availability
-    // This can check for CUDA libraries, TensorRT installation, GPU driver, etc.
-    if (std::system("ldconfig -p | grep -q libnvinfer") == 0) {
+    if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::TENSORRT) != supported_backends.end()) {
         CVEDIX_INFO("[hw_info] TensorRT detected, using TensorRT backend");
         return BackendType::TENSORRT;
     }
 
-    // Check for OpenVINO availability
-    if (std::system("ldconfig -p | grep -q libopenvino") == 0) {
+    if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::OPENVINO) != supported_backends.end()) {
         CVEDIX_INFO("[hw_info] OpenVINO detected, using OpenVINO backend");
         return BackendType::OPENVINO;
     }
 
-    // Check for ONNX Runtime availability
-    if (std::system("ldconfig -p | grep -q libonnxruntime") == 0) {
+    if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::ORT) != supported_backends.end()) {
         CVEDIX_INFO("[hw_info] ONNX Runtime detected, using ORT backend");
         return BackendType::ORT;
     }
@@ -152,6 +200,26 @@ BackendType cvedix_yolo_detector_node::detect_hw_info() const {
     // Fallback to ONNX runtime (OpenCV DNN)
     CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO/RKNN/ORT found, using OpenCV DNN backend");
     return BackendType::ONNX;
+}
+
+std::vector<BackendType> cvedix_yolo_detector_node::query_supported_backends() const {
+    std::vector<BackendType> supported_backends;
+
+    if (std::system("ldconfig -p | grep -q librknnrt") == 0) {
+        supported_backends.push_back(BackendType::RKNN);
+    }
+    if (std::system("ldconfig -p | grep -q libnvinfer") == 0) {
+        supported_backends.push_back(BackendType::TENSORRT);
+    }
+    if (std::system("ldconfig -p | grep -q libopenvino") == 0) {
+        supported_backends.push_back(BackendType::OPENVINO);
+    }
+    if (std::system("ldconfig -p | grep -q libonnxruntime") == 0) {
+        supported_backends.push_back(BackendType::ORT);
+    }
+
+    supported_backends.push_back(BackendType::ONNX);
+    return supported_backends;
 }
 
 std::string cvedix_yolo_detector_node::get_file_extension(const std::string& path) const {
@@ -164,6 +232,64 @@ std::string cvedix_yolo_detector_node::get_file_extension(const std::string& pat
     std::transform(ext.begin(), ext.end(), ext.begin(),
                    [](unsigned char c) { return std::tolower(c); });
     return ext;
+}
+
+bool cvedix_yolo_detector_node::load_labels_file(const std::string& labels_path) {
+    labels.clear();
+
+    std::ifstream file(labels_path);
+    if (!file.is_open()) {
+        CVEDIX_WARN(cvedix_utils::string_format(
+            "[%s] Could not load labels file: %s",
+            node_name.c_str(), labels_path.c_str()));
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        line.erase(0, line.find_first_not_of(" \t\r\n"));
+        line.erase(line.find_last_not_of(" \t\r\n") + 1);
+        if (!line.empty()) {
+            labels.push_back(line);
+        }
+    }
+
+    CVEDIX_INFO(cvedix_utils::string_format(
+        "[%s] Loaded %zu labels from %s",
+        node_name.c_str(), labels.size(), labels_path.c_str()));
+    return true;
+}
+
+const char* cvedix_yolo_detector_node::backend_type_to_string(BackendType backend_type) {
+    switch (backend_type) {
+        case BackendType::TENSORRT:
+            return "TensorRT";
+        case BackendType::OPENVINO:
+            return "OpenVINO";
+        case BackendType::ONNX:
+            return "ONNX";
+        case BackendType::RKNN:
+            return "RKNN";
+        case BackendType::ORT:
+            return "ONNX Runtime";
+        case BackendType::AUTO:
+        default:
+            return "AUTO";
+    }
+}
+
+void cvedix_yolo_detector_node::unload_backend() {
+    if (plugin_loader) {
+        plugin_loader->unload(backend);
+        plugin_loader.reset();
+        return;
+    }
+
+    if (backend) {
+        backend->destroy();
+        delete backend;
+        backend = nullptr;
+    }
 }
 
 bool cvedix_yolo_detector_node::validate_model_path(BackendType backend_type,
@@ -227,28 +353,29 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::
     const std::string& model_path) {
     
     std::string plugin_path;
+    bool use_yolo26_plugin = yolo_version == YoloVersion::YOLO26;
     
     switch (backend_type) {
         case BackendType::TENSORRT: {
-            plugin_path = "libtrt_yolov11.so";
+            plugin_path = use_yolo26_plugin ? "libtrt_yolov26.so" : "libtrt_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading TensorRT backend: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::OPENVINO: {
-            plugin_path = "libov_yolov11.so";
+            plugin_path = use_yolo26_plugin ? "libov_yolov26.so" : "libov_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading OpenVINO backend: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::ONNX: {
-            plugin_path = "libonnx_yolov11.so";
+            plugin_path = use_yolo26_plugin ? "libonnx_yolov26.so" : "libonnx_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading ONNX backend: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::RKNN: {
-            plugin_path = "librknn_yolov11.so";
+            plugin_path = use_yolo26_plugin ? "librknn_yolov26.so" : "librknn_yolov11.so";
             CVEDIX_INFO(cvedix_utils::string_format(
                 "[load_backend] Loading RKNN backend: %s", plugin_path.c_str()));
             break;
@@ -264,8 +391,14 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::
             return nullptr;
     }
 
-    // Load using plugin loader
-    return cvedix_nodes::infers::cvedix_infer_detector_plugin_loader::load(plugin_path, model_path);
+    plugin_loader = std::make_unique<cvedix_nodes::infers::cvedix_infer_detector_plugin_loader>();
+    cvedix_nodes::infers::cvedix_infer_detector_backend* loaded_backend = nullptr;
+    if (!plugin_loader->load(plugin_path, model_path, loaded_backend)) {
+        plugin_loader.reset();
+        return nullptr;
+    }
+
+    return loaded_backend;
 }
 
 void cvedix_yolo_detector_node::set_conf_threshold(float thresh) {

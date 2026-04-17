@@ -26,12 +26,13 @@ int main() {
     // For TensorRT backend:
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",                              // node name
-        "./cvedix_data/models/yolov11/onnx/yolo11n.onnx", // ONNX model file
-        "./cvedix_data/models/yolov11/onnx/labels.txt",  // labels file
+        "./cvedix_data/models/yolov26/tensorrt/yolo26n.engine", // engine model file
+        cvedix_nodes::YoloVersion::YOLO26,                      // use YOLOv26 plugin family
+        "./cvedix_data/models/yolov26/tensorrt/labels.txt",  // labels file
         0.45,   // confidence threshold
         0.5,     // NMS threshold
         0,
-        cvedix_nodes::BackendType::ONNX
+        cvedix_nodes::BackendType::TENSORRT
     );
     
     // Optional: Configure detector
@@ -48,6 +49,22 @@ int main() {
     std::map<int, cvedix_objects::cvedix_line> lines = {{0, cvedix_objects::cvedix_line(start, end)}};  // channel0 -> line
     auto ba_crossline = std::make_shared<cvedix_nodes::cvedix_ba_line_crossline_node>("ba_crossline", lines);
     auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
+
+    cvedix_nodes::unified_osd_config osd_cfg;
+    osd_cfg.show_bbox = true;
+    osd_cfg.show_label = true;
+    osd_cfg.show_track_id = true;
+    osd_cfg.show_track_trail = true;
+    osd_cfg.show_center_dot = true;
+    osd_cfg.show_static_zones = true;
+    osd_cfg.enable_ba_enter_exit = false;
+    osd_cfg.enable_ba_crossline = true;
+    osd_cfg.enable_ba_crowding = false;
+    osd_cfg.enable_ba_jam = false;
+    osd_cfg.enable_ba_stop = false;
+    osd_cfg.label_font_scale = 0.5;
+    osd->update_config(osd_cfg);
+
     // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
     auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");
     
