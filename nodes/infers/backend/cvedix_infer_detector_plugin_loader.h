@@ -11,7 +11,11 @@ namespace cvedix_nodes::infers {
  */
 class cvedix_infer_detector_plugin_loader {
 private:
+    using create_backend_func = cvedix_infer_detector_backend* (*)(const char*);
+    using destroy_backend_func = void (*)(cvedix_infer_detector_backend*);
+
     void* handle = nullptr;
+    destroy_backend_func destroy_backend = nullptr;
 
 public:
     cvedix_infer_detector_plugin_loader() = default;
@@ -22,40 +26,62 @@ public:
         }
     }
 
-    /// @brief Load plugin from shared library
-    /// @param plugin_path Path to .so file
-    /// @param model_path Path to model file
-    /// @return Pointer to cvedix_infer_detector_backend, or nullptr if failed
-    static cvedix_infer_detector_backend* load(const std::string& plugin_path,
-                                  const std::string& model_path) {
+    /// @brief Load plugin from shared library and create a backend instance
+    bool load(const std::string& plugin_path,
+              const std::string& model_path,
+              cvedix_infer_detector_backend*& backend) {
+        unload(backend);
         dlerror(); // Clear previous error
-        void* handle = dlopen(plugin_path.c_str(), RTLD_LAZY);
+        handle = dlopen(plugin_path.c_str(), RTLD_LAZY);
         if (!handle) {
             std::cerr << "[PluginLoader] Failed to load " << plugin_path
                       << ": " << dlerror() << std::endl;
-            return nullptr;
+            return false;
         }
 
         // Get factory function
-        typedef cvedix_infer_detector_backend* (*create_backend_func)(const char*);
         create_backend_func create = (create_backend_func)dlsym(handle, "create_backend");
         if (!create) {
             std::cerr << "[PluginLoader] Failed to find create_backend in " << plugin_path
                       << ": " << dlerror() << std::endl;
             dlclose(handle);
-            return nullptr;
+            handle = nullptr;
+            return false;
         }
 
+        destroy_backend = (destroy_backend_func)dlsym(handle, "destroy_backend");
+
         // Create backend (factory initializes it internally)
-        cvedix_infer_detector_backend* backend = create(model_path.c_str());
+        backend = create(model_path.c_str());
         if (!backend) {
             std::cerr << "[PluginLoader] Failed to create backend from " << plugin_path << std::endl;
             dlclose(handle);
-            return nullptr;
+            handle = nullptr;
+            destroy_backend = nullptr;
+            return false;
         }
 
-        // Successfully loaded and created backend
-        return backend;
+        return true;
+    }
+
+    /// @brief Destroy current backend instance and release the shared library
+    void unload(cvedix_infer_detector_backend*& backend) {
+        if (backend) {
+            if (destroy_backend) {
+                destroy_backend(backend);
+            } else {
+                backend->destroy();
+                delete backend;
+            }
+            backend = nullptr;
+        }
+
+        if (handle) {
+            dlclose(handle);
+            handle = nullptr;
+        }
+
+        destroy_backend = nullptr;
     }
 };
 

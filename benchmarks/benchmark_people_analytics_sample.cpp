@@ -228,6 +228,7 @@ int main(int argc, char** argv) {
 
         auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
             "detector", engine_path,
+            cvedix_nodes::YoloVersion::YOLO11,
             "./cvedix_data/models/coco_80_labels_list.txt",
             0.25f, 0.45f
         );

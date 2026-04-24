@@ -27,8 +27,9 @@ int main() {
   // Create detector
   auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",                              // node name
-        "./cvedix_data/models/yolov11/onnx/yolo11n.onnx", // ONNX engine file
-        "./cvedix_data/models/yolov11/onnx/labels.txt",  // labels file
+        "./cvedix_data/models/yolov26/onnx/yolo26n.onnx", // engine model file
+        cvedix_nodes::YoloVersion::YOLO26,                // use YOLOv26 plugin family
+        "./cvedix_data/models/yolov26/onnx/labels.txt",  // labels file
         0.45,   // confidence threshold
         0.5,     // NMS threshold
         0,
@@ -65,6 +66,26 @@ int main() {
   // Create OSD and screen
   auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
 //   auto screen = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen", 0);
+    cvedix_nodes::unified_osd_config osd_cfg;
+    osd_cfg.show_bbox = true;
+    osd_cfg.show_label = true;
+    osd_cfg.show_track_id = true;
+    osd_cfg.show_track_trail = true;
+    osd_cfg.show_center_dot = true;
+    osd_cfg.show_static_zones = true;
+    osd_cfg.enable_ba_enter_exit = true;
+    osd_cfg.enable_ba_crossline = false;
+    osd_cfg.enable_ba_crowding = false;
+    osd_cfg.enable_ba_jam = false;
+    osd_cfg.enable_ba_stop = false;
+    osd_cfg.label_font_scale = 0.5;
+    osd->update_config(osd_cfg);
+
+    std::vector<cvedix_nodes::unified_static_zone_config> static_zones = {
+            cvedix_nodes::unified_static_zone_config(area0, cv::Scalar(0, 220, 0), "Entrance"),
+            cvedix_nodes::unified_static_zone_config(area1, cv::Scalar(0, 0, 220), "Restricted")
+    };
+    osd->set_static_zones(static_zones);
 
   // Optional use rtmp
   auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");

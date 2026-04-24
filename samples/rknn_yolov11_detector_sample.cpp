@@ -103,6 +103,7 @@ int main(int argc, char** argv) {
     auto rknn_detector_0 = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "rknn_detector_0",
         model_path,        // model_path: File .rknn sẽ tự động chọn RKNN backend
+        cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
         labels_path,       // labels_path: File chứa tên các lớp (mỗi dòng một lớp)
         0.40f,             // conf_threshold: Ngưỡng confidence (0.35-0.5)
         0.30f,             // nms_threshold: Ngưỡng NMS thấp hơn để loại duplicates tốt hơn (0.25-0.35)

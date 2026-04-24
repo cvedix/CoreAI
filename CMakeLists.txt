@@ -85,21 +85,21 @@ endif()
 # Build default plugin backend
 # onnx by opencv this is default CPU
 add_subdirectory(third_party/onnx_yolov11)
+add_subdirectory(third_party/onnx_yolov26)
 
 # Build for TensorRT Backend
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
     # TensorRT installed via apt packages
-    set(CVEDIX_TRT_LIB_PATH "/usr/lib/x86_64-linux-gnu/")         # apt-installed TRT libs
-    set(CVEDIX_TRT_INC_PATH "/usr/include/x86_64-linux-gnu/")     # apt-installed TRT headers
+    set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")         # need set the path here
+    set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")     # need set the path here
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     link_directories(${CVEDIX_TRT_LIB_PATH})
-    # CUDA 12.8 installed at /usr/local/cuda-12.8 (symlinked from /usr/local/cuda)
-    include_directories(/usr/local/cuda-12.8/targets/x86_64-linux/include)
-    link_directories(/usr/local/cuda-12.8/targets/x86_64-linux/lib)
-
+    include_directories(/usr/local/cuda/include)
+    link_directories(/usr/local/cuda/lib64)
+    
     message(STATUS "TensorRT library status:")
     message(STATUS "    include path: ${CVEDIX_TRT_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_TRT_LIB_PATH}")
@@ -108,6 +108,10 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     message("-------------start build trt_yolov11--------------")
     add_subdirectory(third_party/trt_yolov11)
     message("--------------end build trt_yolov11---------------")
+
+    message("-------------start build trt_yolov26--------------")
+    add_subdirectory(third_party/trt_yolov26)
+    message("--------------end build trt_yolov26---------------")
 
     # trt_botsort
     message("-------------start build trt_botsort--------------")
@@ -123,6 +127,9 @@ if(CVEDIX_WITH_OPENVINO)
     message("--------------start build ov_yolov11--------------")
     add_subdirectory(third_party/ov_yolov11)
     message("--------------end build ov_yolov11---------------")
+    message("--------------start build ov_yolov26--------------")
+    add_subdirectory(third_party/ov_yolov26)
+    message("--------------end build ov_yolov26---------------")
 endif()
 
 # optional for PaddlePaddle
@@ -130,11 +137,16 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
     add_definitions(-DCVEDIX_WITH_PADDLE)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
     set(VP_BUILD_FROM ON)      # set flag for paddle_ocr sub project
-    set(CVEDIX_PADDLE_LIB_PATH "")
-    set(CVEDIX_PADDLE_INC_PATH "")
-    message("-------------start build paddle_ocr--------------")
-    add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
-    list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
+    set(CVEDIX_PADDLE_ROOT "/opt/paddle_inference" CACHE PATH "Paddle Inference root")
+    if(NOT EXISTS ${CVEDIX_PADDLE_ROOT} AND EXISTS "/workspace/paddle_inference")
+        set(CVEDIX_PADDLE_ROOT "/workspace/paddle_inference")
+    endif()
+    set(CVEDIX_PADDLE_LIB_PATH "${CVEDIX_PADDLE_ROOT}/paddle/lib")
+    set(CVEDIX_PADDLE_INC_PATH "${CVEDIX_PADDLE_ROOT}/paddle/include")
+    set(CVEDIX_PADDLE_THIRD_PARTY_PATH "${CVEDIX_PADDLE_ROOT}/third_party/install")
+    # message("-------------start build paddle_ocr--------------")
+    # add_subdirectory(third_party/paddle_ocr) # build paddle_ocr
+    # list(APPEND CVEDIX_DEPEND_LIBS paddle_ocr)
     
     # Use variables set by sub-project
     if(DEFINED VP_PADDLE_LIB_PATH)
@@ -146,10 +158,17 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
 
     link_directories(${CVEDIX_PADDLE_LIB_PATH})
     include_directories(${CVEDIX_PADDLE_INC_PATH})
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/glog/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/gflags/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/protobuf/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/xxhash/include)
+    include_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/yaml-cpp/include)
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/paddle_detection)
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/paddle_detection/include)
 
     # Add dependencies library paths (propagate from paddle_inference path)
     # Support both old CPU structure and new GPU v3.0 structure
-    set(PADDLE_INF_DIR "${CMAKE_SOURCE_DIR}/third_party/paddle_inference")
+    set(PADDLE_INF_DIR "${CVEDIX_PADDLE_ROOT}")
     set(GPU_DEPS_DIR "${PADDLE_INF_DIR}/third_party/install")
     
     # Check for GPU v3.0 structure first, then fallback to CPU structure
@@ -189,9 +208,25 @@ if(CVEDIX_WITH_PADDLE)  # PaddlePaddle enabled
         endif()
     endif()
     
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/glog/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/gflags/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/protobuf/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/xxhash/lib)
+    link_directories(${CVEDIX_PADDLE_THIRD_PARTY_PATH}/yaml-cpp/lib)
+
+    list(APPEND CVEDIX_DEPEND_LIBS paddle_inference yaml-cpp glog gflags protobuf xxhash)
+
+    set(CVEDIX_PADDLE_DETECTION_SRCS
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/object_detector.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/preprocess_op.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/picodet_postprocess.cc
+        ${CMAKE_SOURCE_DIR}/third_party/paddle_detection/src/utils.cc
+    )
+
     message(STATUS "PaddlePaddle library status:")
     message(STATUS "    include path: ${CVEDIX_PADDLE_INC_PATH}")
     message(STATUS "    library path: ${CVEDIX_PADDLE_LIB_PATH}")
+    message(STATUS "    root path: ${CVEDIX_PADDLE_ROOT}")
     message("--------------end build paddle_ocr---------------")
 endif()
 
@@ -449,6 +484,10 @@ if(CVEDIX_WITH_RKNN)
     message("--------------start build rknn_yolov11--------------")
     add_subdirectory(third_party/rknn_yolov11)
     message("--------------end build rknn_yolov11---------------")
+
+    message("--------------start build rknn_yolov26--------------")
+    add_subdirectory(third_party/rknn_yolov26)
+    message("--------------end build rknn_yolov26---------------")
     
     message(STATUS "RKNN support: enabled")
 endif()
@@ -720,6 +759,11 @@ if(NOT CVEDIX_WITH_LLM)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*mllm.*")
 endif()
 
+# Exclude Paddle-related nodes if Paddle is not enabled
+if(NOT CVEDIX_WITH_PADDLE)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*paddle.*")
+endif()
+
 # (RKNN/TRT exclusions handled by default above for Core)
 
 
@@ -735,6 +779,11 @@ endif()
 # Exclude SeetaFace-based nodes if SeetaFace6 is not built
 if(NOT CVEDIX_WITH_SEETAFACE)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
+endif()
+
+# Add PaddleDetection core sources when Paddle is enabled
+if(CVEDIX_WITH_PADDLE)
+    list(APPEND CORE_UTILS ${CVEDIX_PADDLE_DETECTION_SRCS})
 endif()
 
 # Add EIGEN
@@ -933,7 +982,7 @@ endif()
 
 
 # build for benchmarks
-add_subdirectory(benchmarks)
+# add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---

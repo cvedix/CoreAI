@@ -23,6 +23,7 @@ int main() {
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
       "yolo_detector",
       "./cvedix_data/models/yolov11/onnx/yolo11n.onnx",
+      cvedix_nodes::YoloVersion::YOLO11,                      // use YOLOv11 plugin family
       "./cvedix_data/models/yolov11/onnx/labels.txt",
       0.45, 0.5, 0, cvedix_nodes::BackendType::ONNX);
     auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");

@@ -33,6 +33,15 @@ enum class BackendType {
 };
 
 /**
+ * @enum YoloVersion
+ * @brief Supported YOLO plugin families
+ */
+enum class YoloVersion {
+    YOLO11,     ///< Force YOLO11 plugin family
+    YOLO26      ///< Force YOLO26 plugin family
+};
+
+/**
  * @class cvedix_yolo_detector_node
  * @brief Generic YOLOv11 object detector using plugin-based backends
  * 
@@ -53,10 +62,19 @@ enum class BackendType {
 class cvedix_yolo_detector_node : public cvedix_primary_infer_node {
 public:
     /**
+     * @brief Constructor without model loading
+     *
+     * The node starts running immediately but with no active backend.
+     * Call load_model() later to enable inference.
+     */
+    explicit cvedix_yolo_detector_node(const std::string& node_name);
+
+    /**
      * @brief Constructor with automatic backend detection
      * Auto-detects hardware and loads appropriate backend (RKNN/TensorRT/OpenVINO/ONNX)
      * @param node_name Name of this node
      * @param model_path Path to model file (.rknn, .engine, .xml, or .onnx)
+     * @param yolo_version YOLO plugin family to use
      * @param labels_path Path to labels file (optional)
      * @param conf_threshold Confidence threshold for detections
      * @param nms_threshold NMS threshold
@@ -65,14 +83,56 @@ public:
     cvedix_yolo_detector_node(
         const std::string& node_name,
         const std::string& model_path,
+        YoloVersion yolo_version,
         const std::string& labels_path = "",
         float conf_threshold = 0.45f,
         float nms_threshold = 0.5f,
         int class_id_offset = 0,
-        BackendType backend_type = BackendType::AUTO    // Optional: force specific backend (for testing) 
+        BackendType backend_type = BackendType::AUTO
     );
 
     ~cvedix_yolo_detector_node() override;
+
+    /**
+     * @brief Load or reload a model at runtime
+     *
+     * If another model is active, it is unloaded first.
+     * Returns false instead of throwing when the selected backend is unavailable
+     * or the model/backend initialization fails.
+     */
+    bool load_model(
+        const std::string& model_path,
+        YoloVersion yolo_version,
+        const std::string& labels_path = "",
+        float conf_threshold = 0.45f,
+        float nms_threshold = 0.5f,
+        int class_id_offset = 0,
+        BackendType backend_type = BackendType::AUTO);
+
+    /**
+     * @brief Unload the currently active model and backend
+     */
+    void unload_model();
+
+    /**
+     * @brief Get the backends currently supported by the system
+     */
+    std::vector<BackendType> get_supported_backends() const;
+
+    /**
+     * @brief Check whether a backend is currently supported by the system
+     */
+    bool is_backend_supported(BackendType backend_type) const;
+
+    /**
+     * @brief Check whether a model is currently loaded
+     */
+    bool has_loaded_model() const { return backend != nullptr; }
+
+    /**
+     * @brief Get the backend type currently in use
+     */
+    BackendType get_active_backend_type() const { return active_backend_type; }
 
     /**
      * @brief Set confidence threshold for filtering detections
@@ -148,6 +208,11 @@ private:
     BackendType detect_hw_info() const;
 
     /**
+     * @brief Read current backend support from the host system
+     */
+    std::vector<BackendType> query_supported_backends() const;
+
+    /**
      * @brief Load backend plugin based on backend type
      * @param backend_type Type of backend to load
      * @param model_path Path to model file
@@ -172,13 +237,31 @@ private:
      */
     std::string get_file_extension(const std::string& path) const;
 
+    /**
+     * @brief Load labels into the node label cache
+     */
+    bool load_labels_file(const std::string& labels_path);
+
+    /**
+     * @brief Convert backend type to human-readable text
+     */
+    static const char* backend_type_to_string(BackendType backend_type);
+
+    /**
+     * @brief Release the current backend/plugin resources
+     */
+    void unload_backend();
+
     // Backend interface (plugin-based)
     cvedix_nodes::infers::cvedix_infer_detector_backend* backend = nullptr;
+    std::unique_ptr<cvedix_nodes::infers::cvedix_infer_detector_plugin_loader> plugin_loader;
 
     // Configuration
     float conf_threshold;
     float nms_threshold;
     int class_id_offset;
+    YoloVersion yolo_version;
+    BackendType active_backend_type = BackendType::AUTO;
     std::vector<std::string> labels;
     std::set<int> allowed_class_ids;  // Empty = allow all
 };
