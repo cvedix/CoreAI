@@ -1,6 +1,6 @@
 /**
- * @file cvedix_paddle_vehicle_attribute_node.h
- * @brief Paddle Inference node for vehicle attribute recognition (PP-LCNet)
+ * @file cvedix_paddle_attribute_node.h
+ * @brief Paddle Inference node for general-purpose attribute recognition (PP-LCNet)
  */
 
 #pragma once
@@ -18,16 +18,16 @@ class Predictor;
 namespace cvedix_nodes {
 
 /**
- * @class cvedix_paddle_vehicle_attribute_node
- * @brief Secondary inference node for vehicle attribute recognition
+ * @class cvedix_paddle_attribute_node
+ * @brief Secondary inference node for general-purpose attribute recognition
  *
- * Runs Paddle Inference on cropped vehicle ROIs and appends attribute labels
+ * Runs Paddle Inference on cropped target ROIs and appends attribute labels
  * to secondary_* fields on each target. Supports grouped attributes via
  * attribute_group_sizes.
  */
-class cvedix_paddle_vehicle_attribute_node : public cvedix_secondary_infer_node {
+class cvedix_paddle_attribute_node : public cvedix_secondary_infer_node {
 public:
-    cvedix_paddle_vehicle_attribute_node(
+    cvedix_paddle_attribute_node(
         const std::string& node_name,
         const std::string& model_dir,
         const std::string& labels_path = "",
@@ -56,7 +56,7 @@ public:
         int trt_opt_shape = 640,
         bool trt_calib_mode = false);
 
-    ~cvedix_paddle_vehicle_attribute_node() override;
+    ~cvedix_paddle_attribute_node() override;
 
     void set_score_threshold(float threshold);
     void set_attribute_group_sizes(const std::vector<int>& sizes);

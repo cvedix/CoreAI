@@ -6,7 +6,7 @@
 #include "cvedix/nodes/ba/cvedix_ba_area_enter_exit_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 #include "cvedix/nodes/infers/cvedix_paddle_detector_node.h"
-#include "cvedix/nodes/infers/cvedix_paddle_vehicle_attribute_node.h"
+#include "cvedix/nodes/infers/cvedix_paddle_attribute_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
@@ -53,7 +53,7 @@ int main() {
 
     // Create vehicle attribute node (secondary infer on vehicle ROIs)
     // labels_path + attribute_group_sizes should match your PP-LCNet model.
-    auto attr = std::make_shared<cvedix_nodes::cvedix_paddle_vehicle_attribute_node>(
+    auto attr = std::make_shared<cvedix_nodes::cvedix_paddle_attribute_node>(
         "vehicle_attr",
         "./cvedix_data/models/paddle/PP-LCNet_x1_0_vehicle_attribute_infer",
         "./cvedix_data/models/paddle/PP-LCNet_x1_0_vehicle_attribute_infer/labels.txt",

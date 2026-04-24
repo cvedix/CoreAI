@@ -8,9 +8,6 @@
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 
-#ifdef CVEDIX_WITH_LICENSE
-#include "cvedix/utils/license/cvedix_license_manager.h"
-#endif
 
 #include <algorithm>
 #include <chrono>
@@ -59,11 +56,6 @@ cvedix_paddle_detector_node::cvedix_paddle_detector_node(
     : cvedix_primary_infer_node(node_name, "", "", "", 0, 0, batch_size, class_id_offset),
       conf_threshold(conf_threshold) {
 
-#ifdef CVEDIX_WITH_LICENSE
-    if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-        throw std::runtime_error("Inference features require a valid license. Please contact support.");
-    }
-#endif
 
     try {
         const std::string device = use_gpu ? "GPU" : "CPU";

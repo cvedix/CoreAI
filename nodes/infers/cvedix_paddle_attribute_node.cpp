@@ -1,16 +1,13 @@
 /**
- * @file cvedix_paddle_vehicle_attribute_node.cpp
- * @brief Paddle Inference node for vehicle attribute recognition (PP-LCNet)
+ * @file cvedix_paddle_attribute_node.cpp
+ * @brief Paddle Inference node for general-purpose attribute recognition (PP-LCNet)
  */
 
-#include "cvedix_paddle_vehicle_attribute_node.h"
+#include "cvedix_paddle_attribute_node.h"
 
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 
-#ifdef CVEDIX_WITH_LICENSE
-#include "cvedix/utils/license/cvedix_license_manager.h"
-#endif
 
 #include <algorithm>
 #include <chrono>
@@ -154,7 +151,7 @@ std::string format_secondary_labels(
 
 }  // namespace
 
-cvedix_paddle_vehicle_attribute_node::cvedix_paddle_vehicle_attribute_node(
+cvedix_paddle_attribute_node::cvedix_paddle_attribute_node(
     const std::string& node_name,
     const std::string& model_dir,
     const std::string& labels_path,
@@ -213,39 +210,34 @@ cvedix_paddle_vehicle_attribute_node::cvedix_paddle_vehicle_attribute_node(
       trt_opt_shape_(trt_opt_shape),
       trt_calib_mode_(trt_calib_mode) {
 
-#ifdef CVEDIX_WITH_LICENSE
-    if (!cvedix_utils::cvedix_license_manager::get_instance().check_license()) {
-        throw std::runtime_error("Inference features require a valid license. Please contact support.");
-    }
-#endif
 
     if (model_dir_.empty()) {
-        throw std::invalid_argument("model_dir is required for vehicle attribute recognition.");
+        throw std::invalid_argument("model_dir is required for general-purpose attribute recognition.");
     }
 
     init_predictor();
 
     CVEDIX_INFO(cvedix_utils::string_format(
-        "[%s] Paddle vehicle attribute node initialized: device=%s, run_mode=%s, batch=%d, labels=%zu",
+        "[%s] Paddle attribute node initialized: device=%s, run_mode=%s, batch=%d, labels=%zu",
         node_name.c_str(), use_gpu_ ? "GPU" : "CPU", run_mode_.c_str(), batch_size, labels.size()));
 
     this->initialized();
 }
 
-cvedix_paddle_vehicle_attribute_node::~cvedix_paddle_vehicle_attribute_node() {
+cvedix_paddle_attribute_node::~cvedix_paddle_attribute_node() {
     predictor_.reset();
     deinitialized();
 }
 
-void cvedix_paddle_vehicle_attribute_node::set_score_threshold(float threshold) {
+void cvedix_paddle_attribute_node::set_score_threshold(float threshold) {
     score_threshold_ = threshold;
 }
 
-void cvedix_paddle_vehicle_attribute_node::set_attribute_group_sizes(const std::vector<int>& sizes) {
+void cvedix_paddle_attribute_node::set_attribute_group_sizes(const std::vector<int>& sizes) {
     attribute_group_sizes_ = sizes;
 }
 
-void cvedix_paddle_vehicle_attribute_node::init_predictor() {
+void cvedix_paddle_attribute_node::init_predictor() {
     paddle_infer::Config config;
     const std::string model_file = resolve_existing_file(
         model_dir_, {"model.pdmodel", "inference.pdmodel", "inference.json"});
@@ -300,18 +292,18 @@ void cvedix_paddle_vehicle_attribute_node::init_predictor() {
 
     predictor_ = paddle_infer::CreatePredictor(config);
     if (!predictor_) {
-        throw std::runtime_error("Failed to create Paddle Inference predictor for vehicle attributes.");
+        throw std::runtime_error("Failed to create Paddle Inference predictor for attributes.");
     }
 }
 
-std::string cvedix_paddle_vehicle_attribute_node::get_label(int class_id) const {
+std::string cvedix_paddle_attribute_node::get_label(int class_id) const {
     if (class_id >= 0 && class_id < static_cast<int>(labels.size())) {
         return labels[class_id];
     }
     return "class_" + std::to_string(class_id);
 }
 
-void cvedix_paddle_vehicle_attribute_node::preprocess_batch(const std::vector<cv::Mat>& mats, cv::Mat& blob) const {
+void cvedix_paddle_attribute_node::preprocess_batch(const std::vector<cv::Mat>& mats, cv::Mat& blob) const {
     cv::dnn::blobFromImages(
         mats,
         blob,
@@ -333,7 +325,7 @@ void cvedix_paddle_vehicle_attribute_node::preprocess_batch(const std::vector<cv
     }
 }
 
-void cvedix_paddle_vehicle_attribute_node::append_attribute_top1(
+void cvedix_paddle_attribute_node::append_attribute_top1(
     const float* scores,
     int dim,
     int label_offset,
@@ -362,7 +354,7 @@ void cvedix_paddle_vehicle_attribute_node::append_attribute_top1(
     target.secondary_labels.push_back(get_label(class_id));
 }
 
-void cvedix_paddle_vehicle_attribute_node::append_attribute_grouped(
+void cvedix_paddle_attribute_node::append_attribute_grouped(
     const float* scores,
     int dim,
     int label_offset,
@@ -383,7 +375,7 @@ void cvedix_paddle_vehicle_attribute_node::append_attribute_grouped(
     }
 }
 
-void cvedix_paddle_vehicle_attribute_node::append_attribute_multilabel(
+void cvedix_paddle_attribute_node::append_attribute_multilabel(
     const float* scores,
     int dim,
     cvedix_objects::cvedix_frame_target& target) const {
@@ -404,7 +396,7 @@ void cvedix_paddle_vehicle_attribute_node::append_attribute_multilabel(
     }
 }
 
-void cvedix_paddle_vehicle_attribute_node::run_infer_combinations(
+void cvedix_paddle_attribute_node::run_infer_combinations(
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
 
     if (frame_meta_with_batch.empty() || !predictor_) {
@@ -580,7 +572,7 @@ void cvedix_paddle_vehicle_attribute_node::run_infer_combinations(
     (void)total_time;
 }
 
-void cvedix_paddle_vehicle_attribute_node::postprocess(
+void cvedix_paddle_attribute_node::postprocess(
     const std::vector<cv::Mat>& raw_outputs,
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
     (void)raw_outputs;
