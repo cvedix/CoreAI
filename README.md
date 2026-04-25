@@ -1,128 +1,81 @@
-## 一、Giới thiệu
+<p align="center">
+  <img src="assets/hero_banner.png" width="720" alt="OmniCore — AI Video Analytics SDK">
+</p>
 
-`AI Core Runtime` là một framework dùng để phân tích và cấu trúc hóa video, được viết bằng C++, ít phụ thuộc và dễ sử dụng. Nó hoạt động giống như một đường ống, trong đó mỗi nút độc lập với nhau và có thể tự kết hợp, `AI Core Runtime` có thể được sử dụng để xây dựng các ứng dụng phân tích video khác nhau, phù hợp với các tình huống như cấu trúc hóa video, tìm kiếm hình ảnh, nhận dạng khuôn mặt, phân tích hành vi trong lĩnh vực giao thông/an ninh (như phát hiện sự kiện giao thông), v.v.
+<h1 align="center">OmniCore — AI Video Analytics SDK</h1>
 
-## 二、Ưu điểm và đặc điểm
+<p align="center">
+  <strong>Build real-time video analytics pipelines with plug-and-play AI nodes.</strong><br>
+  Run on GPU, NPU, and CPU — across x86_64 and ARM64 edge devices with a few lines of C++.
+</p>
 
-`AI Core Runtime` tương tự như framework DeepStream của NVIDIA và mxVision của Huawei, nhưng dễ sử dụng hơn và có tính di động cao hơn.
+<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-features--comparisons">Features</a> •
+  <a href="./docs/ARCHITECTURE.md">Architecture</a> •
+  <a href="./docs/NODES_AND_SAMPLES.md">Nodes & Samples</a> •
+  <a href="#-documentation">Docs</a> •
+  <a href="#-license">License</a>
+</p>
 
-`AI Core Runtime` sử dụng phong cách mã hóa hướng plugin, có thể kết hợp theo nhu cầu khác nhau, chúng ta có thể sử dụng các plugin độc lập (tức là kiểu `Node` trong framework) để xây dựng các ứng dụng phân tích video khác nhau. Bạn chỉ cần chuẩn bị mô hình và hiểu cách phân tích đầu ra của nó, suy luận có thể dựa trên các backend khác nhau, chẳng hạn như OpenCV::DNN (mặc định), TensorRT, PaddleInference, ONNXRuntime, v.v., bất kỳ cái nào bạn thích.
+---
 
-## 四、Tính năng
+OmniCore (internal: **EdgeOS SDK / AI Core Runtime**) is a high-performance, plugin-based C++17 framework for building real-time video analytics applications. Each processing unit — called a **Node** — is an independent plugin that can be freely combined to construct diverse pipelines: from simple object detection to complex multi-channel traffic violation systems with behavior analysis, face recognition, license plate reading, and mLLM integration.
 
-AI Core Runtime là một framework giúp tích hợp mô hình thuật toán thị giác máy tính trở nên đơn giản hơn, lưu ý rằng nó không phải là framework học sâu như TensorFlow, TensorRT. Các tính năng chính của AI Core Runtime như sau:
+> ⭐ **Star this repo** to keep up with new node releases, model integrations, and platform support.
 
-- Đọc luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đọc hình ảnh.
-- Giải mã video: Hỗ trợ giải mã video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).
-- Suy luận thuật toán: Hỗ trợ suy luận đa cấp dựa trên thuật toán học sâu, chẳng hạn như phát hiện đối tượng, phân loại hình ảnh, trích xuất đặc trưng, tạo hình ảnh và các mạng liên quan khác. Đồng thời hỗ trợ tích hợp thuật toán hình ảnh truyền thống. **Hỗ trợ tích hợp mô hình đa phương thức lớn (mLLM) (cập nhật 2025/8/12)**
-- Theo dõi đối tượng: Hỗ trợ theo dõi đối tượng, chẳng hạn như thuật toán theo dõi IOU, SORT, v.v.
-- Phân tích hành vi (BA): Hỗ trợ phân tích hành vi dựa trên theo dõi, chẳng hạn như vượt đường, đỗ xe, vi phạm giao thông và các hành vi giao thông khác.
-- Logic nghiệp vụ: Hỗ trợ tích hợp logic nghiệp vụ tùy chỉnh bất kỳ, có thể liên quan chặt chẽ đến nghiệp vụ.
-- Proxy dữ liệu: Hỗ trợ đẩy dữ liệu có cấu trúc (json/xml/định dạng tùy chỉnh) lên đám mây, tệp hoặc nền tảng bên thứ ba khác thông qua kafka/Socket, v.v.
-- Ghi lại: Hỗ trợ ghi video trong khoảng thời gian cụ thể, chụp ảnh khung cụ thể và lưu vào tệp.
-- Hiển thị màn hình (OSD): Hỗ trợ vẽ dữ liệu có cấu trúc và kết quả xử lý logic nghiệp vụ lên khung hình.
-- Mã hóa video: Hỗ trợ mã hóa video và hình ảnh dựa trên OpenCV/GStreamer (hỗ trợ tăng tốc phần cứng).
-- Đẩy luồng: Hỗ trợ các giao thức video phổ biến như udp, rtsp, rtmp, file, application. Đồng thời hỗ trợ đẩy hình ảnh.
+<p align="center">
+  <img src="assets/pipeline_architecture.png" width="720" alt="OmniCore Pipeline Architecture">
+</p>
 
-## 五、Bắt đầu nhanh
+## 🏆 Why OmniCore?
 
-### 5.1 Phụ thuộc
+| | OmniCore | NVIDIA DeepStream | Huawei mxVision |
+|---|---|---|---|
+| **Ease of use** | ✅ Simple C++ API | ⚠️ Complex GStreamer config | ⚠️ Ascend-only toolchain |
+| **Multi-backend** | ✅ OpenCV DNN / TensorRT / RKNN / ONNX RT / PaddleInference / mLLM | ⚠️ TensorRT only | ⚠️ Ascend ACL only |
+| **Multi-platform** | ✅ x86_64 + ARM64 (Jetson, RK3588, Ascend) | ⚠️ NVIDIA only | ⚠️ Huawei only |
+| **mLLM support** | ✅ Ollama / vLLM / OpenAI API | ❌ | ❌ |
+| **Plugin composability** | ✅ Attach/detach nodes at runtime | ⚠️ Static pipeline | ⚠️ Static pipeline |
+| **Minimal dependencies** | ✅ C++17 + OpenCV | ⚠️ Heavy NVIDIA stack | ⚠️ Heavy Ascend stack |
 
-Nền tảng
+---
 
-- Ubuntu 18.04 x86_64 NVIDIA rtx/tesla GPUs
-- Ubuntu 18.04 aarch64 NVIDIA jetson serials device，tx2 tested
-- Ubuntu 22.04 x86_64 by VMware virtual machine on Windows 10, pure CPUs
-- Ubuntu 18.04 x86_64 Cambrian MLU serials device, MLU 370 tested
-- Ubuntu 18.04 aarch64 Rockchip RK35** serials device, RK3588 tested
-- Ubuntu 22.04 aarch64 Ascend 310/910 serials device, Atlas 300I-Pro tested
-- Chờ bạn kiểm tra
+## 🚀 Quick Start
 
-Cơ bản
+<table>
+<tr>
+<td width="50%">
 
-- C++ 17
-- OpenCV >= 4.6
-- GStreamer 1.14.5 (Required by OpenCV)
-- GCC >= 7.5
-
-Tùy chọn, nếu bạn cần triển khai backend suy luận của riêng mình hoặc sử dụng backend suy luận khác ngoài `opencv::dnn`.
-
-- CUDA.
-- TensorRT.
-- Paddle Inference.
-- ONNX Runtime.
-- mLLM（Ollama/vLLM/OpenAI-compatible API Services）.
-- Bất kỳ thứ gì bạn thích.
-
-[Cách cài đặt CUDA và TensorRT](./third_party/trt_vehicle/README.md)
-
-[Cách cài đặt Paddle_Inference](./third_party/paddle_ocr/README.md)
-
-### 5.2 Cài đặt nhanh Dependencies
-
-Khi clone repository sang máy mới, sử dụng các lệnh sau để cài đặt dependencies tự động theo phần cứng:
+### 📦 Install Dependencies
 
 ```bash
-# Cài đặt dependencies (interactive - hỏi về optional deps)
+# Interactive (asks about optional deps)
 make setup
 
-# Hoặc cài đặt tự động (chỉ base deps, không hỏi)
+# Non-interactive (base deps only)
 make setup-auto
 ```
 
-**Các lệnh Make có sẵn:**
+</td>
+<td width="50%">
 
-| Lệnh | Mô tả |
-|------|-------|
-| `make setup` | Cài đặt dependencies (tự động detect hardware) |
-| `make setup-auto` | Cài đặt base dependencies (non-interactive) |
-| `make build` | Build với auto-detect hardware |
-| `make build-cpu` | Build cho CPU only |
-| `make build-rockchip` | Build cho Rockchip RK35xx |
-| `make package-cpu` | Tạo .deb package cho CPU |
-| `make package-rockchip` | Tạo .deb package cho Rockchip |
-| `make info` | Hiển thị thông tin hardware đã detect |
-| `make clean` | Xóa build directories |
-
-Script `setup_dependencies.sh` sẽ tự động:
-
-- Phát hiện kiến trúc (x86_64, aarch64)
-- Phát hiện platform (Rockchip, Jetson, NVIDIA GPU, CPU-only)
-- Cài đặt dependencies phù hợp với phần cứng
-
-### 5.3 Cài đặt & Tích hợp SDK
-
-Thay vì biên dịch toàn bộ mã nguồn framework, chúng tôi khuyến nghị sử dụng SDK đã đóng gói để phát triển ứng dụng.
-
-#### 1. Cài đặt SDK
-
-Nếu bạn đã có gói `.deb`:
+### 🔨 Build
 
 ```bash
-sudo dpkg -i libcvedix-dev_*.deb
+# Auto-detect hardware
+make build
+
+# Or target specific platform
+make build-cpu
+make build-rockchip
 ```
 
-Hoặc build và cài đặt SDK từ source (nếu chưa có gói pre-built):
+</td>
+</tr>
+</table>
 
-```bash
-./build_sdk.sh --prefix=/usr/local
-```
-
-#### 2. Tích hợp vào dự án CMake
-
-Trong file `CMakeLists.txt` của dự án bạn:
-
-```cmake
-# Tìm gói cvedix
-find_package(cvedix REQUIRED)
-
-# Link thư viện (Tự động bao gồm cả đường dẫn include)
-target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)
-
-# Lưu ý: Không cần thêm include_directories() vì target đã chứa sẵn thông tin này.
-```
-
-#### 3. Ví dụ đơn giản (Minimal Example)
+### Minimal Example — Face Detection Pipeline
 
 ```cpp
 #include <cvedix/nodes/src/cvedix_file_src_node.h>
@@ -132,68 +85,313 @@ target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)
 int main() {
     CVEDIX_LOGGER_INIT();
 
-    // 1. Tạo Source Node
-    auto source = std::make_shared<cvedix_nodes::cvedix_file_src_node>("src", 0, "video.mp4", 1.0);
-    
-    // 2. Tạo Inference Node
-    auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("detector", "face_detection_yunet.onnx");
+    // 1. Create nodes
+    auto source   = std::make_shared<cvedix_nodes::cvedix_file_src_node>("src", 0, "video.mp4", 1.0);
+    auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("det", "face_detection_yunet.onnx");
 
-    // 3. Link Pipeline
+    // 2. Build pipeline
     detector->attach_to({source});
 
-    // 4. Chạy
+    // 3. Run
     source->start();
 
-    // 5. Debug Visualizer
+    // 4. Debug visualizer (FPS, latency, queue stats)
     cvedix_utils::cvedix_analysis_board board({source});
     board.display();
-    
+
     return 0;
 }
 ```
 
-Để xem thêm các ví dụ nâng cao (RTMP, OSD, Face Recognition...), vui lòng xem mục [Các mẫu nguyên mẫu](#55-các-mẫu-nguyên-mẫu).
+<p align="center">
+  <img src="cvedix_analysis_board.png" width="720" alt="Analysis Board — Pipeline Debug Visualizer">
+  <br><em>Analysis Board: real-time FPS, latency, and queue monitoring for every node</em>
+</p>
 
-### 5.5 Các mẫu nguyên mẫu
+### SDK Integration (CMake)
 
-Tổng cộng hơn 40 mẫu nguyên mẫu, [Nhấp vào](./SAMPLES.md) để xem thêm.
+After installing the `.deb` package:
 
-## 六、Tài liệu thêm
+```cmake
+find_package(cvedix REQUIRED)
+target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)
+```
 
-- [How AI Core Runtime Works](./doc/about.md)
-- [Development Environment For Reference](./doc/env.md)
+---
 
-## 七、Triển khai Thực tế & Đóng gói
+## ⚙️ Features & Comparisons
 
-Để triển khai dự án vào môi trường sản xuất (Production), chúng tôi cung cấp các công cụ đóng gói SDK và ứng dụng thành các gói cài đặt chuẩn (như `.deb` cho Debian/Ubuntu) để dễ dàng phân phối và cài đặt.
+<p align="center">
+  <img src="assets/features_grid.png" width="680" alt="OmniCore Key Features">
+</p>
 
-### 1. Quy trình đóng gói
+Legend: ✅ Supported  |  ⚠️ Partial  |  ❌ Not available
 
-Chúng tôi hỗ trợ đóng gói nhị phân cho cả kiến trúc x86_64 và aarch64 (như NVIDIA Jetson, Rockchip).
+### Pipeline Capabilities
 
-- **Đóng gói SDK**: Tạo gói `.deb` chứa thư viện (`.so`), header files, và các công cụ hỗ trợ phát triển.
-  - Script: `build_cpu_deb_package.sh` (chỉ CPU) hoặc các script tương ứng cho GPU/NPU.
-  - Gói đầu ra: `libcvedix-dev_<version>_<arch>.deb`
-  
-- **Đóng gói Ứng dụng/Runtime**: Tạo gói chứa runtime (thư viện động) và các ứng dụng mẫu/thực thi, cùng với mô hình AI cần thiết.
-  - Script: `build_package_with_models.sh`
-  - Tự động bao gồm các mô hình từ `cvedix_data`.
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Stream Input | ✅ | RTSP, RTMP, UDP, File, Image, Application |
+| Video Decode | ✅ | OpenCV/GStreamer + HW acceleration (NVDEC) |
+| AI Inference | ✅ | Multi-stage deep learning (detect → classify → extract) |
+| mLLM Integration | ✅ | Ollama, vLLM, OpenAI-compatible APIs |
+| Object Tracking | ✅ | SORT, ByteTrack, OC-SORT, DeepSORT, BoTSORT |
+| Behavior Analysis | ✅ | 22+ rules (crossline, wrong-way, red-light, speed, crowding…) |
+| On-Screen Display | ✅ | Draw results on frames (bbox, skeleton, plate text…) |
+| Data Broker | ✅ | MQTT, Kafka, SSE, UDP Socket, Console, XML |
+| Recording | ✅ | Video/image recording with event triggers |
+| Stream Output | ✅ | RTSP, RTMP, File, Screen, Application |
+| Multi-Channel | ✅ | Share or isolate nodes across channels |
+| Dynamic Pipeline | ✅ | Hot-plug nodes at runtime (attach/detach) |
 
-### 2. Cài đặt và Sử dụng
+### Inference Backends
 
-Sau khi đóng gói, việc cài đặt trên máy đích rất đơn giản:
+| Backend | Platform | Hardware | Status |
+|---------|----------|----------|--------|
+| OpenCV DNN | All | CPU / GPU | ✅ Default |
+| TensorRT | NVIDIA | GPU (RTX/Tesla/Jetson) | ✅ |
+| RKNN | Rockchip | NPU (RK3588) | ✅ |
+| PaddleInference | All | CPU / GPU | ✅ OCR |
+| ONNX Runtime | All | CPU / GPU | ✅ |
+| mLLM (Ollama/vLLM) | All | CPU / GPU | ✅ |
+
+### Supported Platforms
+
+| Platform | Architecture | Hardware | Status |
+|----------|-------------|----------|--------|
+| Ubuntu 18.04+ | x86_64 | NVIDIA RTX/Tesla GPUs | ✅ Tested |
+| Ubuntu 18.04+ | aarch64 | NVIDIA Jetson (TX2+) | ✅ Tested |
+| Ubuntu 22.04+ | x86_64 | CPU-only (VMware/bare metal) | ✅ Tested |
+| Ubuntu 18.04+ | aarch64 | Rockchip RK3588 NPU | ✅ Tested |
+| Ubuntu 22.04+ | aarch64 | Ascend 310/910 | ✅ Tested |
+
+---
+
+## 🧩 Node Catalog
+
+<p align="center">
+  <img src="assets/demo_traffic_analytics.png" width="720" alt="OmniCore Traffic Analytics Demo">
+  <br><em>Real-time traffic analytics: vehicle detection, tracking, crossline counting & behavior analysis</em>
+</p>
+
+OmniCore ships **80+ ready-to-use nodes** across 12 categories:
+
+<table>
+<tr>
+<td>
+
+**🎬 Source** (6 nodes)
+- File, RTSP, RTMP, UDP
+- Image, Application
+
+</td>
+<td>
+
+**🧠 Inference** (35+ nodes)
+- YOLO (v3/v8/v11), YuNet
+- InsightFace, SFace, FaceNet
+- PaddleOCR, OpenPose
+- mLLM, CLIP, Real-ESRGAN
+
+</td>
+<td>
+
+**🏃 Tracking** (5 algorithms)
+- SORT, ByteTrack
+- OC-SORT, DeepSORT
+- BoTSORT
+
+</td>
+</tr>
+<tr>
+<td>
+
+**📊 Behavior Analysis** (22+ rules)
+- Crossline counting
+- Wrong-way, red-light
+- Speed estimation
+- Crowding, loitering
+- Area enter/exit
+- Lane & parking violation
+
+</td>
+<td>
+
+**📤 Broker** (13 nodes)
+- MQTT, Kafka, SSE
+- UDP Socket, Console
+- XML File / Socket
+- Webhook
+
+</td>
+<td>
+
+**🖥️ Output** (7 nodes)
+- Screen, File, RTMP
+- RTSP (self-hosted)
+- Image, Application
+- Fake (benchmarking)
+
+</td>
+</tr>
+<tr>
+<td>
+
+**🎨 OSD** (18 nodes)
+- Detection, Face, Plate
+- Pose, Segmentation
+- BA results overlay
+- mLLM description
+
+</td>
+<td>
+
+**🔀 Middleware** (6 nodes)
+- Split (by channel / deep-copy)
+- Sync, Skip, Placeholder
+- Custom transform
+
+</td>
+<td>
+
+**📹 Record** (1 node)
+- Video & image recording
+- Event-triggered capture
+- Completion hooks
+
+</td>
+</tr>
+</table>
+
+> 📖 Full node reference: [**docs/NODES_AND_SAMPLES.md**](./docs/NODES_AND_SAMPLES.md)
+
+---
+
+## 🧪 60+ Sample Programs
+
+Pre-built examples covering every use case:
+
+| Category | Samples | Key Examples |
+|----------|---------|-------------|
+| **Pipeline Topology** | 6 | `1-1-1`, `1-N-N`, `N-1-N` multi-channel |
+| **Face Detection & Recognition** | 17 | YuNet, InsightFace, FaceNet, face swap |
+| **Behavior Analysis** | 11 | Crossline, wrong-way, speed, crowding |
+| **Vehicle & Plate** | 11 | Plate recognition, ByteTrack+OCR |
+| **Object Detection** | 10 | YOLOv11, Mask R-CNN, fire/smoke |
+| **TensorRT** | 6 | YOLOv8/v11 GPU acceleration |
+| **Rockchip RKNN** | 9 | RK3588 NPU inference |
+| **Message Broker** | 5 | MQTT, Kafka, SSE |
+| **Utility** | 13 | Dynamic pipeline, recording, mLLM |
 
 ```bash
-# Cài đặt gói .deb
+# Build and run a sample
+make build
+./build/samples/ba_crossline_sample
+```
+
+> 📖 Sample guide: [**samples/README.md**](./samples/README.md)
+
+---
+
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [**Architecture Guide**](./docs/ARCHITECTURE.md) | Pipeline architecture, node internals, data model, class hierarchy |
+| [**Nodes & Samples Reference**](./docs/NODES_AND_SAMPLES.md) | Complete API reference for all 80+ nodes and 60+ samples |
+| [**BA Crossline Usage**](./docs/BA_CROSSLINE_USAGE.md) | Crossline counting configuration guide |
+| [**BA Event Format**](./docs/BA_NODE_EVENT_FORMAT.md) | Behavior analysis event JSON/XML format |
+| [**BA Event Extraction**](./docs/BA_EVENT_EXTRACTION_INTEGRATION.md) | Integration guide for BA event extraction |
+| [**Face Recognition (SeetaFace6)**](./docs/FACE_RECOGNIZER_SEETAFACE6.md) | SeetaFace6 face recognizer setup |
+| [**Face Recognition Benchmark**](./docs/FACE_RECOGNITION_BENCHMARK_REPORT.txt) | Performance benchmark results |
+
+---
+
+## 📦 Build & Deployment
+
+### Make Commands
+
+| Command | Description |
+|---------|-------------|
+| `make setup` | Install dependencies (auto-detect hardware) |
+| `make setup-auto` | Install base dependencies (non-interactive) |
+| `make build` | Build with auto-detect hardware |
+| `make build-cpu` | Build for CPU only |
+| `make build-rockchip` | Build for Rockchip RK35xx |
+| `make package-cpu` | Create `.deb` package for CPU |
+| `make package-rockchip` | Create `.deb` package for Rockchip |
+| `make info` | Show detected hardware info |
+| `make clean` | Clean build directories |
+
+### Package Installation
+
+```bash
+# Install SDK package
 sudo dpkg -i libcvedix-dev_*.deb
 
-# Kiểm tra cài đặt
+# Verify
 pkg-config --modversion cvedix
 ```
 
-Sau khi cài đặt, SDK sẽ nằm trong hệ thống (thường là `/usr/lib` và `/usr/include`), cho phép bạn phát triển ứng dụng mới hoặc chạy ứng dụng đã biên dịch mà không cần thiết lập lại môi trường build phức tạp.
+### Deployment Options
 
-### 3. Tùy chọn triển khai
+| Method | Description |
+|--------|-------------|
+| **`.deb` Package** | SDK + runtime + models for Debian/Ubuntu |
+| **Docker** | Minimal container image with `.deb` base |
+| **systemd Service** | Run as background service with auto-restart |
 
-- **Docker**: Bạn có thể sử dụng các gói `.deb` này để xây dựng Docker image nhỏ gọn cho ứng dụng của mình.
-- **Service**: Tích hợp với `systemd` để chạy ứng dụng như một dịch vụ nền (background service), tự động khởi động cùng hệ thống.
+---
+
+## 🔧 Requirements
+
+### Base Requirements
+
+| Requirement | Version |
+|-------------|---------|
+| C++ Standard | C++17 |
+| Compiler | GCC ≥ 7.5 |
+| OpenCV | ≥ 4.6 |
+| GStreamer | 1.14.5 (required by OpenCV) |
+
+### Optional (per inference backend)
+
+| Backend | Dependency | Install Guide |
+|---------|-----------|---------------|
+| TensorRT | CUDA + TensorRT | [Guide](./third_party/trt_vehicle/README.md) |
+| PaddleInference | Paddle Inference | [Guide](./third_party/paddle_ocr/README.md) |
+| ONNX Runtime | ONNX Runtime | — |
+| RKNN | RKNN Toolkit | — |
+| mLLM | Ollama / vLLM / OpenAI API | — |
+
+---
+
+## 🙏 Acknowledgements
+
+We would like to thank the following projects:
+
+- [OpenCV](https://github.com/opencv/opencv) — Computer vision library
+- [GStreamer](https://gstreamer.freedesktop.org/) — Multimedia framework
+- [ONNX Runtime](https://github.com/microsoft/onnxruntime) — Cross-platform inference
+- [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) — OCR toolkit
+- [ByteTrack](https://github.com/ifzhang/ByteTrack) — Multi-object tracking
+- [YOLOv11](https://github.com/ultralytics/ultralytics) — Object detection
+
+---
+
+## 📄 License
+
+OmniCore is proprietary software developed by **CVEDIX**.
+
+- **SDK License**: Requires a valid license key for production deployment.
+- **Evaluation**: Contact us for evaluation access.
+
+---
+
+## 🤝 Contact & Support
+
+Have questions, feature requests, or need enterprise support?
+
+- 📧 **Email**: [contact@cvedix.com](mailto:contact@cvedix.com)
+- 🐛 **Issues**: [Submit an issue](https://github.com/CVEDIX/omnicore/issues) on GitHub
+- 📖 **Docs**: [Architecture Guide](./docs/ARCHITECTURE.md) | [Nodes & Samples](./docs/NODES_AND_SAMPLES.md)
