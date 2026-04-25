@@ -111,7 +111,7 @@ if [ "$SKIP_MODEL_PREP" = false ]; then
                 2)
                     echo -e "${BLUE}Creating cvedix_data with all ONNX models (~800MB)...${NC}"
                     mkdir -p cvedix_data/models
-                    mkdir -p cvedix_data/test_video
+                    mkdir -p cvedix_data/video
                     
                     # Copy all ONNX models recursively
                     echo "  Copying ONNX models..."
@@ -139,9 +139,9 @@ if [ "$SKIP_MODEL_PREP" = false ]; then
                     
                     # Copy test videos (optional, for testing)
                     echo "  Copying test videos..."
-                    if [ -d "${CVEDIX_DATA_SOURCE}/test_video" ]; then
-                        find "${CVEDIX_DATA_SOURCE}/test_video" -name "*.mp4" -o -name "*.avi" -o -name "*.mkv" | head -10 | while read file; do
-                            cp "$file" ./cvedix_data/test_video/ 2>/dev/null || true
+                    if [ -d "${CVEDIX_DATA_SOURCE}/video" ]; then
+                        find "${CVEDIX_DATA_SOURCE}/video" -name "*.mp4" -o -name "*.avi" -o -name "*.mkv" | head -10 | while read file; do
+                            cp "$file" ./cvedix_data/video/ 2>/dev/null || true
                         done
                     fi
                     
@@ -152,7 +152,7 @@ if [ "$SKIP_MODEL_PREP" = false ]; then
                     mkdir -p cvedix_data/models/face
                     mkdir -p cvedix_data/models/face/face_recognition
                     mkdir -p cvedix_data/models
-                    mkdir -p cvedix_data/test_video
+                    mkdir -p cvedix_data/video
                     
                     # Copy essential face detection models
                     echo "  Copying face detection models..."
@@ -190,9 +190,9 @@ if [ "$SKIP_MODEL_PREP" = false ]; then
                     
                     # Copy one test video
                     echo "  Copying test video..."
-                    if [ -f "${CVEDIX_DATA_SOURCE}/test_video/face.mp4" ]; then
-                        cp "${CVEDIX_DATA_SOURCE}/test_video/face.mp4" \
-                           ./cvedix_data/test_video/ 2>/dev/null || true
+                    if [ -f "${CVEDIX_DATA_SOURCE}/video/face.mp4" ]; then
+                        cp "${CVEDIX_DATA_SOURCE}/video/face.mp4" \
+                           ./cvedix_data/video/ 2>/dev/null || true
                     fi
                     
                     echo -e "${GREEN}✓ Created minimal cvedix_data${NC}"
@@ -221,7 +221,7 @@ fi
 if [ -d "cvedix_data" ]; then
     SIZE=$(du -sh cvedix_data 2>/dev/null | cut -f1)
     ONNX_COUNT=$(find cvedix_data -name "*.onnx" 2>/dev/null | wc -l)
-    VIDEO_COUNT=$(find cvedix_data/test_video -type f 2>/dev/null | wc -l)
+    VIDEO_COUNT=$(find cvedix_data/video -type f 2>/dev/null | wc -l)
     
     echo -e "${GREEN}✓ cvedix_data ready${NC}"
     echo -e "  Size: ${YELLOW}${SIZE}${NC}"
@@ -305,7 +305,7 @@ if [ -n "$DEB_FILE" ]; then
     
     echo -e "${BLUE}Models included:${NC}"
     ONNX_IN_PKG=$(dpkg -c "$DEB_FILE" 2>/dev/null | grep -c "\.onnx" || echo "0")
-    VIDEO_IN_PKG=$(dpkg -c "$DEB_FILE" 2>/dev/null | grep -c "test_video.*\.\(mp4\|avi\|mkv\)" || echo "0")
+    VIDEO_IN_PKG=$(dpkg -c "$DEB_FILE" 2>/dev/null | grep -c "video.*\.\(mp4\|avi\|mkv\)" || echo "0")
     echo -e "  ONNX models: ${YELLOW}${ONNX_IN_PKG}${NC}"
     if [ $VIDEO_IN_PKG -gt 0 ]; then
         echo -e "  Test videos: ${YELLOW}${VIDEO_IN_PKG}${NC}"

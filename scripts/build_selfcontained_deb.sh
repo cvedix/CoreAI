@@ -61,7 +61,7 @@ mkdir -p "$PKG_DIR$INSTALL_PREFIX/lib"
 mkdir -p "$PKG_DIR$INSTALL_PREFIX/bin"
 mkdir -p "$PKG_DIR$INSTALL_PREFIX/include"
 mkdir -p "$PKG_DIR$INSTALL_PREFIX/models"
-mkdir -p "$PKG_DIR$INSTALL_PREFIX/test_video"
+mkdir -p "$PKG_DIR$INSTALL_PREFIX/video"
 mkdir -p "$PKG_DIR$INSTALL_PREFIX/config"
 mkdir -p "$PKG_DIR/etc/ld.so.conf.d"
 mkdir -p "$PKG_DIR/etc/profile.d"
@@ -227,8 +227,8 @@ if [ -d "$CVEDIX_DATA_DIR/models" ]; then
     cp -r "$CVEDIX_DATA_DIR/models" "$PKG_DIR$INSTALL_PREFIX/"
     echo -e "  ${GREEN}✓ Models copied${NC}"
 fi
-if [ -d "$CVEDIX_DATA_DIR/test_video" ]; then
-    cp -r "$CVEDIX_DATA_DIR/test_video/"* "$PKG_DIR$INSTALL_PREFIX/test_video/" 2>/dev/null || true
+if [ -d "$CVEDIX_DATA_DIR/video" ]; then
+    cp -r "$CVEDIX_DATA_DIR/video/"* "$PKG_DIR$INSTALL_PREFIX/video/" 2>/dev/null || true
     echo -e "  ${GREEN}✓ Test videos copied${NC}"
 fi
 
@@ -322,7 +322,7 @@ echo "║  Quick test:                                                 ║"
 echo "║  $ cd /opt/cvedix                                            ║"
 echo "║  $ ./bin/yolov11_face_detector_trt_sample \\                  ║"
 echo "║      ./models/trt/face/yolov11_face_fp16.engine \\            ║"
-echo "║      ./test_video/face.mp4                                   ║"
+echo "║      ./video/face.mp4                                   ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo ""
 EOF
@@ -382,6 +382,6 @@ echo ""
 echo -e "${CYAN}After installation:${NC}"
 echo -e "  ${YELLOW}source /etc/profile.d/cvedix.sh${NC}"
 echo -e "  ${YELLOW}cd /opt/cvedix${NC}"
-echo -e "  ${YELLOW}./bin/yolov11_face_detector_trt_sample ./models/trt/face/yolov11_face_fp16.engine ./test_video/face.mp4${NC}"
+echo -e "  ${YELLOW}./bin/yolov11_face_detector_trt_sample ./models/trt/face/yolov11_face_fp16.engine ./video/face.mp4${NC}"
 echo ""
 echo -e "${GREEN}Done!${NC}"

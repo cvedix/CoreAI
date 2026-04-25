@@ -28,7 +28,7 @@
  *   ./yolov11_plate_detector_sample [model_path] [video_path]
  * 
  * Ví dụ:
- *   ./yolov11_plate_detector_sample ./cvedix_data/models/onnx/plate/yolov11/license-plate-finetune-v1x.onnx ./cvedix_data/test_video/plate.mp4
+ *   ./yolov11_plate_detector_sample ./cvedix_data/models/onnx/plate/yolov11/license-plate-finetune-v1x.onnx ./cvedix_data/video/plate.mp4
  */
 
 void print_usage(const char* program_name) {
@@ -37,7 +37,7 @@ void print_usage(const char* program_name) {
     std::cout << "  video_path  : Đường dẫn đến file video đầu vào" << std::endl;
     std::cout << std::endl;
     std::cout << "Example:" << std::endl;
-    std::cout << "  " << program_name << " ./cvedix_data/models/onnx/plate/yolov11/license-plate-finetune-v1x.onnx ./cvedix_data/test_video/plate.mp4" << std::endl;
+    std::cout << "  " << program_name << " ./cvedix_data/models/onnx/plate/yolov11/license-plate-finetune-v1x.onnx ./cvedix_data/video/plate.mp4" << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 
     // Parse command line arguments
     std::string model_path = "./cvedix_data/models/onnx/plate/yolov11/license-plate-finetune-v1x.onnx";
-    std::string video_path = "./cvedix_data/test_video/plate.mp4";
+    std::string video_path = "./cvedix_data/video/plate.mp4";
     
     if (argc > 1) {
         if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help") {

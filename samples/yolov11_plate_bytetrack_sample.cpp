@@ -55,7 +55,7 @@ void print_usage(const char *prog) {
          "./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine)"
       << std::endl;
   std::cout << "  video      Input video path (default: "
-               "./cvedix_data/test_video/vietnam_plate.mp4)"
+               "./cvedix_data/video/vietnam_plate.mp4)"
             << std::endl;
   std::cout << "  output     Output video directory (optional)" << std::endl;
   std::cout << "  conf       Detection confidence threshold (default: 0.25)"
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
   // Default parameters
   std::string engine_path =
       "./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine";
-  std::string video_path = "./cvedix_data/test_video/vietnam_plate.mp4";
+  std::string video_path = "./cvedix_data/video/vietnam_plate.mp4";
   std::string output_dir = ""; // Empty = no file output
   float conf_threshold = 0.25f;
   float nms_threshold = 0.45f;

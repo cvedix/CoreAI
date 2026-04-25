@@ -35,7 +35,7 @@ if [ ! -d "cvedix_data" ]; then
             2)
                 echo -e "${BLUE}Creating cvedix_data with all ONNX models...${NC}"
                 mkdir -p cvedix_data/models
-                mkdir -p cvedix_data/test_video
+                mkdir -p cvedix_data/video
                 
                 # Copy all ONNX models recursively
                 echo "Copying ONNX models..."
@@ -57,9 +57,9 @@ if [ ! -d "cvedix_data" ]; then
                 
                 # Copy test videos (optional)
                 echo "Copying test videos..."
-                if [ -d "./build/bin/cvedix_data/test_video" ]; then
-                    cp -r ./build/bin/cvedix_data/test_video/*.mp4 \
-                        ./cvedix_data/test_video/ 2>/dev/null || true
+                if [ -d "./build/bin/cvedix_data/video" ]; then
+                    cp -r ./build/bin/cvedix_data/video/*.mp4 \
+                        ./cvedix_data/video/ 2>/dev/null || true
                 fi
                     
                 echo -e "${GREEN}✓ Created cvedix_data with ONNX models${NC}"
@@ -67,7 +67,7 @@ if [ ! -d "cvedix_data" ]; then
             3)
                 echo -e "${BLUE}Creating minimal cvedix_data with essential ONNX models...${NC}"
                 mkdir -p cvedix_data/models/face/face_recognition
-                mkdir -p cvedix_data/test_video
+                mkdir -p cvedix_data/video
                 
                 # Copy essential face detection models
                 echo "Copying face detection models..."
@@ -88,8 +88,8 @@ if [ ! -d "cvedix_data" ]; then
                 
                 # Copy one test video
                 echo "Copying test video..."
-                cp ./build/bin/cvedix_data/test_video/face.mp4 \
-                   ./cvedix_data/test_video/ 2>/dev/null || true
+                cp ./build/bin/cvedix_data/video/face.mp4 \
+                   ./cvedix_data/video/ 2>/dev/null || true
                     
                 echo -e "${GREEN}✓ Created minimal cvedix_data${NC}"
                 ;;

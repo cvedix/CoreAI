@@ -28,7 +28,7 @@
  *   ./yolov11_onnx_detector_sample [model_path] [video_path] [labels_path]
  * 
  * Ví dụ:
- *   ./yolov11_onnx_detector_sample ./models/yolov11n.onnx ./test_video.mp4 ./coco_labels.txt
+ *   ./yolov11_onnx_detector_sample ./models/yolov11n.onnx ./video.mp4 ./coco_labels.txt
  */
 
 void print_usage(const char* program_name) {
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 
     // Parse command line arguments
     std::string model_path = "./cvedix_data/models/face/face_detection_yolov11_fp16.onnx";
-    std::string video_path = "./cvedix_data/test_video/vehicle_count.mp4";
+    std::string video_path = "./cvedix_data/video/vehicle_count.mp4";
     std::string labels_path = "./cvedix_data/models/coco_80_labels_list.txt";
     
     if (argc > 1) {

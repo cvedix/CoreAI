@@ -349,7 +349,7 @@ int main(int argc, char** argv) {
 
     // create nodes
     // Using file source for consistency with original sample
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/vehicle_count.mp4", 1.0);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/vehicle_count.mp4", 1.0);
     
     auto yolo_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",                              // node name

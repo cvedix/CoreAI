@@ -199,7 +199,7 @@ int main() {
 
     // ─── 4. Xây dựng pipeline ───
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src", 0, "./cvedix_data/test_video/vehicle.mp4", 1.0);
+        "file_src", 0, "./cvedix_data/video/vehicle.mp4", 1.0);
 
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",
@@ -319,7 +319,7 @@ int main() {
 
     // ─── 3. Xây dựng pipeline ───
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src", 0, "./cvedix_data/test_video/person.mp4", 1.0);
+        "file_src", 0, "./cvedix_data/video/person.mp4", 1.0);
 
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",
@@ -414,7 +414,7 @@ int main() {
 
     // ─── 3. Xây dựng pipeline ───
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src", 0, "./cvedix_data/test_video/crowd.mp4", 1.0);
+        "file_src", 0, "./cvedix_data/video/crowd.mp4", 1.0);
 
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",
@@ -509,7 +509,7 @@ int main() {
 
     // ─── 3. Xây dựng pipeline ───
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src", 0, "./cvedix_data/test_video/vehicle.mp4", 1.0);
+        "file_src", 0, "./cvedix_data/video/vehicle.mp4", 1.0);
 
     auto detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector",

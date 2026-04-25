@@ -17,7 +17,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/ocr.mp4", 1.0);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/ocr.mp4", 1.0);
     auto ppocr_text_detector = std::make_shared<cvedix_nodes::cvedix_ppocr_text_detector_node>("ppocr_text_detector", "./cvedix_data/models/text/ppocr/ch_PP-OCRv3_det_infer","./cvedix_data/models/text/ppocr/ch_ppocr_mobile_v2.0_cls_infer","./cvedix_data/models/text/ppocr/ch_PP-OCRv3_rec_infer","./cvedix_data/models/text/ppocr/ppocr_keys_v1.txt");
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0", "./cvedix_data/font/NotoSansCJKsc-Medium.otf");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0, true);

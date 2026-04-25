@@ -91,9 +91,22 @@ add_subdirectory(third_party/onnx_yolov26)
 if(CVEDIX_WITH_TRT)  # TensorRT enabled
     add_definitions(-DCVEDIX_WITH_TRT)
     set(CVEDIX_BUILD_FROM ON)  # set flag for sub project
-    # TensorRT installed via apt packages
-    set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")         # need set the path here
-    set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")     # need set the path here
+
+    # Auto-detect TensorRT: apt packages first, then manual install
+    if(EXISTS "/usr/include/x86_64-linux-gnu/NvInfer.h")
+        # TensorRT installed via apt (Debian/Ubuntu)
+        set(CVEDIX_TRT_INC_PATH "/usr/include/x86_64-linux-gnu/")
+        set(CVEDIX_TRT_LIB_PATH "/usr/lib/x86_64-linux-gnu/")
+        message(STATUS "TensorRT detected: apt packages")
+    elseif(EXISTS "/usr/local/tensorRT/include/NvInfer.h")
+        # TensorRT manual install
+        set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")
+        set(CVEDIX_TRT_LIB_PATH "/usr/local/tensorRT/lib/")
+        message(STATUS "TensorRT detected: manual install at /usr/local/tensorRT")
+    else()
+        message(FATAL_ERROR "TensorRT not found! Install via apt or set paths manually.")
+    endif()
+
     # Add TensorRT and CUDA include directories for main project
     include_directories(${CVEDIX_TRT_INC_PATH})
     link_directories(${CVEDIX_TRT_LIB_PATH})

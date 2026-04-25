@@ -69,6 +69,13 @@ target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
 add_executable(sse_broker_sample "sse_broker_sample.cpp")
 target_link_libraries(sse_broker_sample ${PROJECT_NAME})
 
+add_executable(web_debug_sample "web_debug_sample.cpp")
+target_link_libraries(web_debug_sample ${PROJECT_NAME})
+
+# webhook_broker_sample - needs API update
+# add_executable(webhook_broker_sample "webhook_broker_sample.cpp")
+# target_link_libraries(webhook_broker_sample ${PROJECT_NAME})
+
 # add_executable(video_restoration_sample "video_restoration_sample.cpp")
 # target_link_libraries(video_restoration_sample ${PROJECT_NAME})
 
@@ -96,6 +103,7 @@ install(TARGETS
         rtsp_src_sample
         rtsp_des_sample
         sse_broker_sample
+        web_debug_sample
         wrong_way_detection_sample
         DESTINATION bin
         OPTIONAL

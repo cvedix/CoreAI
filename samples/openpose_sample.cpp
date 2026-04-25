@@ -15,7 +15,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/pose.mp4");
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/pose.mp4");
     auto openpose_detector = std::make_shared<cvedix_nodes::cvedix_openpose_detector_node>("openpose_detector", "./cvedix_data/models/openpose/pose/body_25_pose_iter_584000.caffemodel", "./cvedix_data/models/openpose/pose/body_25_pose_deploy.prototxt", "", 368, 368, 1, 0, 0.1, cvedix_objects::cvedix_pose_type::body_25);
     auto pose_osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("pose_osd_0");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);

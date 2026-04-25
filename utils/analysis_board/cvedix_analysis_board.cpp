@@ -124,6 +124,37 @@ namespace cvedix_utils {
         rtmp_th = std::thread(display_func);
     }
 
+    void cvedix_analysis_board::push_to_buffer(int fps) {
+        if (displaying) {
+            return;
+        }
+        auto display_func = [&, fps](){
+            while (alive) {
+                auto loop_start = std::chrono::system_clock::now();
+                {
+                    std::lock_guard<std::mutex> guard(reload_lock);
+                    cv::Mat mat_to_display = bg_canvas.clone();
+                    render_layer(src_nodes_on_screen, mat_to_display, false);
+                    {
+                        std::lock_guard<std::mutex> export_guard(canvas_export_lock);
+                        latest_canvas = mat_to_display;
+                    }
+                }
+                auto loop_cost = std::chrono::system_clock::now() - loop_start;
+                auto wait_time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::milliseconds(1000 / fps) - loop_cost);
+                if (wait_time.count() > 0) {
+                    std::this_thread::sleep_for(wait_time);
+                }
+            }};
+        displaying = true;
+        rtmp_th = std::thread(display_func);  // reuse rtmp_th slot
+    }
+
+    cv::Mat cvedix_analysis_board::get_current_canvas() {
+        std::lock_guard<std::mutex> guard(canvas_export_lock);
+        return latest_canvas.empty() ? bg_canvas.clone() : latest_canvas.clone();
+    }
+
     void cvedix_analysis_board::render_layer(std::vector<std::shared_ptr<cvedix_node_on_screen>> nodes_in_layer, cv::Mat& canvas, bool static_parts) {
         std::vector<std::shared_ptr<cvedix_node_on_screen>> nodes_in_next_layer;
         for(auto& i : nodes_in_layer) {

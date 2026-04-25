@@ -67,6 +67,10 @@ namespace cvedix_utils {
 
         // canvas to draw
         cv::Mat bg_canvas;
+
+        // latest rendered canvas (for web export)
+        cv::Mat latest_canvas;
+        std::mutex canvas_export_lock;
         
         // display thread(on screen)
         std::thread display_th;
@@ -107,5 +111,11 @@ namespace cvedix_utils {
 
         // reload pipeline with new src nodes
         void reload(std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> new_src_nodes_in_pipe = std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>>());
+
+        // render to internal buffer (no GUI, for web debug)
+        void push_to_buffer(int fps = 5);
+
+        // get a thread-safe copy of the latest rendered canvas
+        cv::Mat get_current_canvas();
     };
 }

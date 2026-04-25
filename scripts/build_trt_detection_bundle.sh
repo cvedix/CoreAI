@@ -59,7 +59,7 @@ mkdir -p "$BUNDLE_DIR/models/trt/face"
 mkdir -p "$BUNDLE_DIR/models/onnx/plate"
 mkdir -p "$BUNDLE_DIR/models/onnx/face"
 mkdir -p "$BUNDLE_DIR/samples"
-mkdir -p "$BUNDLE_DIR/test_video"
+mkdir -p "$BUNDLE_DIR/video"
 
 echo -e "${GREEN}✓ Directory structure created${NC}"
 echo ""
@@ -167,13 +167,13 @@ if [ -f "${PWD}/cvedix_data/models/plate/license-plate-finetune-v1x.onnx" ]; the
 fi
 
 # Copy sample test videos
-if [ -f "${PWD}/cvedix_data/test_video/face.mp4" ]; then
-    cp "${PWD}/cvedix_data/test_video/face.mp4" "$BUNDLE_DIR/test_video/"
+if [ -f "${PWD}/cvedix_data/video/face.mp4" ]; then
+    cp "${PWD}/cvedix_data/video/face.mp4" "$BUNDLE_DIR/video/"
     echo -e "  ${GREEN}✓ Test video (face.mp4) copied${NC}"
 fi
 
-if [ -f "${PWD}/cvedix_data/test_video/vietnam_plate.mp4" ]; then
-    cp "${PWD}/cvedix_data/test_video/vietnam_plate.mp4" "$BUNDLE_DIR/test_video/"
+if [ -f "${PWD}/cvedix_data/video/vietnam_plate.mp4" ]; then
+    cp "${PWD}/cvedix_data/video/vietnam_plate.mp4" "$BUNDLE_DIR/video/"
     echo -e "  ${GREEN}✓ Test video (vietnam_plate.mp4) copied${NC}"
 fi
 
@@ -209,7 +209,7 @@ bundle_output/
 │       ├── plate/
 │       └── face/
 ├── include/                      # Header files
-└── test_video/                   # Test videos
+└── video/                   # Test videos
 ```
 
 ## Yêu cầu
@@ -244,18 +244,18 @@ export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
 # Face detection
 ./bin/yolov11_face_detector_trt_sample \
     ./models/trt/face/yolov11_face_fp16.engine \
-    ./test_video/face.mp4
+    ./video/face.mp4
 
 # Face detection với video output
 ./bin/yolov11_face_detector_video_output_sample \
     ./models/trt/face/yolov11_face_fp16.engine \
-    ./test_video/face.mp4 \
+    ./video/face.mp4 \
     ./output
 
 # Plate detection
 ./bin/yolov11_plate_detector_trt_sample \
     ./models/trt/plate/plate_detector_fp16.engine \
-    ./test_video/vietnam_plate.mp4
+    ./video/vietnam_plate.mp4
 ```
 
 ## Performance

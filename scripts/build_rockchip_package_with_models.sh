@@ -37,7 +37,7 @@ if [ ! -d "cvedix_data" ]; then
                 mkdir -p cvedix_data/models/rknn/rk3588
                 mkdir -p cvedix_data/models/face
                 mkdir -p cvedix_data/models/det_cls
-                mkdir -p cvedix_data/test_video
+                mkdir -p cvedix_data/video
                 
                 # Copy RKNN models
                 echo "Copying RKNN models..."
@@ -57,8 +57,8 @@ if [ ! -d "cvedix_data" ]; then
                 
                 # Copy one small test video (optional)
                 echo "Copying test video..."
-                cp ./build/bin/cvedix_data/test_video/face.mp4 \
-                    ./cvedix_data/test_video/ 2>/dev/null || true
+                cp ./build/bin/cvedix_data/video/face.mp4 \
+                    ./cvedix_data/video/ 2>/dev/null || true
                     
                 echo -e "${GREEN}✓ Created minimal cvedix_data${NC}"
                 ;;

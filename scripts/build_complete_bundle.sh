@@ -62,7 +62,7 @@ mkdir -p "$BUNDLE_DIR/lib/paddle"
 mkdir -p "$BUNDLE_DIR/bin"
 mkdir -p "$BUNDLE_DIR/include"
 mkdir -p "$BUNDLE_DIR/models"
-mkdir -p "$BUNDLE_DIR/test_video"
+mkdir -p "$BUNDLE_DIR/video"
 mkdir -p "$BUNDLE_DIR/config"
 
 echo -e "${GREEN}✓ Directory structure created${NC}"
@@ -258,9 +258,9 @@ if [ -d "$CVEDIX_DATA_DIR" ]; then
     fi
     
     # Copy test videos
-    if [ -d "$CVEDIX_DATA_DIR/test_video" ]; then
-        cp -r "$CVEDIX_DATA_DIR/test_video/"* "$BUNDLE_DIR/test_video/" 2>/dev/null || true
-        VIDEO_SIZE=$(du -sh "$BUNDLE_DIR/test_video" 2>/dev/null | cut -f1)
+    if [ -d "$CVEDIX_DATA_DIR/video" ]; then
+        cp -r "$CVEDIX_DATA_DIR/video/"* "$BUNDLE_DIR/video/" 2>/dev/null || true
+        VIDEO_SIZE=$(du -sh "$BUNDLE_DIR/video" 2>/dev/null | cut -f1)
         echo -e "  ${GREEN}✓ Test videos copied (${VIDEO_SIZE})${NC}"
     fi
 else
@@ -337,7 +337,7 @@ source setup_env.sh
 # 3. Chạy sample
 ./bin/yolov11_face_detector_trt_sample \
     ./models/trt/face/yolov11_face_fp16.engine \
-    ./test_video/face.mp4
+    ./video/face.mp4
 ```
 
 ## Cấu trúc thư mục
@@ -353,7 +353,7 @@ bundle_complete/
 │   └── paddle/       # Paddle Inference
 ├── bin/              # All sample executables
 ├── models/           # All models (ONNX, TRT, etc.)
-├── test_video/       # Test videos
+├── video/       # Test videos
 ├── include/          # C++ headers
 ├── config/           # Configurations
 ├── setup_env.sh      # Environment setup
@@ -424,7 +424,7 @@ echo ""
 
 echo -e "${BLUE}Executables: ${YELLOW}$(ls -1 "$BUNDLE_DIR/bin/" 2>/dev/null | wc -l)${NC}"
 echo -e "${BLUE}Models size: ${YELLOW}$(du -sh "$BUNDLE_DIR/models" 2>/dev/null | cut -f1)${NC}"
-echo -e "${BLUE}Test videos: ${YELLOW}$(du -sh "$BUNDLE_DIR/test_video" 2>/dev/null | cut -f1)${NC}"
+echo -e "${BLUE}Test videos: ${YELLOW}$(du -sh "$BUNDLE_DIR/video" 2>/dev/null | cut -f1)${NC}"
 echo ""
 
 echo -e "${GREEN}Done!${NC}"

@@ -58,7 +58,7 @@ mkdir -p "$BUNDLE_DIR/include/third_party/trt_yolov11_face"
 mkdir -p "$BUNDLE_DIR/models/trt/plate"
 mkdir -p "$BUNDLE_DIR/models/trt/face"
 mkdir -p "$BUNDLE_DIR/models/onnx/face"
-mkdir -p "$BUNDLE_DIR/test_video"
+mkdir -p "$BUNDLE_DIR/video"
 
 echo -e "${GREEN}✓ Directory structure created${NC}"
 echo ""
@@ -238,8 +238,8 @@ cp "${PWD}/cvedix_data/models/face/face_detection_yolov11.onnx" "$BUNDLE_DIR/mod
 cp "${PWD}/cvedix_data/models/face/face_detection_yolov11_fp16.onnx" "$BUNDLE_DIR/models/onnx/face/" 2>/dev/null || true
 
 # Test videos
-cp "${PWD}/cvedix_data/test_video/face.mp4" "$BUNDLE_DIR/test_video/" 2>/dev/null || true
-cp "${PWD}/cvedix_data/test_video/vietnam_plate.mp4" "$BUNDLE_DIR/test_video/" 2>/dev/null || true
+cp "${PWD}/cvedix_data/video/face.mp4" "$BUNDLE_DIR/video/" 2>/dev/null || true
+cp "${PWD}/cvedix_data/video/vietnam_plate.mp4" "$BUNDLE_DIR/video/" 2>/dev/null || true
 
 echo -e "${GREEN}✓ Binaries, models, and assets copied${NC}"
 echo ""
@@ -272,7 +272,7 @@ echo "  - yolov11_face_detector_video_output_sample"
 echo "  - yolov11_plate_detector_trt_sample"
 echo ""
 echo "Usage:"
-echo "  ./bin/yolov11_face_detector_trt_sample ./models/trt/face/yolov11_face_fp16.engine ./test_video/face.mp4"
+echo "  ./bin/yolov11_face_detector_trt_sample ./models/trt/face/yolov11_face_fp16.engine ./video/face.mp4"
 echo ""
 SETUP_EOF
 chmod +x "$BUNDLE_DIR/setup_env.sh"
@@ -311,12 +311,12 @@ source setup_env.sh
 # 3. Chạy face detection
 ./bin/yolov11_face_detector_trt_sample \
     ./models/trt/face/yolov11_face_fp16.engine \
-    ./test_video/face.mp4
+    ./video/face.mp4
 
 # 4. Chạy với video output
 ./bin/yolov11_face_detector_video_output_sample \
     ./models/trt/face/yolov11_face_fp16.engine \
-    ./test_video/face.mp4 \
+    ./video/face.mp4 \
     ./output
 ```
 
@@ -335,7 +335,7 @@ bundle_output_full/
 │   ├── trt/          # Ready-to-use TensorRT engines
 │   └── onnx/         # ONNX models for conversion
 ├── include/          # C++ headers
-├── test_video/       # Sample videos
+├── video/       # Sample videos
 ├── setup_env.sh      # Environment setup script
 └── README.md
 ```

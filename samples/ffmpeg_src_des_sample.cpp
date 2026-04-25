@@ -22,13 +22,13 @@ int main() {
        uri for cvedix_ff_src_node:
        1. rtmp://192.168.77.196/live/1000        --> reading rtmp live stream
        2. rtsp://192.168.77.213/live/mainstream  --> reading rtsp live stream
-       3. ./cvedix_data/test_video/face.mp4          --> reading video file
+       3. ./cvedix_data/video/face.mp4          --> reading video file
 
        uri for cvedix_ff_des_node:
        1. rtmp://192.168.77.196/live/10000       --> pushing rtmp live stream
        2. ./output/records.mp4                   --> saving to video file
     */
-    auto ff_src_0 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_0", 0, "./cvedix_data/test_video/face.mp4", "h264", 0.6);
+    auto ff_src_0 = std::make_shared<cvedix_nodes::cvedix_ff_src_node>("ff_src_0", 0, "./cvedix_data/video/face.mp4", "h264", 0.6);
     auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
     auto ff_des_0 = std::make_shared<cvedix_nodes::cvedix_ff_des_node>("ff_des_0", 0, "rtmp://192.168.77.60/live/20000");

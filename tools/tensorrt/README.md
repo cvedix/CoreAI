@@ -78,7 +78,7 @@ python tools/tensorrt/convert_to_tensorrt.py \
 # Benchmark
 python tools/tensorrt/benchmark.py \
     cvedix_data/models/tensorrt/license-plate-finetune-v1x.engine \
-    --source cvedix_data/test_video/plate.mp4 \
+    --source cvedix_data/video/plate.mp4 \
     --save
 ```
 

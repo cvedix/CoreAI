@@ -17,8 +17,8 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/unclear.mp4", 0.5);
-    auto file_src_1 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_1", 1, "./cvedix_data/test_video/roadblock.mp4", 0.6);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/unclear.mp4", 0.5);
+    auto file_src_1 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_1", 1, "./cvedix_data/video/roadblock.mp4", 0.6);
     auto obstacle_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("obstacle_detector", "./cvedix_data/models/det_cls/obstacles_yolov5s.xml", cvedix_nodes::YoloVersion::YOLO11, "./cvedix_data/models/det_cls/obstacles_2classes.txt", 0.45, 0.5);
     // MUST set class_id_offset for the 2nd detector which is equal with total classes of the 1st detectors
     auto vehicle_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>("vehicle_detector", "./cvedix_data/models/det_cls/yolov11.engine", cvedix_nodes::YoloVersion::YOLO11, "./cvedix_data/models/det_cls/yolov3_tiny_5classes.txt", 0.45, 0.5, 2);

@@ -1,6 +1,6 @@
 
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_yunet_face_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_face_detector_node.h"
 #include "cvedix/nodes/broker/cvedix_webhook_broker_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_screen_des_node.h"
@@ -36,11 +36,11 @@ int main() {
 
     // 1. Source: video file
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src", 0, "./cvedix_data/test_video/face.mp4", 1.0);
+        "file_src", 0, "./cvedix_data/video/face.mp4", 1.0);
 
     // 2. Detector: YuNet face detector
-    auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>(
-        "face_detector", "./cvedix_data/models/face/face_detection_yunet_2022mar.onnx");
+    auto detector = std::make_shared<cvedix_nodes::cvedix_face_detector_node>(
+        "face_detector", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
 
     // 3. Webhook broker: POST face detections as JSON
     auto webhook_broker = std::make_shared<cvedix_nodes::cvedix_webhook_broker_node>(

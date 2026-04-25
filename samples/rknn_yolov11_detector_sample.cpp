@@ -30,7 +30,7 @@
  *   ./rknn_yolov11_detector_sample [model_path] [video_path] [labels_path]
  * 
  * Ví dụ:
- *   ./rknn_yolov11_detector_sample ./models/yolov11n.rknn ./test_video.mp4 ./labels.txt
+ *   ./rknn_yolov11_detector_sample ./models/yolov11n.rknn ./video.mp4 ./labels.txt
  */
 
 void print_usage(const char* program_name) {
@@ -40,7 +40,7 @@ void print_usage(const char* program_name) {
     std::cout << "  labels_path : Đường dẫn đến file labels (tùy chọn)" << std::endl;
     std::cout << std::endl;
     std::cout << "Example:" << std::endl;
-    std::cout << "  " << program_name << " ./cvedix_data/models/face_detection_yolov11_fp.rknn ./cvedix_data/test_video/face_person.mp4 ./cvedix_data/models/det_cls/coco_labels.txt" << std::endl;
+    std::cout << "  " << program_name << " ./cvedix_data/models/face_detection_yolov11_fp.rknn ./cvedix_data/video/face_person.mp4 ./cvedix_data/models/det_cls/coco_labels.txt" << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 
     // Parse command line arguments
     std::string model_path = "./cvedix_data/models/yolov11/rknn/yolo11s.rknn";
-    std::string video_path = "./cvedix_data/test_video/vehicle_count.mp4";
+    std::string video_path = "./cvedix_data/video/vehicle_count.mp4";
     std::string labels_path = "./cvedix_data/models/yolov11/rknn/labels.txt";  // Optional labels file
     
     if (argc > 1) {

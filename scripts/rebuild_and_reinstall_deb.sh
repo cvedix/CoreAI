@@ -101,7 +101,7 @@ if [ "$KEEP_MODELS" = false ]; then
             CVEDIX_DATA_SOURCE=${CVEDIX_DATA_SOURCE:-"./build/bin/cvedix_data"}
             if [ -d "${CVEDIX_DATA_SOURCE}" ]; then
                 echo -e "${BLUE}Creating cvedix_data with ONNX models...${NC}"
-                mkdir -p cvedix_data/models cvedix_data/test_video
+                mkdir -p cvedix_data/models cvedix_data/video
                 
                 # Copy ONNX models
                 find "${CVEDIX_DATA_SOURCE}/models" -name "*.onnx" -type f 2>/dev/null | while read file; do

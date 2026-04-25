@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
     
     // Default paths
-    std::string video_path = "./cvedix_data/test_video/vietnam_plate.mp4";
+    std::string video_path = "./cvedix_data/video/vietnam_plate.mp4";
     std::string engine_path = "./cvedix_data/models/tensorrt/license-plate-finetune-v1x-trt10.engine";
     std::string ocr_root = "./cvedix_data/models/text/ppocr";
     std::string output_path = "./output/vietnam_plate_recognized.mp4";

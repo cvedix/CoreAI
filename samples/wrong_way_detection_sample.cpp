@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
   CVEDIX_INFO("===== Wrong-Way Detection (DOWN direction) Sample =====");
 
   // Default video or use command line argument
-  std::string video_path = "./cvedix_data/test_video/vietnam_plate.mp4";
+  std::string video_path = "./cvedix_data/video/vietnam_plate.mp4";
   if (argc > 1) {
     video_path = argv[1];
   }

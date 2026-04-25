@@ -29,7 +29,7 @@ void print_usage(const char* prog) {
 int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
     
-    std::string video_path = "./cvedix_data/test_video/plate.mp4";
+    std::string video_path = "./cvedix_data/video/plate.mp4";
     std::string engine_path = "./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine";
     std::string ocr_root = "./cvedix_data/models/paddle/ocr"; // Default root
     

@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
     // Parse args
-    std::string video_path = "./cvedix_data/test_video/0206.mp4";
+    std::string video_path = "./cvedix_data/video/0206.mp4";
     std::string engine_path = "./cvedix_data/models/yolov11n.engine";
     int duration = 20;
     if (argc > 1) video_path = argv[1];

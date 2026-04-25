@@ -21,7 +21,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/face.mp4", 0.6, true, "nvv4l2decoder ! nvvideoconvert");
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/face.mp4", 0.6, true, "nvv4l2decoder ! nvvideoconvert");
     auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
     auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
@@ -44,7 +44,7 @@ int main() {
     file_src_0->detach_recursively();
 
 /*
-    cv::VideoCapture cap("filesrc location=/windows2/zhzhi/cvedix_data/test_video/face.mp4 ! qtdemux ! h264parse ! nvv4l2decoder ! nvvideoconvert ! appsink");
+    cv::VideoCapture cap("filesrc location=/windows2/zhzhi/cvedix_data/video/face.mp4 ! qtdemux ! h264parse ! nvv4l2decoder ! nvvideoconvert ! appsink");
     cv::Mat frame;
     cap.read(frame);
     return 0;

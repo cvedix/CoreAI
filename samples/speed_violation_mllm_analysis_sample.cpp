@@ -38,7 +38,7 @@ int main() {
     // === 1. Source: video file ===
     auto file_src = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
         "file_src", 0,
-        "./cvedix_data/test_video/vehicle_count.mp4",
+        "./cvedix_data/video/vehicle_count.mp4",
         0.6, false
     );
 

@@ -17,7 +17,7 @@ int main() {
     CVEDIX_LOGGER_INIT();
 
     // create nodes
-    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/test_video/face.mp4", 1.0);
+    auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/face.mp4", 1.0);
     auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("split", false, true);  // split by deep-copy not by channel!
 
     // branch a

@@ -184,7 +184,7 @@ int main(int argc, char** argv) {
 
     // --- Parse args ---
     std::string engine_path = "./cvedix_data/models/yolov11n.engine";
-    std::string video_path  = "./cvedix_data/test_video/NVR5216-AI_ch9_main_20260115153800_20260115154559.mp4";
+    std::string video_path  = "./cvedix_data/video/NVR5216-AI_ch9_main_20260115153800_20260115154559.mp4";
     int duration_sec = 60;
 
     if (argc > 1 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help")) {

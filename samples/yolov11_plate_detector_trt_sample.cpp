@@ -17,7 +17,7 @@
  * Example:
  *   ./yolov11_plate_detector_trt_sample \
  *       ./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine \
- *       ./cvedix_data/test_video/plate.mp4
+ *       ./cvedix_data/video/plate.mp4
  * 
  * Performance (RTX 3060 Ti):
  *   - v1n.engine: ~900 FPS
@@ -46,7 +46,7 @@ void print_usage(const char* program_name) {
     std::cout << "Example:" << std::endl;
     std::cout << "  " << program_name << " \\" << std::endl;
     std::cout << "      ./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine \\" << std::endl;
-    std::cout << "      ./cvedix_data/test_video/plate.mp4" << std::endl;
+    std::cout << "      ./cvedix_data/video/plate.mp4" << std::endl;
     std::cout << std::endl;
     std::cout << "Available engines:" << std::endl;
     std::cout << "  license-plate-finetune-v1n.engine (fastest, ~900 FPS)" << std::endl;
@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 
     // Parse command line arguments
     std::string engine_path = "./cvedix_data/models/tensorrt/license-plate-finetune-v1n.engine";
-    std::string video_path = "./cvedix_data/test_video/plate.mp4";
+    std::string video_path = "./cvedix_data/video/plate.mp4";
     float conf_threshold = 0.25f;
     float nms_threshold = 0.45f;
     
