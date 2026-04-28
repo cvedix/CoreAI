@@ -11,7 +11,9 @@ project(cvedix_instance_sdk VERSION 2025.0.1.3)
 include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_BUILD_TYPE Debug)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -pthread")
 # save all libs(including third_party's) to 'libs'
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
@@ -97,7 +99,12 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
         # TensorRT installed via apt (Debian/Ubuntu)
         set(CVEDIX_TRT_INC_PATH "/usr/include/x86_64-linux-gnu/")
         set(CVEDIX_TRT_LIB_PATH "/usr/lib/x86_64-linux-gnu/")
-        message(STATUS "TensorRT detected: apt packages")
+        message(STATUS "TensorRT detected: apt packages (x86_64)")
+    elseif(EXISTS "/usr/include/aarch64-linux-gnu/NvInfer.h")
+        # TensorRT installed via apt/JetPack on NVIDIA Jetson
+        set(CVEDIX_TRT_INC_PATH "/usr/include/aarch64-linux-gnu/")
+        set(CVEDIX_TRT_LIB_PATH "/usr/lib/aarch64-linux-gnu/")
+        message(STATUS "TensorRT detected: apt packages (aarch64)")
     elseif(EXISTS "/usr/local/tensorRT/include/NvInfer.h")
         # TensorRT manual install
         set(CVEDIX_TRT_INC_PATH "/usr/local/tensorRT/include/")
@@ -640,7 +647,7 @@ if(CVEDIX_WITH_RGA)
 endif()
 
 # optional for ONNX Runtime (for ORT-based nodes)
-set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime)
+set(ONNXRUNTIME_DIR "${CMAKE_SOURCE_DIR}/third_party/onnxruntime" CACHE PATH "ONNX Runtime root")
 if(EXISTS ${ONNXRUNTIME_DIR}/lib/libonnxruntime.so)
     add_definitions(-DCVEDIX_WITH_ORT)
     include_directories(${ONNXRUNTIME_DIR}/include)

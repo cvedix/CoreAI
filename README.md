@@ -13,6 +13,7 @@
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-features--comparisons">Features</a> •
   <a href="./docs/ARCHITECTURE.md">Architecture</a> •
+  <a href="./docs/DEVELOPMENT.md">Development</a> •
   <a href="./docs/NODES_AND_SAMPLES.md">Nodes & Samples</a> •
   <a href="#-documentation">Docs</a> •
   <a href="#-license">License</a>
@@ -298,6 +299,7 @@ make build
 | Document | Description |
 |----------|-------------|
 | [**Architecture Guide**](./docs/ARCHITECTURE.md) | Pipeline architecture, node internals, data model, class hierarchy |
+| [**Development Guide**](./docs/DEVELOPMENT.md) | Developer setup, backend builds, samples, node workflow, troubleshooting |
 | [**Nodes & Samples Reference**](./docs/NODES_AND_SAMPLES.md) | Complete API reference for all 80+ nodes and 60+ samples |
 | [**BA Crossline Usage**](./docs/BA_CROSSLINE_USAGE.md) | Crossline counting configuration guide |
 | [**BA Event Format**](./docs/BA_NODE_EVENT_FORMAT.md) | Behavior analysis event JSON/XML format |
@@ -317,6 +319,7 @@ make build
 | `make setup-auto` | Install base dependencies (non-interactive) |
 | `make build` | Build with auto-detect hardware |
 | `make build-cpu` | Build for CPU only |
+| `make build-nvidia-openvino-ort` | Build with NVIDIA CUDA/TensorRT + OpenVINO + ONNX Runtime |
 | `make build-rockchip` | Build for Rockchip RK35xx |
 | `make package-cpu` | Create `.deb` package for CPU |
 | `make package-rockchip` | Create `.deb` package for Rockchip |
@@ -349,7 +352,7 @@ pkg-config --modversion cvedix
 
 | Requirement | Version |
 |-------------|---------|
-| C++ Standard | C++17 |
+| C++ Standard | C++20 |
 | Compiler | GCC ≥ 7.5 |
 | OpenCV | ≥ 4.6 |
 | GStreamer | 1.14.5 (required by OpenCV) |

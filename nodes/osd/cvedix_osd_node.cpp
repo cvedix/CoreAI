@@ -169,9 +169,9 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
             }
         }
 
-        // Bounding box — corner-bracket style (4 corners, green)
+        // Bounding box — corner-bracket style (4 corners)
         if (_config.show_bbox) {
-            cv::Scalar box_color = cv::Scalar(0, 255, 0); // Always green
+            cv::Scalar box_color = bbox_color;
             int th = _config.bbox_thickness;
             int x1 = i->x, y1 = i->y;
             int x2 = i->x + i->width, y2 = i->y + i->height;
@@ -626,7 +626,7 @@ void cvedix_osd_node::render_face(
 
         if (w < 10 || h < 10) continue;
 
-        cv::rectangle(canvas, cv::Rect(x, y, w, h), cv::Scalar(0, 255, 0), 2);
+        cv::rectangle(canvas, cv::Rect(x, y, w, h), _config.bbox_color, _config.bbox_thickness);
 
         if (i->track_id != -1) {
             cv::putText(canvas, std::to_string(i->track_id), cv::Point(x, y),

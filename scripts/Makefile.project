@@ -10,7 +10,7 @@
 # Get the directory where this Makefile is located (remove trailing slash)
 SCRIPTS_DIR := $(patsubst %/,%,$(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 
-.PHONY: setup setup-auto build build-cpu build-rockchip clean package help
+.PHONY: setup setup-auto build build-cpu build-nvidia-openvino-ort build-rockchip clean package help
 
 # Default target
 help:
@@ -26,6 +26,7 @@ help:
 	@echo "  Build:"
 	@echo "    build        - Build with auto-detected hardware"
 	@echo "    build-cpu    - Build for CPU only"
+	@echo "    build-nvidia-openvino-ort - Build with NVIDIA CUDA/TensorRT + OpenVINO + ONNX Runtime"
 	@echo "    build-rockchip - Build for Rockchip RK35xx"
 	@echo ""
 	@echo "  Package:"
@@ -81,6 +82,11 @@ build:
 build-cpu:
 	@chmod +x $(SCRIPTS_DIR)/build_with_cpu.sh
 	@$(SCRIPTS_DIR)/build_with_cpu.sh
+
+# Build for NVIDIA CUDA/TensorRT + OpenVINO + ONNX Runtime
+build-nvidia-openvino-ort:
+	@chmod +x $(SCRIPTS_DIR)/build_with_nvidia_openvino_ort.sh
+	@$(SCRIPTS_DIR)/build_with_nvidia_openvino_ort.sh
 
 # Build for Rockchip
 build-rockchip:

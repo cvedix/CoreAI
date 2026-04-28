@@ -10,8 +10,70 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
+#include <filesystem>
+#include <sstream>
 
 namespace cvedix_nodes {
+namespace {
+
+bool has_library_in_directory(const std::string& dir, const std::vector<std::string>& library_names) {
+    if (dir.empty()) {
+        return false;
+    }
+
+    std::error_code ec;
+    if (!std::filesystem::is_directory(dir, ec)) {
+        return false;
+    }
+
+    for (const auto& name : library_names) {
+        if (std::filesystem::exists(std::filesystem::path(dir) / name, ec)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool has_library_in_colon_paths(const char* paths, const std::vector<std::string>& library_names) {
+    if (!paths) {
+        return false;
+    }
+
+    std::stringstream ss(paths);
+    std::string dir;
+    while (std::getline(ss, dir, ':')) {
+        if (has_library_in_directory(dir, library_names)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool has_openvino_runtime_from_environment() {
+    if (has_library_in_colon_paths(std::getenv("LD_LIBRARY_PATH"), {"libopenvino.so"})) {
+        return true;
+    }
+
+    const char* openvino_root = std::getenv("INTEL_OPENVINO_DIR");
+    if (!openvino_root) {
+        openvino_root = std::getenv("OPENVINO_ROOT");
+    }
+
+    if (!openvino_root) {
+        return false;
+    }
+
+    return has_library_in_directory(std::string(openvino_root) + "/runtime/lib/intel64",
+                                    {"libopenvino.so"});
+}
+
+bool has_onnxruntime_from_environment() {
+    return has_library_in_colon_paths(std::getenv("LD_LIBRARY_PATH"), {"libonnxruntime.so"});
+}
+
+}  // namespace
 
 cvedix_yolo_detector_node::cvedix_yolo_detector_node(const std::string& node_name)
     : cvedix_primary_infer_node(node_name, "", "", ""),
@@ -211,10 +273,10 @@ std::vector<BackendType> cvedix_yolo_detector_node::query_supported_backends() c
     if (std::system("ldconfig -p | grep -q libnvinfer") == 0) {
         supported_backends.push_back(BackendType::TENSORRT);
     }
-    if (std::system("ldconfig -p | grep -q libopenvino") == 0) {
+    if (std::system("ldconfig -p | grep -q libopenvino") == 0 || has_openvino_runtime_from_environment()) {
         supported_backends.push_back(BackendType::OPENVINO);
     }
-    if (std::system("ldconfig -p | grep -q libonnxruntime") == 0) {
+    if (std::system("ldconfig -p | grep -q libonnxruntime") == 0 || has_onnxruntime_from_environment()) {
         supported_backends.push_back(BackendType::ORT);
     }
 

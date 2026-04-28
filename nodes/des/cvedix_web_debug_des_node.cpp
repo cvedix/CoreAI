@@ -81,17 +81,25 @@ namespace cvedix_nodes {
 
         if (!meta || meta->frame.empty()) return nullptr;
 
+        const cv::Mat& output_frame = meta->osd_frame.empty() ? meta->frame : meta->osd_frame;
+
         // Update latest frame (thread-safe swap)
         {
             std::lock_guard<std::mutex> guard(frame_lock);
-            latest_frame = meta->frame.clone();
+            latest_frame = output_frame.clone();
         }
+
+        const auto target_count = meta->targets.size() + meta->face_targets.size();
+        const auto now_system = std::chrono::system_clock::now();
+        const auto latency_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            now_system - meta->create_time).count();
 
         // Update stats
         {
             std::lock_guard<std::mutex> guard(stats_lock);
             stats.frame_count++;
-            stats.object_count = meta->targets.size();
+            stats.latency_ms = static_cast<int>(latency_ms);
+            stats.object_count = static_cast<int>(target_count);
             stats.queue_size = in_queue.size();
 
             auto now = std::chrono::steady_clock::now();
@@ -105,9 +113,9 @@ namespace cvedix_nodes {
         }
 
         // Broadcast SSE event (simple JSON)
-        if (!meta->targets.empty()) {
+        if (target_count > 0) {
             std::string json = "{\"channel\":" + std::to_string(meta->channel_index)
-                + ",\"targets_count\":" + std::to_string(meta->targets.size())
+                + ",\"targets_count\":" + std::to_string(target_count)
                 + ",\"timestamp\":" + std::to_string(
                     std::chrono::duration_cast<std::chrono::milliseconds>(
                         std::chrono::system_clock::now().time_since_epoch()).count())
@@ -115,7 +123,7 @@ namespace cvedix_nodes {
             broadcast_sse(json);
         }
 
-        return nullptr; // terminal node
+        return cvedix_des_node::handle_frame_meta(meta); // terminal node + board status hook
     }
 
     void cvedix_web_debug_des_node::setup_routes() {

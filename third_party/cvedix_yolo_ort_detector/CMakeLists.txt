@@ -14,7 +14,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../nodes/infers/backend)
 
 # ONNX Runtime
-set(ONNXRUNTIME_DIR ${CMAKE_SOURCE_DIR}/third_party/onnxruntime)
+set(ONNXRUNTIME_DIR "${CMAKE_SOURCE_DIR}/third_party/onnxruntime" CACHE PATH "ONNX Runtime root")
 if(EXISTS ${ONNXRUNTIME_DIR}/lib/libonnxruntime.so)
     include_directories(${ONNXRUNTIME_DIR}/include)
     link_directories(${ONNXRUNTIME_DIR}/lib)

@@ -10,567 +10,318 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OmniCore Debug Dashboard</title>
+<title>OmniCore OSD Web Debug</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
   :root {
-    --bg-primary: #0a0e1a;
-    --bg-secondary: #111827;
-    --bg-card: rgba(17, 24, 39, 0.8);
-    --border: rgba(75, 85, 99, 0.4);
-    --accent: #00d4ff;
-    --accent-glow: rgba(0, 212, 255, 0.15);
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --purple: #8b5cf6;
+    --bg: #000;
+    --panel: #050505;
+    --border: #303030;
+    --border-strong: #777;
+    --text: #fff;
+    --muted: #9a9a9a;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
     min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
   }
 
-  /* Header */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 24px;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--purple));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    color: white;
-  }
-
-  .header h1 {
-    font-size: 18px;
-    font-weight: 600;
-    background: linear-gradient(90deg, var(--accent), var(--purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .status-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-  }
-
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--success);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* Main layout */
-  .main {
+  .shell {
+    min-height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    padding: 16px 24px;
+    grid-template-rows: auto 1fr auto;
   }
 
-  @media (max-width: 1024px) {
-    .main { grid-template-columns: 1fr; }
-  }
-
-  /* Cards */
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    transition: border-color 0.3s;
-  }
-
-  .card:hover {
-    border-color: rgba(0, 212, 255, 0.3);
-  }
-
-  .card-header {
+  .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
+    gap: 16px;
+    padding: 14px 18px;
+    background: #000;
     border-bottom: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.2);
   }
 
-  .card-title {
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .mark {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .connection {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-secondary);
+    padding: 5px 10px;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-size: 12px;
+    white-space: nowrap;
   }
 
-  .card-title .icon { font-size: 16px; }
+  .connection-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+  }
 
-  .card-body {
-    position: relative;
-    background: #000;
-    aspect-ratio: 16/9;
+  .viewer {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .viewer-frame {
+    height: 100%;
+    min-height: calc(100vh - 174px);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .viewer-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  .card-body img {
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  button {
+    min-width: 82px;
+    height: 30px;
+    border: 1px solid var(--border-strong);
+    background: #000;
+    color: #fff;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  button:hover,
+  button.active {
+    background: #fff;
+    color: #000;
+  }
+
+  .stream-wrap {
+    position: relative;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    background: #000;
+  }
+
+  .stream-wrap img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 
-  .stream-placeholder {
-    color: var(--text-muted);
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .stream-placeholder .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 12px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Controls */
-  .card-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn {
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-secondary);
-    font-size: 11px;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-glow);
-  }
-
-  .btn.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-glow);
-  }
-
-  /* Stats bar */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    padding: 0 24px 16px;
-  }
-
-  .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    backdrop-filter: blur(12px);
-    transition: border-color 0.3s;
-  }
-
-  .stat-card:hover { border-color: rgba(0, 212, 255, 0.3); }
-
-  .stat-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-  }
-
-  .stat-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .stat-value.accent { color: var(--accent); }
-  .stat-value.success { color: var(--success); }
-  .stat-value.warning { color: var(--warning); }
-  .stat-value.purple { color: var(--purple); }
-
-  /* Event log */
-  .event-log-container {
-    grid-column: 1 / -1;
-    margin: 0 24px 24px;
-  }
-
-  .event-log {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-  }
-
-  .event-log-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  .event-log-title {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-secondary);
-  }
-
-  .event-counter {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    background: var(--accent-glow);
-    color: var(--accent);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-  }
-
-  .event-log-body {
-    max-height: 240px;
-    overflow-y: auto;
-    padding: 8px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-
-  .event-log-body::-webkit-scrollbar { width: 6px; }
-  .event-log-body::-webkit-scrollbar-track { background: transparent; }
-  .event-log-body::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
-  }
-
-  .event-entry {
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-bottom: 2px;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .event-entry:hover {
-    background: rgba(255,255,255,0.05);
-    white-space: normal;
-    word-break: break-all;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .event-time { color: var(--text-muted); }
-  .event-type { color: var(--accent); font-weight: 600; }
-
-  .no-events {
-    color: var(--text-muted);
-    text-align: center;
-    padding: 24px;
-    font-size: 13px;
-  }
-
-  /* Fullscreen button */
-  .fullscreen-btn {
+  .placeholder {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
     font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 10;
+    text-align: center;
+    background: #000;
   }
 
-  .card-body:hover .fullscreen-btn { opacity: 1; }
-  .fullscreen-btn:hover { background: rgba(0,212,255,0.3); border-color: var(--accent); }
+  .placeholder.hidden {
+    display: none;
+  }
 
-  /* Quality slider */
-  .quality-control {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1px;
+    padding: 0 16px 16px;
+    background: #000;
+  }
+
+  .stat {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+  }
+
+  .label {
+    margin-bottom: 5px;
+    color: var(--muted);
     font-size: 11px;
-    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  .quality-control input[type="range"] {
-    width: 60px;
-    height: 3px;
-    -webkit-appearance: none;
-    background: var(--border);
-    border-radius: 2px;
-    outline: none;
+  .value {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  .quality-control input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
+  @media (max-width: 760px) {
+    .topbar {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    h1 {
+      white-space: normal;
+    }
+
+    .viewer {
+      padding: 10px;
+    }
+
+    .viewer-frame {
+      min-height: auto;
+    }
+
+    .stream-wrap {
+      aspect-ratio: 16 / 9;
+    }
+
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 0 10px 10px;
+    }
   }
 </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="header-left">
-      <div class="logo">O</div>
-      <h1>OmniCore Debug Dashboard</h1>
-    </div>
-    <div class="header-right">
-      <div class="quality-control">
-        <span>Quality</span>
-        <input type="range" id="quality" min="20" max="95" value="75">
-        <span id="quality-val">75%</span>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">O</div>
+        <h1>OmniCore OSD Web Debug</h1>
       </div>
-      <div class="status-badge" id="connection-status">
-        <span class="status-dot"></span>
-        <span>Connected</span>
+      <div class="connection" id="connection-status">
+        <span class="connection-dot"></span>
+        <span>Connecting</span>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Video panels -->
-  <div class="main">
-    <!-- OSD Panel -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="icon">📹</span> OSD Video Stream
+    <section class="viewer">
+      <div class="viewer-frame">
+        <div class="viewer-header">
+          <span>OSD Web Debug</span>
+          <div class="controls">
+            <button id="btn-pause-osd" onclick="toggleStream()">Pause</button>
+            <button onclick="goFullscreen()">Fullscreen</button>
+          </div>
         </div>
-        <div class="card-controls">
-          <button class="btn" id="btn-pause-osd" onclick="toggleStream('osd')">⏸ Pause</button>
+        <div class="stream-wrap" id="osd-container">
+          <img id="osd-stream" src="/stream/osd" alt="OSD Web Debug stream">
+          <div class="placeholder" id="osd-placeholder">Connecting to OSD stream...</div>
         </div>
       </div>
-      <div class="card-body" id="osd-container">
-        <img id="osd-stream" src="/stream/osd" alt="OSD Stream"
-             onerror="this.style.display='none';document.getElementById('osd-placeholder').style.display='block'"
-             onload="this.style.display='block';document.getElementById('osd-placeholder').style.display='none'">
-        <div class="stream-placeholder" id="osd-placeholder">
-          <div class="spinner"></div>
-          Connecting to OSD stream...
-        </div>
-        <button class="fullscreen-btn" onclick="goFullscreen('osd-container')">⛶</button>
-      </div>
-    </div>
+    </section>
 
-    <!-- Analysis Board Panel -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="icon">📊</span> Analysis Board
-        </div>
-        <div class="card-controls">
-          <button class="btn" id="btn-pause-board" onclick="toggleStream('board')">⏸ Pause</button>
-        </div>
+    <section class="stats">
+      <div class="stat">
+        <div class="label">FPS</div>
+        <div class="value" id="stat-fps">--</div>
       </div>
-      <div class="card-body" id="board-container">
-        <img id="board-stream" src="/stream/board" alt="Analysis Board"
-             onerror="this.style.display='none';document.getElementById('board-placeholder').style.display='block'"
-             onload="this.style.display='block';document.getElementById('board-placeholder').style.display='none'">
-        <div class="stream-placeholder" id="board-placeholder">
-          <div class="spinner"></div>
-          Connecting to Analysis Board...
-        </div>
-        <button class="fullscreen-btn" onclick="goFullscreen('board-container')">⛶</button>
+      <div class="stat">
+        <div class="label">Latency</div>
+        <div class="value" id="stat-latency">--</div>
       </div>
-    </div>
-  </div>
-
-  <!-- Stats bar -->
-  <div class="stats-bar">
-    <div class="stat-card">
-      <div class="stat-label">FPS (in)</div>
-      <div class="stat-value accent" id="stat-fps">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Latency</div>
-      <div class="stat-value success" id="stat-latency">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Objects</div>
-      <div class="stat-value purple" id="stat-objects">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Queue</div>
-      <div class="stat-value warning" id="stat-queue">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Uptime</div>
-      <div class="stat-value" id="stat-uptime">--</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Events</div>
-      <div class="stat-value accent" id="stat-events">0</div>
-    </div>
-  </div>
-
-  <!-- Event log -->
-  <div class="event-log-container">
-    <div class="event-log">
-      <div class="event-log-header">
-        <div class="event-log-title">🔔 Detection Events (SSE)</div>
-        <div>
-          <button class="btn" onclick="clearLog()">Clear</button>
-          <span class="event-counter" id="event-count-badge">0 events</span>
-        </div>
+      <div class="stat">
+        <div class="label">Objects</div>
+        <div class="value" id="stat-objects">--</div>
       </div>
-      <div class="event-log-body" id="event-log">
-        <div class="no-events">Waiting for events...</div>
+      <div class="stat">
+        <div class="label">Queue</div>
+        <div class="value" id="stat-queue">--</div>
       </div>
-    </div>
-  </div>
+      <div class="stat">
+        <div class="label">Uptime</div>
+        <div class="value" id="stat-uptime">--</div>
+      </div>
+    </section>
+  </main>
 
 <script>
-  // --- Stream toggle ---
-  const streamState = { osd: true, board: true };
+  let streamActive = true;
 
-  function toggleStream(type) {
-    const img = document.getElementById(type + '-stream');
-    const btn = document.getElementById('btn-pause-' + type);
-    streamState[type] = !streamState[type];
-    if (streamState[type]) {
-      img.src = '/stream/' + type + '?t=' + Date.now();
-      btn.textContent = '⏸ Pause';
-      btn.classList.remove('active');
+  const osdStream = document.getElementById('osd-stream');
+  const placeholder = document.getElementById('osd-placeholder');
+  const pauseButton = document.getElementById('btn-pause-osd');
+
+  osdStream.onload = function() {
+    osdStream.style.display = 'block';
+    placeholder.classList.add('hidden');
+  };
+
+  osdStream.onerror = function() {
+    osdStream.style.display = 'none';
+    placeholder.classList.remove('hidden');
+  };
+
+  function toggleStream() {
+    streamActive = !streamActive;
+    if (streamActive) {
+      osdStream.src = '/stream/osd?t=' + Date.now();
+      pauseButton.textContent = 'Pause';
+      pauseButton.classList.remove('active');
     } else {
-      img.src = '';
-      btn.textContent = '▶ Resume';
-      btn.classList.add('active');
+      osdStream.src = '';
+      pauseButton.textContent = 'Resume';
+      pauseButton.classList.add('active');
     }
   }
 
-  // --- Fullscreen ---
-  function goFullscreen(id) {
-    const el = document.getElementById(id);
+  function goFullscreen() {
+    const el = document.getElementById('osd-container');
     if (el.requestFullscreen) el.requestFullscreen();
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  }
-
-  // --- Quality ---
-  const qualitySlider = document.getElementById('quality');
-  const qualityVal = document.getElementById('quality-val');
-  qualitySlider.addEventListener('input', function() {
-    qualityVal.textContent = this.value + '%';
-  });
-
-  // --- Stats polling ---
-  let eventCount = 0;
-
-  async function pollStats() {
-    try {
-      const res = await fetch('/api/stats');
-      const data = await res.json();
-      document.getElementById('stat-fps').textContent = (data.fps || 0).toFixed(1);
-      document.getElementById('stat-latency').textContent = (data.latency_ms || 0) + 'ms';
-      document.getElementById('stat-objects').textContent = data.object_count || 0;
-      document.getElementById('stat-queue').textContent = data.queue_size || 0;
-      document.getElementById('stat-uptime').textContent = formatUptime(data.uptime_sec || 0);
-
-      const statusEl = document.getElementById('connection-status');
-      statusEl.querySelector('span:last-child').textContent = 'Connected';
-      statusEl.style.color = '';
-    } catch (e) {
-      const statusEl = document.getElementById('connection-status');
-      statusEl.querySelector('span:last-child').textContent = 'Disconnected';
-      statusEl.style.color = 'var(--danger)';
-    }
   }
 
   function formatUptime(sec) {
@@ -580,58 +331,28 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     return (h > 0 ? h + 'h ' : '') + m + 'm ' + s + 's';
   }
 
+  async function pollStats() {
+    const status = document.getElementById('connection-status');
+    try {
+      const res = await fetch('/api/stats', { cache: 'no-store' });
+      const data = await res.json();
+
+      document.getElementById('stat-fps').textContent = (data.fps || 0).toFixed(1);
+      document.getElementById('stat-latency').textContent = (data.latency_ms || 0) + 'ms';
+      document.getElementById('stat-objects').textContent = data.object_count || 0;
+      document.getElementById('stat-queue').textContent = data.queue_size || 0;
+      document.getElementById('stat-uptime').textContent = formatUptime(data.uptime_sec || 0);
+
+      status.querySelector('span:last-child').textContent = 'Connected';
+      status.style.borderColor = '#777';
+    } catch (_) {
+      status.querySelector('span:last-child').textContent = 'Disconnected';
+      status.style.borderColor = '#fff';
+    }
+  }
+
   setInterval(pollStats, 1000);
   pollStats();
-
-  // --- SSE Events ---
-  const eventLog = document.getElementById('event-log');
-  const eventCountBadge = document.getElementById('event-count-badge');
-  const statEvents = document.getElementById('stat-events');
-
-  function connectSSE() {
-    const source = new EventSource('/events');
-    source.onmessage = function(e) {
-      eventCount++;
-      statEvents.textContent = eventCount;
-      eventCountBadge.textContent = eventCount + ' events';
-
-      // Remove placeholder
-      const noEvents = eventLog.querySelector('.no-events');
-      if (noEvents) noEvents.remove();
-
-      const now = new Date().toLocaleTimeString();
-      const entry = document.createElement('div');
-      entry.className = 'event-entry';
-
-      let display = e.data;
-      try {
-        const obj = JSON.parse(e.data);
-        display = JSON.stringify(obj);
-      } catch(_) {}
-
-      entry.innerHTML = '<span class="event-time">[' + now + ']</span> ' +
-                         '<span class="event-type">EVENT</span> ' + display;
-      eventLog.insertBefore(entry, eventLog.firstChild);
-
-      // Keep max 200 entries
-      while (eventLog.children.length > 200) {
-        eventLog.removeChild(eventLog.lastChild);
-      }
-    };
-
-    source.onerror = function() {
-      setTimeout(connectSSE, 3000);
-    };
-  }
-
-  connectSSE();
-
-  function clearLog() {
-    eventLog.innerHTML = '<div class="no-events">Log cleared. Waiting for events...</div>';
-    eventCount = 0;
-    statEvents.textContent = '0';
-    eventCountBadge.textContent = '0 events';
-  }
 </script>
 </body>
 </html>
