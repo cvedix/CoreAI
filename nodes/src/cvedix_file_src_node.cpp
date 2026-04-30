@@ -54,6 +54,10 @@ namespace cvedix_nodes {
                 video_width = file_capture.get(cv::CAP_PROP_FRAME_WIDTH);
                 video_height = file_capture.get(cv::CAP_PROP_FRAME_HEIGHT);
                 fps = file_capture.get(cv::CAP_PROP_FPS);
+                if (fps <= 0) {
+                    CVEDIX_WARN(cvedix_utils::string_format("[%s] FPS query returned %d, defaulting to 25", node_name.c_str(), fps));
+                    fps = 25;
+                }
                 delta = std::chrono::milliseconds(1000 / fps) * (skip_interval + 1);
     
                 original_fps = fps;

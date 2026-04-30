@@ -19,6 +19,10 @@ namespace cvedix_nodes {
         stats.start_time = std::chrono::steady_clock::now();
         stats.last_fps_time = stats.start_time;
 
+        // Enable concurrent request handling (CRITICAL for MJPEG + SSE)
+        // Without this, the first MJPEG stream blocks all other endpoints
+        server.new_task_queue = [] { return new httplib::ThreadPool(8); };
+
         setup_routes();
 
         server_thread = std::thread([this]() {
@@ -227,6 +231,39 @@ namespace cvedix_nodes {
 
             res.set_header("Access-Control-Allow-Origin", "*");
             res.set_content(json, "application/json");
+        });
+
+        // Snapshot — single JPEG frame (cross-browser compatible fallback)
+        server.Get("/snapshot/osd", [this](const httplib::Request&, httplib::Response& res) {
+            cv::Mat frame;
+            {
+                std::lock_guard<std::mutex> guard(frame_lock);
+                if (!latest_frame.empty()) {
+                    frame = latest_frame.clone();
+                }
+            }
+            if (!frame.empty()) {
+                auto jpg = encode_jpeg(frame);
+                res.set_header("Cache-Control", "no-cache, no-store");
+                res.set_header("Access-Control-Allow-Origin", "*");
+                res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
+            } else {
+                res.status = 204;
+            }
+        });
+
+        server.Get("/snapshot/board", [this](const httplib::Request&, httplib::Response& res) {
+            if (board) {
+                cv::Mat canvas = board->get_current_canvas();
+                if (!canvas.empty()) {
+                    auto jpg = encode_jpeg(canvas);
+                    res.set_header("Cache-Control", "no-cache, no-store");
+                    res.set_header("Access-Control-Allow-Origin", "*");
+                    res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
+                    return;
+                }
+            }
+            res.status = 204;
         });
     }
 

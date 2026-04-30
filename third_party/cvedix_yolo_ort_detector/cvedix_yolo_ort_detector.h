@@ -91,6 +91,7 @@ private:
     // Output analysis
     int num_anchors_ = 8400;   // default for YOLOv11
     bool output_transposed_ = false;  // [1,84,8400] vs [1,8400,84]
+    bool has_objectness_ = false;  // YOLOv11=false (4+NC), legacy=true (4+1+NC)
 
     // Letterbox parameters
     float letterbox_scale_ = 1.0f;

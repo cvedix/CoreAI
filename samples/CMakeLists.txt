@@ -75,6 +75,15 @@ target_link_libraries(web_debug_sample ${PROJECT_NAME})
 add_executable(face_yolov11_web_debug_sample "face_yolov11_web_debug_sample.cpp")
 target_link_libraries(face_yolov11_web_debug_sample ${PROJECT_NAME})
 
+add_executable(web_debug_loop_sample "web_debug_loop_sample.cpp")
+target_link_libraries(web_debug_loop_sample ${PROJECT_NAME})
+
+add_executable(simple_web_debug_sample "simple_web_debug_sample.cpp")
+target_link_libraries(simple_web_debug_sample ${PROJECT_NAME})
+
+add_executable(face_detection_yolov11_trt_web_debug_sample "face_detection_yolov11_trt_web_debug_sample.cpp")
+target_link_libraries(face_detection_yolov11_trt_web_debug_sample ${PROJECT_NAME})
+
 # webhook_broker_sample - needs API update
 # add_executable(webhook_broker_sample "webhook_broker_sample.cpp")
 # target_link_libraries(webhook_broker_sample ${PROJECT_NAME})
@@ -108,6 +117,7 @@ install(TARGETS
         sse_broker_sample
         web_debug_sample
         face_yolov11_web_debug_sample
+        face_detection_yolov11_trt_web_debug_sample
         wrong_way_detection_sample
         DESTINATION bin
         OPTIONAL
@@ -166,6 +176,7 @@ if(CVEDIX_WITH_TRT)
         multi_detectors_sample
         obstacle_detect_sample
         skip_sample
+
         DESTINATION bin
         OPTIONAL
     )

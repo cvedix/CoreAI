@@ -130,80 +130,75 @@ bool cvedix_yolo_ort_detector::load_model(const std::string& onnx_path) {
 
 // ──────────────────────── analyze_output_shape ─────────
 void cvedix_yolo_ort_detector::analyze_output_shape() {
-    // Common YOLO output shapes:
-    // [1, 84, 8400]  → YOLOv11 transposed single-head
-    // [1, 8400, 84]  → YOLOv11 single-head
-    // [1, 84, N]     → YOLOv11 where N = 3*(80*80 + 40*40 + 20*20) = 25200 etc.
-    // [1, N, 85]     → YOLOv8/YOLOv5 single-head (4 bbox + 1 conf + 80 classes)
-    // [1, 85, N]     → YOLOv8/YOLOv5 transposed
+    // YOLOv11 anchor-free output formats:
+    // [1, 4+NC, 8400]  → transposed, where NC = num_classes (no obj conf in v11)
+    // [1, 8400, 4+NC]  → standard
+    //
+    // Examples:
+    //   [1, 84, 8400]  → 80-class (COCO): 4 bbox + 80 classes, transposed
+    //   [1, 5, 8400]   → 1-class (face):  4 bbox + 1 class, transposed
+    //   [1, 85, 8400]  → legacy YOLOv5/v8: 4 bbox + 1 objectness + 80 classes
 
-    // Query output shape from session
     Ort::TypeInfo output_info = session_->GetOutputTypeInfo(0);
     auto output_shape_info = output_info.GetTensorTypeAndShapeInfo();
     auto output_shape = output_shape_info.GetShape();
 
-    int batch = 1;
-    int dim0 = 0, dim1 = 0, dim2 = 0;
+    int dim0 = 0, dim1 = 0;
 
     if (output_shape.size() == 3) {
-        batch = static_cast<int>(output_shape[0]);
         dim0 = static_cast<int>(output_shape[1]);
         dim1 = static_cast<int>(output_shape[2]);
     } else if (output_shape.size() == 2) {
-        batch = static_cast<int>(output_shape[0]);
-        dim0 = static_cast<int>(output_shape[1]);
+        dim0 = static_cast<int>(output_shape[0]);
+        dim1 = static_cast<int>(output_shape[1]);
     }
 
-    // Detect format
-    // [batch, 84, N] or [batch, 85, N] → transposed
-    // [batch, N, 84] or [batch, N, 85] → not transposed
-    // [batch, num_classes + 4, N] → transposed
-    // [batch, N, num_classes + 4] → not transposed
+    // Heuristic: the smaller dimension is the "features" dim (4+NC),
+    // the larger dimension is the "anchors" dim (e.g. 8400)
+    int feat_dim, anchor_dim;
+    bool transposed;
 
-    bool transposed = false;
-
-    // Common class + bbox dims
-    int bbox_plus_conf = 4 + 1;  // 4 coords + 1 conf
-
-    // Check if dim0 is the class+bbox dim
-    int possible_classes_dim0 = dim0 - bbox_plus_conf;  // if it's 80, dim0=85
-    int possible_classes_dim1 = dim1 - bbox_plus_conf;  // if it's 80, dim1=85
-
-    if (possible_classes_dim0 > 0 && possible_classes_dim0 <= 128) {
-        // dim0 is [num_classes+bbox], likely transposed: [B, 85, N]
+    if (dim0 < dim1) {
+        // [B, feat, anchors] → transposed
+        feat_dim = dim0;
+        anchor_dim = dim1;
         transposed = true;
-        num_classes_ = possible_classes_dim0;
-        num_anchors_ = dim1;
-        output_transposed_ = true;
-    } else if (possible_classes_dim1 > 0 && possible_classes_dim1 <= 128) {
-        // dim1 is [num_classes+bbox], standard format: [B, N, 85]
-        transposed = false;
-        num_classes_ = possible_classes_dim1;
-        num_anchors_ = dim0;
-        output_transposed_ = false;
-    } else if (dim0 == 84 || dim0 == 85) {
-        // dim0 == 84 → YOLOv11, transposed [B, 84, N]
-        // dim0 == 85 → YOLOv5/v8 1-class, transposed [B, 85, N]
-        transposed = true;
-        if (dim0 == 85) num_classes_ = 1;
-        num_anchors_ = dim1;
-        output_transposed_ = true;
-    } else if (dim1 == 84 || dim1 == 85) {
-        // dim1 == 84 → YOLOv11, standard [B, N, 84]
-        // dim1 == 85 → YOLOv5/v8 1-class, standard [B, N, 85]
-        transposed = false;
-        if (dim1 == 85) num_classes_ = 1;
-        num_anchors_ = dim0;
-        output_transposed_ = false;
     } else {
-        // Fallback: assume YOLOv11 format [1, 84, N]
-        transposed = true;
-        num_anchors_ = dim1;
-        output_transposed_ = true;
+        // [B, anchors, feat] → standard
+        feat_dim = dim1;
+        anchor_dim = dim0;
+        transposed = false;
     }
 
-    if (num_classes_ <= 0) num_classes_ = 80;
+    // YOLOv11 anchor-free: feat_dim = 4 + num_classes (no objectness)
+    // YOLOv5/v8 legacy:   feat_dim = 5 + num_classes (with objectness)
+    int nc_v11 = feat_dim - 4;  // YOLOv11 interpretation
+    int nc_v5  = feat_dim - 5;  // YOLOv5/v8 interpretation
+
+    if (nc_v11 > 0 && nc_v11 <= 1000) {
+        // Prefer YOLOv11 format (no separate objectness conf)
+        num_classes_ = nc_v11;
+        has_objectness_ = false;
+    } else if (nc_v5 > 0 && nc_v5 <= 1000) {
+        // Legacy format with objectness
+        num_classes_ = nc_v5;
+        has_objectness_ = true;
+    } else {
+        // Extreme fallback
+        num_classes_ = 80;
+        has_objectness_ = false;
+    }
+
+    num_anchors_ = anchor_dim;
+    output_transposed_ = transposed;
+
     if (num_anchors_ <= 0) num_anchors_ = 8400;
+
+    std::cout << "[cvedix_yolo_ort] Detected: "
+              << num_classes_ << " classes, "
+              << num_anchors_ << " anchors, "
+              << (has_objectness_ ? "with" : "without") << " objectness, "
+              << (output_transposed_ ? "transposed" : "standard") << std::endl;
 }
 
 // ──────────────────────── preprocess ──────────────────
@@ -261,64 +256,92 @@ void cvedix_yolo_ort_detector::postprocess(
     detections.clear();
 
     int num_anchors = num_anchors_;
-    int stride = 4 + 1 + num_classes_;  // 4 bbox + 1 conf + num_classes
+    // YOLOv11: stride = 4 + num_classes (no objectness)
+    // Legacy:  stride = 4 + 1 + num_classes (with objectness)
+    int stride = has_objectness_ ? (4 + 1 + num_classes_) : (4 + num_classes_);
 
-    // Access data
     float* data = output_data.data();
+    int total_elements = static_cast<int>(output_data.size());
+
+    // Safety check
+    if (num_anchors * stride > total_elements) {
+        std::cerr << "[cvedix_yolo_ort] Output buffer too small: "
+                  << total_elements << " < " << num_anchors * stride << std::endl;
+        return;
+    }
 
     for (int a = 0; a < num_anchors; a++) {
         float* anchor_data;
 
         if (output_transposed_) {
-            // Shape: [1, stride, num_anchors] — data indexed as [anchor * stride + dim]
-            anchor_data = &data[a * stride];
+            // Shape: [1, stride, num_anchors] → column-major per anchor
+            // anchor_data[i] = data[i * num_anchors + a]
+            // We need to gather data for this anchor across stride dimension
         } else {
-            // Shape: [1, num_anchors, stride] — data indexed as [anchor * stride + dim]
+            // Shape: [1, num_anchors, stride] → row-major per anchor
             anchor_data = &data[a * stride];
         }
 
-        // Get box confidence
-        float box_conf = sigmoid(anchor_data[4]);
-
-        // Find best class
+        // For transposed layout, gather values manually
+        float cx, cy, w, h;
+        float best_class_score = 0.0f;
         int best_class = 0;
-        float max_class_conf = 0.0f;
 
-        for (int c = 0; c < num_classes_; c++) {
-            float cls_conf = sigmoid(anchor_data[5 + c]);
-            float score = box_conf * cls_conf;
-            if (score > max_class_conf) {
-                max_class_conf = score;
-                best_class = c;
+        if (output_transposed_) {
+            // [1, stride, num_anchors]: value at [0, dim, anchor] = data[dim * num_anchors + anchor]
+            cx = data[0 * num_anchors + a];
+            cy = data[1 * num_anchors + a];
+            w  = data[2 * num_anchors + a];
+            h  = data[3 * num_anchors + a];
+
+            int class_offset = has_objectness_ ? 5 : 4;
+            float obj_conf = 1.0f;
+            if (has_objectness_) {
+                obj_conf = sigmoid(data[4 * num_anchors + a]);
+            }
+
+            for (int c = 0; c < num_classes_; c++) {
+                float cls_score = data[(class_offset + c) * num_anchors + a];
+                // YOLOv11 uses raw scores, apply sigmoid for probability
+                float score = has_objectness_ ? (obj_conf * sigmoid(cls_score)) : cls_score;
+                if (score > best_class_score) {
+                    best_class_score = score;
+                    best_class = c;
+                }
+            }
+        } else {
+            anchor_data = &data[a * stride];
+            cx = anchor_data[0];
+            cy = anchor_data[1];
+            w  = anchor_data[2];
+            h  = anchor_data[3];
+
+            int class_offset = has_objectness_ ? 5 : 4;
+            float obj_conf = 1.0f;
+            if (has_objectness_) {
+                obj_conf = sigmoid(anchor_data[4]);
+            }
+
+            for (int c = 0; c < num_classes_; c++) {
+                float cls_score = anchor_data[class_offset + c];
+                float score = has_objectness_ ? (obj_conf * sigmoid(cls_score)) : cls_score;
+                if (score > best_class_score) {
+                    best_class_score = score;
+                    best_class = c;
+                }
             }
         }
 
-        if (max_class_conf < conf_threshold_) continue;
+        if (best_class_score < conf_threshold_) continue;
 
-        // Decode bbox (center/xywh in output space)
-        float cx = anchor_data[0];
-        float cy = anchor_data[1];
-        float w = anchor_data[2];
-        float h = anchor_data[3];
+        // YOLOv11 outputs raw pixel coordinates in input (letterboxed) space
+        // Convert from letterbox space to original image space
+        float orig_cx = (cx - letterbox_pad_x_) / letterbox_scale_;
+        float orig_cy = (cy - letterbox_pad_y_) / letterbox_scale_;
+        float orig_w = w / letterbox_scale_;
+        float orig_h = h / letterbox_scale_;
 
-        // Apply sigmoid to bbox coords (YOLOv11 uses raw outputs)
-        cx = sigmoid(cx);
-        cy = sigmoid(cy);
-        // w, h can be sigmoid or exp depending on model
-
-        // Convert to letterbox image space (absolute pixels)
-        float img_cx = cx * input_width_;
-        float img_cy = cy * input_height_;
-        float img_w = w * input_width_;
-        float img_h = h * input_height_;
-
-        // Remove letterbox padding and scale to original image
-        float orig_cx = (img_cx - letterbox_pad_x_) / letterbox_scale_;
-        float orig_cy = (img_cy - letterbox_pad_y_) / letterbox_scale_;
-        float orig_w = img_w / letterbox_scale_;
-        float orig_h = img_h / letterbox_scale_;
-
-        // Clamp to bounds
+        // Clamp
         orig_cx = std::max(0.0f, std::min(orig_cx, static_cast<float>(original_size.width)));
         orig_cy = std::max(0.0f, std::min(orig_cy, static_cast<float>(original_size.height)));
         orig_w = std::max(0.0f, std::min(orig_w, static_cast<float>(original_size.width)));
@@ -329,7 +352,7 @@ void cvedix_yolo_ort_detector::postprocess(
         det.bbox[1] = orig_cy;
         det.bbox[2] = orig_w;
         det.bbox[3] = orig_h;
-        det.conf = max_class_conf;
+        det.conf = best_class_score;
         det.class_id = best_class;
 
         detections.push_back(det);

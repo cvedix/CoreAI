@@ -10,15 +10,39 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OmniCore OSD Web Debug</title>
+<title>OmniCore Web Debug Dashboard</title>
+<meta name="description" content="OmniCore real-time pipeline debug dashboard with OSD video stream and analysis board visualization">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #000;
-    --panel: #050505;
-    --border: #303030;
-    --border-strong: #777;
-    --text: #fff;
-    --muted: #9a9a9a;
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #111118;
+    --bg-card: #16161f;
+    --bg-card-hover: #1c1c28;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.12);
+    --text: #f0f0f5;
+    --text-muted: #8888a0;
+    --text-dim: #55556a;
+    --accent: #6366f1;
+    --accent-glow: rgba(99,102,241,0.25);
+    --accent2: #a78bfa;
+    --success: #22c55e;
+    --success-glow: rgba(34,197,94,0.25);
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --gradient-accent: linear-gradient(135deg, #6366f1, #a78bfa, #c084fc);
+    --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+    --shadow-glow: 0 0 20px var(--accent-glow);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   * {
@@ -29,306 +53,672 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
 
   body {
     min-height: 100vh;
-    background: var(--bg);
+    background: var(--bg-primary);
     color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+  /* ── Shell Layout ── */
   .shell {
     min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* ── Topbar ── */
   .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 14px 18px;
-    background: #000;
+    padding: 12px 20px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
     border-bottom: 1px solid var(--border);
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     min-width: 0;
   }
 
   .mark {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     display: grid;
     place-items: center;
-    background: #fff;
-    color: #000;
+    background: var(--gradient-accent);
+    color: #fff;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
+    border-radius: var(--radius-xs);
+    box-shadow: var(--shadow-glow);
   }
 
   h1 {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     line-height: 1.2;
     white-space: nowrap;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .connection {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border: 1px solid var(--border-strong);
-    color: var(--text);
+    border-radius: var(--radius-xs);
+    color: var(--text-muted);
     font-size: 12px;
+    font-weight: 500;
     white-space: nowrap;
+    transition: var(--transition);
+  }
+
+  .connection.connected {
+    border-color: var(--success);
+    color: var(--success);
   }
 
   .connection-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #fff;
+    background: var(--text-muted);
+    transition: var(--transition);
   }
 
-  .viewer {
-    min-height: 0;
+  .connection.connected .connection-dot {
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success-glow);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ── Main Content ── */
+  .content {
+    flex: 1;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .viewer-frame {
-    height: 100%;
-    min-height: calc(100vh - 174px);
+  /* ── Panels Grid ── */
+  .panels {
     display: grid;
-    grid-template-rows: auto 1fr;
-    border: 1px solid var(--border);
-    background: var(--panel);
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    flex: 1;
+    min-height: 400px;
   }
 
-  .viewer-header {
+  /* ── Panel (shared) ── */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    background-image: var(--gradient-card);
+    overflow: hidden;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    min-height: 0;
+  }
+
+  .panel:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 10px 12px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border);
-    color: var(--muted);
+    background: rgba(0,0,0,0.2);
+    flex-shrink: 0;
+  }
+
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .panel-title .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-live {
+    background: rgba(34,197,94,0.15);
+    color: var(--success);
+    border: 1px solid rgba(34,197,94,0.3);
+  }
+
+  .badge-board {
+    background: rgba(99,102,241,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(99,102,241,0.3);
   }
 
   .controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
   }
 
+  /* ── Buttons ── */
   button {
-    min-width: 82px;
-    height: 30px;
+    min-width: 76px;
+    height: 28px;
     border: 1px solid var(--border-strong);
-    background: #000;
-    color: #fff;
-    font: inherit;
-    font-size: 12px;
+    border-radius: var(--radius-xs);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
     cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 0.02em;
   }
 
-  button:hover,
+  button:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.2);
+  }
+
   button.active {
-    background: #fff;
-    color: #000;
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
   }
 
+  /* ── Stream Wrapper ── */
   .stream-wrap {
     position: relative;
-    min-height: 0;
-    display: grid;
-    place-items: center;
+    flex: 1;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #000;
+    overflow: hidden;
   }
 
   .stream-wrap img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 100%;
     object-fit: contain;
+    display: block;
   }
 
   .placeholder {
     position: absolute;
     inset: 0;
-    display: grid;
-    place-items: center;
-    color: var(--muted);
-    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 13px;
     text-align: center;
-    background: #000;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    transition: opacity var(--transition);
   }
 
   .placeholder.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
     display: none;
   }
 
+  .placeholder-spinner {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── Stats Bar ── */
   .stats {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1px;
-    padding: 0 16px 16px;
-    background: #000;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   .stat {
-    min-width: 0;
-    padding: 12px;
+    padding: 14px 16px;
     border: 1px solid var(--border);
-    background: var(--panel);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    background-image: var(--gradient-card);
+    transition: border-color var(--transition), transform var(--transition);
+    position: relative;
+    overflow: hidden;
   }
 
-  .label {
-    margin-bottom: 5px;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+  .stat:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    opacity: 0.6;
+  }
+
+  .stat:nth-child(1)::before { background: var(--accent); }
+  .stat:nth-child(2)::before { background: var(--warning); }
+  .stat:nth-child(3)::before { background: var(--success); }
+  .stat:nth-child(4)::before { background: #06b6d4; }
+  .stat:nth-child(5)::before { background: var(--accent2); }
+  .stat:nth-child(6)::before { background: var(--danger); }
+
+  .stat-label {
+    margin-bottom: 6px;
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .value {
-    color: #fff;
+  .stat-value {
+    color: var(--text);
     font-size: 22px;
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
-  @media (max-width: 760px) {
-    .topbar {
-      align-items: flex-start;
-      flex-direction: column;
+  .stat:nth-child(1) .stat-value { color: var(--accent); }
+  .stat:nth-child(2) .stat-value { color: var(--warning); }
+  .stat:nth-child(3) .stat-value { color: var(--success); }
+  .stat:nth-child(4) .stat-value { color: #06b6d4; }
+  .stat:nth-child(5) .stat-value { color: var(--accent2); }
+
+  /* ── Tab Buttons for Panel View ── */
+  .panel-tabs {
+    display: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .panels {
+      grid-template-columns: 1fr;
     }
 
-    h1 {
-      white-space: normal;
+    .panel-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0;
     }
 
-    .viewer {
-      padding: 10px;
+    .panel-tabs button {
+      flex: 1;
+      height: 36px;
+      font-size: 12px;
     }
 
-    .viewer-frame {
-      min-height: auto;
-    }
-
-    .stream-wrap {
-      aspect-ratio: 16 / 9;
+    .panel.mobile-hidden {
+      display: none;
     }
 
     .stats {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      padding: 0 10px 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
+
+    .content {
+      padding: 10px;
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .topbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+
+  /* ── Fullscreen mode ── */
+  .panel:fullscreen,
+  .panel:-webkit-full-screen {
+    background: #000;
+    border: none;
+    border-radius: 0;
+  }
+
+  .panel:fullscreen .panel-header,
+  .panel:-webkit-full-screen .panel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .panel:fullscreen:hover .panel-header,
+  .panel:-webkit-full-screen:hover .panel-header {
+    opacity: 1;
+  }
+
+  /* ── Event Log ── */
+  .event-ticker {
+    padding: 6px 14px;
+    border-top: 1px solid var(--border);
+    background: rgba(0,0,0,0.3);
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .event-ticker .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+
+  .event-ticker .msg {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
 </head>
 <body>
-  <main class="shell">
+  <main class="shell" id="app">
+    <!-- Topbar -->
     <header class="topbar">
       <div class="brand">
         <div class="mark">O</div>
-        <h1>OmniCore OSD Web Debug</h1>
+        <h1>OmniCore Debug Dashboard</h1>
       </div>
-      <div class="connection" id="connection-status">
-        <span class="connection-dot"></span>
-        <span>Connecting</span>
+      <div class="topbar-right">
+        <div class="panel-tabs" id="panel-tabs">
+          <button class="active" id="tab-osd" onclick="switchTab('osd')">OSD Stream</button>
+          <button id="tab-board" onclick="switchTab('board')">Board</button>
+        </div>
+        <div class="connection" id="connection-status">
+          <span class="connection-dot"></span>
+          <span>Connecting…</span>
+        </div>
       </div>
     </header>
 
-    <section class="viewer">
-      <div class="viewer-frame">
-        <div class="viewer-header">
-          <span>OSD Web Debug</span>
-          <div class="controls">
-            <button id="btn-pause-osd" onclick="toggleStream()">Pause</button>
-            <button onclick="goFullscreen()">Fullscreen</button>
+    <!-- Panels -->
+    <section class="content">
+      <div class="panels">
+        <!-- OSD Panel -->
+        <div class="panel" id="osd-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>OSD Video Stream</span>
+              <span class="badge badge-live">● LIVE</span>
+            </div>
+            <div class="controls">
+              <button id="btn-pause-osd" onclick="toggleOsdStream()">Pause</button>
+              <button onclick="goFullscreen('osd-panel')">Fullscreen</button>
+            </div>
+          </div>
+          <div class="stream-wrap" id="osd-container">
+            <img id="osd-stream" alt="OSD video stream">
+            <div class="placeholder" id="osd-placeholder">
+              <div class="placeholder-spinner"></div>
+              <span>Connecting to OSD stream…</span>
+            </div>
           </div>
         </div>
-        <div class="stream-wrap" id="osd-container">
-          <img id="osd-stream" src="/stream/osd" alt="OSD Web Debug stream">
-          <div class="placeholder" id="osd-placeholder">Connecting to OSD stream...</div>
+
+        <!-- Board Panel -->
+        <div class="panel" id="board-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>Analysis Board</span>
+              <span class="badge badge-board">PIPELINE</span>
+            </div>
+            <div class="controls">
+              <button id="btn-pause-board" onclick="toggleBoardStream()">Pause</button>
+              <button onclick="goFullscreen('board-panel')">Fullscreen</button>
+            </div>
+          </div>
+          <div class="stream-wrap" id="board-container">
+            <img id="board-stream" alt="Analysis board pipeline">
+            <div class="placeholder" id="board-placeholder">
+              <div class="placeholder-spinner"></div>
+              <span>Connecting to Analysis Board…</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Stats -->
+      <section class="stats" id="stats-bar">
+        <div class="stat">
+          <div class="stat-label">FPS</div>
+          <div class="stat-value" id="stat-fps">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Latency</div>
+          <div class="stat-value" id="stat-latency">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Objects</div>
+          <div class="stat-value" id="stat-objects">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Queue</div>
+          <div class="stat-value" id="stat-queue">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Uptime</div>
+          <div class="stat-value" id="stat-uptime">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Events</div>
+          <div class="stat-value" id="stat-events">0</div>
+        </div>
+      </section>
     </section>
 
-    <section class="stats">
-      <div class="stat">
-        <div class="label">FPS</div>
-        <div class="value" id="stat-fps">--</div>
-      </div>
-      <div class="stat">
-        <div class="label">Latency</div>
-        <div class="value" id="stat-latency">--</div>
-      </div>
-      <div class="stat">
-        <div class="label">Objects</div>
-        <div class="value" id="stat-objects">--</div>
-      </div>
-      <div class="stat">
-        <div class="label">Queue</div>
-        <div class="value" id="stat-queue">--</div>
-      </div>
-      <div class="stat">
-        <div class="label">Uptime</div>
-        <div class="value" id="stat-uptime">--</div>
-      </div>
-    </section>
+    <!-- Event ticker -->
+    <footer class="event-ticker" id="event-ticker">
+      <span class="dot"></span>
+      <span class="msg" id="event-msg">Waiting for detection events…</span>
+    </footer>
   </main>
 
 <script>
-  let streamActive = true;
+  /* ═══════════════════════════════════════
+   * Snapshot-based streaming (cross-browser)
+   * Uses fetch() to pull individual JPEG frames
+   * ═══════════════════════════════════════ */
+  let osdActive = true;
+  let boardActive = true;
+  let eventCount = 0;
 
   const osdStream = document.getElementById('osd-stream');
-  const placeholder = document.getElementById('osd-placeholder');
-  const pauseButton = document.getElementById('btn-pause-osd');
+  const osdPlaceholder = document.getElementById('osd-placeholder');
+  const boardStream = document.getElementById('board-stream');
+  const boardPlaceholder = document.getElementById('board-placeholder');
 
-  osdStream.onload = function() {
-    osdStream.style.display = 'block';
-    placeholder.classList.add('hidden');
-  };
+  // Remove MJPEG src — we'll drive updates via JS
+  osdStream.removeAttribute('src');
+  boardStream.removeAttribute('src');
 
-  osdStream.onerror = function() {
-    osdStream.style.display = 'none';
-    placeholder.classList.remove('hidden');
-  };
+  // Snapshot fetch loop for a given img element
+  function startSnapshotLoop(img, placeholder, snapshotUrl, intervalMs, isActiveFunc) {
+    let prevUrl = null;
+    let running = true;
+    let firstFrame = false;
 
-  function toggleStream() {
-    streamActive = !streamActive;
-    if (streamActive) {
-      osdStream.src = '/stream/osd?t=' + Date.now();
-      pauseButton.textContent = 'Pause';
-      pauseButton.classList.remove('active');
-    } else {
-      osdStream.src = '';
-      pauseButton.textContent = 'Resume';
-      pauseButton.classList.add('active');
+    async function fetchFrame() {
+      if (!running || !isActiveFunc()) {
+        setTimeout(fetchFrame, intervalMs);
+        return;
+      }
+      try {
+        const resp = await fetch(snapshotUrl + '?t=' + Date.now());
+        if (resp.ok && resp.headers.get('content-type')?.includes('image')) {
+          const blob = await resp.blob();
+          const url = URL.createObjectURL(blob);
+          img.onload = function() {
+            if (prevUrl) URL.revokeObjectURL(prevUrl);
+            prevUrl = url;
+          };
+          img.src = url;
+          if (!firstFrame) {
+            firstFrame = true;
+            img.style.display = 'block';
+            placeholder.classList.add('hidden');
+          }
+        }
+      } catch(e) {
+        // Server might be restarting
+      }
+      setTimeout(fetchFrame, intervalMs);
     }
+
+    fetchFrame();
+    return { stop: function() { running = false; }, start: function() { running = true; } };
   }
 
-  function goFullscreen() {
-    const el = document.getElementById('osd-container');
+  // Start loops
+  const osdLoop = startSnapshotLoop(osdStream, osdPlaceholder, '/snapshot/osd', 66, () => osdActive);
+  const boardLoop = startSnapshotLoop(boardStream, boardPlaceholder, '/snapshot/board', 500, () => boardActive);
+
+  function toggleOsdStream() {
+    osdActive = !osdActive;
+    const btn = document.getElementById('btn-pause-osd');
+    btn.textContent = osdActive ? 'Pause' : 'Resume';
+    osdActive ? btn.classList.remove('active') : btn.classList.add('active');
+  }
+
+  function toggleBoardStream() {
+    boardActive = !boardActive;
+    const btn = document.getElementById('btn-pause-board');
+    btn.textContent = boardActive ? 'Pause' : 'Resume';
+    boardActive ? btn.classList.remove('active') : btn.classList.add('active');
+  }
+
+  function goFullscreen(panelId) {
+    const el = document.getElementById(panelId);
     if (el.requestFullscreen) el.requestFullscreen();
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
   }
 
+  /* ═══════════════════════════════════════
+   * Mobile tab switch
+   * ═══════════════════════════════════════ */
+  function switchTab(tab) {
+    const osdPanel = document.getElementById('osd-panel');
+    const boardPanel = document.getElementById('board-panel');
+    const tabOsd = document.getElementById('tab-osd');
+    const tabBoard = document.getElementById('tab-board');
+
+    if (tab === 'osd') {
+      osdPanel.classList.remove('mobile-hidden');
+      boardPanel.classList.add('mobile-hidden');
+      tabOsd.classList.add('active');
+      tabBoard.classList.remove('active');
+    } else {
+      osdPanel.classList.add('mobile-hidden');
+      boardPanel.classList.remove('mobile-hidden');
+      tabOsd.classList.remove('active');
+      tabBoard.classList.add('active');
+    }
+  }
+
+  /* ═══════════════════════════════════════
+   * Stats polling
+   * ═══════════════════════════════════════ */
   function formatUptime(sec) {
     const h = Math.floor(sec / 3600);
     const m = Math.floor((sec % 3600) / 60);
     const s = Math.floor(sec % 60);
-    return (h > 0 ? h + 'h ' : '') + m + 'm ' + s + 's';
+    if (h > 0) return h + 'h ' + m + 'm';
+    return m + 'm ' + s + 's';
   }
 
   async function pollStats() {
@@ -343,16 +733,43 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
       document.getElementById('stat-queue').textContent = data.queue_size || 0;
       document.getElementById('stat-uptime').textContent = formatUptime(data.uptime_sec || 0);
 
+      status.classList.add('connected');
       status.querySelector('span:last-child').textContent = 'Connected';
-      status.style.borderColor = '#777';
     } catch (_) {
+      status.classList.remove('connected');
       status.querySelector('span:last-child').textContent = 'Disconnected';
-      status.style.borderColor = '#fff';
     }
   }
 
   setInterval(pollStats, 1000);
   pollStats();
+
+  /* ═══════════════════════════════════════
+   * SSE Events
+   * ═══════════════════════════════════════ */
+  function connectSSE() {
+    const es = new EventSource('/events');
+    const ticker = document.getElementById('event-msg');
+    const counter = document.getElementById('stat-events');
+
+    es.onmessage = function(e) {
+      try {
+        const data = JSON.parse(e.data);
+        eventCount++;
+        counter.textContent = eventCount;
+        const ts = new Date(data.timestamp).toLocaleTimeString();
+        ticker.textContent = '[' + ts + '] ch' + data.channel + ' — ' + data.targets_count + ' target(s) detected';
+      } catch (_) {}
+    };
+
+    es.onerror = function() {
+      es.close();
+      ticker.textContent = 'SSE disconnected — reconnecting…';
+      setTimeout(connectSSE, 3000);
+    };
+  }
+
+  connectSSE();
 </script>
 </body>
 </html>

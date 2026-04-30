@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./build/bin/face_yolov11_web_debug_sample)",
+      "Bash(pkill -f face_yolov11_web_debug_sample)",
+      "Bash(awk '{print $NF}')",
+      "Bash(./build/bin/face_yolov11_web_debug_sample ./cvedix_data/videos/NVR5216-AI_ch9_main_20260115153800_20260115154559.mp4 ./cvedix_data/models/yolov11-model-face.onnx onnx 9091)",
+      "Bash(curl -s http://localhost:9091)",
+      "Bash(ldd build/bin/face_yolov11_web_debug_sample)",
+      "Bash(ldd build/libs/libonnx_yolov11.so)",
+      "Bash(mkdir -p cvedix_data/video)",
+      "Bash(ln -sf ../videos/NVR5216-AI_ch9_main_20260115153800_20260115154559.mp4 cvedix_data/video/face.mp4)",
+      "Bash(mkdir -p cvedix_data/models/face)",
+      "Bash(wget -q https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx -O face_detection_yunet_2023mar.onnx)",
+      "Bash(make build *)",
+      "Bash(curl -s http://localhost:9090)",
+      "Bash(netstat -tlnp)",
+      "Bash(curl -v http://localhost:9090)",
+      "Bash(pkill -f web_debug_sample)",
+      "Bash(curl -v http://0.0.0.0:9090)",
+      "Bash(chmod +x run_web_debug.sh)",
+      "Bash(./run_web_debug.sh)",
+      "Bash(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ./cvedix_data/video/face.mp4)",
+      "Bash(g++ -std=c++17 -I. test_httplib.cpp -o test_httplib -lpthread)",
+      "Bash(pkill -f web_debug_loop_sample)",
+      "Bash(fuser 9090/tcp)",
+      "Bash(curl -s http://localhost:9090/api/stats)",
+      "Bash(python3 -m json.tool)"
+    ]
+  }
+}
