@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -fPIC -w -fdiagnostics-color=always -pthread -g CMakeFiles/tinyexpr_test.dir/tinyexpr_test.cpp.o -o ../../samples/tinyexpr_test   -L/home/cvedix/CVEDIX-AI/omnicore/third_party/onnxruntime/lib  -Wl,-rpath,/home/cvedix/CVEDIX-AI/omnicore/third_party/onnxruntime/lib:/home/cvedix/CVEDIX-AI/omnicore/scripts/libs ../../libs/libtinyexpr.so -lm 

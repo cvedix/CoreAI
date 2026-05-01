@@ -1,6 +1,6 @@
 #[[
     prepare in advance：
-    1. OpenCV >= 4.10
+    1. OpenCV >= 4.9
     2. Gstreamer >= 1.14.5
     3. CUDA, TensorRT, PADDLE and others for optional
 ]]
