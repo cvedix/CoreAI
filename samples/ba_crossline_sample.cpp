@@ -5,19 +5,23 @@
 #include "cvedix/nodes/track/cvedix_ocsort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_line_crossline_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
-#include "cvedix/nodes/des/cvedix_screen_des_node.h"
-#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
+#include "sample_output_helper.h"
 
 /*
 * ## ba crossline sample ##
 * behaviour analysis for crossline.
+*
+* Usage:
+*   ./ba_crossline_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
 */
 
-int main() {
+int main(int argc, char** argv) {
     CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
     CVEDIX_LOGGER_INIT();
+
+    auto out_cfg = sample_helper::parse_output_args(argc, argv);
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/vehicle_count.mp4", 0.4);
@@ -65,22 +69,20 @@ int main() {
     osd_cfg.label_font_scale = 0.5;
     osd->update_config(osd_cfg);
 
-    // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);
-    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");
+    // create output destination based on --mode
+    auto output = sample_helper::create_output(out_cfg, "des_0", 0, {file_src_0});
     
     // construct pipeline
     yolo_detector->attach_to({file_src_0});
     tracker->attach_to({yolo_detector});
     ba_crossline->attach_to({tracker});
     osd->attach_to({ba_crossline});
-    // screen_des_0->attach_to({osd});
-    rtmp_des_0->attach_to({osd});
+    output.des_node->attach_to({osd});
 
     file_src_0->start();
 
-    // for debug purpose
-    // cvedix_utils::cvedix_analysis_board board({file_src_0});
-    // board.display(1, false);
+    sample_helper::init_board(output);
+    sample_helper::print_output_info(out_cfg);
 
     std::string wait;
     std::getline(std::cin, wait);

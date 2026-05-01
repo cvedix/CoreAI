@@ -2,19 +2,24 @@
 #include "cvedix/nodes/track/cvedix_sort_track_node.h"
 #include "cvedix/nodes/ba/cvedix_ba_area_crowding_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
-#include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
-#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
+
+#include "sample_output_helper.h"
 
 /*
 * ## ba crowding sample ##
 * behaviour analysis for crowding: detects when number of objects inside a
 * configured ROI reaches threshold and have been inside for configured seconds.
+*
+* Usage:
+*   ./ba_crowding_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
 */
 
-int main() {
+int main(int argc, char** argv) {
     CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
     CVEDIX_LOGGER_INIT();
+
+    auto out_cfg = sample_helper::parse_output_args(argc, argv);
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/jam.mp4");
@@ -49,20 +54,21 @@ int main() {
 
     auto ba_crowding = std::make_shared<cvedix_nodes::cvedix_ba_area_crowding_node>("ba_crowding", rois, configs, 30, false, false);
     auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("crowding_osd");
-    // auto screen_des_0 = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen_des_0", 0);\
 
-    // Optional use rtmp
-    auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");
-
+    // create output destination based on --mode
+    auto output = sample_helper::create_output(out_cfg, "des_0", 0, {file_src_0});
 
     // construct pipeline
     detector->attach_to({file_src_0});
     tracker->attach_to({detector});
     ba_crowding->attach_to({tracker});
     osd->attach_to({ba_crowding});
-    rtmp_des_0->attach_to({osd});
+    output.des_node->attach_to({osd});
 
     file_src_0->start();
+
+    sample_helper::init_board(output);
+    sample_helper::print_output_info(out_cfg);
 
     std::string wait;
     std::getline(std::cin, wait);

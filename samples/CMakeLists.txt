@@ -26,24 +26,6 @@ target_link_libraries(app_src_des_sample ${PROJECT_NAME})
 add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
 target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
 
-add_executable(cvedix_test "cvedix_test.cpp")
-target_link_libraries(cvedix_test ${PROJECT_NAME})
-
-add_executable(frame_fusion_sample "frame_fusion_sample.cpp")
-target_link_libraries(frame_fusion_sample ${PROJECT_NAME})
-
-add_executable(image_des_sample "image_des_sample.cpp")
-target_link_libraries(image_des_sample ${PROJECT_NAME})
-
-add_executable(image_src_sample "image_src_sample.cpp")
-target_link_libraries(image_src_sample ${PROJECT_NAME})
-
-add_executable(interaction_with_pipe_sample "interaction_with_pipe_sample.cpp")
-target_link_libraries(interaction_with_pipe_sample ${PROJECT_NAME})
-
-add_executable(message_broker_sample "message_broker_sample.cpp")
-target_link_libraries(message_broker_sample ${PROJECT_NAME})
-
 add_executable(N-1-N_sample "N-1-N_sample.cpp")
 target_link_libraries(N-1-N_sample ${PROJECT_NAME})
 
@@ -53,36 +35,20 @@ target_link_libraries(N-N_sample ${PROJECT_NAME})
 # add_executable(openpose_sample "openpose_sample.cpp")
 # target_link_libraries(openpose_sample ${PROJECT_NAME})
 
-add_executable(record_sample "record_sample.cpp")
-target_link_libraries(record_sample ${PROJECT_NAME})
-
-# RTSP samples
-add_executable(rtsp_ba_crossline_sample "rtsp_ba_crossline_sample.cpp")
-target_link_libraries(rtsp_ba_crossline_sample ${PROJECT_NAME})
-
-add_executable(rtsp_src_sample "rtsp_src_sample.cpp")
-target_link_libraries(rtsp_src_sample ${PROJECT_NAME})
-
-add_executable(rtsp_des_sample "rtsp_des_sample.cpp")
-target_link_libraries(rtsp_des_sample ${PROJECT_NAME})
-
-add_executable(sse_broker_sample "sse_broker_sample.cpp")
-target_link_libraries(sse_broker_sample ${PROJECT_NAME})
-
-add_executable(web_debug_sample "web_debug_sample.cpp")
-target_link_libraries(web_debug_sample ${PROJECT_NAME})
-
-add_executable(face_yolov11_web_debug_sample "face_yolov11_web_debug_sample.cpp")
-target_link_libraries(face_yolov11_web_debug_sample ${PROJECT_NAME})
-
-add_executable(web_debug_loop_sample "web_debug_loop_sample.cpp")
-target_link_libraries(web_debug_loop_sample ${PROJECT_NAME})
-
-add_executable(simple_web_debug_sample "simple_web_debug_sample.cpp")
-target_link_libraries(simple_web_debug_sample ${PROJECT_NAME})
-
 add_executable(face_detection_yolov11_trt_web_debug_sample "face_detection_yolov11_trt_web_debug_sample.cpp")
 target_link_libraries(face_detection_yolov11_trt_web_debug_sample ${PROJECT_NAME})
+
+add_executable(ba_crowding_sample "ba_crowding_sample.cpp")
+target_link_libraries(ba_crowding_sample ${PROJECT_NAME})
+
+add_executable(ba_area_enter_exit_sample "ba_area_enter_exit_sample.cpp")
+target_link_libraries(ba_area_enter_exit_sample ${PROJECT_NAME})
+
+add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
+target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
+
+add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
+target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 
 # webhook_broker_sample - needs API update
 # add_executable(webhook_broker_sample "webhook_broker_sample.cpp")
@@ -90,9 +56,6 @@ target_link_libraries(face_detection_yolov11_trt_web_debug_sample ${PROJECT_NAME
 
 # add_executable(video_restoration_sample "video_restoration_sample.cpp")
 # target_link_libraries(video_restoration_sample ${PROJECT_NAME})
-
-add_executable(wrong_way_detection_sample "wrong_way_detection_sample.cpp")
-target_link_libraries(wrong_way_detection_sample ${PROJECT_NAME})
 
 # Install all basic samples
 install(TARGETS 
@@ -102,23 +65,13 @@ install(TARGETS
         app_des_sample
         app_src_des_sample
         cvedix_logger_sample
-        cvedix_test
-        frame_fusion_sample
-        image_des_sample
-        image_src_sample
-        interaction_with_pipe_sample
-        message_broker_sample
         N-1-N_sample
         N-N_sample
-        record_sample
-        rtsp_ba_crossline_sample
-        rtsp_src_sample
-        rtsp_des_sample
-        sse_broker_sample
-        web_debug_sample
-        face_yolov11_web_debug_sample
         face_detection_yolov11_trt_web_debug_sample
-        wrong_way_detection_sample
+        ba_crowding_sample
+        ba_area_enter_exit_sample
+        ba_multiline_crossline_test
+        ba_multiple_crossline_counting_sample
         DESTINATION bin
         OPTIONAL
 )
@@ -128,20 +81,8 @@ if(CVEDIX_WITH_TRT)
     add_executable(ba_accident_detection_sample "ba_accident_detection_sample.cpp")
     target_link_libraries(ba_accident_detection_sample ${PROJECT_NAME})
 
-    add_executable(ba_area_enter_exit_sample "ba_area_enter_exit_sample.cpp")
-    target_link_libraries(ba_area_enter_exit_sample ${PROJECT_NAME})
-
     add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
     target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
-
-    add_executable(ba_crowding_sample "ba_crowding_sample.cpp")
-    target_link_libraries(ba_crowding_sample ${PROJECT_NAME})
-
-    add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
-    target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
-
-    add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
-    target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 
     add_executable(ba_speed_estimation_sample "ba_speed_estimation_sample.cpp")
     target_link_libraries(ba_speed_estimation_sample ${PROJECT_NAME})
@@ -149,33 +90,11 @@ if(CVEDIX_WITH_TRT)
     add_executable(ba_traffic_analysis_sample "ba_traffic_analysis_sample.cpp")
     target_link_libraries(ba_traffic_analysis_sample ${PROJECT_NAME})
 
-
-
-    add_executable(firesmoke_detect_sample "firesmoke_detect_sample.cpp")
-    target_link_libraries(firesmoke_detect_sample ${PROJECT_NAME})
-
-    add_executable(multi_detectors_sample "multi_detectors_sample.cpp")
-    target_link_libraries(multi_detectors_sample ${PROJECT_NAME})
-
-    add_executable(obstacle_detect_sample "obstacle_detect_sample.cpp")
-    target_link_libraries(obstacle_detect_sample ${PROJECT_NAME})
-
-    add_executable(skip_sample "skip_sample.cpp")
-    target_link_libraries(skip_sample ${PROJECT_NAME})
-
     install(TARGETS 
         ba_accident_detection_sample
-        ba_area_enter_exit_sample
         ba_crossline_sample
-        ba_crowding_sample
-        ba_multiline_crossline_test
-        ba_multiple_crossline_counting_sample
         ba_speed_estimation_sample
         ba_traffic_analysis_sample
-        firesmoke_detect_sample
-        multi_detectors_sample
-        obstacle_detect_sample
-        skip_sample
 
         DESTINATION bin
         OPTIONAL
@@ -207,24 +126,6 @@ if(CVEDIX_WITH_KAFKA)
 endif()
 
 # samples depend on MQTT (mandatory)
-add_executable(mqtt_json_receiver_sample "mqtt_json_receiver_sample.cpp")
-target_include_directories(mqtt_json_receiver_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
-target_link_libraries(mqtt_json_receiver_sample ${PROJECT_NAME})
-
-# Link with mosquitto
-if(MOSQUITTO_FOUND)
-    target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIBRARIES})
-else()
-    find_library(MOSQUITTO_LIB NAMES mosquitto)
-    if(MOSQUITTO_LIB)
-        target_link_libraries(mqtt_json_receiver_sample ${MOSQUITTO_LIB})
-    endif()
-endif()
-
-install(TARGETS mqtt_json_receiver_sample
-        DESTINATION bin
-        OPTIONAL)
-
 add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
 target_include_directories(ba_crossline_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
 target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
@@ -267,19 +168,6 @@ endif()
 #             DESTINATION bin
 #             OPTIONAL)
 # endif()
-
-# samples depend on FFmpeg (mandatory)
-add_executable(ffmpeg_src_des_sample "ffmpeg_src_des_sample.cpp")
-target_link_libraries(ffmpeg_src_des_sample ${PROJECT_NAME})
-
-add_executable(ffmpeg_transcode_sample "ffmpeg_transcode_sample.cpp")
-target_link_libraries(ffmpeg_transcode_sample ${PROJECT_NAME})
-
-install(TARGETS 
-    ffmpeg_src_des_sample
-    ffmpeg_transcode_sample
-    DESTINATION bin
-    OPTIONAL)
 
 # samples depend on RKNN
 if(CVEDIX_WITH_RKNN)

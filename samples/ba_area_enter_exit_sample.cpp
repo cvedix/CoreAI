@@ -1,22 +1,26 @@
 /**
  * @file ba_area_enter_exit_sample.cpp
  * @brief Sample for area enter/exit BA node with OSD
+ *
+ * Usage:
+ *   ./ba_area_enter_exit_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
  */
 
 #include "cvedix/nodes/ba/cvedix_ba_area_enter_exit_node.h"
-#include "cvedix/nodes/des/cvedix_screen_des_node.h"
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
-#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
+#include "sample_output_helper.h"
 
-int main() {
+int main(int argc, char** argv) {
   CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
   CVEDIX_SET_LOG_KEYWORDS_FOR_DEBUG({"ba_area"});
   CVEDIX_LOGGER_INIT();
+
+  auto out_cfg = sample_helper::parse_output_args(argc, argv);
 
   CVEDIX_INFO("===== BA Area Enter/Exit Sample =====");
 
@@ -63,9 +67,8 @@ int main() {
   auto ba_area = std::make_shared<cvedix_nodes::cvedix_ba_area_enter_exit_node>(
       "ba_area", areas, configs, false, false);
 
-  // Create OSD and screen
+  // Create OSD
   auto osd = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd");
-//   auto screen = std::make_shared<cvedix_nodes::cvedix_screen_des_node>("screen", 0);
     cvedix_nodes::unified_osd_config osd_cfg;
     osd_cfg.show_bbox = true;
     osd_cfg.show_label = true;
@@ -87,23 +90,24 @@ int main() {
     };
     osd->set_static_zones(static_zones);
 
-  // Optional use rtmp
-  auto rtmp_des_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>("rtmp_des_0", 0, "rtmp://127.0.0.1/live/9000");
+  // create output destination based on --mode
+  auto output = sample_helper::create_output(out_cfg, "des_0", 0, {file_src});
 
   // Build pipeline
   detector->attach_to({file_src});
   tracker->attach_to({detector});
   ba_area->attach_to({tracker});
   osd->attach_to({ba_area});
-  rtmp_des_0->attach_to({osd});
-//   screen->attach_to({osd});
+  output.des_node->attach_to({osd});
 
-  CVEDIX_INFO("Pipeline built: src -> detector -> tracker -> ba_area -> osd -> screen");
+  CVEDIX_INFO("Pipeline built: src -> detector -> tracker -> ba_area -> osd -> " + sample_helper::mode_string(out_cfg.mode));
   CVEDIX_INFO("Starting pipeline... Watch for area enter/exit alerts in top-left corner");
 
   file_src->start();
 
-  // Wait for user to press Enter
+    sample_helper::init_board(output);
+  sample_helper::print_output_info(out_cfg);
+
   std::string wait;
   std::getline(std::cin, wait);
 
