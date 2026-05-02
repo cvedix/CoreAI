@@ -1,19 +1,26 @@
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
-#include "cvedix/nodes/infers/cvedix_face_detector_node.h"
+#include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 
 #include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
 #include "sample_output_helper.h"
 
 /*
-* ## 1-1-1 sample ##
-* 1 video input, 1 infer task, and 1 output.
-*
-* Usage:
-*   ./1-1-1_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
-*
-* Default: --mode web (open http://localhost:9091 in browser)
-*/
+ * ## 1-1-1 sample ##
+ * 1 video input, 1 infer task (YOLOv11 detection via TensorRT), and 1 output.
+ *
+ * Pipeline:
+ *   file_src → yolov11_detector (TensorRT) → osd → output
+ *
+ * Usage:
+ *   ./1-1-1_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
+ *
+ * Default: --mode web (open http://localhost:9091 in browser)
+ *
+ * Model paths (auto-detect order):
+ *   1. ./cvedix_data/models/yolov11/tensorrt/yolo11n.engine  (TensorRT)
+ *   2. ./cvedix_data/models/yolov11/onnx/yolo11n.onnx        (ONNX fallback)
+ */
 
 int main(int argc, char** argv) {
     CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
@@ -24,15 +31,27 @@ int main(int argc, char** argv) {
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>("file_src_0", 0, "./cvedix_data/video/face.mp4", 0.6);
-    auto yunet_face_detector_0 = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("yunet_face_detector_0", "./cvedix_data/models/face/face_detection_yunet_2023mar.onnx");
+
+    // YOLOv11 detector with TensorRT engine backend
+    auto yolo_detector_0 = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+        "yolo_detector_0",
+        "./cvedix_data/models/yolov11/tensorrt/yolo11n.engine",  // TensorRT engine model
+        cvedix_nodes::YoloVersion::YOLO11,
+        "./cvedix_data/models/yolov11/tensorrt/labels.txt",      // labels file
+        0.45f,   // confidence threshold
+        0.5f,    // NMS threshold
+        0,       // class_id_offset
+        cvedix_nodes::BackendType::TENSORRT
+    );
+
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
 
     // create output destination based on --mode
     auto output = sample_helper::create_output(out_cfg, "des_0", 0, {file_src_0});
 
     // construct pipeline
-    yunet_face_detector_0->attach_to({file_src_0});
-    osd_0->attach_to({yunet_face_detector_0});
+    yolo_detector_0->attach_to({file_src_0});
+    osd_0->attach_to({yolo_detector_0});
     output.des_node->attach_to({osd_0});
 
     file_src_0->start();

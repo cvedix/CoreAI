@@ -17,6 +17,9 @@ target_link_libraries(1-1-N_sample ${PROJECT_NAME})
 add_executable(1-N-N_sample "1-N-N_sample.cpp")
 target_link_libraries(1-N-N_sample ${PROJECT_NAME})
 
+add_executable(1-N-1-N_sample "1-N-1-N_sample.cpp")
+target_link_libraries(1-N-1-N_sample ${PROJECT_NAME})
+
 add_executable(app_des_sample "app_des_sample.cpp")
 target_link_libraries(app_des_sample ${PROJECT_NAME})
 
@@ -62,6 +65,7 @@ install(TARGETS
         1-1-1_sample
         1-1-N_sample
         1-N-N_sample
+        1-N-1-N_sample
         app_des_sample
         app_src_des_sample
         cvedix_logger_sample
