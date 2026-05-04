@@ -94,11 +94,15 @@ if(CVEDIX_WITH_TRT)
     add_executable(ba_traffic_analysis_sample "ba_traffic_analysis_sample.cpp")
     target_link_libraries(ba_traffic_analysis_sample ${PROJECT_NAME})
 
+    add_executable(ba_vehicle_running_red_light_sample "ba_vehicle_running_red_light_sample.cpp")
+    target_link_libraries(ba_vehicle_running_red_light_sample ${PROJECT_NAME})
+
     install(TARGETS 
         ba_accident_detection_sample
         ba_crossline_sample
         ba_speed_estimation_sample
         ba_traffic_analysis_sample
+        ba_vehicle_running_red_light_sample
 
         DESTINATION bin
         OPTIONAL

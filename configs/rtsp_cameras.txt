@@ -1,0 +1,32 @@
+# =============================================================================
+# RTSP Camera List - Test Configuration
+# =============================================================================
+# Format: rtsp://<username>:<password>@<ip>:<port>/<path>
+# Lines starting with '#' are comments
+# Empty lines are ignored
+# =============================================================================
+
+# --- Camera 1: Hikvision (Main Stream - Channel 101) ---
+rtsp://admin:Admin1234@113.161.1.86:554/Streaming/Channels/101
+
+# --- Camera 1: Hikvision (Sub Stream - Channel 102) ---
+# rtsp://admin:Admin1234@113.161.1.86:554/Streaming/Channels/102
+
+# --- Camera 1: Hikvision (Third Stream - Channel 103) ---
+# rtsp://admin:Admin1234@113.161.1.86:554/Streaming/Channels/103
+
+# =============================================================================
+# Additional cameras can be added below
+# =============================================================================
+
+# --- Example: Dahua Camera ---
+# rtsp://admin:password@192.168.1.100:554/cam/realmonitor?channel=1&subtype=0
+
+# --- Example: Generic ONVIF Camera ---
+# rtsp://admin:password@192.168.1.101:554/stream1
+
+# --- Example: Axis Camera ---
+# rtsp://admin:password@192.168.1.102:554/axis-media/media.amp
+
+# --- Example: Uniview Camera ---
+# rtsp://admin:password@192.168.1.103:554/media/video1

@@ -17,24 +17,24 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #111118;
-    --bg-card: #16161f;
-    --bg-card-hover: #1c1c28;
-    --border: rgba(255,255,255,0.06);
-    --border-strong: rgba(255,255,255,0.12);
-    --text: #f0f0f5;
-    --text-muted: #8888a0;
-    --text-dim: #55556a;
-    --accent: #6366f1;
-    --accent-glow: rgba(99,102,241,0.25);
-    --accent2: #a78bfa;
-    --success: #22c55e;
-    --success-glow: rgba(34,197,94,0.25);
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --gradient-accent: linear-gradient(135deg, #6366f1, #a78bfa, #c084fc);
-    --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-card: #111111;
+    --bg-card-hover: #222222;
+    --border: rgba(255,255,255,0.15);
+    --border-strong: rgba(255,255,255,0.3);
+    --text: #ffffff;
+    --text-muted: #aaaaaa;
+    --text-dim: #777777;
+    --accent: #ffffff;
+    --accent-glow: rgba(255,255,255,0.25);
+    --accent2: #dddddd;
+    --success: #ffffff;
+    --success-glow: rgba(255,255,255,0.25);
+    --warning: #cccccc;
+    --danger: #999999;
+    --gradient-accent: linear-gradient(135deg, #ffffff, #dddddd, #bbbbbb);
+    --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, transparent 50%);
     --radius: 12px;
     --radius-sm: 8px;
     --radius-xs: 6px;
@@ -233,15 +233,15 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   }
 
   .badge-live {
-    background: rgba(34,197,94,0.15);
+    background: rgba(255,255,255,0.15);
     color: var(--success);
-    border: 1px solid rgba(34,197,94,0.3);
+    border: 1px solid rgba(255,255,255,0.3);
   }
 
   .badge-board {
-    background: rgba(99,102,241,0.15);
+    background: rgba(255,255,255,0.15);
     color: var(--accent);
-    border: 1px solid rgba(99,102,241,0.3);
+    border: 1px solid rgba(255,255,255,0.3);
   }
 
   .controls {
@@ -373,7 +373,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   .stat:nth-child(1)::before { background: var(--accent); }
   .stat:nth-child(2)::before { background: var(--warning); }
   .stat:nth-child(3)::before { background: var(--success); }
-  .stat:nth-child(4)::before { background: #06b6d4; }
+  .stat:nth-child(4)::before { background: #ffffff; }
   .stat:nth-child(5)::before { background: var(--accent2); }
   .stat:nth-child(6)::before { background: var(--danger); }
 
@@ -398,7 +398,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   .stat:nth-child(1) .stat-value { color: var(--accent); }
   .stat:nth-child(2) .stat-value { color: var(--warning); }
   .stat:nth-child(3) .stat-value { color: var(--success); }
-  .stat:nth-child(4) .stat-value { color: #06b6d4; }
+  .stat:nth-child(4) .stat-value { color: #ffffff; }
   .stat:nth-child(5) .stat-value { color: var(--accent2); }
 
   /* ── Tab Buttons for Panel View ── */
@@ -513,7 +513,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     <header class="topbar">
       <div class="brand">
         <div class="mark">O</div>
-        <h1>OmniCore Debug Dashboard</h1>
+        
       </div>
       <div class="topbar-right">
         <div class="panel-tabs" id="panel-tabs">

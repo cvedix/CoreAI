@@ -1,6 +1,6 @@
 # Development Guide
 
-Tài liệu này dành cho developer làm việc trực tiếp trên source code OmniCore. Nếu chỉ muốn dùng SDK đã đóng gói, xem phần `.deb` package trong README.
+Tài liệu này dành cho developer làm việc trực tiếp trên source code Core Runtime. Nếu chỉ muốn dùng SDK đã đóng gói, xem phần `.deb` package trong README.
 
 ## 1. Chuẩn bị môi trường
 

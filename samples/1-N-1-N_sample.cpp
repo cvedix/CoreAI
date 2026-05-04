@@ -10,7 +10,7 @@
  *
  *                        ┌─→ face_detector  (YOLOv11-face TRT) ──┐
  *   file_src → split ───┤                                        ├─→ sync (MERGE) → split → osd_0 → output_0
- *                        └─→ vehicle_detector (YOLOv11n TRT) ────┘               ↘ → osd_1 → output_1
+ *                        └─→ person_detector (YOLOv11n TRT) ────┘               ↘ → osd_1 → output_1
  *
  * Branch A: YOLOv11 face detection   (class 0 = face)
  * Branch B: YOLOv11n COCO detection  (classes 2,3,5,7 = car,motorcycle,bus,truck)
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
     // Model paths
     // ══════════════════════════════════════════════════════
     const std::string face_engine   = "./cvedix_data/models/tensorrt/face/yolov11-model-face-fp16.engine";
-    const std::string vehicle_engine = "./cvedix_data/models/yolo11n.onnx";
+    const std::string vehicle_engine = "./cvedix_data/models/yolo11n.engine";
     const std::string vehicle_labels = "./cvedix_data/models/yolov11/tensorrt/labels.txt";
 
     // Face model has 1 class (face) — create a temp labels file
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
         0.5,     // resize_ratio (50% of original)
         true,    // cycle
         "avdec_h264",
-        5        // skip_interval: process every 6th frame (~4 fps input for ONNX)
+        0        // skip_interval: 0 to process every frame at full FPS (TensorRT is fast enough)
     );
 
     // ══════════════════════════════════════════════════════
@@ -102,20 +102,20 @@ int main(int argc, char** argv) {
     // ══════════════════════════════════════════════════════
     // 4. Branch B: Vehicle Detection (YOLOv11n COCO TensorRT)
     // ══════════════════════════════════════════════════════
-    auto vehicle_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
-        "vehicle_detector",
+    auto person_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
+        "person_detector",
         vehicle_engine,
         cvedix_nodes::YoloVersion::YOLO11,
         vehicle_labels,
         0.45f,
         0.5f,
         100,     // class_id_offset = 100 to avoid collision with face class IDs
-        cvedix_nodes::BackendType::ONNX
+        cvedix_nodes::BackendType::AUTO
     );
-    // COCO: car(2), motorcycle(3), bus(5), truck(7)
-    // After offset +100: 102, 103, 105, 107
+    // COCO: person(0), car(2), motorcycle(3), bus(5), truck(7)
+    // After offset +100: 100, 102, 103, 105, 107
     // NOTE: set_allowed_classes checks AFTER class_id_offset is applied
-    vehicle_detector->set_allowed_classes({102, 103, 105, 107});
+    person_detector->set_allowed_classes({100, 102, 103, 105, 107});
 
     // ══════════════════════════════════════════════════════
     // 5. Sync: MERGE mode — combine targets from both branches
@@ -136,11 +136,19 @@ int main(int argc, char** argv) {
     // 7. OSD + Outputs
     // ══════════════════════════════════════════════════════
     auto osd_0 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_0");
+    auto cfg0 = osd_0->get_config();
+    cfg0.show_bbox = true;
+    cfg0.show_label = true;
+    osd_0->update_config(cfg0);
     auto output_0 = sample_helper::create_output(out_cfg, "des_0", 0, {file_src});
 
     auto out_cfg_1 = out_cfg;
     out_cfg_1.web_port = out_cfg.web_port + 1;
     auto osd_1 = std::make_shared<cvedix_nodes::cvedix_osd_node>("osd_1");
+    auto cfg1 = osd_1->get_config();
+    cfg1.show_bbox = true;
+    cfg1.show_label = true;
+    osd_1->update_config(cfg1);
     auto output_1 = sample_helper::create_output(out_cfg_1, "des_1", 0, {file_src});
 
     // ══════════════════════════════════════════════════════
@@ -149,7 +157,7 @@ int main(int argc, char** argv) {
     //
     //                       ┌─→ face_detector ──────┐
     //  file_src → split ───┤                         ├─→ sync → split → osd_0 → output_0
-    //                       └─→ vehicle_detector ───┘                 → osd_1 → output_1
+    //                       └─→ person_detector ───┘                 → osd_1 → output_1
     //
 
     // Input split
@@ -159,10 +167,10 @@ int main(int argc, char** argv) {
     face_detector->attach_to({split_input});
 
     // Branch B: vehicle
-    vehicle_detector->attach_to({split_input});
-
+    person_detector->attach_to({split_input});
+ 
     // Sync/Merge
-    sync->attach_to({face_detector, vehicle_detector});
+    sync->attach_to({face_detector, person_detector});
 
     // Output split
     split_output->attach_to({sync});
@@ -183,7 +191,7 @@ int main(int argc, char** argv) {
     sample_helper::init_board(output_1);
 
     sample_helper::print_output_info(out_cfg);
-    std::cout << "  Pipeline: file_src → split → [face_detector + vehicle_detector] → sync → split → 2 outputs" << std::endl;
+    std::cout << "  Pipeline: file_src → split → [face_detector + person_detector] → sync → split → 2 outputs" << std::endl;
     if (out_cfg.mode == sample_helper::OutputMode::WEB) {
         std::cout << "  Output 1: http://localhost:" << out_cfg_1.web_port << std::endl;
     }

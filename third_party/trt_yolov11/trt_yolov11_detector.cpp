@@ -513,6 +513,17 @@ void trt_yolov11_detector::detect(const std::vector<cv::Mat>& images,
         for (int i = 0; i < num_io_tensors; ++i) {
             auto name = engine->getIOTensorName(i);
             context->setTensorAddress(name, device_buffers[i]);
+
+            // For dynamic-shape engines: explicitly set input shape
+            if (engine->getTensorIOMode(name) == nvinfer1::TensorIOMode::kINPUT) {
+                nvinfer1::Dims dims;
+                dims.nbDims = 4;
+                dims.d[0] = 1;
+                dims.d[1] = 3;
+                dims.d[2] = input_height;
+                dims.d[3] = input_width;
+                context->setInputShape(name, dims);
+            }
         }
 
         // Run inference
