@@ -139,6 +139,8 @@ int main(int argc, char** argv) {
     auto cfg0 = osd_0->get_config();
     cfg0.show_bbox = true;
     cfg0.show_label = true;
+    cfg0.blur_labels = {"face"};          // ← blur detected faces
+    cfg0.face_blur_kernel_size = 71;      // stronger blur
     osd_0->update_config(cfg0);
     auto output_0 = sample_helper::create_output(out_cfg, "des_0", 0, {file_src});
 
@@ -148,6 +150,8 @@ int main(int argc, char** argv) {
     auto cfg1 = osd_1->get_config();
     cfg1.show_bbox = true;
     cfg1.show_label = true;
+    cfg1.blur_labels = {"face"};          // ← blur detected faces
+    cfg1.face_blur_kernel_size = 71;
     osd_1->update_config(cfg1);
     auto output_1 = sample_helper::create_output(out_cfg_1, "des_1", 0, {file_src});
 

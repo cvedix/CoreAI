@@ -134,14 +134,13 @@ cvedix_osd_node::handle_control_meta(std::shared_ptr<cvedix_objects::cvedix_cont
 void cvedix_osd_node::render_targets(cv::Mat &canvas,
     std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
 
-    // Collect crossed IDs for coloring
-    std::set<int> crossed_ids;
-    if (_config.enable_ba_crossline) {
-        for (auto &ba : meta->ba_results) {
-            if (ba->type == cvedix_objects::cvedix_ba_type::CROSSLINE) {
-                for (auto &tid : ba->involve_target_ids_in_frame) {
-                    crossed_ids.insert(tid);
-                }
+    // Collect alerted IDs for coloring (persistent)
+    for (auto &ba : meta->ba_results) {
+        if (ba->type == cvedix_objects::cvedix_ba_type::CROSSLINE ||
+            ba->type == cvedix_objects::cvedix_ba_type::RED_LIGHT ||
+            ba->type == cvedix_objects::cvedix_ba_type::STOP_LINE) {
+            for (auto &tid : ba->involve_target_ids_in_frame) {
+                _all_crossed_track_ids.insert(tid);
             }
         }
     }
@@ -158,6 +157,24 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
         cv::Scalar trail_color = has_crossed ? _config.alert_color : _config.trail_color;
         cv::Scalar bbox_color = has_crossed ? _config.alert_color : _config.bbox_color;
         cv::Scalar text_color = has_crossed ? _config.alert_color : _config.dot_color;
+
+        // Blur target region if label matches blur_labels list
+        if (!_config.blur_labels.empty()) {
+            for (const auto &bl : _config.blur_labels) {
+                if (i->primary_label == bl) {
+                    int bx = std::max(0, i->x);
+                    int by = std::max(0, i->y);
+                    int bw = std::min(i->width,  canvas.cols - bx);
+                    int bh = std::min(i->height, canvas.rows - by);
+                    if (bw > 5 && bh > 5) {
+                        cv::Rect roi(bx, by, bw, bh);
+                        int ks = _config.face_blur_kernel_size | 1;
+                        cv::GaussianBlur(canvas(roi), canvas(roi), cv::Size(ks, ks), 0);
+                    }
+                    break;
+                }
+            }
+        }
 
         // Track trail
         if (_config.show_track_trail && i->tracks.size() >= 2) {
@@ -625,6 +642,13 @@ void cvedix_osd_node::render_face(
         int h = std::max(1, std::min(i->height, canvas.rows - y));
 
         if (w < 10 || h < 10) continue;
+
+        // Apply Gaussian blur to face region for privacy protection
+        if (_config.enable_face_blur) {
+            cv::Rect face_roi(x, y, w, h);
+            int ks = _config.face_blur_kernel_size | 1; // ensure odd
+            cv::GaussianBlur(canvas(face_roi), canvas(face_roi), cv::Size(ks, ks), 0);
+        }
 
         cv::rectangle(canvas, cv::Rect(x, y, w, h), _config.bbox_color, _config.bbox_thickness);
 

@@ -65,6 +65,9 @@ struct unified_osd_config {
 
     // ── Domain layers (auto-detected from metadata) ──
     bool enable_face           = true;
+    bool enable_face_blur      = false;   // blur face region for privacy (face_targets)
+    int  face_blur_kernel_size = 51;      // Gaussian blur kernel (must be odd, larger = stronger)
+    std::vector<std::string> blur_labels; // blur targets matching these labels (e.g. {"face"})
     bool enable_pose           = true;
     bool enable_instance_mask  = true;   // osd_v3: per-target mask contour overlay
     bool enable_text_region    = true;   // text: polyline + text near detection

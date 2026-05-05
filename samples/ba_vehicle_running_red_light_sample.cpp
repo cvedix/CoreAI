@@ -44,20 +44,19 @@ public:
     signal_bridge_node(
         const std::string& name,
         std::shared_ptr<cvedix_nodes::cvedix_ba_line_red_light_violation_node> red_light_node,
-        int green_class_id = 200,
-        int red_class_id = 201,
+        std::set<int> green_class_ids = {200, 201, 202, 203},
+        std::set<int> red_class_ids = {204, 205, 206, 207},
         float signal_conf_threshold = 0.45f,
         int consecutive_frames = 3)
         : cvedix_node(name),
           red_light_node_(red_light_node),
-          green_class_id_(green_class_id),
-          red_class_id_(red_class_id),
+          green_class_ids_(green_class_ids),`
+          red_class_ids_(red_class_ids),
           signal_conf_threshold_(signal_conf_threshold),
           consecutive_frames_needed_(consecutive_frames) {
         CVEDIX_INFO(cvedix_utils::string_format(
-            "[%s] signal_bridge: green_id=%d, red_id=%d, conf=%.2f, consecutive=%d",
-            name.c_str(), green_class_id, red_class_id,
-            signal_conf_threshold, consecutive_frames));
+            "[%s] signal_bridge: conf=%.2f, consecutive=%d",
+            name.c_str(), signal_conf_threshold, consecutive_frames));
         this->initialized();
     }
 
@@ -76,10 +75,10 @@ protected:
             int cls = target->primary_class_id;
             float conf = target->primary_score;
             if (conf < signal_conf_threshold_) continue;
-            if (cls == red_class_id_) {
+            if (red_class_ids_.count(cls) > 0) {
                 found_red = true;
                 if (conf > best_conf) best_conf = conf;
-            } else if (cls == green_class_id_) {
+            } else if (green_class_ids_.count(cls) > 0) {
                 found_green = true;
                 if (conf > best_conf) best_conf = conf;
             }
@@ -122,12 +121,68 @@ protected:
 
 private:
     std::shared_ptr<cvedix_nodes::cvedix_ba_line_red_light_violation_node> red_light_node_;
-    int green_class_id_;
-    int red_class_id_;
+    std::set<int> green_class_ids_;
+    std::set<int> red_class_ids_;
     float signal_conf_threshold_;
     int consecutive_frames_needed_;
     std::map<int, cvedix_nodes::traffic_signal_state> last_candidate_;
     std::map<int, int> consecutive_count_;
+};
+
+// Multi-branch Sync Node
+class cvedix_multi_sync_node : public cvedix_nodes::cvedix_node {
+public:
+    cvedix_multi_sync_node(const std::string& name, int expected_branches)
+        : cvedix_node(name), expected_branches_(expected_branches) {
+        this->initialized();
+    }
+    ~cvedix_multi_sync_node() { deinitialized(); }
+
+protected:
+    std::shared_ptr<cvedix_objects::cvedix_meta> handle_frame_meta(
+        std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) override {
+        
+        std::lock_guard<std::mutex> lock(sync_mutex_);
+        int ch = meta->channel_index;
+        int fi = meta->frame_index;
+        
+        auto& ch_cache = cache_[ch];
+        
+        if (ch_cache.find(fi) == ch_cache.end()) {
+            ch_cache[fi] = std::dynamic_pointer_cast<cvedix_objects::cvedix_frame_meta>(meta->clone());
+            ch_cache[fi]->targets.clear();
+            ch_cache[fi]->targets.insert(ch_cache[fi]->targets.end(), meta->targets.begin(), meta->targets.end());
+            count_[ch][fi] = 1;
+        } else {
+            auto des = ch_cache[fi];
+            des->targets.insert(des->targets.end(), meta->targets.begin(), meta->targets.end());
+            count_[ch][fi]++;
+        }
+        
+        if (count_[ch][fi] == expected_branches_) {
+            auto result = ch_cache[fi];
+            ch_cache.erase(fi);
+            count_[ch].erase(fi);
+            
+            // Cleanup older frames that missed some branches
+            for (auto it = ch_cache.begin(); it != ch_cache.end(); ) {
+                if (fi - it->first > 15) { // 15 frames max queue
+                    count_[ch].erase(it->first);
+                    it = ch_cache.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+            
+            pendding_meta(result);
+        }
+        return nullptr;
+    }
+private:
+    int expected_branches_;
+    std::mutex sync_mutex_;
+    std::map<int, std::map<int, std::shared_ptr<cvedix_objects::cvedix_frame_meta>>> cache_;
+    std::map<int, std::map<int, int>> count_;
 };
 
 struct AppConfig {
@@ -176,8 +231,8 @@ int main(int argc, char** argv) {
     // Model paths
     const std::string vehicle_engine = "./cvedix_data/models/yolo11n.engine";
     const std::string vehicle_labels = "./cvedix_data/models/yolov11/tensorrt/labels.txt";
-    const std::string traffic_sign_engine = "./cvedix_data/models/traffic_sign_detector.engine";
-    const std::string traffic_sign_labels = "./cvedix_data/models/traffic_sign_labels.txt";
+    const std::string traffic_sign_engine = "./cvedix_data/models/traffic-lights.engine";
+    const std::string traffic_sign_labels = "./cvedix_data/models/traffic-lights-labels.txt";
     const std::string plate_engine = "./cvedix_data/models/license-plate-finetune-v1n.engine";
     const std::string plate_labels = "./cvedix_data/models/license_plate_labels.txt";
 
@@ -206,7 +261,7 @@ int main(int argc, char** argv) {
     );
     vehicle_detector->set_allowed_classes({0, 1, 2, 3, 5, 7});
 
-    // 4. Branch B: Traffic Sign Detection
+    // 4. Branch B: Traffic Sign/Light Detection
     auto traffic_sign_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "traffic_sign_detector",
         traffic_sign_engine,
@@ -215,6 +270,8 @@ int main(int argc, char** argv) {
         0.35f, 0.45f, 200,
         cvedix_nodes::BackendType::TENSORRT
     );
+    // Explicitly allow all traffic light classes (0-7 mapped to 200-207)
+    traffic_sign_detector->set_allowed_classes({200, 201, 202, 203, 204, 205, 206, 207});
 
     // 5. Branch C: License Plate Detection
     auto plate_detector = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
@@ -226,12 +283,8 @@ int main(int argc, char** argv) {
         cvedix_nodes::BackendType::TENSORRT
     );
 
-    // 6. Sync: Merge all 3 branches
-    auto sync = std::make_shared<cvedix_nodes::cvedix_sync_node>(
-        "sync_merge",
-        cvedix_nodes::cvedix_sync_mode::MERGE,
-        2000
-    );
+    // 6. Sync: Merge all 3 branches using custom multi-sync node
+    auto sync = std::make_shared<cvedix_multi_sync_node>("sync_merge", 3);
 
     // 7. Tracker: ByteTrack
     auto tracker = std::make_shared<cvedix_nodes::cvedix_bytetrack_node>(
@@ -271,10 +324,12 @@ int main(int argc, char** argv) {
     auto ba_red_light = std::make_shared<cvedix_nodes::cvedix_ba_line_red_light_violation_node>(
         "ba_red_light", rl_configs, true, true);
 
-    // 9. Signal Bridge: auto-detect signal state from traffic sign model
+    // 9. Signal Bridge: auto-detect signal state from traffic light model
     auto signal_bridge = std::make_shared<signal_bridge_node>(
         "signal_bridge", ba_red_light,
-        200, 201, 0.45f, 3
+        std::set<int>{200, 201, 202, 203},
+        std::set<int>{204, 205, 206, 207},
+        0.45f, 3
     );
 
     // 10. OSD
