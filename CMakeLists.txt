@@ -26,6 +26,7 @@ option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
 option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
+option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search?" OFF)
 option(CVEDIX_BUILD_SAMPLES "build samples or not? (saves build time and resources)" OFF)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
@@ -672,7 +673,7 @@ endif()
 set(SEETAFACE6_DIR ${CMAKE_SOURCE_DIR}/third_party/seetaface6)
 set(SEETAFACE6_BUILD_DIR ${SEETAFACE6_DIR}/build)
 if(EXISTS ${SEETAFACE6_BUILD_DIR}/lib AND EXISTS ${SEETAFACE6_BUILD_DIR}/include)
-    add_definitions(-DCVEDIX_WITH_SEETAFACE)
+    add_definitions(-DCVEDIX_WITH_FACE)
     include_directories(${SEETAFACE6_BUILD_DIR}/include)
     link_directories(${SEETAFACE6_BUILD_DIR}/lib)
     list(APPEND CVEDIX_DEPEND_LIBS
@@ -680,14 +681,40 @@ if(EXISTS ${SEETAFACE6_BUILD_DIR}/lib AND EXISTS ${SEETAFACE6_BUILD_DIR}/include
         SeetaFaceLandmarker600
         SeetaFaceRecognizer610
         SeetaMaskDetector200
+        SeetaAgePredictor600
+        SeetaGenderPredictor600
+        SeetaEyeStateDetector200
+        SeetaPoseEstimation600
+        SeetaFaceAntiSpoofingX600
         tennis
     )
-    set(CVEDIX_WITH_SEETAFACE ON)
+    set(CVEDIX_WITH_FACE ON)
     message(STATUS "SeetaFace6 found at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes will be available")
 else()
     message(STATUS "SeetaFace6 not built at ${SEETAFACE6_BUILD_DIR} - SeetaFace nodes disabled")
     message(STATUS "  To build: cd ${SEETAFACE6_DIR} && bash build_seetaface6.sh")
-    set(CVEDIX_WITH_SEETAFACE OFF)
+    set(CVEDIX_WITH_FACE OFF)
+endif()
+
+# optional for Milvus vector database (large-scale face search)
+set(MILVUS_SDK_DIR ${CMAKE_SOURCE_DIR}/third_party)
+set(MILVUS_SDK_BUILD_DIR ${MILVUS_SDK_DIR}/milvus-sdk-cpp-build)
+if(CVEDIX_WITH_MILVUS)
+    if(EXISTS ${MILVUS_SDK_BUILD_DIR}/lib AND EXISTS ${MILVUS_SDK_BUILD_DIR}/include)
+        add_definitions(-DCVEDIX_WITH_MILVUS)
+        include_directories(${MILVUS_SDK_BUILD_DIR}/include)
+        # Add third_party to include path so that <nlohmann/json.hpp> can be resolved
+        include_directories(${CMAKE_SOURCE_DIR}/third_party)
+        link_directories(${MILVUS_SDK_BUILD_DIR}/lib)
+        list(APPEND CVEDIX_DEPEND_LIBS milvus_sdk)
+        message(STATUS "Milvus SDK found at ${MILVUS_SDK_BUILD_DIR} - Milvus face search node will be available")
+    else()
+        message(WARNING "Milvus SDK not built at ${MILVUS_SDK_BUILD_DIR} - Milvus nodes disabled")
+        message(STATUS "  To build: cd ${MILVUS_SDK_DIR} && bash build_milvus_sdk.sh")
+        set(CVEDIX_WITH_MILVUS OFF)
+    endif()
+else()
+    message(STATUS "Milvus support: disabled (use -DCVEDIX_WITH_MILVUS=ON to enable)")
 endif()
 
 # tinyexpr
@@ -797,8 +824,14 @@ if(NOT CVEDIX_WITH_ORT)
 endif()
 
 # Exclude SeetaFace-based nodes if SeetaFace6 is not built
-if(NOT CVEDIX_WITH_SEETAFACE)
+if(NOT CVEDIX_WITH_FACE)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*face_recognizer_node.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*face_analysis_node.*")
+endif()
+
+# Exclude Milvus-based nodes if Milvus SDK is not available
+if(NOT CVEDIX_WITH_MILVUS)
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*milvus.*")
 endif()
 
 # Add PaddleDetection core sources when Paddle is enabled

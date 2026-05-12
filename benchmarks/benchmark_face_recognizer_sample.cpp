@@ -14,10 +14,10 @@
  *   Accuracy mode (LFW benchmark):
  *     ./benchmark_face_recognizer_sample --accuracy --dataset=lfw [model_dir] [dataset_dir]
  *
- * Requires: -DCVEDIX_WITH_SEETAFACE=ON
+ * Requires: -DCVEDIX_WITH_FACE=ON
  */
 
-#ifdef CVEDIX_WITH_SEETAFACE
+#ifdef CVEDIX_WITH_FACE
 
 #include <seeta/FaceDetector.h>
 #include <seeta/FaceLandmarker.h>
@@ -444,8 +444,8 @@ int main(int argc, char** argv) {
 int main() {
     std::cerr << "This benchmark requires SeetaFace6." << std::endl;
     std::cerr << "Build SeetaFace6: cd third_party/seetaface6 && bash build_seetaface6.sh" << std::endl;
-    std::cerr << "Then rebuild with: -DCVEDIX_WITH_SEETAFACE=ON" << std::endl;
+    std::cerr << "Then rebuild with: -DCVEDIX_WITH_FACE=ON" << std::endl;
     return 1;
 }
 
-#endif // CVEDIX_WITH_SEETAFACE
+#endif // CVEDIX_WITH_FACE

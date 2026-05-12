@@ -95,6 +95,7 @@ file_src_1                                                                --> tr
   - cvedix_mllm_analyser_node：Phân tích ảnh bằng LLM
   - **cvedix_clip_node**：CLIP zero-shot classification (full-frame → description)
   - **cvedix_clip_secondary_node**：CLIP per-target classification (secondary → labels + embeddings)
+  - **cvedix_milvus_face_search_node**：Tìm kiếm khuôn mặt quy mô lớn qua Milvus vector database (100M+ faces, HNSW index)
 </details>
   
   - cvedix_classifier_node：Node phân loại hình ảnh dựa trên resnet series（opencv::dnn）

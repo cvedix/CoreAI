@@ -24,7 +24,7 @@
  * // At runtime: auto-detects mask → routes to appropriate model
  * @endcode
  * 
- * @note Requires pre-built SeetaFace6 libraries. Build with -DCVEDIX_WITH_SEETAFACE=ON.
+ * @note Requires pre-built SeetaFace6 libraries. Build with -DCVEDIX_WITH_FACE=ON.
  * @note Model files (.csta) must be downloaded separately (~250MB).
  * 
  * @see cvedix_face_detector_node OpenCV-based face detection (lighter, no recognition)
@@ -32,7 +32,7 @@
 
 #pragma once
 
-#ifdef CVEDIX_WITH_SEETAFACE
+#ifdef CVEDIX_WITH_FACE
 
 #include <mutex>
 #include <unordered_map>
@@ -162,4 +162,4 @@ namespace cvedix_nodes {
 
 }
 
-#endif // CVEDIX_WITH_SEETAFACE
+#endif // CVEDIX_WITH_FACE

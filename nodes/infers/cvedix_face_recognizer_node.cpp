@@ -8,7 +8,7 @@
  *   extract features with BOTH models → store in BOTH databases
  */
 
-#ifdef CVEDIX_WITH_SEETAFACE
+#ifdef CVEDIX_WITH_FACE
 
 #include "cvedix_face_recognizer_node.h"
 
@@ -482,4 +482,4 @@ namespace cvedix_nodes {
 
 }
 
-#endif // CVEDIX_WITH_SEETAFACE
+#endif // CVEDIX_WITH_FACE

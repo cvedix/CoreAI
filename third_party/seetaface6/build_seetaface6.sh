@@ -201,11 +201,48 @@ build_sdk_module() {
 # ============================================================
 # 4-7. Build SDK Modules
 # ============================================================
-build_sdk_module 4 "FaceDetector"    "${SCRIPT_DIR}/FaceBoxes"
-build_sdk_module 5 "FaceLandmarker"  "${SCRIPT_DIR}/Landmarker"
-build_sdk_module 6 "FaceRecognizer"  "${SCRIPT_DIR}/FaceRecognizer6"
-build_sdk_module 7 "QualityAssessor" "${SCRIPT_DIR}/QualityAssessor3"
-build_sdk_module 8 "MaskDetector"    "${SCRIPT_DIR}/SeetaMaskDetector"
+build_sdk_module 4  "FaceDetector"       "${SCRIPT_DIR}/FaceBoxes"
+build_sdk_module 5  "FaceLandmarker"     "${SCRIPT_DIR}/Landmarker"
+build_sdk_module 6  "FaceRecognizer"     "${SCRIPT_DIR}/FaceRecognizer6"
+build_sdk_module 7  "QualityAssessor"    "${SCRIPT_DIR}/QualityAssessor3"
+build_sdk_module 8  "MaskDetector"       "${SCRIPT_DIR}/SeetaMaskDetector"
+build_sdk_module 9  "AgePredictor"       "${SCRIPT_DIR}/SeetaAgePredictor"
+build_sdk_module 10 "GenderPredictor"    "${SCRIPT_DIR}/SeetaGenderPredictor"
+build_sdk_module 11 "EyeStateDetector"   "${SCRIPT_DIR}/SeetaEyeStateDetector"
+build_sdk_module 12 "PoseEstimator"      "${SCRIPT_DIR}/PoseEstimator6"
+
+# FaceAntiSpoofingX6 requires special handling (non-standard cmake structure)
+echo ""
+echo "[13/13] Building FaceAntiSpoofing..."
+FAS_DIR="${SCRIPT_DIR}/FaceAntiSpoofingX6"
+FAS_BUILD="${BUILD_ROOT}/faceantispoofing_build"
+mkdir -p "${FAS_BUILD}"
+cd "${FAS_BUILD}"
+cmake "${FAS_DIR}" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCONFIGURATION=Release \
+    -DPLATFORM=auto \
+    -DSEETA_AUTHORIZE=OFF \
+    -DSEETA_MODEL_ENCRYPT=OFF \
+    -DCMAKE_MODULE_PATH="${BUILD_ROOT}/cmake;${INSTALL_DIR}/cmake" \
+    -DCMAKE_PREFIX_PATH="${BUILD_ROOT}/cmake;${INSTALL_DIR}/cmake;${INSTALL_DIR}" \
+    -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
+    -DORZ_ROOT_DIR="${INSTALL_DIR}" \
+    2>&1 | tail -10
+make -j${NPROC} 2>&1 | tail -5
+make install 2>&1 | tail -3
+# Copy headers and libs
+for inc_dir in $(find "${FAS_DIR}" -path "*/include/seeta" -type d); do
+    cp "${inc_dir}"/*.h "${BUILD_ROOT}/include/seeta/" 2>/dev/null || true
+    if [ -d "${inc_dir}/Common" ]; then
+        mkdir -p "${BUILD_ROOT}/include/seeta/Common"
+        cp "${inc_dir}/Common/"*.h "${BUILD_ROOT}/include/seeta/Common/" 2>/dev/null || true
+    fi
+done
+find "${FAS_BUILD}" "${FAS_DIR}" -maxdepth 4 \
+    \( -name "libSeeta*.so*" -o -name "libSeeta*.a" \) \
+    -exec cp {} "${BUILD_ROOT}/lib/" \; 2>/dev/null || true
+echo "[13/13] FaceAntiSpoofing DONE"
 
 # ============================================================
 # Summary
@@ -221,5 +258,5 @@ echo " Headers:"
 ls "${BUILD_ROOT}/include/seeta/"*.h 2>/dev/null | head -20 || echo "  (none found)"
 echo ""
 echo " To use in edgeos-sdk, build with:"
-echo "   cmake .. -DCVEDIX_WITH_SEETAFACE=ON"
+echo "   cmake .. -DCVEDIX_WITH_FACE=ON"
 echo "============================================"

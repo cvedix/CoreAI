@@ -124,6 +124,33 @@ if(CVEDIX_WITH_OPENVINO)
     )
 endif()
 
+# SeetaFace6 face analysis sample
+if(CVEDIX_WITH_FACE)
+    add_executable(face_analysis_seetaface_sample "face_analysis_seetaface_sample.cpp")
+    target_link_libraries(face_analysis_seetaface_sample ${PROJECT_NAME})
+
+    install(TARGETS
+        face_analysis_seetaface_sample
+        DESTINATION bin
+        OPTIONAL
+    )
+endif()
+
+# Milvus large-scale face search sample (requires SeetaFace6 + Milvus)
+if(CVEDIX_WITH_FACE AND CVEDIX_WITH_MILVUS)
+    add_executable(milvus_face_search_sample "milvus_face_search_sample.cpp")
+    target_link_libraries(milvus_face_search_sample ${PROJECT_NAME})
+
+    add_executable(milvus_auto_register_sample "milvus_auto_register_sample.cpp")
+    target_link_libraries(milvus_auto_register_sample ${PROJECT_NAME})
+
+    install(TARGETS
+        milvus_face_search_sample
+        milvus_auto_register_sample
+        DESTINATION bin
+        OPTIONAL
+    )
+endif()
 
 
 

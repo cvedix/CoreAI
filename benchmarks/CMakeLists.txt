@@ -26,11 +26,11 @@ if(CVEDIX_WITH_TRT)
     )
 endif()
 
-if(CVEDIX_WITH_SEETAFACE)
+if(CVEDIX_WITH_FACE)
     # Face Recognizer Benchmark: detect → mask check → landmarks → feature → match
     # Standalone: links directly against SeetaFace6 + OpenCV (no cvedix_core dependency)
     add_executable(benchmark_face_recognizer_sample "benchmark_face_recognizer_sample.cpp")
-    target_compile_definitions(benchmark_face_recognizer_sample PRIVATE CVEDIX_WITH_SEETAFACE)
+    target_compile_definitions(benchmark_face_recognizer_sample PRIVATE CVEDIX_WITH_FACE)
     target_include_directories(benchmark_face_recognizer_sample PRIVATE
         ${CMAKE_SOURCE_DIR}/third_party/seetaface6/build/include
         ${CMAKE_SOURCE_DIR}/third_party

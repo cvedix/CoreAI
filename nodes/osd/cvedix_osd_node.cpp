@@ -650,14 +650,94 @@ void cvedix_osd_node::render_face(
             cv::GaussianBlur(canvas(face_roi), canvas(face_roi), cv::Size(ks, ks), 0);
         }
 
-        cv::rectangle(canvas, cv::Rect(x, y, w, h), _config.bbox_color, _config.bbox_thickness);
+        // ── Determine bbox color based on liveness status ──
+        cv::Scalar bbox_color = _config.bbox_color;
+        if (i->liveness_status == 0)       bbox_color = cv::Scalar(0, 200, 0);     // REAL → green
+        else if (i->liveness_status == 1)  bbox_color = cv::Scalar(0, 0, 255);     // SPOOF → red
+        else if (i->liveness_status == 2)  bbox_color = cv::Scalar(0, 200, 255);   // FUZZY → yellow
 
+        cv::rectangle(canvas, cv::Rect(x, y, w, h), bbox_color, _config.bbox_thickness);
+
+        // ── Build info labels ──
+        int label_y = y - 5;
+        double font_scale = _config.label_font_scale;
+        int font = cv::FONT_HERSHEY_SIMPLEX;
+        int thickness = 1;
+
+        // Line 1: Identity or "Unknown" + track ID
+        std::string line1 = "";
+        if (!i->identify.empty()) {
+            line1 = i->identify;
+            if (i->identify_score > 0)
+                line1 += " " + cvedix_utils::string_format("%.0f%%", i->identify_score * 100);
+        }
         if (i->track_id != -1) {
-            cv::putText(canvas, std::to_string(i->track_id), cv::Point(x, y),
-                        cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(0, 0, 255), 1);
+            line1 = (line1.empty() ? "" : line1 + " ") + "#" + std::to_string(i->track_id);
         }
 
-        // 5-point keypoints
+        // Line 2: Gender + Age + Mask
+        std::string line2 = "";
+        if (!i->gender_str.empty()) line2 += i->gender_str;
+        if (i->age >= 0) line2 += (line2.empty() ? "" : ", ") + std::to_string(i->age) + "y";
+        if (i->wearing_mask) line2 += (line2.empty() ? "" : " ") + std::string("[Mask]");
+
+        // Line 3: Eye state + Liveness
+        std::string line3 = "";
+        auto eye_str = [](int s) -> std::string {
+            switch(s) {
+                case 0: return "Closed";
+                case 1: return "Open";
+                case 2: return "Random";
+                default: return "";
+            }
+        };
+        std::string left_e = eye_str(i->left_eye_state);
+        std::string right_e = eye_str(i->right_eye_state);
+        if (!left_e.empty() || !right_e.empty()) {
+            line3 += "Eyes:";
+            if (!left_e.empty()) line3 += "L=" + left_e;
+            if (!right_e.empty()) line3 += (left_e.empty() ? "" : ",") + std::string("R=") + right_e;
+        }
+        if (i->liveness_status >= 0) {
+            std::string lv;
+            switch(i->liveness_status) {
+                case 0: lv = "Real"; break;
+                case 1: lv = "SPOOF!"; break;
+                case 2: lv = "Fuzzy"; break;
+                default: lv = "?"; break;
+            }
+            line3 += (line3.empty() ? "" : " | ") + lv;
+        }
+
+        // Line 4: Head pose
+        std::string line4 = "";
+        if (i->pose_valid) {
+            line4 = cvedix_utils::string_format("Y:%.0f P:%.0f R:%.0f", i->yaw, i->pitch, i->roll);
+        }
+
+        // ── Draw labels with dark background ──
+        auto draw_label = [&](const std::string& text, int& ly, cv::Scalar color) {
+            if (text.empty()) return;
+            int baseline = 0;
+            auto sz = cv::getTextSize(text, font, font_scale, thickness, &baseline);
+            cv::rectangle(canvas,
+                cv::Point(x, ly - sz.height - 4),
+                cv::Point(x + sz.width + 6, ly + 2),
+                cv::Scalar(0, 0, 0), cv::FILLED);
+            cv::putText(canvas, text, cv::Point(x + 3, ly - 1), font, font_scale, color, thickness, cv::LINE_AA);
+            ly -= (sz.height + 6);
+        };
+
+        // Draw from bottom to top above the bbox
+        if (!line4.empty()) draw_label(line4, label_y, cv::Scalar(200, 200, 200));
+        if (!line3.empty()) {
+            cv::Scalar c3 = (i->liveness_status == 1) ? cv::Scalar(100, 100, 255) : cv::Scalar(200, 255, 200);
+            draw_label(line3, label_y, c3);
+        }
+        if (!line2.empty()) draw_label(line2, label_y, cv::Scalar(255, 220, 150));
+        if (!line1.empty()) draw_label(line1, label_y, cv::Scalar(255, 255, 255));
+
+        // ── 5-point keypoints ──
         if (i->key_points.size() >= 5) {
             static const cv::Scalar kp_colors[] = {
                 cv::Scalar(255, 0, 0),   cv::Scalar(0, 0, 255),
@@ -669,6 +749,19 @@ void cvedix_osd_node::render_face(
                 int ky = std::max(0, std::min(i->key_points[kp].second, canvas.rows - 1));
                 cv::circle(canvas, cv::Point(kx, ky), 3, kp_colors[kp], 2);
             }
+        }
+
+        // ── Head pose direction arrow ──
+        if (i->pose_valid) {
+            int cx = x + w / 2;
+            int cy = y + h / 2;
+            int arrow_len = std::min(w, h) / 3;
+            double yaw_rad = i->yaw * CV_PI / 180.0;
+            double pitch_rad = i->pitch * CV_PI / 180.0;
+            int dx = static_cast<int>(arrow_len * std::sin(yaw_rad));
+            int dy = static_cast<int>(-arrow_len * std::sin(pitch_rad));
+            cv::arrowedLine(canvas, cv::Point(cx, cy), cv::Point(cx + dx, cy + dy),
+                           cv::Scalar(0, 255, 255), 2, cv::LINE_AA, 0, 0.3);
         }
     }
 }
