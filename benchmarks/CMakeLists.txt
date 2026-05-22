@@ -55,3 +55,19 @@ if(CVEDIX_WITH_FACE)
         OPTIONAL
     )
 endif()
+
+if(CVEDIX_WITH_LLM)
+    add_executable(benchmark_llm "benchmark_llm.cpp")
+    target_include_directories(benchmark_llm PRIVATE 
+        ${CMAKE_SOURCE_DIR}/third_party/llm_engine/include
+        ${CMAKE_SOURCE_DIR}/third_party
+    )
+    target_link_libraries(benchmark_llm PRIVATE llm_engine ${PROJECT_NAME})
+
+    install(TARGETS 
+        benchmark_llm
+        DESTINATION bin
+        OPTIONAL
+    )
+endif()
+

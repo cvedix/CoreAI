@@ -23,7 +23,7 @@ option(CVEDIX_WITH_CUDA "prepared CUDA or not?" OFF)
 option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
 option(CVEDIX_WITH_OPENVINO "prepared OpenVINO or not?" OFF)
 option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
-option(CVEDIX_WITH_LLM "prepared LLM or not?" OFF)
+option(CVEDIX_WITH_LLM "Enable LLM support (HTTP mLLM client + local llama.cpp inference)?" OFF)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
 option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search?" OFF)
@@ -316,6 +316,74 @@ if(CVEDIX_WITH_LLM)
     include_directories(${OPENSSL_INCLUDE_DIR})
     list(APPEND CVEDIX_DEPEND_LIBS ${OPENSSL_LIBRARIES})
     add_definitions(-DCVEDIX_WITH_LLM)
+endif()
+
+# optional for LLM (local LLM inference via llama.cpp with CUDA)
+if(CVEDIX_WITH_LLM)
+
+    # LLM requires CUDA for GPU-accelerated inference
+    if(NOT CVEDIX_WITH_CUDA)
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "CVEDIX_WITH_LLM requires CUDA!\n"
+            "========================================\n"
+            "LLM uses llama.cpp with CUDA backend for\n"
+            "GPU-accelerated LLM inference.\n"
+            "\n"
+            "Enable CUDA:\n"
+            "  cmake -DCVEDIX_WITH_CUDA=ON -DCVEDIX_WITH_LLM=ON ..\n"
+            "\n"
+            "Or disable LLM:\n"
+            "  cmake -DCVEDIX_WITH_LLM=OFF ..\n"
+            "========================================\n"
+        )
+    endif()
+
+    # Check that llama.cpp submodule exists
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/third_party/llama.cpp/CMakeLists.txt")
+        message(FATAL_ERROR "\n"
+            "========================================\n"
+            "llama.cpp submodule not found!\n"
+            "========================================\n"
+            "Please initialize the git submodule:\n"
+            "  git submodule update --init third_party/llama.cpp\n"
+            "========================================\n"
+        )
+    endif()
+
+    # Configure llama.cpp build options
+    if(CVEDIX_WITH_CUDA)
+        set(GGML_CUDA ON CACHE BOOL "" FORCE)
+        set(GGML_CUDA_F16 ON CACHE BOOL "" FORCE)
+        # Auto-detect GPU architecture if not explicitly set
+        # Supports: sm_75 (Turing), sm_80 (A100), sm_86 (RTX 30xx), sm_87 (Jetson Orin),
+        #           sm_89 (RTX 40xx), sm_90 (H100)
+        if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES OR CMAKE_CUDA_ARCHITECTURES STREQUAL "")
+            set(CMAKE_CUDA_ARCHITECTURES "native" CACHE STRING "CUDA architectures" FORCE)
+            message(STATUS "CUDA arch auto-detected: native")
+        endif()
+    else()
+        set(GGML_CUDA OFF CACHE BOOL "" FORCE)
+    endif()
+    set(LLAMA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    set(LLAMA_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(LLAMA_BUILD_SERVER OFF CACHE BOOL "" FORCE)
+    set(LLAMA_BUILD_COMMON ON CACHE BOOL "" FORCE)
+
+    message("-------------start build llama.cpp--------------")
+    add_subdirectory(third_party/llama.cpp)
+    message("--------------end build llama.cpp---------------")
+
+    # Build LLM engine wrapper
+    message("-------------start build llm_engine---------")
+    add_subdirectory(third_party/llm_engine)
+    list(APPEND CVEDIX_PRIVATE_DEPEND_LIBS llm_engine)
+    message("--------------end build llm_engine----------")
+
+    message(STATUS "LLM library status:")
+    message(STATUS "    llama.cpp: ${CMAKE_SOURCE_DIR}/third_party/llama.cpp")
+    message(STATUS "    CUDA arch: ${CMAKE_CUDA_ARCHITECTURES}")
+    message(STATUS "    LLM engine: enabled")
 endif()
 
 # FFmpeg mandatory
@@ -804,6 +872,7 @@ list(FILTER CORE_UTILS EXCLUDE REGEX ".*rga.*")
 # Exclude LLM-related files if LLM is not enabled
 if(NOT CVEDIX_WITH_LLM)
     list(FILTER CORE_NODES EXCLUDE REGEX ".*mllm.*")
+    list(FILTER CORE_NODES EXCLUDE REGEX ".*llm.*")
 endif()
 
 # Exclude Paddle-related nodes if Paddle is not enabled
@@ -863,6 +932,7 @@ target_link_libraries(cvedix_core
         dl
     PRIVATE
         tinyexpr
+        ${CVEDIX_PRIVATE_DEPEND_LIBS}
 )
 
 # Alias
@@ -935,6 +1005,8 @@ if(CVEDIX_WITH_ORT AND TARGET cvedix_yolo_ort_detector)
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cvedix
     )
 endif()
+
+
 
 # Installation
 install(TARGETS cvedix_core EXPORT cvedix-targets
@@ -1035,7 +1107,7 @@ endif()
 
 
 # build for benchmarks
-# add_subdirectory(benchmarks)
+add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---
