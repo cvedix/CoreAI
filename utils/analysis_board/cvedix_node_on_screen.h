@@ -77,7 +77,7 @@ namespace cvedix_utils {
         const int node_queue_port_w_h = 6;
         const int node_queue_port_padding = 8;
         const int node_gap_horizontal = 40;
-        const int node_gap_vertical = 10;
+        const int node_gap_vertical = 40;
 
         // Brand text configuration
         const std::string brand_text = "CVEDIX Instance Pipeline";

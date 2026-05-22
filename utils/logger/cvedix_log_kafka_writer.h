@@ -32,6 +32,12 @@ namespace cvedix_utils {
         // initialize writer
         void init(std::string kafka_servers, std::string topic_name);
 
+        // shutdown/cleanup writer resources
+        void shutdown();
+
+        // check if initialized
+        bool is_inited() const { return inited; }
+
         // for << operator
         cvedix_log_kafka_writer& operator<<(std::string log);
     };

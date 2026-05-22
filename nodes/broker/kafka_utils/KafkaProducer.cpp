@@ -130,17 +130,30 @@ KafkaProducer::KafkaProducer(const std::string& brokers, const std::string& topi
 }
 
 KafkaProducer::~KafkaProducer() {
-	while (m_producer->outq_len() > 0) {
-		std::cerr << "Waiting for " << m_producer->outq_len() << std::endl;
-		m_producer->flush(5000);
+	std::cerr << "[DEBUG KafkaProducer] Destructor started" << std::endl;
+	if (m_producer) {
+		std::cerr << "[DEBUG KafkaProducer] Flashing producer, outq_len = " << m_producer->outq_len() << std::endl;
+		while (m_producer->outq_len() > 0) {
+			std::cerr << "Waiting for " << m_producer->outq_len() << std::endl;
+			m_producer->flush(5000);
+		}
+		std::cerr << "[DEBUG KafkaProducer] Flashing done" << std::endl;
 	}
-	delete m_config;
-	delete m_topicConfig;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_topic" << std::endl;
 	delete m_topic;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_producer" << std::endl;
 	delete m_producer;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_config" << std::endl;
+	delete m_config;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_topicConfig" << std::endl;
+	delete m_topicConfig;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_dr_cb" << std::endl;
 	delete m_dr_cb;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_event_cb" << std::endl;
 	delete m_event_cb;
+	std::cerr << "[DEBUG KafkaProducer] Deleting m_partitioner_cb" << std::endl;
 	delete m_partitioner_cb;
+	std::cerr << "[DEBUG KafkaProducer] Destructor completed" << std::endl;
 }
 
 

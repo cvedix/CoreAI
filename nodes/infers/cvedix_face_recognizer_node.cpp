@@ -11,6 +11,7 @@
 #ifdef CVEDIX_WITH_FACE
 
 #include "cvedix_face_recognizer_node.h"
+#include "cvedix_milvus_vector_search_node.h"
 
 // SeetaFace6 headers
 #include <seeta/FaceDetector.h>
@@ -67,7 +68,9 @@ namespace cvedix_nodes {
         int min_face_size,
         bool use_68_landmarks,
         bool use_gpu,
-        int gpu_id)
+        int gpu_id,
+        FaceRecognizerMode mode,
+        std::shared_ptr<cvedix_milvus_vector_search_node> milvus_node)
         : cvedix_primary_infer_node(node_name, ""),
           model_dir_(std::move(model_dir)),
           db_path_(std::move(db_path)),
@@ -75,13 +78,24 @@ namespace cvedix_nodes {
           min_face_size_(min_face_size),
           use_68_landmarks_(use_68_landmarks),
           use_gpu_(use_gpu),
-          gpu_id_(gpu_id)
+          gpu_id_(gpu_id),
+          mode_(mode),
+          milvus_node_(milvus_node)
     {
+        if (mode_ == FaceRecognizerMode::ASYNC) {
+            worker_running_ = true;
+            worker_ = std::thread(&cvedix_face_recognizer_node::workerLoop, this);
+        }
         this->initialized();
     }
 
     // ── Destructor ──
     cvedix_face_recognizer_node::~cvedix_face_recognizer_node() {
+        if (mode_ == FaceRecognizerMode::ASYNC) {
+            worker_running_ = false;
+            queue_cv_.notify_all();
+            if (worker_.joinable()) worker_.join();
+        }
         delete database_mask_;
         delete database_std_;
         delete recognizer_mask_;
@@ -239,40 +253,116 @@ namespace cvedix_nodes {
                 // FaceRecognizer::Extract() requires exactly 5 points (first 5)
                 SeetaPointF* points_for_recognition = points.data();
 
-                // Step 5: Extract features
-                int feature_size = recognizer->GetExtractFeatureSize();
-                std::vector<float> features(feature_size);
-                bool extracted = recognizer->Extract(simg, points_for_recognition, features.data());
+                if (mode_ == FaceRecognizerMode::SYNC) {
+                    // Step 5: Extract features
+                    int feature_size = recognizer->GetExtractFeatureSize();
+                    std::vector<float> features(feature_size);
+                    bool extracted = recognizer->Extract(simg, points_for_recognition, features.data());
 
-                // Step 6: Database matching
-                std::string identity = "";
-                float identify_score = 0.0f;
+                    // Step 6: Database matching
+                    std::string identity = "";
+                    float identify_score = 0.0f;
 
-                if (db_enabled_ && database && database->Count() > 0 && extracted) {
-                    float similarity = 0.0f;
-                    int64_t idx = database->Query(simg, points_for_recognition, &similarity);
-
-                    if (idx >= 0 && similarity >= similarity_threshold_) {
-                        auto it = id_to_name.find(idx);
-                        if (it != id_to_name.end()) {
-                            identity = it->second;
-                        } else {
-                            identity = "ID_" + std::to_string(idx);
+#ifdef CVEDIX_WITH_MILVUS
+                    if (milvus_node_ && extracted) {
+                        auto results = milvus_node_->searchFace(features, 1);
+                        if (!results.empty() && results[0].id >= 0) {
+                            float sim = results[0].score; // Assuming Milvus Metric is IP (0.0 to 1.0)
+                            if (sim >= similarity_threshold_) {
+                                identity = results[0].name;
+                                if (identity.empty()) identity = "ID_" + std::to_string(results[0].id);
+                                identify_score = sim;
+                            }
                         }
-                        identify_score = similarity;
+                    } else
+#endif
+                    if (db_enabled_ && database && database->Count() > 0 && extracted) {
+                        float similarity = 0.0f;
+                        int64_t idx = database->Query(simg, points_for_recognition, &similarity);
+
+                        if (idx >= 0 && similarity >= similarity_threshold_) {
+                            auto it = id_to_name.find(idx);
+                            if (it != id_to_name.end()) {
+                                identity = it->second;
+                            } else {
+                                identity = "ID_" + std::to_string(idx);
+                            }
+                            identify_score = similarity;
+                        }
+                    }
+
+                    // Create face target
+                    auto face_target = std::make_shared<cvedix_objects::cvedix_frame_face_target>(
+                        x, y, w, h, face.score, keypoints,
+                        extracted ? features : std::vector<float>()
+                    );
+
+                    face_target->identify = identity;
+                    face_target->identify_score = identify_score;
+
+                    frame_meta->face_targets.push_back(face_target);
+                } else {
+                    // ASYNC MODE
+                    int target_id = (x / 20) * 1000 + (y / 20) + 1000000;
+                    std::string identity = "[SEARCHING...]";
+                    float identify_score = 0.0f;
+                    bool too_small = (w < 60 || h < 60);
+
+                    {
+                        std::lock_guard<std::mutex> lock(cache_mtx_);
+                        if (identity_cache_.find(target_id) != identity_cache_.end()) {
+                            identity = identity_cache_[target_id].label;
+                            identify_score = identity_cache_[target_id].score;
+                        } else if (!too_small) {
+                            std::lock_guard<std::mutex> qlock(queue_mtx_);
+                            if (pending_.find(target_id) == pending_.end()) {
+                                pending_.insert(target_id);
+                                std::vector<SeetaPointF> shifted_points;
+                                for (size_t k = 0; k < 5 && k < points.size(); ++k) {
+                                    SeetaPointF pt = points[k];
+                                    pt.x -= x;
+                                    pt.y -= y;
+                                    shifted_points.push_back(pt);
+                                }
+                                search_queue_.push({target_id, wearing_mask, frame(cv::Rect(x, y, w, h)).clone(), shifted_points});
+                                queue_cv_.notify_one();
+                            }
+                        } else {
+                            identity = "[TOO SMALL]";
+                        }
+
+                        auto it = std::find(recent_faces_.begin(), recent_faces_.end(), target_id);
+                        if (it != recent_faces_.end()) {
+                            recent_faces_.erase(it);
+                        }
+                        recent_faces_.push_front(target_id);
+                        if (recent_faces_.size() > (size_t)max_history_) {
+                            recent_faces_.pop_back();
+                        }
+                    }
+
+                    auto face_target = std::make_shared<cvedix_objects::cvedix_frame_face_target>(
+                        x, y, w, h, face.score, keypoints, std::vector<float>()
+                    );
+                    face_target->identify = identity;
+                    face_target->identify_score = identify_score;
+                    face_target->track_id = target_id;
+                    frame_meta->face_targets.push_back(face_target);
+                }
+            }
+        }
+
+        if (mode_ == FaceRecognizerMode::ASYNC) {
+            frame_count_++;
+            if (frame_count_ % 300 == 0) {
+                std::lock_guard<std::mutex> lock(cache_mtx_);
+                std::map<int, FaceIdentityResult> new_cache;
+                for (int key : recent_faces_) {
+                    if (identity_cache_.count(key)) {
+                        new_cache[key] = identity_cache_[key];
                     }
                 }
-
-                // Create face target
-                auto face_target = std::make_shared<cvedix_objects::cvedix_frame_face_target>(
-                    x, y, w, h, face.score, keypoints,
-                    extracted ? features : std::vector<float>()
-                );
-
-                face_target->identify = identity;
-                face_target->identify_score = identify_score;
-
-                frame_meta->face_targets.push_back(face_target);
+                identity_cache_ = std::move(new_cache);
             }
         }
     }
@@ -325,10 +415,21 @@ namespace cvedix_nodes {
             id_to_name_mask_[idx_mask] = name;
         }
 
-        if (idx_std >= 0 || idx_mask >= 0) {
+        // ── Register with Milvus (if connected) ──
+        int64_t milvus_id = -1;
+#ifdef CVEDIX_WITH_MILVUS
+        if (milvus_node_) {
+            std::vector<float> feat(recognizer_std_->GetExtractFeatureSize());
+            if (recognizer_std_->Extract(simg, points_std.data(), feat.data())) {
+                milvus_id = milvus_node_->registerFace(feat, name);
+            }
+        }
+#endif
+
+        if (idx_std >= 0 || idx_mask >= 0 || milvus_id >= 0) {
             db_enabled_ = true;
-            CVEDIX_INFO(cvedix_utils::string_format("[%s] Registered '%s' → std_id=%ld, mask_id=%ld",
-                        node_name.c_str(), name.c_str(), idx_std, idx_mask));
+            CVEDIX_INFO(cvedix_utils::string_format("[%s] Registered '%s' → std_id=%ld, mask_id=%ld, milvus_id=%ld",
+                        node_name.c_str(), name.c_str(), idx_std, idx_mask, milvus_id));
         } else {
             CVEDIX_ERROR(cvedix_utils::string_format("[%s] Failed to register face '%s'", node_name.c_str(), name.c_str()));
         }
@@ -477,6 +578,94 @@ namespace cvedix_nodes {
         min_face_size_ = size;
         if (detector_) {
             detector_->set(seeta::FaceDetector::PROPERTY_MIN_FACE_SIZE, size);
+        }
+    }
+
+    void cvedix_face_recognizer_node::workerLoop() {
+        while (worker_running_) {
+            AsyncSearchTask task;
+            {
+                std::unique_lock<std::mutex> lock(queue_mtx_);
+                queue_cv_.wait(lock, [&]{ return !search_queue_.empty() || !worker_running_; });
+                if (!worker_running_) break;
+                task = std::move(search_queue_.front());
+                search_queue_.pop();
+            }
+
+            FaceIdentityResult info;
+            
+            while (worker_running_ && !engines_initialized_) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+
+            if (engines_initialized_ && !task.crop.empty()) {
+                std::lock_guard<std::mutex> elock(engine_mutex_);
+
+                SeetaImageData simg = cvMatToSeetaImage(task.crop);
+                seeta::FaceRecognizer* recognizer = task.wearing_mask ? recognizer_mask_ : recognizer_std_;
+                seeta::FaceDatabase*   database   = task.wearing_mask ? database_mask_   : database_std_;
+                auto& id_to_name                  = task.wearing_mask ? id_to_name_mask_ : id_to_name_std_;
+
+                int dim = recognizer->GetExtractFeatureSize();
+                std::vector<float> feat(dim);
+
+                if (recognizer->Extract(simg, task.points.data(), feat.data())) {
+#ifdef CVEDIX_WITH_MILVUS
+                    if (milvus_node_) {
+                        auto results = milvus_node_->searchFace(feat, 1);
+                        if (!results.empty() && results[0].id >= 0) {
+                            float sim = results[0].score;
+                            if (sim >= similarity_threshold_) {
+                                std::string name = results[0].name;
+                                if (name.empty()) name = "ID_" + std::to_string(results[0].id);
+                                info.label = name;
+                                info.score = sim;
+                                info.resolved = true;
+                            } else {
+                                info.label = "Unknown";
+                                info.resolved = true;
+                            }
+                        } else {
+                            info.label = "Unknown";
+                            info.resolved = true;
+                        }
+                    } else
+#endif
+                    if (db_enabled_ && database && database->Count() > 0) {
+                        float similarity = 0.0f;
+                        int64_t idx = database->Query(simg, task.points.data(), &similarity);
+
+                        if (idx >= 0 && similarity >= similarity_threshold_) {
+                            auto it = id_to_name.find(idx);
+                            if (it != id_to_name.end()) {
+                                info.label = it->second;
+                            } else {
+                                info.label = "ID_" + std::to_string(idx);
+                            }
+                            info.score = similarity;
+                            info.resolved = true;
+                        } else {
+                            info.label = "Unknown";
+                            info.resolved = true;
+                        }
+                    } else {
+                        info.label = "Unknown";
+                        info.resolved = true;
+                    }
+                } else {
+                    info.label = "[EMBED FAIL]";
+                    info.resolved = true;
+                }
+            }
+
+            {
+                std::lock_guard<std::mutex> lock(cache_mtx_);
+                identity_cache_[task.target_id] = info;
+            }
+            {
+                std::lock_guard<std::mutex> lock(queue_mtx_);
+                pending_.erase(task.target_id);
+            }
         }
     }
 

@@ -47,7 +47,22 @@
 #include <seeta/FaceDatabase.h>
 #include <seeta/MaskDetector.h>
 
+#include <queue>
+#include <thread>
+#include <condition_variable>
+#include <atomic>
+#include <deque>
+#include <set>
+#include <map>
+
 namespace cvedix_nodes {
+
+    class cvedix_milvus_vector_search_node;
+
+    enum class FaceRecognizerMode {
+        SYNC,
+        ASYNC
+    };
 
     /**
      * @brief All-in-one face recognition node with dual-model mask support
@@ -98,6 +113,37 @@ namespace cvedix_nodes {
         // ── Thread safety ──
         std::mutex  engine_mutex_;
 
+        // ── Milvus Integration ──
+        std::shared_ptr<cvedix_milvus_vector_search_node> milvus_node_;
+
+        // ── Async Processing ──
+        FaceRecognizerMode mode_;
+        struct FaceIdentityResult {
+            std::string label = "[SEARCHING...]";
+            float score = 0.0f;
+            bool resolved = false;
+        };
+        struct AsyncSearchTask {
+            int target_id;
+            bool wearing_mask;
+            cv::Mat crop;
+            std::vector<SeetaPointF> points;
+        };
+        
+        std::map<int, FaceIdentityResult> identity_cache_;
+        std::mutex cache_mtx_;
+        std::queue<AsyncSearchTask> search_queue_;
+        std::set<int> pending_;
+        std::mutex queue_mtx_;
+        std::condition_variable queue_cv_;
+        std::thread worker_;
+        std::atomic<bool> worker_running_{false};
+        std::deque<int> recent_faces_;
+        int max_history_ = 100;
+        int frame_count_ = 0;
+
+        void workerLoop();
+
         // ── Internal helpers ──
         bool initEngines();
         bool engines_initialized_ = false;
@@ -120,11 +166,16 @@ namespace cvedix_nodes {
                                      int min_face_size = 40,
                                      bool use_68_landmarks = false,
                                      bool use_gpu = false,
-                                     int gpu_id = 0);
+                                     int gpu_id = 0,
+                                     FaceRecognizerMode mode = FaceRecognizerMode::SYNC,
+                                     std::shared_ptr<cvedix_milvus_vector_search_node> milvus_node = nullptr);
 
         ~cvedix_face_recognizer_node();
 
-        // ── Face Database API ──
+        /**
+         * @brief Check if the node runs in asynchronous mode
+         */
+        virtual bool is_async() const override { return mode_ == FaceRecognizerMode::ASYNC; }
 
         /**
          * @brief Register a face (auto-extracts features with BOTH standard and mask models)

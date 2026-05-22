@@ -68,7 +68,7 @@ services:
       MINIO_SECRET_ACCESS_KEY: minioadmin
     ports:
       - "19530:19530"  # gRPC port (SDK connection)
-      - "9091:9091"    # Metrics port
+      - "9092:9091"    # Metrics port (host 9092 → container 9091, avoids conflict)
     volumes:
       - milvus_data:/var/lib/milvus
     depends_on:
@@ -82,6 +82,19 @@ services:
       start_period: 90s
       timeout: 20s
       retries: 3
+    restart: unless-stopped
+
+  # ── Attu: Milvus Management UI ──
+  attu:
+    container_name: cvedix-milvus-attu
+    image: zilliz/attu:v2.5.0
+    environment:
+      MILVUS_URL: milvus:19530
+    ports:
+      - "8000:3000"  # Attu UI
+    depends_on:
+      milvus:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:

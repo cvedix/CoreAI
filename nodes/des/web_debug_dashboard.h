@@ -176,9 +176,98 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   .panels {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 16px;
     flex: 1;
     min-height: 400px;
+  }
+
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .right-column .panel:first-child {
+    flex: 1;
+    min-height: 200px;
+  }
+
+  .right-column .panel:last-child {
+    flex: 0 0 auto;
+    max-height: 220px;
+  }
+
+  /* ── Result Panel ── */
+  .result-grid {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    min-height: 100px;
+    align-items: flex-start;
+  }
+
+  .result-card {
+    flex: 0 0 auto;
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.03);
+    transition: border-color var(--transition);
+  }
+
+  .result-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .result-card.identified {
+    border-color: rgba(0,200,100,0.4);
+  }
+
+  .result-card.unknown {
+    border-color: rgba(255,140,0,0.3);
+  }
+
+  .result-card img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border);
+  }
+
+  .result-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    width: 100%;
+  }
+
+  .result-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 80px;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .badge-result {
+    background: rgba(0,200,100,0.15);
+    color: #4ade80;
+    border: 1px solid rgba(0,200,100,0.3);
   }
 
   /* ── Panel (shared) ── */
@@ -551,23 +640,40 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
           </div>
         </div>
 
-        <!-- Board Panel -->
-        <div class="panel" id="board-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span>Analysis Board</span>
-              <span class="badge badge-board">PIPELINE</span>
+        <!-- Right Column: Board + Result -->
+        <div class="right-column">
+          <!-- Board Panel -->
+          <div class="panel" id="board-panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>Analysis Board</span>
+                <span class="badge badge-board">PIPELINE</span>
+              </div>
+              <div class="controls">
+                <button id="btn-pause-board" onclick="toggleBoardStream()">Pause</button>
+                <button onclick="goFullscreen('board-panel')">Fullscreen</button>
+              </div>
             </div>
-            <div class="controls">
-              <button id="btn-pause-board" onclick="toggleBoardStream()">Pause</button>
-              <button onclick="goFullscreen('board-panel')">Fullscreen</button>
+            <div class="stream-wrap" id="board-container">
+              <img id="board-stream" alt="Analysis board pipeline">
+              <div class="placeholder" id="board-placeholder">
+                <div class="placeholder-spinner"></div>
+                <span>Connecting to Analysis Board…</span>
+              </div>
             </div>
           </div>
-          <div class="stream-wrap" id="board-container">
-            <img id="board-stream" alt="Analysis board pipeline">
-            <div class="placeholder" id="board-placeholder">
-              <div class="placeholder-spinner"></div>
-              <span>Connecting to Analysis Board…</span>
+
+          <!-- Result Panel -->
+          <div class="panel" id="result-panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>Result</span>
+                <span class="badge badge-result">FACES</span>
+                <span id="result-count" style="font-size:10px;color:var(--text-dim)"></span>
+              </div>
+            </div>
+            <div class="result-grid" id="result-grid">
+              <div class="result-empty">Waiting for face detections…</div>
             </div>
           </div>
         </div>
@@ -667,6 +773,39 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   // Start loops
   const osdLoop = startSnapshotLoop(osdStream, osdPlaceholder, '/snapshot/osd', 66, () => osdActive);
   const boardLoop = startSnapshotLoop(boardStream, boardPlaceholder, '/snapshot/board', 500, () => boardActive);
+
+  // ── Result panel: poll face crops ──
+  let resultActive = true;
+  async function pollResult() {
+    if (!resultActive) { setTimeout(pollResult, 1000); return; }
+    try {
+      const res = await fetch('/api/faces', { cache: 'no-store' });
+      if (res.ok) {
+        const faces = await res.json();
+        const grid = document.getElementById('result-grid');
+        const counter = document.getElementById('result-count');
+        if (faces && faces.length > 0) {
+          const validFaces = faces.filter(f => f.label && !f.label.startsWith('['));
+          const displayFaces = validFaces.slice(-10);
+          counter.textContent = '(' + displayFaces.length + ' shown / ' + validFaces.length + ' total)';
+          let html = '';
+          for (const f of displayFaces) {
+            const cls = f.score > 0 ? 'identified' : 'unknown';
+            html += '<div class="result-card ' + cls + '">';
+            html += '<img src="/snapshot/face/' + f.id + '?t=' + Date.now() + '" alt="face">';
+            html += '<div class="result-label">' + (f.label || 'Unknown') + '</div>';
+            html += '</div>';
+          }
+          grid.innerHTML = html;
+        } else {
+          counter.textContent = '';
+          grid.innerHTML = '<div class="result-empty">No faces detected</div>';
+        }
+      }
+    } catch(_) {}
+    setTimeout(pollResult, 500);
+  }
+  pollResult();
 
   function toggleOsdStream() {
     osdActive = !osdActive;

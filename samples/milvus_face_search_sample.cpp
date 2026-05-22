@@ -39,7 +39,7 @@
 #if defined(CVEDIX_WITH_FACE) && defined(CVEDIX_WITH_MILVUS)
 
 #include "cvedix/nodes/infers/cvedix_face_analysis_node.h"
-#include "cvedix/nodes/infers/cvedix_milvus_face_search_node.h"
+#include "cvedix/nodes/infers/cvedix_milvus_vector_search_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/src/cvedix_file_src_node.h"
 #include "cvedix/nodes/des/cvedix_web_debug_des_node.h"
@@ -98,7 +98,7 @@ std::string nameFromFilename(const std::string& filename) {
 int registerFacesFromDir(
     const std::string& dir_path,
     const std::string& model_dir,
-    std::shared_ptr<cvedix_nodes::cvedix_milvus_face_search_node> search_node)
+    std::shared_ptr<cvedix_nodes::cvedix_milvus_vector_search_node> search_node)
 {
     if (!std::filesystem::exists(dir_path)) {
         std::cerr << "Face registration directory not found: " << dir_path << std::endl;
@@ -268,7 +268,7 @@ int main(int argc, char** argv) {
     analyzer->setFrameSkip(3);
 
     // Milvus face search: large-scale identification
-    auto milvus_search = std::make_shared<cvedix_nodes::cvedix_milvus_face_search_node>(
+    auto milvus_search = std::make_shared<cvedix_nodes::cvedix_milvus_vector_search_node>(
         "milvus_search",
         milvus_uri,
         "cvedix_faces",    // collection name

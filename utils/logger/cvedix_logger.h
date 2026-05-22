@@ -118,6 +118,9 @@ namespace cvedix_utils {
 
         // init for cvedix_logger, ready to go
         void init();
+
+        // shutdown/cleanup logger resources
+        void shutdown();
     };
 
     // config Macros

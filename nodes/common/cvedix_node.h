@@ -245,6 +245,12 @@ namespace cvedix_nodes {
         virtual cvedix_node_type node_type();
         
         /**
+         * @brief Check if the node runs in asynchronous mode
+         * @return true if the node processes data asynchronously in a background thread
+         */
+        virtual bool is_async() const { return false; }
+
+        /**
          * @brief Detach this node from all previous nodes
          * 
          * Removes this node from the subscriber list of all previous nodes.

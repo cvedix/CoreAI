@@ -37,7 +37,7 @@ namespace cvedix_utils {
         const int canvas_gap_horizontal = 120;
         const int canvas_gap_vertical = 60;
         const int node_gap_horizontal = 40;
-        const int node_gap_vertical = 10;
+        const int node_gap_vertical = 40;
         const int debug_panel_height = 200;
 
         std::string board_title = "cvedix_analysis_board";

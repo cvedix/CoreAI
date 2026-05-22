@@ -50,7 +50,7 @@ public:
         int consecutive_frames = 3)
         : cvedix_node(name),
           red_light_node_(red_light_node),
-          green_class_ids_(green_class_ids),`
+          green_class_ids_(green_class_ids),
           red_class_ids_(red_class_ids),
           signal_conf_threshold_(signal_conf_threshold),
           consecutive_frames_needed_(consecutive_frames) {

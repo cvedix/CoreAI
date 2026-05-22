@@ -128,8 +128,8 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(
 }
 
 cvedix_yolo_detector_node::~cvedix_yolo_detector_node() {
-    unload_model();
     deinitialized();
+    unload_model();
 }
 
 bool cvedix_yolo_detector_node::load_model(

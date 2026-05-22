@@ -23,6 +23,13 @@ namespace cvedix_utils {
         inited = true;
     }
 
+    void cvedix_log_kafka_writer::shutdown() {
+        if (inited) {
+            kafka_producer.reset();
+            inited = false;
+        }
+    }
+
     // for << operator
     cvedix_log_kafka_writer& cvedix_log_kafka_writer::operator<<(std::string log) {
         write(log);

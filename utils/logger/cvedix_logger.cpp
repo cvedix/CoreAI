@@ -1,5 +1,5 @@
-
 #include "cvedix_logger.h"
+#include <cstdlib>
 
 namespace cvedix_utils {
         
@@ -8,10 +8,7 @@ namespace cvedix_utils {
     }
     
     cvedix_logger::~cvedix_logger() {
-        die();
-        if (log_writer_th.joinable()) {
-            log_writer_th.join();
-        }
+        shutdown();
     }
 
     void cvedix_logger::die() {
@@ -31,16 +28,31 @@ namespace cvedix_utils {
         // initialize file writer
         file_writer.init(log_dir, log_file_name_template);
 
-        #ifdef CVEDIX_WITH_KAFKA
-        // initialize kafka writer
-        auto servers_and_topic = cvedix_utils::string_split(kafka_servers_and_topic, '/');
-        assert(servers_and_topic.size() == 2);
-        kafka_writer.init(servers_and_topic[0], servers_and_topic[1]);
-        #endif
+        // Register static cleanup function to run before static destructors
+        std::atexit([]() {
+            cvedix_logger::get_logger().shutdown();
+        });
 
         // run thread
         auto t = std::thread(&cvedix_logger::log_write_run, this); 
         log_writer_th = std::move(t);
+    }
+
+    void cvedix_logger::shutdown() {
+        std::lock_guard<std::mutex> guard(init_mutex);
+        if (!inited) {
+            return;
+        }
+        die();
+        if (log_writer_th.joinable()) {
+            log_writer_th.join();
+        }
+
+        #ifdef CVEDIX_WITH_KAFKA
+        kafka_writer.shutdown();
+        #endif
+
+        inited = false;
     }
 
     void cvedix_logger::log(cvedix_log_level level, const std::string& message, const char* code_file, int code_line) {
@@ -158,6 +170,11 @@ namespace cvedix_utils {
 
     void cvedix_logger::write_to_kafka(const std::string& log) {
         #ifdef CVEDIX_WITH_KAFKA
+        if (!kafka_writer.is_inited()) {
+            auto servers_and_topic = cvedix_utils::string_split(kafka_servers_and_topic, '/');
+            assert(servers_and_topic.size() == 2);
+            kafka_writer.init(servers_and_topic[0], servers_and_topic[1]);
+        }
         // kafka_writer.write(log);
         kafka_writer << log;
         #endif

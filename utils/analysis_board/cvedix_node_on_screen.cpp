@@ -85,7 +85,13 @@ namespace cvedix_utils {
         cv::Scalar node_bg_color, node_border_color, header_bg_color, header_text_color;
         int corner_radius = 8;
         
-        if (original_node->node_type() == cvedix_nodes::cvedix_node_type::SRC) {
+        if (original_node->is_async()) {
+            // Async nodes: Gray theme
+            node_bg_color = cv::Scalar(240, 240, 240);  // Light Gray background
+            node_border_color = cv::Scalar(105, 105, 105);  // Dim Gray border
+            header_bg_color = cv::Scalar(128, 128, 128);  // Gray header
+            header_text_color = cv::Scalar(255, 255, 255);  // White text
+        } else if (original_node->node_type() == cvedix_nodes::cvedix_node_type::SRC) {
             // Source nodes: Blue gradient theme
             node_bg_color = cv::Scalar(240, 248, 255);  // Alice Blue background
             node_border_color = cv::Scalar(70, 130, 180);  // Steel Blue border
@@ -293,7 +299,32 @@ namespace cvedix_utils {
         auto next_nodes_num = next_nodes_on_screen.size();
         for (int j = 0; j < next_nodes_num; j++) {
             draw_connect_block(next_nodes_on_screen[j]->node_rect.y);
-        }     
+        }
+
+        // Draw async background thread visualization
+        if (original_node->is_async()) {
+            int thread_box_w = 140;
+            int thread_box_h = 24;
+            int thread_box_x = node_left + (node_width - thread_box_w) / 2;
+            int thread_box_y = node_top + node_height + 6;
+            
+            // Draw connection line from node bottom to thread box
+            cv::line(canvas, 
+                     cv::Point(node_left + node_width / 2, node_top + node_height), 
+                     cv::Point(node_left + node_width / 2, thread_box_y), 
+                     cv::Scalar(150, 150, 150), 2, cv::LINE_AA);
+                     
+            // Draw thread box
+            cvedix_utils::draw_rounded_rectangle(canvas, 
+                cv::Point(thread_box_x, thread_box_y), 
+                cv::Point(thread_box_x + thread_box_w, thread_box_y + thread_box_h),
+                4, cv::Scalar(100, 100, 100), 1, cv::Scalar(230, 230, 230), cv::LINE_AA);
+                
+            // Draw thread text
+            cvedix_utils::put_text_at_center_of_rect(canvas, "[async_worker_th]", 
+                cv::Rect(thread_box_x, thread_box_y, thread_box_w, thread_box_h), 
+                false, font_face, 1.0, cv::Scalar(80, 80, 80));
+        }
     }
 
     void cvedix_node_on_screen::render_dynamic_parts(cv::Mat & canvas) {

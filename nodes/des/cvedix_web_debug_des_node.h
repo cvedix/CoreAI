@@ -124,6 +124,9 @@ namespace cvedix_nodes {
         /** @brief Set analysis board pointer (for board stream) */
         void set_board(cvedix_utils::cvedix_analysis_board* board) { this->board = board; }
 
+        /** @brief Get internal HTTP server to add custom routes */
+        httplib::Server& get_server() { return server; }
+
         virtual std::string to_string() override;
     };
 

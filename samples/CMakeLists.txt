@@ -144,9 +144,17 @@ if(CVEDIX_WITH_FACE AND CVEDIX_WITH_MILVUS)
     add_executable(milvus_auto_register_sample "milvus_auto_register_sample.cpp")
     target_link_libraries(milvus_auto_register_sample ${PROJECT_NAME})
 
+    add_executable(milvus_yolov11_face_register_sample "milvus_yolov11_face_register_sample.cpp")
+    target_link_libraries(milvus_yolov11_face_register_sample ${PROJECT_NAME})
+
+    add_executable(milvus_yolov11_face_recognize_sample "milvus_yolov11_face_recognize_sample.cpp")
+    target_link_libraries(milvus_yolov11_face_recognize_sample ${PROJECT_NAME})
+
     install(TARGETS
         milvus_face_search_sample
         milvus_auto_register_sample
+        milvus_yolov11_face_register_sample
+        milvus_yolov11_face_recognize_sample
         DESTINATION bin
         OPTIONAL
     )
@@ -184,19 +192,19 @@ install(TARGETS ba_crossline_mqtt_sample
         OPTIONAL)
 
 # samples depend on LLM
-if(CVEDIX_WITH_LLM)
-    add_executable(mllm_analyse_sample "mllm_analyse_sample.cpp")
-    target_link_libraries(mllm_analyse_sample ${PROJECT_NAME})    
-
-    add_executable(mllm_analyse_sample_openai "mllm_analyse_sample_openai.cpp")
-    target_link_libraries(mllm_analyse_sample_openai ${PROJECT_NAME})
-    
-    install(TARGETS 
-        mllm_analyse_sample
-        mllm_analyse_sample_openai
-        DESTINATION bin
-        OPTIONAL)
-endif()
+# if(CVEDIX_WITH_LLM)
+#     add_executable(mllm_analyse_sample "mllm_analyse_sample.cpp")
+#     target_link_libraries(mllm_analyse_sample ${PROJECT_NAME})    
+# 
+#     add_executable(mllm_analyse_sample_openai "mllm_analyse_sample_openai.cpp")
+#     target_link_libraries(mllm_analyse_sample_openai ${PROJECT_NAME})
+#     
+#     install(TARGETS 
+#         mllm_analyse_sample
+#         mllm_analyse_sample_openai
+#         DESTINATION bin
+#         OPTIONAL)
+# endif()
 
 # samples depend on both TRT and LLM
 # if(CVEDIX_WITH_TRT AND CVEDIX_WITH_LLM)
@@ -207,6 +215,17 @@ endif()
 #             DESTINATION bin
 #             OPTIONAL)
 # endif()
+
+# samples depend on LLM (local LLM inference via llama.cpp)
+if(CVEDIX_WITH_LLM)
+    add_executable(llm_sample "llm_sample.cpp")
+    target_link_libraries(llm_sample ${PROJECT_NAME})
+
+    install(TARGETS
+        llm_sample
+        DESTINATION bin
+        OPTIONAL)
+endif()
 
 # samples depend on RKNN
 if(CVEDIX_WITH_RKNN)
@@ -328,12 +347,12 @@ endif()
 # samples depend on CUDA(maybe other dependency required too)
 if(CVEDIX_WITH_CUDA)
     # nvdec & nvenc plugins required from DeepStream
-    add_executable(nv_hard_codec_sample "nv_hard_codec_sample.cpp")
-    target_link_libraries(nv_hard_codec_sample ${PROJECT_NAME})
+    # add_executable(nv_hard_codec_sample "nv_hard_codec_sample.cpp")
+    # target_link_libraries(nv_hard_codec_sample ${PROJECT_NAME})
     
-    install(TARGETS nv_hard_codec_sample
-            DESTINATION bin
-            OPTIONAL)
+    # install(TARGETS nv_hard_codec_sample
+    #         DESTINATION bin
+    #         OPTIONAL)
 endif()
 
 # samples depend on TensorRT
