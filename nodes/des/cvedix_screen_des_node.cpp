@@ -15,7 +15,7 @@ namespace cvedix_nodes {
                                             osd(osd),
                                             display_w_h(display_w_h) {
         auto sink = select_screen_sink(node_name);
-        this->gst_template = cvedix_utils::string_format(this->base_gst_template.c_str(), node_name.c_str(), sink.c_str());
+        this->gst_template = cvedix_utils::string_format(this->base_gst_template.c_str(), sink.c_str());
         CVEDIX_INFO(cvedix_utils::string_format("[%s] [%s]", node_name.c_str(), gst_template.c_str()));
         this->initialized();
     }

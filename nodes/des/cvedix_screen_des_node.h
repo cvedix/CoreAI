@@ -43,7 +43,7 @@ namespace cvedix_nodes {
     {
     private:
         /// @brief Base GStreamer template with text/time overlay
-        const std::string base_gst_template = "appsrc ! videoconvert ! videoscale ! textoverlay text=%s halignment=left valignment=top font-desc='Sans,16' shaded-background=true ! timeoverlay halignment=right valignment=top font-desc='Sans,16' shaded-background=true ! queue ! %s";
+        const std::string base_gst_template = "appsrc ! videoconvert ! queue ! %s";
         /// @brief Final GStreamer pipeline
         std::string gst_template;
         /// @brief OpenCV video writer

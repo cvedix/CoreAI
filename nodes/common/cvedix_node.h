@@ -251,6 +251,12 @@ namespace cvedix_nodes {
         virtual bool is_async() const { return false; }
 
         /**
+         * @brief Set maximum size for input queue
+         * @param size Maximum number of metadata objects in queue
+         */
+        void set_max_in_queue_size(int size) { max_in_queue_size = size; }
+
+        /**
          * @brief Detach this node from all previous nodes
          * 
          * Removes this node from the subscriber list of all previous nodes.

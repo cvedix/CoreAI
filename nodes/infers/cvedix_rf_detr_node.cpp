@@ -1,9 +1,9 @@
 /**
- * @file cvedix_yolo_detector_node.cpp
- * @brief Generic YOLOv11 detector implementation using plugin system
+ * @file cvedix_rf_detr_node.cpp
+ * @brief RF-DETR detector implementation using plugin system
  */
 
-#include "cvedix_yolo_detector_node.h"
+#include "cvedix_rf_detr_node.h"
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix/utils/cvedix_utils.h"
 
@@ -75,12 +75,11 @@ bool has_onnxruntime_from_environment() {
 
 }  // namespace
 
-cvedix_yolo_detector_node::cvedix_yolo_detector_node(const std::string& node_name)
+cvedix_rf_detr_node::cvedix_rf_detr_node(const std::string& node_name)
     : cvedix_primary_infer_node(node_name, "", "", ""),
       conf_threshold(0.45f),
       nms_threshold(0.5f),
-      class_id_offset(0),
-    yolo_version(YoloVersion::YOLO11) {
+      class_id_offset(0) {
     const auto supported_backends = get_supported_backends();
     std::string supported_list;
     for (size_t i = 0; i < supported_backends.size(); ++i) {
@@ -91,50 +90,47 @@ cvedix_yolo_detector_node::cvedix_yolo_detector_node(const std::string& node_nam
     }
 
     CVEDIX_INFO(cvedix_utils::string_format(
-        "[%s] Supported backends: %s",
+        "[%s] Supported backends for RF-DETR: %s",
         node_name.c_str(),
         supported_list.empty() ? "None" : supported_list.c_str()));
 
     this->initialized();
 }
 
-cvedix_yolo_detector_node::cvedix_yolo_detector_node(
+cvedix_rf_detr_node::cvedix_rf_detr_node(
     const std::string& node_name,
     const std::string& model_path,
-    YoloVersion yolo_version,
     const std::string& labels_path,
     float conf_threshold,
     float nms_threshold,
     int class_id_offset,
     BackendType backend_type)
-    : cvedix_yolo_detector_node(node_name) {
+    : cvedix_rf_detr_node(node_name) {
     try {
         if (!load_model(model_path,
-                        yolo_version,
                         labels_path,
                         conf_threshold,
                         nms_threshold,
                         class_id_offset,
                         backend_type)) {
-            throw std::runtime_error("Failed to load model/backend at construction time");
+            throw std::runtime_error("Failed to load RF-DETR model/backend at construction time");
         }
     }
     catch (const std::exception& e) {
         CVEDIX_ERROR(cvedix_utils::string_format(
-            "[%s] Failed to initialize detector: %s",
+            "[%s] Failed to initialize RF-DETR detector: %s",
             node_name.c_str(), e.what()));
         throw;
     }
 }
 
-cvedix_yolo_detector_node::~cvedix_yolo_detector_node() {
+cvedix_rf_detr_node::~cvedix_rf_detr_node() {
     deinitialized();
     unload_model();
 }
 
-bool cvedix_yolo_detector_node::load_model(
+bool cvedix_rf_detr_node::load_model(
     const std::string& model_path,
-    YoloVersion yolo_version,
     const std::string& labels_path,
     float conf_threshold,
     float nms_threshold,
@@ -148,7 +144,6 @@ bool cvedix_yolo_detector_node::load_model(
     this->conf_threshold = conf_threshold;
     this->nms_threshold = nms_threshold;
     this->class_id_offset = class_id_offset;
-    this->yolo_version = yolo_version;
 
     if (model_path.empty()) {
         CVEDIX_WARN(cvedix_utils::string_format(
@@ -182,7 +177,7 @@ bool cvedix_yolo_detector_node::load_model(
     backend = load_backend(selected_backend, model_path);
     if (!backend) {
         CVEDIX_ERROR(cvedix_utils::string_format(
-            "[%s] Failed to load backend plugin for model %s",
+            "[%s] Failed to load backend plugin for RF-DETR model %s",
             node_name.c_str(), model_path.c_str()));
         unload_model();
         return false;
@@ -195,19 +190,13 @@ bool cvedix_yolo_detector_node::load_model(
     input_width = backend->get_input_width();
     input_height = backend->get_input_height();
 
-    std::string version_str = "YOLOv11";
-    if (yolo_version == YoloVersion::YOLO26) version_str = "YOLOv26";
-    else if (yolo_version == YoloVersion::YOLO12) version_str = "YOLOv12";
-    else if (yolo_version == YoloVersion::RF_DETR) version_str = "RF_DETR";
-
     CVEDIX_INFO(cvedix_utils::string_format(
-        "[%s] Backend loaded: %s, model: %s",
+        "[%s] RF-DETR Backend loaded: %s, model: %s",
         node_name.c_str(), backend_type_to_string(selected_backend), model_path.c_str()));
 
     CVEDIX_INFO(cvedix_utils::string_format(
-        "[%s] %s Detector loaded at runtime: %dx%d, conf=%.2f, nms=%.2f, classes=%zu, offset=%d",
+        "[%s] RF-DETR Detector loaded at runtime: %dx%d, conf=%.2f, nms=%.2f, classes=%zu, offset=%d",
         node_name.c_str(),
-        version_str.c_str(),
         input_width, input_height,
         conf_threshold, nms_threshold,
         labels.size(), class_id_offset));
@@ -215,7 +204,7 @@ bool cvedix_yolo_detector_node::load_model(
     return true;
 }
 
-void cvedix_yolo_detector_node::unload_model() {
+void cvedix_rf_detr_node::unload_model() {
     unload_backend();
     labels.clear();
     model_path.clear();
@@ -226,11 +215,11 @@ void cvedix_yolo_detector_node::unload_model() {
     input_height = 0;
 }
 
-std::vector<BackendType> cvedix_yolo_detector_node::get_supported_backends() const {
+std::vector<BackendType> cvedix_rf_detr_node::get_supported_backends() const {
     return query_supported_backends();
 }
 
-bool cvedix_yolo_detector_node::is_backend_supported(BackendType backend_type) const {
+bool cvedix_rf_detr_node::is_backend_supported(BackendType backend_type) const {
     if (backend_type == BackendType::AUTO) {
         return true;
     }
@@ -239,34 +228,28 @@ bool cvedix_yolo_detector_node::is_backend_supported(BackendType backend_type) c
     return std::find(supported_backends.begin(), supported_backends.end(), backend_type) != supported_backends.end();
 }
 
-BackendType cvedix_yolo_detector_node::detect_hw_info() const {
+BackendType cvedix_rf_detr_node::detect_hw_info() const {
     const auto supported_backends = query_supported_backends();
     if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::RKNN) != supported_backends.end()) {
-        CVEDIX_INFO("[hw_info] RKNN detected, using RKNN backend");
         return BackendType::RKNN;
     }
 
     if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::TENSORRT) != supported_backends.end()) {
-        CVEDIX_INFO("[hw_info] TensorRT detected, using TensorRT backend");
         return BackendType::TENSORRT;
     }
 
     if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::OPENVINO) != supported_backends.end()) {
-        CVEDIX_INFO("[hw_info] OpenVINO detected, using OpenVINO backend");
         return BackendType::OPENVINO;
     }
 
     if (std::find(supported_backends.begin(), supported_backends.end(), BackendType::ORT) != supported_backends.end()) {
-        CVEDIX_INFO("[hw_info] ONNX Runtime detected, using ORT backend");
         return BackendType::ORT;
     }
 
-    // Fallback to ONNX runtime (OpenCV DNN)
-    CVEDIX_INFO("[hw_info] No TensorRT/OpenVINO/RKNN/ORT found, using OpenCV DNN backend");
     return BackendType::ONNX;
 }
 
-std::vector<BackendType> cvedix_yolo_detector_node::query_supported_backends() const {
+std::vector<BackendType> cvedix_rf_detr_node::query_supported_backends() const {
     std::vector<BackendType> supported_backends;
 
     if (std::system("ldconfig -p | grep -q librknnrt") == 0) {
@@ -286,19 +269,18 @@ std::vector<BackendType> cvedix_yolo_detector_node::query_supported_backends() c
     return supported_backends;
 }
 
-std::string cvedix_yolo_detector_node::get_file_extension(const std::string& path) const {
+std::string cvedix_rf_detr_node::get_file_extension(const std::string& path) const {
     size_t pos = path.find_last_of(".");
     if (pos == std::string::npos) {
         return "";
     }
     std::string ext = path.substr(pos);
-    // Convert to lowercase
     std::transform(ext.begin(), ext.end(), ext.begin(),
                    [](unsigned char c) { return std::tolower(c); });
     return ext;
 }
 
-bool cvedix_yolo_detector_node::load_labels_file(const std::string& labels_path) {
+bool cvedix_rf_detr_node::load_labels_file(const std::string& labels_path) {
     labels.clear();
 
     std::ifstream file(labels_path);
@@ -324,7 +306,7 @@ bool cvedix_yolo_detector_node::load_labels_file(const std::string& labels_path)
     return true;
 }
 
-const char* cvedix_yolo_detector_node::backend_type_to_string(BackendType backend_type) {
+const char* cvedix_rf_detr_node::backend_type_to_string(BackendType backend_type) {
     switch (backend_type) {
         case BackendType::TENSORRT:
             return "TensorRT";
@@ -342,7 +324,7 @@ const char* cvedix_yolo_detector_node::backend_type_to_string(BackendType backen
     }
 }
 
-void cvedix_yolo_detector_node::unload_backend() {
+void cvedix_rf_detr_node::unload_backend() {
     if (plugin_loader) {
         plugin_loader->unload(backend);
         plugin_loader.reset();
@@ -356,8 +338,8 @@ void cvedix_yolo_detector_node::unload_backend() {
     }
 }
 
-bool cvedix_yolo_detector_node::validate_model_path(BackendType backend_type,
-                                                    const std::string& model_path) const {
+bool cvedix_rf_detr_node::validate_model_path(BackendType backend_type,
+                                              const std::string& model_path) const {
     std::string ext = get_file_extension(model_path);
     
     switch (backend_type) {
@@ -412,39 +394,36 @@ bool cvedix_yolo_detector_node::validate_model_path(BackendType backend_type,
     }
 }
 
-cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::load_backend(
+cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_rf_detr_node::load_backend(
     BackendType backend_type,
     const std::string& model_path) {
     
     std::string plugin_path;
-    std::string plugin_name = "yolov11";
-    if (yolo_version == YoloVersion::YOLO26) plugin_name = "yolov26";
-    else if (yolo_version == YoloVersion::YOLO12) plugin_name = "yolov12";
-    else if (yolo_version == YoloVersion::RF_DETR) plugin_name = "rf_detr";
+    std::string plugin_name = "rf_detr"; // Hardcoded to rf_detr specifically
     
     switch (backend_type) {
         case BackendType::TENSORRT: {
             plugin_path = "libtrt_" + plugin_name + ".so";
             CVEDIX_INFO(cvedix_utils::string_format(
-                "[load_backend] Loading TensorRT backend: %s", plugin_path.c_str()));
+                "[load_backend] Loading TensorRT backend for RF-DETR: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::OPENVINO: {
             plugin_path = "libov_" + plugin_name + ".so";
             CVEDIX_INFO(cvedix_utils::string_format(
-                "[load_backend] Loading OpenVINO backend: %s", plugin_path.c_str()));
+                "[load_backend] Loading OpenVINO backend for RF-DETR: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::ONNX: {
             plugin_path = "libonnx_" + plugin_name + ".so";
             CVEDIX_INFO(cvedix_utils::string_format(
-                "[load_backend] Loading ONNX backend: %s", plugin_path.c_str()));
+                "[load_backend] Loading ONNX backend for RF-DETR: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::RKNN: {
             plugin_path = "librknn_" + plugin_name + ".so";
             CVEDIX_INFO(cvedix_utils::string_format(
-                "[load_backend] Loading RKNN backend: %s", plugin_path.c_str()));
+                "[load_backend] Loading RKNN backend for RF-DETR: %s", plugin_path.c_str()));
             break;
         }
         case BackendType::ORT: {
@@ -468,21 +447,21 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_yolo_detector_node::
     return loaded_backend;
 }
 
-void cvedix_yolo_detector_node::set_conf_threshold(float thresh) {
+void cvedix_rf_detr_node::set_conf_threshold(float thresh) {
     conf_threshold = thresh;
     if (backend) {
         backend->set_conf_threshold(thresh);
     }
 }
 
-void cvedix_yolo_detector_node::set_nms_threshold(float thresh) {
+void cvedix_rf_detr_node::set_nms_threshold(float thresh) {
     nms_threshold = thresh;
     if (backend) {
         backend->set_nms_threshold(thresh);
     }
 }
 
-std::string cvedix_yolo_detector_node::get_label(int class_id) const {
+std::string cvedix_rf_detr_node::get_label(int class_id) const {
     int idx = class_id - class_id_offset;
     if (idx >= 0 && idx < static_cast<int>(labels.size())) {
         return labels[idx];
@@ -490,15 +469,15 @@ std::string cvedix_yolo_detector_node::get_label(int class_id) const {
     return "class_" + std::to_string(class_id);
 }
 
-int cvedix_yolo_detector_node::get_input_width() const {
+int cvedix_rf_detr_node::get_input_width() const {
     return backend ? backend->get_input_width() : 0;
 }
 
-int cvedix_yolo_detector_node::get_input_height() const {
+int cvedix_rf_detr_node::get_input_height() const {
     return backend ? backend->get_input_height() : 0;
 }
 
-void cvedix_yolo_detector_node::run_infer_combinations(
+void cvedix_rf_detr_node::run_infer_combinations(
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
 
     if (frame_meta_with_batch.empty() || !backend) {
@@ -525,7 +504,7 @@ void cvedix_yolo_detector_node::run_infer_combinations(
     
     if (!success) {
         CVEDIX_WARN(cvedix_utils::string_format(
-            "[%s] Batch inference failed for %zu frames",
+            "[%s] RF-DETR batch inference failed for %zu frames",
             node_name.c_str(), frames.size()));
     }
 
@@ -576,7 +555,7 @@ void cvedix_yolo_detector_node::run_infer_combinations(
             std::string label = detection.label.empty() ? get_label(cid) : detection.label;
             
             CVEDIX_DEBUG(cvedix_utils::string_format(
-                "[%s] Detection: class_id=%d, label=%s, conf=%.2f, bbox=[%d,%d,%d,%d]",
+                "[%s] RF-DETR Detection: class_id=%d, label=%s, conf=%.2f, bbox=[%d,%d,%d,%d]",
                 node_name.c_str(), cid, label.c_str(), detection.confidence, rect_x, rect_y, rect_w, rect_h));
 
             // Create target
@@ -591,10 +570,6 @@ void cvedix_yolo_detector_node::run_infer_combinations(
 
             frame_meta->targets.push_back(target);
         }
-
-        CVEDIX_DEBUG(cvedix_utils::string_format(
-            "[%s] Detected %zu objects in frame %d",
-            node_name.c_str(), detections.size(), frame_meta->frame_index));
     }
 
     auto postprocess_time = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -604,15 +579,15 @@ void cvedix_yolo_detector_node::run_infer_combinations(
     cvedix_infer_node::infer_combinations_time_cost(
         frames.size(),
         prepare_time.count(),
-        0,  // preprocess included in prepare
+        0,
         infer_time.count(),
         postprocess_time.count());
 }
 
-void cvedix_yolo_detector_node::postprocess(
+void cvedix_rf_detr_node::postprocess(
     const std::vector<cv::Mat>& raw_outputs,
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
-    // Not used - postprocessing is done in run_infer_combinations
+    // Not used
 }
 
 }  // namespace cvedix_nodes

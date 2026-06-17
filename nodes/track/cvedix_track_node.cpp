@@ -90,6 +90,9 @@ namespace cvedix_nodes {
                 // -1 means no track result returned yet
                 if (track_id != -1) {
                     tracks_by_id[track_id].push_back(rect);                           // cache
+                    if (tracks_by_id[track_id].size() > 30) {
+                        tracks_by_id[track_id].erase(tracks_by_id[track_id].begin());
+                    }
                     last_tracked_frame_indexes[track_id] = frame_meta->frame_index;   // update stamp
 
                     target->track_id = track_id;               // write track_id back to target
@@ -108,6 +111,9 @@ namespace cvedix_nodes {
                 // -1 means no track result returned yet
                 if (track_id != -1) {
                     tracks_by_id[track_id].push_back(rect);                           // cache
+                    if (tracks_by_id[track_id].size() > 30) {
+                        tracks_by_id[track_id].erase(tracks_by_id[track_id].begin());
+                    }
                     last_tracked_frame_indexes[track_id] = frame_meta->frame_index;   // update stamp
 
                     face->track_id = track_id;                // write track_id back to face target

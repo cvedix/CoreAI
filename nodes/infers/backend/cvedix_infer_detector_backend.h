@@ -6,6 +6,23 @@
 #include <cstdint>
 #include <opencv2/opencv.hpp>
 
+namespace cvedix_nodes {
+
+/**
+ * @enum BackendType
+ * @brief Supported inference backend types
+ */
+enum class BackendType {
+    AUTO,       ///< Auto-detect best available backend (default)
+    TENSORRT,   ///< NVIDIA TensorRT backend (.engine models)
+    OPENVINO,   ///< Intel OpenVINO backend (.xml models)
+    ONNX,       ///< OpenCV DNN backend (.onnx models, CPU only)
+    ORT,        ///< ONNX Runtime backend (.onnx models, CPU/GPU)
+    RKNN        ///< Rockchip RKNN NPU backend (.rknn models)
+};
+
+} // namespace cvedix_nodes
+
 namespace cvedix_nodes::infers {
 
 /**

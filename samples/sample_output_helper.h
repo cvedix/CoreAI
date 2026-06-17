@@ -135,10 +135,15 @@ inline OutputResult create_output(
 inline void init_board(OutputResult& result) {
     if (!result._src_nodes.empty()) {
         auto web = std::dynamic_pointer_cast<cvedix_nodes::cvedix_web_debug_des_node>(result.des_node);
+        auto desktop = std::dynamic_pointer_cast<cvedix_nodes::cvedix_screen_des_node>(result.des_node);
+        
         if (web) {
             result.board = std::make_unique<cvedix_utils::cvedix_analysis_board>(result._src_nodes);
             result.board->push_to_buffer(5);
             web->set_board(result.board.get());
+        } else if (desktop) {
+            result.board = std::make_unique<cvedix_utils::cvedix_analysis_board>(result._src_nodes);
+            result.board->display(1, false); // display with 1-second interval, non-blocking
         }
     }
     result._src_nodes.clear();  // free memory

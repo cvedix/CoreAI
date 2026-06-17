@@ -6,6 +6,11 @@ namespace cvedix_utils {
     cvedix_logger::cvedix_logger(/* args */)
     {
     }
+
+    cvedix_logger& cvedix_logger::get_logger() {
+        static cvedix_logger logger;
+        return logger;
+    }
     
     cvedix_logger::~cvedix_logger() {
         shutdown();

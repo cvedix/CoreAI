@@ -27,7 +27,7 @@ option(CVEDIX_WITH_LLM "Enable LLM support (HTTP mLLM client + local llama.cpp i
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
 option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search?" OFF)
-option(CVEDIX_BUILD_SAMPLES "build samples or not? (saves build time and resources)" OFF)
+set(CVEDIX_BUILD_SAMPLES ON)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 
 # OpenCV required
@@ -133,6 +133,14 @@ if(CVEDIX_WITH_TRT)  # TensorRT enabled
     message("-------------start build trt_yolov26--------------")
     add_subdirectory(third_party/trt_yolov26)
     message("--------------end build trt_yolov26---------------")
+
+    message("-------------start build trt_yolov12--------------")
+    add_subdirectory(third_party/trt_yolov12)
+    message("--------------end build trt_yolov12---------------")
+
+    message("-------------start build trt_rf_detr--------------")
+    add_subdirectory(third_party/trt_rf_detr)
+    message("--------------end build trt_rf_detr---------------")
 
     # trt_botsort
     message("-------------start build trt_botsort--------------")
@@ -932,6 +940,7 @@ target_link_libraries(cvedix_core
         dl
     PRIVATE
         tinyexpr
+        MediaToolKit
         ${CVEDIX_PRIVATE_DEPEND_LIBS}
 )
 
@@ -1107,7 +1116,7 @@ endif()
 
 
 # build for benchmarks
-add_subdirectory(benchmarks)
+# add_subdirectory(benchmarks)
 
 
 # --- BẮT ĐẦU CẤU HÌNH ĐÓNG GÓI (PACKAGING) ---

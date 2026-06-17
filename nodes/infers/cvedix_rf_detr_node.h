@@ -1,10 +1,10 @@
 /**
- * @file cvedix_yolo_detector_node.h
- * @brief Generic YOLOv11 detector using plugin system (TensorRT/OpenVINO)
+ * @file cvedix_rf_detr_node.h
+ * @brief RF-DETR detector using plugin system (TensorRT)
  */
 
-#ifndef CVEDIX_YOLO_DETECTOR_NODE_H
-#define CVEDIX_YOLO_DETECTOR_NODE_H
+#ifndef CVEDIX_RF_DETR_NODE_H
+#define CVEDIX_RF_DETR_NODE_H
 
 #include "base/cvedix_primary_infer_node.h"
 #include "cvedix/objects/cvedix_frame_target.h"
@@ -15,64 +15,26 @@
 #include <string>
 #include <vector>
 #include <set>
-#include <fstream>
 
 namespace cvedix_nodes {
 
 /**
- * @enum YoloVersion
- * @brief Supported YOLO plugin families
+ * @class cvedix_rf_detr_node
+ * @brief RF-DETR object detector using plugin-based backends
  */
-enum class YoloVersion {
-    YOLO11,     ///< Force YOLO11 plugin family
-    YOLO26,     ///< Force YOLO26 plugin family
-    YOLO12,     ///< Force YOLO12 plugin family
-    RF_DETR     ///< Force RF-DETR plugin family
-};
-
-/**
- * @class cvedix_yolo_detector_node
- * @brief Generic YOLOv11 object detector using plugin-based backends
- * 
- * This node auto-detects hardware (RKNN, TensorRT, OpenVINO, or ONNX) and loads
- * the appropriate backend dynamically via plugins. No need to specify plugin path.
- * 
- * Example usage:
- * @code
- * auto node = std::make_shared<cvedix_yolo_detector_node>(
- *     "detector",
- *     "model.engine",   // or model.xml for OpenVINO, model.onnx for ONNX, model.rknn for RKNN
- *     "labels.txt",
- *     0.45,   // confidence threshold
- *     0.5     // NMS threshold
- * );
- * @endcode
- */
-class cvedix_yolo_detector_node : public cvedix_primary_infer_node {
+class cvedix_rf_detr_node : public cvedix_primary_infer_node {
 public:
     /**
      * @brief Constructor without model loading
-     *
-     * The node starts running immediately but with no active backend.
-     * Call load_model() later to enable inference.
      */
-    explicit cvedix_yolo_detector_node(const std::string& node_name);
+    explicit cvedix_rf_detr_node(const std::string& node_name);
 
     /**
      * @brief Constructor with automatic backend detection
-     * Auto-detects hardware and loads appropriate backend (RKNN/TensorRT/OpenVINO/ONNX)
-     * @param node_name Name of this node
-     * @param model_path Path to model file (.rknn, .engine, .xml, or .onnx)
-     * @param yolo_version YOLO plugin family to use
-     * @param labels_path Path to labels file (optional)
-     * @param conf_threshold Confidence threshold for detections
-     * @param nms_threshold NMS threshold
-     * @param class_id_offset Offset for class IDs (useful for remapping)
      */
-    cvedix_yolo_detector_node(
+    cvedix_rf_detr_node(
         const std::string& node_name,
         const std::string& model_path,
-        YoloVersion yolo_version,
         const std::string& labels_path = "",
         float conf_threshold = 0.45f,
         float nms_threshold = 0.5f,
@@ -80,18 +42,13 @@ public:
         BackendType backend_type = BackendType::AUTO
     );
 
-    ~cvedix_yolo_detector_node() override;
+    ~cvedix_rf_detr_node() override;
 
     /**
      * @brief Load or reload a model at runtime
-     *
-     * If another model is active, it is unloaded first.
-     * Returns false instead of throwing when the selected backend is unavailable
-     * or the model/backend initialization fails.
      */
     bool load_model(
         const std::string& model_path,
-        YoloVersion yolo_version,
         const std::string& labels_path = "",
         float conf_threshold = 0.45f,
         float nms_threshold = 0.5f,
@@ -135,7 +92,6 @@ public:
 
     /**
      * @brief Add allowed class ID (only these classes will be kept)
-     * If empty, all classes are allowed
      */
     void add_allowed_class(int class_id) {
         allowed_class_ids.insert(class_id);
@@ -150,7 +106,6 @@ public:
 
     /**
      * @brief Set allowed class IDs from initializer list
-     * @param class_ids Initializer list of class IDs to allow
      */
     void set_allowed_classes(const std::initializer_list<int>& class_ids) {
         allowed_class_ids.clear();
@@ -161,7 +116,6 @@ public:
 
     /**
      * @brief Set allowed class IDs from a set
-     * @param class_ids Set of class IDs to allow
      */
     void set_allowed_classes(const std::set<int>& class_ids) {
         allowed_class_ids = class_ids;
@@ -185,13 +139,12 @@ public:
 protected:
     /**
      * @brief Run inference on batch of frames
-     * Implements the main detection pipeline
      */
     void run_infer_combinations(
         const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) override;
 
     /**
-     * @brief Postprocess raw outputs (not used - processing done inline)
+     * @brief Postprocess raw outputs (not used)
      */
     void postprocess(
         const std::vector<cv::Mat>& raw_outputs,
@@ -200,7 +153,6 @@ protected:
 private:
     /**
      * @brief Detect available hardware and return appropriate backend type
-     * @return Backend type to use (TensorRT > OpenVINO > ONNX)
      */
     BackendType detect_hw_info() const;
 
@@ -211,9 +163,6 @@ private:
 
     /**
      * @brief Load backend plugin based on backend type
-     * @param backend_type Type of backend to load
-     * @param model_path Path to model file
-     * @return Pointer to backend instance, or nullptr if failed
      */
     cvedix_nodes::infers::cvedix_infer_detector_backend* load_backend(
         BackendType backend_type,
@@ -221,16 +170,11 @@ private:
 
     /**
      * @brief Validate model path matches expected extension for backend type
-     * @param backend_type Type of backend
-     * @param model_path Path to model file
-     * @return true if valid
      */
     bool validate_model_path(BackendType backend_type, const std::string& model_path) const;
 
     /**
      * @brief Get file extension from path
-     * @param path File path
-     * @return File extension in lowercase (e.g., ".engine", ".xml")
      */
     std::string get_file_extension(const std::string& path) const;
 
@@ -257,7 +201,6 @@ private:
     float conf_threshold;
     float nms_threshold;
     int class_id_offset;
-    YoloVersion yolo_version;
     BackendType active_backend_type = BackendType::AUTO;
     std::vector<std::string> labels;
     std::set<int> allowed_class_ids;  // Empty = allow all
@@ -265,4 +208,4 @@ private:
 
 }  // namespace cvedix_nodes
 
-#endif  // CVEDIX_YOLO_DETECTOR_NODE_H
+#endif  // CVEDIX_RF_DETR_NODE_H

@@ -32,13 +32,13 @@ namespace cvedix_utils {
 
     private:
         // configure for render
-        const int node_width = 140;
-        const int node_height = 140;
-        const int canvas_gap_horizontal = 120;
-        const int canvas_gap_vertical = 60;
-        const int node_gap_horizontal = 40;
-        const int node_gap_vertical = 40;
-        const int debug_panel_height = 200;
+        const int node_width = 200;
+        const int node_height = 200;
+        const int canvas_gap_horizontal = 160;
+        const int canvas_gap_vertical = 80;
+        const int node_gap_horizontal = 60;
+        const int node_gap_vertical = 60;
+        const int debug_panel_height = 280;
 
         std::string board_title = "cvedix_analysis_board";
         bool alive = true;

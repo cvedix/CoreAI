@@ -78,10 +78,7 @@ namespace cvedix_utils {
         cvedix_logger& operator=(const cvedix_logger&) = delete;
 
         // singleton
-        static cvedix_logger& get_logger() {
-            static cvedix_logger logger;
-            return logger;
-        }
+        static cvedix_logger& get_logger();
         ~cvedix_logger();
 
         // CONFIG

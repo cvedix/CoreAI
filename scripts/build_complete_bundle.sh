@@ -126,9 +126,14 @@ fi
 # Third-party headers
 mkdir -p "$BUNDLE_DIR/include/third_party/trt_yolov11"
 mkdir -p "$BUNDLE_DIR/include/third_party/trt_yolov11_face"
+mkdir -p "$BUNDLE_DIR/include/third_party/trt_yolov12"
+mkdir -p "$BUNDLE_DIR/include/third_party/trt_rf_detr"
 mkdir -p "$BUNDLE_DIR/include/third_party/paddle_ocr"
+
 cp "${PWD}/third_party/trt_yolov11/"*.h "$BUNDLE_DIR/include/third_party/trt_yolov11/" 2>/dev/null || true
 cp "${PWD}/third_party/trt_yolov11_face/"*.h "$BUNDLE_DIR/include/third_party/trt_yolov11_face/" 2>/dev/null || true
+cp "${PWD}/third_party/trt_yolov12/"*.h "$BUNDLE_DIR/include/third_party/trt_yolov12/" 2>/dev/null || true
+cp "${PWD}/third_party/trt_rf_detr/"*.h "$BUNDLE_DIR/include/third_party/trt_rf_detr/" 2>/dev/null || true
 cp "${PWD}/third_party/paddle_ocr/include/"*.h "$BUNDLE_DIR/include/third_party/paddle_ocr/" 2>/dev/null || true
 
 HEADER_COUNT=$(find "$BUNDLE_DIR/include" -name "*.h" 2>/dev/null | wc -l)

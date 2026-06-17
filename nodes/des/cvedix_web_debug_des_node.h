@@ -62,6 +62,8 @@ namespace cvedix_nodes {
 
         /// @brief Latest OSD frame (thread-safe)
         cv::Mat latest_frame;
+        cv::Mat latest_orig_frame;
+        uint64_t latest_frame_seq = 0;
         std::mutex frame_lock;
 
         /// @brief Latest frame meta for stats

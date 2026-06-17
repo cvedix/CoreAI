@@ -55,7 +55,17 @@ namespace cvedix_nodes {
     std::vector<uint8_t> cvedix_web_debug_des_node::encode_jpeg(const cv::Mat& frame) {
         std::vector<uint8_t> buf;
         std::vector<int> params = {cv::IMWRITE_JPEG_QUALITY, jpeg_quality};
-        cv::imencode(".jpg", frame, buf, params);
+
+        cv::Mat resized_frame;
+        // Resize frame to max width 800px to save CPU time during JPEG encoding
+        if (frame.cols > 800) {
+            float ratio = 800.0f / frame.cols;
+            cv::resize(frame, resized_frame, cv::Size(), ratio, ratio);
+        } else {
+            resized_frame = frame;
+        }
+
+        cv::imencode(".jpg", resized_frame, buf, params);
         return buf;
     }
 
@@ -91,6 +101,8 @@ namespace cvedix_nodes {
         {
             std::lock_guard<std::mutex> guard(frame_lock);
             latest_frame = output_frame.clone();
+            latest_orig_frame = meta->frame.clone();
+            latest_frame_seq++;
         }
 
         const auto target_count = meta->targets.size() + meta->face_targets.size();
@@ -144,11 +156,14 @@ namespace cvedix_nodes {
             res.set_content_provider(
                 "multipart/x-mixed-replace; boundary=frame",
                 [this](size_t /*offset*/, httplib::DataSink& sink) {
+                    uint64_t last_encoded_seq = 0;
                     while (running) {
                         cv::Mat frame;
+                        uint64_t current_seq = 0;
                         {
                             std::lock_guard<std::mutex> guard(frame_lock);
-                            if (!latest_frame.empty()) {
+                            current_seq = latest_frame_seq;
+                            if (current_seq > last_encoded_seq && !latest_frame.empty()) {
                                 frame = latest_frame.clone();
                             }
                         }
@@ -159,8 +174,43 @@ namespace cvedix_nodes {
                             sink.write(header.c_str(), header.size());
                             sink.write(reinterpret_cast<const char*>(jpg.data()), jpg.size());
                             sink.write("\r\n", 2);
+                            last_encoded_seq = current_seq;
                         }
-                        std::this_thread::sleep_for(std::chrono::milliseconds(33)); // ~30fps cap
+                        std::this_thread::sleep_for(std::chrono::milliseconds(33)); // ~30fps
+                    }
+                    return false;
+                });
+        });
+
+        // MJPEG stream — Original video
+        server.Get("/stream/orig", [this](const httplib::Request&, httplib::Response& res) {
+            res.set_header("Cache-Control", "no-cache");
+            res.set_header("Connection", "keep-alive");
+            res.set_header("Access-Control-Allow-Origin", "*");
+            res.set_content_provider(
+                "multipart/x-mixed-replace; boundary=frame",
+                [this](size_t /*offset*/, httplib::DataSink& sink) {
+                    uint64_t last_encoded_seq = 0;
+                    while (running) {
+                        cv::Mat frame;
+                        uint64_t current_seq = 0;
+                        {
+                            std::lock_guard<std::mutex> guard(frame_lock);
+                            current_seq = latest_frame_seq;
+                            if (current_seq > last_encoded_seq && !latest_orig_frame.empty()) {
+                                frame = latest_orig_frame.clone();
+                            }
+                        }
+                        if (!frame.empty()) {
+                            auto jpg = encode_jpeg(frame);
+                            std::string header = "--frame\r\nContent-Type: image/jpeg\r\nContent-Length: "
+                                + std::to_string(jpg.size()) + "\r\n\r\n";
+                            sink.write(header.c_str(), header.size());
+                            sink.write(reinterpret_cast<const char*>(jpg.data()), jpg.size());
+                            sink.write("\r\n", 2);
+                            last_encoded_seq = current_seq;
+                        }
+                        std::this_thread::sleep_for(std::chrono::milliseconds(33)); // ~30fps
                     }
                     return false;
                 });
@@ -186,7 +236,7 @@ namespace cvedix_nodes {
                                 sink.write("\r\n", 2);
                             }
                         }
-                        std::this_thread::sleep_for(std::chrono::milliseconds(200)); // 5fps for board
+                        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 10fps for board
                     }
                     return false;
                 });
@@ -252,14 +302,35 @@ namespace cvedix_nodes {
             }
         });
 
+        server.Get("/snapshot/orig", [this](const httplib::Request&, httplib::Response& res) {
+            cv::Mat frame;
+            {
+                std::lock_guard<std::mutex> guard(frame_lock);
+                if (!latest_orig_frame.empty()) {
+                    frame = latest_orig_frame.clone();
+                }
+            }
+            if (!frame.empty()) {
+                auto jpg = encode_jpeg(frame);
+                res.set_header("Cache-Control", "no-cache, no-store");
+                res.set_header("Access-Control-Allow-Origin", "*");
+                res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
+            } else {
+                res.status = 204;
+            }
+        });
+
         server.Get("/snapshot/board", [this](const httplib::Request&, httplib::Response& res) {
             if (board) {
                 cv::Mat canvas = board->get_current_canvas();
                 if (!canvas.empty()) {
-                    auto jpg = encode_jpeg(canvas);
+                    // Use PNG for board: sharp text/lines, no JPEG artifacts
+                    std::vector<uint8_t> buf;
+                    std::vector<int> params = {cv::IMWRITE_PNG_COMPRESSION, 3}; // fast compression
+                    cv::imencode(".png", canvas, buf, params);
                     res.set_header("Cache-Control", "no-cache, no-store");
                     res.set_header("Access-Control-Allow-Origin", "*");
-                    res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
+                    res.set_content(std::string(reinterpret_cast<const char*>(buf.data()), buf.size()), "image/png");
                     return;
                 }
             }

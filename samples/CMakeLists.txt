@@ -4,12 +4,13 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif()
 
 message("start build for simple samples...")
+link_libraries(MediaToolKit)
 # save all exe to 'build/bin'
 
 # Default sample
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_executable(1-1-1_sample "1-1-1_sample.cpp")
-target_link_libraries(1-1-1_sample ${PROJECT_NAME})
+target_link_libraries(1-1-1_sample ${PROJECT_NAME} MediaToolKit)
 
 add_executable(1-1-N_sample "1-1-N_sample.cpp")
 target_link_libraries(1-1-N_sample ${PROJECT_NAME})
@@ -174,7 +175,7 @@ endif()
 
 # samples depend on MQTT (mandatory)
 add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
-target_include_directories(ba_crossline_mqtt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+target_include_directories(ba_crossline_mqtt_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
 target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
 
 # Link with mosquitto
@@ -304,7 +305,7 @@ endif()
 
 # samples depend on PaddlePaddle
 if(CVEDIX_WITH_PADDLE)
-    set(PPOCR_NODE_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_ppocr_text_detector_node.h")
+    set(PPOCR_NODE_HEADER "${PROJECT_SOURCE_DIR}/nodes/infers/cvedix_ppocr_text_detector_node.h")
     if(EXISTS ${PPOCR_NODE_HEADER})
         add_executable(app_src_sample "app_src_sample.cpp")
         target_link_libraries(app_src_sample ${PROJECT_NAME})
@@ -359,12 +360,12 @@ endif()
 if(CVEDIX_WITH_TRT_FACE)
     # TensorRT YOLOv11 Plate Detector sample
     add_executable(yolov11_plate_detector_trt_sample "yolov11_plate_detector_trt_sample.cpp")
-    target_include_directories(yolov11_plate_detector_trt_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_include_directories(yolov11_plate_detector_trt_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
     target_link_libraries(yolov11_plate_detector_trt_sample ${PROJECT_NAME})
 
     # YOLOv11 Plate Detection + ByteTrack Tracking sample with Analysis Board
     add_executable(yolov11_plate_bytetrack_sample "yolov11_plate_bytetrack_sample.cpp")
-    target_include_directories(yolov11_plate_bytetrack_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+    target_include_directories(yolov11_plate_bytetrack_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
     target_link_libraries(yolov11_plate_bytetrack_sample ${PROJECT_NAME})
     
     # Install TensorRT samples (only working ones, vehicle/yolov8 samples disabled)
@@ -396,16 +397,16 @@ if(CVEDIX_WITH_TRT_FACE)
 endif()
 
 if(CVEDIX_WITH_TRT AND CVEDIX_WITH_PADDLE)
-    set(TRT_YOLOV11_DET_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_trt_yolov11_det_node.h")
-    set(PLATE_PPOCR_HEADER "${CMAKE_SOURCE_DIR}/nodes/infers/cvedix_plate_recogniton_ppocr3.h")
+    set(TRT_YOLOV11_DET_HEADER "${PROJECT_SOURCE_DIR}/nodes/infers/cvedix_trt_yolov11_det_node.h")
+    set(PLATE_PPOCR_HEADER "${PROJECT_SOURCE_DIR}/nodes/infers/cvedix_plate_recogniton_ppocr3.h")
 
     if(EXISTS ${TRT_YOLOV11_DET_HEADER} AND EXISTS ${PLATE_PPOCR_HEADER})
         add_executable(plate_recognition_pipeline_sample "plate_recognition_pipeline_sample.cpp")
-        target_include_directories(plate_recognition_pipeline_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_include_directories(plate_recognition_pipeline_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
         target_link_libraries(plate_recognition_pipeline_sample ${PROJECT_NAME})
         
         add_executable(plate_recognition_video_output_sample "plate_recognition_video_output_sample.cpp")
-        target_include_directories(plate_recognition_video_output_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_include_directories(plate_recognition_video_output_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
         target_link_libraries(plate_recognition_video_output_sample ${PROJECT_NAME})
 
         install(TARGETS plate_recognition_pipeline_sample plate_recognition_video_output_sample DESTINATION bin OPTIONAL)
@@ -416,7 +417,7 @@ if(CVEDIX_WITH_TRT AND CVEDIX_WITH_PADDLE)
     if(EXISTS ${PLATE_PPOCR_HEADER})
         # Plate Detection + ByteTrack + PaddleOCR with Best Plate Selection
         add_executable(plate_bytetrack_ocr_sample "plate_bytetrack_ocr_sample.cpp")
-        target_include_directories(plate_bytetrack_ocr_sample PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
+        target_include_directories(plate_bytetrack_ocr_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
         target_link_libraries(plate_bytetrack_ocr_sample ${PROJECT_NAME})
 
         install(TARGETS plate_bytetrack_ocr_sample DESTINATION bin OPTIONAL)
