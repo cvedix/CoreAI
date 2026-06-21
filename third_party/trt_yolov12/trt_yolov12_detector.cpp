@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cstring>
 #include <numeric>
+#include <chrono>
 
 namespace trt_yolov12 {
 
@@ -497,8 +498,10 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
         cv::Size original_size = image.size();
 
         // Preprocess
+        auto t0 = std::chrono::high_resolution_clock::now();
         std::vector<float> input_data(3 * input_height * input_width);
         preprocess(image, input_data.data());
+        auto t1 = std::chrono::high_resolution_clock::now();
 
         // Copy input to device
         cudaMemcpyAsync(device_buffers[input_tensor_idx], input_data.data(),
@@ -523,6 +526,7 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
         }
 
         // Run inference
+        auto t2 = std::chrono::high_resolution_clock::now();
         context->enqueueV3(stream);
 
         if (multi_head) {
@@ -538,7 +542,13 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
                                 cudaMemcpyDeviceToHost, stream);
             }
             cudaStreamSynchronize(stream);
+            auto t3 = std::chrono::high_resolution_clock::now();
             postprocess_multihead(original_size, detections[b]);
+            auto t4 = std::chrono::high_resolution_clock::now();
+            std::cout << "[TRT Perf] Preprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count() << "ms | "
+                      << "Host->Device: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << "ms | "
+                      << "GPU Infer + D2H: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3-t2).count() << "ms | "
+                      << "CPU Postprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count() << "ms" << std::endl;
         } else {
             // Copy single fused output
             for (int i = 0; i < num_io_tensors; ++i) {

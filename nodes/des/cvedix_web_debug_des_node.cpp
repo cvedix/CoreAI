@@ -100,8 +100,8 @@ namespace cvedix_nodes {
         // Update latest frame (thread-safe swap)
         {
             std::lock_guard<std::mutex> guard(frame_lock);
-            latest_frame = output_frame.clone();
-            latest_orig_frame = meta->frame.clone();
+            latest_frame = output_frame;
+            latest_orig_frame = meta->frame;
             latest_frame_seq++;
         }
 
@@ -145,6 +145,7 @@ namespace cvedix_nodes {
     void cvedix_web_debug_des_node::setup_routes() {
         // Dashboard page
         server.Get("/", [](const httplib::Request&, httplib::Response& res) {
+            res.set_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
             res.set_content(WEB_DEBUG_DASHBOARD_HTML, "text/html");
         });
 
@@ -164,7 +165,7 @@ namespace cvedix_nodes {
                             std::lock_guard<std::mutex> guard(frame_lock);
                             current_seq = latest_frame_seq;
                             if (current_seq > last_encoded_seq && !latest_frame.empty()) {
-                                frame = latest_frame.clone();
+                                frame = latest_frame;
                             }
                         }
                         if (!frame.empty()) {
@@ -198,7 +199,7 @@ namespace cvedix_nodes {
                             std::lock_guard<std::mutex> guard(frame_lock);
                             current_seq = latest_frame_seq;
                             if (current_seq > last_encoded_seq && !latest_orig_frame.empty()) {
-                                frame = latest_orig_frame.clone();
+                                frame = latest_orig_frame;
                             }
                         }
                         if (!frame.empty()) {
@@ -289,7 +290,7 @@ namespace cvedix_nodes {
             {
                 std::lock_guard<std::mutex> guard(frame_lock);
                 if (!latest_frame.empty()) {
-                    frame = latest_frame.clone();
+                    frame = latest_frame;
                 }
             }
             if (!frame.empty()) {
@@ -307,7 +308,7 @@ namespace cvedix_nodes {
             {
                 std::lock_guard<std::mutex> guard(frame_lock);
                 if (!latest_orig_frame.empty()) {
-                    frame = latest_orig_frame.clone();
+                    frame = latest_orig_frame;
                 }
             }
             if (!frame.empty()) {

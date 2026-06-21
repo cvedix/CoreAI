@@ -21,14 +21,9 @@ target_link_libraries(1-N-N_sample ${PROJECT_NAME})
 add_executable(1-N-1-N_sample "1-N-1-N_sample.cpp")
 target_link_libraries(1-N-1-N_sample ${PROJECT_NAME})
 
-add_executable(app_des_sample "app_des_sample.cpp")
-target_link_libraries(app_des_sample ${PROJECT_NAME})
 
-add_executable(app_src_des_sample "app_src_des_sample.cpp")
-target_link_libraries(app_src_des_sample ${PROJECT_NAME})
 
-add_executable(cvedix_logger_sample "cvedix_logger_sample.cpp")
-target_link_libraries(cvedix_logger_sample ${PROJECT_NAME})
+
 
 add_executable(N-1-N_sample "N-1-N_sample.cpp")
 target_link_libraries(N-1-N_sample ${PROJECT_NAME})
@@ -39,20 +34,7 @@ target_link_libraries(N-N_sample ${PROJECT_NAME})
 # add_executable(openpose_sample "openpose_sample.cpp")
 # target_link_libraries(openpose_sample ${PROJECT_NAME})
 
-add_executable(face_detection_yolov11_trt_web_debug_sample "face_detection_yolov11_trt_web_debug_sample.cpp")
-target_link_libraries(face_detection_yolov11_trt_web_debug_sample ${PROJECT_NAME})
 
-add_executable(ba_crowding_sample "ba_crowding_sample.cpp")
-target_link_libraries(ba_crowding_sample ${PROJECT_NAME})
-
-add_executable(ba_area_enter_exit_sample "ba_area_enter_exit_sample.cpp")
-target_link_libraries(ba_area_enter_exit_sample ${PROJECT_NAME})
-
-add_executable(ba_multiline_crossline_test "ba_multiline_crossline_test.cpp")
-target_link_libraries(ba_multiline_crossline_test ${PROJECT_NAME})
-
-add_executable(ba_multiple_crossline_counting_sample "ba_multiple_crossline_counting_sample.cpp")
-target_link_libraries(ba_multiple_crossline_counting_sample ${PROJECT_NAME})
 
 # webhook_broker_sample - needs API update
 # add_executable(webhook_broker_sample "webhook_broker_sample.cpp")
@@ -67,98 +49,25 @@ install(TARGETS
         1-1-N_sample
         1-N-N_sample
         1-N-1-N_sample
-        app_des_sample
-        app_src_des_sample
-        cvedix_logger_sample
         N-1-N_sample
         N-N_sample
-        face_detection_yolov11_trt_web_debug_sample
-        ba_crowding_sample
-        ba_area_enter_exit_sample
-        ba_multiline_crossline_test
-        ba_multiple_crossline_counting_sample
         DESTINATION bin
         OPTIONAL
 )
 
 # TensorRT samples (requires CVEDIX_WITH_TRT=ON)
 if(CVEDIX_WITH_TRT)
-    add_executable(ba_accident_detection_sample "ba_accident_detection_sample.cpp")
-    target_link_libraries(ba_accident_detection_sample ${PROJECT_NAME})
-
-    add_executable(ba_crossline_sample "ba_crossline_sample.cpp")
-    target_link_libraries(ba_crossline_sample ${PROJECT_NAME})
-
-    add_executable(ba_speed_estimation_sample "ba_speed_estimation_sample.cpp")
-    target_link_libraries(ba_speed_estimation_sample ${PROJECT_NAME})
-
-    add_executable(ba_traffic_analysis_sample "ba_traffic_analysis_sample.cpp")
-    target_link_libraries(ba_traffic_analysis_sample ${PROJECT_NAME})
-
-    add_executable(ba_vehicle_running_red_light_sample "ba_vehicle_running_red_light_sample.cpp")
-    target_link_libraries(ba_vehicle_running_red_light_sample ${PROJECT_NAME})
-
-    add_executable(rtsp_vehicle_license_plate_sample "rtsp_vehicle_license_plate_sample.cpp")
-    target_link_libraries(rtsp_vehicle_license_plate_sample ${PROJECT_NAME})
-
-    install(TARGETS 
-        ba_accident_detection_sample
-        ba_crossline_sample
-        ba_speed_estimation_sample
-        ba_traffic_analysis_sample
-        ba_vehicle_running_red_light_sample
-        rtsp_vehicle_license_plate_sample
-
-        DESTINATION bin
-        OPTIONAL
-    )
-
 endif()
 
 if(CVEDIX_WITH_OPENVINO)
-    add_executable(ba_movement_sample "ba_movement_sample.cpp")
-    target_link_libraries(ba_movement_sample ${PROJECT_NAME})
-        install(TARGETS 
-        ba_movement_sample
-        DESTINATION bin
-        OPTIONAL
-    )
 endif()
 
 # SeetaFace6 face analysis sample
 if(CVEDIX_WITH_FACE)
-    add_executable(face_analysis_seetaface_sample "face_analysis_seetaface_sample.cpp")
-    target_link_libraries(face_analysis_seetaface_sample ${PROJECT_NAME})
-
-    install(TARGETS
-        face_analysis_seetaface_sample
-        DESTINATION bin
-        OPTIONAL
-    )
 endif()
 
 # Milvus large-scale face search sample (requires SeetaFace6 + Milvus)
 if(CVEDIX_WITH_FACE AND CVEDIX_WITH_MILVUS)
-    add_executable(milvus_face_search_sample "milvus_face_search_sample.cpp")
-    target_link_libraries(milvus_face_search_sample ${PROJECT_NAME})
-
-    add_executable(milvus_auto_register_sample "milvus_auto_register_sample.cpp")
-    target_link_libraries(milvus_auto_register_sample ${PROJECT_NAME})
-
-    add_executable(milvus_yolov11_face_register_sample "milvus_yolov11_face_register_sample.cpp")
-    target_link_libraries(milvus_yolov11_face_register_sample ${PROJECT_NAME})
-
-    add_executable(milvus_yolov11_face_recognize_sample "milvus_yolov11_face_recognize_sample.cpp")
-    target_link_libraries(milvus_yolov11_face_recognize_sample ${PROJECT_NAME})
-
-    install(TARGETS
-        milvus_face_search_sample
-        milvus_auto_register_sample
-        milvus_yolov11_face_register_sample
-        milvus_yolov11_face_recognize_sample
-        DESTINATION bin
-        OPTIONAL
-    )
 endif()
 
 
@@ -174,23 +83,6 @@ if(CVEDIX_WITH_KAFKA)
 endif()
 
 # samples depend on MQTT (mandatory)
-add_executable(ba_crossline_mqtt_sample "ba_crossline_mqtt_sample.cpp")
-target_include_directories(ba_crossline_mqtt_sample PRIVATE ${PROJECT_SOURCE_DIR}/third_party)
-target_link_libraries(ba_crossline_mqtt_sample ${PROJECT_NAME})
-
-# Link with mosquitto
-if(MOSQUITTO_FOUND)
-    target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIBRARIES})
-else()
-    find_library(MOSQUITTO_LIB NAMES mosquitto)
-    if(MOSQUITTO_LIB)
-        target_link_libraries(ba_crossline_mqtt_sample ${MOSQUITTO_LIB})
-    endif()
-endif()
-
-install(TARGETS ba_crossline_mqtt_sample
-        DESTINATION bin
-        OPTIONAL)
 
 # samples depend on LLM
 # if(CVEDIX_WITH_LLM)
@@ -219,13 +111,6 @@ install(TARGETS ba_crossline_mqtt_sample
 
 # samples depend on LLM (local LLM inference via llama.cpp)
 if(CVEDIX_WITH_LLM)
-    add_executable(llm_sample "llm_sample.cpp")
-    target_link_libraries(llm_sample ${PROJECT_NAME})
-
-    install(TARGETS
-        llm_sample
-        DESTINATION bin
-        OPTIONAL)
 endif()
 
 # samples depend on RKNN
@@ -307,18 +192,6 @@ endif()
 if(CVEDIX_WITH_PADDLE)
     set(PPOCR_NODE_HEADER "${PROJECT_SOURCE_DIR}/nodes/infers/cvedix_ppocr_text_detector_node.h")
     if(EXISTS ${PPOCR_NODE_HEADER})
-        add_executable(app_src_sample "app_src_sample.cpp")
-        target_link_libraries(app_src_sample ${PROJECT_NAME})
-
-        install(TARGETS 
-            app_src_sample
-            DESTINATION bin
-            OPTIONAL)
-    else()
-        message(STATUS "PPOCR node header not found - app_src_sample disabled")
-    endif()
-
-    if(EXISTS ${PPOCR_NODE_HEADER})
         add_executable(paddle_infer_sample "paddle_infer_sample.cpp")
         target_link_libraries(paddle_infer_sample ${PROJECT_NAME})
 
@@ -327,22 +200,6 @@ if(CVEDIX_WITH_PADDLE)
             DESTINATION bin
             OPTIONAL)
     endif()
-
-    add_executable(ba_areea_enter_exit_paddle_detection_sample "ba_areea_enter_exit_paddle_detection_sample.cpp")
-    target_link_libraries(ba_areea_enter_exit_paddle_detection_sample ${PROJECT_NAME})
-
-    install(TARGETS
-        ba_areea_enter_exit_paddle_detection_sample
-        DESTINATION bin
-        OPTIONAL)
-
-    add_executable(ba_crossline_paddle_detection_sample "ba_crossline_paddle_detection_sample.cpp")
-    target_link_libraries(ba_crossline_paddle_detection_sample ${PROJECT_NAME})
-
-    install(TARGETS
-        ba_crossline_paddle_detection_sample
-        DESTINATION bin
-        OPTIONAL)
 endif()
 
 # samples depend on CUDA(maybe other dependency required too)

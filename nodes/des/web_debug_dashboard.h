@@ -248,10 +248,10 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   /* ── Main Content ── */
   .content { flex: 1; padding: 16px 24px; display: flex; flex-direction: column; gap: 16px; }
 
-  /* ── Panels Grid — 2 columns, board below ── */
+  /* ── Panels Grid — 1 column, board below ── */
   .panels-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
     flex: 1;
     min-height: 350px;
@@ -508,8 +508,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
           <div class="sys-chip mem"><span class="icon">◆</span> <span id="chip-mem">--</span></div>
         </div>
         <div class="panel-tabs" id="panel-tabs">
-          <button class="active" id="tab-orig" onclick="switchTab('orig')">Original</button>
-          <button id="tab-osd" onclick="switchTab('osd')">OSD</button>
+          <button class="active" id="tab-osd" onclick="switchTab('osd')">OSD</button>
         </div>
         <div class="connection" id="connection-status">
           <span class="connection-dot"></span>
@@ -522,27 +521,6 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     <section class="content">
       <!-- Video Streams Row -->
       <div class="panels-row">
-        <!-- Original Panel -->
-        <div class="panel" id="orig-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span>Original Feed</span>
-              <span class="badge badge-live">● LIVE</span>
-            </div>
-            <div class="controls">
-              <button id="btn-pause-orig" onclick="toggleOrigStream()">Pause</button>
-              <button onclick="goFullscreen('orig-panel')">⛶</button>
-            </div>
-          </div>
-          <div class="stream-wrap" id="orig-container">
-            <img id="orig-stream" alt="Original video stream">
-            <div class="placeholder" id="orig-placeholder">
-              <div class="placeholder-spinner"></div>
-              <span>Connecting to Original stream…</span>
-            </div>
-          </div>
-        </div>
-
         <!-- OSD Panel -->
         <div class="panel" id="osd-panel">
           <div class="panel-header">
@@ -637,20 +615,18 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   /* ═══════════════════════════════════════
    * Snapshot-based streaming (cross-browser)
    * ═══════════════════════════════════════ */
-  let origActive = true;
   let osdActive = true;
   let boardActive = true;
   let boardVisible = true;
   let eventCount = 0;
 
-  const origStream = document.getElementById('orig-stream');
-  const origPlaceholder = document.getElementById('orig-placeholder');
+
   const osdStream = document.getElementById('osd-stream');
   const osdPlaceholder = document.getElementById('osd-placeholder');
   const boardStream = document.getElementById('board-stream');
   const boardPlaceholder = document.getElementById('board-placeholder');
 
-  if (origStream) origStream.removeAttribute('src');
+
   osdStream.removeAttribute('src');
   boardStream.removeAttribute('src');
 
@@ -688,16 +664,8 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     return { stop: function() { running = false; }, start: function() { running = true; } };
   }
 
-  const origLoop = startSnapshotLoop(origStream, origPlaceholder, '/snapshot/orig', 250, () => origActive);
   const osdLoop = startSnapshotLoop(osdStream, osdPlaceholder, '/snapshot/osd', 250, () => osdActive);
   const boardLoop = startSnapshotLoop(boardStream, boardPlaceholder, '/snapshot/board', 400, () => boardActive && boardVisible);
-
-  function toggleOrigStream() {
-    origActive = !origActive;
-    const btn = document.getElementById('btn-pause-orig');
-    btn.textContent = origActive ? 'Pause' : 'Resume';
-    origActive ? btn.classList.remove('active') : btn.classList.add('active');
-  }
 
   function toggleOsdStream() {
     osdActive = !osdActive;
@@ -737,23 +705,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
    * Mobile tab switch
    * ═══════════════════════════════════════ */
   function switchTab(tab) {
-    const origPanel = document.getElementById('orig-panel');
-    const osdPanel = document.getElementById('osd-panel');
-    const tabOrig = document.getElementById('tab-orig');
-    const tabOsd = document.getElementById('tab-osd');
-
-    origPanel.classList.add('mobile-hidden');
-    osdPanel.classList.add('mobile-hidden');
-    if (tabOrig) tabOrig.classList.remove('active');
-    tabOsd.classList.remove('active');
-
-    if (tab === 'orig') {
-      origPanel.classList.remove('mobile-hidden');
-      if (tabOrig) tabOrig.classList.add('active');
-    } else {
-      osdPanel.classList.remove('mobile-hidden');
-      tabOsd.classList.add('active');
-    }
+    // Single tab behavior
   }
 
   /* ═══════════════════════════════════════

@@ -83,7 +83,7 @@ void cvedix_osd_node::set_seg_config(const std::vector<std::string> &classes,
 std::shared_ptr<cvedix_objects::cvedix_meta>
 cvedix_osd_node::handle_frame_meta(std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
     if (meta->osd_frame.empty()) {
-        meta->osd_frame = meta->frame.clone();
+        meta->osd_frame = meta->frame;
     }
     auto &canvas = meta->osd_frame;
 

@@ -46,17 +46,19 @@ int main(int argc, char** argv) {
         "file_src_0", 
         0, 
         "/home/cvedix/rapidmedia/3rdpart/core/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4", 
-        0.6,
+        0.5, // Giảm resolution một nửa để tăng tốc đáng kể OSD/Web stream
         true,
-        "nvh264dec"
+        "nvh264dec",
+        0,     // skip_interval
+        false  // play_at_realtime = false để chạy Max Speed
     );
 
     // YOLOv12 detector with TensorRT engine backend
     auto yolo_detector_0 = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector_0",
-        "/home/cvedix/rapidmedia/release/linux/Release/data/models/yolo12n.engine",  // TensorRT engine model
+        "/home/cvedix/cvedix_data/yolo12n.engine",  // TensorRT engine model
         cvedix_nodes::YoloVersion::YOLO12,
-        "/home/cvedix/rapidmedia/release/linux/Release/data/models/coco.txt",      // labels file
+        "/home/cvedix/cvedix_data/coco.txt",      // labels file
         0.30f,   // confidence threshold
         0.5f,    // NMS threshold
         0,       // class_id_offset

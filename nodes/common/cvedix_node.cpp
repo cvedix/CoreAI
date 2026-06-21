@@ -10,8 +10,7 @@ namespace cvedix_nodes {
 
     }
 
-    // there is only one thread poping data from the in_queue, we don't use lock here when poping.
-    // there is only one thread pushing data to the out_queue, we don't use lock here when pushing.
+    // Thread-safe access for in_queue and out_queue must be enforced.
     void cvedix_node::handle_run() {
         // cache for batch handling if need
         std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>> frame_meta_batch_cache;
@@ -19,8 +18,12 @@ namespace cvedix_nodes {
             // wait for producer, make sure in_queue is not empty.
             this->in_queue_semaphore.wait();
 
-            CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));
-            auto in_meta = this->in_queue.front();
+            std::shared_ptr<cvedix_objects::cvedix_meta> in_meta;
+            {
+                std::lock_guard<std::mutex> guard(this->in_queue_lock);
+                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));
+                in_meta = this->in_queue.front();
+            }
             
             // dead flag
             if (in_meta == nullptr) {
@@ -61,66 +64,92 @@ namespace cvedix_nodes {
             else {
                 throw "invalid meta type!";
             }
-            this->in_queue.pop();
-            CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));
+            {
+                std::lock_guard<std::mutex> guard(this->in_queue_lock);
+                this->in_queue.pop();
+                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));
+            }
 
             // one by one mode
             // return nullptr means do not push it to next nodes(such as in des nodes).
             if (out_meta != nullptr && node_type() != cvedix_node_type::DES) {
-                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
-                this->out_queue.push(out_meta);
+                {
+                    std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                    CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                    this->out_queue.push(out_meta);
+                }
 
                 // handled hooker activated if need
                 invoke_meta_handled_hooker(node_name, out_queue.size(), out_meta);
 
                 // notify consumer of out_queue
                 this->out_queue_semaphore.signal();
-                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                {
+                    std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                    CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                }
             }
 
             // batch by batch mode
             if (batch_complete && node_type() != cvedix_node_type::DES) {
                 // push to out_queue one by one
                 for (auto& i: frame_meta_batch_cache) {
-                    CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
-                    this->out_queue.push(i);
+                    {
+                        std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                        CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                        this->out_queue.push(i);
+                    }
 
                     // handled hooker activated if need
                     invoke_meta_handled_hooker(node_name, out_queue.size(), i);
 
                     // notify consumer of out_queue
                     this->out_queue_semaphore.signal();
-                    CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                    {
+                        std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                        CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after handling meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+                    }
                 }
                 // clean cache for the next batch
                 frame_meta_batch_cache.clear();
             }
         }
         // send dead flag for dispatch_thread
-        this->out_queue.push(nullptr);
+        {
+            std::lock_guard<std::mutex> guard(this->out_queue_lock);
+            this->out_queue.push(nullptr);
+        }
         this->out_queue_semaphore.signal();
     }
 
-    // there is only one thread poping from the out_queue, we don't use lock here when poping.
     void cvedix_node::dispatch_run() {
         while (alive) {
             // wait for producer, make sure out_queue is not empty.
             this->out_queue_semaphore.wait();
 
-            CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before dispatching meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
-            auto out_meta = this->out_queue.front();
+            std::shared_ptr<cvedix_objects::cvedix_meta> out_meta;
+            size_t current_out_size = 0;
+            {
+                std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                current_out_size = this->out_queue.size();
+                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before dispatching meta, out_queue.size()==>%d", node_name.c_str(), current_out_size));
+                out_meta = this->out_queue.front();
+                this->out_queue.pop();
+            }
             // dead flag
             if (out_meta == nullptr) {
                 continue;
             }
 
             // leaving hooker activated if need
-            invoke_meta_leaving_hooker(node_name, out_queue.size(), out_meta);
+            invoke_meta_leaving_hooker(node_name, current_out_size, out_meta);
 
             // do something..
             this->push_meta(out_meta);
-            this->out_queue.pop();
-            CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after dispatching meta, out_queue.size()==>%d", node_name.c_str(), out_queue.size()));
+            {
+                std::lock_guard<std::mutex> guard(this->out_queue_lock);
+                CVEDIX_DEBUG(cvedix_utils::string_format("[%s] after dispatching meta, out_queue.size()==>%d", node_name.c_str(), this->out_queue.size()));
+            }
         }
     }
 
@@ -248,7 +277,10 @@ namespace cvedix_nodes {
     }
 
     void cvedix_node::pendding_meta(std::shared_ptr<cvedix_objects::cvedix_meta> meta) {
-        this->out_queue.push(meta);
+        {
+            std::lock_guard<std::mutex> guard(this->out_queue_lock);
+            this->out_queue.push(meta);
+        }
         // handled hooker activated if need
         invoke_meta_handled_hooker(node_name, out_queue.size(), meta);        
         // notify consumer of out_queue

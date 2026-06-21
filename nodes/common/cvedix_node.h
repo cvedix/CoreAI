@@ -122,6 +122,8 @@ namespace cvedix_nodes {
         std::mutex in_queue_lock;
         /// @brief Queue for outgoing meta to next nodes
         std::queue<std::shared_ptr<cvedix_objects::cvedix_meta>> out_queue;
+        /// @brief Mutex for thread-safe access to out_queue
+        std::mutex out_queue_lock;
 
         /// @brief Semaphore for synchronizing in_queue access
         cvedix_utils::cvedix_semaphore in_queue_semaphore;

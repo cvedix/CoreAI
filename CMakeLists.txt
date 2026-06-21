@@ -12,7 +12,7 @@ include(GNUInstallDirs)
 
 set(CMAKE_CXX_STANDARD 20)
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fPIC -w -fdiagnostics-color=always -pthread")
 # save all libs(including third_party's) to 'libs'
@@ -933,6 +933,7 @@ if(NOT EIGEN3_FOUND)
 endif()
 
 # build for CORE SDK
+link_directories(/home/cvedix/rapidmedia/build/3rdpart/MediaToolKit/lib)
 add_library(cvedix_core SHARED ${CORE_NODES} ${CORE_UTILS} ${OBJECTS})
 target_link_libraries(cvedix_core
     PUBLIC

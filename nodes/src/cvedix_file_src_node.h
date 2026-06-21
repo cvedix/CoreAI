@@ -22,7 +22,7 @@ namespace cvedix_nodes {
 
     private:
         /* data */
-        std::string gst_template = "filesrc location=%s ! qtdemux ! h264parse ! %s ! videoconvert ! appsink";
+        std::string gst_template = "filesrc location=%s ! qtdemux ! h264parse ! %s ! videoconvert ! appsink sync=false";
         cv::VideoCapture file_capture;
     protected:
         // re-implemetation
@@ -34,7 +34,8 @@ namespace cvedix_nodes {
                         float resize_ratio = 1.0, 
                         bool cycle = true,
                         std::string gst_decoder_name = "avdec_h264",
-                        int skip_interval = 0);
+                        int skip_interval = 0,
+                        bool play_at_realtime = true);
         ~cvedix_file_src_node();
 
         virtual std::string to_string() override;
@@ -45,6 +46,9 @@ namespace cvedix_nodes {
         std::string gst_decoder_name = "avdec_h264";
         // 0 means no skip
         int skip_interval = 0;
+        
+        // if true, source will sleep to match video FPS. If false, process as fast as possible.
+        bool play_at_realtime = true;
     };
 
 }

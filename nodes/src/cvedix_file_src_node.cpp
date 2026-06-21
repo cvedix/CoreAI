@@ -12,10 +12,11 @@ namespace cvedix_nodes {
                                         float resize_ratio, 
                                         bool cycle,
                                         std::string gst_decoder_name,
-                                        int skip_interval): 
+                                        int skip_interval,
+                                        bool play_at_realtime): 
                                         cvedix_src_node(node_name, channel_index, resize_ratio), 
                                         file_path(file_path), 
-                                        cycle(cycle), gst_decoder_name(gst_decoder_name), skip_interval(skip_interval) {
+                                        cycle(cycle), gst_decoder_name(gst_decoder_name), skip_interval(skip_interval), play_at_realtime(play_at_realtime) {
         assert(skip_interval >= 0 && skip_interval <= 9);
         this->gst_template = cvedix_utils::string_format(this->gst_template, file_path.c_str(), gst_decoder_name.c_str());
         CVEDIX_INFO(cvedix_utils::string_format("[%s] [%s]", node_name.c_str(), gst_template.c_str()));
@@ -119,10 +120,12 @@ namespace cvedix_nodes {
             }
 
             // for fps
-            auto snap = std::chrono::system_clock::now() - last_time;
-            snap = std::chrono::duration_cast<std::chrono::milliseconds>(snap);
-            if (snap < delta) {
-                std::this_thread::sleep_for(delta - snap);
+            if (play_at_realtime) {
+                auto snap = std::chrono::system_clock::now() - last_time;
+                snap = std::chrono::duration_cast<std::chrono::milliseconds>(snap);
+                if (snap < delta) {
+                    std::this_thread::sleep_for(delta - snap);
+                }
             }
         }
 
