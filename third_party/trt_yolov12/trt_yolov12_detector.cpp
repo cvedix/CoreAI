@@ -11,6 +11,7 @@
 #include <cstring>
 #include <numeric>
 #include <chrono>
+#include <cstdlib>
 
 namespace trt_yolov12 {
 
@@ -52,13 +53,21 @@ trt_yolov12_detector::trt_yolov12_detector(const std::string& engine_path,
                                            float nms_threshold)
     : conf_threshold(conf_threshold), nms_threshold(nms_threshold) {
 
-    cudaStreamCreate(&stream);
+    profile_enabled = std::getenv("CVEDIX_TRT_YOLO12_PROFILE") != nullptr;
+
+    cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking);
 
     if (!load_engine(engine_path)) {
         throw std::runtime_error("Failed to load TensorRT engine: " + engine_path);
     }
 
     allocate_buffers();
+    tensors_bound = bind_io_tensors();
+    if (!tensors_bound) {
+        throw std::runtime_error("Failed to bind TensorRT IO tensors");
+    }
+
+    warmup();
 
     std::cout << "[trt_yolov12] Loaded engine: " << engine_path << std::endl;
     std::cout << "[trt_yolov12] Input: " << input_width << "x" << input_height
@@ -74,9 +83,10 @@ trt_yolov12_detector::~trt_yolov12_detector() {
         if (buf) cudaFree(buf);
     }
     for (auto h : host_outputs) {
-        delete[] h;
+        if (h) cudaFreeHost(h);
     }
-    if (host_output_fused) delete[] host_output_fused;
+    if (host_input) cudaFreeHost(host_input);
+    if (host_output_fused) cudaFreeHost(host_output_fused);
 
     if (context) delete context;
     if (engine)  delete engine;
@@ -122,8 +132,8 @@ bool trt_yolov12_detector::load_engine(const std::string& engine_path) {
         if (mode == nvinfer1::TensorIOMode::kINPUT) {
             input_tensor_idx = i;
             auto dims = engine->getTensorShape(name);
-            input_height = dims.d[2];
-            input_width  = dims.d[3];
+            input_height = dims.d[2] > 0 ? dims.d[2] : input_height;
+            input_width  = dims.d[3] > 0 ? dims.d[3] : input_width;
             break;
         }
     }
@@ -220,9 +230,13 @@ void trt_yolov12_detector::allocate_buffers() {
     device_buffers.resize(num_io_tensors, nullptr);
     host_outputs.resize(num_io_tensors, nullptr);
     output_sizes.resize(num_io_tensors, 0);
+    input_size = 3 * input_height * input_width;
 
     // Input buffer
-    size_t input_bytes = 1 * 3 * input_height * input_width * sizeof(float);
+    size_t input_bytes = input_size * sizeof(float);
+    if (cudaMallocHost(reinterpret_cast<void**>(&host_input), input_bytes) != cudaSuccess) {
+        throw std::runtime_error("Failed to allocate pinned input buffer");
+    }
     cudaMalloc(&device_buffers[input_tensor_idx], input_bytes);
 
     if (multi_head) {
@@ -237,18 +251,109 @@ void trt_yolov12_detector::allocate_buffers() {
             cudaMalloc(&device_buffers[ri], scales[s].reg_size * sizeof(float));
             cudaMalloc(&device_buffers[ci], scales[s].cls_size * sizeof(float));
 
-            host_outputs[ri] = new float[scales[s].reg_size];
-            host_outputs[ci] = new float[scales[s].cls_size];
+            if (cudaMallocHost(reinterpret_cast<void**>(&host_outputs[ri]), scales[s].reg_size * sizeof(float)) != cudaSuccess ||
+                cudaMallocHost(reinterpret_cast<void**>(&host_outputs[ci]), scales[s].cls_size * sizeof(float)) != cudaSuccess) {
+                throw std::runtime_error("Failed to allocate pinned multi-head output buffers");
+            }
         }
     } else {
         // Fused: one output buffer
         for (int i = 0; i < num_io_tensors; ++i) {
             if (i == input_tensor_idx) continue;
             cudaMalloc(&device_buffers[i], fused_output_size * sizeof(float));
-            host_output_fused = new float[fused_output_size];
+            if (cudaMallocHost(reinterpret_cast<void**>(&host_output_fused), fused_output_size * sizeof(float)) != cudaSuccess) {
+                throw std::runtime_error("Failed to allocate pinned fused output buffer");
+            }
             output_sizes[i] = fused_output_size;
             break;
         }
+    }
+}
+
+// ──────────────────────── bind_io_tensors ──────────────
+bool trt_yolov12_detector::bind_io_tensors() {
+    for (int i = 0; i < num_io_tensors; ++i) {
+        auto name = engine->getIOTensorName(i);
+        if (!device_buffers[i]) {
+            std::cerr << "[trt_yolov12] Missing device buffer for tensor: " << name << std::endl;
+            return false;
+        }
+
+        if (!context->setTensorAddress(name, device_buffers[i])) {
+            std::cerr << "[trt_yolov12] Failed to bind tensor: " << name << std::endl;
+            return false;
+        }
+
+        if (engine->getTensorIOMode(name) != nvinfer1::TensorIOMode::kINPUT) {
+            continue;
+        }
+
+        auto shape = engine->getTensorShape(name);
+        bool dynamic_shape = false;
+        for (int d = 0; d < shape.nbDims; ++d) {
+            if (shape.d[d] < 0) {
+                dynamic_shape = true;
+                break;
+            }
+        }
+
+        if (dynamic_shape) {
+            nvinfer1::Dims dims;
+            dims.nbDims = 4;
+            dims.d[0] = 1;
+            dims.d[1] = 3;
+            dims.d[2] = input_height;
+            dims.d[3] = input_width;
+
+            if (!context->setInputShape(name, dims)) {
+                std::cerr << "[trt_yolov12] Failed to set input shape for tensor: " << name << std::endl;
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+// ──────────────────────── warmup ────────────────────────
+void trt_yolov12_detector::warmup() {
+    if (!host_input || input_size == 0) return;
+
+    std::fill(host_input, host_input + input_size, 0.0f);
+
+    for (int iter = 0; iter < 3; ++iter) {
+        cudaMemcpyAsync(device_buffers[input_tensor_idx], host_input,
+                        input_size * sizeof(float),
+                        cudaMemcpyHostToDevice, stream);
+
+        if (!context->enqueueV3(stream)) {
+            std::cerr << "[trt_yolov12] warmup enqueueV3 failed" << std::endl;
+            cudaStreamSynchronize(stream);
+            return;
+        }
+
+        if (multi_head) {
+            for (int s = 0; s < NUM_SCALES; ++s) {
+                int ri = scales[s].reg_tensor_idx;
+                int ci = scales[s].cls_tensor_idx;
+                cudaMemcpyAsync(host_outputs[ri], device_buffers[ri],
+                                output_sizes[ri] * sizeof(float),
+                                cudaMemcpyDeviceToHost, stream);
+                cudaMemcpyAsync(host_outputs[ci], device_buffers[ci],
+                                output_sizes[ci] * sizeof(float),
+                                cudaMemcpyDeviceToHost, stream);
+            }
+        } else {
+            for (int i = 0; i < num_io_tensors; ++i) {
+                if (i == input_tensor_idx) continue;
+                cudaMemcpyAsync(host_output_fused, device_buffers[i],
+                                fused_output_size * sizeof(float),
+                                cudaMemcpyDeviceToHost, stream);
+                break;
+            }
+        }
+
+        cudaStreamSynchronize(stream);
     }
 }
 
@@ -370,7 +475,9 @@ void trt_yolov12_detector::postprocess_multihead(
         }
     }
 
+    last_pre_nms_count = detections.size();
     apply_nms(detections);
+    last_post_nms_count = detections.size();
 }
 
 // ──────────────────── postprocess_fused (legacy) ──────
@@ -423,7 +530,9 @@ void trt_yolov12_detector::postprocess_fused(
         detections.push_back(det);
     }
 
+    last_pre_nms_count = detections.size();
     apply_nms(detections);
+    last_post_nms_count = detections.size();
 }
 
 // ──────────────────────── apply_nms ──────────────────
@@ -499,35 +608,20 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
 
         // Preprocess
         auto t0 = std::chrono::high_resolution_clock::now();
-        std::vector<float> input_data(3 * input_height * input_width);
-        preprocess(image, input_data.data());
+        preprocess(image, host_input);
         auto t1 = std::chrono::high_resolution_clock::now();
 
         // Copy input to device
-        cudaMemcpyAsync(device_buffers[input_tensor_idx], input_data.data(),
-                        input_data.size() * sizeof(float),
+        cudaMemcpyAsync(device_buffers[input_tensor_idx], host_input,
+                        input_size * sizeof(float),
                         cudaMemcpyHostToDevice, stream);
-
-        // Set tensor addresses for ALL IO tensors
-        for (int i = 0; i < num_io_tensors; ++i) {
-            auto name = engine->getIOTensorName(i);
-            context->setTensorAddress(name, device_buffers[i]);
-
-            // For dynamic-shape engines: explicitly set input shape
-            if (engine->getTensorIOMode(name) == nvinfer1::TensorIOMode::kINPUT) {
-                nvinfer1::Dims dims;
-                dims.nbDims = 4;
-                dims.d[0] = 1;
-                dims.d[1] = 3;
-                dims.d[2] = input_height;
-                dims.d[3] = input_width;
-                context->setInputShape(name, dims);
-            }
-        }
 
         // Run inference
         auto t2 = std::chrono::high_resolution_clock::now();
-        context->enqueueV3(stream);
+        if (!context->enqueueV3(stream)) {
+            std::cerr << "[trt_yolov12] enqueueV3 failed" << std::endl;
+            continue;
+        }
 
         if (multi_head) {
             // Copy all output tensors back to host
@@ -545,10 +639,13 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
             auto t3 = std::chrono::high_resolution_clock::now();
             postprocess_multihead(original_size, detections[b]);
             auto t4 = std::chrono::high_resolution_clock::now();
-            std::cout << "[TRT Perf] Preprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count() << "ms | "
-                      << "Host->Device: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << "ms | "
-                      << "GPU Infer + D2H: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3-t2).count() << "ms | "
-                      << "CPU Postprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count() << "ms" << std::endl;
+            if (profile_enabled) {
+                std::cout << "[TRT Perf] Preprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count() << "ms | "
+                          << "Host->Device enqueue: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << "ms | "
+                          << "GPU pipeline + D2H sync: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3-t2).count() << "ms | "
+                          << "CPU Postprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count() << "ms | "
+                          << "Detections: " << last_pre_nms_count << " -> " << last_post_nms_count << std::endl;
+            }
         } else {
             // Copy single fused output
             for (int i = 0; i < num_io_tensors; ++i) {
@@ -559,7 +656,16 @@ void trt_yolov12_detector::detect(const std::vector<cv::Mat>& images,
                 break;
             }
             cudaStreamSynchronize(stream);
+            auto t3 = std::chrono::high_resolution_clock::now();
             postprocess_fused(host_output_fused, detections[b], original_size);
+            auto t4 = std::chrono::high_resolution_clock::now();
+            if (profile_enabled) {
+                std::cout << "[TRT Perf] Preprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count() << "ms | "
+                          << "Host->Device enqueue: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << "ms | "
+                          << "GPU pipeline + D2H sync: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3-t2).count() << "ms | "
+                          << "CPU Postprocess: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count() << "ms | "
+                          << "Detections: " << last_pre_nms_count << " -> " << last_post_nms_count << std::endl;
+            }
         }
     }
 }

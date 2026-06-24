@@ -66,7 +66,11 @@ private:
     std::vector<void*> device_buffers;       // one per IO tensor
     std::vector<float*> host_outputs;        // one per output tensor (index matches device_buffers)
     std::vector<size_t> output_sizes;        // float count per output tensor
+    float* host_input = nullptr;             // pinned reusable input tensor buffer
+    size_t input_size = 0;                   // float count for host_input
     int input_tensor_idx = 0;               // typically 0
+    bool tensors_bound = false;
+    bool profile_enabled = false;
 
     ScaleInfo scales[NUM_SCALES];
 
@@ -74,6 +78,8 @@ private:
     float* host_output_fused = nullptr;
     int fused_output_size = 0;
     int fused_num_boxes = 8400;
+    size_t last_pre_nms_count = 0;
+    size_t last_post_nms_count = 0;
 
     // Model info
     int input_width = 640;
@@ -99,6 +105,8 @@ private:
     // Internal methods
     bool load_engine(const std::string& engine_path);
     void allocate_buffers();
+    bool bind_io_tensors();
+    void warmup();
     void preprocess(const cv::Mat& image, float* input_buffer);
 
     // Multi-head postprocess

@@ -2,25 +2,28 @@
 #include "cvedix/nodes/infers/cvedix_yolo_detector_node.h"
 #include "cvedix/nodes/track/cvedix_bytetrack_node.h"
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
+#include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
-#include "cvedix/utils/analysis_board/cvedix_analysis_board.h"
-#include "sample_output_helper.h"
 #include <opencv2/core.hpp>
+#include <iostream>
+#include <string>
 
 /*
  * ## 1-1-1 sample ##
- * 1 video input, 1 infer task (RF-DETR detection via TensorRT), and 1 output.
+ * 1 video input, 1 infer task (YOLOv12 detection via TensorRT), and 1 RTMP output.
  *
  * Pipeline:
- *   file_src → rf_detr_detector (TensorRT) → osd → output
+ *   file_src -> yolo_detector (TensorRT) -> bytetrack -> osd -> rtmp
  *
  * Usage:
- *   ./1-1-1_sample [--mode desktop|web|rtmp] [--port 9091] [--rtmp url]
+ *   ./1-1-1_sample [--rtmp rtmp://console.vinguard.cloud:1935/live/9000]
  *
- * Default: --mode web (open http://localhost:9091 in browser)
+ * Default: push RTMP stream to console.vinguard.cloud:1935.
  */
 
 int main(int argc, char** argv) {
+    std::string rtmp_url = "rtmp://console.vinguard.cloud:1935/live/9000";
+
     for (int i = 1; i < argc; ++i) {
         if (std::string(argv[i]) == "--log-level" && i + 1 < argc) {
             std::string level_str = argv[i + 1];
@@ -28,6 +31,9 @@ int main(int argc, char** argv) {
             else if (level_str == "info") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::INFO);
             else if (level_str == "warning" || level_str == "warn") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::WARN);
             else if (level_str == "error") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::ERROR);
+            ++i;
+        } else if ((std::string(argv[i]) == "--rtmp" || std::string(argv[i]) == "--rtmp-url") && i + 1 < argc) {
+            rtmp_url = argv[++i];
         }
     }
 
@@ -35,22 +41,22 @@ int main(int argc, char** argv) {
     CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
     CVEDIX_LOGGER_INIT();
 
-    // Limit OpenCV multithreading to a small pool to prevent CPU thread contention
-    // but still allow enough parallelization for fast YOLO pre/post processing.
-    cv::setNumThreads(4);
-
-    auto out_cfg = sample_helper::parse_output_args(argc, argv);
+    // Keep enough OpenCV workers for detector preprocess/OSD. Source resizing is
+    // handled in the CUDA GStreamer pipeline below, not by cv::resize.
+    cv::setNumThreads(8);
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
         "file_src_0", 
         0, 
         "/home/cvedix/rapidmedia/3rdpart/core/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4", 
-        0.5, // Giảm resolution một nửa để tăng tốc đáng kể OSD/Web stream
+        1.0, // Resize đã được thực hiện trong GStreamer CUDA pipeline bên dưới
         true,
-        "nvh264dec",
-        0,     // skip_interval
-        false  // play_at_realtime = false để chạy Max Speed
+        "nvh264dec ! cudaconvert ! video/x-raw(memory:CUDAMemory),format=BGRx ! "
+        "cudascale ! video/x-raw(memory:CUDAMemory),format=BGRx,width=960,height=540 ! "
+        "cudadownload ! video/x-raw,format=BGRx ! videoconvert ! video/x-raw,format=BGR",
+        3,     // skip_interval: ~7.5 FPS input from 30 FPS video, avoids detector queue flooding
+        true   // play_at_realtime = true để source không flood detector queue
     );
 
     // YOLOv12 detector with TensorRT engine backend
@@ -69,6 +75,7 @@ int main(int argc, char** argv) {
     cvedix_nodes::unified_osd_config osd_cfg;
     osd_cfg.show_bbox = true;
     osd_cfg.show_label = true;
+    osd_cfg.show_track_id_in_label = false;
     osd_cfg.bbox_color = {0, 255, 0}; // green
     osd_0->update_config(osd_cfg);
 
@@ -82,25 +89,33 @@ int main(int argc, char** argv) {
         30     // fps
     );
 
-    // create output destination based on --mode
-    auto output = sample_helper::create_output(out_cfg, "des_0", 0, {file_src_0});
+    auto rtmp_output_0 = std::make_shared<cvedix_nodes::cvedix_rtmp_des_node>(
+        "des_0_rtmp",
+        0,
+        rtmp_url,
+        cvedix_objects::cvedix_size{}, // giữ nguyên resolution từ OSD/source
+        2048,                          // kbps, phù hợp luồng 960x540
+        true,                          // đẩy frame đã vẽ OSD
+        "nvh264enc",                   // dùng NVENC thay vì x264 CPU
+        false                          // dùng đúng stream URL, không tự thêm _0
+    );
 
     // construct pipeline
     yolo_detector_0->attach_to({file_src_0});
     bytetrack_0->attach_to({yolo_detector_0});
     osd_0->attach_to({bytetrack_0});
-    output.des_node->attach_to({osd_0});
+    rtmp_output_0->attach_to({osd_0});
 
     // Flow control: Limit queue sizes to prevent startup accumulation and CPU overload
-    yolo_detector_0->set_max_in_queue_size(3);
-    bytetrack_0->set_max_in_queue_size(3);
-    osd_0->set_max_in_queue_size(3);
-    output.des_node->set_max_in_queue_size(3);
+    yolo_detector_0->set_max_in_queue_size(1);
+    bytetrack_0->set_max_in_queue_size(1);
+    osd_0->set_max_in_queue_size(1);
+    rtmp_output_0->set_max_in_queue_size(1);
 
     file_src_0->start();
 
-    sample_helper::init_board(output);
-    sample_helper::print_output_info(out_cfg);
+    std::cout << "\nRTMP output: " << rtmp_url
+              << "\nPress Enter to stop...\n\n";
 
     std::string wait;
     std::getline(std::cin, wait);

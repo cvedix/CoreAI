@@ -42,6 +42,7 @@ struct unified_osd_config {
     bool show_bbox          = false;    // bounding box rectangle
     bool show_label         = false;    // class label text (e.g. "person")
     bool show_track_id      = true;     // tracking ID number
+    bool show_track_id_in_label = true; // prefix class label with tracking ID
     bool show_track_trail   = true;     // tracking path trail
     bool show_center_dot    = true;     // center point dot
     bool show_sub_targets   = false;    // sub-target bounding boxes

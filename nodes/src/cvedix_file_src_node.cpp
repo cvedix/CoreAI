@@ -1,6 +1,8 @@
 
 #include <iostream>
 
+#include <opencv2/core/utils/logger.hpp>
+
 #include "cvedix/utils/logger/cvedix_logger.h"
 #include "cvedix_file_src_node.h"
 
@@ -44,7 +46,10 @@ namespace cvedix_nodes {
             auto last_time = std::chrono::system_clock::now();
             // try to open capture
             if (!file_capture.isOpened()) {
-                if(!file_capture.open(this->gst_template, cv::CAP_GSTREAMER)) {
+                cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_ERROR);
+                bool opened = file_capture.open(this->gst_template, cv::CAP_GSTREAMER);
+                cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
+                if(!opened) {
                     CVEDIX_WARN(cvedix_utils::string_format("[%s] open file failed, try again...", node_name.c_str()));
                     continue;
                 }

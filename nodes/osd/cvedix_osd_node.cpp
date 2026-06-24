@@ -229,7 +229,7 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
         // Class label (below bbox or at top-left of target)
         if (_config.show_label) {
             std::string label = i->primary_label;
-            if (_config.show_track_id && i->track_id >= 0) {
+            if (_config.show_track_id_in_label && i->track_id >= 0) {
                 label = "#" + std::to_string(i->track_id) + " " + label;
             }
             for (auto &sec : i->secondary_labels) {
