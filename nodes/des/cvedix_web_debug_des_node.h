@@ -25,10 +25,11 @@
 #pragma once
 
 #include <atomic>
+#include <chrono>
 #include <mutex>
+#include <string>
 #include <thread>
 #include <vector>
-#include <chrono>
 
 #include <opencv2/imgcodecs.hpp>
 #include "cvedix/nodes/common/cvedix_des_node.h"
@@ -66,6 +67,16 @@ namespace cvedix_nodes {
         uint64_t latest_frame_seq = 0;
         std::mutex frame_lock;
 
+        struct encoded_snapshot_cache {
+            std::vector<uint8_t> bytes;
+            uint64_t source_seq = 0;
+        };
+        encoded_snapshot_cache latest_osd_snapshot;
+        encoded_snapshot_cache latest_orig_snapshot;
+        std::vector<uint8_t> latest_board_snapshot;
+        std::chrono::steady_clock::time_point latest_board_snapshot_time;
+        std::mutex snapshot_lock;
+
         /// @brief Latest frame meta for stats
         struct Stats {
             double fps = 0;
@@ -75,6 +86,7 @@ namespace cvedix_nodes {
             std::chrono::steady_clock::time_point start_time;
             int frame_count = 0;
             std::chrono::steady_clock::time_point last_fps_time;
+            std::chrono::steady_clock::time_point last_sse_publish_time;
         } stats;
         std::mutex stats_lock;
 
@@ -89,11 +101,24 @@ namespace cvedix_nodes {
         /// @brief Running flag
         std::atomic_bool running{true};
 
+        /// @brief Cross-process lock to prevent duplicate dashboard instances on one port
+        int instance_lock_fd = -1;
+        std::string instance_lock_path;
+
+        static constexpr int kSnapshotMaxWidth = 640;
+        static constexpr int kBoardSnapshotMaxWidth = 1100;
+        static constexpr int kSnapshotJpegQuality = 60;
+        static constexpr int kSseThrottleMs = 250;
+        static constexpr int kBoardSnapshotCacheMs = 800;
+
+        bool acquire_instance_lock();
+        void release_instance_lock();
+
         /// @brief Setup HTTP routes
         void setup_routes();
 
         /// @brief Encode frame to JPEG bytes
-        std::vector<uint8_t> encode_jpeg(const cv::Mat& frame);
+        std::vector<uint8_t> encode_jpeg(const cv::Mat& frame, int max_width = kSnapshotMaxWidth, int quality = -1);
 
         /// @brief Send MJPEG stream
         void stream_mjpeg(httplib::Response& res, bool is_board);

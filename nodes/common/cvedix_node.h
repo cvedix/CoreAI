@@ -118,6 +118,8 @@ namespace cvedix_nodes {
 
         /// @brief Queue for incoming meta from previous nodes
         std::queue<std::shared_ptr<cvedix_objects::cvedix_meta>> in_queue;
+        std::chrono::steady_clock::time_point last_drop_warn_time{};
+        int dropped_meta_since_warn = 0;
         /// @brief Mutex for thread-safe access to in_queue
         std::mutex in_queue_lock;
         /// @brief Queue for outgoing meta to next nodes

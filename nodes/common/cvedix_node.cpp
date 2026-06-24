@@ -171,9 +171,23 @@ namespace cvedix_nodes {
         }
 
         std::lock_guard<std::mutex> guard(this->in_queue_lock);
-        // drop meta if queue is full
-        if (this->in_queue.size() > max_in_queue_size) {
-            CVEDIX_WARN(cvedix_utils::string_format("[%s] queue full, dropping meta!", node_name.c_str()));
+        // drop meta if queue is full, but throttle warning logs to avoid self-inflicted CPU spikes
+        if (this->in_queue.size() >= max_in_queue_size) {
+            dropped_meta_since_warn++;
+            const auto now = std::chrono::steady_clock::now();
+            const auto since_last_warn = std::chrono::duration_cast<std::chrono::milliseconds>(
+                now - last_drop_warn_time).count();
+            if (last_drop_warn_time.time_since_epoch().count() == 0 || since_last_warn >= 1000) {
+                CVEDIX_WARN(cvedix_utils::string_format(
+                    "[%s] queue full, dropped %d meta in the last %lld ms (queue=%zu, max=%d)",
+                    node_name.c_str(),
+                    dropped_meta_since_warn,
+                    static_cast<long long>(since_last_warn < 0 ? 0 : since_last_warn),
+                    this->in_queue.size(),
+                    max_in_queue_size));
+                dropped_meta_since_warn = 0;
+                last_drop_warn_time = now;
+            }
             return;
         }
         CVEDIX_DEBUG(cvedix_utils::string_format("[%s] before meta flow, in_queue.size()==>%d", node_name.c_str(), in_queue.size()));

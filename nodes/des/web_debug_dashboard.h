@@ -352,115 +352,8 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
 
   @keyframes spin { to{transform:rotate(360deg)} }
 
-  /* ── Stats Grid ── */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px; flex-shrink: 0;
-  }
-
-  .stat {
-    padding: 16px 18px; border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card);
-    backdrop-filter: blur(8px);
-    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-    position: relative; overflow: hidden;
-  }
-
-  .stat:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-
-  .stat::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; border-radius: 2px 2px 0 0;
-  }
-
-  .stat::after {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    opacity: 0; transition: opacity var(--transition);
-    pointer-events: none; border-radius: inherit;
-  }
-
-  .stat:hover::after { opacity: 1; }
-
-  .stat:nth-child(1)::before { background: var(--gradient-emerald); }
-  .stat:nth-child(1)::after  { background: radial-gradient(circle at top, rgba(52,211,153,0.06), transparent 70%); }
-  .stat:nth-child(2)::before { background: var(--gradient-amber); }
-  .stat:nth-child(2)::after  { background: radial-gradient(circle at top, rgba(251,191,36,0.06), transparent 70%); }
-  .stat:nth-child(3)::before { background: var(--gradient-cyan); }
-  .stat:nth-child(3)::after  { background: radial-gradient(circle at top, rgba(34,211,238,0.06), transparent 70%); }
-  .stat:nth-child(4)::before { background: var(--gradient-violet); }
-  .stat:nth-child(4)::after  { background: radial-gradient(circle at top, rgba(167,139,250,0.06), transparent 70%); }
-  .stat:nth-child(5)::before { background: var(--gradient-sky); }
-  .stat:nth-child(5)::after  { background: radial-gradient(circle at top, rgba(56,189,248,0.06), transparent 70%); }
-  .stat:nth-child(6)::before { background: var(--gradient-rose); }
-  .stat:nth-child(6)::after  { background: radial-gradient(circle at top, rgba(251,113,133,0.06), transparent 70%); }
-
-  .stat-icon {
-    font-size: 16px; margin-bottom: 8px; display: block;
-    filter: drop-shadow(0 0 6px currentColor);
-  }
-
-  .stat:nth-child(1) .stat-icon { color: var(--emerald); }
-  .stat:nth-child(2) .stat-icon { color: var(--amber); }
-  .stat:nth-child(3) .stat-icon { color: var(--cyan); }
-  .stat:nth-child(4) .stat-icon { color: var(--violet); }
-  .stat:nth-child(5) .stat-icon { color: var(--sky); }
-  .stat:nth-child(6) .stat-icon { color: var(--rose); }
-
-  .stat-label {
-    margin-bottom: 6px; color: var(--text-dim);
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-
-  .stat-value {
-    font-size: 24px; font-weight: 800; line-height: 1;
-    white-space: nowrap; font-variant-numeric: tabular-nums;
-    font-family: 'JetBrains Mono', 'Inter', monospace;
-  }
-
-  .stat:nth-child(1) .stat-value { color: var(--emerald); }
-  .stat:nth-child(2) .stat-value { color: var(--amber); }
-  .stat:nth-child(3) .stat-value { color: var(--cyan); }
-  .stat:nth-child(4) .stat-value { color: var(--violet); }
-  .stat:nth-child(5) .stat-value { color: var(--sky); }
-  .stat:nth-child(6) .stat-value { color: var(--rose); }
-
-  .stat-unit {
-    font-size: 11px; font-weight: 500; color: var(--text-dim);
-    margin-left: 2px;
-  }
-
   /* ── Tab Buttons (Mobile) ── */
   .panel-tabs { display: none; }
-
-  /* ── Event Log ── */
-  .event-ticker {
-    padding: 8px 20px;
-    border-top: 1px solid var(--border);
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(8px);
-    font-size: 11px; color: var(--text-dim);
-    display: flex; align-items: center; gap: 10px;
-    overflow: hidden; flex-shrink: 0;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .event-ticker .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent); flex-shrink: 0;
-    animation: pulse-dot 1.5s ease-in-out infinite;
-    box-shadow: 0 0 8px var(--accent-glow);
-  }
-
-  .event-ticker .msg {
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
 
   /* ── Fullscreen ── */
   .panel:fullscreen, .panel:-webkit-full-screen { background: #000; border: none; border-radius: 0; }
@@ -479,13 +372,11 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     .panel-tabs { display: flex; gap: 8px; }
     .panel-tabs button { flex: 1; height: 36px; font-size: 12px; }
     .panel.mobile-hidden { display: none; }
-    .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .content { padding: 10px; gap: 10px; }
     .sys-chips { display: none; }
   }
 
   @media (max-width: 480px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
     .topbar { padding: 10px 14px; }
   }
 </style>
@@ -544,10 +435,10 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
       </div>
 
       <!-- Analysis Board (Collapsible) -->
-      <button class="board-toggle active" id="board-toggle" onclick="toggleBoard()">
-        <span class="arrow">▼</span> Pipeline Analysis Board
+      <button class="board-toggle" id="board-toggle" onclick="toggleBoard()">
+        <span class="arrow">▼</span> Show Pipeline Analysis Board
       </button>
-      <div class="board-section" id="board-section">
+      <div class="board-section collapsed" id="board-section">
         <div class="board-panel-inner">
           <div class="panel-header">
             <div class="panel-title">
@@ -569,63 +460,22 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
         </div>
       </div>
 
-      <!-- Stats -->
-      <section class="stats" id="stats-bar">
-        <div class="stat">
-          <span class="stat-icon">▶</span>
-          <div class="stat-label">FPS</div>
-          <div class="stat-value"><span id="stat-fps">--</span></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">⏱</span>
-          <div class="stat-label">Latency</div>
-          <div class="stat-value"><span id="stat-latency">--</span><span class="stat-unit">ms</span></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">◎</span>
-          <div class="stat-label">Objects</div>
-          <div class="stat-value"><span id="stat-objects">--</span></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">≡</span>
-          <div class="stat-label">Queue</div>
-          <div class="stat-value"><span id="stat-queue">--</span></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">◷</span>
-          <div class="stat-label">Uptime</div>
-          <div class="stat-value" id="stat-uptime">--</div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">⚡</span>
-          <div class="stat-label">Events</div>
-          <div class="stat-value"><span id="stat-events">0</span></div>
-        </div>
-      </section>
     </section>
 
-    <!-- Event ticker -->
-    <footer class="event-ticker" id="event-ticker">
-      <span class="dot"></span>
-      <span class="msg" id="event-msg">Waiting for detection events…</span>
-    </footer>
   </main>
 
 <script>
   /* ═══════════════════════════════════════
-   * Snapshot-based streaming (cross-browser)
+   * Live stream handling
    * ═══════════════════════════════════════ */
   let osdActive = true;
   let boardActive = true;
-  let boardVisible = true;
-  let eventCount = 0;
-
+  let boardVisible = false;
 
   const osdStream = document.getElementById('osd-stream');
   const osdPlaceholder = document.getElementById('osd-placeholder');
   const boardStream = document.getElementById('board-stream');
   const boardPlaceholder = document.getElementById('board-placeholder');
-
 
   osdStream.removeAttribute('src');
   boardStream.removeAttribute('src');
@@ -664,14 +514,66 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     return { stop: function() { running = false; }, start: function() { running = true; } };
   }
 
-  const osdLoop = startSnapshotLoop(osdStream, osdPlaceholder, '/snapshot/osd', 250, () => osdActive);
-  const boardLoop = startSnapshotLoop(boardStream, boardPlaceholder, '/snapshot/board', 400, () => boardActive && boardVisible);
+  function createLiveStream(img, placeholder, streamUrl, snapshotUrl, snapshotIntervalMs, isActiveFunc) {
+    let fallbackLoop = null;
+    let usingFallback = false;
+
+    function show() {
+      img.style.display = 'block';
+      placeholder.classList.add('hidden');
+    }
+
+    function hide() {
+      img.onerror = null;
+      img.onload = null;
+      img.removeAttribute('src');
+      img.style.display = 'none';
+      placeholder.classList.remove('hidden');
+    }
+
+    function startFallback() {
+      if (!isActiveFunc()) return;
+      if (usingFallback) return;
+      usingFallback = true;
+      img.removeAttribute('src');
+      fallbackLoop = startSnapshotLoop(img, placeholder, snapshotUrl, snapshotIntervalMs, isActiveFunc);
+    }
+
+    function start() {
+      if (!isActiveFunc()) {
+        hide();
+        return;
+      }
+      if (usingFallback) {
+        fallbackLoop.start();
+        return;
+      }
+      img.onerror = startFallback;
+      img.onload = show;
+      img.src = streamUrl + '?t=' + Date.now();
+      setTimeout(function() {
+        if (!usingFallback && isActiveFunc()) show();
+      }, 250);
+    }
+
+    function stop() {
+      if (fallbackLoop) fallbackLoop.stop();
+      hide();
+    }
+
+    return { start, stop };
+  }
+
+  const osdLive = createLiveStream(osdStream, osdPlaceholder, '/stream/osd', '/snapshot/osd', 150, () => osdActive);
+  const boardLive = createLiveStream(boardStream, boardPlaceholder, '/stream/board', '/snapshot/board', 1000, () => boardActive && boardVisible);
+  osdLive.start();
 
   function toggleOsdStream() {
     osdActive = !osdActive;
     const btn = document.getElementById('btn-pause-osd');
     btn.textContent = osdActive ? 'Pause' : 'Resume';
     osdActive ? btn.classList.remove('active') : btn.classList.add('active');
+    osdActive ? osdLive.start() : osdLive.stop();
   }
 
   function toggleBoardStream() {
@@ -679,6 +581,7 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     const btn = document.getElementById('btn-pause-board');
     btn.textContent = boardActive ? 'Pause' : 'Resume';
     boardActive ? btn.classList.remove('active') : btn.classList.add('active');
+    boardActive && boardVisible ? boardLive.start() : boardLive.stop();
   }
 
   function toggleBoard() {
@@ -687,6 +590,10 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     boardVisible = !boardVisible;
     section.classList.toggle('collapsed');
     btn.classList.toggle('active');
+    btn.innerHTML = boardVisible
+      ? '<span class="arrow">▼</span> Hide Pipeline Analysis Board'
+      : '<span class="arrow">▼</span> Show Pipeline Analysis Board';
+    boardVisible && boardActive ? boardLive.start() : boardLive.stop();
   }
 
   function goFullscreenBoard() {
@@ -711,25 +618,11 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
   /* ═══════════════════════════════════════
    * Stats polling
    * ═══════════════════════════════════════ */
-  function formatUptime(sec) {
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    const s = Math.floor(sec % 60);
-    if (h > 0) return h + 'h ' + m + 'm';
-    return m + 'm ' + s + 's';
-  }
-
   async function pollStats() {
     const status = document.getElementById('connection-status');
     try {
       const res = await fetch('/api/stats', { cache: 'no-store' });
       const data = await res.json();
-
-      document.getElementById('stat-fps').textContent = (data.fps || 0).toFixed(1);
-      document.getElementById('stat-latency').textContent = (data.latency_ms || 0);
-      document.getElementById('stat-objects').textContent = data.object_count || 0;
-      document.getElementById('stat-queue').textContent = data.queue_size || 0;
-      document.getElementById('stat-uptime').textContent = formatUptime(data.uptime_sec || 0);
 
       // Update system chips if available
       if (data.gpu_name) document.getElementById('chip-gpu').textContent = data.gpu_name;
@@ -745,35 +638,9 @@ inline const std::string WEB_DEBUG_DASHBOARD_HTML = R"HTML(
     }
   }
 
-  setInterval(pollStats, 1000);
+  setInterval(pollStats, 2000);
   pollStats();
 
-  /* ═══════════════════════════════════════
-   * SSE Events
-   * ═══════════════════════════════════════ */
-  function connectSSE() {
-    const es = new EventSource('/events');
-    const ticker = document.getElementById('event-msg');
-    const counter = document.getElementById('stat-events');
-
-    es.onmessage = function(e) {
-      try {
-        const data = JSON.parse(e.data);
-        eventCount++;
-        counter.textContent = eventCount;
-        const ts = new Date(data.timestamp).toLocaleTimeString();
-        ticker.textContent = '[' + ts + '] ch' + data.channel + ' — ' + data.targets_count + ' target(s) detected';
-      } catch (_) {}
-    };
-
-    es.onerror = function() {
-      es.close();
-      ticker.textContent = 'SSE disconnected — reconnecting…';
-      setTimeout(connectSSE, 3000);
-    };
-  }
-
-  connectSSE();
 </script>
 </body>
 </html>

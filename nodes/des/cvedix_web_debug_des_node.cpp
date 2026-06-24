@@ -2,8 +2,53 @@
 #include "web_debug_dashboard.h"
 
 #include <sstream>
+#include <cerrno>
+#include <cstring>
+#include <fcntl.h>
+#include <stdexcept>
+#include <sys/file.h>
+#include <unistd.h>
 
 namespace cvedix_nodes {
+
+    bool cvedix_web_debug_des_node::acquire_instance_lock() {
+        instance_lock_path = "/tmp/cvedix_web_debug_port_" + std::to_string(port) + ".lock";
+        instance_lock_fd = ::open(instance_lock_path.c_str(), O_CREAT | O_RDWR, 0666);
+        if (instance_lock_fd < 0) {
+            CVEDIX_ERROR(cvedix_utils::string_format(
+                "[%s] Failed to open lock file %s: %s",
+                node_name.c_str(),
+                instance_lock_path.c_str(),
+                std::strerror(errno)));
+            return false;
+        }
+
+        if (::flock(instance_lock_fd, LOCK_EX | LOCK_NB) != 0) {
+            CVEDIX_ERROR(cvedix_utils::string_format(
+                "[%s] Port %d is already owned by another web debug instance. Stop the old sample or use --port <new_port>.",
+                node_name.c_str(),
+                port));
+            ::close(instance_lock_fd);
+            instance_lock_fd = -1;
+            return false;
+        }
+
+        const std::string pid_line = std::to_string(::getpid()) + "\n";
+        ::ftruncate(instance_lock_fd, 0);
+        ::lseek(instance_lock_fd, 0, SEEK_SET);
+        (void)::write(instance_lock_fd, pid_line.c_str(), pid_line.size());
+        return true;
+    }
+
+    void cvedix_web_debug_des_node::release_instance_lock() {
+        if (instance_lock_fd < 0) {
+            return;
+        }
+
+        ::flock(instance_lock_fd, LOCK_UN);
+        ::close(instance_lock_fd);
+        instance_lock_fd = -1;
+    }
 
     cvedix_web_debug_des_node::cvedix_web_debug_des_node(
         std::string node_name,
@@ -18,6 +63,14 @@ namespace cvedix_nodes {
 
         stats.start_time = std::chrono::steady_clock::now();
         stats.last_fps_time = stats.start_time;
+        stats.last_sse_publish_time = stats.start_time - std::chrono::milliseconds(kSseThrottleMs);
+        latest_board_snapshot_time = stats.start_time - std::chrono::milliseconds(kBoardSnapshotCacheMs);
+
+        if (!acquire_instance_lock()) {
+            throw std::runtime_error(cvedix_utils::string_format(
+                "web debug port %d is already active in another sample instance",
+                this->port));
+        }
 
         // Enable concurrent request handling (CRITICAL for MJPEG + SSE)
         // Without this, the first MJPEG stream blocks all other endpoints
@@ -27,7 +80,13 @@ namespace cvedix_nodes {
 
         server_thread = std::thread([this]() {
             CVEDIX_INFO(cvedix_utils::string_format("[%s] Web debug dashboard at http://0.0.0.0:%d", this->node_name.c_str(), this->port));
-            server.listen("0.0.0.0", this->port);
+            const bool listen_ok = server.listen("0.0.0.0", this->port);
+            if (!listen_ok && running) {
+                CVEDIX_ERROR(cvedix_utils::string_format(
+                    "[%s] Web debug server stopped unexpectedly on port %d",
+                    this->node_name.c_str(),
+                    this->port));
+            }
         });
 
         initialized();
@@ -40,6 +99,7 @@ namespace cvedix_nodes {
         if (server_thread.joinable()) {
             server_thread.join();
         }
+        release_instance_lock();
         // Close all SSE clients
         std::lock_guard<std::mutex> guard(sse_lock);
         for (auto& client : sse_clients) {
@@ -52,14 +112,14 @@ namespace cvedix_nodes {
                " | board: " + std::string(board ? "yes" : "no");
     }
 
-    std::vector<uint8_t> cvedix_web_debug_des_node::encode_jpeg(const cv::Mat& frame) {
+    std::vector<uint8_t> cvedix_web_debug_des_node::encode_jpeg(const cv::Mat& frame, int max_width, int quality) {
         std::vector<uint8_t> buf;
-        std::vector<int> params = {cv::IMWRITE_JPEG_QUALITY, jpeg_quality};
+        const int effective_quality = quality > 0 ? quality : jpeg_quality;
+        std::vector<int> params = {cv::IMWRITE_JPEG_QUALITY, effective_quality};
 
         cv::Mat resized_frame;
-        // Resize frame to max width 800px to save CPU time during JPEG encoding
-        if (frame.cols > 800) {
-            float ratio = 800.0f / frame.cols;
+        if (frame.cols > max_width) {
+            float ratio = static_cast<float>(max_width) / frame.cols;
             cv::resize(frame, resized_frame, cv::Size(), ratio, ratio);
         } else {
             resized_frame = frame;
@@ -107,8 +167,10 @@ namespace cvedix_nodes {
 
         const auto target_count = meta->targets.size() + meta->face_targets.size();
         const auto now_system = std::chrono::system_clock::now();
+        const auto now_steady = std::chrono::steady_clock::now();
         const auto latency_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
             now_system - meta->create_time).count();
+        bool should_publish_sse = false;
 
         // Update stats
         {
@@ -126,10 +188,18 @@ namespace cvedix_nodes {
                 stats.frame_count = 0;
                 stats.last_fps_time = now;
             }
+
+            if (target_count > 0) {
+                auto since_last_sse = std::chrono::duration_cast<std::chrono::milliseconds>(
+                    now_steady - stats.last_sse_publish_time).count();
+                if (since_last_sse >= kSseThrottleMs) {
+                    stats.last_sse_publish_time = now_steady;
+                    should_publish_sse = true;
+                }
+            }
         }
 
-        // Broadcast SSE event (simple JSON)
-        if (target_count > 0) {
+        if (should_publish_sse) {
             std::string json = "{\"channel\":" + std::to_string(meta->channel_index)
                 + ",\"targets_count\":" + std::to_string(target_count)
                 + ",\"timestamp\":" + std::to_string(
@@ -287,14 +357,24 @@ namespace cvedix_nodes {
         // Snapshot — single JPEG frame (cross-browser compatible fallback)
         server.Get("/snapshot/osd", [this](const httplib::Request&, httplib::Response& res) {
             cv::Mat frame;
+            uint64_t frame_seq = 0;
             {
                 std::lock_guard<std::mutex> guard(frame_lock);
                 if (!latest_frame.empty()) {
                     frame = latest_frame;
+                    frame_seq = latest_frame_seq;
                 }
             }
             if (!frame.empty()) {
-                auto jpg = encode_jpeg(frame);
+                std::vector<uint8_t> jpg;
+                {
+                    std::lock_guard<std::mutex> guard(snapshot_lock);
+                    if (latest_osd_snapshot.bytes.empty() || latest_osd_snapshot.source_seq != frame_seq) {
+                        latest_osd_snapshot.bytes = encode_jpeg(frame, kSnapshotMaxWidth, kSnapshotJpegQuality);
+                        latest_osd_snapshot.source_seq = frame_seq;
+                    }
+                    jpg = latest_osd_snapshot.bytes;
+                }
                 res.set_header("Cache-Control", "no-cache, no-store");
                 res.set_header("Access-Control-Allow-Origin", "*");
                 res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
@@ -305,14 +385,24 @@ namespace cvedix_nodes {
 
         server.Get("/snapshot/orig", [this](const httplib::Request&, httplib::Response& res) {
             cv::Mat frame;
+            uint64_t frame_seq = 0;
             {
                 std::lock_guard<std::mutex> guard(frame_lock);
                 if (!latest_orig_frame.empty()) {
                     frame = latest_orig_frame;
+                    frame_seq = latest_frame_seq;
                 }
             }
             if (!frame.empty()) {
-                auto jpg = encode_jpeg(frame);
+                std::vector<uint8_t> jpg;
+                {
+                    std::lock_guard<std::mutex> guard(snapshot_lock);
+                    if (latest_orig_snapshot.bytes.empty() || latest_orig_snapshot.source_seq != frame_seq) {
+                        latest_orig_snapshot.bytes = encode_jpeg(frame, kSnapshotMaxWidth, kSnapshotJpegQuality);
+                        latest_orig_snapshot.source_seq = frame_seq;
+                    }
+                    jpg = latest_orig_snapshot.bytes;
+                }
                 res.set_header("Cache-Control", "no-cache, no-store");
                 res.set_header("Access-Control-Allow-Origin", "*");
                 res.set_content(std::string(reinterpret_cast<const char*>(jpg.data()), jpg.size()), "image/jpeg");
@@ -322,19 +412,45 @@ namespace cvedix_nodes {
         });
 
         server.Get("/snapshot/board", [this](const httplib::Request&, httplib::Response& res) {
-            if (board) {
-                cv::Mat canvas = board->get_current_canvas();
-                if (!canvas.empty()) {
-                    // Use PNG for board: sharp text/lines, no JPEG artifacts
-                    std::vector<uint8_t> buf;
-                    std::vector<int> params = {cv::IMWRITE_PNG_COMPRESSION, 3}; // fast compression
-                    cv::imencode(".png", canvas, buf, params);
-                    res.set_header("Cache-Control", "no-cache, no-store");
-                    res.set_header("Access-Control-Allow-Origin", "*");
-                    res.set_content(std::string(reinterpret_cast<const char*>(buf.data()), buf.size()), "image/png");
-                    return;
+            std::vector<uint8_t> png;
+            const auto now = std::chrono::steady_clock::now();
+
+            {
+                std::lock_guard<std::mutex> guard(snapshot_lock);
+                auto cache_age = std::chrono::duration_cast<std::chrono::milliseconds>(
+                    now - latest_board_snapshot_time).count();
+                if (!latest_board_snapshot.empty() && cache_age < kBoardSnapshotCacheMs) {
+                    png = latest_board_snapshot;
                 }
             }
+
+            if (png.empty() && board) {
+                cv::Mat canvas = board->get_current_canvas();
+                if (!canvas.empty()) {
+                    cv::Mat resized_canvas;
+                    if (canvas.cols > kBoardSnapshotMaxWidth) {
+                        float ratio = static_cast<float>(kBoardSnapshotMaxWidth) / canvas.cols;
+                        cv::resize(canvas, resized_canvas, cv::Size(), ratio, ratio);
+                    } else {
+                        resized_canvas = canvas;
+                    }
+
+                    std::vector<int> params = {cv::IMWRITE_PNG_COMPRESSION, 3};
+                    cv::imencode(".png", resized_canvas, png, params);
+
+                    std::lock_guard<std::mutex> guard(snapshot_lock);
+                    latest_board_snapshot = png;
+                    latest_board_snapshot_time = now;
+                }
+            }
+
+            if (!png.empty()) {
+                res.set_header("Cache-Control", "no-cache, no-store");
+                res.set_header("Access-Control-Allow-Origin", "*");
+                res.set_content(std::string(reinterpret_cast<const char*>(png.data()), png.size()), "image/png");
+                return;
+            }
+
             res.status = 204;
         });
     }
