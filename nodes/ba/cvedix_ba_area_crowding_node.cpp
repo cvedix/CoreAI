@@ -217,7 +217,7 @@ cvedix_ba_area_crowding_node::handle_frame_meta(
  
         auto ba_result =
             std::make_shared<cvedix_objects::cvedix_ba_result>(
-                cvedix_objects::cvedix_ba_type::STOP,
+                cvedix_objects::cvedix_ba_type::CROWDING,
                 meta->channel_index,
                 meta->frame_index,
                 involve_targets,

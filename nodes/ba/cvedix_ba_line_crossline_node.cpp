@@ -218,6 +218,13 @@ bool cvedix_ba_line_crossline_node::set_lines(
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   all_lines = lines;
+  all_configs.clear();
+  for (const auto &channel : lines) {
+    auto &configs = all_configs[channel.first];
+    for (const auto &line : channel.second) {
+      configs.emplace_back(line);
+    }
+  }
   all_total_crossline.clear();
 
   CVEDIX_INFO(cvedix_utils::string_format(
@@ -233,8 +240,10 @@ bool cvedix_ba_line_crossline_node::set_lines(
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   all_lines.clear();
+  all_configs.clear();
   for (const auto &p : lines) {
     all_lines[p.first] = {p.second};
+    all_configs[p.first] = {crossline_config(p.second)};
   }
   all_total_crossline.clear();
 
@@ -250,6 +259,7 @@ int cvedix_ba_line_crossline_node::add_line(
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   all_lines[channel_id].push_back(line);
+  all_configs[channel_id].push_back(crossline_config(line));
   int line_index = all_lines[channel_id].size() - 1;
   all_total_crossline[channel_id][line_index] = 0;
 
@@ -265,6 +275,7 @@ void cvedix_ba_line_crossline_node::clear_lines() {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   all_lines.clear();
+  all_configs.clear();
   all_total_crossline.clear();
 
   CVEDIX_INFO(cvedix_utils::string_format(
@@ -275,6 +286,7 @@ bool cvedix_ba_line_crossline_node::remove_channel_lines(int channel_id) {
   std::lock_guard<std::mutex> lock(lines_mutex);
 
   bool existed = all_lines.erase(channel_id) > 0;
+  all_configs.erase(channel_id);
   all_total_crossline.erase(channel_id);
 
   if (existed) {
@@ -299,6 +311,11 @@ bool cvedix_ba_line_crossline_node::remove_line(int channel_id, int line_index) 
   }
 
   lines.erase(lines.begin() + line_index);
+  auto configs_it = all_configs.find(channel_id);
+  if (configs_it != all_configs.end() &&
+      line_index < static_cast<int>(configs_it->second.size())) {
+    configs_it->second.erase(configs_it->second.begin() + line_index);
+  }
 
   // Rebuild counters for this channel (indices shifted)
   all_total_crossline[channel_id].clear();
