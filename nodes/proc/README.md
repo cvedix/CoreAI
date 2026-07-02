@@ -1,4 +1,4 @@
-Các node trong nhóm `proc` là các bước xử lý trung gian, không phải nguồn (`src`) hay đích (`des`). Hiện thư mục này có hai node:
+Các node trong nhóm `proc` là các bước xử lý trung gian, không phải nguồn (`src`) hay đích (`des`). Hiện thư mục này có ba node:
 
 ---
 
@@ -32,6 +32,21 @@ Các node trong nhóm `proc` là các bước xử lý trung gian, không phải
 
 ---
 
+### 3. `cvedix_motion_detection_node`
+- **Chức năng:** phát hiện vùng chuyển động bằng OpenCV MOG2 trước các node inference.
+- **Đầu ra:** mask nhị phân toàn frame (`CV_8UC1`) trong `frame_meta->mask`.
+- **Cấu hình chính:**
+  - `history`, `var_threshold`: lịch sử và độ nhạy của background model.
+  - `min_area_ratio`: bỏ các vùng chuyển động quá nhỏ.
+  - `warmup_frames`, `hold_frames`: ổn định model nền và giữ trạng thái motion.
+  - `processing_width`: giảm kích thước xử lý để tiết kiệm CPU.
+  - `drop_static_frames`: nếu bật, frame tĩnh không được chuyển downstream.
+- **Mặc định:** giữ luồng video liên tục (`drop_static_frames = false`) và chỉ bổ sung motion mask cho các node downstream.
+- **Runtime:** hỗ trợ `update_config()` cùng các metrics `frames_seen()`, `motion_frames()`, `last_region_count()` và `motion_active()`.
+
+---
+
 Tóm lại, `proc` là nhóm “processing nodes”:
 - `cvedix_expr_check_node`: kiểm tra biểu thức toán trên dữ liệu text trong frame.
 - `cvedix_frame_fusion_node`: ghép hai khung hình theo ma trận hiệu chỉnh để tạo view tổng hợp.
+- `cvedix_motion_detection_node`: tạo foreground motion mask bằng MOG2.
