@@ -945,6 +945,24 @@ target_link_libraries(cvedix_core
         ${CVEDIX_PRIVATE_DEPEND_LIBS}
 )
 
+# ---------------------------------------------------------------------------
+# ABI/ODR safety: layout-affecting feature macros MUST be visible to every
+# consumer that includes cvedix headers, not just to cvedix_core's own sources.
+#
+# CVEDIX_WITH_KAFKA adds a `cvedix_log_kafka_writer kafka_writer` member to the
+# public `cvedix_logger` class. If the library is compiled with this macro but a
+# consumer (e.g. rapidmedia_ai, server) is not, the two disagree on the class
+# layout: the consumer's CVEDIX_SET_LOG_* writes land at the wrong offsets and
+# corrupt the logger singleton's members (observed as a SIGSEGV inside
+# cvedix_logger::log iterating a corrupted keywords_for_debug_log vector).
+#
+# add_definitions() is directory-scoped and does NOT propagate to consumer
+# targets in sibling directories, so we export the macro (and the librdkafka
+# include dir it pulls in) as PUBLIC usage requirements of cvedix_core.
+# ---------------------------------------------------------------------------
+target_compile_definitions(cvedix_core PUBLIC CVEDIX_WITH_KAFKA)
+target_include_directories(cvedix_core PUBLIC $<BUILD_INTERFACE:${RDKAFKA_INCLUDE_DIR}>)
+
 # Alias
 add_library(${PROJECT_NAME} ALIAS cvedix_core)
 

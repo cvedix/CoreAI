@@ -888,8 +888,16 @@ void cvedix_osd_node::render_lane(
     cv::Mat &canvas, std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
 
     if (meta->mask.empty()) return;
+    // Lane rendering expects a 4D class tensor [N, C, H, W] and indexes
+    // size[2]/size[3]. A 2D mask (e.g. the motion foreground mask) would make
+    // those dimensions invalid and construct an empty Mat, causing cv::resize to
+    // throw an uncaught exception on this node thread and abort the process.
+    // Guard against any unexpected mask shape.
+    if (meta->mask.dims < 4 || meta->mask.size[2] <= 0 || meta->mask.size[3] <= 0)
+        return;
 
     cv::Mat mask(meta->mask.size[2], meta->mask.size[3], CV_32FC1, meta->mask.data);
+    if (mask.empty() || canvas.empty()) return;
     cv::Mat mask_big;
     cv::resize(mask, mask_big, canvas.size());
     cv::threshold(mask_big, mask_big, 0.5, 1, cv::THRESH_BINARY);
