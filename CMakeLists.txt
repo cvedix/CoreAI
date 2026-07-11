@@ -24,6 +24,7 @@ option(CVEDIX_WITH_TRT "prepared TensorRT or not?" OFF)
 option(CVEDIX_WITH_OPENVINO "prepared OpenVINO or not?" OFF)
 option(CVEDIX_WITH_PADDLE "prepared PaddlePaddle or not?" OFF)
 option(CVEDIX_WITH_LLM "Enable LLM support (HTTP mLLM client + local llama.cpp inference)?" OFF)
+option(CVEDIX_LLAMACPP_WITH_CUDA "Build llama.cpp with CUDA backend when LLM is enabled?" ON)
 option(CVEDIX_WITH_RKNN "prepared RKNN (Rockchip NPU) or not?" OFF)
 option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OFF)
 option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search?" OFF)
@@ -324,22 +325,25 @@ if(CVEDIX_WITH_LLM)
     include_directories(${OPENSSL_INCLUDE_DIR})
     list(APPEND CVEDIX_DEPEND_LIBS ${OPENSSL_LIBRARIES})
     add_definitions(-DCVEDIX_WITH_LLM)
+    add_definitions(-DCPPHTTPLIB_OPENSSL_SUPPORT)
 endif()
 
 # optional for LLM (local LLM inference via llama.cpp with CUDA)
 if(CVEDIX_WITH_LLM)
 
-    # LLM requires CUDA for GPU-accelerated inference
-    if(NOT CVEDIX_WITH_CUDA)
+    # LLM local inference with llama.cpp can optionally use CUDA.
+    if(CVEDIX_LLAMACPP_WITH_CUDA AND NOT CVEDIX_WITH_CUDA)
         message(FATAL_ERROR "\n"
             "========================================\n"
-            "CVEDIX_WITH_LLM requires CUDA!\n"
+            "CVEDIX_WITH_LLM + CVEDIX_LLAMACPP_WITH_CUDA requires CUDA!\n"
             "========================================\n"
-            "LLM uses llama.cpp with CUDA backend for\n"
-            "GPU-accelerated LLM inference.\n"
+            "Local llama.cpp CUDA backend is enabled but CUDA is OFF.\n"
             "\n"
             "Enable CUDA:\n"
-            "  cmake -DCVEDIX_WITH_CUDA=ON -DCVEDIX_WITH_LLM=ON ..\n"
+            "  cmake -DCVEDIX_WITH_CUDA=ON -DCVEDIX_WITH_LLM=ON -DCVEDIX_LLAMACPP_WITH_CUDA=ON ..\n"
+            "\n"
+            "Or build llama.cpp in CPU mode:\n"
+            "  cmake -DCVEDIX_WITH_LLM=ON -DCVEDIX_LLAMACPP_WITH_CUDA=OFF ..\n"
             "\n"
             "Or disable LLM:\n"
             "  cmake -DCVEDIX_WITH_LLM=OFF ..\n"
@@ -347,20 +351,22 @@ if(CVEDIX_WITH_LLM)
         )
     endif()
 
+    set(CVEDIX_CORE_THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
+
     # Check that llama.cpp submodule exists
-    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/third_party/llama.cpp/CMakeLists.txt")
+    if(NOT EXISTS "${CVEDIX_CORE_THIRD_PARTY_DIR}/llama.cpp/CMakeLists.txt")
         message(FATAL_ERROR "\n"
             "========================================\n"
             "llama.cpp submodule not found!\n"
             "========================================\n"
             "Please initialize the git submodule:\n"
-            "  git submodule update --init third_party/llama.cpp\n"
+            "  cd 3rdpart/CoreAI && git submodule update --init third_party/llama.cpp\n"
             "========================================\n"
         )
     endif()
 
     # Configure llama.cpp build options
-    if(CVEDIX_WITH_CUDA)
+    if(CVEDIX_LLAMACPP_WITH_CUDA)
         set(GGML_CUDA ON CACHE BOOL "" FORCE)
         set(GGML_CUDA_F16 ON CACHE BOOL "" FORCE)
         # Auto-detect GPU architecture if not explicitly set
@@ -389,7 +395,8 @@ if(CVEDIX_WITH_LLM)
     message("--------------end build llm_engine----------")
 
     message(STATUS "LLM library status:")
-    message(STATUS "    llama.cpp: ${CMAKE_SOURCE_DIR}/third_party/llama.cpp")
+    message(STATUS "    llama.cpp: ${CVEDIX_CORE_THIRD_PARTY_DIR}/llama.cpp")
+    message(STATUS "    llama.cpp CUDA: ${CVEDIX_LLAMACPP_WITH_CUDA}")
     message(STATUS "    CUDA arch: ${CMAKE_CUDA_ARCHITECTURES}")
     message(STATUS "    LLM engine: enabled")
 endif()

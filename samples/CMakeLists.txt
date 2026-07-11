@@ -111,6 +111,17 @@ endif()
 
 # samples depend on LLM (local LLM inference via llama.cpp)
 if(CVEDIX_WITH_LLM)
+    add_executable(vlm_object_feature_sample "vlm_object_feature_sample.cpp")
+    target_link_libraries(vlm_object_feature_sample ${PROJECT_NAME})
+
+    add_executable(event_snapshot_vlm_enrichment_sample "event_snapshot_vlm_enrichment_sample.cpp")
+    target_link_libraries(event_snapshot_vlm_enrichment_sample ${PROJECT_NAME})
+
+    install(TARGETS
+            vlm_object_feature_sample
+            event_snapshot_vlm_enrichment_sample
+            DESTINATION bin
+            OPTIONAL)
 endif()
 
 # samples depend on RKNN

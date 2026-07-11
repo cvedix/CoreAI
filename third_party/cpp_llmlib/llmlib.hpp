@@ -1,7 +1,7 @@
-#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <string>
 #include <map>
 #include <iostream>
+#include <regex>
 #include <opencv2/opencv.hpp>
 #include "../cpp_httplib/httplib.h"
 #include "../cpp_base64/base64.h"
@@ -211,8 +211,6 @@ namespace llmlib {
 
             std::string request(const std::string& payload) {
                 auto parsed_base_url = split_base_url(__api_base_url);
-                httplib::Client cli(parsed_base_url.base_host.c_str());
-                cli.set_connection_timeout(__connection_timeout, 0);
 
                 httplib::Headers headers;
                 auto chat_path = __backend_type == LLMBackendType::OpenAI ? __openai_chat_completions_path : __ollama_chat_completions_path;
@@ -233,7 +231,33 @@ namespace llmlib {
                 }
 
                 auto final_path = parsed_base_url.base_path + chat_path;
-                auto res = cli.Post(final_path, headers, payload, "application/json");
+                auto parsed_host = parsed_base_url.protocol + "://" + parsed_base_url.host + ":" + std::to_string(parsed_base_url.port);
+
+                auto handle_res = [&](const httplib::Result& res) -> std::string {
+                    if (res) {
+                        if (res->status == httplib::StatusCode::OK_200) {
+                            return res->body;
+                        }
+                        std::cout << "[llmlib] HTTP status code: " << res->status << std::endl;
+                        return "{}";
+                    }
+
+                    auto err = res.error();
+                    std::cout << "[llmlib] HTTP error: " << httplib::to_string(err) << std::endl;
+                    return "{}";
+                };
+
+                httplib::Result res;
+                if (parsed_base_url.protocol == "http") {
+                    // For plain HTTP, use host+port constructor to avoid URL re-parse path.
+                    httplib::Client cli(parsed_base_url.host, parsed_base_url.port);
+                    cli.set_connection_timeout(__connection_timeout, 0);
+                    res = cli.Post(final_path, headers, payload, "application/json");
+                } else {
+                    httplib::Client cli(parsed_host);
+                    cli.set_connection_timeout(__connection_timeout, 0);
+                    res = cli.Post(final_path, headers, payload, "application/json");
+                }
                 if (res) {
                     if (res->status == httplib::StatusCode::OK_200) {
                         return res->body;
@@ -250,7 +274,9 @@ namespace llmlib {
             }
 
             struct ParsedBaseUrl {
-                std::string base_host; // protocols + host + port（if exists）
+                std::string protocol;
+                std::string host;
+                int port;
                 std::string base_path; // start with '/', not end with '/'
             };
 
@@ -274,11 +300,9 @@ namespace llmlib {
                     port = std::stoi(port_str);
                 }
 
-                if (port_str.empty()) {
-                    result.base_host = protocol + "://" + host;
-                } else {
-                    result.base_host = protocol + "://" + host + ":" + port_str;
-                }
+                result.protocol = protocol;
+                result.host = host;
+                result.port = port;
 
                 result.base_path = path.empty() ? "/" : path;
                 if (result.base_path.length() > 1 && result.base_path.back() == '/') {

@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
         "file_src_0", 
         0, 
-        "/home/cvedix/rapidmedia/3rdpart/core/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4", 
+        "/home/cvedix/rapidmedia/3rdpart/CoreAI/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4",
         1.0, // Resize đã được thực hiện trong GStreamer CUDA pipeline bên dưới
         true,
         "nvh264dec ! cudaconvert ! video/x-raw(memory:CUDAMemory),format=BGRx ! "

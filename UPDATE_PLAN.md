@@ -1,7 +1,7 @@
 # RapidMedia Core - Build Update Plan
 
 ## Goal
-Update and fix the 3rdpart/core submodule to ensure all working samples compile and pass their unit tests.
+Update and fix the 3rdpart/CoreAI submodule to ensure all working samples compile and pass their unit tests.
 
 ## Status: COMPLETED ✅
 
@@ -72,7 +72,7 @@ These are commented out due to compilation errors:
 - plate_recognition_pipeline_sample, plate_recognition_video_output_sample (TRT + Paddle)
 
 ### Files Modified
-1. `3rdpart/core/samples/CMakeLists.txt` - Disabled 3 failing samples
+1. `3rdpart/CoreAI/samples/CMakeLists.txt` - Disabled 3 failing samples
 2. Build artifacts in `build/bin/`
 
 ## Next Steps (Optional Improvements)
