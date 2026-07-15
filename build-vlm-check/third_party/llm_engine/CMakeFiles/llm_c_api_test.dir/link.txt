@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -fPIC -w -fdiagnostics-color=always -pthread -g CMakeFiles/llm_c_api_test.dir/tests/test_llm_c_api.c.o -o llm_c_api_test  -Wl,-rpath,/home/cvedix/workspace/rapidmedia/3rdpart/CoreAI/build-vlm-check/bin libllm_engine.a ../../bin/libllama.so.0.0.1 ../../bin/libggml.so.0.15.3 ../../bin/libggml-cpu.so.0.15.3 ../../bin/libggml-base.so.0.15.3 

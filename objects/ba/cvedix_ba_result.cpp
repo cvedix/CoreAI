@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
+#include <functional>
 
 namespace cvedix_objects {
 
@@ -101,6 +102,26 @@ namespace cvedix_objects {
         return std::string(uuid);
     }
 
+    std::string cvedix_ba_result::generate_tracking_ref_id(int channel_index, int track_id) {
+        const std::string seed = std::to_string(channel_index) + ":" + std::to_string(track_id);
+        const uint64_t hash_a = static_cast<uint64_t>(std::hash<std::string>{}(seed + ":a"));
+        const uint64_t hash_b = static_cast<uint64_t>(std::hash<std::string>{}(seed + ":b"));
+
+        std::ostringstream oss;
+        oss << std::hex << std::setfill('0')
+            << std::setw(8) << static_cast<uint32_t>((hash_a >> 32) & 0xffffffffULL)
+            << "-"
+            << std::setw(4) << static_cast<uint16_t>((hash_a >> 16) & 0xffffULL)
+            << "-"
+            << std::setw(4) << static_cast<uint16_t>((hash_a & 0x0fffULL) | 0x4000ULL)
+            << "-"
+            << std::setw(4) << static_cast<uint16_t>(((hash_b >> 48) & 0x3fffULL) | 0x8000ULL)
+            << "-"
+            << std::setw(4) << static_cast<uint16_t>((hash_b >> 32) & 0xffffULL)
+            << std::setw(8) << static_cast<uint32_t>(hash_b & 0xffffffffULL);
+        return oss.str();
+    }
+
     void cvedix_ba_result::populate_target_details(
         const std::vector<std::shared_ptr<cvedix_frame_target>>& targets_in_frame,
         const cv::Mat& frame,
@@ -142,8 +163,8 @@ namespace cvedix_objects {
                 info.score = target->primary_score;
                 info.object_class = target->primary_label;
 
-                // Generate ref_tracking_id as UUID-like from track_id
-                info.ref_tracking_id = generate_uuid();
+                // Keep the same tracking reference for the same channel/track across start/end events.
+                info.ref_tracking_id = generate_tracking_ref_id(channel_index, target->track_id);
 
                 // Optionally crop the target from frame
                 if (include_crops && !frame.empty()) {

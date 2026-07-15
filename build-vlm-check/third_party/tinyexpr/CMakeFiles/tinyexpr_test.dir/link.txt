@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -fPIC -w -fdiagnostics-color=always -pthread -g CMakeFiles/tinyexpr_test.dir/tinyexpr_test.cpp.o -o ../../samples/tinyexpr_test  -Wl,-rpath,/home/cvedix/workspace/rapidmedia/3rdpart/CoreAI/build-vlm-check/libs ../../libs/libtinyexpr.so -lm 

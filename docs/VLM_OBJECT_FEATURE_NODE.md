@@ -63,11 +63,14 @@ Sample su dung ten generic:
 
 - executable: `vlm_object_feature_sample`
 - source: `samples/vlm_object_feature_sample.cpp`
+- executable: `rapidmedia_vlm_feature_sample`
+- source: `samples/rapidmedia_vlm_feature_sample.cpp`
 
 Sample hau xu ly event da co san (sau khi webhook da luu snapshot):
 
 - executable: `event_snapshot_vlm_enrichment_sample`
 - source: `samples/event_snapshot_vlm_enrichment_sample.cpp`
+- mac dinh dung node ke thua RapidMedia; co the chon node goc bang `--node legacy`
 
 Run:
 
@@ -77,10 +80,17 @@ Run:
   --model qwen3-vl:latest \
   --api http://127.0.0.1:11434
 
+./build/bin/rapidmedia_vlm_feature_sample \
+  --video /path/to/video.mp4 \
+  --model qwen3-vl:2b \
+  --api http://127.0.0.1:8080 \
+  --backend openai
+
 ./build/bin/event_snapshot_vlm_enrichment_sample \
   --input /path/to/event_snapshots \
   --model qwen3-vl:latest \
   --api http://127.0.0.1:11434 \
+  --node rapidmedia \
   --output /tmp/event_vlm.jsonl
 ```
 

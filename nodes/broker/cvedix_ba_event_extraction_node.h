@@ -40,6 +40,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <opencv2/core.hpp>
 
 namespace cvedix_nodes {
 
@@ -66,12 +67,16 @@ namespace cvedix_nodes {
         /// @brief Whether to include base64 crop images in output
         bool include_crop_images = false;
 
+        /// @brief Whether to include base64 full-frame images in output
+        bool include_full_frame_images = false;
+
         /// @brief Maps BA type to $id schema identifier
         static std::string ba_type_to_schema_id(cvedix_objects::cvedix_ba_type type);
 
         /// @brief Serialize a single BA result to JSON string
         std::string serialize_event(
-            const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba) const;
+            const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba,
+            const cv::Mat& frame) const;
 
     protected:
         /**
@@ -95,12 +100,14 @@ namespace cvedix_nodes {
          * @param instance_id Analytics pipeline instance UUID
          * @param event_publisher Callback to publish each event JSON
          * @param include_crop_images Include base64 crop images in output
+            * @param include_full_frame_images Include base64 full-frame images in output
          */
         cvedix_ba_event_extraction_node(
             std::string node_name,
             std::string instance_id = "",
             std::function<void(const std::string&)> event_publisher = nullptr,
-            bool include_crop_images = false);
+                bool include_crop_images = false,
+                bool include_full_frame_images = false);
 
         ~cvedix_ba_event_extraction_node();
 

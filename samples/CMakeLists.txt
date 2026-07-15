@@ -4,13 +4,19 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif()
 
 message("start build for simple samples...")
-link_libraries(MediaToolKit)
+if(DEFINED MEDIATOOLKIT_LIB AND MEDIATOOLKIT_LIB)
+    link_libraries(${MEDIATOOLKIT_LIB})
+    set(MEDIATOOLKIT_LINK_LIB ${MEDIATOOLKIT_LIB})
+else()
+    link_libraries(MediaToolKit)
+    set(MEDIATOOLKIT_LINK_LIB MediaToolKit)
+endif()
 # save all exe to 'build/bin'
 
 # Default sample
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_executable(1-1-1_sample "1-1-1_sample.cpp")
-target_link_libraries(1-1-1_sample ${PROJECT_NAME} MediaToolKit)
+target_link_libraries(1-1-1_sample ${PROJECT_NAME} ${MEDIATOOLKIT_LINK_LIB})
 
 add_executable(1-1-N_sample "1-1-N_sample.cpp")
 target_link_libraries(1-1-N_sample ${PROJECT_NAME})
@@ -114,11 +120,15 @@ if(CVEDIX_WITH_LLM)
     add_executable(vlm_object_feature_sample "vlm_object_feature_sample.cpp")
     target_link_libraries(vlm_object_feature_sample ${PROJECT_NAME})
 
+    add_executable(rapidmedia_vlm_feature_sample "rapidmedia_vlm_feature_sample.cpp")
+    target_link_libraries(rapidmedia_vlm_feature_sample ${PROJECT_NAME})
+
     add_executable(event_snapshot_vlm_enrichment_sample "event_snapshot_vlm_enrichment_sample.cpp")
     target_link_libraries(event_snapshot_vlm_enrichment_sample ${PROJECT_NAME})
 
     install(TARGETS
             vlm_object_feature_sample
+            rapidmedia_vlm_feature_sample
             event_snapshot_vlm_enrichment_sample
             DESTINATION bin
             OPTIONAL)

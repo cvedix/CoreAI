@@ -1,5 +1,6 @@
 #ifdef CVEDIX_WITH_LLM
 
+#include "cvedix/nodes/infers/cvedix_rapidmedia_vlm_feature_node.h"
 #include "cvedix/nodes/infers/cvedix_vlm_feature_node.h"
 #include "cvedix/objects/cvedix_frame_meta.h"
 #include "cvedix/objects/cvedix_frame_target.h"
@@ -9,6 +10,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <filesystem>
+#include <functional>
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -30,6 +32,17 @@ namespace {
 class event_snapshot_vlm_runner : public cvedix_nodes::cvedix_vlm_feature_node {
 public:
     using cvedix_nodes::cvedix_vlm_feature_node::cvedix_vlm_feature_node;
+
+    std::shared_ptr<cvedix_objects::cvedix_frame_meta> run(
+        const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta) {
+        auto out = handle_frame_meta(meta);
+        return std::dynamic_pointer_cast<cvedix_objects::cvedix_frame_meta>(out);
+    }
+};
+
+class event_snapshot_rapidmedia_vlm_runner : public cvedix_nodes::cvedix_rapidmedia_vlm_feature_node {
+public:
+    using cvedix_nodes::cvedix_rapidmedia_vlm_feature_node::cvedix_rapidmedia_vlm_feature_node;
 
     std::shared_ptr<cvedix_objects::cvedix_frame_meta> run(
         const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta) {
@@ -101,7 +114,7 @@ llmlib::LLMBackendType parse_backend(const std::string& raw) {
     std::transform(value.begin(), value.end(), value.begin(),
                    [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 
-    if (value == "openai") {
+    if (value == "openai" || value == "llama_cpp" || value == "llama.cpp" || value == "coreai") {
         return llmlib::LLMBackendType::OpenAI;
     }
     return llmlib::LLMBackendType::Ollama;
@@ -131,6 +144,7 @@ int main(int argc, char** argv) {
     std::string api_base_url = "http://127.0.0.1:11434";
     std::string api_key = "";
     std::string backend_name = "ollama";
+    bool use_rapidmedia_node = true;
     std::string output_jsonl = "";
     int max_images = 0;
 
@@ -146,6 +160,13 @@ int main(int argc, char** argv) {
             api_key = argv[++i];
         } else if (arg == "--backend" && i + 1 < argc) {
             backend_name = argv[++i];
+        } else if (arg == "--node" && i + 1 < argc) {
+            const std::string mode = argv[++i];
+            use_rapidmedia_node = !(mode == "legacy" || mode == "base");
+        } else if (arg == "--legacy-node") {
+            use_rapidmedia_node = false;
+        } else if (arg == "--rapidmedia-node") {
+            use_rapidmedia_node = true;
         } else if (arg == "--output" && i + 1 < argc) {
             output_jsonl = argv[++i];
         } else if (arg == "--max" && i + 1 < argc) {
@@ -157,7 +178,10 @@ int main(int argc, char** argv) {
                 << "  --model <name>            VLM model name\n"
                 << "  --api <url>               LLM API base URL\n"
                 << "  --api-key <key>           API key for OpenAI-compatible backend\n"
-                << "  --backend <ollama|openai> LLM backend type\n"
+                << "  --backend <ollama|openai|llama_cpp|coreai> LLM backend type\n"
+                << "  --node <rapidmedia|legacy> Select inherited rapidmedia node or base node\n"
+                << "  --legacy-node             Shortcut for --node legacy\n"
+                << "  --rapidmedia-node         Shortcut for --node rapidmedia (default)\n"
                 << "  --output <path>           Output JSONL file\n"
                 << "  --max <n>                 Max images to process (0 = all)\n";
             return 0;
@@ -181,17 +205,45 @@ int main(int argc, char** argv) {
     }
 
     try {
-        auto runner = std::make_shared<event_snapshot_vlm_runner>(
-            "event_snapshot_vlm_runner",
-            model_name,
-            api_base_url,
-            api_key,
-            parse_backend(backend_name),
-            1,
-            1,
-            0.0f,
-            0.0f,
-            12);
+        std::function<std::shared_ptr<cvedix_objects::cvedix_frame_meta>(
+            const std::shared_ptr<cvedix_objects::cvedix_frame_meta>&)> run_one;
+
+        if (use_rapidmedia_node) {
+            if (std::getenv("ASS_RAPIDMEDIA_VLM_REQUIRE_TRACK") == nullptr) {
+                // Event snapshot enrichment has no tracker stage; keep all targets by default.
+                setenv("ASS_RAPIDMEDIA_VLM_REQUIRE_TRACK", "0", 0);
+            }
+
+            auto runner = std::make_shared<event_snapshot_rapidmedia_vlm_runner>(
+                "event_snapshot_rapidmedia_vlm_runner",
+                model_name,
+                api_base_url,
+                api_key,
+                parse_backend(backend_name),
+                1,
+                1,
+                0.0f,
+                0.0f,
+                12);
+            run_one = [runner](const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta) {
+                return runner->run(meta);
+            };
+        } else {
+            auto runner = std::make_shared<event_snapshot_vlm_runner>(
+                "event_snapshot_vlm_runner",
+                model_name,
+                api_base_url,
+                api_key,
+                parse_backend(backend_name),
+                1,
+                1,
+                0.0f,
+                0.0f,
+                12);
+            run_one = [runner](const std::shared_ptr<cvedix_objects::cvedix_frame_meta>& meta) {
+                return runner->run(meta);
+            };
+        }
 
         int processed = 0;
         int failed = 0;
@@ -228,7 +280,7 @@ int main(int argc, char** argv) {
                 "event_object");
             meta->targets.push_back(target);
 
-            auto out_meta = runner->run(meta);
+            auto out_meta = run_one(meta);
             if (!out_meta || out_meta->targets.empty() || !out_meta->targets[0]) {
                 ++failed;
                 continue;

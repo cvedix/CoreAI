@@ -940,7 +940,25 @@ if(NOT EIGEN3_FOUND)
 endif()
 
 # build for CORE SDK
-link_directories(/home/cvedix/rapidmedia/build/3rdpart/MediaToolKit/lib)
+get_filename_component(RAPIDMEDIA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+set(MEDIATOOLKIT_LIB_SEARCH_PATHS
+    "${CMAKE_BINARY_DIR}/3rdpart/MediaToolKit/lib"
+    "${RAPIDMEDIA_ROOT}/build/3rdpart/MediaToolKit/lib"
+    "${RAPIDMEDIA_ROOT}/build-debug/3rdpart/MediaToolKit/lib"
+    "${RAPIDMEDIA_ROOT}/build-release/3rdpart/MediaToolKit/lib"
+)
+
+find_library(MEDIATOOLKIT_LIB
+    NAMES MediaToolKit
+    PATHS ${MEDIATOOLKIT_LIB_SEARCH_PATHS}
+)
+
+if(NOT MEDIATOOLKIT_LIB)
+    message(FATAL_ERROR
+        "MediaToolKit library not found. Checked: ${MEDIATOOLKIT_LIB_SEARCH_PATHS}. "
+        "Build MediaToolKit first or provide library path in one of these locations.")
+endif()
+
 add_library(cvedix_core SHARED ${CORE_NODES} ${CORE_UTILS} ${OBJECTS})
 target_link_libraries(cvedix_core
     PUBLIC
@@ -948,7 +966,7 @@ target_link_libraries(cvedix_core
         dl
     PRIVATE
         tinyexpr
-        MediaToolKit
+        ${MEDIATOOLKIT_LIB}
         ${CVEDIX_PRIVATE_DEPEND_LIBS}
 )
 

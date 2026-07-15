@@ -203,6 +203,7 @@ namespace cvedix_objects {
          * @return UUID string (e.g., "d41de3b2-3682-4c6d-96c3-6b506d5d6c7b")
          */
         static std::string generate_uuid();
+            static std::string generate_tracking_ref_id(int channel_index, int track_id);
     };
 
 }

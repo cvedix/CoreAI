@@ -139,6 +139,7 @@ Inference node thực hiện **suy luận AI** theo pipeline 4 bước: `prepare
 | `cvedix_plate_recogniton_ppocr3` | Nhận dạng biển số (PaddleOCR v3) |
 | `cvedix_mllm_analyser_node` | Phân tích ảnh bằng LLM (Ollama/vLLM/OpenAI) |
 | `cvedix_vlm_feature_node` | Trích xuất đặc trưng semantic object đa model VLM, ghi embedding về `targets[]`. [Doc](VLM_OBJECT_FEATURE_NODE.md) |
+| `cvedix_rapidmedia_vlm_feature_node` | Node kế thừa `cvedix_vlm_feature_node` với pre-filter và ưu tiên target cho workload RapidMedia (event-driven, giới hạn ngân sách VLM). |
 
 ---
 

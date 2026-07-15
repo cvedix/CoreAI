@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 
 namespace cvedix_nodes {
 
@@ -72,10 +73,105 @@ static std::string mat_to_base64_jpeg(const cv::Mat& img) {
     return base64_encode(buf);
 }
 
+static cv::Rect to_frame_rect(const cvedix_objects::involved_target_info& t,
+                              int frame_w,
+                              int frame_h) {
+    double x = t.location_x;
+    double y = t.location_y;
+    double w = t.location_w;
+    double h = t.location_h;
+
+    // Some pipelines store BA coordinates in 0..10000 normalized space.
+    if (frame_w > 0 && frame_h > 0 && x >= 0 && y >= 0 && w > 0 && h > 0 &&
+        (x > frame_w || y > frame_h || w > frame_w || h > frame_h)) {
+        const double scale_x = static_cast<double>(frame_w) / 10000.0;
+        const double scale_y = static_cast<double>(frame_h) / 10000.0;
+        x *= scale_x;
+        y *= scale_y;
+        w *= scale_x;
+        h *= scale_y;
+    }
+
+    int ix = std::max(0, static_cast<int>(std::round(x)));
+    int iy = std::max(0, static_cast<int>(std::round(y)));
+    int iw = std::max(1, static_cast<int>(std::round(w)));
+    int ih = std::max(1, static_cast<int>(std::round(h)));
+
+    if (ix >= frame_w || iy >= frame_h) {
+        return cv::Rect();
+    }
+
+    if (ix + iw > frame_w) {
+        iw = frame_w - ix;
+    }
+    if (iy + ih > frame_h) {
+        ih = frame_h - iy;
+    }
+
+    if (iw <= 0 || ih <= 0) {
+        return cv::Rect();
+    }
+
+    return cv::Rect(ix, iy, iw, ih);
+}
+
+static std::string build_event_bbox_overlay_base64(
+    const cv::Mat& frame,
+    const std::vector<cvedix_objects::involved_target_info>& targets) {
+    if (frame.empty()) {
+        return "";
+    }
+
+    cv::Mat overlay = frame.clone();
+    const cv::Scalar color(0, 0, 255);
+
+    for (const auto& t : targets) {
+        const cv::Rect rect = to_frame_rect(t, overlay.cols, overlay.rows);
+        if (rect.empty()) {
+            continue;
+        }
+        cv::rectangle(overlay, rect, color, 2);
+    }
+
+    return mat_to_base64_jpeg(overlay);
+}
+
+static std::vector<cvedix_objects::involved_target_info> select_overlay_targets(
+    const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba) {
+    std::vector<cvedix_objects::involved_target_info> selected;
+    if (!ba) {
+        return selected;
+    }
+
+    if (ba->involve_target_details.empty()) {
+        return selected;
+    }
+
+    // Group events keep all involved targets.
+    if (ba->type == cvedix_objects::cvedix_ba_type::CROWDING) {
+        return ba->involve_target_details;
+    }
+
+    // Non-group events should highlight only the primary trigger target.
+    if (!ba->involve_target_ids_in_frame.empty()) {
+        const int primary_track_id = ba->involve_target_ids_in_frame.front();
+        for (const auto& detail : ba->involve_target_details) {
+            if (detail.track_id == primary_track_id) {
+                selected.push_back(detail);
+                return selected;
+            }
+        }
+    }
+
+    selected.push_back(ba->involve_target_details.front());
+    return selected;
+}
+
 // ─── Serialize a single BA result to JSON ──────────────────────
 
 std::string cvedix_ba_event_extraction_node::serialize_event(
-    const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba) const {
+    const std::shared_ptr<cvedix_objects::cvedix_ba_result>& ba,
+    const cv::Mat& frame) const {
 
     std::ostringstream oss;
     std::string schema_id = ba_type_to_schema_id(ba->type);
@@ -152,6 +248,18 @@ std::string cvedix_ba_event_extraction_node::serialize_event(
     }
 
     // Timestamps
+    if (include_full_frame_images && !frame.empty()) {
+        const std::string full_frame_b64 = mat_to_base64_jpeg(frame);
+        if (!full_frame_b64.empty()) {
+            oss << "\"full_frame_image\":\"" << full_frame_b64 << "\",";
+            const std::string bbox_frame_b64 =
+                build_event_bbox_overlay_base64(frame, select_overlay_targets(ba));
+            if (!bbox_frame_b64.empty()) {
+                oss << "\"full_frame_bbox_image\":\"" << bbox_frame_b64 << "\",";
+            }
+        }
+    }
+
     oss << "\"system_datetime\":\"" << json_escape(ba->system_datetime) << "\",";
     oss << "\"system_timestamp\":" << std::fixed << std::setprecision(0)
         << ba->system_timestamp;
@@ -166,11 +274,13 @@ cvedix_ba_event_extraction_node::cvedix_ba_event_extraction_node(
     std::string node_name,
     std::string instance_id,
     std::function<void(const std::string&)> event_publisher,
-    bool include_crop_images)
+        bool include_crop_images,
+        bool include_full_frame_images)
     : cvedix_msg_broker_node(node_name, cvedix_broke_for::NORMAL, 50, 200),
       instance_id(instance_id),
       event_publisher(event_publisher),
-      include_crop_images(include_crop_images) {
+            include_crop_images(include_crop_images),
+            include_full_frame_images(include_full_frame_images) {
 
     this->initialized();
 
@@ -181,9 +291,10 @@ cvedix_ba_event_extraction_node::cvedix_ba_event_extraction_node(
     }
 
     CVEDIX_INFO(cvedix_utils::string_format(
-        "[%s] BA Event Extraction Node initialized (instance_id: %s, crop: %s)",
+        "[%s] BA Event Extraction Node initialized (instance_id: %s, crop: %s, full_frame: %s)",
         node_name.c_str(), instance_id.c_str(),
-        include_crop_images ? "true" : "false"));
+        include_crop_images ? "true" : "false",
+        include_full_frame_images ? "true" : "false"));
 }
 
 cvedix_ba_event_extraction_node::~cvedix_ba_event_extraction_node() {
@@ -240,7 +351,7 @@ void cvedix_ba_event_extraction_node::format_msg(
         for (const auto& ba : meta->ba_results) {
             if (!first) oss << ",";
             first = false;
-            oss << serialize_event(ba);
+            oss << serialize_event(ba, meta->frame);
         }
 
         oss << "]";

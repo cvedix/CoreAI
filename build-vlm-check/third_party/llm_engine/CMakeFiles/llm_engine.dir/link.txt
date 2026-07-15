@@ -1,0 +1,2 @@
+/usr/bin/ar qc libllm_engine.a CMakeFiles/llm_engine.dir/src/llm_engine.cpp.o CMakeFiles/llm_engine.dir/src/llm_sampler.cpp.o CMakeFiles/llm_engine.dir/src/llm_config.cpp.o CMakeFiles/llm_engine.dir/src/llm_c_api.cpp.o
+/usr/bin/ranlib libllm_engine.a

@@ -1,6 +1,7 @@
 
 #include "cvedix_osd_node.h"
 #include <cmath>
+#include <unordered_set>
 
 namespace cvedix_nodes {
 
@@ -135,7 +136,11 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
     std::shared_ptr<cvedix_objects::cvedix_frame_meta> meta) {
 
     // Collect alerted IDs for coloring (persistent)
+    std::unordered_set<int> event_track_ids;
     for (auto &ba : meta->ba_results) {
+        for (auto &tid : ba->involve_target_ids_in_frame) {
+            event_track_ids.insert(tid);
+        }
         if (ba->type == cvedix_objects::cvedix_ba_type::CROSSLINE ||
             ba->type == cvedix_objects::cvedix_ba_type::RED_LIGHT ||
             ba->type == cvedix_objects::cvedix_ba_type::STOP_LINE) {
@@ -151,12 +156,13 @@ void cvedix_osd_node::render_targets(cv::Mat &canvas,
             continue;
 
         bool has_crossed = (i->track_id != -1 && _all_crossed_track_ids.count(i->track_id) > 0);
+        bool has_event = (i->track_id != -1 && event_track_ids.count(i->track_id) > 0);
 
         // Determine colors
         cv::Scalar dot_color = has_crossed ? _config.alert_color : _config.dot_color;
         cv::Scalar trail_color = has_crossed ? _config.alert_color : _config.trail_color;
-        cv::Scalar bbox_color = has_crossed ? _config.alert_color : _config.bbox_color;
-        cv::Scalar text_color = has_crossed ? _config.alert_color : _config.dot_color;
+        cv::Scalar bbox_color = (has_crossed || has_event) ? _config.alert_color : _config.bbox_color;
+        cv::Scalar text_color = (has_crossed || has_event) ? _config.alert_color : _config.dot_color;
 
         // Blur target region if label matches blur_labels list
         if (!_config.blur_labels.empty()) {
