@@ -1,0 +1,3 @@
+# Root Makefile — delegates to scripts/Makefile.project
+# Usage: make setup | make build | make build-cpu | make help ...
+include scripts/Makefile.project

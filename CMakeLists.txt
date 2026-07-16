@@ -30,6 +30,7 @@ option(CVEDIX_WITH_RGA "prepared RGA (Rockchip Graphics Accelerator) or not?" OF
 option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search?" OFF)
 set(CVEDIX_BUILD_SAMPLES ON)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
+option(CVEDIX_BUILD_CAPI "build C API layer (libcvedix_capi) for language bindings (Java/C#/C)?" ON)
 
 # OpenCV required
 find_package(OpenCV REQUIRED)
@@ -1156,6 +1157,14 @@ if(CVEDIX_BUILD_SAMPLES)
     add_subdirectory(samples)
 else()
     message(STATUS "Skipping samples build (enable with -DCVEDIX_BUILD_SAMPLES=ON)")
+endif()
+
+# C API layer for language bindings (Java/JNA, C#/P-Invoke, C)
+if(CVEDIX_BUILD_CAPI)
+    message(STATUS "Building C API layer (libcvedix_capi)")
+    add_subdirectory(capi)
+else()
+    message(STATUS "Skipping C API build (enable with -DCVEDIX_BUILD_CAPI=ON)")
 endif()
 
 

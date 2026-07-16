@@ -32,6 +32,8 @@ test_video/
 log/
 debug/
 build/
+build-*/
+output/
 
 # doc
 *.pptx
@@ -242,3 +244,6 @@ cvedix_data/
 *.tgz
 video_output/
 datasets/
+
+# Root Makefile (no extension — whitelist requires explicit allow)
+!Makefile

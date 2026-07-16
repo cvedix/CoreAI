@@ -155,14 +155,14 @@ Ví dụ:
 
 ```bash
 ./build/bin/1-1-1_sample
-./build/bin/cvedix_logger_sample
-./build/bin/yolov11_onnx_detector_sample
+./build/bin/1-1-N_sample
+./build/bin/N-N_sample
 ```
 
 Một số sample yêu cầu model, video input hoặc backend cụ thể. Xem thêm:
 
 - [Nodes & Samples Reference](./NODES_AND_SAMPLES.md)
-- [Samples README](../samples/README.md)
+- [Onboarding](./ONBOARDING.md)
 
 ## 5. Cấu trúc source chính
 
@@ -202,7 +202,7 @@ BUILD_SAMPLES=ON make build-nvidia-openvino-ort
 4. Chạy sample nhỏ trước khi chạy pipeline phức tạp:
 
 ```bash
-./build/bin/cvedix_logger_sample
+./build/bin/1-1-N_sample
 ./build/bin/1-1-1_sample
 ```
 

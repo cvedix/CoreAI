@@ -15,12 +15,12 @@ Source node là **điểm bắt đầu** của pipeline, chịu trách nhiệm �
 
 | Node | Header | Mô tả | Constructor Parameters |
 |------|--------|--------|----------------------|
-| `cvedix_file_src_node` | [cvedix_file_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_file_src_node.h) | Đọc video từ file | `(name, channel, file_path, resize_ratio)` |
-| `cvedix_rtsp_src_node` | [cvedix_rtsp_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_rtsp_src_node.h) | Đọc stream RTSP | `(name, channel, rtsp_url, resize_ratio)` |
-| `cvedix_rtmp_src_node` | [cvedix_rtmp_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_rtmp_src_node.h) | Đọc stream RTMP | `(name, channel, rtmp_url, resize_ratio)` |
-| `cvedix_udp_src_node` | [cvedix_udp_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_udp_src_node.h) | Đọc stream UDP | `(name, channel, udp_url, resize_ratio)` |
-| `cvedix_image_src_node` | [cvedix_image_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_image_src_node.h) | Đọc ảnh từ file/thư mục | `(name, channel, pattern, interval, resize_ratio)` |
-| `cvedix_app_src_node` | [cvedix_app_src_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/src/cvedix_app_src_node.h) | Nhận frame từ application code | `(name, channel, resize_ratio)` |
+| `cvedix_file_src_node` | [cvedix_file_src_node.h](../nodes/src/cvedix_file_src_node.h) | Đọc video từ file | `(name, channel, file_path, resize_ratio)` |
+| `cvedix_rtsp_src_node` | [cvedix_rtsp_src_node.h](../nodes/src/cvedix_rtsp_src_node.h) | Đọc stream RTSP | `(name, channel, rtsp_url, resize_ratio)` |
+| `cvedix_rtmp_src_node` | [cvedix_rtmp_src_node.h](../nodes/src/cvedix_rtmp_src_node.h) | Đọc stream RTMP | `(name, channel, rtmp_url, resize_ratio)` |
+| `cvedix_udp_src_node` | [cvedix_udp_src_node.h](../nodes/src/cvedix_udp_src_node.h) | Đọc stream UDP | `(name, channel, udp_url, resize_ratio)` |
+| `cvedix_image_src_node` | [cvedix_image_src_node.h](../nodes/src/cvedix_image_src_node.h) | Đọc ảnh từ file/thư mục | `(name, channel, pattern, interval, resize_ratio)` |
+| `cvedix_app_src_node` | [cvedix_app_src_node.h](../nodes/src/cvedix_app_src_node.h) | Nhận frame từ application code | `(name, channel, resize_ratio)` |
 
 > [!NOTE]
 > Mỗi source node **bắt buộc** có `channel_index` riêng. Không thể `attach_to()` source node.
@@ -33,13 +33,13 @@ Destination node là **điểm kết thúc** của pipeline, tiêu thụ `frame_
 
 | Node | Header | Mô tả | Constructor Parameters |
 |------|--------|--------|----------------------|
-| `cvedix_screen_des_node` | [cvedix_screen_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_screen_des_node.h) | Hiển thị lên màn hình (OpenCV window) | `(name, channel)` |
-| `cvedix_file_des_node` | [cvedix_file_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_file_des_node.h) | Lưu video ra file | `(name, channel, output_path, ...)` |
-| `cvedix_rtmp_des_node` | [cvedix_rtmp_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_rtmp_des_node.h) | Đẩy video sang RTMP server | `(name, channel, rtmp_url)` |
-| `cvedix_rtsp_des_node` | [cvedix_rtsp_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_rtsp_des_node.h) | Đẩy video dạng RTSP (tự host) | `(name, channel, port, ...)` |
-| `cvedix_image_des_node` | [cvedix_image_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_image_des_node.h) | Lưu frame thành ảnh (file/socket) | `(name, channel, ...)` |
-| `cvedix_app_des_node` | [cvedix_app_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_app_des_node.h) | Đẩy frame về application code | `(name, channel)` |
-| `cvedix_fake_des_node` | [cvedix_fake_des_node.h](file:///home/cvedix/Documents/Github/edgeos-sdk/nodes/des/cvedix_fake_des_node.h) | Không làm gì (cho benchmarking) | `(name, channel)` |
+| `cvedix_screen_des_node` | [cvedix_screen_des_node.h](../nodes/des/cvedix_screen_des_node.h) | Hiển thị lên màn hình (OpenCV window) | `(name, channel)` |
+| `cvedix_file_des_node` | [cvedix_file_des_node.h](../nodes/des/cvedix_file_des_node.h) | Lưu video ra file | `(name, channel, output_path, ...)` |
+| `cvedix_rtmp_des_node` | [cvedix_rtmp_des_node.h](../nodes/des/cvedix_rtmp_des_node.h) | Đẩy video sang RTMP server | `(name, channel, rtmp_url)` |
+| `cvedix_rtsp_des_node` | [cvedix_rtsp_des_node.h](../nodes/des/cvedix_rtsp_des_node.h) | Đẩy video dạng RTSP (tự host) | `(name, channel, port, ...)` |
+| `cvedix_image_des_node` | [cvedix_image_des_node.h](../nodes/des/cvedix_image_des_node.h) | Lưu frame thành ảnh (file/socket) | `(name, channel, ...)` |
+| `cvedix_app_des_node` | [cvedix_app_des_node.h](../nodes/des/cvedix_app_des_node.h) | Đẩy frame về application code | `(name, channel)` |
+| `cvedix_fake_des_node` | [cvedix_fake_des_node.h](../nodes/des/cvedix_fake_des_node.h) | Không làm gì (cho benchmarking) | `(name, channel)` |
 
 > [!NOTE]
 > Mỗi destination node **bắt buộc** có `channel_index`. Không thể có node tiếp theo sau destination.
@@ -112,7 +112,7 @@ Inference node thực hiện **suy luận AI** theo pipeline 4 bước: `prepare
 
 | Node | Backend | Mô tả |
 |------|---------|--------|
-| `cvedix_face_recognizer_node` | SeetaFace6 | **All-in-one**: detect + landmark + recognize + database. Dual-model mask support. [Hướng dẫn chi tiết](FACE_RECOGNIZER_SEETAFACE6.md) |
+| `cvedix_face_recognizer_node` | SeetaFace6 | **All-in-one**: detect + landmark + recognize + database. Dual-model mask support. [Hướng dẫn chi tiết](guides/FACE_RECOGNIZER_SEETAFACE6.md) |
 | `cvedix_face_recognition_node` | OpenCV DNN | Nhận dạng khuôn mặt (InsightFace/ArcFace) |
 | `cvedix_face_recognition_ort_node` | ONNX Runtime | Nhận dạng khuôn mặt (ONNX) |
 | `cvedix_face_recognition_trt_node` | TensorRT | Nhận dạng khuôn mặt GPU |
@@ -138,7 +138,7 @@ Inference node thực hiện **suy luận AI** theo pipeline 4 bước: `prepare
 | `cvedix_ppocr_text_detector_node` | Phát hiện văn bản (PaddleOCR) |
 | `cvedix_plate_recogniton_ppocr3` | Nhận dạng biển số (PaddleOCR v3) |
 | `cvedix_mllm_analyser_node` | Phân tích ảnh bằng LLM (Ollama/vLLM/OpenAI) |
-| `cvedix_vlm_feature_node` | Trích xuất đặc trưng semantic object đa model VLM, ghi embedding về `targets[]`. [Doc](VLM_OBJECT_FEATURE_NODE.md) |
+| `cvedix_vlm_feature_node` | Trích xuất đặc trưng semantic object đa model VLM, ghi embedding về `targets[]`. [Doc](guides/VLM_OBJECT_FEATURE_NODE.md) |
 | `cvedix_rapidmedia_vlm_feature_node` | Node kế thừa `cvedix_vlm_feature_node` với pre-filter và ưu tiên target cho workload RapidMedia (event-driven, giới hạn ngân sách VLM). |
 
 ---
@@ -360,7 +360,9 @@ int main() {
 
 ---
 
-## 2. Phân loại Samples theo Chức năng
+## 2. Danh sách Samples hiện có
+
+Toàn bộ samples nằm trong [samples/](../samples/), build bằng option `CVEDIX_BUILD_SAMPLES=ON` (mặc định bật).
 
 ### 2.1 Pipeline cơ bản (Topology Samples)
 
@@ -368,12 +370,12 @@ Quy ước tên `X-Y-Z_sample`: **X** = số source, **Y** = số inference, **Z
 
 | Sample | Pipeline | Mô tả |
 |--------|----------|--------|
-| [1-1-1_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/1-1-1_sample.cpp) | `src → det → enc → osd → des` | 1 input, 1 task, 1 output |
-| [1-1-N_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/1-1-N_sample.cpp) | `src → det → enc → osd → {des_0, des_1}` | 1 input, fan-out output |
-| [1-N-1_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/1-N-1_sample.cpp) | `src → {det_a, det_b} → sync → osd → des` | 1 input, parallel inference |
-| [1-N-N_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/1-N-N_sample.cpp) | `src → split → {branch_a, branch_b}` | 1 input split thành 2 nhánh |
-| [N-1-N_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/N-1-N_sample.cpp) | `{src_0, src_1} → det → split → {des_0, des_1}` | Multi-channel chia sẻ detector |
-| [N-N_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/N-N_sample.cpp) | `{src_0, src_1} → det → {des_0, des_1}` | Multi-channel basic |
+| [1-1-1_sample.cpp](../samples/1-1-1_sample.cpp) | `src → det → enc → osd → des` | 1 input, 1 task, 1 output |
+| [1-1-N_sample.cpp](../samples/1-1-N_sample.cpp) | `src → det → enc → osd → {des_0, des_1}` | 1 input, fan-out output |
+| [1-N-N_sample.cpp](../samples/1-N-N_sample.cpp) | `src → split → {branch_a, branch_b}` | 1 input split thành 2 nhánh |
+| [1-N-1-N_sample.cpp](../samples/1-N-1-N_sample.cpp) | `src → {det_a, det_b} → sync → {des_0, des_1}` | 1 input, parallel inference, fan-out |
+| [N-1-N_sample.cpp](../samples/N-1-N_sample.cpp) | `{src_0, src_1} → det → split → {des_0, des_1}` | Multi-channel chia sẻ detector |
+| [N-N_sample.cpp](../samples/N-N_sample.cpp) | `{src_0, src_1} → det → {des_0, des_1}` | Multi-channel basic |
 
 ```
 Ví dụ topology 1-N-N:
@@ -383,145 +385,24 @@ src → split(copy) ┤
                   └→ det_b → enc_b → osd_b → des_b
 ```
 
-### 2.2 Source / Destination Samples
+### 2.2 VLM / LLM Samples (nâng cao)
 
-| Sample | Mô tả |
-|--------|--------|
-| [rtsp_src_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rtsp_src_sample.cpp) | Đọc từ RTSP camera |
-| [rtmp_src_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rtmp_src_sample.cpp) | Đọc từ RTMP stream |
-| [image_src_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/image_src_sample.cpp) | Đọc ảnh từ thư mục |
-| [app_src_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/app_src_sample.cpp) | Nhận frame từ code |
-| [app_src_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/app_src_des_sample.cpp) | App source + App destination |
-| [rtsp_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rtsp_des_sample.cpp) | Output sang RTSP |
-| [image_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/image_des_sample.cpp) | Output thành ảnh |
-| [src_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/src_des_sample.cpp) | Source và Destination cơ bản |
-| [app_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/app_des_sample.cpp) | Output về application |
-| [ffmpeg_src_des_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ffmpeg_src_des_sample.cpp) | FFmpeg hardware codec |
-| [ffmpeg_transcode_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ffmpeg_transcode_sample.cpp) | FFmpeg transcode |
-| [nv_hard_codec_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/nv_hard_codec_sample.cpp) | NVIDIA hardware codec |
+Yêu cầu build với `CVEDIX_WITH_LLM=ON`.
 
-### 2.3 Face Detection & Recognition Samples
+| Sample | Mô tả | Tài liệu |
+|--------|--------|----------|
+| [vlm_object_feature_sample.cpp](../samples/vlm_object_feature_sample.cpp) | Trích xuất đặc trưng semantic object bằng VLM | [VLM_OBJECT_FEATURE_NODE.md](guides/VLM_OBJECT_FEATURE_NODE.md) |
+| [rapidmedia_vlm_feature_sample.cpp](../samples/rapidmedia_vlm_feature_sample.cpp) | Tích hợp VLM feature với RapidMedia | [RAPIDMEDIA_VLM_FEATURE_NODE.md](guides/RAPIDMEDIA_VLM_FEATURE_NODE.md) |
+| [event_snapshot_vlm_enrichment_sample.cpp](../samples/event_snapshot_vlm_enrichment_sample.cpp) | Enrich event snapshot bằng VLM | [BA_EVENT_EXTRACTION_INTEGRATION.md](guides/BA_EVENT_EXTRACTION_INTEGRATION.md) |
 
-| Sample | Mô tả |
-|--------|--------|
-| [face_tracking_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_tracking_sample.cpp) | Phát hiện + theo dõi khuôn mặt (SORT) |
-| [face_tracking_bytetrack_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_tracking_bytetrack_sample.cpp) | Face tracking (ByteTrack) |
-| [face_tracking_ocsort_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_tracking_ocsort_sample.cpp) | Face tracking (OC-SORT) |
-| [face_tracking_rtsp_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_tracking_rtsp_sample.cpp) | Face tracking từ RTSP (đầy đủ: detect + encode + track + OSD + MQTT) |
-| [face_recognition_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_recognition_sample.cpp) | Nhận dạng khuôn mặt (InsightFace) |
-| [face_recognition_ort_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_recognition_ort_sample.cpp) | Nhận dạng khuôn mặt (ONNX Runtime) |
-| [face_recognition_mqtt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_recognition_mqtt_sample.cpp) | Face recognition + MQTT broker |
-| [face_registration_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_registration_sample.cpp) | Đăng ký khuôn mặt mới |
-| [face_yunet_int8_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_yunet_int8_sample.cpp) | Face detection INT8 quantized |
-| [face_swap_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/face_swap_sample.cpp) | Hoán đổi khuôn mặt |
-| [facenet_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/facenet_sample.cpp) | FaceNet recognition |
-| [facenet_register_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/facenet_register_sample.cpp) | FaceNet registration |
-| [facenet_margin_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/facenet_margin_sample.cpp) | FaceNet with margin tuning |
-| [insightface_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/insightface_sample.cpp) | InsightFace basic |
-| [insightface_trt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/insightface_trt_sample.cpp) | InsightFace TensorRT |
-| [insightface_register_recognize_face_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/insightface_register_recognize_face_sample.cpp) | InsightFace register + recognize |
-| [insightface_register_recognize_face_trt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/insightface_register_recognize_face_trt_sample.cpp) | InsightFace TRT register + recognize |
+Helper dùng chung: [sample_output_helper.h](../samples/sample_output_helper.h).
 
-### 2.4 Behavior Analysis Samples
+### 2.3 Benchmarks
 
-| Sample | Hành vi | Pipeline |
-|--------|---------|----------|
-| [ba_crossline_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_crossline_sample.cpp) | Vượt đường | `src → det → tracker → ba_crossline → osd → des` |
-| [ba_crossline_mqtt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_crossline_mqtt_sample.cpp) | Vượt đường + MQTT | Crossline + MQTT broker |
-| [ba_multiple_crossline_counting_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_multiple_crossline_counting_sample.cpp) | Đếm nhiều đường | Multiple lines counting |
-| [ba_multiline_crossline_test.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_multiline_crossline_test.cpp) | Test multi-line | Testing multi-line crossline |
-| [ba_jam_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_jam_sample.cpp) | Tắc đường | Jam detection |
-| [ba_stop_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_stop_sample.cpp) | Dừng bất thường | Stop detection |
-| [ba_loitering_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_loitering_sample.cpp) | Lảng vảng | Loitering detection |
-| [ba_crowding_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_crowding_sample.cpp) | Tập trung đông | Crowding detection |
-| [ba_area_enter_exit_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/ba_area_enter_exit_sample.cpp) | Vào/ra khu vực | Area enter/exit |
-| [rtsp_ba_crossline_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rtsp_ba_crossline_sample.cpp) | Crossline từ RTSP | RTSP + behavior analysis |
-| [wrong_way_detection_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/wrong_way_detection_sample.cpp) | Phát hiện đi ngược | Wrong way detection |
+Các chương trình đo hiệu năng nằm trong [benchmarks/](../benchmarks/) — xem [benchmarks/README.md](../benchmarks/README.md).
 
-### 2.5 Vehicle & Plate Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [vehicle_tracking_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/vehicle_tracking_sample.cpp) | Theo dõi phương tiện |
-| [vehicle_body_scan_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/vehicle_body_scan_sample.cpp) | Quét thân xe |
-| [vehicle_cluster_based_on_classify_encoding_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/vehicle_cluster_based_on_classify_encoding_sample.cpp) | Phân cụm xe theo đặc trưng |
-| [body_scan_and_plate_detect_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/body_scan_and_plate_detect_sample.cpp) | Quét xe + phát hiện biển số |
-| [plate_recognition_pipeline_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/plate_recognition_pipeline_sample.cpp) | Pipeline nhận dạng biển số |
-| [plate_recognition_video_output_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/plate_recognition_video_output_sample.cpp) | Biển số + video output |
-| [plate_recognize_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/plate_recognize_sample.cpp) | Nhận dạng biển số cơ bản |
-| [plate_bytetrack_ocr_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/plate_bytetrack_ocr_sample.cpp) | Biển số + ByteTrack + OCR |
-| [yolov11_plate_bytetrack_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_plate_bytetrack_sample.cpp) | YOLOv11 plate + ByteTrack |
-| [yolov11_plate_detector_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_plate_detector_sample.cpp) | YOLOv11 plate detector |
-| [yolov11_plate_detector_trt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_plate_detector_trt_sample.cpp) | YOLOv11 plate TensorRT |
-
-### 2.6 Object Detection & Segmentation Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [multi_detectors_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/multi_detectors_sample.cpp) | Nhiều detector song song |
-| [multi_detectors_and_classifiers_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/multi_detectors_and_classifiers_sample.cpp) | Detector + Classifier cascade |
-| [enet_seg_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/enet_seg_sample.cpp) | Semantic segmentation (ENet) |
-| [mask_rcnn_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/mask_rcnn_sample.cpp) | Instance segmentation (Mask R-CNN) |
-| [openpose_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/openpose_sample.cpp) | Pose estimation |
-| [lane_detect_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/lane_detect_sample.cpp) | Lane detection |
-| [obstacle_detect_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/obstacle_detect_sample.cpp) | Obstacle detection |
-| [firesmoke_detect_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/firesmoke_detect_sample.cpp) | Fire/smoke detection |
-| [video_restoration_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/video_restoration_sample.cpp) | Video super-resolution |
-| [yolov11_onnx_detector_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_onnx_detector_sample.cpp) | YOLOv11 ONNX detection |
-| [yolov11_face_detector_video_output_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_face_detector_video_output_sample.cpp) | YOLOv11 face + video output |
-
-### 2.7 TensorRT Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [trt_infer_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/trt_infer_sample.cpp) | TensorRT inference cơ bản |
-| [trt_yolov8_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/trt_yolov8_sample.cpp) | YOLOv8 TensorRT |
-| [trt_yolov8_sample2.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/trt_yolov8_sample2.cpp) | YOLOv8 TensorRT v2 |
-| [multi_trt_infer_nodes_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/multi_trt_infer_nodes_sample.cpp) | Nhiều TRT node |
-| [yolov11_face_detector_trt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_face_detector_trt_sample.cpp) | YOLOv11-face TRT |
-| [yolov11_face_bytetrack_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/yolov11_face_bytetrack_sample.cpp) | YOLOv11-face + ByteTrack |
-
-### 2.8 Rockchip (RKNN) Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [rknn_face_detection_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_face_detection_sample.cpp) | Face detection trên RK3588 |
-| [rknn_face_detection_file_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_face_detection_file_sample.cpp) | Face detection từ file |
-| [rknn_face_detector_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_face_detector_sample.cpp) | Face detector RKNN |
-| [rknn_face_tracking_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_face_tracking_sample.cpp) | Face tracking RKNN |
-| [rknn_rtsp_tracking_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_rtsp_tracking_sample.cpp) | RTSP tracking RKNN |
-| [rknn_rtsp_tracking_mqtt_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_rtsp_tracking_mqtt_sample.cpp) | RTSP + tracking + MQTT (RKNN) |
-| [rknn_yolov8_face_detection_simple_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_yolov8_face_detection_simple_sample.cpp) | YOLOv8-face RKNN |
-| [rknn_yolov8_face_rtsp_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_yolov8_face_rtsp_sample.cpp) | YOLOv8-face RTSP RKNN |
-| [rknn_yolov11_detector_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/rknn_yolov11_detector_sample.cpp) | YOLOv11 RKNN |
-
-### 2.9 Message Broker Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [message_broker_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/message_broker_sample.cpp) | JSON console broker (face) |
-| [message_broker_sample2.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/message_broker_sample2.cpp) | XML file broker |
-| [message_broker_kafka_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/message_broker_kafka_sample.cpp) | Kafka broker |
-| [sse_broker_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/sse_broker_sample.cpp) | Server-Sent Events broker |
-| [mqtt_json_receiver_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/mqtt_json_receiver_sample.cpp) | MQTT JSON receiver |
-
-### 2.10 Utility & Advanced Samples
-
-| Sample | Mô tả |
-|--------|--------|
-| [dynamic_pipeline_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/dynamic_pipeline_sample.cpp) | **Hot-plug**: Thêm/xóa node runtime |
-| [dynamic_pipeline_sample2.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/dynamic_pipeline_sample2.cpp) | Dynamic pipeline v2 |
-| [interaction_with_pipe_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/interaction_with_pipe_sample.cpp) | Tương tác với pipeline |
-| [record_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/record_sample.cpp) | Ghi video/ảnh + console interaction |
-| [skip_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/skip_sample.cpp) | Bỏ qua frame (giảm FPS) |
-| [frame_fusion_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/frame_fusion_sample.cpp) | Ghép 2 frame thành 1 |
-| [license_check_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/license_check_sample.cpp) | Kiểm tra license |
-| [license_info_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/license_info_sample.cpp) | Đọc thông tin license |
-| [cvedix_logger_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/cvedix_logger_sample.cpp) | Demo logger |
-| [cvedix_test.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/cvedix_test.cpp) | Test cơ bản |
-| [paddle_infer_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/paddle_infer_sample.cpp) | PaddleInference backend |
-| [mllm_analyse_sample.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/mllm_analyse_sample.cpp) | Phân tích ảnh bằng LLM (Ollama) |
-| [mllm_analyse_sample_openai.cpp](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/mllm_analyse_sample_openai.cpp) | Phân tích ảnh bằng OpenAI API |
+> [!NOTE]
+> Các sample chuyên sâu (face recognition, behavior analysis, RKNN, TensorRT, broker…) của phiên bản trước đã được lược bớt khỏi repo này. Các node tương ứng vẫn tồn tại đầy đủ (xem Phần I) — tham khảo pattern ở mục 3 để tự dựng pipeline tương đương.
 
 ---
 
@@ -574,27 +455,11 @@ src → detector ──→├→ broker (gửi dữ liệu)
 
 ---
 
-## 4. Tài liệu README chi tiết cho từng nhóm
+## 4. Tài liệu liên quan
 
-Mỗi nhóm sample có README riêng với hướng dẫn chi tiết:
-
-| README | Nội dung |
-|--------|---------|
-| [README.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README.md) | Tổng quan tất cả samples |
-| [README_BASIC_PIPELINE_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_BASIC_PIPELINE_SAMPLES.md) | Pipeline cơ bản |
-| [README_FACE_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_FACE_SAMPLES.md) | Face detect/track/recognize |
-| [README_INSIGHTFACE.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_INSIGHTFACE.md) | InsightFace |
-| [README_INSIGHTFACE_ONNX.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_INSIGHTFACE_ONNX.md) | InsightFace ONNX |
-| [README_INSIGHTFACE_TRT.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_INSIGHTFACE_TRT.md) | InsightFace TensorRT |
-| [README_BEHAVIOR_ANALYSIS_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_BEHAVIOR_ANALYSIS_SAMPLES.md) | Behavior analysis |
-| [README_DETECTION_SEGMENTATION_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_DETECTION_SEGMENTATION_SAMPLES.md) | Detection & Segmentation |
-| [README_VEHICLE_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_VEHICLE_SAMPLES.md) | Vehicle analysis |
-| [README_SOURCE_DESTINATION_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_SOURCE_DESTINATION_SAMPLES.md) | Source & Destination |
-| [README_MESSAGE_BROKER_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_MESSAGE_BROKER_SAMPLES.md) | Message brokers |
-| [README_MQTT_JSON_TRANSFORMER.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_MQTT_JSON_TRANSFORMER.md) | MQTT JSON transformer |
-| [README_TENSORRT_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_TENSORRT_SAMPLES.md) | TensorRT samples |
-| [README_RKNN_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_RKNN_SAMPLES.md) | RKNN (Rockchip) samples |
-| [README_RKNN_YOLOV8_FACE.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_RKNN_YOLOV8_FACE.md) | RKNN YOLOv8-face |
-| [README_YOLOV11_ONNX.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_YOLOV11_ONNX.md) | YOLOv11 ONNX |
-| [README_YOLOV11_FACE_TRT.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_YOLOV11_FACE_TRT.md) | YOLOv11-face TensorRT |
-| [README_UTILITY_SAMPLES.md](file:///home/cvedix/Documents/Github/edgeos-sdk/samples/README_UTILITY_SAMPLES.md) | Utility samples |
+| Tài liệu | Nội dung |
+|----------|---------|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Kiến trúc tổng thể, taxonomy node |
+| [DEVELOPMENT.md](DEVELOPMENT.md) | Setup môi trường và build |
+| [guides/](guides/) | Hướng dẫn chi tiết từng tính năng (BA, VLM, Face Recognition) |
+| [benchmarks/README.md](../benchmarks/README.md) | Hướng dẫn chạy benchmark |

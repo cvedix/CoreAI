@@ -16,7 +16,7 @@ Core Runtime là framework C++17 plugin-based để xây dựng pipeline xử l�
 - **Multi-backend inference**: OpenCV DNN, TensorRT, RKNN, ONNX Runtime, PaddleInference, mLLM (Ollama/vLLM/OpenAI)
 - **Multi-platform**: x86_64 + ARM64 (Jetson, RK3588, Ascend 310/910)
 - **Dynamic pipeline**: Attach/detach node lúc runtime, không cần restart
-- **80+ nodes**, 12 categories, 60+ samples có sẵn
+- **80+ nodes**, 12 categories, kèm samples minh họa topology & VLM
 - **Deployment**: `.deb` package, Docker, systemd service
 
 ---
@@ -49,9 +49,10 @@ make build-rockchip                 # Rockchip RK35xx (RKNN + RGA)
 
 ```bash
 ./build/bin/1-1-1_sample
-./build/bin/yolov11_onnx_detector_sample
+./build/bin/N-N_sample
 ```
 
+> 📖 Dev mới: bắt đầu với [**docs/ONBOARDING.md**](./docs/ONBOARDING.md)
 > 📖 Chi tiết build options & CMake flags: xem [**docs/DEVELOPMENT.md**](./docs/DEVELOPMENT.md)
 
 ---
@@ -63,13 +64,21 @@ core/
 ├── nodes/          # Tất cả nodes: source, inference, tracking, BA, OSD, broker, destination
 ├── objects/        # Frame metadata, control/event data structures
 ├── utils/          # Logger, analysis board, helpers, clients
-├── samples/        # 60+ chương trình mẫu
+├── capi/           # C API layer (libcvedix_capi) — nền cho bindings Java/C#/C
+├── sdk/            # Submodule → github.com/cvedix/SDK (gói phân phối cho người dùng)
+├── samples/        # Chương trình mẫu (topology + VLM)
+├── excepts/        # Custom exceptions
 ├── third_party/    # Backend dependencies (TensorRT, PaddleOCR, ONNX Runtime, RKNN...)
 ├── scripts/        # Build, setup, package scripts
-├── docs/           # Tài liệu kỹ thuật
+├── docs/           # Tài liệu kỹ thuật — bắt đầu từ docs/README.md
+│   ├── guides/     #   Hướng dẫn tính năng (BA, VLM, Face)
+│   ├── ci/         #   Tài liệu CI/CD
+│   ├── reports/    #   Báo cáo benchmark
+│   └── internal/   #   Tài liệu lịch sử/tham khảo
 ├── cmake/          # CMake modules
 ├── deb_package/    # Packaging configs
-├── benchmarks/     # Benchmark scripts & results
+├── benchmarks/     # Benchmark programs & reports
+├── configs/        # Config mẫu (Milvus, RTSP cameras)
 ├── assets/         # Hình ảnh cho docs
 └── tools/          # Công cụ hỗ trợ
 ```
@@ -96,19 +105,13 @@ core/
 
 ## Samples Index
 
-| Nhóm | Số lượng | Key samples |
+| Nhóm | Số lượng | Samples |
 |------|----------|-------------|
-| Pipeline Topology | 6 | `1-1-1`, `1-N-N`, `N-1-N` multi-channel |
-| Face Detection & Recognition | 17 | YuNet, InsightFace, FaceNet, face swap |
-| Behavior Analysis | 11 | Crossline, wrong-way, speed, crowding |
-| Vehicle & Plate | 11 | Plate recognition, ByteTrack+OCR |
-| Object Detection | 10 | YOLOv11, Mask R-CNN, fire/smoke |
-| TensorRT | 6 | YOLOv8/v11 GPU acceleration |
-| Rockchip RKNN | 9 | RK3588 NPU inference |
-| Message Broker | 5 | MQTT, Kafka, SSE |
-| Utility | 13 | Dynamic pipeline, recording, mLLM |
+| Pipeline Topology | 6 | `1-1-1`, `1-1-N`, `1-N-N`, `1-N-1-N`, `N-1-N`, `N-N` |
+| VLM / LLM (cần `CVEDIX_WITH_LLM=ON`) | 3 | `vlm_object_feature`, `rapidmedia_vlm_feature`, `event_snapshot_vlm_enrichment` |
+| Benchmarks | 4 | `benchmark_llm`, `benchmark_pipeline`, `benchmark_face_recognizer`, `benchmark_people_analytics` (trong `benchmarks/`) |
 
-> 📖 Sample guide: [**samples/README.md**](./samples/README.md)
+> 📖 Chi tiết từng sample: [**docs/NODES_AND_SAMPLES.md**](./docs/NODES_AND_SAMPLES.md)
 
 ---
 
@@ -127,8 +130,8 @@ core/
 
 | Backend | Dependency | Ghi chú |
 |---------|-----------|---------|
-| TensorRT | CUDA + TensorRT | [Hướng dẫn](./third_party/trt_vehicle/README.md) |
-| PaddleInference | Paddle Inference | [Hướng dẫn](./third_party/paddle_ocr/README.md) |
+| TensorRT | CUDA + TensorRT | Auto-detect tại `/usr/local/tensorRT/` hoặc system include |
+| PaddleInference | Paddle Inference | Tải bằng `scripts/download_paddle_inference.sh` |
 | ONNX Runtime | ONNX Runtime | Auto-detect tại `third_party/onnxruntime/` |
 | RKNN | RKNN Toolkit | Chỉ ARM64 RK3588 |
 | mLLM | Ollama / vLLM / OpenAI API | Cần OpenSSL |
@@ -250,16 +253,20 @@ int main() {
 
 ## Tài liệu nội bộ
 
+> 📚 Mục lục đầy đủ: [**docs/README.md**](./docs/README.md)
+
 | Tài liệu | Nội dung |
 |-----------|----------|
+| [**Onboarding**](./docs/ONBOARDING.md) | Dev mới: setup → build → chạy sample đầu tiên |
 | [**Architecture Guide**](./docs/ARCHITECTURE.md) | Pipeline architecture, node internals, data model, class hierarchy |
 | [**Development Guide**](./docs/DEVELOPMENT.md) | Setup, build, CMake options, node workflow, troubleshooting |
-| [**Nodes & Samples Reference**](./docs/NODES_AND_SAMPLES.md) | API reference cho 80+ nodes và 60+ samples |
-| [**BA Crossline Usage**](./docs/BA_CROSSLINE_USAGE.md) | Cấu hình crossline counting |
-| [**BA Event Format**](./docs/BA_NODE_EVENT_FORMAT.md) | Định dạng event JSON/XML cho behavior analysis |
-| [**BA Event Extraction**](./docs/BA_EVENT_EXTRACTION_INTEGRATION.md) | Tích hợp BA event extraction |
-| [**Face Recognition (SeetaFace6)**](./docs/FACE_RECOGNIZER_SEETAFACE6.md) | Setup SeetaFace6 face recognizer |
-| [**Face Recognition Benchmark**](./docs/FACE_RECOGNITION_BENCHMARK_REPORT.txt) | Kết quả benchmark face recognition |
+| [**Nodes & Samples Reference**](./docs/NODES_AND_SAMPLES.md) | API reference cho 80+ nodes và samples |
+| [**BA Crossline Usage**](./docs/guides/BA_CROSSLINE_USAGE.md) | Cấu hình crossline counting |
+| [**BA Event Format**](./docs/guides/BA_NODE_EVENT_FORMAT.md) | Định dạng event JSON/XML cho behavior analysis |
+| [**BA Event Extraction**](./docs/guides/BA_EVENT_EXTRACTION_INTEGRATION.md) | Tích hợp BA event extraction |
+| [**VLM Object Feature**](./docs/guides/VLM_OBJECT_FEATURE_NODE.md) | Trích xuất đặc trưng object bằng VLM |
+| [**Face Recognition (SeetaFace6)**](./docs/guides/FACE_RECOGNIZER_SEETAFACE6.md) | Setup SeetaFace6 face recognizer |
+| [**Face Recognition Benchmark**](./docs/reports/FACE_RECOGNITION_BENCHMARK_REPORT.txt) | Kết quả benchmark face recognition |
 
 ---
 

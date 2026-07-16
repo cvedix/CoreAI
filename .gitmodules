@@ -4,3 +4,6 @@
 [submodule "third_party/llama.cpp"]
 	path = third_party/llama.cpp
 	url = https://github.com/ggml-org/llama.cpp.git
+[submodule "sdk"]
+	path = sdk
+	url = https://github.com/cvedix/SDK.git
