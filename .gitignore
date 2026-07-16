@@ -4,6 +4,7 @@
 !*.*
 # Allow git submodules and .gitmodules file
 !.gitmodules
+!sdk-docs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

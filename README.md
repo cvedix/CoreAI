@@ -75,6 +75,7 @@ core/
 │   ├── ci/         #   Tài liệu CI/CD
 │   ├── reports/    #   Báo cáo benchmark
 │   └── internal/   #   Tài liệu lịch sử/tham khảo
+├── sdk-docs/       # Submodule → github.com/cvedix/sdk-docs (website sdk.cvedix.com)
 ├── cmake/          # CMake modules
 ├── deb_package/    # Packaging configs
 ├── benchmarks/     # Benchmark programs & reports
@@ -254,6 +255,7 @@ int main() {
 ## Tài liệu nội bộ
 
 > 📚 Mục lục đầy đủ: [**docs/README.md**](./docs/README.md)
+> 🌐 Tài liệu người dùng SDK (public): [**sdk.cvedix.com**](https://sdk.cvedix.com) — source tại submodule [`sdk-docs/`](./sdk-docs/)
 
 | Tài liệu | Nội dung |
 |-----------|----------|

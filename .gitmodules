@@ -7,3 +7,6 @@
 [submodule "sdk"]
 	path = sdk
 	url = https://github.com/cvedix/SDK.git
+[submodule "sdk-docs"]
+	path = sdk-docs
+	url = https://github.com/cvedix/sdk-docs.git
