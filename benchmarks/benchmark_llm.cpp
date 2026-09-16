@@ -13,6 +13,8 @@
 #ifdef CVEDIX_WITH_LLM
 
 #include "llm_engine.h"
+#include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <chrono>
@@ -22,16 +24,34 @@
 #include <thread>
 
 int main(int argc, char** argv) {
-    std::string model_path = "/home/cvedix/deepseek.gguf";
+    // Resolution order: argv[1] -> CVEDIX_LLM_MODEL -> no default.
+    // There is no sensible machine-independent default for a multi-GB .gguf, so
+    // the benchmark refuses to run rather than pointing at a developer's homedir.
+    std::string model_path;
+    if (const char* env_model = std::getenv("CVEDIX_LLM_MODEL")) {
+        model_path = env_model;
+    }
     if (argc >= 2) {
         model_path = argv[1];
     }
-    
+
     std::string csv_path = "llm_benchmark_report.csv";
     if (argc >= 3) {
         csv_path = argv[2];
     }
-    
+
+    if (model_path.empty()) {
+        std::cerr << "Usage: benchmark_llm <model.gguf> [report.csv]\n"
+                  << "       (or set CVEDIX_LLM_MODEL=<path to .gguf>)\n";
+        return 1;
+    }
+
+    std::error_code ec;
+    if (!std::filesystem::exists(model_path, ec)) {
+        std::cerr << "Model not found: " << model_path << std::endl;
+        return 1;
+    }
+
     std::cout << "==================================================" << std::endl;
     std::cout << "LLM BENCHMARK MATRIX" << std::endl;
     std::cout << "Model: " << model_path << std::endl;

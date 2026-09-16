@@ -12,6 +12,7 @@
 #include "backend/cvedix_infer_detector_plugin_loader.h"
 
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 #include <set>
@@ -88,6 +89,8 @@ public:
      * If another model is active, it is unloaded first.
      * Returns false instead of throwing when the selected backend is unavailable
      * or the model/backend initialization fails.
+     *
+     * @note Thread-safe. Blocks until any in-flight inference finishes.
      */
     bool load_model(
         const std::string& model_path,
@@ -100,6 +103,8 @@ public:
 
     /**
      * @brief Unload the currently active model and backend
+     *
+     * @note Thread-safe. Blocks until any in-flight inference finishes.
      */
     void unload_model();
 
@@ -116,12 +121,18 @@ public:
     /**
      * @brief Check whether a model is currently loaded
      */
-    bool has_loaded_model() const { return backend != nullptr; }
+    bool has_loaded_model() const {
+        std::lock_guard<std::mutex> guard(backend_mutex);
+        return backend != nullptr;
+    }
 
     /**
      * @brief Get the backend type currently in use
      */
-    BackendType get_active_backend_type() const { return active_backend_type; }
+    BackendType get_active_backend_type() const {
+        std::lock_guard<std::mutex> guard(backend_mutex);
+        return active_backend_type;
+    }
 
     /**
      * @brief Set confidence threshold for filtering detections
@@ -138,6 +149,7 @@ public:
      * If empty, all classes are allowed
      */
     void add_allowed_class(int class_id) {
+        std::lock_guard<std::mutex> guard(backend_mutex);
         allowed_class_ids.insert(class_id);
     }
 
@@ -145,6 +157,7 @@ public:
      * @brief Clear allowed classes (allow all)
      */
     void clear_allowed_classes() {
+        std::lock_guard<std::mutex> guard(backend_mutex);
         allowed_class_ids.clear();
     }
 
@@ -153,6 +166,7 @@ public:
      * @param class_ids Initializer list of class IDs to allow
      */
     void set_allowed_classes(const std::initializer_list<int>& class_ids) {
+        std::lock_guard<std::mutex> guard(backend_mutex);
         allowed_class_ids.clear();
         for (int id : class_ids) {
             allowed_class_ids.insert(id);
@@ -164,6 +178,7 @@ public:
      * @param class_ids Set of class IDs to allow
      */
     void set_allowed_classes(const std::set<int>& class_ids) {
+        std::lock_guard<std::mutex> guard(backend_mutex);
         allowed_class_ids = class_ids;
     }
 
@@ -246,8 +261,32 @@ private:
 
     /**
      * @brief Release the current backend/plugin resources
+     * @note Caller MUST hold backend_mutex.
      */
     void unload_backend();
+
+    /**
+     * @brief unload_model() body without taking the lock
+     * @note Caller MUST hold backend_mutex.
+     */
+    void unload_model_locked();
+
+    /**
+     * @brief get_label() body without taking the lock
+     * @note Caller MUST hold backend_mutex.
+     */
+    std::string get_label_locked(int class_id) const;
+
+    /**
+     * @brief Guards the backend/plugin pair and every field that describes the
+     *        currently loaded model.
+     *
+     * load_model()/unload_model() may be called from any thread while the node's
+     * internal handle_thread is inside run_infer_combinations(). Without this
+     * lock, swapping a model out from under a running inference is a
+     * use-after-free on `backend`.
+     */
+    mutable std::mutex backend_mutex;
 
     // Backend interface (plugin-based)
     cvedix_nodes::infers::cvedix_infer_detector_backend* backend = nullptr;

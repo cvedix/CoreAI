@@ -18,7 +18,6 @@
  * @endcode
  * 
  * @see https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html
- * @see cvedix_yunet_face_detector_node Alternative manual implementation
  */
 
 #pragma once

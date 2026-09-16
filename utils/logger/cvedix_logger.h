@@ -11,6 +11,7 @@
 #include <thread>
 #include <queue>
 #include <mutex>
+#include <atomic>
 #include <chrono>
 #include <assert.h>
 #include <map>
@@ -44,10 +45,13 @@ namespace cvedix_utils {
         std::mutex init_mutex;
         std::thread log_writer_th;
 
-        // initialized or not
-        bool inited = false;
+        // initialized or not.
+        // written by init()/shutdown() under init_mutex, but also read by the
+        // writer thread's loop condition, so it must be atomic.
+        std::atomic<bool> inited{false};
 
-        bool alive = true;
+        // cleared by die() on the caller thread, read by the writer thread.
+        std::atomic<bool> alive{true};
         void die();
 
         cvedix_logger(/* args */);

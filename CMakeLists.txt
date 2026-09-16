@@ -31,6 +31,7 @@ option(CVEDIX_WITH_MILVUS "prepared Milvus vector DB for large-scale face search
 set(CVEDIX_BUILD_SAMPLES ON)
 option(CVEDIX_BUILD_COMPLEX_SAMPLES "build complex samples or not? (maybe source code not provided)" OFF)
 option(CVEDIX_BUILD_CAPI "build C API layer (libcvedix_capi) for language bindings (Java/C#/C)?" ON)
+option(CVEDIX_BUILD_TESTS "build unit/smoke tests (needs no models or GPU)?" OFF)
 
 # OpenCV required
 find_package(OpenCV REQUIRED)
@@ -1165,6 +1166,17 @@ if(CVEDIX_BUILD_CAPI)
     add_subdirectory(capi)
 else()
     message(STATUS "Skipping C API build (enable with -DCVEDIX_BUILD_CAPI=ON)")
+endif()
+
+# Unit + smoke tests. Default OFF so existing builds are unaffected; they add no
+# new dependency (assertions are hand-rolled) and need no models or GPU.
+#   cmake -DCVEDIX_BUILD_TESTS=ON .. && cmake --build . && ctest --output-on-failure
+if(CVEDIX_BUILD_TESTS)
+    message(STATUS "Building tests (run with: ctest --output-on-failure)")
+    enable_testing()
+    add_subdirectory(tests)
+else()
+    message(STATUS "Skipping tests build (enable with -DCVEDIX_BUILD_TESTS=ON)")
 endif()
 
 

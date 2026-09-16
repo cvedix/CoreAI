@@ -137,7 +137,9 @@ bool cvedix_rf_detr_node::load_model(
     int class_id_offset,
     BackendType backend_type) {
 
-    unload_model();
+    std::lock_guard<std::mutex> guard(backend_mutex);
+
+    unload_model_locked();
 
     this->model_path = model_path;
     this->labels_path = labels_path;
@@ -165,12 +167,12 @@ bool cvedix_rf_detr_node::load_model(
         CVEDIX_WARN(cvedix_utils::string_format(
             "[%s] Backend %s is not supported on this system",
             node_name.c_str(), backend_type_to_string(selected_backend)));
-        unload_model();
+        unload_model_locked();
         return false;
     }
 
     if (!validate_model_path(selected_backend, model_path)) {
-        unload_model();
+        unload_model_locked();
         return false;
     }
 
@@ -179,7 +181,7 @@ bool cvedix_rf_detr_node::load_model(
         CVEDIX_ERROR(cvedix_utils::string_format(
             "[%s] Failed to load backend plugin for RF-DETR model %s",
             node_name.c_str(), model_path.c_str()));
-        unload_model();
+        unload_model_locked();
         return false;
     }
 
@@ -205,6 +207,11 @@ bool cvedix_rf_detr_node::load_model(
 }
 
 void cvedix_rf_detr_node::unload_model() {
+    std::lock_guard<std::mutex> guard(backend_mutex);
+    unload_model_locked();
+}
+
+void cvedix_rf_detr_node::unload_model_locked() {
     unload_backend();
     labels.clear();
     model_path.clear();
@@ -448,6 +455,7 @@ cvedix_nodes::infers::cvedix_infer_detector_backend* cvedix_rf_detr_node::load_b
 }
 
 void cvedix_rf_detr_node::set_conf_threshold(float thresh) {
+    std::lock_guard<std::mutex> guard(backend_mutex);
     conf_threshold = thresh;
     if (backend) {
         backend->set_conf_threshold(thresh);
@@ -455,6 +463,7 @@ void cvedix_rf_detr_node::set_conf_threshold(float thresh) {
 }
 
 void cvedix_rf_detr_node::set_nms_threshold(float thresh) {
+    std::lock_guard<std::mutex> guard(backend_mutex);
     nms_threshold = thresh;
     if (backend) {
         backend->set_nms_threshold(thresh);
@@ -462,6 +471,11 @@ void cvedix_rf_detr_node::set_nms_threshold(float thresh) {
 }
 
 std::string cvedix_rf_detr_node::get_label(int class_id) const {
+    std::lock_guard<std::mutex> guard(backend_mutex);
+    return get_label_locked(class_id);
+}
+
+std::string cvedix_rf_detr_node::get_label_locked(int class_id) const {
     int idx = class_id - class_id_offset;
     if (idx >= 0 && idx < static_cast<int>(labels.size())) {
         return labels[idx];
@@ -470,15 +484,24 @@ std::string cvedix_rf_detr_node::get_label(int class_id) const {
 }
 
 int cvedix_rf_detr_node::get_input_width() const {
+    std::lock_guard<std::mutex> guard(backend_mutex);
     return backend ? backend->get_input_width() : 0;
 }
 
 int cvedix_rf_detr_node::get_input_height() const {
+    std::lock_guard<std::mutex> guard(backend_mutex);
     return backend ? backend->get_input_height() : 0;
 }
 
 void cvedix_rf_detr_node::run_infer_combinations(
     const std::vector<std::shared_ptr<cvedix_objects::cvedix_frame_meta>>& frame_meta_with_batch) {
+
+    // Held for the whole inference: a concurrent load_model()/unload_model() must
+    // not free `backend` while detect() is running, and must not mutate labels /
+    // class_id_offset / allowed_class_ids while this postprocess loop reads them.
+    // The node has a single handle_thread, so this never serialises inference
+    // against itself — it only makes a model swap wait for the current frame.
+    std::lock_guard<std::mutex> guard(backend_mutex);
 
     if (frame_meta_with_batch.empty() || !backend) {
         return;
@@ -552,7 +575,7 @@ void cvedix_rf_detr_node::run_infer_combinations(
             }
 
             // Use provided label or generate
-            std::string label = detection.label.empty() ? get_label(cid) : detection.label;
+            std::string label = detection.label.empty() ? get_label_locked(cid) : detection.label;
             
             CVEDIX_DEBUG(cvedix_utils::string_format(
                 "[%s] RF-DETR Detection: class_id=%d, label=%s, conf=%.2f, bbox=[%d,%d,%d,%d]",

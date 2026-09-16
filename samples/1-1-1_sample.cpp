@@ -4,6 +4,8 @@
 #include "cvedix/nodes/osd/cvedix_osd_node.h"
 #include "cvedix/nodes/des/cvedix_rtmp_des_node.h"
 
+#include "sample_options.h"
+
 #include <opencv2/core.hpp>
 #include <iostream>
 #include <string>
@@ -16,13 +18,24 @@
  *   file_src -> yolo_detector (TensorRT) -> bytetrack -> osd -> rtmp
  *
  * Usage:
- *   ./1-1-1_sample [--rtmp rtmp://console.vinguard.cloud:1935/live/9000]
+ *   ./1-1-1_sample [--video <path>] [--model <engine>] [--labels <txt>]
+ *                  [--rtmp <url>] [--log-level <level>]
  *
- * Default: push RTMP stream to console.vinguard.cloud:1935.
+ * Every input also reads from an environment variable
+ * (CVEDIX_VIDEO / CVEDIX_MODEL / CVEDIX_LABELS / CVEDIX_RTMP_URL), and relative
+ * defaults resolve under CVEDIX_DATA_DIR (default: ./cvedix_data).
+ * The RTMP default is localhost — pass --rtmp to publish anywhere else.
  */
 
 int main(int argc, char** argv) {
-    std::string rtmp_url = "rtmp://console.vinguard.cloud:1935/live/9000";
+    const std::string video_path = sample_options::resolve(
+        argc, argv, "--video", "CVEDIX_VIDEO", sample_options::data_path("video/sample.mp4"));
+    const std::string model_path = sample_options::resolve(
+        argc, argv, "--model", "CVEDIX_MODEL", sample_options::data_path("yolo12n.engine"));
+    const std::string labels_path = sample_options::resolve(
+        argc, argv, "--labels", "CVEDIX_LABELS", sample_options::data_path("coco.txt"));
+    std::string rtmp_url = sample_options::resolve(
+        argc, argv, "--rtmp", "CVEDIX_RTMP_URL", "rtmp://127.0.0.1:1935/live/9000");
 
     for (int i = 1; i < argc; ++i) {
         if (std::string(argv[i]) == "--log-level" && i + 1 < argc) {
@@ -32,9 +45,14 @@ int main(int argc, char** argv) {
             else if (level_str == "warning" || level_str == "warn") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::WARN);
             else if (level_str == "error") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::ERROR);
             ++i;
-        } else if ((std::string(argv[i]) == "--rtmp" || std::string(argv[i]) == "--rtmp-url") && i + 1 < argc) {
+        } else if (std::string(argv[i]) == "--rtmp-url" && i + 1 < argc) {
             rtmp_url = argv[++i];
         }
+    }
+
+    if (!sample_options::check_exists("video", video_path) ||
+        !sample_options::check_exists("model", model_path)) {
+        return 1;
     }
 
     CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
@@ -47,9 +65,9 @@ int main(int argc, char** argv) {
 
     // create nodes
     auto file_src_0 = std::make_shared<cvedix_nodes::cvedix_file_src_node>(
-        "file_src_0", 
-        0, 
-        "/home/cvedix/rapidmedia/3rdpart/CoreAI/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4",
+        "file_src_0",
+        0,
+        video_path,
         1.0, // Resize đã được thực hiện trong GStreamer CUDA pipeline bên dưới
         true,
         "nvh264dec ! cudaconvert ! video/x-raw(memory:CUDAMemory),format=BGRx ! "
@@ -62,9 +80,9 @@ int main(int argc, char** argv) {
     // YOLOv12 detector with TensorRT engine backend
     auto yolo_detector_0 = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector_0",
-        "/home/cvedix/cvedix_data/yolo12n.engine",  // TensorRT engine model
+        model_path,                               // TensorRT engine model
         cvedix_nodes::YoloVersion::YOLO12,
-        "/home/cvedix/cvedix_data/coco.txt",      // labels file
+        labels_path,                              // labels file
         0.30f,   // confidence threshold
         0.5f,    // NMS threshold
         0,       // class_id_offset

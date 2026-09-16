@@ -10,6 +10,7 @@
 #include <vector>
 #include <map>
 #include <mutex>
+#include <atomic>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -41,7 +42,15 @@ namespace cvedix_utils {
         const int debug_panel_height = 280;
 
         std::string board_title = "cvedix_analysis_board";
-        bool alive = true;
+
+        /**
+         * @brief Keeps the render loops running.
+         *
+         * Cleared by the destructor on the caller thread and read by the
+         * display / rtmp / buffer threads, so it must be atomic to avoid a data
+         * race (same reasoning as cvedix_nodes::cvedix_node::alive).
+         */
+        std::atomic<bool> alive{true};
 
         int canvas_width = 0;
         int canvas_height = 0;

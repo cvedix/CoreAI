@@ -246,5 +246,28 @@ cvedix_data/
 video_output/
 datasets/
 
-# Root Makefile (no extension — whitelist requires explicit allow)
-!Makefile
+# ---------------------------------------------------------------------------
+# In-source CMake configure/build artifacts
+#
+# The whitelist at the top of this file (`*` followed by `!*.*`) re-includes
+# every file that has an extension, which is why generated *.cmake / *.make
+# files under CMakeFiles/ ended up tracked. Ignore them explicitly.
+# ---------------------------------------------------------------------------
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+install_manifest.txt
+compile_commands.json
+_deps/
+
+# Generated .deb staging tree — scripts/build_selfcontained_deb.sh rm -rf's and
+# repopulates it on every run, so nothing in here should be under version control.
+deb_package/
+
+# Root Makefile (no extension — whitelist requires explicit allow).
+# Anchored with a leading slash so CMake-generated Makefiles in subdirectories
+# stay ignored.
+!/Makefile

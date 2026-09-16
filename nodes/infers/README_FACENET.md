@@ -114,10 +114,12 @@ MTCNN implementation hiện tại là placeholder. Full implementation cần:
 Sử dụng YuNet detector thay vì MTCNN:
 
 ```cpp
-auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>(
+auto detector = std::make_shared<cvedix_nodes::cvedix_face_detector_node>(
     "detector",
     "cvedix_data/models/face/face_detection_yunet_2023mar.onnx",
-    640, 640, 0.6f, 0.3f
+    0.6f,   // score_threshold
+    0.3f,   // nms_threshold
+    5000    // top_k
 );
 ```
 

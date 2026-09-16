@@ -1,4 +1,5 @@
 #include "cvedix_logger.h"
+#include "cvedix/excepts/cvedix_invalid_calling_error.h"
 #include <cstdlib>
 
 namespace cvedix_utils {
@@ -63,7 +64,10 @@ namespace cvedix_utils {
     void cvedix_logger::log(cvedix_log_level level, const std::string& message, const char* code_file, int code_line) {
         // make sure logger is initialized
         if (!inited) {
-            throw "cvedix_logger is not initialized yet!";
+            // a bare `throw "..."` cannot be caught by `catch (const std::exception&)`,
+            // so it escapes every handler in the pipeline and terminates the process.
+            throw cvedix_excepts::cvedix_invalid_calling_error(
+                "cvedix_logger is not initialized yet! call CVEDIX_LOGGER_INIT() first.");
         }
         
         // level filter
@@ -127,20 +131,31 @@ namespace cvedix_utils {
         while (inited && alive) {
             // wait for data
             log_cache_semaphore.wait();
-            auto log = log_cache.front();
-            log_cache.pop();
+
+            std::string log;
+            int log_cache_size = 0;
+            {
+                // front()/pop() MUST be done under the lock: log() pushes from any
+                // number of producer threads, and touching std::queue concurrently
+                // is UB. Sample the remaining depth in the same critical section
+                // instead of re-locking afterwards.
+                std::lock_guard<std::mutex> guard(log_cache_mutex);
+                // defensive: never call front() on an empty queue
+                if (log_cache.empty()) {
+                    continue;
+                }
+                log = log_cache.front();
+                log_cache.pop();
+                log_cache_size = static_cast<int>(log_cache.size());
+            }
 
             if (log == "die") {
                 continue;
             }
-            
+
             /* watch the log cache size */
-            auto log_cache_size = 0;
-            {
-                // min lock range
-                std::lock_guard<std::mutex> guard(log_cache_mutex);
-                log_cache_size = log_cache.size();
-            }
+            // NOTE: CVEDIX_WARN re-enters log(), which takes log_cache_mutex, so
+            // this must stay outside the critical section above.
             if (!log_thres_warned && log_cache_size > log_cache_warn_threshold) {
                 CVEDIX_WARN(cvedix_utils::string_format("[logger] log cache size is exceeding threshold! cache size is: [%d], threshold is: [%d]", log_cache_size, log_cache_warn_threshold));
                 log_thres_warned = true;  // warn 1 time

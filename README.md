@@ -212,15 +212,22 @@ target_link_libraries(my_app PRIVATE cvedix::cvedix_instance_sdk)
 
 ```cpp
 #include <cvedix/nodes/src/cvedix_file_src_node.h>
-#include <cvedix/nodes/infers/cvedix_yunet_face_detector_node.h>
+#include <cvedix/nodes/infers/cvedix_face_detector_node.h>
 #include <cvedix/utils/analysis_board/cvedix_analysis_board.h>
+#include <cvedix/utils/logger/cvedix_logger.h>
 
-int main() {
+#include <memory>
+
+int main(int argc, char** argv) {
     CVEDIX_LOGGER_INIT();
 
+    // Đường dẫn truyền qua argv để không hardcode trong source
+    const std::string video_path = argc > 1 ? argv[1] : "video.mp4";
+    const std::string model_path = argc > 2 ? argv[2] : "face_detection_yunet_2023mar.onnx";
+
     // 1. Create nodes
-    auto source   = std::make_shared<cvedix_nodes::cvedix_file_src_node>("src", 0, "video.mp4", 1.0);
-    auto detector = std::make_shared<cvedix_nodes::cvedix_yunet_face_detector_node>("det", "face_detection_yunet.onnx");
+    auto source   = std::make_shared<cvedix_nodes::cvedix_file_src_node>("src", 0, video_path, 1.0);
+    auto detector = std::make_shared<cvedix_nodes::cvedix_face_detector_node>("det", model_path);
 
     // 2. Build pipeline
     detector->attach_to({source});
@@ -231,6 +238,9 @@ int main() {
     // 4. Debug visualizer (FPS, latency, queue stats)
     cvedix_utils::cvedix_analysis_board board({source});
     board.display();
+
+    // 5. Teardown: tách toàn bộ pipeline trước khi thoát
+    source->detach_recursively();
 
     return 0;
 }

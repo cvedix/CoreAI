@@ -5,6 +5,8 @@
 #include "cvedix/nodes/infers/cvedix_vlm_feature_node.h"
 #include "cvedix/nodes/broker/cvedix_console_broker_node.h"
 
+#include "sample_options.h"
+
 #include <opencv2/core.hpp>
 #include <iostream>
 #include <string>
@@ -19,14 +21,24 @@
  *   ./vlm_object_feature_sample \
  *     --video /path/to/video.mp4 \
  *     --model qwen3-vl:latest \
- *     --api http://127.0.0.1:11434
+ *     --api http://127.0.0.1:11434 \
+ *     [--detector-model /path/to/yolo12n.engine] \
+ *     [--labels /path/to/coco.txt]
+ *
+ * Paths also read from CVEDIX_VIDEO / CVEDIX_MODEL / CVEDIX_LABELS, and relative
+ * defaults resolve under CVEDIX_DATA_DIR (default: ./cvedix_data).
  */
 
 int main(int argc, char** argv) {
-    std::string video_path = "/home/cvedix/rapidmedia/3rdpart/CoreAI/data/video/YTDown_YouTube_Xe-o-to-di-nguoc-chieu-va-dau-nguoc-chie_Media_tPiHksyTdBU_001_1080p.mp4";
+    std::string video_path = sample_options::resolve(
+        argc, argv, "--video", "CVEDIX_VIDEO", sample_options::data_path("video/sample.mp4"));
+    std::string detector_model = sample_options::resolve(
+        argc, argv, "--detector-model", "CVEDIX_MODEL", sample_options::data_path("yolo12n.engine"));
+    std::string labels_path = sample_options::resolve(
+        argc, argv, "--labels", "CVEDIX_LABELS", sample_options::data_path("coco.txt"));
     std::string qwen_model = "qwen3-vl:latest";
-    std::string api_base_url = "http://127.0.0.1:11434";
-    std::string api_key = "";
+    std::string api_base_url = sample_options::env_or("CVEDIX_VLM_API", "http://127.0.0.1:11434");
+    std::string api_key = sample_options::env_or("CVEDIX_VLM_API_KEY");
 
     for (int i = 1; i < argc; ++i) {
         const std::string arg = argv[i];
@@ -38,6 +50,10 @@ int main(int argc, char** argv) {
             api_base_url = argv[++i];
         } else if (arg == "--api-key" && i + 1 < argc) {
             api_key = argv[++i];
+        } else if (arg == "--detector-model" && i + 1 < argc) {
+            detector_model = argv[++i];
+        } else if (arg == "--labels" && i + 1 < argc) {
+            labels_path = argv[++i];
         } else if (arg == "--log-level" && i + 1 < argc) {
             const std::string level = argv[++i];
             if (level == "debug" || level == "verbose") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::DEBUG);
@@ -45,6 +61,11 @@ int main(int argc, char** argv) {
             else if (level == "warning" || level == "warn") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::WARN);
             else if (level == "error") CVEDIX_SET_LOG_LEVEL(cvedix_utils::cvedix_log_level::ERROR);
         }
+    }
+
+    if (!sample_options::check_exists("video", video_path) ||
+        !sample_options::check_exists("detector-model", detector_model)) {
+        return 1;
     }
 
     CVEDIX_SET_LOG_INCLUDE_CODE_LOCATION(false);
@@ -65,9 +86,9 @@ int main(int argc, char** argv) {
 
     auto yolo_detector_0 = std::make_shared<cvedix_nodes::cvedix_yolo_detector_node>(
         "yolo_detector_0",
-        "/home/cvedix/cvedix_data/yolo12n.engine",
+        detector_model,
         cvedix_nodes::YoloVersion::YOLO12,
-        "/home/cvedix/cvedix_data/coco.txt",
+        labels_path,
         0.30f,
         0.5f,
         0,

@@ -5,6 +5,8 @@
 #include "cvedix/objects/cvedix_frame_meta.h"
 #include "cvedix/objects/cvedix_frame_target.h"
 
+#include "sample_options.h"
+
 #include <opencv2/imgcodecs.hpp>
 
 #include <algorithm>
@@ -139,10 +141,11 @@ int main(int argc, char** argv) {
     CVEDIX_SET_LOG_INCLUDE_THREAD_ID(false);
     CVEDIX_LOGGER_INIT();
 
-    std::string input_path = "/home/cvedix/rapidmedia/ass-admin/data/ai-events";
+    std::string input_path = sample_options::env_or(
+        "CVEDIX_EVENT_SNAPSHOT_DIR", sample_options::data_path("ai-events"));
     std::string model_name = "qwen3-vl:latest";
-    std::string api_base_url = "http://127.0.0.1:11434";
-    std::string api_key = "";
+    std::string api_base_url = sample_options::env_or("CVEDIX_VLM_API", "http://127.0.0.1:11434");
+    std::string api_key = sample_options::env_or("CVEDIX_VLM_API_KEY");
     std::string backend_name = "ollama";
     bool use_rapidmedia_node = true;
     std::string output_jsonl = "";
@@ -175,6 +178,8 @@ int main(int argc, char** argv) {
             std::cout
                 << "Usage: event_snapshot_vlm_enrichment_sample [options]\n"
                 << "  --input <file_or_dir>     Event snapshot image file or directory\n"
+                << "                            (env: CVEDIX_EVENT_SNAPSHOT_DIR,\n"
+                << "                             default: $CVEDIX_DATA_DIR/ai-events)\n"
                 << "  --model <name>            VLM model name\n"
                 << "  --api <url>               LLM API base URL\n"
                 << "  --api-key <key>           API key for OpenAI-compatible backend\n"

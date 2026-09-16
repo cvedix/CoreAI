@@ -38,6 +38,7 @@
 #include <thread>
 #include <queue>
 #include <mutex>
+#include <atomic>
 #include <condition_variable>
 #include <string>
 #include <memory>
@@ -100,8 +101,13 @@ namespace cvedix_nodes {
         std::thread dispatch_thread;
 
     protected:
-        /// @brief Flag indicating if node is alive and processing
-        bool alive = true;
+        /**
+         * @brief Flag indicating if node is alive and processing
+         *
+         * Written by deinitialized() on the caller thread and read by both
+         * internal threads, so it must be atomic to avoid a data race.
+         */
+        std::atomic<bool> alive{true};
 
         /// @brief Maximum size for input queue (default: 200)
         int max_in_queue_size = 200;
