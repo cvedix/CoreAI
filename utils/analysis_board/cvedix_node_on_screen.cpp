@@ -45,12 +45,14 @@ namespace cvedix_utils {
         if (original_node->node_type() == cvedix_nodes::cvedix_node_type::SRC) {
             auto src_node = std::dynamic_pointer_cast<cvedix_nodes::cvedix_src_node>(original_node);
             src_node->set_stream_info_hooker([this](std::string node_name, cvedix_nodes::cvedix_stream_info stream_info) {
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->stream_info_hooker_storage = stream_info;
             });
         }
         if (original_node->node_type() == cvedix_nodes::cvedix_node_type::DES) {
             auto des_node = std::dynamic_pointer_cast<cvedix_nodes::cvedix_des_node>(original_node);
             des_node->set_stream_status_hooker([this](std::string node_name, cvedix_nodes::cvedix_stream_status stream_status){
+                std::lock_guard<std::mutex> guard(this->hooker_mutex);
                 this->stream_status_hooker_storage = stream_status;
             });
         }

@@ -36,6 +36,7 @@
 #pragma once
 
 #include <map>
+#include <set>
 #include <assert.h>
 #include "cvedix/nodes/common/cvedix_node.h"
 
@@ -69,6 +70,8 @@ namespace cvedix_nodes {
     private:
         /// @brief Target type to track
         cvedix_track_for track_for = cvedix_track_for::NORMAL;
+        // Empty means all NORMAL targets; configure before processing begins.
+        const std::set<int> tracked_classes;
         
         /// @brief Track history: channel → track_id → rect history
         std::map<int, std::map<int, std::vector<cvedix_objects::cvedix_rect>>> all_tracks_by_id;
@@ -152,6 +155,8 @@ namespace cvedix_nodes {
          * @param track_for Target type to track (default: NORMAL)
          */
         cvedix_track_node(std::string node_name, cvedix_track_for track_for = cvedix_track_for::NORMAL);
+        cvedix_track_node(std::string node_name, cvedix_track_for track_for,
+                         std::set<int> tracked_classes);
 
         /// @brief Virtual destructor
         virtual ~cvedix_track_node();

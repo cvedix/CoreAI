@@ -37,10 +37,12 @@ namespace cvedix_nodes {
             std::lock_guard<std::mutex> guard(this->subscribers_lock);
             // see cvedix_meta_publisher::push_meta
             for (auto i = this->subscribers.begin(); i != this->subscribers.end(); i++) {
-                if (this->split_with_deep_copy) {
-                    meta = meta->clone(); // each next node has a new pointer to new memory allocation in heap
-                }      
-                (*i)->meta_flow(meta);  
+                // Always clone the original input. A previously dispatched
+                // branch can already be mutating its targets while we clone
+                // for the next branch; copying that branch races and leaks
+                // detections into its sibling.
+                auto branch_meta = this->split_with_deep_copy ? meta->clone() : meta;
+                (*i)->meta_flow(branch_meta);
             }
         }
     }

@@ -62,7 +62,7 @@ trt_yolov11_detector::trt_yolov11_detector(const std::string& engine_path,
     std::cout << "[trt_yolov11] Loaded engine: " << engine_path << std::endl;
     std::cout << "[trt_yolov11] Input: " << input_width << "x" << input_height
               << ", Classes: " << num_classes << ", Boxes: " << num_boxes
-              << ", Mode: " << (multi_head ? "multi-head" : "fused") << std::endl;
+              << ", Mode: " << (decoded_outputs ? "decoded-xyxy" : (multi_head ? "multi-head" : "fused")) << std::endl;
 }
 
 // ──────────────────────── Destructor ──────────────────
@@ -109,10 +109,18 @@ bool trt_yolov11_detector::load_engine(const std::string& engine_path) {
     // ---- Enumerate IO tensors ----
     num_io_tensors = engine->getNbIOTensors();
 
-    // Detect mode: if > 2 IO tensors → multi-head
-    if (num_io_tensors > 2) {
-        multi_head = true;
+    // The three decoded tensors are not DFL reg/cls heads.
+    for (int i = 0; i < num_io_tensors; ++i) {
+        const std::string name = engine->getIOTensorName(i);
+        if (engine->getTensorDataType(name.c_str()) != nvinfer1::DataType::kFLOAT)
+            return false;
+        if (engine->getTensorIOMode(name.c_str()) != nvinfer1::TensorIOMode::kOUTPUT) continue;
+        if (name == "boxes") boxes_idx = i;
+        if (name == "scores") scores_idx = i;
+        if (name == "class_idx") classes_idx = i;
     }
+    decoded_outputs = boxes_idx >= 0 && scores_idx >= 0 && classes_idx >= 0;
+    multi_head = !decoded_outputs && num_io_tensors > 2;
 
     // Find input tensor
     for (int i = 0; i < num_io_tensors; ++i) {
@@ -121,13 +129,25 @@ bool trt_yolov11_detector::load_engine(const std::string& engine_path) {
         if (mode == nvinfer1::TensorIOMode::kINPUT) {
             input_tensor_idx = i;
             auto dims = engine->getTensorShape(name);
+            if (dims.nbDims != 4 || (dims.d[0] != 1 && dims.d[0] != -1) || dims.d[1] != 3 ||
+                dims.d[2] <= 0 || dims.d[3] <= 0) return false;
             input_height = dims.d[2];
             input_width  = dims.d[3];
             break;
         }
     }
 
-    if (multi_head) {
+    if (decoded_outputs) {
+        const auto boxes = engine->getTensorShape(engine->getIOTensorName(boxes_idx));
+        const auto scores = engine->getTensorShape(engine->getIOTensorName(scores_idx));
+        const auto classes = engine->getTensorShape(engine->getIOTensorName(classes_idx));
+        if (num_io_tensors != 4 || boxes.nbDims != 3 || boxes.d[0] != 1 ||
+            boxes.d[1] <= 0 || boxes.d[2] != 4 || scores.nbDims != 2 ||
+            scores.d[0] != 1 || scores.d[1] != boxes.d[1] || classes.nbDims != 2 ||
+            classes.d[0] != 1 || classes.d[1] != boxes.d[1]) return false;
+        num_boxes = boxes.d[1];
+        num_classes = -1; // An argmax export does not expose the original class count.
+    } else if (multi_head) {
         // ---- Multi-head: find reg* and cls* tensors ----
         // We expect pairs: (reg1,cls1), (reg2,cls2), (reg3,cls3)
         // reg has 64 channels (DFL), cls has num_classes channels
@@ -147,6 +167,8 @@ bool trt_yolov11_detector::load_engine(const std::string& engine_path) {
             if (mode == nvinfer1::TensorIOMode::kINPUT) continue;
 
             auto dims = engine->getTensorShape(name_cstr);
+            if (dims.nbDims != 4 || (dims.d[0] != 1 && dims.d[0] != -1) || dims.d[1] <= 0 ||
+                dims.d[2] <= 0 || dims.d[3] <= 0) return false;
 
             // Identify by name prefix or channel count
             if (name.find("reg") != std::string::npos || dims.d[1] == 64) {
@@ -201,6 +223,8 @@ bool trt_yolov11_detector::load_engine(const std::string& engine_path) {
             auto mode = engine->getTensorIOMode(name);
             if (mode == nvinfer1::TensorIOMode::kOUTPUT) {
                 auto dims = engine->getTensorShape(name);
+                if (dims.nbDims != 3 || (dims.d[0] != 1 && dims.d[0] != -1) || dims.d[1] <= 4 ||
+                    dims.d[2] <= dims.d[1]) return false;
                 int dimensions = dims.d[1];   // 4 + num_classes
                 fused_num_boxes = dims.d[2];
                 num_classes = dimensions - 4;
@@ -224,7 +248,13 @@ void trt_yolov11_detector::allocate_buffers() {
     size_t input_bytes = 1 * 3 * input_height * input_width * sizeof(float);
     cudaMalloc(&device_buffers[input_tensor_idx], input_bytes);
 
-    if (multi_head) {
+    if (decoded_outputs) {
+        for (const int i : {boxes_idx, scores_idx, classes_idx}) {
+            output_sizes[i] = static_cast<size_t>(num_boxes) * (i == boxes_idx ? 4 : 1);
+            cudaMalloc(&device_buffers[i], output_sizes[i] * sizeof(float));
+            host_outputs[i] = new float[output_sizes[i]];
+        }
+    } else if (multi_head) {
         // Allocate for each output tensor
         for (int s = 0; s < NUM_SCALES; ++s) {
             int ri = scales[s].reg_tensor_idx;
@@ -257,8 +287,8 @@ void trt_yolov11_detector::preprocess(const cv::Mat& image, float* input_buffer)
     float scale = std::min(static_cast<float>(input_width) / image.cols,
                            static_cast<float>(input_height) / image.rows);
     
-    int scaled_w = static_cast<int>(image.cols * scale);
-    int scaled_h = static_cast<int>(image.rows * scale);
+    int scaled_w = static_cast<int>(std::round(image.cols * scale));
+    int scaled_h = static_cast<int>(std::round(image.rows * scale));
     
     // Center the scaled image in the input canvas
     int pad_left = (input_width - scaled_w) / 2;
@@ -409,11 +439,20 @@ void trt_yolov11_detector::postprocess_fused(
         float w  = output[2 * fused_num_boxes + i];
         float h  = output[3 * fused_num_boxes + i];
 
-        // Remove letterbox padding and scale back to original image
-        cx = (cx - letterbox_pad_x) / letterbox_scale;
-        cy = (cy - letterbox_pad_y) / letterbox_scale;
-        w  = w / letterbox_scale;
-        h  = h / letterbox_scale;
+        // Match ONNX postprocessing: clip corners before NMS and center conversion.
+        const float x1 = std::clamp((cx - w * 0.5f - letterbox_pad_x) / letterbox_scale,
+                                    0.0f, static_cast<float>(original_size.width));
+        const float y1 = std::clamp((cy - h * 0.5f - letterbox_pad_y) / letterbox_scale,
+                                    0.0f, static_cast<float>(original_size.height));
+        const float x2 = std::clamp((cx + w * 0.5f - letterbox_pad_x) / letterbox_scale,
+                                    0.0f, static_cast<float>(original_size.width));
+        const float y2 = std::clamp((cy + h * 0.5f - letterbox_pad_y) / letterbox_scale,
+                                    0.0f, static_cast<float>(original_size.height));
+        cx = (x1 + x2) * 0.5f;
+        cy = (y1 + y2) * 0.5f;
+        w = x2 - x1;
+        h = y2 - y1;
+        if (w <= 0 || h <= 0) continue;
 
         Detection det;
         det.bbox[0] = cx;
@@ -429,11 +468,39 @@ void trt_yolov11_detector::postprocess_fused(
     apply_nms(detections);
 }
 
+void trt_yolov11_detector::postprocess_decoded(
+    const cv::Size& original_size, std::vector<Detection>& detections) {
+    detections.clear();
+    for (int i = 0; i < num_boxes; ++i) {
+        const float score = host_outputs[scores_idx][i];
+        const float cls = host_outputs[classes_idx][i];
+        const float* box = host_outputs[boxes_idx] + 4 * i;
+        if (!std::isfinite(score) || score < conf_threshold || score > 1 ||
+            !std::isfinite(cls) || cls < 0 || cls > 100000 || cls != std::floor(cls) ||
+            !std::all_of(box, box + 4, [](float x) { return std::isfinite(x); })) continue;
+        const float x1 = std::clamp((box[0] - letterbox_pad_x) / letterbox_scale,
+                                   0.0f, static_cast<float>(original_size.width));
+        const float y1 = std::clamp((box[1] - letterbox_pad_y) / letterbox_scale,
+                                   0.0f, static_cast<float>(original_size.height));
+        const float x2 = std::clamp((box[2] - letterbox_pad_x) / letterbox_scale,
+                                   0.0f, static_cast<float>(original_size.width));
+        const float y2 = std::clamp((box[3] - letterbox_pad_y) / letterbox_scale,
+                                   0.0f, static_cast<float>(original_size.height));
+        if (x2 <= x1 || y2 <= y1) continue;
+        Detection det{{(x1 + x2) * .5f, (y1 + y2) * .5f, x2 - x1, y2 - y1},
+                      score, static_cast<int>(cls)};
+        detections.push_back(det);
+    }
+    apply_nms(detections);
+}
+
 // ──────────────────────── apply_nms ──────────────────
 void trt_yolov11_detector::apply_nms(std::vector<Detection>& detections) {
     if (detections.empty()) return;
 
-    std::sort(detections.begin(), detections.end(),
+    // FP16 often produces equal scores on adjacent anchors. Preserve anchor order
+    // for ties, matching OpenCV NMS and making the selected boxes deterministic.
+    std::stable_sort(detections.begin(), detections.end(),
               [](const Detection& a, const Detection& b) { return a.conf > b.conf; });
 
     std::vector<bool> suppressed(detections.size(), false);
@@ -451,6 +518,7 @@ void trt_yolov11_detector::apply_nms(std::vector<Detection>& detections) {
 
         for (size_t j = i + 1; j < detections.size(); j++) {
             if (suppressed[j]) continue;
+            if (detections[i].class_id != detections[j].class_id) continue;
 
             float x1_b = detections[j].bbox[0] - detections[j].bbox[2] / 2;
             float y1_b = detections[j].bbox[1] - detections[j].bbox[3] / 2;
@@ -527,9 +595,18 @@ void trt_yolov11_detector::detect(const std::vector<cv::Mat>& images,
         }
 
         // Run inference
-        context->enqueueV3(stream);
+        if (!context->enqueueV3(stream)) throw std::runtime_error("TensorRT enqueue failed");
 
-        if (multi_head) {
+        if (decoded_outputs) {
+            for (const int i : {boxes_idx, scores_idx, classes_idx}) {
+                const auto status = cudaMemcpyAsync(host_outputs[i], device_buffers[i],
+                    output_sizes[i] * sizeof(float), cudaMemcpyDeviceToHost, stream);
+                if (status != cudaSuccess) throw std::runtime_error(cudaGetErrorString(status));
+            }
+            const auto status = cudaStreamSynchronize(stream);
+            if (status != cudaSuccess) throw std::runtime_error(cudaGetErrorString(status));
+            postprocess_decoded(original_size, detections[b]);
+        } else if (multi_head) {
             // Copy all output tensors back to host
             for (int s = 0; s < NUM_SCALES; ++s) {
                 int ri = scales[s].reg_tensor_idx;

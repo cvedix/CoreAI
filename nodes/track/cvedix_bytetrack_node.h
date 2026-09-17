@@ -21,7 +21,8 @@ public:
         float high_thresh,
         float match_thresh,
         int track_buffer,
-        int frame_rate
+        int frame_rate,
+        std::set<int> tracked_classes = {}
     );
  
     virtual ~cvedix_bytetrack_node();

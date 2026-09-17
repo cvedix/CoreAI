@@ -64,9 +64,7 @@ namespace cvedix_utils {
         }
         
         // Disconnect if connected
-        if (connected_) {
-            disconnect();
-        }
+        disconnect(); // The network thread may exist even if connect failed.
         
         // Cleanup mosquitto instance
         if (mosq_) {
@@ -83,6 +81,15 @@ namespace cvedix_utils {
         }
     }
     
+    bool cvedix_mqtt_client::set_tls(const std::string& ca_file,
+        const std::string& cert_file, const std::string& key_file) {
+        if (!mosq_ || loop_started_ || ca_file.empty() || cert_file.empty() != key_file.empty()) return false;
+        const int rc = mosquitto_tls_set(mosq_, ca_file.c_str(), nullptr,
+            cert_file.empty() ? nullptr : cert_file.c_str(),
+            key_file.empty() ? nullptr : key_file.c_str(), nullptr);
+        return rc == MOSQ_ERR_SUCCESS;
+    }
+
     bool cvedix_mqtt_client::connect(const std::string& username, const std::string& password) {
         if (!mosq_) {
             last_error_ = "Mosquitto instance not initialized";
@@ -97,8 +104,8 @@ namespace cvedix_utils {
         password_ = password;
         
         // Set credentials if provided
-        if (!username.empty() && !password.empty()) {
-            int rc = mosquitto_username_pw_set(mosq_, username.c_str(), password.c_str());
+        if (!username.empty()) {
+            int rc = mosquitto_username_pw_set(mosq_, username.c_str(), password.empty() ? nullptr : password.c_str());
             if (rc != MOSQ_ERR_SUCCESS) {
                 last_error_ = "Failed to set username/password: " + std::string(mosquitto_strerror(rc));
                 return false;
@@ -116,7 +123,14 @@ namespace cvedix_utils {
         }
         
         // Start network loop in a separate thread
-        mosquitto_loop_start(mosq_);
+        if (!loop_started_) {
+            rc = mosquitto_loop_start(mosq_);
+            if (rc != MOSQ_ERR_SUCCESS) {
+                connecting_ = false;
+                return false;
+            }
+            loop_started_ = true;
+        }
         
         // Wait a bit for connection to establish
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -130,7 +144,7 @@ namespace cvedix_utils {
     }
     
     void cvedix_mqtt_client::disconnect() {
-        if (!mosq_ || !connected_) {
+        if (!mosq_) {
             return;
         }
         
@@ -139,7 +153,7 @@ namespace cvedix_utils {
         connecting_ = false;
         
         mosquitto_disconnect(mosq_);
-        mosquitto_loop_stop(mosq_, false);
+        if (loop_started_.exchange(false)) mosquitto_loop_stop(mosq_, true);
     }
     
     int cvedix_mqtt_client::publish(const std::string& topic, const std::string& payload, int qos, bool retain) {
@@ -345,4 +359,3 @@ namespace cvedix_utils {
         }
     }
 }
-

@@ -5,7 +5,13 @@
 
 namespace cvedix_utils {
     cvedix_analysis_board::cvedix_analysis_board(std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> src_nodes_in_pipe):
-        src_nodes_in_pipe(src_nodes_in_pipe) {   
+        cvedix_analysis_board(std::move(src_nodes_in_pipe), "cvedix_analysis_board.png") {
+    }
+
+    cvedix_analysis_board::cvedix_analysis_board(
+        std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> src_nodes_in_pipe,
+        std::string initial_save_path):
+        initial_save_path(std::move(initial_save_path)), src_nodes_in_pipe(std::move(src_nodes_in_pipe)) {
         init();
     }
     
@@ -48,7 +54,7 @@ namespace cvedix_utils {
         render_layer(src_nodes_on_screen, bg_canvas);
 
         // save to local by default
-        save(board_title + ".png");
+        if (!initial_save_path.empty()) save(initial_save_path);
     }
     void cvedix_analysis_board::reload(std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> new_src_nodes_in_pipe) {
         std::lock_guard<std::mutex> guard(reload_lock);
@@ -153,6 +159,13 @@ namespace cvedix_utils {
     cv::Mat cvedix_analysis_board::get_current_canvas() {
         std::lock_guard<std::mutex> guard(canvas_export_lock);
         return latest_canvas.empty() ? bg_canvas.clone() : latest_canvas.clone();
+    }
+
+    cv::Mat cvedix_analysis_board::snapshot() {
+        std::lock_guard<std::mutex> guard(reload_lock);
+        cv::Mat canvas = bg_canvas.clone();
+        render_layer(src_nodes_on_screen, canvas, false);
+        return canvas;
     }
 
     void cvedix_analysis_board::render_layer(std::vector<std::shared_ptr<cvedix_node_on_screen>> nodes_in_layer, cv::Mat& canvas, bool static_parts) {

@@ -1,0 +1,158 @@
+{
+  "device_type": "cvedix_ppe_violation_analytics",
+  "name": "CVEDIX PPE Violation Analytics",
+  "description": "Edge camera analytics publishing PPE (helmet/vest) violations from the CVEDIX Core Runtime ppe_video_sample over MQTT.",
+  "categories": [
+    "camera",
+    "safety",
+    "analytics"
+  ],
+  "mode": "simple",
+  "metrics": [],
+  "commands": [],
+  "uplink_samples": [
+    [
+      {
+        "$id": "event-ppe-violation",
+        "$version": 1,
+        "channel_index": 0,
+        "confidence": 0.67431640625,
+        "event_id": "0258f25e-b961-42ab-bf18-e20249828775",
+        "event_timestamp_ms": 133,
+        "frame_height": 1620,
+        "frame_index": 2,
+        "frame_width": 2880,
+        "has_helmet": true,
+        "has_vest": false,
+        "instance_id": "camera-01",
+        "location": {
+          "height": 0.2611111111111111,
+          "width": 0.06701388888888889,
+          "x": 0.2864583333333333,
+          "y": 0.7314814814814815
+        },
+        "location_space": "normalized",
+        "missing_ppe": [
+          "vest"
+        ],
+        "missing_ppe_count": 1,
+        "object_class": "Person",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "status": "ppe:missing_vest",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "has_helmet",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": "true"
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "has_vest",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": "false"
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "missing_helmet",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": "false"
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "missing_vest",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": "true"
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "ppe_status",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": "ppe:missing_vest"
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "person_confidence",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": 0.67431640625
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "track_id",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": 662891300
+      },
+      {
+        "$id": "attribute",
+        "$version": 1,
+        "event_timestamp_ms": 133,
+        "instance_id": "camera-01",
+        "name": "frame_index",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823,
+        "value": 2
+      },
+      {
+        "$id": "crop",
+        "$version": 1,
+        "confidence": 0.67431640625,
+        "crop_timestamp_ms": 133,
+        "event_timestamp_ms": 133,
+        "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2w==",
+        "image_encoding": "base64",
+        "image_format": "jpeg",
+        "instance_id": "camera-01",
+        "location": {
+          "height": 0.2611111111111111,
+          "width": 0.06701388888888889,
+          "x": 0.2864583333333333,
+          "y": 0.7314814814814815
+        },
+        "ref_event_id": "0258f25e-b961-42ab-bf18-e20249828775",
+        "ref_tracking_id": "40e7d44e-700c-5db1-a228-337ab11553a1",
+        "system_datetime": "2026-09-17T06:16:39Z",
+        "system_timestamp": 1789625799823
+      }
+    ]
+  ],
+  "default_offline_timeout_secs": 120,
+  "store_raw": true
+}

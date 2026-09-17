@@ -9,7 +9,9 @@
  *   reg2 [1,64,40,40]  cls2 [1,80,40,40]   stride 16
  *   reg3 [1,64,20,20]  cls3 [1,80,20,20]   stride 32
  *
- * Also supports fused single-output engines [1, 84, 8400].
+ * Also supports fused single-output engines [1, 4+nc, anchors], including
+ * PPE [1, 6, 8400], and decoded boxes [1,N,4] (xyxy), scores [1,N],
+ * class_idx [1,N]. Tensor I/O must be float32 (internal FP16 is supported).
  */
 
 #include <string>
@@ -62,6 +64,8 @@ private:
 
     // --- Multi-head mode ---
     bool multi_head = false;
+    bool decoded_outputs = false;
+    int boxes_idx = -1, scores_idx = -1, classes_idx = -1;
     int num_io_tensors = 0;
     std::vector<void*> device_buffers;       // one per IO tensor
     std::vector<float*> host_outputs;        // one per output tensor (index matches device_buffers)
@@ -105,6 +109,7 @@ private:
     void postprocess_multihead(const cv::Size& original_size, std::vector<Detection>& detections);
     // Fused single-head postprocess (legacy)
     void postprocess_fused(float* output, std::vector<Detection>& detections, const cv::Size& original_size);
+    void postprocess_decoded(const cv::Size& original_size, std::vector<Detection>& detections);
 
     void apply_nms(std::vector<Detection>& detections);
 

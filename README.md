@@ -55,6 +55,21 @@ make build-rockchip                 # Rockchip RK35xx (RKNN + RGA)
 > 📖 Dev mới: bắt đầu với [**docs/ONBOARDING.md**](./docs/ONBOARDING.md)
 > 📖 Chi tiết build options & CMake flags: xem [**docs/DEVELOPMENT.md**](./docs/DEVELOPMENT.md)
 
+### Nhận diện PPE từ video bằng TensorRT
+
+```bash
+bash scripts/run_ppe_video.sh
+```
+
+Đọc `data/videos/16.22.09.mp4`, chạy `data/models/yolov11n_ppe_detection_fp16.engine`
+trên NVIDIA GPU và xuất video có nhận diện cùng CSV vào `output/ppe/`.
+Build cần `-DCVEDIX_WITH_TRT=ON`; chọn `--backend onnx` để chạy model ONNX trên CPU.
+Xem [hướng dẫn PPE](./docs/PPE_VIDEO.md) để build, đổi tham số và chạy thử một đoạn.
+
+Thêm `--mqtt-host` để đẩy event người không an toàn (ảnh crop, bbox, `track_id`,
+`event_id`) lên nền tảng HeraMind qua MQTT. Asset đăng ký device type, transform
+và dashboard nằm trong [integrations/heramind_ppe](./integrations/heramind_ppe/README.md).
+
 ---
 
 ## Cấu trúc thư mục
@@ -67,6 +82,7 @@ core/
 ├── capi/           # C API layer (libcvedix_capi) — nền cho bindings Java/C#/C
 ├── sdk/            # Submodule → github.com/cvedix/SDK (gói phân phối cho người dùng)
 ├── samples/        # Chương trình mẫu (topology + VLM)
+├── integrations/   # Asset tích hợp nền tảng ngoài (HeraMind: device-type, transform, dashboard)
 ├── excepts/        # Custom exceptions
 ├── third_party/    # Backend dependencies (TensorRT, PaddleOCR, ONNX Runtime, RKNN...)
 ├── scripts/        # Build, setup, package scripts
@@ -109,6 +125,7 @@ core/
 | Nhóm | Số lượng | Samples |
 |------|----------|-------------|
 | Pipeline Topology | 6 | `1-1-1`, `1-1-N`, `1-N-N`, `1-N-1-N`, `N-1-N`, `N-N` |
+| PPE video (TensorRT / GPU, ONNX / CPU) | 1 | `ppe_video_sample` — hai nhánh người + PPE, ByteTrack, khung người/mũ/vest, trạng thái xanh/đỏ, MP4/CSV, analysis board và event MQTT lên HeraMind; [hướng dẫn](docs/PPE_VIDEO.md) |
 | VLM / LLM (cần `CVEDIX_WITH_LLM=ON`) | 3 | `vlm_object_feature`, `rapidmedia_vlm_feature`, `event_snapshot_vlm_enrichment` |
 | Benchmarks | 4 | `benchmark_llm`, `benchmark_pipeline`, `benchmark_face_recognizer`, `benchmark_people_analytics` (trong `benchmarks/`) |
 
@@ -276,6 +293,7 @@ int main(int argc, char** argv) {
 | [**BA Crossline Usage**](./docs/guides/BA_CROSSLINE_USAGE.md) | Cấu hình crossline counting |
 | [**BA Event Format**](./docs/guides/BA_NODE_EVENT_FORMAT.md) | Định dạng event JSON/XML cho behavior analysis |
 | [**BA Event Extraction**](./docs/guides/BA_EVENT_EXTRACTION_INTEGRATION.md) | Tích hợp BA event extraction |
+| [**PPE → HeraMind**](./integrations/heramind_ppe/README.md) | Đẩy event PPE (crop, bbox, tracking_id, event_id) lên HeraMind qua MQTT |
 | [**VLM Object Feature**](./docs/guides/VLM_OBJECT_FEATURE_NODE.md) | Trích xuất đặc trưng object bằng VLM |
 | [**Face Recognition (SeetaFace6)**](./docs/guides/FACE_RECOGNIZER_SEETAFACE6.md) | Setup SeetaFace6 face recognizer |
 | [**Face Recognition Benchmark**](./docs/reports/FACE_RECOGNITION_BENCHMARK_REPORT.txt) | Kết quả benchmark face recognition |

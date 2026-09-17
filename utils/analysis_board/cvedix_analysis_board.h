@@ -42,6 +42,7 @@ namespace cvedix_utils {
         const int debug_panel_height = 280;
 
         std::string board_title = "cvedix_analysis_board";
+        std::string initial_save_path = "cvedix_analysis_board.png";
 
         /**
          * @brief Keeps the render loops running.
@@ -107,6 +108,9 @@ namespace cvedix_utils {
         std::function<int(int)> layer_base_top_cal = [=](int num_nodes_in_layer) {return (canvas_height - (num_nodes_in_layer * node_height + (num_nodes_in_layer - 1) * node_gap_vertical)) / 2; };
     public:
         cvedix_analysis_board(std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> src_nodes_in_pipe);
+        // Empty initial_save_path disables the legacy automatic PNG write.
+        cvedix_analysis_board(std::vector<std::shared_ptr<cvedix_nodes::cvedix_node>> src_nodes_in_pipe,
+                             std::string initial_save_path);
         ~cvedix_analysis_board();
 
         // save pipe structure to png
@@ -126,5 +130,7 @@ namespace cvedix_utils {
 
         // get a thread-safe copy of the latest rendered canvas
         cv::Mat get_current_canvas();
+        // Render current metrics synchronously; no GUI or background thread.
+        cv::Mat snapshot();
     };
 }

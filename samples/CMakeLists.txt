@@ -15,6 +15,13 @@ endif()
 
 # Default sample
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+add_executable(ppe_video_sample "ppe_video_sample.cpp")
+target_link_libraries(ppe_video_sample ${PROJECT_NAME})
+add_dependencies(ppe_video_sample onnx_yolov11)
+if(CVEDIX_WITH_TRT)
+    add_dependencies(ppe_video_sample trt_yolov11)
+endif()
+
 add_executable(1-1-1_sample "1-1-1_sample.cpp")
 target_link_libraries(1-1-1_sample ${PROJECT_NAME} ${MEDIATOOLKIT_LINK_LIB})
 
@@ -51,6 +58,7 @@ target_link_libraries(N-N_sample ${PROJECT_NAME})
 
 # Install all basic samples
 install(TARGETS 
+        ppe_video_sample
         1-1-1_sample
         1-1-N_sample
         1-N-N_sample

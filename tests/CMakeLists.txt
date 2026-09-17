@@ -7,12 +7,14 @@ message("start build for tests...")
 
 find_package(Threads REQUIRED)
 
-# Tests exercise the framework layer only (cvedix_node, the queues, attach_to),
-# so they need no models, no video files and no GPU — they run anywhere the
-# library builds, which is what makes them usable as a CI gate.
+# Tests exercise the framework and raw YOLO output normalization using synthetic
+# tensors. They need no models, video files or GPU.
 set(CVEDIX_TEST_TARGETS
     test_cvedix_node
     test_pipeline_smoke
+    test_yolov11_output
+    test_ppe_safety
+    test_heramind_event
 )
 
 foreach(test_target IN LISTS CVEDIX_TEST_TARGETS)

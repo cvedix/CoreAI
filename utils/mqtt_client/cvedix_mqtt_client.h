@@ -57,6 +57,10 @@ namespace cvedix_utils {
          * @return true if connection initiated successfully
          */
         bool connect(const std::string& username = "", const std::string& password = "");
+        // Configure certificate verification before connecting. Optional cert/key
+        // enable mutual TLS; the broker hostname is verified by libmosquitto.
+        bool set_tls(const std::string& ca_file, const std::string& cert_file = "",
+                     const std::string& key_file = "");
         
         /**
          * Disconnect from MQTT broker
@@ -147,6 +151,7 @@ namespace cvedix_utils {
         // Connection state
         std::atomic<bool> connected_;
         std::atomic<bool> connecting_;
+        std::atomic<bool> loop_started_{false};
         std::mutex publish_mutex_;
         
         // Auto-reconnect
@@ -176,4 +181,3 @@ namespace cvedix_utils {
         cvedix_mqtt_client& operator=(const cvedix_mqtt_client&) = delete;
     };
 }
-

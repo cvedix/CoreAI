@@ -15,8 +15,8 @@ cvedix_bytetrack_node::cvedix_bytetrack_node(
     float high_thresh,
     float match_thresh,
     int track_buffer,
-    int frame_rate)
-    : cvedix_track_node(std::move(node_name), track_for),
+    int frame_rate, std::set<int> tracked_classes)
+    : cvedix_track_node(std::move(node_name), track_for, std::move(tracked_classes)),
       m_track_thresh(track_thresh),
       m_high_thresh(high_thresh),
       m_match_thresh(match_thresh),
@@ -81,6 +81,11 @@ void cvedix_bytetrack_node::track(int channel_index,
             m_fps,
             m_track_buffer
         );
+        // Apply constructor configuration too, including setters called before
+        // this channel's first frame. BYTETracker defaults are 0.5/0.6/0.8.
+        ctx.tracker->set_track_thresh(m_track_thresh);
+        ctx.tracker->set_high_thresh(m_high_thresh);
+        ctx.tracker->set_match_thresh(m_match_thresh);
         ctx.initialized = true;
     }
  

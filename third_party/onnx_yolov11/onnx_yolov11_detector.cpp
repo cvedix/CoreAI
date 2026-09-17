@@ -4,6 +4,7 @@
  */
 
 #include "onnx_yolov11_detector.h"
+#include "onnx_yolov11_output.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -23,7 +24,7 @@ onnx_yolov11_detector::onnx_yolov11_detector(const std::string& onnx_path,
 
     std::cout << "[onnx_yolov11] Loaded ONNX model: " << onnx_path << std::endl;
     std::cout << "[onnx_yolov11] Input: " << input_width << "x" << input_height
-              << ", Classes: " << num_classes << std::endl;
+              << ", Classes: inferred from output head" << std::endl;
 }
 
 // ──────────────────────── Destructor ──────────────────
@@ -196,6 +197,7 @@ void onnx_yolov11_detector::apply_nms(std::vector<Detection>& detections) {
 
         for (size_t j = i + 1; j < detections.size(); j++) {
             if (suppressed[j]) continue;
+            if (detections[i].class_id != detections[j].class_id) continue;
 
             // Calculate IoU between detections[i] and detections[j]
             float x1_min = detections[i].bbox[0] - detections[i].bbox[2] / 2.0f;
@@ -259,22 +261,8 @@ void onnx_yolov11_detector::detect(const std::vector<cv::Mat>& images,
         net.setInput(blob);
         cv::Mat output = net.forward(output_layer_name);
 
-        // Handle different output shapes
-        // Reshape if needed: some models output [1, num_detections, 84] or [1, 84, num_detections]
-        if (output.dims == 3) {
-            if (output.size[1] == 84 && output.size[2] == 8400) {
-                // Shape: [1, 84, 8400] - transpose to [8400, 84]
-                cv::Mat temp = output.reshape(0, 84);  // Reshape to [84, 8400]
-                output = temp.t();  // Transpose to [8400, 84]
-            } else {
-                // Shape: [1, num_detections, 84]
-                output = output.reshape(1, output.size[1]);  // [num_detections, 84]
-            }
-        } else if (output.dims == 2 && output.rows == 1) {
-            // Shape: [1, num_detections * 84]
-            int num_detections = output.cols / (4 + num_classes);
-            output = output.reshape(1, num_detections);  // [num_detections, 84]
-        }
+        output = normalize_output(output);
+        num_classes = output.cols - 4;
 
         postprocess(output, images[b].size(), detections[b]);
     }

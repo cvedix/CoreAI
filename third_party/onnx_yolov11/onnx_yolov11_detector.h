@@ -5,7 +5,8 @@
  * @brief OpenCV DNN-based YOLOv11 detector for ONNX models (CPU)
  *
  * Uses OpenCV's cv::dnn module to load and run ONNX YOLOv11 models on CPU.
- * Supports single output format: [1, num_detections, 84] (4 bbox + 80 classes)
+ * Supports raw output [1, 4+nc, anchors] and [1, anchors, 4+nc].
+ * Input size is 640x640; end-to-end/NMS exports are not supported.
  */
 
 #include <string>
@@ -36,8 +37,7 @@ private:
     // Model info
     int input_width = 640;
     int input_height = 640;
-    int num_classes = 80;
-    int num_boxes = 8400;        // typical for YOLOv11
+    int num_classes = 0;        // inferred on the first forward pass
 
     // Letterbox parameters
     float letterbox_scale = 1.0f;   // scale factor for letterbox

@@ -5,9 +5,14 @@
 namespace cvedix_nodes {
         
     cvedix_track_node::cvedix_track_node(std::string node_name, 
-                                cvedix_track_for track_for): 
-                                cvedix_node(node_name), 
-                                track_for(track_for) {
+                                cvedix_track_for track_for):
+        cvedix_track_node(std::move(node_name), track_for, {}) {
+    }
+
+    cvedix_track_node::cvedix_track_node(std::string node_name,
+                                cvedix_track_for track_for, std::set<int> classes):
+        cvedix_node(node_name),
+                                track_for(track_for), tracked_classes(std::move(classes)) {
     }
     
     cvedix_track_node::~cvedix_track_node() {
@@ -45,6 +50,7 @@ namespace cvedix_nodes {
                                 std::vector<std::vector<float>>& target_embeddings) {
         if (track_for == cvedix_track_for::NORMAL) {
             for(auto& i: frame_meta->targets) {
+                if (!tracked_classes.empty() && !tracked_classes.count(i->primary_class_id)) continue;
                 target_rects.push_back(i->get_rect());      // rect fo target (via i variable)
                 target_scores.push_back(i->primary_score);  // score of target (via i variable)
                 target_embeddings.push_back(i->embeddings); // embeddings of target (via i variable)
@@ -82,10 +88,12 @@ namespace cvedix_nodes {
 
         if (track_for == cvedix_track_for::NORMAL) {
             //assert(target_rects.size() == frame_meta->targets.size());
+            size_t tracked_index = 0;
             for (int i = 0; i < frame_meta->targets.size(); i++) {
                 auto& target = frame_meta->targets[i];
-                auto& rect = target_rects[i];
-                auto& track_id = track_ids[i];
+                if (!tracked_classes.empty() && !tracked_classes.count(target->primary_class_id)) continue;
+                auto& rect = target_rects[tracked_index];
+                auto& track_id = track_ids[tracked_index++];
 
                 // -1 means no track result returned yet
                 if (track_id != -1) {
