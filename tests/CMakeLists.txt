@@ -15,6 +15,7 @@ set(CVEDIX_TEST_TARGETS
     test_yolov11_output
     test_ppe_safety
     test_heramind_event
+    test_rtmp_des_node
 )
 
 foreach(test_target IN LISTS CVEDIX_TEST_TARGETS)

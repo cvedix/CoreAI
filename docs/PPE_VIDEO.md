@@ -205,6 +205,83 @@ script thêm `build/libs` vào đường dẫn nạp plugin. Nếu dùng build C
 phải chọn `--backend onnx`. `--model` cần đuôi `.engine` cho TensorRT hoặc
 `.onnx` cho ONNX; model và đường dẫn output mặc định được chọn theo backend.
 
+## Phát live (RTSP nội bộ hoặc RTMP lên media server)
+
+Hai nhánh `des` là **anh em** với sink MP4. Khi có nhánh live mà không truyền
+`--output`, sample **không ghi MP4/CSV** — chỉ phát luồng; truyền thêm `--output`
+thì vừa phát vừa ghi. Bỏ qua cờ live thì pipeline giữ nguyên như trước.
+
+**RTMP lên media server** (ZLMediaKit, nginx-rtmp, ...) — `--rtmp-url` được
+dùng **nguyên văn**, không thêm hậu tố `_<channel>`. Media server phát lại qua
+RTSP/HTTP/HLS tuỳ cấu hình; ví dụ ZLMediaKit nhận RTMP ở 1935 và phát lại RTSP
+ở 8554:
+
+```bash
+bash scripts/run_ppe_video.sh \
+  --person-model data/models/yolov11-cetection_fp16.engine \
+  --rtmp-url rtmp://127.0.0.1:1935/live/ppe_video \
+  --rtmp-resolution 1280x720 --rtmp-bitrate 2048
+# xem lại: rtsp://127.0.0.1:8554/live/ppe_video
+```
+
+Demo chạy liên tục, vừa phát luồng vừa đẩy event lên HeraMind (không ghi file):
+
+```bash
+bash scripts/run_ppe_video.sh \
+  --person-model data/models/yolov11-cetection_fp16.engine \
+  --tracking bytetrack --loop 1 \
+  --rtmp-url rtmp://127.0.0.1:1935/live/ppe_video \
+  --rtmp-encoder nvh264enc --rtmp-resolution 1280x720 --rtmp-bitrate 2048 \
+  --mqtt-host 127.0.0.1 --mqtt-port 1883 \
+  --mqtt-topic heramind/ppe/events --camera-id camera-01
+# Ctrl+C để dừng. Bỏ --rtmp-url để chỉ đẩy MQTT, bỏ cụm --mqtt-* để chỉ phát luồng.
+```
+
+**RTSP server nội bộ** — node tự mở server, không cần media server ngoài:
+
+```bash
+bash scripts/run_ppe_video.sh --rtsp-port 8554 --rtsp-name ppe_video
+# xem tại rtsp://<host>:8554/ppe_video
+```
+
+- `--rtmp-resolution WxH`: mặc định bằng kích thước frame nguồn. Đặt nhỏ hơn khi
+  mã hoá bằng `x264enc` để giảm CPU, hoặc dùng `--rtmp-encoder nvh264enc` khi có
+  NVENC. Node đặt caps của `appsrc` theo đúng kích thước này, nên không được để
+  trống.
+- **Chọn encoder theo tải máy.** `x264enc` là mặc định nhưng chạy trên CPU cùng
+  lúc với hai model TensorRT: đo trên máy này ở 1280x720, nó không giữ nổi nhịp
+  nguồn và luồng tụt còn 1-2 fps (hình vẫn sạch nhờ rơi frame trước encoder,
+  nhưng thưa tới mức ZLMediaKit cắt kết nối publisher và node phải dựng lại
+  pipeline). `--rtmp-encoder nvh264enc` đẩy mã hoá xuống GPU và giữ đúng 15 fps
+  của nguồn. Dùng `nvh264enc` cho demo chạy dài.
+- Queue của nhánh live giữ **1 frame**: encoder chậm thì rơi frame chứ không
+  dồn backlog làm luồng trễ dần. Node RTMP tự phát hiện pipeline lỗi (server
+  tắt, mất kết nối) qua bus GStreamer và dựng lại sau 3 giây.
+- Chỉ được rơi frame **trước** encoder. Queue sau `flvmux` giữ nguyên
+  backpressure: buffer ở đó đã là FLV tag, rơi một cái là đứt chuỗi tham chiếu
+  của H.264 và hình vỡ tan cho tới keyframe kế tiếp. Encoder được ghim
+  `key-int-max=30` (`x264enc`) hoặc `gop-size=30` (`nvh264enc`/`nvh265enc`) để
+  giới hạn thời gian vỡ còn khoảng 2 giây; mặc định của cả hai là 250 frame.
+- Định dạng ép về `I420`: nếu để `videoconvert` tự chọn, nó và `x264enc` thống
+  nhất dùng Y444 và stream ra profile **High 4:4:4 Predictive** — nhiều
+  player/trình duyệt không giải mã được. Stream hiện tại là Constrained
+  Baseline / yuv420p.
+- Caps của `appsrc` lấy FPS thật của nguồn, không hardcode: FPS đó là timebase
+  đánh PTS, lệch với PTS thì `flvmux` hiểu sai tốc độ luồng.
+- `--loop 1` cho video tự quay lại từ đầu khi hết, để chạy demo liên tục:
+  `frame_index` và timestamp nguồn vẫn tăng đơn điệu qua các vòng (node event
+  đo `confirm-frames`/`cooldown-ms` theo `frame_index`, không được reset), và
+  pipeline **không** dựng lại nên tracker giữ ID, người xem thấy một luồng
+  liền mạch. Dùng cùng `--max-frames N` để chặn tổng số frame, Ctrl+C để dừng.
+  Kết hợp `--loop 1` với `--output` sẽ ghi một file MP4 dài vô hạn.
+- `--analysis-board 1` cần `--output` vì board ghi PNG/MP4 cạnh file output.
+- Biến môi trường thay cờ: `CVEDIX_RTMP_URL`, `CVEDIX_RTMP_ENCODER`,
+  `CVEDIX_RTMP_BITRATE`, `CVEDIX_RTMP_RESOLUTION`, `CVEDIX_RTSP_PORT`,
+  `CVEDIX_RTSP_NAME`.
+- Giới hạn: sample đọc video offline nên pipeline chạy **nhanh hơn thời gian
+  thực**; luồng live vì thế bị nén thời gian. Muốn đúng nhịp thời gian thực cần
+  nguồn camera (`cvedix_rtsp_src_node`).
+
 ## Kết quả và giới hạn
 
 - `output/ppe/16.22.09_ppe_trt.mp4`: video có hộp và nhãn nhận diện, giữ kích

@@ -31,6 +31,7 @@
 #ifdef CVEDIX_WITH_GSTREAMER
 #include <gst/gst.h>
 #include <gst/rtsp-server/rtsp-server.h>
+#include <chrono>
 #include "cvedix/nodes/common/cvedix_des_node.h"
 
 namespace cvedix_nodes {
@@ -49,7 +50,10 @@ namespace cvedix_nodes {
     class cvedix_rtsp_des_node: public cvedix_des_node {
     private:
         /// @brief GStreamer pipeline template
-        std::string gst_template = "appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! rtph264pay ! udpsink host=localhost port=%d";
+        /// The internal RTP hop uses IPv4 explicitly: host=localhost resolves to
+        /// ::1 first on dual-stack hosts, while udpsrc below binds IPv4, so the
+        /// packets would never arrive.
+        std::string gst_template = "appsrc ! videoconvert ! %s bitrate=%d ! h264parse ! rtph264pay ! udpsink host=127.0.0.1 port=%d";
         /// @brief OpenCV video writer
         cv::VideoWriter rtsp_writer;
 
@@ -77,9 +81,16 @@ namespace cvedix_nodes {
 
         /// @brief Shared RTSP server instance
         static GstRTSPServer* rtsp_server;
+        /// @brief Main loop serving RTSP requests, run on its own thread
+        static GMainLoop* rtsp_main_loop;
 
         /// @brief GStreamer encoder name
         std::string gst_encoder_name = "x264enc";
+
+        /// @brief Reconnect cooldown timestamp, set after a failed writer open
+        std::chrono::steady_clock::time_point reconnect_cooldown_until;
+        /// @brief Number of consecutive failed writer open attempts
+        int reconnect_attempts = 0;
 
     protected:
         /**
