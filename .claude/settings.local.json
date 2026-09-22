@@ -83,7 +83,15 @@
       "Bash(echo \"EXIT=$?\")",
       "Bash(ldd build/tests/test_rtmp_des_node)",
       "Bash(nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv)",
-      "Bash(git diff *)"
+      "Bash(git diff *)",
+      "Bash(npm run *)",
+      "Bash(cd /home/cvedix/workspace/CoreAI/sdk-docs && echo \"=== public/ ===\" && ls -la docs/public/ && echo \"=== logo.svg head ===\" && head -c 400 docs/public/logo.svg && echo && echo \"=== assets in CoreAI ===\" && ls -la ../assets/ | head -20)",
+      "Read(//home/cvedix/workspace/**)",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=360,340 --screenshot=/tmp/arch.png file://__TRACKED_VAR__/docs/public/architecture.svg)",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=360,340 --screenshot=/tmp/arch2.png file://__TRACKED_VAR__/docs/public/architecture.svg)",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,900 --screenshot=/tmp/home.png \"http://127.0.0.1:8899/\")",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,760 --screenshot=/tmp/kientruc.png \"http://127.0.0.1:8899/guide/kien-truc.html\")",
+      "Bash(git rev-list *)"
     ],
     "additionalDirectories": [
       "/home/cvedix/workspace/CoreAI/output/ppe",
