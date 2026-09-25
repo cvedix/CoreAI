@@ -10,3 +10,6 @@
 [submodule "sdk-docs"]
 	path = sdk-docs
 	url = https://github.com/cvedix/sdk-docs.git
+[submodule "HeraFaceLite"]
+	path = HeraFaceLite
+	url = https://github.com/cvedix/HeraFaceLite.git

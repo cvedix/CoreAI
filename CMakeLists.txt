@@ -1160,6 +1160,11 @@ else()
     message(STATUS "Skipping samples build (enable with -DCVEDIX_BUILD_SAMPLES=ON)")
 endif()
 
+# HeraFace Lite REST service (requires SeetaFace6 face support)
+if(CVEDIX_WITH_FACE)
+    add_subdirectory(HeraFaceLite)
+endif()
+
 # C API layer for language bindings (Java/JNA, C#/P-Invoke, C)
 if(CVEDIX_BUILD_CAPI)
     message(STATUS "Building C API layer (libcvedix_capi)")
