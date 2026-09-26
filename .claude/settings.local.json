@@ -91,7 +91,15 @@
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=360,340 --screenshot=/tmp/arch2.png file://__TRACKED_VAR__/docs/public/architecture.svg)",
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,900 --screenshot=/tmp/home.png \"http://127.0.0.1:8899/\")",
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,760 --screenshot=/tmp/kientruc.png \"http://127.0.0.1:8899/guide/kien-truc.html\")",
-      "Bash(git rev-list *)"
+      "Bash(git rev-list *)",
+      "Bash(ls /home/cvedix/workspace/ 2>/dev/null; echo \"=== docker ===\"; docker ps 2>/dev/null | head -20; echo \"=== ports ===\"; ss -ltnp 2>/dev/null | grep -E '9375|1883|3000' )",
+      "Bash(ps -p 2394 -o pid,etime,cmd --no-headers)",
+      "Bash(curl -s -m 5 -o /dev/null -w '%{http_code}\\\\n' http://127.0.0.1:9375/api/health)",
+      "Bash(curl -s -m 5 http://127.0.0.1:9375/api/health)",
+      "Bash(curl -s -m 5 http://127.0.0.1:9375/api/devices)",
+      "Bash(cd /home/cvedix/workspace/HeraMind 2>/dev/null && ls && echo \"=== README head ===\" && head -60 README.md 2>/dev/null)",
+      "Bash(cd /home/cvedix/workspace/HeraMind && grep -rn \"HERAMIND_API_KEY\\\\|api_key\\\\|api-key\" README.vi.md docs/*.md 2>/dev/null | head -30; echo \"=== vi quickstart ===\"; grep -n \"Quick Start\\\\|Bắt đầu\\\\|cargo run\\\\|heramind serve\\\\|9375\" README.vi.md | head -30)",
+      "Bash(cd /home/cvedix/workspace/HeraMind && ls docs | head -40; echo \"=== config ===\"; ls ~/.heramind 2>/dev/null; ls data 2>/dev/null | head)"
     ],
     "additionalDirectories": [
       "/home/cvedix/workspace/CoreAI/output/ppe",

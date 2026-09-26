@@ -78,6 +78,13 @@ endif()
 
 # SeetaFace6 face analysis sample
 if(CVEDIX_WITH_FACE)
+    add_executable(heraface_lite_sample "heraface_lite_sample.cpp")
+    target_link_libraries(heraface_lite_sample ${PROJECT_NAME})
+    target_compile_definitions(heraface_lite_sample PRIVATE CVEDIX_WITH_FACE)
+
+    install(TARGETS heraface_lite_sample
+            DESTINATION bin
+            OPTIONAL)
 endif()
 
 # Milvus large-scale face search sample (requires SeetaFace6 + Milvus)

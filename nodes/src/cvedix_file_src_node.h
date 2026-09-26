@@ -22,7 +22,7 @@ namespace cvedix_nodes {
 
     private:
         /* data */
-        std::string gst_template = "filesrc location=%s ! qtdemux ! h264parse ! %s ! videoconvert ! appsink sync=false";
+        std::string gst_template = "filesrc location=\"%s\" ! decodebin ! videoconvert ! appsink sync=false";
         cv::VideoCapture file_capture;
     protected:
         // re-implemetation
