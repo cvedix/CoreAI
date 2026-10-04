@@ -190,6 +190,22 @@ CVEDIX_TEST_CASE(neighbor_and_floor_ppe_do_not_count) {
     CVEDIX_ASSERT_TRUE(associate_ppe({helmet, vest}).empty());
 }
 
+CVEDIX_TEST_CASE(uniform_association_requires_shirt_and_pants_in_body_zones) {
+    const ppe_observation worker{{100, 50, 100, 300}, 100};
+    const ppe_observation shirt{{110, 105, 80, 95}, 0};
+    const ppe_observation pants{{110, 220, 80, 105}, 1};
+    const auto complete = associate_uniform({worker, shirt, pants});
+    CVEDIX_ASSERT_EQ(complete.size(), 1u);
+    CVEDIX_ASSERT_EQ(complete[0].missing_mask(), 0);
+    CVEDIX_ASSERT_EQ(uniform_status_label(complete[0].missing_mask()), "uniform:ok");
+
+    const ppe_observation wrong_zone_pants{{110, 100, 80, 50}, 1};
+    const auto missing_pants = associate_uniform({worker, shirt, wrong_zone_pants});
+    CVEDIX_ASSERT_EQ(missing_pants[0].missing_mask(), 2);
+    const auto missing_both = associate_uniform({worker});
+    CVEDIX_ASSERT_EQ(missing_both[0].missing_mask(), 3);
+}
+
 CVEDIX_TEST_CASE(ppe_matching_resets_each_frame_and_rejects_stale_targets) {
     safety_probe node;
     auto complete = make_meta(0, {person, helmet, vest});

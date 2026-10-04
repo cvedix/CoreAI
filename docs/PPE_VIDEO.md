@@ -155,6 +155,24 @@ ctest --test-dir build -R test_heramind_event --output-on-failure
 
 ## Build và chạy
 
+### Đồng phục lao động (áo + quần)
+
+Với model hai class có `0 = áo`, `1 = quần`, dùng `--uniform`. Chế độ này dùng
+`configs/uniform_labels.txt`, tự bật person detector TensorRT và ByteTrack, ghép
+áo vào vùng thân trên/quần vào vùng thân dưới của từng người, rồi ghi trạng thái
+trên khung người và trong CSV riêng:
+
+```bash
+bash scripts/run_ppe_video.sh --uniform \\
+  --video 'data/videos/2026-09-25 16-12-30.mp4' \\
+  --model data/models/qdp_ppe_detection.engine \\
+  --output output/ppe/2026-09-25_16-12-30_uniform.mp4
+```
+
+`<output>_safety.csv` ở chế độ này có `has_shirt`, `has_pants`, `status`.
+Trạng thái thể hiện phát hiện theo từng frame, không khẳng định chất lượng hoặc
+mức chứng nhận của trang phục.
+
 Máy cần dependencies của SDK trong `docs/DEVELOPMENT.md`, NVIDIA GPU,
 CUDA, TensorRT và OpenCV có video decoder/encoder. Engine hiện tại được build
 trên RTX 3080, TensorRT 10.9. Nếu thay môi trường GPU/TensorRT, cần kiểm tra

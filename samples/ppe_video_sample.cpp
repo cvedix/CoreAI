@@ -39,6 +39,7 @@ struct Options {
     std::string output;
     std::string person_model;
     std::string tracking = "bytetrack";
+    bool uniform_mode = false;
     bool analysis_board = false;
     float person_conf = 0.35f;
     float conf = 0.25f, nms = 0.45f;
@@ -100,6 +101,10 @@ Options parse(int argc, char** argv) {
     Options o;
     for (int i = 1; i < argc; ++i) {
         const std::string arg = argv[i];
+        if (arg == "--uniform") {
+            o.uniform_mode = true;
+            continue;
+        }
         if (i + 1 == argc) throw std::runtime_error("Missing value for " + arg);
         const std::string value = argv[++i];
         if (arg == "--video") o.video = value;
@@ -181,6 +186,12 @@ Options parse(int argc, char** argv) {
     env_int("HERAMIND_MQTT_PORT", o.mqtt_port);
     if (o.backend != "tensorrt" && o.backend != "onnx")
         throw std::runtime_error("--backend must be tensorrt or onnx");
+    if (o.uniform_mode) {
+        if (o.labels == "configs/ppe_labels.txt") o.labels = "configs/uniform_labels.txt";
+        if (o.person_model.empty()) o.person_model = "data/models/yolov11-cetection_fp16.engine";
+        if (!o.mqtt_host.empty())
+            throw std::runtime_error("HeraMind PPE event publishing is not supported with --uniform");
+    }
     if (o.tracking != "bytetrack" && o.tracking != "none")
         throw std::runtime_error("--tracking must be bytetrack or none");
     if (!o.mqtt_host.empty()) {
@@ -257,6 +268,7 @@ int main(int argc, char** argv) {
         std::cout << "PPE: video -> app_src -> YOLO11 -> OSD -> app_des -> MP4/CSV\n"
                   << "Run from repository root; options:\n"
                   << "  --backend tensorrt|onnx (default: tensorrt / FP16 engine on GPU)\n"
+                  << "  --uniform (class 0=Ao, class 1=Quan; assess both on each detected person)\n"
                   << "  --video PATH --model PATH --labels PATH\n"
                   << "  --output PATH.mp4 (omit for stream-only; the default MP4 only applies\n"
                   << "   when no live output is asked for; --analysis-board needs --output)\n"
@@ -411,7 +423,8 @@ int main(int argc, char** argv) {
             auto split = std::make_shared<cvedix_nodes::cvedix_split_node>("ppe_split", false, true);
             auto sync = std::make_shared<cvedix_nodes::cvedix_sync_node>(
                 "ppe_merge", cvedix_nodes::cvedix_sync_mode::MERGE, 60000);
-            auto safety = std::make_shared<cvedix_nodes::cvedix_ba_ppe_safety_node>("ppe_safety");
+            auto safety = std::make_shared<cvedix_nodes::cvedix_ba_ppe_safety_node>(
+                "ppe_safety", 100, 0, 1, o.uniform_mode);
             split->attach_to({pipeline.src});
             detector->attach_to({split});
             person_detector->attach_to({split});
@@ -474,7 +487,9 @@ int main(int argc, char** argv) {
             if (person_detector) {
                 safety_csv.exceptions(std::ios::failbit | std::ios::badbit);
                 safety_csv.open(safety_path);
-                safety_csv << "frame_index,source_timestamp_ms,person_index,confidence,x,y,width,height,has_helmet,has_vest,status,track_id\n";
+                safety_csv << "frame_index,source_timestamp_ms,person_index,confidence,x,y,width,height,"
+                    << (o.uniform_mode ? "has_shirt,has_pants,status,track_id\n"
+                                       : "has_helmet,has_vest,status,track_id\n");
                 safety_csv << std::fixed << std::setprecision(6);
             }
         }
@@ -489,7 +504,8 @@ int main(int argc, char** argv) {
                   << (write_files ? o.output : std::string("none (live only)")) << std::endl;
         if (person_detector) std::cout << "Person model: " << o.person_model
             << "\nTracking: " << o.tracking
-            << "\nPipeline: src -> split -> [PPE || person] -> merge -> tracking -> PPE safety"
+            << "\nPipeline: src -> split -> [PPE || person] -> merge -> tracking -> "
+            << (o.uniform_mode ? "uniform check" : "PPE safety")
             << (event ? " -> MQTT events" : "")
             << (write_files ? " -> MP4/CSV\n" : " -> live\n") << std::flush;
         if (event) std::cout << "HeraMind events: mqtt://" << o.mqtt_host << ':' << o.mqtt_port
@@ -590,7 +606,8 @@ int main(int argc, char** argv) {
                   << (loops_done > 0 ? ", " + std::to_string(loops_done + 1) + " passes" : "")
                   << (write_files ? "\nCSV: " + csv_path.string() : "\nNo file output (live only)")
                   << std::endl;
-        if (person_detector) std::cout << "PPE person observations: " << safe_count << " safe, "
+        if (person_detector) std::cout << (o.uniform_mode ? "Uniform person observations: " : "PPE person observations: ")
+            << safe_count << " safe, "
             << unsafe_count << " unsafe"
             << (write_files ? "\nSafety CSV: " + safety_path.string() : "") << std::endl;
         // Reported because it is the only honest measure of what reached the
